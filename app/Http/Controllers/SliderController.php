@@ -17,7 +17,7 @@ class SliderController extends Controller
     public function __construct()
     {
       $this->model  = new MainModel();
-      $this->params['pagination']['totalItemsPerPage']  = 1;
+      $this->params['pagination']['totalItemsPerPage']  = 2;
       // share bien $controllerName cho all view
       View::share('controllerName',$this->controllerName);
     }
@@ -25,13 +25,22 @@ class SliderController extends Controller
     public function index()
     {
 
-        $items = $this->model->listItems($this->params,['task' => "admin-list-items"]);
+        $items          = $this->model->listItems($this->params,['task' => "admin-list-items"]);
+        $countByStatus  = $this->model->countItems($this->params,['task' => "admin-count-items"]);
+
+        // echo "<pre>Controllers";
+        // print_r($items);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($countByStatus);
+        // echo "</pre>";
 
         // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
-        //     echo $item->attributes;
+
         //     echo "<h3 style='color:blue'>".$key."</h3>";
         //     echo "<h3 style='color:red'>".$item."</h3>";
         // }
+
 
         return view($this->pathViewController . 'index',[
              'items'    => $items
