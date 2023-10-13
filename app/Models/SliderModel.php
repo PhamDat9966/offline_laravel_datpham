@@ -14,10 +14,6 @@ class SliderModel extends Model
 
     public function listItems($params,$options){
 
-        // echo "<pre>(listItem)";
-        // print_r($this);
-        // echo "</pre>";
-
         $result = null;
         if($options['task'] == "admin-list-items"){
             $result = self::select('id','name','description','link','thumb','created','created_by','modified','modified_by','status')
@@ -29,6 +25,7 @@ class SliderModel extends Model
             // $result = $this->select('id','name','description','link','thumb','created','created_by','modified','modified_by','status')
             // ->get();
         }
+
         return $result;
     }
 }

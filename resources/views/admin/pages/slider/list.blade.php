@@ -1,8 +1,5 @@
 @php
     use App\Helpers\template as Template;
-    // echo "<pre>(List)";
-    // print_r($items);
-    // echo "</pre>";
 @endphp
 
 <div class="x_content">
@@ -69,7 +66,6 @@
                             </td>
                         </tr>
                     @endforeach
-
 
                 @else
                     @include('admin.templates.list_empty',['colspan'=>6])
