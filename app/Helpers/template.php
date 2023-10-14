@@ -11,15 +11,48 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showButtonFilter($countByStatus){
+        $xhtml  = '';
+        $tmplStatus     =   Config::get('zvn.template.status');
+
+        if(count($countByStatus) > 0){
+
+            array_unshift($countByStatus,[
+                'count' =>array_sum(array_column($countByStatus,'count')),
+                'status'=>'all'
+            ]);
+
+            foreach($countByStatus as $value){
+
+                $currentStatus  = $tmplStatus[$value['status']];
+                $xhtml  .= sprintf('<a href="#" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
+                                    $currentStatus['class'],$currentStatus['name'],$value['count']
+                                );
+            }
+        }
+
+        return $xhtml;
+        // <a href="?filter_status=all" type="button"
+        //     class="btn btn-primary">
+        // All <span class="badge bg-white">4</span>
+        // </a>
+        // <a href="?filter_status=active"
+        //     type="button" class="btn btn-success">
+        // Active <span class="badge bg-white">2</span>
+        // </a>
+        // <a href="?filter_status=inactive"
+        //     type="button" class="btn btn-success">
+        // Inactive <span class="badge bg-white">2</span>
+        // </a>
+    }
+
     public static function showItemStatus($controllerName , $id , $status){
         // status       class           name
         // active       btn-success     Kich hoat
         // inactive     btn-info        Chua duoc kich hoat
 
-        $tmplStatus     =   [
-            'active'    =>  ['name'=>'Kích hoạt',       'class'=>'btn-success'],
-            'inactive'  =>  ['name'=>'Chưa kích hoạt',  'class'=>'btn-info']
-        ];
+        $tmplStatus     =   Config::get('zvn.template.status');
+        //$tmplStatus     =   config('zvn.template.status');
 
         $currentStatus  = $tmplStatus[$status];
         $link           = route( $controllerName. '/status',['status'=>$status, 'id'=>$id]);

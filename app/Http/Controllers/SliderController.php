@@ -43,7 +43,8 @@ class SliderController extends Controller
 
 
         return view($this->pathViewController . 'index',[
-             'items'    => $items
+             'items'            => $items,
+             'countByStatus'    => $countByStatus
         ]);
     }
 
