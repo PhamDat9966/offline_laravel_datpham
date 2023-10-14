@@ -11,22 +11,24 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($countByStatus){
-        $xhtml  = '';
-        $tmplStatus     =   Config::get('zvn.template.status');
+    public static function showButtonFilter($itemsStatusCount){
+        $xhtml          = '';
+        $tmplStatus     = Config::get('zvn.template.status');
 
-        if(count($countByStatus) > 0){
+        if(count($itemsStatusCount) > 0){
 
-            array_unshift($countByStatus,[
-                'count' =>array_sum(array_column($countByStatus,'count')),
+            array_unshift($itemsStatusCount,[
+                'count' =>array_sum(array_column($itemsStatusCount,'count')),
                 'status'=>'all'
             ]);
 
-            foreach($countByStatus as $value){
+            foreach($itemsStatusCount as $item){
+                $statusValue    = $item['status'];
+                $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
 
-                $currentStatus  = $tmplStatus[$value['status']];
+                $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
                 $xhtml  .= sprintf('<a href="#" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
-                                    $currentStatus['class'],$currentStatus['name'],$value['count']
+                                    $currentTemplateStatus['class'],$currentTemplateStatus['name'],$item['count']
                                 );
             }
         }
@@ -54,7 +56,11 @@ class Template{
         $tmplStatus     =   Config::get('zvn.template.status');
         //$tmplStatus     =   config('zvn.template.status');
 
-        $currentStatus  = $tmplStatus[$status];
+        // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
+        // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
+
+        $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
+        $currentStatus  = $tmplStatus[$statusValue];
         $link           = route( $controllerName. '/status',['status'=>$status, 'id'=>$id]);
 
         $xhtml  = sprintf('

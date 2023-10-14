@@ -33,11 +33,12 @@ class SliderModel extends Model
     public function countItems($params = null,$options = null){
 
         $result = null;
-        if($options['task'] == "admin-count-items"){
+        if($options['task'] == 'admin-count-items-group-by-status'){
             //SELECT `status`, COUNT(`id`) FROM `slider` GROUP BY `status`
             $result = self::select(DB::raw('COUNT(id) as count,status') )
                              ->groupBy('status')
-                             ->get()->toArray();
+                             ->get()
+                             ->toArray();
         }
 
         return $result;

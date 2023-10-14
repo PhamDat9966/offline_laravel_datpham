@@ -12,9 +12,11 @@ return [
     ],
     'template'  =>[
         'status'            =>[
-            'all'           =>  ['name'=>'Tất cả',          'class'=>'btn-danger'],
+            'all'           =>  ['name'=>'Tất cả',          'class'=>'btn-primary'],
             'active'        =>  ['name'=>'Kích hoạt',       'class'=>'btn-success'],
-            'inactive'      =>  ['name'=>'Chưa kích hoạt',  'class'=>'btn-info']
+            'inactive'      =>  ['name'=>'Chưa kích hoạt',  'class'=>'btn-info'],
+            'block'         =>  ['name'=>'Bị khóa',         'class'=>'btn-danger'],
+            'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-secondary']
         ]
     ]
 ];
