@@ -16,15 +16,14 @@ class SliderModel extends Model
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $result = self::select('id','name','description','link','thumb','created','created_by','modified','modified_by','status')
-                            // ->where('id','>=', 4)
-                            ->orderBy('id', 'asc')
-                            ->paginate($params['pagination']['totalItemsPerPage']);
-                            //>get()
-                            //->toArray();
+            $query = $this->select('id','name','description','link','thumb','created','created_by','modified','modified_by','status');
 
-            // $result = $this->select('id','name','description','link','thumb','created','created_by','modified','modified_by','status')
-            // ->get();
+            if($params['filter']['status'] !== "all"){
+                $query->where('status','=',$params['filter']['status']);
+            }
+
+            $result = $query->orderBy('id', 'asc')
+                            ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
         return $result;
