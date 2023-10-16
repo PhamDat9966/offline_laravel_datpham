@@ -3,7 +3,6 @@
     $totalElementPerPage    =   $items->perPage();
     $totalPage              =   $items->lastPage();
     $currentPage            =   $items->currentPage();
-    echo $items->links();
 @endphp
 <div class="x_content">
     <div class="row">
@@ -16,8 +15,7 @@
                 class="label label-danger label-pagination">{{$totalPage}}</span></p>
         </div>
         <div class="col-md-6">
-            {{$items->links()}}
-            {{-- {{ $items->links('pagination.pagination_backend',['paginator'=>$items]) }} --}}
+            {{ $items->links('pagination.pagination_backend',['paginator'=>$items]) }}
             {{-- Mặc định $items->links() Nó sẽ tự động tao $paginator và $element...Bên trong nó --}}
         </div>
     </div>

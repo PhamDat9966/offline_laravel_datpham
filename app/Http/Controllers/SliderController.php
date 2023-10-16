@@ -17,7 +17,7 @@ class SliderController extends Controller
     public function __construct()
     {
       $this->model  = new MainModel();
-      $this->params['pagination']['totalItemsPerPage']  = 3;
+      $this->params['pagination']['totalItemsPerPage']  = 1;
       // share bien $controllerName cho all view
       View::share('controllerName',$this->controllerName);
     }
