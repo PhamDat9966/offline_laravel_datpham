@@ -30,7 +30,7 @@ class SliderController extends Controller
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
         // echo "<pre>Controllers";
-        // print_r($items);
+        // print_r($_GET);
         // echo "</pre>";
         // echo "<pre>";
         // print_r($itemsStatusCount);
