@@ -3,6 +3,7 @@
 @php
     use App\Helpers\template as Template;
     $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName,$itemsStatusCount,$params['filter']['status']);
+    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName);
 @endphp
 
 @section('content')
@@ -26,7 +27,8 @@
                         {!!$xhtmlButtonFilter!!}
                     </div>
                     <div class="col-md-6">
-                        <div class="input-group">
+                        {!!$xhtmlAreaSearch!!}
+                        {{-- <div class="input-group">
                             <div class="input-group-btn">
                                 <button type="button"
                                         class="btn btn-default dropdown-toggle btn-active-field"
@@ -55,7 +57,7 @@
                         <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
                         </span>
                             <input type="hidden" name="search_field" value="all">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
