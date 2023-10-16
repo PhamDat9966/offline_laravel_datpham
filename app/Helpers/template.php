@@ -11,7 +11,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($itemsStatusCount){
+    public static function showButtonFilter($controllerName,$itemsStatusCount){
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -27,8 +27,10 @@ class Template{
                 $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
 
                 $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
-                $xhtml  .= sprintf('<a href="#" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
-                                    $currentTemplateStatus['class'],$currentTemplateStatus['name'],$item['count']
+                $link    = route($controllerName) . "?filter_status=" . $statusValue;
+
+                $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
+                                    $link,$currentTemplateStatus['class'],$currentTemplateStatus['name'],$item['count']
                                 );
             }
         }
@@ -54,7 +56,6 @@ class Template{
         // inactive     btn-info        Chua duoc kich hoat
 
         $tmplStatus     =   Config::get('zvn.template.status');
-        //$tmplStatus     =   config('zvn.template.status');
 
         // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
         // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block

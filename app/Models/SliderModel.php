@@ -15,7 +15,7 @@ class SliderModel extends Model
     public function listItems($params = null,$options = null){
 
         $result = null;
-        if($options['task'] == "admin-list-items"){
+        if($options['task'] == 'admin-list-items'){
             $result = self::select('id','name','description','link','thumb','created','created_by','modified','modified_by','status')
                             // ->where('id','>=', 4)
                             ->orderBy('id', 'asc')
