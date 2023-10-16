@@ -25,7 +25,7 @@ class SliderController extends Controller
     public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
     {
 
-        $this->params['filter']['status'] = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa
+        $this->params['filter_status']['status'] = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
@@ -44,6 +44,7 @@ class SliderController extends Controller
 
 
         return view($this->pathViewController . 'index',[
+             'params'               => $this->params,
              'items'                => $items,
              'itemsStatusCount'     => $itemsStatusCount
         ]);

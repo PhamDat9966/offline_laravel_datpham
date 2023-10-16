@@ -2,7 +2,7 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName,$itemsStatusCount);
+    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName,$itemsStatusCount,$params['filter_status']['status']);
 @endphp
 
 @section('content')

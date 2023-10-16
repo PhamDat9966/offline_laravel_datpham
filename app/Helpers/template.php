@@ -11,7 +11,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($controllerName,$itemsStatusCount){
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus){
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -29,8 +29,9 @@ class Template{
                 $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
                 $link    = route($controllerName) . "?filter_status=" . $statusValue;
 
+                $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
                 $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
-                                    $link,$currentTemplateStatus['class'],$currentTemplateStatus['name'],$item['count']
+                                    $link,$class,$currentTemplateStatus['name'],$item['count']
                                 );
             }
         }
