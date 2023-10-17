@@ -42,7 +42,6 @@ class SliderController extends Controller
         //     echo "<h3 style='color:red'>".$item."</h3>";
         // }
 
-
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,
