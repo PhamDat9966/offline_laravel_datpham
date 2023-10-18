@@ -51,7 +51,7 @@ class Template{
         // </a>
     }
 
-    public static function showAreaSearch($controllerName){
+    public static function showAreaSearch($controllerName, $paramsSearch){
         $xhtml              = null;
         $tmplField          = Config::get('zvn.template.search');
         // $fieldInController  = [
@@ -59,13 +59,22 @@ class Template{
         //     'slider'    =>  ['all','id','description']
         // ];
 
+        // echo "<pre>";
+        // print_r($paramsSearch);
+        // echo "</pre>";
+
         $fieldInController  = Config::get('zvn.config.search');
         $controllerName     = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';
         $xhtmlField         = null;
 
         foreach($fieldInController[$controllerName] as $field){ // all id
-            $xhtmlField     .= sprintf('<li><a href="#" class="select-field" data-field="%s">%s</a></li>', $field , $tmplField[$field]['name'] );
+            $xhtmlField     .= sprintf('<li><a href="#" class="select-field" data-field="%s">%s</a></li>', $field , $tmplField[$field]['name'] );//Thanh <li></li>
         }
+
+        $searchValue    = $paramsSearch['value'];
+        $searchFiel     = $paramsSearch['field'] ? $paramsSearch['field'] : 'all';
+
+        //$tmplField[$searchFiel]['name'] là  'Search by All' 'Search by ID'
 
         $xhtml  .= sprintf('
         <div class="input-group">
@@ -73,20 +82,21 @@ class Template{
                 <button type="button"
                         class="btn btn-default dropdown-toggle btn-active-field"
                         data-toggle="dropdown" aria-expanded="false">
-                    Search by All <span class="caret"></span>
+                    %s <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     %s
                 </ul>
             </div>
-            <input type="text" class="form-control" name="search_value" value="">
+            <input type="text" class="form-control" name="search_value" value="%s">
+            <input type="hidden" class="form-control" name="search_field" value="">
             <span class="input-group-btn">
-            <button id="btn-clear" type="button" class="btn btn-success"
+            <button id="btn-clear-search" type="button" class="btn btn-success"
                     style="margin-right: 0px">Xóa tìm kiếm</button>
             <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
             </span>
             <input type="hidden" name="search_field" value="all">
-        </div>',$xhtmlField);
+        </div>', $tmplField[$searchFiel]['name'] ,$xhtmlField , $paramsSearch['value']);
 
         return $xhtml;
     }
@@ -133,7 +143,7 @@ class Template{
         foreach($listButtons as $btn){
             $currentButton  = $tmplButton[$btn];
             $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
-            $xhtml  .=sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
                                         <i class="fa %s"></i>
                                 </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
         }

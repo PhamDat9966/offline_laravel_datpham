@@ -1,6 +1,14 @@
 $(document).ready(function() {
+    // test
+	// var ojbectURL	= window.location;
+    // console.log(ojbectURL);
+	// var searchParams = new URLSearchParams(window.location.search);
+	// var paramsString	 = (searchParams.get('search_value').replace(/\s+/g,'+'));
+	// console.log(paramsString);
+    // end test
+
 	let $btnSearch        = $("button#btn-search");
-	let $btnClearSearch	  = $("button#btn-clear");
+	let $btnClearSearch	  = $("button#btn-clear-search");
 
 	let $inputSearchField = $("input[name  = search_field]");
 	let $inputSearchValue = $("input[name  = search_value]");
@@ -19,24 +27,39 @@ $(document).ready(function() {
     	$inputSearchField.val(field);
 	});
 
-	$btnSearch.click(function() {
+	// $btnSearch.click(function() {
 
-		var pathname	= window.location.pathname;
-		let searchParams= new URLSearchParams(window.location.search);
-		params 			= ['page', 'filter_status', 'select_field', 'select_value'];
+	// 	var pathname	= window.location.pathname;
+	// 	let searchParams= new URLSearchParams(window.location.search);
+	// 	params 			= ['page', 'filter_status', 'select_field', 'select_value'];
 
-		let link		= "";
-		$.each( params, function( key, value ) {
-			if (searchParams.has(value) ) {
-				link += value + "=" + searchParams.get(value) + "&"
-			}
-		});
+	// 	let link		= "";
+	// 	$.each( params, function( key, value ) {
+	// 		if (searchParams.has(value) ) {
+	// 			link += value + "=" + searchParams.get(value) + "&"
+	// 		}
+	// 	});
 
-		let search_field = $inputSearchField.val();
-		let search_value = $inputSearchValue.val();
+	// 	let search_field = $inputSearchField.val();
+	// 	let search_value = $inputSearchValue.val();
+    //     // test
+	// 	// let hrefRam		 = pathname + "?" + link + 'search_field='+ search_field + '&search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();// Khoảng trắng được thay bằng dấu cộng "+".
+	// 	// console.log(hrefRam);
+    //     // end test
 
-		window.location.href = pathname + "?" + link + 'search_field='+ search_field + '&search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
-	});
+    //     // Đẩy các giá trị được nhập tại các input lên url window
+	// 	window.location.href = pathname + "?" + link + 'search_field='+ search_field + '&search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
+
+	// });
+
+    $btnSearch.click(function(){
+        var pathname = window.location.pathname; //path hien tai
+        var search_field   = $inputSearchField.val();
+        var search_value   = $inputSearchValue.val();
+
+        window.location.href    = pathname + '?' + 'search_field=' + search_field + '&' + 'search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
+
+    });
 
 	$btnClearSearch.click(function() {
 		var pathname	= window.location.pathname;

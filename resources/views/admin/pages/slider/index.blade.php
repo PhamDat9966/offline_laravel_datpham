@@ -2,8 +2,8 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName,$itemsStatusCount,$params['filter']['status']);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName);
+    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status']);
+    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
 @endphp
 
 @section('content')
