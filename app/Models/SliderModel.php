@@ -12,7 +12,18 @@ class SliderModel extends Model
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
 
+    protected $fieldSearchAccepted = [
+        'id',
+        'name',
+        'description',
+        'link'
+    ] ;
+
     public function listItems($params = null,$options = null){
+
+        // echo "<pre>Model";
+        // print_r($params);
+        // echo "</pre>";
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
@@ -20,6 +31,16 @@ class SliderModel extends Model
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
+            }
+
+            if($params['search'] !== ""){
+
+                if($params["search"]["field"] == "all"){
+
+                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                }
             }
 
             $result = $query->orderBy('id', 'asc')
