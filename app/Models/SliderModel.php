@@ -37,6 +37,15 @@ class SliderModel extends Model
 
                 if($params["search"]["field"] == "all"){
 
+                    $query->where(function ($query) use ($params){
+                        foreach ($this->fieldSearchAccepted as $column) {
+                            {
+                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
+                            }
+                        }
+                    }
+                );
+
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
                     $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");

@@ -89,14 +89,13 @@ class Template{
                 </ul>
             </div>
             <input type="text" class="form-control" name="search_value" value="%s">
-            <input type="hidden" class="form-control" name="search_field" value="">
+            <input type="hidden" class="form-control" name="search_field" value="%s">
             <span class="input-group-btn">
             <button id="btn-clear-search" type="button" class="btn btn-success"
                     style="margin-right: 0px">Xóa tìm kiếm</button>
             <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
             </span>
-            <input type="hidden" name="search_field" value="all">
-        </div>', $tmplField[$searchFiel]['name'] ,$xhtmlField , $paramsSearch['value']);
+        </div>', $tmplField[$searchFiel]['name'] ,$xhtmlField , $paramsSearch['value'],$searchFiel);
 
         return $xhtml;
     }
