@@ -64,10 +64,33 @@ class SliderModel extends Model
         $result = null;
         if($options['task'] == 'admin-count-items-group-by-status'){
             //SELECT `status`, COUNT(`id`) FROM `slider` GROUP BY `status`
-            $result = self::select(DB::raw('COUNT(id) as count,status') )
-                             ->groupBy('status')
-                             ->get()
-                             ->toArray();
+            // $result = self::select(DB::raw('COUNT(id) as count,status') )
+            //                  ->groupBy('status')
+            //                  ->get()
+            //                  ->toArray();
+            $query  = $this->select(DB::raw('COUNT(id) as count,status'))
+                           ->groupBy('status');
+
+                            if($params['search'] !== ""){
+
+                                if($params["search"]["field"] == "all"){
+
+                                    $query->where(function ($query) use ($params){
+                                        foreach ($this->fieldSearchAccepted as $column) {
+                                            {
+                                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
+                                            }
+                                        }
+                                    }
+                                );
+
+                                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                                }
+                            }
+            $result     = $query->get()
+                                ->toArray();
         }
 
         return $result;

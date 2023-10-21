@@ -11,7 +11,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus){
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch){
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -26,8 +26,13 @@ class Template{
                 $statusValue    = $item['status'];
                 $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
 
-                $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
+                $currentTemplateStatus  = $tmplStatus[$statusValue];
+                   //$value['status'] active inactive block
                 $link    = route($controllerName) . "?filter_status=" . $statusValue;
+
+                if($paramsSearch['value'] !==''){
+                    $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
+                }
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
                 $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
@@ -52,6 +57,7 @@ class Template{
     }
 
     public static function showAreaSearch($controllerName, $paramsSearch){
+
         $xhtml              = null;
         $tmplField          = Config::get('zvn.template.search');
         // $fieldInController  = [
@@ -72,7 +78,7 @@ class Template{
         }
 
         $searchValue    = $paramsSearch['value'];
-        $searchFiel     = $paramsSearch['field'] ? $paramsSearch['field'] : 'all';
+        $searchFiel     = ($paramsSearch['field'] !=='') ? $paramsSearch['field'] : 'all';
 
         //$tmplField[$searchFiel]['name'] là  'Search by All' 'Search by ID'
 
@@ -95,7 +101,7 @@ class Template{
                     style="margin-right: 0px">Xóa tìm kiếm</button>
             <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
             </span>
-        </div>', $tmplField[$searchFiel]['name'] ,$xhtmlField , $paramsSearch['value'],$searchFiel);
+        </div>', $tmplField[$searchFiel]['name'] ,$xhtmlField , $paramsSearch['value'] ,$searchFiel);
 
         return $xhtml;
     }

@@ -15,8 +15,10 @@
                 class="label label-danger label-pagination">{{$totalPage}}</span></p>
         </div>
         <div class="col-md-6">
-            {{ $items->links('pagination.pagination_backend',['paginator'=>$items]) }}
+            {{-- {{ $items->links('pagination.pagination_backend',['paginator'=>$items]) }} --}}
             {{-- Mặc định $items->links() Nó sẽ tự động tao $paginator và $element...Bên trong nó --}}
+            {{ $items->appends(request()->input())->links('pagination.pagination_backend',['paginator'=>$items]) }}
+            {{--Đưa param vào pagination https://stackoverflow.com/questions/17159273/laravel-pagination-links-not-including-other-get-parameters --}}
         </div>
     </div>
 </div>

@@ -17,6 +17,9 @@ $(document).ready(function() {
 	let $selectChangeAttr = $("select[name =  select_change_attr]");
 	let $selectChangeAttrAjax = $("select[name =  select_change_attr_ajax]");
 
+	//let searchParams= new URLSearchParams(window.location.search);
+	let searchParams	= window.location.search;
+	console.log(searchParams);
 
 	$("a.select-field").click(function(e) {
 		e.preventDefault();
@@ -54,27 +57,49 @@ $(document).ready(function() {
 
     $btnSearch.click(function(){
         var pathname = window.location.pathname; //path hien tai
-        var search_field   = $inputSearchField.val();
-        var search_value   = $inputSearchValue.val();
+        var search_field    = $inputSearchField.val();
+        var search_value    = $inputSearchValue.val();
 
-        window.location.href    = pathname + '?' + 'search_field=' + search_field + '&' + 'search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
+        let params          = ['filter_status'];
+        let link            = '';
+        var searchParams    = new URLSearchParams(window.location.search);
 
-    });
-
-	$btnClearSearch.click(function() {
-		var pathname	= window.location.pathname;
-		let searchParams= new URLSearchParams(window.location.search);
-
-		params 			= ['page', 'filter_status', 'select_filter'];
-
-		let link		= "";
-		$.each( params, function( key, value ) {
+        $.each( params, function( key, value ) {
 			if (searchParams.has(value) ) {
-				link += value + "=" + searchParams.get(value) + "&"
+				link += value + "=" + searchParams.get(value) + "&";
 			}
 		});
 
-		window.location.href = pathname + "?" + link.slice(0,-1);
+        window.location.href    = pathname + '?' + link + 'search_field=' + search_field + '&' + 'search_value=' + search_value.replace(/\s+/g, '+').toLowerCase();
+
+    });
+
+	// $btnClearSearch.click(function() {
+	// 	var pathname	= window.location.pathname;
+	// 	let searchParams= new URLSearchParams(window.location.search);
+
+	// 	params 			= ['page', 'filter_status', 'select_filter'];
+
+	// 	let link		= "";
+	// 	$.each( params, function( key, value ) {
+	// 		if (searchParams.has(value) ) {
+	// 			link += value + "=" + searchParams.get(value) + "&"
+	// 		}
+	// 	});
+
+	// 	window.location.href = pathname + "?" + link.slice(0,-1);
+	// });
+	$btnClearSearch.click(function() {
+		let $path 	= window.location.pathname;
+		let searchParams	= new URLSearchParams(window.location.search);
+
+		let $filter = "filter_status";
+		let link	= '';
+		if(searchParams.has($filter)){
+			link	+= $filter + "=" + searchParams.get($filter) + "&";
+		}
+		window.location.href	= $path + "?" +link.slice(0,-1);
+
 	});
 
 	//Event onchange select filter
