@@ -1,5 +1,6 @@
 @php
-    use App\Helpers\template as Template;
+    use App\Helpers\Template as Template;
+    use App\Helpers\Hightlight as Hightlight;
 @endphp
 
 <div class="x_content">
@@ -24,9 +25,11 @@
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                 = $val['id'];
-                            $name               = $val['name'];
-                            $description        = $val['description'];
-                            $link               = $val['link'];
+                            $name               = Hightlight::show($val['name'], $params['search'] , 'name');
+                            //$description        = $val['description'];
+                            $description        = Hightlight::show($val['description'], $params['search'] , 'description');
+                            //$link               = $val['link'];
+                            $link               = Hightlight::show($val['link'], $params['search'] , 'link');
 
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
@@ -38,9 +41,9 @@
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
                             <td width="40%">
-                                <p><strong>Name:</strong> {{ $name }}</p>
-                                <p><strong>Description:</strong> {{ $description }}</p>
-                                <p><strong>Link:</strong> {{ $link }}</p>
+                                <p><strong>Name:</strong> {!! $name !!}</p>
+                                <p><strong>Description:</strong> {!! $description !!}</p>
+                                <p><strong>Link:</strong> {!! $link !!}</p>
                                 {!! $thumb !!}
                             </td>
                             <td>

@@ -38,7 +38,7 @@ return [
     'config'    =>[
         'search'    =>[
             'default'   =>  ['all','id','fullname'],
-            'slider'    =>  ['all','id','description','link']
+            'slider'    =>  ['all','id','name','description','link']
         ],
         'button'    =>[
             'default'   =>  ['edit','delete'],

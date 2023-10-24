@@ -32,10 +32,6 @@ class SliderController extends Controller
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
-        // echo "<pre>";
-        // print_r($this->params);
-        // echo "</pre>";
-
         // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
 
         //     echo "<h3 style='color:blue'>".$key."</h3>";
@@ -52,11 +48,6 @@ class SliderController extends Controller
     public function form($id = null)
     {
         $t = 'CategoryController - Form';
-        // $param = [
-        //             'id'=>$id,
-        //             'title'=>$t,
-        //             'controllerName'=>$this->controllerName
-        // ];
 
         return view($this->pathViewController . 'form', [
             'id'=>$id,
