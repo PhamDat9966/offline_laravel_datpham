@@ -66,8 +66,10 @@ class SliderController extends Controller
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
         $this->model->saveItem($params,['task' => 'change-status']);
+
+        //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
         // MainModel::where('id', $params['id'])
-        //           ->update(['status' => 'inactive']);
+        //           ->update(['status' => $status]);
 
         return redirect()->route('slider');
     }
