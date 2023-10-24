@@ -57,19 +57,19 @@ class SliderController extends Controller
 
     public function status(Request $request)
     {
-        $id     = $request->route('id');
-        $status = $request->route('status');
-        echo '<h3 style="color: rgb(28, 9, 196)">URL: '.$request->fullUrl().'</h3>';
-        echo '<h3 style="color: rgb(28, 9, 196)">ID: '.$id.'</h3>';
-        echo '<h3 style="color: rgb(28, 9, 196)">STATUS: '.$status.'</h3>';
+        // request->route->parameters
+        // $router = $request->route();
+        // echo "<pre>Parameters";
+        // print_r($router->parameters);
+        // echo "</pre>";
 
-        $router = $request->route();
-        echo "<pre>Parameters";
-        print_r($router->parameters);
-        echo "</pre>";
+        $params['currentStatus']    = $request->status;
+        $params['id']               = $request->id;
+        $this->model->saveItem($params,['task' => 'change-status']);
+        // MainModel::where('id', $params['id'])
+        //           ->update(['status' => 'inactive']);
 
-        // return redirect()->route('slider');
-        return redirect()->route('slider/form', ['status' => 'active','id'=>222]);
+        return redirect()->route('slider');
     }
 
     public function delete()

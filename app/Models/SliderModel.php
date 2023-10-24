@@ -95,4 +95,14 @@ class SliderModel extends Model
 
         return $result;
     }
+
+    public function saveItem($params = null,$options = null){
+        if($options['task'] == 'change-status'){
+
+            $statusAction  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
+
+            $this::where('id', $params['id'])
+                        ->update(['status' => $statusAction]);
+        }
+    }
 }
