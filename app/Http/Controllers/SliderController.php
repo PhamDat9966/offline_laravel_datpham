@@ -82,9 +82,11 @@ class SliderController extends Controller
         }
         return redirect()->route('slider')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
-    public function delete()
+    public function delete(Request $request)
     {
-        return "SliderController - delete";
+        $params['id']               = $request->id;
+        //$this->model->deleteItem($params,['task' => 'delete-item']);
+        return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
 }

@@ -181,15 +181,15 @@ $(document).ready(function() {
 
 	});
 
-	//Init datepicker
-	$('.datepicker').datepicker({
-		format: 'dd-mm-yyyy',
-	});
-
-
-	//Confirm button delete item
+    //Confirm button delete item
 	$('.btn-delete').on('click', function() {
 		if(!confirm('Bạn có chắc muốn xóa phần tử?'))
 			return false;
 	});
+
+	//Init datepicker
+	// $('.datepicker').datepicker({
+	// 	format: 'dd-mm-yyyy',
+	// });
+
 });
