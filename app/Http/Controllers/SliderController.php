@@ -65,15 +65,23 @@ class SliderController extends Controller
 
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
-        $this->model->saveItem($params,['task' => 'change-status']);
 
+        // Update
         //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
         // MainModel::where('id', $params['id'])
         //           ->update(['status' => $status]);
 
-        return redirect()->route('slider');
-    }
+        $this->model->saveItem($params,['task' => 'change-status']);
+        // End Update
 
+        $statusAction       = "đã được kích hoạt";
+        $statusNextAction   = "chưa kích hoạt";
+        if($params['currentStatus'] == 'inactive'){
+            $statusAction = 'chưa kích hoạt';
+            $statusNextAction   = "đã được kích hoạt";
+        }
+        return redirect()->route('slider')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+    }
     public function delete()
     {
         return "SliderController - delete";
