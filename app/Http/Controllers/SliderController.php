@@ -47,11 +47,10 @@ class SliderController extends Controller
 
     public function form($id = null)
     {
-        $t = 'CategoryController - Form';
+
 
         return view($this->pathViewController . 'form', [
-            'id'=>$id,
-            'title'=>$t,
+
         ]);
     }
 
