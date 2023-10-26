@@ -49,11 +49,6 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'index'
         ]);
 
-        Route::get('delete', [
-            'as'    =>'abc',
-            'uses'  => $controller . 'delete'
-        ]);
-
         Route::get('form/{id?}', [
             'as'    => $controllerName . '/form',
             'uses'  => $controller . 'form'
@@ -69,7 +64,10 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'status'
         ]);
 
-
+        Route::get('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
 
     });
     // ====================== END SLIDER ======================

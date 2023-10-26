@@ -2,6 +2,21 @@
 
 @php
     use App\Helpers\template as Template;
+
+    echo '<pre>';
+    print_r($item);
+    echo '</pre>';
+    echo "<h3 style='color:red'>".$item->name."</h3>";
+
+    $name           = ($item->name !== null)? $item->name : '';
+    $description    = ($item->description !== null)? $item->description : '';
+
+    $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
+    $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
+
+    $descriptionLabel  =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
+    $descriptionInput  =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
+
 @endphp
 
 @section('content')
@@ -15,8 +30,27 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                {!! Form::open(['url' => 'foo/bar']) !!}
-                    Kekeekekkekekekeke;
+                {!! Form::open([
+                        'url'               =>  Route($controllerName.'/save'),
+                        'method'            =>  'POST',
+                        'accept-charset'    =>  'UTF-8',
+                        'enctype'           =>  'multipart/form-data',
+                        'class'             =>  'form-horizontal form-label-left',
+                        'id'                =>  'main-form'
+                    ]) !!}
+                    <div class="form-group">
+                        {!! $nameLabel !!}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {!! $nameInput !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {!! $descriptionLabel !!}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {!! $descriptionInput !!}
+                        </div>
+                    </div>
                 {!! Form::close() !!}
                 {{-- <form method="POST" action="http://proj_news.xyz/admin123/slider/save" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal form-label-left" id="main-form">
                     <input name="_token" type="hidden" value="m4wsEvprE9UQhk4WAexK6Xhg2nGQwWUOPsQAZOQ5">

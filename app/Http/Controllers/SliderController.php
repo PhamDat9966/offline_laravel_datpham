@@ -92,6 +92,12 @@ class SliderController extends Controller
         return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
+    public function save(Request $request)
+    {
+        $params['id']               = $request->id;
+        echo "<h3 style='color:red'>".'THIS IS SAVE ITEM'."</h3>";
+        //return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+    }
 }
 
 // php artisan make:model SliderModel
