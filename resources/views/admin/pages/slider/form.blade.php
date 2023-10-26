@@ -15,7 +15,10 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                <form method="POST" action="http://proj_news.xyz/admin123/slider/save" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal form-label-left" id="main-form">
+                {!! Form::open(['url' => 'foo/bar']) !!}
+                    Kekeekekkekekekeke;
+                {!! Form::close() !!}
+                {{-- <form method="POST" action="http://proj_news.xyz/admin123/slider/save" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal form-label-left" id="main-form">
                     <input name="_token" type="hidden" value="m4wsEvprE9UQhk4WAexK6Xhg2nGQwWUOPsQAZOQ5">
                     <div class="form-group">
                         <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
@@ -60,7 +63,7 @@
                             <input class="btn btn-success" type="submit" value="Save">
                         </div>
                     </div>
-                </form>
+                </form> --}}
             </div>
             <!-- end x Content -->
         </div>
