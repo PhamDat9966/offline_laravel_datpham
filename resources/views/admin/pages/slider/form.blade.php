@@ -2,21 +2,36 @@
 
 @php
     use App\Helpers\template as Template;
+    use App\Helpers\Form as FormTemplate;
 
-    echo '<pre>';
-    print_r($item);
-    echo '</pre>';
-    echo "<h3 style='color:red'>".$item->name."</h3>";
+    $name           = (isset($item->name))? $item->name : '';
+    $description    = (isset($item->description))? $item->description : '';
 
-    $name           = ($item->name !== null)? $item->name : '';
-    $description    = ($item->description !== null)? $item->description : '';
+    // Đối tượng Form là của Collective
+    // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
+    // $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
 
-    $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
+    // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
+    // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
 
-    $descriptionLabel  =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    $descriptionInput  =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
+    $formlabelClass     = Config::get('zvn.template.form_label.class');
+    $formInputClass     = Config::get('zvn.template.form_input.class');
 
+    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vài zvn rồi dùng config::get để lấy ra
+    $elements   = [
+        [
+            'label'     =>  Form::label('name', 'Name', ['class' => $formlabelClass]),
+            'element'   =>  Form::text('name', $name,   ['class' => $formInputClass,'id'=>'name'])
+        ],
+        [
+            'label'     =>  Form::label('description', 'Description',   ['class' => $formlabelClass]),
+            'element'   =>  Form::text('description', $description ,    ['class' => $formInputClass,'id'=>'name'])
+        ]
+    ];
+
+    // echo '<pre>';
+    // print_r($elements);
+    // echo '</pre>';
 @endphp
 
 @section('content')
@@ -38,7 +53,10 @@
                         'class'             =>  'form-horizontal form-label-left',
                         'id'                =>  'main-form'
                     ]) !!}
-                    <div class="form-group">
+
+                    {!! FormTemplate::show($elements)!!}
+
+                    {{-- <div class="form-group">
                         {!! $nameLabel !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {!! $nameInput !!}
@@ -50,7 +68,8 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {!! $descriptionInput !!}
                         </div>
-                    </div>
+                    </div> --}}
+
                 {!! Form::close() !!}
                 {{-- <form method="POST" action="http://proj_news.xyz/admin123/slider/save" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal form-label-left" id="main-form">
                     <input name="_token" type="hidden" value="m4wsEvprE9UQhk4WAexK6Xhg2nGQwWUOPsQAZOQ5">
