@@ -6,6 +6,8 @@
 
     $name           = (isset($item->name))? $item->name : '';
     $description    = (isset($item->description))? $item->description : '';
+    $link           = (isset($item->link))? $item->link : '';
+    $status         = (isset($item->status))? $item->status : 'null';
 
     // Đối tượng Form là của Collective
     // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
@@ -17,6 +19,12 @@
     $formlabelClass     = Config::get('zvn.template.form_label.class');
     $formInputClass     = Config::get('zvn.template.form_input.class');
 
+    $statusValue        = [
+                                'default'    => Config::get('zvn.template.status.all.name'),
+                                'active'     => Config::get('zvn.template.status.active.name'),
+                                'inactive'   => Config::get('zvn.template.status.inactive.name')
+                          ];
+
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vài zvn rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -26,7 +34,20 @@
         [
             'label'     =>  Form::label('description', 'Description',   ['class' => $formlabelClass]),
             'element'   =>  Form::text('description', $description ,    ['class' => $formInputClass,'id'=>'name'])
+        ],
+        [
+            'label'     =>  Form::label('link', 'Link',   ['class' => $formlabelClass]),
+            'element'   =>  Form::text('link', $link ,    ['class' => $formInputClass,'id'=>'link'])
+        ],
+        [
+            'label'     =>  Form::label('status', 'Status',   ['class' => $formlabelClass]),
+            'element'   =>  Form::select('size', $statusValue, $status, ['class' => $formInputClass ])
+        ],
+        [
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
+            'type'      =>  'btn-submit'
         ]
+
     ];
 
     // echo '<pre>';
