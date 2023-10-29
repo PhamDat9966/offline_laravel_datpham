@@ -4,11 +4,18 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
-    $name           = (isset($item->name))? $item->name : '';
-    $description    = (isset($item->description))? $item->description : '';
-    $link           = (isset($item->link))? $item->link : '';
-    $status         = (isset($item->status))? $item->status : 'null';
-    $thumb          = (isset($item->thumb))? $item->thumb : 'null';
+    $name           = (isset($item['name']))? $item->name : '';
+    $description    = (isset($item['description']))? $item->description : '';
+    $link           = (isset($item['link']))? $item->link : '';
+    $status         = (isset($item['status']))? $item->status : 'null';
+    $thumb          = (isset($item['thumb']))? $item->thumb : 'null';
+
+    // OR
+    // $name           = (isset($item->name))? $item->name : '';
+    // $description    = (isset($item->description))? $item->description : '';
+    // $link           = (isset($item->link))? $item->link : '';
+    // $status         = (isset($item->status))? $item->status : 'null';
+    // $thumb          = (isset($item->thumb))? $item->thumb : 'null';
 
     // Đối tượng Form là của Collective
     // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
@@ -19,6 +26,8 @@
 
     $formlabelClass     = Config::get('zvn.template.form_label.class');
     $formInputClass     = Config::get('zvn.template.form_input.class');
+    $inputHiddenID      = Form::hidden('id' , $item->id);
+    $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -52,7 +61,7 @@
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
