@@ -8,6 +8,7 @@
     $description    = (isset($item->description))? $item->description : '';
     $link           = (isset($item->link))? $item->link : '';
     $status         = (isset($item->status))? $item->status : 'null';
+    $thumb          = (isset($item->thumb))? $item->thumb : 'null';
 
     // Đối tượng Form là của Collective
     // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
@@ -29,7 +30,8 @@
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', ['class' => $formlabelClass]),
-            'element'   =>  Form::text('name', $name,   ['class' => $formInputClass,'id'=>'name'])
+            'element'   =>  Form::text('name', $name,   ['class' => $formInputClass,'id'=>'name'])  // Với collective trong mảng này chính là các thuộc
+                                                                                                    // tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('description', 'Description',   ['class' => $formlabelClass]),
@@ -43,6 +45,12 @@
             'label'     =>  Form::label('status', 'Status',   ['class' => $formlabelClass]),
             'element'   =>  Form::select('size', $statusValue, $status, ['class' => $formInputClass ])
         ],
+                [
+            'label'     =>  Form::label('thumb', 'Thumb',   ['class' => $formlabelClass]),
+            'element'   =>  Form::file('image', ['class' => $formInputClass, 'id' => 'thumb', 'name'=>'thumb' ]),
+            'type'      =>  'thumb',
+            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+        ],
         [
             'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
@@ -50,9 +58,6 @@
 
     ];
 
-    // echo '<pre>';
-    // print_r($elements);
-    // echo '</pre>';
 @endphp
 
 @section('content')

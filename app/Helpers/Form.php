@@ -14,11 +14,11 @@ class Form{
 
     public static function formGroup( $element , $params = null ){
 
-        $xhtml  = '';
+        $result  = '';
         $type   = (isset($element['type'])) ? $element['type'] : 'input';
         switch( $type ){
             case 'btn-submit':
-                $xhtml  .=sprintf(' <div class="ln_solid"></div>
+                $result  =sprintf(' <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                             %s
@@ -26,18 +26,35 @@ class Form{
                                     </div>',$element['element']);
                 break;
             case 'input':
-                $xhtml  .=sprintf('<div class="form-group">
+                $result  =sprintf('<div class="form-group">
                                         %s
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             %s
                                         </div>
                                     </div>',$element['label'],$element['element']);
                 break;
+            case 'thumb':
+                $result  =sprintf('<div class="form-group">
+                                        %s
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            %s
+                                            <p style="margin-top: 50px;">%s</p>
+                                        </div>
+                                    </div>',$element['label'],$element['element'],$element['thumb']);
+                break;
 
         }
-        return $xhtml;
+        return $result;
     }
 }
+
+// <div class="form-group">
+// <label for="thumb" class="control-label col-md-3 col-sm-3 col-xs-12">Thumb</label>
+// <div class="col-md-6 col-sm-6 col-xs-12">
+//     <input class="form-control col-md-6 col-xs-12" name="thumb" type="file" id="thumb">
+//     <p style="margin-top: 50px;"><img src="http://proj_news.xyz/images/slider/LWi6hINpXz.jpeg" alt="Ưu đãi học phí" class="zvn-thumb"></p>
+// </div>
+// </div>
 
 // <div class="ln_solid"></div>
 // <div class="form-group">
