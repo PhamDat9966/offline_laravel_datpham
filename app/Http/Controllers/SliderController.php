@@ -94,8 +94,15 @@ class SliderController extends Controller
 
     public function save(Request $request)
     {
-        $params['id']               = $request->id;
-        echo "<h3 style='color:red'>".'THIS IS SAVE ITEM'."</h3>";
+       echo '<pre>';
+       print_r($_POST);
+       echo '</pre>';
+       //$params['id']               = $request->id;
+       $validatedData = $request->validate([
+            'name' => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
+            'description' => 'required',
+        ]);
+        echo "<h3 style='color:red'>".'THIS WAS VALIDATED'."</h3>";
         //return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 }

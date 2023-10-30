@@ -64,7 +64,7 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'status'
         ]);
 
-        Route::get('save/{id?}', [
+        Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
         ]);

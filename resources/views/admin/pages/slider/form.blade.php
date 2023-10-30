@@ -4,11 +4,12 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
+    $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $description    = (isset($item['description']))? $item->description : '';
     $link           = (isset($item['link']))? $item->link : '';
-    $status         = (isset($item['status']))? $item->status : 'null';
-    $thumb          = (isset($item['thumb']))? $item->thumb : 'null';
+    $status         = (isset($item['status']))? $item->status : '';
+    $thumb          = (isset($item['thumb']))? $item->thumb : '';
 
     // OR
     // $name           = (isset($item->name))? $item->name : '';
@@ -26,7 +27,7 @@
 
     $formlabelClass     = Config::get('zvn.template.form_label.class');
     $formInputClass     = Config::get('zvn.template.form_input.class');
-    $inputHiddenID      = Form::hidden('id' , $item->id);
+    $inputHiddenID      = Form::hidden('id' , $id);
     $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
 
     $statusValue        = [
@@ -35,12 +36,12 @@
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
-    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vài zvn rồi dùng config::get để lấy ra
+    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', ['class' => $formlabelClass]),
-            'element'   =>  Form::text('name', $name,   ['class' => $formInputClass,'id'=>'name'])  // Với collective trong mảng này chính là các thuộc
-                                                                                                    // tính như class, id , name của thẻ input
+            'element'   =>  Form::text('name', $name,   ['class' => $formInputClass,'id'=>'name'])  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('description', 'Description',   ['class' => $formlabelClass]),
@@ -80,6 +81,7 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
+                {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
                 {!! Form::open([
                         'url'               =>  Route($controllerName.'/save'),
                         'method'            =>  'POST',
@@ -90,7 +92,7 @@
                     ]) !!}
 
                     {!! FormTemplate::show($elements)!!}
-
+                    {{-- Gợi ý --}}
                     {{-- <div class="form-group">
                         {!! $nameLabel !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
