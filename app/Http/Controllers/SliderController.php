@@ -99,8 +99,9 @@ class SliderController extends Controller
        echo '</pre>';
        //$params['id']               = $request->id;
        $validatedData = $request->validate([
-            'name' => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
-            'description' => 'required',
+            'name'          => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
+            'description'   => 'required',
+            'link'          => 'bail|required|min:5|url',
         ]);
         echo "<h3 style='color:red'>".'THIS WAS VALIDATED'."</h3>";
         //return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
