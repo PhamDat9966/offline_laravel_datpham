@@ -53,9 +53,10 @@
         ],
         [
             'label'     =>  Form::label('status', 'Status',   ['class' => $formlabelClass]),
-            'element'   =>  Form::select('size', $statusValue, $status, ['class' => $formInputClass ])
+            'element'   =>  Form::select('status', $statusValue, $status, ['class' => $formInputClass ])
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
-                [
+        [
             'label'     =>  Form::label('thumb', 'Thumb',   ['class' => $formlabelClass]),
             'element'   =>  Form::file('image', ['class' => $formInputClass, 'id' => 'thumb', 'name'=>'thumb' ]),
             'type'      =>  'thumb',

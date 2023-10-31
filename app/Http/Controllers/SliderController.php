@@ -95,17 +95,19 @@ class SliderController extends Controller
 
     public function save(MainRequest $request)
     {
-       echo '<pre>';
-       print_r($_POST);
-       echo '</pre>';
-       //$params['id']               = $request->id;
-    //    $validatedData = $request->validate([
-    //         'name'          => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
-    //         'description'   => 'required',
-    //         'link'          => 'bail|required|min:5|url',
-    //     ]);
-        echo "<h3 style='color:red'>".'THIS WAS VALIDATED'."</h3>";
-        //return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+        if($request->method() == 'POST'){
+
+            $params = $request->all();  // Lấy param từ request
+            $task   = 'add-item';
+            $notify = 'Thêm phần tử thành công!';
+
+            if($params['id'] !== null){
+                $task = 'edit-item';
+                $notify   = 'Cập nhật thành công!';
+            }
+            $this->model->saveItem($params,['task'=>$task]);
+            return redirect()->route($this->controllerName)->with('zvn_notify',$notify);
+        }
     }
 
 }

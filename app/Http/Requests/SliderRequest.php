@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+/**
+ * SliderRequest lớp có nhiều nhiệm vụ, một trong số đó là Validate dữ liệu
+ */
 class SliderRequest extends FormRequest
 {
     /**
@@ -24,28 +26,28 @@ class SliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
-            'description'   => 'required',
+            'name'          => 'bail|required|min:3',           //'title' => 'required|unique:posts|max:255',
+            'description'   => 'bail|required',
             'link'          => 'bail|required|min:5|url',
+            'status'        => 'bail|in:active,inactive',
         ];
     }
 
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'name.required'         => 'Name không được rỗng',
-            'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
-            //'description.required'  => 'Description không được rỗng',
-            'link.required'         => 'Link không được rỗng',
-            'link.min'              => 'Link chiều dài phải có ít nhất phải có :min ký tự',
-            'link.url'              => 'Link phải là một url',
+            // 'name.required'         => 'Name không được rỗng',
+            // 'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
+            // 'link.required'         => 'Link không được rỗng',
+            // 'link.min'              => 'Link chiều dài phải có ít nhất phải có :min ký tự',
+            // 'link.url'              => 'Link phải là một url',
         ];
     }
 
     public function attributes()
     {
         return [
-            'description' => 'Field Description: '
+            //'description' => 'Field Description: '
         ];
     }
 

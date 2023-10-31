@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+
 class SliderModel extends Model
 {
     protected $table = 'slider';
@@ -18,6 +19,12 @@ class SliderModel extends Model
         'description',
         'link'
     ] ;
+
+    protected $crudNotActived = [
+        '_token',
+        'thumb_current',
+        'thumb'
+    ];
 
     public function listItems($params = null,$options = null){
 
@@ -97,11 +104,21 @@ class SliderModel extends Model
     }
 
     public function saveItem($params = null,$options = null){
+
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status]);
         }
+
+        if($options['task'] == 'add-item'){
+            $params = array_diff_key($params,array_flip($this->crudNotActived));
+
+            // DB::table('slider')->insert($params);
+
+            self::insert($params);
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){
