@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderModel as MainModel;
+use App\Http\Requests\SliderRequest as MainRequest;
 
 class SliderController extends Controller
 {
@@ -92,20 +93,21 @@ class SliderController extends Controller
         return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
-    public function save(Request $request)
+    public function save(MainRequest $request)
     {
        echo '<pre>';
        print_r($_POST);
        echo '</pre>';
        //$params['id']               = $request->id;
-       $validatedData = $request->validate([
-            'name'          => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
-            'description'   => 'required',
-            'link'          => 'bail|required|min:5|url',
-        ]);
+    //    $validatedData = $request->validate([
+    //         'name'          => 'required|min:3',           //'title' => 'required|unique:posts|max:255',
+    //         'description'   => 'required',
+    //         'link'          => 'bail|required|min:5|url',
+    //     ]);
         echo "<h3 style='color:red'>".'THIS WAS VALIDATED'."</h3>";
         //return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
+
 }
 
 // php artisan make:model SliderModel
