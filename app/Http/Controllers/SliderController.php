@@ -61,11 +61,6 @@ class SliderController extends Controller
 
     public function status(Request $request)
     {
-        // request->route->parameters
-        // $router = $request->route();
-        // echo "<pre>Parameters";
-        // print_r($router->parameters);
-        // echo "</pre>";
 
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
@@ -89,7 +84,7 @@ class SliderController extends Controller
     public function delete(Request $request)
     {
         $params['id']               = $request->id;
-        //$this->model->deleteItem($params,['task' => 'delete-item']);
+        $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 

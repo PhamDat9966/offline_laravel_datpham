@@ -13,7 +13,7 @@ class SliderRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize() // Ủy quyền, phải return true mới được validate
+    public function authorize() // Ủy quyền, phải return true mới được validate, mục đích ngằm ngăn chặn ip của một cá nhân hay khu vực là hacker
     {
         return true;
     }

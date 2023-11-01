@@ -9,7 +9,7 @@ class SliderModel extends Model
 {
     protected $table = 'slider';
     //protected $primaryKey = 'id'; //$primaryKey mặc định là id nên ở đây không cần khai báo
-    public $timestamps = false;
+    public $timestamps = true;
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
 
@@ -112,11 +112,14 @@ class SliderModel extends Model
         }
 
         if($options['task'] == 'add-item'){
-            $params = array_diff_key($params,array_flip($this->crudNotActived));
-
-            // DB::table('slider')->insert($params);
-
-            self::insert($params);
+            // $params = array_diff_key($params,array_flip($this->crudNotActived));
+            // // DB::table('slider')->insert($params);
+            // self::insert($params);
+            $this->name         = $params['name'];
+            $this->description  = $params['description'];
+            $this->link         = $params['link'];
+            $this->status       = $params['status'];
+            $this->save();
         }
 
     }
