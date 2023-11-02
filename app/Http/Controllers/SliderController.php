@@ -85,11 +85,13 @@ class SliderController extends Controller
     {
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
-        return redirect()->route('slider')->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
+    //public function save(MainRequest $request)
     public function save(MainRequest $request)
     {
+
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request
@@ -101,7 +103,7 @@ class SliderController extends Controller
                 $notify   = 'Cập nhật thành công!';
             }
             $this->model->saveItem($params,['task'=>$task]);
-            return redirect()->route($this->controllerName)->with('zvn_notify',$notify);
+            return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
     }
 

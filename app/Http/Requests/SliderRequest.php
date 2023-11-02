@@ -30,6 +30,8 @@ class SliderRequest extends FormRequest
             'description'   => 'bail|required',
             'link'          => 'bail|required|min:5|url',
             'status'        => 'bail|in:active,inactive',
+            //'thumb'         => 'bail|required|image|max:200',
+            'thumb'         => 'bail|required|mimes:jpeg,jpg,png,gif|max:200',
         ];
     }
 

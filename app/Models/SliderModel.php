@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use DB;
 
 class SliderModel extends Model
@@ -22,8 +23,7 @@ class SliderModel extends Model
 
     protected $crudNotActived = [
         '_token',
-        'thumb_current',
-        'thumb'
+        'thumb_current'
     ];
 
     public function listItems($params = null,$options = null){
@@ -59,7 +59,7 @@ class SliderModel extends Model
                 }
             }
 
-            $result = $query->orderBy('id', 'asc')
+            $result = $query->orderBy('id', 'desc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -112,14 +112,21 @@ class SliderModel extends Model
         }
 
         if($options['task'] == 'add-item'){
-            // $params = array_diff_key($params,array_flip($this->crudNotActived));
-            // // DB::table('slider')->insert($params);
-            // self::insert($params);
-            $this->name         = $params['name'];
-            $this->description  = $params['description'];
-            $this->link         = $params['link'];
-            $this->status       = $params['status'];
-            $this->save();
+
+            $thumb              = $params['thumb'];
+            $params['thumb']    = Str::random(10) . '.' . $thumb->clientExtension();
+            $thumb->storeAs('images/slider', $params['thumb'] . '.' . $thumb->clientExtension());
+
+            $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            // DB::table('slider')->insert($params);
+            self::insert($params);
+
+            // Thêm dữ liệu theo eloquent
+            // $this->name         = $params['name'];
+            // $this->description  = $params['description'];
+            // $this->link         = $params['link'];
+            // $this->status       = $params['status'];
+            // $this->save();
         }
 
     }
