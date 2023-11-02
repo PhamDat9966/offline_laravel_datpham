@@ -28,10 +28,6 @@ class SliderModel extends Model
 
     public function listItems($params = null,$options = null){
 
-        // echo "<pre>Model";
-        // print_r($params);
-        // echo "</pre>";
-
         $result = null;
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('id','name','description','link','thumb','created','created_by','modified','modified_by','status');
@@ -115,18 +111,19 @@ class SliderModel extends Model
 
             $thumb              = $params['thumb'];
             $params['thumb']    = Str::random(10) . '.' . $thumb->clientExtension();
-            $thumb->storeAs('images/slider', $params['thumb'] . '.' . $thumb->clientExtension());
+            $thumb->storeAs('slider', $params['thumb'],'zvn_storage_image');
 
-            $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            // DB::table('slider')->insert($params);
-            self::insert($params);
+            // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            // // DB::table('slider')->insert($params);
+            // self::insert($params);
 
-            // Thêm dữ liệu theo eloquent
-            // $this->name         = $params['name'];
-            // $this->description  = $params['description'];
-            // $this->link         = $params['link'];
-            // $this->status       = $params['status'];
-            // $this->save();
+            /* Save dữ liệu theo eloquent */
+            $this->name         = $params['name'];
+            $this->description  = $params['description'];
+            $this->link         = $params['link'];
+            $this->status       = $params['status'];
+            $this->thumb        = $params['thumb'];
+            $this->save();
         }
 
     }
