@@ -109,19 +109,27 @@ class SliderModel extends Model
 
         if($options['task'] == 'add-item'){
 
-            $thumb              = $params['thumb'];
-            $params['thumb']    = Str::random(10) . '.' . $thumb->clientExtension();
+            $thumb                  = $params['thumb'];
+            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
+            $params['created_by']   = 'phamdat';
+            $params['created']      = date('Y-m-d');
+
             $thumb->storeAs('slider', $params['thumb'],'zvn_storage_image');
 
+            /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            // // DB::table('slider')->insert($params);
+
             // self::insert($params);
+            //// OR use
+            //// DB::table('slider')->insert($params);
 
             /* Save dữ liệu theo eloquent */
             $this->name         = $params['name'];
             $this->description  = $params['description'];
             $this->link         = $params['link'];
             $this->status       = $params['status'];
+            $this->created_by   = $params['created_by'];
+            $this->created      = $params['created'];
             $this->thumb        = $params['thumb'];
             $this->save();
         }
