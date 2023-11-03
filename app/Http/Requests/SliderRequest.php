@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class SliderRequest extends FormRequest
 {
+    protected $table = "slider";
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,11 +28,13 @@ class SliderRequest extends FormRequest
     {
         $id         = $this->id;
         $condThumb  = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
+        $condName   = "bail|required|between:5,30|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
         if(!empty($id)) {
             $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
+            $condName   = "bail|required|between:5,30|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [
-            'name'          => 'bail|required|min:5',           //'title' => 'required|unique:posts|max:255',
+            'name'          => $condName,           //'title' => 'required|unique:posts|max:255',
             'description'   => 'bail|required|min:5',
             'link'          => 'bail|required|min:5|url',
             'status'        => 'bail|in:active,inactive',
