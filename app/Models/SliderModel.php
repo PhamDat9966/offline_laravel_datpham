@@ -139,8 +139,18 @@ class SliderModel extends Model
         }
 
         if($options['task'] == 'edit-item'){
+<<<<<<< HEAD
             if(!empty($params["thumb"])){
                 /*   Xoá ảnh cũ  */
+=======
+            echo '<h3>This is Edit</h3>';
+            echo "<pre>";
+            print_r($params);
+            echo "</pre>";
+
+            if(!empty($params["thumb"])){
+                /* Xoá ảnh cũ */
+>>>>>>> origin/main
                 $item   =  $this->getItem($params,['task' => 'get-thumb']);
                 Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
                 /* Thêm ảnh mới */
