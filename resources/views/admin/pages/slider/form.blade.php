@@ -25,8 +25,8 @@
     // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
     // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
 
-    $formlabelAttr      = Config::get('zvn.template.form_label');
-    $formInputAttr      = Config::get('zvn.template.form_input');
+    $formlabelAttr     = Config::get('zvn.template.form_label');
+    $formInputAttr     = Config::get('zvn.template.form_input');
     $inputHiddenID      = Form::hidden('id' , $id);
     $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
 
@@ -40,25 +40,25 @@
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,  $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('description', 'Description',$formlabelAttr),
-            'element'   =>  Form::text('description', $description , $formInputAttr)
+            'element'   =>  Form::text('description', $description ,  $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('link', 'Link',   $formlabelAttr),
-            'element'   =>  Form::text('link', $link ,   $formInputAttr)
+            'label'     =>  Form::label('link', 'Link',$formlabelAttr),
+            'element'   =>  Form::text('link', $link , $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('status', 'Status',   $formlabelAttr),
+            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('image', $formInputAttr),
+            'element'   =>  Form::file('thumb',  $formInputAttr),
             'type'      =>  'thumb',
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
         ],
