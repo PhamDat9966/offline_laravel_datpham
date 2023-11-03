@@ -15,7 +15,8 @@ class Form{
     public static function formGroup( $element , $params = null ){
 
         $result  = '';
-        $type   = (isset($element['type'])) ? $element['type'] : 'input';
+        $type   = (isset($element['type'])) ? $element['type'] : 'input'; // nếu không tồn tại nếu $element không có 'type' thì maực định sẽ được đặt
+                                                                          // là 'input'
         switch( $type ){
             case 'btn-submit':
                 $result  =sprintf(' <div class="ln_solid"></div>

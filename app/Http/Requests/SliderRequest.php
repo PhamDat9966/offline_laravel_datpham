@@ -28,7 +28,7 @@ class SliderRequest extends FormRequest
         $id         = $this->id;
         $condThumb  = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
         if(!empty($id)) {
-            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu có id thì loại điều kiện này ra
+            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
         }
         return [
             'name'          => 'bail|required|min:5',           //'title' => 'required|unique:posts|max:255',
