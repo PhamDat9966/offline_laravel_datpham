@@ -143,7 +143,22 @@ class SliderModel extends Model
             echo "<pre>";
             print_r($params);
             echo "</pre>";
-            die();
+
+            if(!empty($params["thumb"])){
+                /* Xoá ảnh cũ */
+                $item   =  $this->getItem($params,['task' => 'get-thumb']);
+                Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
+                /* Thêm ảnh mới */
+                $thumb                  = $params['thumb'];
+                $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
+                $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
+            }
+
+            $params['modified_by']   = 'phamdat';
+            $params['modified']      = date('Y-m-d');
+            $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            self::where('id', $params['id'])->update($params);
+
         }
 
     }
