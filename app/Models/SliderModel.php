@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use DB;
+use Illuminate\Database\Eloquent\Model;     // Eloquent thao tác trên csdl
+use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
+use DB;                                     // DB thao tác trên csdl
+use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 
 class SliderModel extends Model
 {
     protected $table = 'slider';
     //protected $primaryKey = 'id'; //$primaryKey mặc định là id nên ở đây không cần khai báo
+
+    protected $folderUpload = 'slider';
     public $timestamps = true;
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
@@ -114,7 +117,8 @@ class SliderModel extends Model
             $params['created_by']   = 'phamdat';
             $params['created']      = date('Y-m-d');
 
-            $thumb->storeAs('slider', $params['thumb'],'zvn_storage_image');
+            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image'); // Với zvn_storege_image được định nghĩa tại 'config/filesystems.php',
+                                                                             // là vị trí mặc định khi lưu ảnh
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
@@ -138,6 +142,8 @@ class SliderModel extends Model
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
+            $item   =  $this->getItem($params,['task' => 'get-thumb']);
+            Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
             $this->where('id', $params['id'])->delete();
         }
     }
@@ -149,6 +155,13 @@ class SliderModel extends Model
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
+
+        }
+
+        if($options['task'] == 'get-thumb'){
+            $result = $this::select('id','thumb')
+                    ->where('id', $params['id'])
+                    ->first();
 
         }
 

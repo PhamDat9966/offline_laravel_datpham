@@ -26,8 +26,8 @@ class SliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => 'bail|required|min:3',           //'title' => 'required|unique:posts|max:255',
-            'description'   => 'bail|required',
+            'name'          => 'bail|required|min:5',           //'title' => 'required|unique:posts|max:255',
+            'description'   => 'bail|required|min:5',
             'link'          => 'bail|required|min:5|url',
             'status'        => 'bail|in:active,inactive',
             //'thumb'         => 'bail|required|image|max:200',

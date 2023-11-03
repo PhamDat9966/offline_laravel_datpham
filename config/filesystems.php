@@ -44,7 +44,7 @@ return [
     'disks' => [
         'zvn_storage_image' => [
             'driver' => 'local',
-            'root' => public_path('images'),
+            'root' => public_path('images'), // Hàm 'public_path' dẫn đến thu mục public, ở đây là thư mục "public/images/"
         ],
 
         'local' => [
