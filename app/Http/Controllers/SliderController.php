@@ -89,7 +89,7 @@ class SliderController extends Controller
     }
 
     //public function save(MainRequest $request)
-    public function save(MainRequest $request)
+    public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 
         if($request->method() == 'POST'){

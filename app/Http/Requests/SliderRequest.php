@@ -25,13 +25,18 @@ class SliderRequest extends FormRequest
      */
     public function rules()
     {
+        $id         = $this->id;
+        $condThumb  = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
+        if(!empty($id)) {
+            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu có id thì loại điều kiện này ra
+        }
         return [
             'name'          => 'bail|required|min:5',           //'title' => 'required|unique:posts|max:255',
             'description'   => 'bail|required|min:5',
             'link'          => 'bail|required|min:5|url',
             'status'        => 'bail|in:active,inactive',
             //'thumb'         => 'bail|required|image|max:200',
-            'thumb'         => 'bail|required|mimes:jpeg,jpg,png,gif|max:200',
+            'thumb'         => $condThumb,
         ];
     }
 

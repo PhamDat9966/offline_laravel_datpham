@@ -138,6 +138,14 @@ class SliderModel extends Model
             $this->save();
         }
 
+        if($options['task'] == 'edit-item'){
+            echo '<h3>This is Edit</h3>';
+            echo "<pre>";
+            print_r($params);
+            echo "</pre>";
+            die();
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){
