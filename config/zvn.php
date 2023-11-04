@@ -11,13 +11,12 @@ return [
         'long_time'         =>'H:m:s d/m/Y'
     ],
     'template'  =>[
+
         'form_label'=>[
             'class'         => 'control-label col-md-3 col-sm-3 col-xs-12',
-            'title'         => 'this is form label'
         ],
         'form_input'=>[
             'class'         => 'form-control col-md-6 col-xs-12',
-            'title'         => 'this is form input'
         ],
 
         'status'=>[

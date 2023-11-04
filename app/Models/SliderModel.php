@@ -142,16 +142,21 @@ class SliderModel extends Model
             if(!empty($params["thumb"])){
                 /*Xóa ảnh cũ*/
                 $item   =  $this->getItem($params,['task' => 'get-thumb']);
-                Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
+                //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
+                $this->deleteThumb($params['thumb_current']);
                 /* Thêm ảnh mới */
-                $thumb                  = $params['thumb'];
-                $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-                $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
+                // $thumb                  = $params['thumb'];
+                // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
+                // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
+                $params['thumb']        = $this->uploadThumb($params['thumb']);
+                /* end Thêm ảnh mới */
             }
 
             $params['modified_by']   = 'phamdat';
             $params['modified']      = date('Y-m-d');
-            $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+
+            //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            $params   = $this->prepareParams($params);
             self::where('id', $params['id'])->update($params);
 
         }
@@ -161,7 +166,10 @@ class SliderModel extends Model
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
             $item   =  $this->getItem($params,['task' => 'get-thumb']);
-            Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
+
+            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
+            $this->deleteThumb($item['thumb']);
+
             $this->where('id', $params['id'])->delete();
         }
     }
@@ -184,5 +192,19 @@ class SliderModel extends Model
         }
 
         return $result;
+    }
+
+    public function uploadThumb($thumbObj){
+        $thumbName       = Str::random(10) . '.' . $thumbObj->clientExtension();
+        $thumbObj->storeAs($this->folderUpload, $thumbName ,'zvn_storage_image');
+        return $thumbName;
+    }
+
+    public function deleteThumb($thumbName){
+        Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $thumbName);
+    }
+
+    public function prepareParams($params){
+        return array_diff_key($params,array_flip($this->crudNotActived));
     }
 }
