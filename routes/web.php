@@ -20,6 +20,7 @@ Route::get('/about', function () {
 });
 
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin99
+$prefixNews     = config('zvn.url.prefix_news'); //news69
 
 Route::group(['prefix'=>$prefixAdmin], function(){
 
@@ -72,22 +73,23 @@ Route::group(['prefix'=>$prefixAdmin], function(){
     });
     // ====================== END SLIDER ======================
 
-    $prefix     =   'category';
-    Route::group(['prefix'=>'category'],function () use($prefix) {
+});
 
-        $controller =   ucfirst($prefix) . 'Controller@';
+Route::group(['prefix'=>$prefixNews], function(){
 
-        //Route::get('/', $controller . 'index');
+    // ====================== HOME ======================
+    $prefix         =   '';
+    $controllerName =   'home';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [
-                'as'    => $prefix,
-                'uses'  => $controller . 'index'
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
         ]);
-
-        Route::get('form/{id?}', $controller . 'form')->where('id', '[0-9]+');
-        Route::get('delete/{id}', $controller . 'delete')->where('id', '[0-9]+');
-        Route::get('change-status-{status}/{id}', $controller . 'status')->where('id', '[0-9]+');
 
     });
 
-});
+    // ====================== END HOME ======================
 
+});

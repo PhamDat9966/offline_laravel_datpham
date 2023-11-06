@@ -3,7 +3,7 @@
 return [
     'url'       =>[
         'prefix_admin'      =>'admin99',
-        'prefix_news'       =>'news',
+        'prefix_news'       =>'news69',
         'prefix_bookstore'  =>'bookstore'
     ],
     'format'    =>[

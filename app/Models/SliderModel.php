@@ -2,32 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;     // Eloquent thao tác trên csdl
+use App\Models\AdminModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 
-class SliderModel extends Model
+class SliderModel extends AdminModel
 {
-    protected $table = 'slider';
-    //protected $primaryKey = 'id'; //$primaryKey mặc định là id nên ở đây không cần khai báo
-
-    protected $folderUpload = 'slider';
-    public $timestamps = true;
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
-
-    protected $fieldSearchAccepted = [
-        'id',
-        'name',
-        'description',
-        'link'
-    ] ;
-
-    protected $crudNotActived = [
-        '_token',
-        'thumb_current'
-    ];
+    public function __construct(){
+        $this->table                = 'slider';
+        $this->folderUpload         = 'slider';
+        $this->fieldSearchAccepted  = ['id','name','description','link'];
+        $this->crudNotActived       = ['_token','thumb_current'];
+    }
 
     public function listItems($params = null,$options = null){
 
@@ -194,17 +181,4 @@ class SliderModel extends Model
         return $result;
     }
 
-    public function uploadThumb($thumbObj){
-        $thumbName       = Str::random(10) . '.' . $thumbObj->clientExtension();
-        $thumbObj->storeAs($this->folderUpload, $thumbName ,'zvn_storage_image');
-        return $thumbName;
-    }
-
-    public function deleteThumb($thumbName){
-        Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $thumbName);
-    }
-
-    public function prepareParams($params){
-        return array_diff_key($params,array_flip($this->crudNotActived));
-    }
 }
