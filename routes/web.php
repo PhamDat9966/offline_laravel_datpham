@@ -19,7 +19,7 @@ Route::get('/about', function () {
     return "About";
 });
 
-$prefixAdmin    = config('zvn.url.prefix_admin'); //admin99
+$prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
 $prefixNews     = config('zvn.url.prefix_news'); //news69
 
 Route::group(['prefix'=>$prefixAdmin], function(){

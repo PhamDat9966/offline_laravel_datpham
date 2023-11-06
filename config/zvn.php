@@ -2,7 +2,7 @@
 
 return [
     'url'       =>[
-        'prefix_admin'      =>'admin99',
+        'prefix_admin'      =>'admin69',
         'prefix_news'       =>'news69',
         'prefix_bookstore'  =>'bookstore'
     ],
