@@ -100,6 +100,12 @@ class CategoryModel extends AdminModel
                         ->update(['status' => $status]);
         }
 
+        if($options['task'] == 'change-is-home'){
+            $isHome  = ($params['currentIsHome'] == true) ? false : true;
+            $this::where('id', $params['id'])
+                        ->update(['is_home' => $isHome]);
+        }
+
         if($options['task'] == 'add-item'){
             $params['created_by']   = 'phamdat';
             $params['created']      = date('Y-m-d');

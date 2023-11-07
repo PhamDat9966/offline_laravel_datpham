@@ -125,16 +125,9 @@ class Template{
     }
 
     public static function showItemIsHome($controllerName , $id , $isHomeValue){
-        // status       class           name
-        // active       btn-success     Kich hoat
-        // inactive     btn-info        Chua duoc kich hoat
+        $tmplIsHome             = Config::get('zvn.template.is_home');
 
-        $tmplIsHome     =   Config::get('zvn.template.is_home');
-
-        // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
-        // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
-
-        $isHomeValue            =  array_key_exists($isHomeValue,$tmplIsHome) ? $isHomeValue:'1';
+        $isHomeValue            = array_key_exists($isHomeValue,$tmplIsHome) ? $isHomeValue:true;
         $currentTemplateIsHome  = $tmplIsHome[$isHomeValue];
         $link                   = route( $controllerName. '/isHome',['is_home'=>$isHomeValue, 'id'=>$id]);
         $xhtml  = sprintf('

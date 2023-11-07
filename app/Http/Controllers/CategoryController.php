@@ -80,6 +80,30 @@ class CategoryController extends Controller
         }
         return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
+
+    public function isHome(Request $request)
+    {
+
+        $params['currentIsHome']    = $request->isHome;
+        $params['id']               = $request->id;
+
+        // Update
+        //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
+        // MainModel::where('id', $params['id'])
+        //           ->update(['status' => $status]);
+
+        $this->model->saveItem($params,['task' => 'change-is-home']);
+        // End Update
+
+        $isHomeAction       = "Hiển thị";
+        $isHomeNextAction   = "Không hiển thị";
+        if($params['currentIsHome'] == false){
+            $isHomeAction = 'Không hiển thị';
+            $isHomeNextAction   = "Hiển thị";
+        }
+        return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+    }
+
     public function delete(Request $request)
     {
         $params['id']               = $request->id;

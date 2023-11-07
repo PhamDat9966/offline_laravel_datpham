@@ -99,7 +99,7 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'status'
         ]);
 
-        Route::get('change-status-{isHome}/{id}', [
+        Route::get('change-is-home-{isHome}/{id}', [
             'as'    => $controllerName . '/isHome',
             'uses'  => $controller . 'isHome'
         ]);
