@@ -1,22 +1,88 @@
-<h3 style="color: red">Slider</h3>
-<a href="" target="_blank">first</a>
-<a href="slider/" target="_blank">list</a>
-<a href="slider/form" target="_blank">add</a>
-<a href="slider/form/1234" target="_blank">edit</a>
-<a href="slider/delete/1234" target="_blank">delete</a>
-<a href="slider/change-status-active/1234" target="_blank">status</a>
+@extends('admin.main')
 
-<?php
-    echo '<h3 style="color: blue">Slider</h3>';
-    $linkDefault = route('slider');
-    echo '<h3 style="color: red">'.$linkDefault.'</h3>';
-    $linkAdd = route('slider/form',['id'=>12345]);
-    echo '<h3 style="color: red">'.$linkAdd.'</h3>';
-    $linkabc = route('abc');
-    echo '<h3 style="color: red">'.$linkabc.'</h3>';
-    $linkDelete = route('slider/delete',['id'=>54321]);
-    echo '<h3 style="color: red">'.$linkDelete.'</h3>';
-    $linkStatus = route('slider/status',['id'=>69,'status'=>'active']);
-    echo '<h3 style="color: red">'.$linkStatus.'</h3>';
-    echo '<h3 style="color: blue">Ramdom</h3>';
-?>
+@php
+    use App\Helpers\template as Template;
+    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search']);
+    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+@endphp
+
+@section('content')
+<!-- page content -->
+@include('admin.templates.page_header', ['pageIndex' => true])
+
+@include('admin.templates.zvn_notily')
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            @include('admin.templates.x_title',['title'=>'Bộ lọc'])
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-6">
+                        {!!$xhtmlButtonFilter!!}
+                    </div>
+                    <div class="col-md-6">
+                        {!!$xhtmlAreaSearch!!}
+                        {{-- <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button"
+                                        class="btn btn-default dropdown-toggle btn-active-field"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                    Search by All <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li><a href="#"
+                                            class="select-field" data-field="all">Search by All</a></li>
+                                    <li><a href="#"
+                                            class="select-field" data-field="id">Search by ID</a></li>
+                                    <li><a href="#"
+                                            class="select-field" data-field="username">Search by Username</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="select-field" data-field="fullname">Search by Fullname</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="select-field" data-field="email">Search by Email</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" name="search_value" value="">
+                            <span class="input-group-btn">
+                        <button id="btn-clear" type="button" class="btn btn-success"
+                                style="margin-right: 0px">Xóa tìm kiếm</button>
+                        <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
+                        </span>
+                            <input type="hidden" name="search_field" value="all">
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--box-lists-->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            @include('admin.templates.x_title',['title'=>'Danh sách'])
+            <!--List content-->
+            @include("admin.pages.category.list")
+            <!--end List-->
+        </div>
+    </div>
+</div>
+<!--end-box-lists-->
+<!--box-pagination-->
+@if (count($items) > 0)
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            @include('admin.templates.x_title',['title'=>'Phân trang'])
+            @include('admin.templates.pagination')
+        </div>
+    </div>
+</div>
+@endif
+<!--end-box-pagination-->
+<!-- /page content -->
+@endsection
+
