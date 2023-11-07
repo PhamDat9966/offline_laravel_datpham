@@ -26,6 +26,10 @@ return [
             'block'         =>  ['name'=>'Bị khóa',         'class'=>'btn-info'],
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
         ],
+        'is_home'=>[
+            '1'             =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
+            '0'             =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
+        ],
         'search'=>[
             'all'           =>  ['name'=>'Search by All'],
             'id'            =>  ['name'=>'Search by ID'],

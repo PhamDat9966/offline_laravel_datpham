@@ -99,6 +99,11 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'status'
         ]);
 
+        Route::get('change-status-{isHome}/{id}', [
+            'as'    => $controllerName . '/isHome',
+            'uses'  => $controller . 'isHome'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
