@@ -20,7 +20,7 @@ class CategoryModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','created','created_by','modified','modified_by','status','is_home');
+            $query = $this->select('id','name','status','is_home','display','created','created_by','modified','modified_by');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -53,6 +53,13 @@ class CategoryModel extends AdminModel
             $query = $this->select('id','name')
                           ->where('status','=','active')
                           ->limit('8');
+            $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-is-home'){
+            $query = $this->select('id','name')
+                          ->where('status','=','active')
+                          ->where('is_home','=','1');
             $result = $query->get()->toArray();
         }
 

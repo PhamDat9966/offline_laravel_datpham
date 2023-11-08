@@ -135,6 +135,18 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemDisplay($controllerName , $id , $displayValue){
+        $tmplDisplay             = Config::get('zvn.template.display');
+        $xhtml   ='<select name="select_change_attr" class="form-control input-sm">';
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
 
         $xhtml  = sprintf('

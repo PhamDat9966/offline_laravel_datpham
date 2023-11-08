@@ -104,6 +104,11 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'isHome'
         ]);
 
+        Route::get('change-display-{display}/{id}', [
+            'as'    => $controllerName . '/display',
+            'uses'  => $controller . 'display'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'

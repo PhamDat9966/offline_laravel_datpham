@@ -87,13 +87,7 @@ class CategoryController extends Controller
         $params['currentIsHome']    = $request->isHome;
         $params['id']               = $request->id;
 
-        // Update
-        //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
-        // MainModel::where('id', $params['id'])
-        //           ->update(['status' => $status]);
-
         $this->model->saveItem($params,['task' => 'change-is-home']);
-        // End Update
 
         $isHomeAction       = "Hiển thị";
         $isHomeNextAction   = "Không hiển thị";
@@ -102,6 +96,12 @@ class CategoryController extends Controller
             $isHomeNextAction   = "Hiển thị";
         }
         return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+    }
+
+    public function display(Request $request)
+    {
+        echo "<h3 style='color:red'>this is Display controller</h3>";
+
     }
 
     public function delete(Request $request)

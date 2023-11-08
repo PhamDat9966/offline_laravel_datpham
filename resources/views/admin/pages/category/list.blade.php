@@ -12,6 +12,7 @@
                     <th class="column-title">Category Info</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Hiển thị Home</th>
+                    <th class="column-title">Kiểu hiển thị</th>
                     <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th>
                     <th class="column-title">Hành động</th>
@@ -30,6 +31,7 @@
 
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $isHome             = Template::showItemIsHome( $controllerName,$id,$val['is_home']);
+                            $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
                             $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
@@ -45,6 +47,9 @@
                             </td>
                             <td>
                                 {!!$isHome!!}
+                            </td>
+                            <td>
+                                {!!$display!!}
                             </td>
                             <td>
                                 {!!$createdHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}

@@ -30,6 +30,10 @@ return [
             '1'             =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             '0'             =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
         ],
+        'display'=>[
+            'list'             =>  ['name'=>'Danh sánh'],
+            'grid'             =>  ['name'=>'Lưới'],
+        ],
         'search'=>[
             'all'           =>  ['name'=>'Search by All'],
             'id'            =>  ['name'=>'Search by ID'],
