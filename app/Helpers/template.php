@@ -11,7 +11,11 @@ class Template{
         return  $xhtml;
     }
 
+<<<<<<< HEAD
     public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay = null,$currentFilterIsHome = null){
+=======
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay){
+>>>>>>> origin/main
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -37,9 +41,12 @@ class Template{
                 if($currentFilterDisplay !==''){
                     $link .= '&filter_display='. $currentFilterDisplay;
                 }
+<<<<<<< HEAD
                 if($currentFilterIsHome !==''){
                     $link .= '&filter_is_home='. $currentFilterIsHome;
                 }
+=======
+>>>>>>> origin/main
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
                 $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
@@ -157,7 +164,11 @@ class Template{
         return  $xhtml;
     }
 
+<<<<<<< HEAD
     public static function showItemDisplayFilter($controllerName , $displayFilterValue = null){
+=======
+    public static function showItemDisplayFilter($controllerName , $isHomeFilterValue = null){
+>>>>>>> origin/main
         $tmplDisplay    = Config::get('zvn.template.display_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
@@ -166,13 +177,18 @@ class Template{
         $xhtml   =sprintf('<select name="select_change_display_filter" data-url=%s class="form-control input-sm">',$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
+<<<<<<< HEAD
             if($key == $displayFilterValue) $xhtmlSelect = 'selected="selected"';
+=======
+            if($key == $isHomeFilterValue) $xhtmlSelect = 'selected="selected"';
+>>>>>>> origin/main
             $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
         }
         $xhtml  .='</select>';
         return  $xhtml;
     }
 
+<<<<<<< HEAD
     public static function showItemIsHomeFilter($controllerName , $isHomeFilterValue){
         $tmplDisplay    = Config::get('zvn.template.is_home_filter');
 
@@ -190,6 +206,8 @@ class Template{
     }
 
 
+=======
+>>>>>>> origin/main
     public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
 
         $xhtml  = sprintf('
