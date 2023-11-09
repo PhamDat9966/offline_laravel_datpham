@@ -29,6 +29,7 @@ class CategoryController extends Controller
         $this->params['search']['field']    = $request->input('search_field','');
         $this->params['search']['value']    = $request->input('search_value','');
 
+        $this->params['filter']['display']   = $request->input('filter_display','all');
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
@@ -110,6 +111,14 @@ class CategoryController extends Controller
         }
         $this->model->saveItem($params,['task' => 'change-display']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
+
+    }
+
+    public function displayFilter(Request $request)
+    {
+       $displayFilter   = $request->display;
+
+       echo "<h3 style='color:red'>displayFilter</h3>";
 
     }
 

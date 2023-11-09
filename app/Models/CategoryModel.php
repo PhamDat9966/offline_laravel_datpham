@@ -26,6 +26,11 @@ class CategoryModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
+
+            if($params['filter']['display'] !== "all"){
+                $query->where('display','=',$params['filter']['display']);
+            }
+
             if($params['search'] !== ""){
 
                 if($params["search"]["field"] == "all"){
@@ -73,7 +78,9 @@ class CategoryModel extends AdminModel
 
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
-
+                           if($params['filter']['display'] !== "all"){
+                                $query->where("display","=", $params['filter']['display']);
+                            }
                             if($params['search'] !== ""){
 
                                 if($params["search"]["field"] == "all"){
@@ -92,6 +99,7 @@ class CategoryModel extends AdminModel
                                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                                 }
                             }
+
             $result     = $query->get()
                                 ->toArray();
         }

@@ -30,9 +30,14 @@ return [
             '1'             =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             '0'             =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
         ],
+        'display_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            'list'          =>  ['name'=>'Danh sánh'],
+            'grid'          =>  ['name'=>'Lưới'],
+        ],
         'display'=>[
-            'list'             =>  ['name'=>'Danh sánh'],
-            'grid'             =>  ['name'=>'Lưới'],
+            'list'          =>  ['name'=>'Danh sánh'],
+            'grid'          =>  ['name'=>'Lưới'],
         ],
         'search'=>[
             'all'           =>  ['name'=>'Search by All'],

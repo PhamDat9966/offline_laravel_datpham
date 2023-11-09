@@ -17,6 +17,8 @@ $(document).ready(function() {
 	let $selectChangeAttr = $("select[name =  select_change_attr]");
 	let $selectChangeAttrAjax = $("select[name =  select_change_attr_ajax]");
 
+    let $selectChangeDisplayFilter = $("select[name =  select_change_display_filter]");
+
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
 	console.log(searchParams);
@@ -60,7 +62,7 @@ $(document).ready(function() {
         var search_field    = $inputSearchField.val();
         var search_value    = $inputSearchValue.val();
 
-        let params          = ['filter_status'];
+        let params          = ['filter_status','filter_display'];
         let link            = '';
         var searchParams    = new URLSearchParams(window.location.search);
 
@@ -107,7 +109,7 @@ $(document).ready(function() {
 		var pathname	= window.location.pathname;
 		let searchParams= new URLSearchParams(window.location.search);
 
-		params 			= ['page', 'filter_status', 'search_field', 'search_value'];
+		params 			= ['page', 'filter_status', 'filter_display' ,'search_field', 'search_value'];
 
 		let link		= "";
 		$.each( params, function( key, value ) {
@@ -155,6 +157,26 @@ $(document).ready(function() {
 	// 	let $url = $(this).data('url');
 	// 	window.location.href = $url.replace('value_new', select_value);
 	// });
+
+    $selectChangeDisplayFilter.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        params 			= ['page', 'filter_status', 'search_field', 'search_value'];
+        let link        = '';
+
+        $.each( params, function( key, value ) {
+			if (searchParams.has(value) ) {
+				link += value + "=" + searchParams.get(value) + "&"
+			}
+		});
+        window.location.href    = url + '?' + link.slice(0,-1) + '&' + 'filter_display=' + select_value;;
+
+        // url = url+'?filter_display='+select_value;
+        // console.log(url);
+    });
 
     $selectChangeAttr.on('change',function(){
         var select_value  = $(this).val();

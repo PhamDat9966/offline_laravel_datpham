@@ -2,8 +2,10 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search']);
+    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params['filter']['display']);
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+
+    $xhtmlItemDisplayFilter  = Template::showItemDisplayFilter($controllerName, $params['filter']['display']);
 @endphp
 
 @section('content')
@@ -18,10 +20,17 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        {{-- filter status and home --}}
+                    </div>
+                    <div class="col-md-2">
+                        {{-- filter status and home --}}
+                        {!!$xhtmlItemDisplayFilter!!}
+                    </div>
+                    <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">
