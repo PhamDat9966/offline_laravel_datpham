@@ -149,11 +149,19 @@ $(document).ready(function() {
 	// 	});
 	// });
 
-	$selectChangeAttr.on('change', function() {
-		let select_value = $(this).val();
-		let $url = $(this).data('url');
-		window.location.href = $url.replace('value_new', select_value);
-	});
+	// $selectChangeAttr.on('change', function() {
+    //     console.log(this.value);
+	// 	let select_value = $(this).val();
+	// 	let $url = $(this).data('url');
+	// 	window.location.href = $url.replace('value_new', select_value);
+	// });
+
+    $selectChangeAttr.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+        url = url.replace("value_new",select_value)
+        window.location.href    = url;
+    });
 
 	$selectChangeAttrAjax.on('change', function() {
 		let select_value = $(this).val();

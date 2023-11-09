@@ -100,7 +100,16 @@ class CategoryController extends Controller
 
     public function display(Request $request)
     {
-        echo "<h3 style='color:red'>this is Display controller</h3>";
+        $params['id']       = $request->id;
+        $params['display']  = $request->display;
+        $lastDisplay        = '"Lưới"';
+        $currentDisplay     = '"Danh sách"';
+        if($params['display'] == 'grid'){
+            $lastDisplay = '"Danh sách"';
+            $currentDisplay = '"Lưới"';
+        }
+        $this->model->saveItem($params,['task' => 'change-display']);
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
 
     }
 

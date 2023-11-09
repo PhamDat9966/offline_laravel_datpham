@@ -107,6 +107,11 @@ class CategoryModel extends AdminModel
                         ->update(['status' => $status]);
         }
 
+        if($options['task'] == 'change-display'){
+            $this::where('id', $params['id'])
+                        ->update(['display' => $params['display']]);
+        }
+
         if($options['task'] == 'change-is-home'){
             $isHome  = ($params['currentIsHome'] == true) ? false : true;
             $this::where('id', $params['id'])

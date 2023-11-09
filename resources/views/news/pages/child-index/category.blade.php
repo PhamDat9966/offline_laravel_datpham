@@ -1,7 +1,5 @@
 @php
-    echo '<pre>';
-    print_r($itemsCategory);
-    echo '</pre>';
+
 @endphp
 <div class="technology">
     <div class="section_title_container d-flex flex-row align-items-start justify-content-start">

@@ -118,7 +118,7 @@ class Template{
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
         $currentStatus  = $tmplStatus[$statusValue];
-        $link           = route( $controllerName. '/status',['status'=>$status, 'id'=>$id]);
+        $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
         $xhtml  = sprintf('
             <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
         return  $xhtml;
@@ -136,8 +136,11 @@ class Template{
     }
 
     public static function showItemDisplay($controllerName , $id , $displayValue){
-        $tmplDisplay             = Config::get('zvn.template.display');
-        $xhtml   ='<select name="select_change_attr" class="form-control input-sm">';
+        $tmplDisplay    = Config::get('zvn.template.display');
+
+        $link           = route($controllerName. '/display',['display'=>'value_new', 'id'=>$id]);
+
+        $xhtml   =sprintf('<select name="select_change_attr" data-url=%s class="form-control input-sm">',$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
