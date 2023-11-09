@@ -40,6 +40,11 @@ return [
             'list'          =>  ['name'=>'Danh sánh'],
             'grid'          =>  ['name'=>'Lưới'],
         ],
+        'display_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            'list'          =>  ['name'=>'Danh sánh'],
+            'grid'          =>  ['name'=>'Lưới'],
+        ],
         'display'=>[
             'list'          =>  ['name'=>'Danh sánh'],
             'grid'          =>  ['name'=>'Lưới'],
