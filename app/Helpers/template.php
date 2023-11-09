@@ -11,7 +11,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch){
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay = null,$currentFilterIsHome = null){
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -32,6 +32,13 @@ class Template{
 
                 if($paramsSearch['value'] !==''){
                     $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
+                }
+
+                if($currentFilterDisplay !==''){
+                    $link .= '&filter_display='. $currentFilterDisplay;
+                }
+                if($currentFilterIsHome !==''){
+                    $link .= '&filter_is_home='. $currentFilterIsHome;
                 }
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
@@ -149,6 +156,39 @@ class Template{
         $xhtml  .='</select>';
         return  $xhtml;
     }
+
+    public static function showItemDisplayFilter($controllerName , $displayFilterValue = null){
+        $tmplDisplay    = Config::get('zvn.template.display_filter');
+
+        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_display_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $displayFilterValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
+    public static function showItemIsHomeFilter($controllerName , $isHomeFilterValue){
+        $tmplDisplay    = Config::get('zvn.template.is_home_filter');
+
+        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_is_home_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($key) == strval($isHomeFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
 
     public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
 

@@ -26,6 +26,20 @@ class CategoryModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
+            if($params['filter']['is_home'] !== "all"){
+                if($params['filter']['is_home'] == 'true'){
+                    $params['filter']['is_home'] = 1;
+                }else if($params['filter']['is_home'] == 'false'){
+                    $params['filter']['is_home'] = 0;
+                }
+                $query->where("is_home","=", $params['filter']['is_home']);
+            }
+
+
+            if($params['filter']['display'] !== "all"){
+                $query->where('display','=',$params['filter']['display']);
+            }
+
             if($params['search'] !== ""){
 
                 if($params["search"]["field"] == "all"){
@@ -69,10 +83,19 @@ class CategoryModel extends AdminModel
     public function countItems($params = null,$options = null){
 
         $result = null;
+
         if($options['task'] == 'admin-count-items-group-by-status'){
 
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
+
+                            if($params['filter']['is_home'] !== "all"){
+                                $query->where("is_home","=", $params['filter']['is_home']);
+                            }
+
+                            if($params['filter']['display'] !== "all"){
+                                $query->where("display","=", $params['filter']['display']);
+                            }
 
                             if($params['search'] !== ""){
 
@@ -92,6 +115,7 @@ class CategoryModel extends AdminModel
                                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                                 }
                             }
+
             $result     = $query->get()
                                 ->toArray();
         }

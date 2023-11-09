@@ -27,12 +27,22 @@ return [
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
         ],
         'is_home'=>[
-            '1'             =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
-            '0'             =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
+            1               =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
+            0               =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
+        ],
+        'is_home_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            1               =>  ['name'=>'Hiển thị'],
+            0               =>  ['name'=>'Không hiển thị'],
+        ],
+        'display_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            'list'          =>  ['name'=>'Danh sánh'],
+            'grid'          =>  ['name'=>'Lưới'],
         ],
         'display'=>[
-            'list'             =>  ['name'=>'Danh sánh'],
-            'grid'             =>  ['name'=>'Lưới'],
+            'list'          =>  ['name'=>'Danh sánh'],
+            'grid'          =>  ['name'=>'Lưới'],
         ],
         'search'=>[
             'all'           =>  ['name'=>'Search by All'],

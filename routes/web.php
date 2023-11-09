@@ -109,6 +109,11 @@ Route::group(['prefix'=>$prefixAdmin], function(){
             'uses'  => $controller . 'display'
         ]);
 
+        Route::get('change-display-filter-{display}', [
+            'as'    => $controllerName . '/displayFilter',
+            'uses'  => $controller . 'displayFilter'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
