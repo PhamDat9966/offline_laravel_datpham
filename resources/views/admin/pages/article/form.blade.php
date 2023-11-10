@@ -8,23 +8,14 @@
     $name           = (isset($item['name']))? $item->name : '';
     $status         = (isset($item['status']))? $item->status : '';
 
-    // OR
-    // $name           = (isset($item->name))? $item->name : '';
-    // $description    = (isset($item->description))? $item->description : '';
-    // $link           = (isset($item->link))? $item->link : '';
-    // $status         = (isset($item->status))? $item->status : 'null';
-    // $thumb          = (isset($item->thumb))? $item->thumb : 'null';
-
-    // Đối tượng Form là của Collective
-    // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
-
-    // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
+    $content        = (isset($item['content']))? $item->content : '';
+    $thumb          = (isset($item['thumb']))? $item->thumb : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenID      = Form::hidden('id' , $id);
+    $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
+    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -40,12 +31,27 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
+            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
+            'element'   =>  Form::textarea('My content', $content, [
+                                                'class'      => $formCkeditorAttr,
+                                                'name'       => 'content',
+                                                'id'         => 'content',
+                                                'onkeypress' => "return nameFunction(event);"
+                                            ])
+        ],
+        [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
+            'element'   =>  Form::file('thumb',  $formInputAttr),
+            'type'      =>  'thumb',
+            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+        ],
+        [
+            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -148,3 +154,6 @@
 <!-- /page content -->
 @endsection
 
+<script>
+    CKEDITOR.replace('content');
+</script>

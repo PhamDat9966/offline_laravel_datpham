@@ -32,7 +32,7 @@
                             //$content            = $val['content'];
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
 
-                            $miniThumb          = '105x105-'.$val['thumb'];
+                            $miniThumb          = $val['thumb'];
                             $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
@@ -46,7 +46,7 @@
                                 <p><strong>Name:</strong> {!! $name !!}</p>
                                 <p><strong>Content:</strong> {!! $content !!}</p>
                             </td>
-                            <td>
+                            <td width="10%">
                                 {!!$thumb!!}
                             </td>
                             <td>

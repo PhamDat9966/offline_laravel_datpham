@@ -13,7 +13,7 @@ class ArticleModel extends AdminModel
         $this->table                = 'article';
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content'];
-        $this->crudNotActived       = ['_token'];
+        $this->crudNotActived       = ['_token','thumb_current'];
     }
 
     public function listItems($params = null,$options = null){
@@ -129,8 +129,13 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'add-item'){
+
+            $thumb                  = $params['thumb'];
+            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
             $params['created_by']   = 'phamdat';
             $params['created']      = date('Y-m-d');
+
+            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
@@ -141,13 +146,32 @@ class ArticleModel extends AdminModel
 
             /* Save dữ liệu theo eloquent */
             $this->name         = $params['name'];
+            $this->content      = $params['content'];
             $this->status       = $params['status'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
+            $this->thumb        = $params['thumb'];
             $this->save();
         }
 
         if($options['task'] == 'edit-item'){
+
+            if(!empty($params["thumb"])){
+                // echo '<pre>';
+                // print_r($params);
+                // echo '</pre>';
+                // die();
+                /*Xóa ảnh cũ*/
+                $item   =  $this->getItem($params,['task' => 'get-thumb']);
+                //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
+                $this->deleteThumb($params['thumb_current']);
+                /* Thêm ảnh mới */
+                // $thumb                  = $params['thumb'];
+                // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
+                // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
+                $params['thumb']        = $this->uploadThumb($params['thumb']);
+                /* end Thêm ảnh mới */
+            }
 
             $params['modified_by']   = 'phamdat';
             $params['modified']      = date('Y-m-d');
@@ -162,6 +186,11 @@ class ArticleModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
+            $item   =  $this->getItem($params,['task' => 'get-thumb']);
+
+            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
+            $this->deleteThumb($item['thumb']);
+
             $this->where('id', $params['id'])->delete();
         }
     }
@@ -169,7 +198,7 @@ class ArticleModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','status')
+            $result = $this::select('id','name','content','status','thumb')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();

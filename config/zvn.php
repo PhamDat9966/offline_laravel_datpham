@@ -18,7 +18,9 @@ return [
         'form_input'=>[
             'class'         => 'form-control col-md-6 col-xs-12',
         ],
-
+        'form_ckeditor'=>[
+            'class'         => 'form-control col-md-6 col-xs-12 ckeditor',
+        ],
         'status'=>[
             'all'           =>  ['name'=>'Tất cả',          'class'=>'btn-info'],
             'active'        =>  ['name'=>'Kích hoạt',       'class'=>'btn-info'],

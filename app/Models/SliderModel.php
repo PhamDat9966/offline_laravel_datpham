@@ -134,6 +134,7 @@ class SliderModel extends AdminModel
 
         if($options['task'] == 'edit-item'){
             if(!empty($params["thumb"])){
+
                 /*Xóa ảnh cũ*/
                 $item   =  $this->getItem($params,['task' => 'get-thumb']);
                 //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
