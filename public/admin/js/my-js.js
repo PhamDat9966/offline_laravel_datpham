@@ -18,10 +18,7 @@ $(document).ready(function() {
 	let $selectChangeAttrAjax = $("select[name =  select_change_attr_ajax]");
 
     let $selectChangeDisplayFilter = $("select[name =  select_change_display_filter]");
-<<<<<<< HEAD
     let $selectChangeIsHomeFilter = $("select[name =  select_change_is_home_filter]");
-=======
->>>>>>> origin/main
 
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
@@ -66,11 +63,7 @@ $(document).ready(function() {
         var search_field    = $inputSearchField.val();
         var search_value    = $inputSearchValue.val();
 
-<<<<<<< HEAD
         let params          = ['filter_status','filter_is_home','filter_display'];
-=======
-        let params          = ['filter_status','filter_display'];
->>>>>>> origin/main
         let link            = '';
         var searchParams    = new URLSearchParams(window.location.search);
 
@@ -117,11 +110,7 @@ $(document).ready(function() {
 		var pathname	= window.location.pathname;
 		let searchParams= new URLSearchParams(window.location.search);
 
-<<<<<<< HEAD
 		params 			= ['page', 'filter_status', 'filter_display', 'filter_is_home' ,'search_field', 'search_value'];
-=======
-		params 			= ['page', 'filter_status', 'filter_display' ,'search_field', 'search_value'];
->>>>>>> origin/main
 
 		let link		= "";
 		$.each( params, function( key, value ) {
@@ -176,11 +165,7 @@ $(document).ready(function() {
 
         let searchParams = new URLSearchParams(window.location.search);
 
-<<<<<<< HEAD
         params 			= ['page', 'filter_status', 'filter_is_home','search_field', 'search_value'];
-=======
-        params 			= ['page', 'filter_status', 'search_field', 'search_value'];
->>>>>>> origin/main
         let link        = '';
 
         $.each( params, function( key, value ) {
@@ -188,7 +173,6 @@ $(document).ready(function() {
 				link += value + "=" + searchParams.get(value) + "&"
 			}
 		});
-<<<<<<< HEAD
         window.location.href    = url + '?' + link + 'filter_display=' + select_value;;
 
         // url = url+'?filter_display='+select_value;
@@ -210,9 +194,6 @@ $(document).ready(function() {
 			}
 		});
         window.location.href    = url + '?' + link + 'filter_is_home=' + select_value;
-=======
-        window.location.href    = url + '?' + link.slice(0,-1) + '&' + 'filter_display=' + select_value;;
->>>>>>> origin/main
 
         // url = url+'?filter_display='+select_value;
         // console.log(url);

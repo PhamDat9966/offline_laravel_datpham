@@ -26,7 +26,6 @@ class CategoryModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
-<<<<<<< HEAD
             if($params['filter']['is_home'] !== "all"){
                 if($params['filter']['is_home'] == 'true'){
                     $params['filter']['is_home'] = 1;
@@ -36,8 +35,6 @@ class CategoryModel extends AdminModel
                 $query->where("is_home","=", $params['filter']['is_home']);
             }
 
-=======
->>>>>>> origin/main
 
             if($params['filter']['display'] !== "all"){
                 $query->where('display','=',$params['filter']['display']);
@@ -91,7 +88,6 @@ class CategoryModel extends AdminModel
 
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
-<<<<<<< HEAD
 
                             if($params['filter']['is_home'] !== "all"){
                                 $query->where("is_home","=", $params['filter']['is_home']);
@@ -101,11 +97,6 @@ class CategoryModel extends AdminModel
                                 $query->where("display","=", $params['filter']['display']);
                             }
 
-=======
-                           if($params['filter']['display'] !== "all"){
-                                $query->where("display","=", $params['filter']['display']);
-                            }
->>>>>>> origin/main
                             if($params['search'] !== ""){
 
                                 if($params["search"]["field"] == "all"){

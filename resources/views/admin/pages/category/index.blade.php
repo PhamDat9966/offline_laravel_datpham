@@ -2,15 +2,9 @@
 
 @php
     use App\Helpers\template as Template;
-<<<<<<< HEAD
     $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params['filter']['display'],$params['filter']['is_home']);
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
     $xhtmlItemIsHomeFilter  = Template::showItemIsHomeFilter($controllerName, $params['filter']['is_home']);
-=======
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params['filter']['display']);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-
->>>>>>> origin/main
     $xhtmlItemDisplayFilter  = Template::showItemDisplayFilter($controllerName, $params['filter']['display']);
 @endphp
 
@@ -30,18 +24,11 @@
                         {!!$xhtmlButtonFilter!!}
                     </div>
                     <div class="col-md-2">
-<<<<<<< HEAD
                         {{-- filter is home --}}
                         {!!$xhtmlItemIsHomeFilter!!}
                     </div>
                     <div class="col-md-2">
                         {{-- filter display --}}
-=======
-                        {{-- filter status and home --}}
-                    </div>
-                    <div class="col-md-2">
-                        {{-- filter status and home --}}
->>>>>>> origin/main
                         {!!$xhtmlItemDisplayFilter!!}
                     </div>
                     <div class="col-md-4">
