@@ -122,6 +122,55 @@ Route::group(['prefix'=>$prefixAdmin], function(){
     });
     // ====================== END CATEGORY ======================
 
+        // ====================== ARTICLE ======================
+        $prefix         =   'article';
+        $controllerName =   'article';
+        Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+            $controller =   ucfirst($controllerName) . 'Controller@';
+            Route::get('/', [
+                'as'    => $controllerName,
+                'uses'  => $controller . 'index'
+            ]);
+
+            Route::get('form/{id?}', [
+                'as'    => $controllerName . '/form',
+                'uses'  => $controller . 'form'
+            ])->where('id', '[0-9]+');
+
+            Route::get('delete/{id}', [
+                'as'    => $controllerName . '/delete',
+                'uses'  => $controller . 'delete'
+            ])->where('id', '[0-9]+');
+
+            Route::get('change-status-{status}/{id}', [
+                'as'    => $controllerName . '/status',
+                'uses'  => $controller . 'status'
+            ]);
+
+            Route::get('change-is-home-{isHome}/{id}', [
+                'as'    => $controllerName . '/isHome',
+                'uses'  => $controller . 'isHome'
+            ]);
+
+            Route::get('change-display-{display}/{id}', [
+                'as'    => $controllerName . '/display',
+                'uses'  => $controller . 'display'
+            ]);
+
+            Route::get('change-display-filter-{display}', [
+                'as'    => $controllerName . '/displayFilter',
+                'uses'  => $controller . 'displayFilter'
+            ]);
+
+            Route::post('save/{id?}', [
+                'as'    => $controllerName . '/save',
+                'uses'  => $controller . 'save'
+            ]);
+
+        });
+        // ====================== END CATEGORY ======================
+
 });
 
 Route::group(['prefix'=>$prefixNews], function(){

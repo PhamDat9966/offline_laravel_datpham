@@ -65,12 +65,14 @@ return [
         'search'    =>[
             'default'   =>  ['all','id','fullname'],
             'slider'    =>  ['all','id','name','description','link'],
-            'category'    =>  ['all','id','name']
+            'category'  =>  ['all','id','name'],
+            'article'   =>  ['all','name','content']
         ],
         'button'    =>[
             'default'   =>  ['edit','delete'],
             'slider'    =>  ['edit','delete','info'],
-            'category'  =>  ['edit','delete']
+            'category'  =>  ['edit','delete'],
+            'article'   =>  ['edit','delete']
         ]
     ]
 ];
