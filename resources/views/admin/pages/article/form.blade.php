@@ -7,7 +7,7 @@
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $status         = (isset($item['status']))? $item->status : '';
-
+    $category       = (isset($item['category_id']))? $item->category_id : '';
     $content        = (isset($item['content']))? $item->content : '';
     $thumb          = (isset($item['thumb']))? $item->thumb : '';
 
@@ -23,6 +23,8 @@
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
+    $categoryValue      = $itemsCategory;
+
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -32,17 +34,16 @@
         ],
         [
             'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('My content', $content, [
-                                                'class'      => $formCkeditorAttr,
-                                                'name'       => 'content',
-                                                'id'         => 'content',
-                                                'onkeypress' => "return nameFunction(event);"
-                                            ])
+            'element'   =>  Form::textarea('content', $content, $formCkeditorAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
+            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
+            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
@@ -154,6 +155,6 @@
 <!-- /page content -->
 @endsection
 
-<script>
+{{-- <script>
     CKEDITOR.replace('content');
-</script>
+</script> --}}

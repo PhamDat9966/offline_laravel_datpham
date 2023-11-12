@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\ArticleModel as MainModel;
+use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 
 class ArticleController extends Controller
@@ -31,6 +32,7 @@ class ArticleController extends Controller
 
         $this->params['filter']['display']   = $request->input('filter_display','all');
         $this->params['filter']['is_home']   = $request->input('filter_is_home','all');
+
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
@@ -55,8 +57,12 @@ class ArticleController extends Controller
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
+        $categoryModel      = new CategoryModel();
+        $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
+
         return view($this->pathViewController . 'form', [
-            'item'=>$item
+            'item'          =>$item,
+            'itemsCategory' =>$itemsCategory
         ]);
     }
 

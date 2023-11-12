@@ -20,7 +20,7 @@ class ArticleModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','content','status','thumb','created','created_by','modified','modified_by');
+            $query = $this->select('id','name','content','status','category_id','thumb','created','created_by','modified','modified_by');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -147,6 +147,7 @@ class ArticleModel extends AdminModel
             /* Save dữ liệu theo eloquent */
             $this->name         = $params['name'];
             $this->content      = $params['content'];
+            $this->category_id  = $params['category_id'];
             $this->status       = $params['status'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
@@ -157,10 +158,6 @@ class ArticleModel extends AdminModel
         if($options['task'] == 'edit-item'){
 
             if(!empty($params["thumb"])){
-                // echo '<pre>';
-                // print_r($params);
-                // echo '</pre>';
-                // die();
                 /*Xóa ảnh cũ*/
                 $item   =  $this->getItem($params,['task' => 'get-thumb']);
                 //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
@@ -198,7 +195,7 @@ class ArticleModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','content','status','thumb')
+            $result = $this::select('id','name','category_id','content','status','thumb')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
