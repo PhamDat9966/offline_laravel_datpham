@@ -11,6 +11,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Article Info</th>
                     <th class="column-title">Thumb</th>
+                    <th class="column-title">Category Name</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th>
@@ -31,6 +32,7 @@
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             //$content            = $val['content'];
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
+                            $categoryName       = $val['category_name'];
 
                             $miniThumb          = $val['thumb'];
                             $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
@@ -48,6 +50,9 @@
                             </td>
                             <td width="10%">
                                 {!!$thumb!!}
+                            </td>
+                            <td width="10%">
+                                {!!$categoryName!!}
                             </td>
                             <td>
                                 {!!$status!!}

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo loc
 class ArticleModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'article';
+        $this->table                = 'article as a';
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content'];
         $this->crudNotActived       = ['_token','thumb_current'];
@@ -20,8 +20,8 @@ class ArticleModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','content','status','category_id','thumb','created','created_by','modified','modified_by');
-
+            $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.created','a.created_by','a.modified','a.modified_by','c.name as category_name')
+                        ->leftJoin('category as c', 'a.category_id', '=', 'c.id');
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
             }

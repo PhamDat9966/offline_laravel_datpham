@@ -27,9 +27,9 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         $id         = $this->id;
-        $condName   = "bail|required|between:5,30|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
+        $condName   = "bail|required|between:5,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
         if(!empty($id)) {
-            $condName   = "bail|required|between:5,30|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [
             'name'          => $condName,

@@ -28,10 +28,10 @@ class SliderRequest extends FormRequest
     {
         $id         = $this->id;
         $condThumb  = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
-        $condName   = "bail|required|between:5,30|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
+        $condName   = "bail|required|between:5,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
         if(!empty($id)) {
             $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
-            $condName   = "bail|required|between:5,30|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [
             'name'          => $condName,           //'title' => 'required|unique:posts|max:255',
