@@ -131,6 +131,21 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemSelect($controllerName , $id , $displayValue , $fieldName){
+
+        $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
+        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+
+        $xhtml   =sprintf('<select name="select_change_attr" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showItemIsHome($controllerName , $id , $isHomeValue){
         $tmplIsHome             = Config::get('zvn.template.is_home');
 

@@ -15,15 +15,15 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
+    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
-    $statusValue        = [
+    $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
-    $categoryValue      = $itemsCategory;
+    $categoryValue     = $itemsCategory;
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [

@@ -20,7 +20,7 @@ class ArticleModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.created','a.created_by','a.modified','a.modified_by','c.name as category_name')
+            $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
                         ->leftJoin('category as c', 'a.category_id', '=', 'c.id');
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -115,6 +115,12 @@ class ArticleModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status]);
+        }
+
+        if($options['task'] == 'change-type'){
+            $type  = ($params['currentType'] == 'feature') ? 'inactive' : 'feature';
+            $this::where('id', $params['id'])
+                        ->update(['type' => $type]);
         }
 
         if($options['task'] == 'change-display'){

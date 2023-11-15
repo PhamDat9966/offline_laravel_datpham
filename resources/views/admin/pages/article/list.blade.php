@@ -12,9 +12,10 @@
                     <th class="column-title">Article Info</th>
                     <th class="column-title">Thumb</th>
                     <th class="column-title">Category Name</th>
+                    <th class="column-title">Kiểu bài viết</th>
                     <th class="column-title">Trạng thái</th>
-                    <th class="column-title">Tạo mới</th>
-                    <th class="column-title">Chỉnh sửa</th>
+                    {{-- <th class="column-title">Tạo mới</th>
+                    <th class="column-title">Chỉnh sửa</th> --}}
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -30,15 +31,15 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
-                            //$content            = $val['content'];
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
                             $categoryName       = $val['category_name'];
 
                             $miniThumb          = $val['thumb'];
                             $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
-                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
+                            $type               = Template::showItemSelect( $controllerName,$id,$val['type'], 'type');
+                            // $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
+                            // $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 
@@ -55,14 +56,13 @@
                                 {!!$categoryName!!}
                             </td>
                             <td>
+                                {!!$type!!}
+                            </td>
+                            <td>
                                 {!!$status!!}
                             </td>
-                            <td>
-                                {!!$createdHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}
-                            </td>
-                            <td>
-                                {!!$modifiedHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}
-                            </td>
+                            {{-- <td>{!!$createdHistory!!}</td>
+                            <td>{!!$modifiedHistory!!} </td> --}}
                             <td class="last">
                                 {!!$listButtonAction!!}
                             </td>

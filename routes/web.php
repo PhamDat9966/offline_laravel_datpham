@@ -148,6 +148,11 @@ Route::group(['prefix'=>$prefixAdmin], function(){
                 'uses'  => $controller . 'status'
             ]);
 
+            Route::get('change-type-{type}/{id}', [
+                'as'    => $controllerName . '/type',
+                'uses'  => $controller . 'type'
+            ]);
+
             Route::get('change-is-home-{isHome}/{id}', [
                 'as'    => $controllerName . '/isHome',
                 'uses'  => $controller . 'isHome'

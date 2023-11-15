@@ -86,7 +86,27 @@ class ArticleController extends Controller
             $statusAction = 'chưa kích hoạt';
             $statusNextAction   = "đã được kích hoạt";
         }
+
         return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+    }
+
+    public function type(Request $request)
+    {
+
+        $params['currentType']      = $request->type;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-type']);
+        // End Update
+
+        $typeAction       = "thông thường";
+        $typeNextAction   = "nổi bật";
+        if($params['currentType'] == 'normal'){
+            $typeAction = 'nổi bật';
+            $typeNextAction   = "thông thường";
+        }
+
+        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với kiểu "'.$typeAction.'" đã được thay đổi thành kiểu "'.$typeNextAction.'" !');
     }
 
     public function isHome(Request $request)

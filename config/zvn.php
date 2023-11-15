@@ -32,6 +32,10 @@ return [
             1               =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             0               =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
         ],
+        'type'=>[
+            'feature'       =>  ['name'=>'Nổi bật'],
+            'normal'        =>  ['name'=>'Bình thường'],
+        ],
         'is_home_filter'=>[
             'all'           =>  ['name'=>'Tất cả'],
             1               =>  ['name'=>'Hiển thị'],
