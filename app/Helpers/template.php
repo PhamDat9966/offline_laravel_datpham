@@ -11,7 +11,9 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay = null,$currentFilterIsHome = null, $currentCategory = null){
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentParams = null){
+
+
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -34,16 +36,23 @@ class Template{
                     $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
                 }
 
-                if($currentFilterDisplay != ''){
-                    $link .= '&filter_display='. $currentFilterDisplay;
+                /*category*/
+                if(isset($currentParams['filter']['display'])){
+                    if($currentParams['filter']['display'] != ''){
+                        $link .= '&filter_display='. $currentParams['filter']['display'];
+                    }
                 }
-                if($currentFilterIsHome != ''){
-                    $link .= '&filter_is_home='. $currentFilterIsHome;
+                if(isset($currentParams['filter']['is_home'])){
+                    if($currentParams['filter']['is_home'] != ''){
+                        $link .= '&filter_is_home='. $currentParams['filter']['is_home'];
+                    }
                 }
 
                 /*article*/
-                if($currentCategory != ''){
-                    $link .= '&filter_category='. $currentCategory;
+                if(isset($currentParams['filter']['category'])){
+                    if($currentParams['filter']['category'] != ''){
+                        $link .= '&filter_category='. $currentParams['filter']['category'];
+                    }
                 }
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
@@ -243,15 +252,13 @@ class Template{
 
     public static function showItemCategoryFilter($controllerName , $categoryFilterValue = null, $categoryList = null){
         $tmplCategory   = $categoryList;
-
-        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
 
         $xhtml   =sprintf('<select name="select_change_is_category_filter" data-url=%s class="form-control input-sm">',$link);
         foreach($tmplCategory as $key => $value){
             $xhtmlSelect = '';
-            if(strval($key) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
-            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
+            if(strval($value['id']) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect , $value['name']);
         }
         $xhtml  .='</select>';
         return  $xhtml;

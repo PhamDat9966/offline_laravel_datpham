@@ -85,8 +85,7 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'category-list'){
-            $query = $this->select('id','name')
-                          ->where('status','=','active');
+            $query = $this->select('id','name');
             $result = $query->get()->toArray();
         }
 
