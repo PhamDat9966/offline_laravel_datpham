@@ -36,6 +36,11 @@ return [
             'feature'       =>  ['name'=>'Nổi bật'],
             'normal'        =>  ['name'=>'Bình thường'],
         ],
+        'type_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            'feature'       =>  ['name'=>'Nổi bật'],
+            'normal'        =>  ['name'=>'Bình thường'],
+        ],
         'is_home_filter'=>[
             'all'           =>  ['name'=>'Tất cả'],
             1               =>  ['name'=>'Hiển thị'],

@@ -1,14 +1,12 @@
 @extends('admin.main')
 
 @php
-// echo '<pre>Nhắc việc -> Nên chuyên hàm Template::showButtonFilter nhập 1 params thay vì nhập $params["filter"]["display"],$params["filter"]["is_home"], $params["filter"]["category"] để tối ưu hóa';
-// print_r($params);
-// echo '</pre>';
     use App\Helpers\template as Template;
     $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
 
     $xhtmlCategoryFilter    = Template::showItemCategoryFilter($controllerName, $params['filter']['category'], $categoryList);
+    $xhtmlItemTypeFilter    = Template::showItemTypeFilter($controllerName, $params['filter']['type']);
 @endphp
 
 @section('content')
@@ -28,6 +26,9 @@
                     </div>
                     <div class="col-md-2">
                         {!!$xhtmlCategoryFilter!!}
+                    </div>
+                    <div class="col-md-2">
+                        {!!$xhtmlItemTypeFilter!!}
                     </div>
                     <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}

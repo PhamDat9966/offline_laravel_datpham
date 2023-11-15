@@ -31,6 +31,7 @@ class ArticleController extends Controller
         $this->params['search']['value']    = $request->input('search_value','');
 
         $this->params['filter']['category']   = $request->input('filter_category','all');
+        $this->params['filter']['type']       = $request->input('filter_type','all');
 
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);

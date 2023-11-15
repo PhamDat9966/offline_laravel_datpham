@@ -34,6 +34,10 @@ class ArticleModel extends AdminModel
                 $query->where("category_id","=", $params['filter']['category']);
             }
 
+            if($params['filter']['type'] !== "all"){
+                $query->where("type","=", $params['filter']['type']);
+            }
+
             if($params['search'] !== ""){
 
                 if($params["search"]["field"] == "all"){
@@ -86,6 +90,11 @@ class ArticleModel extends AdminModel
                             if($params['filter']['category'] !== "all"){
                                 $query->where("category_id","=", $params['filter']['category']);
                             }
+
+                            if($params['filter']['type'] !== "all"){
+                                $query->where("type","=", $params['filter']['type']);
+                            }
+
 
                             if($params['search'] !== ""){
 
