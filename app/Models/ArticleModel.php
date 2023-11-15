@@ -17,13 +17,21 @@ class ArticleModel extends AdminModel
     }
 
     public function listItems($params = null,$options = null){
-
+        // echo '<pre>';
+        // print_r($params);
+        // echo '</pre>';
+        // die();
         $result = null;
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
                         ->leftJoin('category as c', 'a.category_id', '=', 'c.id');
+
             if($params['filter']['status'] !== "all"){
-                $query->where('status','=',$params['filter']['status']);
+                $query->where('a.status','=',$params['filter']['status']);
+            }
+
+            if($params['filter']['category'] !== "all"){
+                $query->where("category_id","=", $params['filter']['category']);
             }
 
             if($params['search'] !== ""){
@@ -33,7 +41,7 @@ class ArticleModel extends AdminModel
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
@@ -75,12 +83,8 @@ class ArticleModel extends AdminModel
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
 
-                            if($params['filter']['is_home'] !== "all"){
-                                $query->where("is_home","=", $params['filter']['is_home']);
-                            }
-
-                            if($params['filter']['display'] !== "all"){
-                                $query->where("display","=", $params['filter']['display']);
+                            if($params['filter']['category'] !== "all"){
+                                $query->where("category_id","=", $params['filter']['category']);
                             }
 
                             if($params['search'] !== ""){

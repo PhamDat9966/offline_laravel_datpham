@@ -1,9 +1,14 @@
 @extends('admin.main')
 
 @php
+echo '<pre>Nhắc việc -> Nên chuyên hàm Template::showButtonFilter nhập 1 params thay vì nhập $params["filter"]["display"],$params["filter"]["is_home"], $params["filter"]["category"] để tối ưu hóa';
+print_r($params);
+echo '</pre>';
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params['filter']['display'],$params['filter']['is_home']);
+    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],null,null,$params['filter']['category']);
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+
+    $xhtmlCategoryFilter    = Template::showItemCategoryFilter($controllerName, $params['filter']['category'], $categoryList);
 @endphp
 
 @section('content')
@@ -18,10 +23,13 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        {!!$xhtmlCategoryFilter!!}
+                    </div>
+                    <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">

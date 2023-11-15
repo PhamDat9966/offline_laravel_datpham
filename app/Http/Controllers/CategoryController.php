@@ -115,14 +115,6 @@ class CategoryController extends Controller
 
     }
 
-    public function displayFilter(Request $request)
-    {
-       $displayFilter   = $request->display;
-
-       echo "<h3 style='color:red'>displayFilter</h3>";
-
-    }
-
     public function delete(Request $request)
     {
         $params['id']               = $request->id;

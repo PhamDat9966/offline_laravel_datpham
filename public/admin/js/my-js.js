@@ -20,6 +20,8 @@ $(document).ready(function() {
     let $selectChangeDisplayFilter = $("select[name =  select_change_display_filter]");
     let $selectChangeIsHomeFilter = $("select[name =  select_change_is_home_filter]");
 
+    let $selectChangeCategoryFilter = $("select[name =  select_change_is_category_filter]");
+
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
 	console.log(searchParams);
@@ -59,11 +61,11 @@ $(document).ready(function() {
 	// });
 
     $btnSearch.click(function(){
-        var pathname = window.location.pathname; //path hien tai
+        var pathname = window.location.pathname; //path hien tai không bao gồm param, tức là chỉ lấy đến hết dấu hỏi
         var search_field    = $inputSearchField.val();
         var search_value    = $inputSearchValue.val();
 
-        let params          = ['filter_status','filter_is_home','filter_display'];
+        let params          = ['filter_status','filter_is_home','filter_display','filter_category'];
         let link            = '';
         var searchParams    = new URLSearchParams(window.location.search);
 
@@ -232,6 +234,28 @@ $(document).ready(function() {
 
 	});
 
+    /*article*/
+    $selectChangeCategoryFilter.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+        //var pathname	= window.location.pathname;
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        params 			= ['filter_status','search_field', 'search_value'];
+        let link        = '';
+
+        $.each( params, function( key, value ) {
+			if (searchParams.has(value) ) {
+				link += value + "=" + searchParams.get(value) + "&"
+			}
+		});
+        window.location.href    = url + '?' + link + 'filter_category=' + select_value;
+
+        // url = url+'?filter_display='+select_value;
+        // console.log(url);
+    });
+
     //Confirm button delete item
 	$('.btn-delete').on('click', function() {
 		if(!confirm('Bạn có chắc muốn xóa phần tử?'))
@@ -242,5 +266,6 @@ $(document).ready(function() {
 	// $('.datepicker').datepicker({
 	// 	format: 'dd-mm-yyyy',
 	// });
+
 
 });

@@ -11,7 +11,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay = null,$currentFilterIsHome = null){
+    public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentFilterDisplay = null,$currentFilterIsHome = null, $currentCategory = null){
         $xhtml          = '';
         $tmplStatus     = Config::get('zvn.template.status');
 
@@ -30,15 +30,20 @@ class Template{
                    //$value['status'] active inactive block
                 $link    = route($controllerName) . "?filter_status=" . $statusValue;
 
-                if($paramsSearch['value'] !==''){
+                if($paramsSearch['value'] != ''){
                     $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
                 }
 
-                if($currentFilterDisplay !==''){
+                if($currentFilterDisplay != ''){
                     $link .= '&filter_display='. $currentFilterDisplay;
                 }
-                if($currentFilterIsHome !==''){
+                if($currentFilterIsHome != ''){
                     $link .= '&filter_is_home='. $currentFilterIsHome;
+                }
+
+                /*article*/
+                if($currentCategory != ''){
+                    $link .= '&filter_category='. $currentCategory;
                 }
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
@@ -172,6 +177,38 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
+
+        $xhtml  = sprintf('
+            <p><img src="%s" alt="%s" class="zvn-thumb" /></p>', asset("images/$controllerName/$thumbName"), $thumbAlt);
+        return  $xhtml;
+    }
+
+    public static function showButtonAction($controllerName, $id){
+        $tmplButton     = Config::get('zvn.template.button');
+
+        // $buttonInArea   =   [
+        //     'default'   =>  ['edit','delete'],
+        //     'slider'    =>  ['edit','delete']
+        // ];
+        $buttonInArea   = Config::get('zvn.config.button');
+
+        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
+        $listButtons    = $buttonInArea[$controllerName];
+
+        $xhtml   ='<div class="zvn-box-btn-filter">';
+        foreach($listButtons as $btn){
+            $currentButton  = $tmplButton[$btn];
+            $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
+            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+                                        <i class="fa %s"></i>
+                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        }
+        $xhtml  .='</div>';
+        return  $xhtml;
+    }
+
+    /* Filter Selectbox */
     public static function showItemDisplayFilter($controllerName , $displayFilterValue = null){
         $tmplDisplay    = Config::get('zvn.template.display_filter');
 
@@ -204,35 +241,19 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemCategoryFilter($controllerName , $categoryFilterValue = null, $categoryList = null){
+        $tmplCategory   = $categoryList;
 
-    public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
+        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
+        $link           = route($controllerName);
 
-        $xhtml  = sprintf('
-            <p><img src="%s" alt="%s" class="zvn-thumb" /></p>', asset("images/$controllerName/$thumbName"), $thumbAlt);
-        return  $xhtml;
-    }
-
-    public static function showButtonAction($controllerName, $id){
-        $tmplButton     = Config::get('zvn.template.button');
-
-        // $buttonInArea   =   [
-        //     'default'   =>  ['edit','delete'],
-        //     'slider'    =>  ['edit','delete']
-        // ];
-        $buttonInArea   = Config::get('zvn.config.button');
-
-        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
-        $listButtons    = $buttonInArea[$controllerName];
-
-        $xhtml   ='<div class="zvn-box-btn-filter">';
-        foreach($listButtons as $btn){
-            $currentButton  = $tmplButton[$btn];
-            $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
-            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
-                                        <i class="fa %s"></i>
-                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        $xhtml   =sprintf('<select name="select_change_is_category_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplCategory as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($key) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
         }
-        $xhtml  .='</div>';
+        $xhtml  .='</select>';
         return  $xhtml;
     }
 
