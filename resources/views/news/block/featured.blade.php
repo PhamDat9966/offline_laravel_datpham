@@ -38,28 +38,8 @@
             <!-- Post -->
             <div class="post_item post_v_large d-flex flex-column align-items-start justify-content-start">
                 <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
-                    <div class="post_image"><img src="{{ $thumb }}"
-                                                 alt="{{ $name }}"
-                                                 class="img-fluid w-100"></div>
-                    <div class="post_content">
-                        <div class="post_category cat_technology ">
-                            <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
-                        </div>
-                        <div class="post_title"><a
-                                href="{{ $linkArticle }}">{{ $name }}</a></div>
-                        <div class="post_info d-flex flex-row align-items-center justify-content-start">
-                            <div class="post_author d-flex flex-row align-items-center justify-content-start">
-                                <div class="post_author_name"><a href="#">{{ $created_by }}</a>
-                                </div>
-                            </div>
-                            <div class="post_date"><a href="#">{{$created}}</a></div>
-                        </div>
-                        <div class="post_text">
-                            <p>
-                                {{$content}}
-                            </p>
-                        </div>
-                    </div>
+                    @include('news.partials.article.image',['item'=>$items[0]])
+                    @include('news.partials.article.content',['item'=>$items[0]])
                 </div>
             </div>
         </div>
