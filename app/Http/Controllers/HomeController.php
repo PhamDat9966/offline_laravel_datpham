@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderModel;
 use App\Models\CategoryModel;
+use App\Models\ArticleModel;
 
 class HomeController extends Controller
 {
@@ -29,10 +30,14 @@ class HomeController extends Controller
         $categoryModel = new CategoryModel();
         $itemsCategory = $categoryModel->listItems(null, ['task'=> 'news-list-items-is-home']);
 
+        $articleModel   = new ArticleModel();
+        $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-feature']);
+
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
-             'itemsCategory'        => $itemsCategory
+             'itemsCategory'        => $itemsCategory,
+             'itemsFeature'         => $itemsFeature
         ]);
     }
 

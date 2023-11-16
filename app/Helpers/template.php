@@ -284,6 +284,15 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showDataFrontEnd($datatime){
+        return date_format(date_create($datatime), Config::get('zvn.format.short_time'));
+    }
+
+    public static function showContent($content,$lenght,$prefix = '...'){
+        $content = str_replace(['<p>','</p>'], '', $content);
+        return preg_replace('/\s+?(\S+)?$/','', substr($content,0, $lenght) . $prefix);
+    }
+
 }
 
 //          class    title   icon    route-name

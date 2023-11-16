@@ -1,3 +1,6 @@
+@php
+
+@endphp
 <div class="featured">
     <div class="featured_title">
         <div class="container">
@@ -16,34 +19,44 @@
     <!-- Featured Title -->
     <div class="row">
         <div class="col-lg-8">
+            @php
+                use App\Helpers\Template as Template;
+
+                $itemFeaturedFirst  = $items[0];
+                $name               = $itemFeaturedFirst['name'];
+                $thumb              = asset('images/article/' . $itemFeaturedFirst['thumb']);
+                $categoryName       = $itemFeaturedFirst['category_name'];
+
+                $linkCategory       = '#';
+                $linkArticle        = '#';
+
+                $created            = Template::showDataFrontEnd($itemFeaturedFirst['created']);
+                $content            = Template::showContent($itemFeaturedFirst['content'], 500);
+
+                $created_by         = 'Lưu Trường Hải Lân';
+            @endphp
             <!-- Post -->
             <div class="post_item post_v_large d-flex flex-column align-items-start justify-content-start">
                 <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
-                    <div class="post_image"><img src="{!!asset('news/images/article/L3Yuzln8II.png')!!}"
-                                                 alt="{!!asset('news/images/article/L3Yuzln8II.png')!!}"
+                    <div class="post_image"><img src="{{ $thumb }}"
+                                                 alt="{{ $name }}"
                                                  class="img-fluid w-100"></div>
                     <div class="post_content">
                         <div class="post_category cat_technology ">
-                            <a href="the-loai/the-thao-1.html">Thể thao</a>
+                            <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
                         </div>
                         <div class="post_title"><a
-                                href="bai-viet/liverpool-chi-duoc-nang-cup-phien-ban-neu-vo-dich-hom-nay-4.html">Liverpool
-                            chỉ được nâng Cup phiên bản nếu vô địch hôm nay</a></div>
+                                href="{{ $linkArticle }}">{{ $name }}</a></div>
                         <div class="post_info d-flex flex-row align-items-center justify-content-start">
                             <div class="post_author d-flex flex-row align-items-center justify-content-start">
-                                <div class="post_author_name"><a href="#">Lưu Trường Hải Lân</a>
+                                <div class="post_author_name"><a href="#">{{ $created_by }}</a>
                                 </div>
                             </div>
-                            <div class="post_date"><a href="#">29/04/2019</a></div>
+                            <div class="post_date"><a href="#">{{$created}}</a></div>
                         </div>
                         <div class="post_text">
-                            <p>Đội bóng thành phố cảng sẽ không nâng Cup nguyên bản nếu vượt mặt
-                                Man City ở vòng cuối Ngoại hạng Anh.
-                                Liverpool kém Man City một điểm trước khi tiếp Wolverhampton
-                                trên sân nhà Anfield vào ngày Chủ Nhật. Ở trận đấu cùng giờ, Man
-                                City sẽ làm khách tới sân Brighton và biết một chiến thắng sẽ
-                                giúp họ bảo vệ thành công ngôi vô địch. Kể từ khi các trận vòng
-                                cuối Ngoại hạng Anh sẽ chơi đồng loạt...
+                            <p>
+                                {{$content}}
                             </p>
                         </div>
                     </div>

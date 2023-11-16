@@ -17,10 +17,6 @@ class ArticleModel extends AdminModel
     }
 
     public function listItems($params = null,$options = null){
-        // echo '<pre>';
-        // print_r($params);
-        // echo '</pre>';
-        // die();
         $result = null;
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
@@ -52,7 +48,7 @@ class ArticleModel extends AdminModel
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
@@ -68,10 +64,13 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
-        if($options['task'] == 'news-list-items-is-home'){
-            $query = $this->select('id','name','display')
-                          ->where('status','=','active')
-                          ->where('is_home','=','1');
+        if($options['task'] == 'news-list-items-feature'){
+            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->where('a.type','feature')
+                          ->orderBy('a.id', 'desc')
+                          ->take(3);
             $result = $query->get()->toArray();
         }
 

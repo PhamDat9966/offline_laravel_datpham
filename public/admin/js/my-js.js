@@ -66,7 +66,7 @@ $(document).ready(function() {
         var search_field    = $inputSearchField.val();
         var search_value    = $inputSearchValue.val();
 
-        let params          = ['filter_status','filter_is_home','filter_display','filter_category'];
+        let params          = ['filter_status','filter_is_home','filter_display','filter_category','filter_type'];
         let link            = '';
         var searchParams    = new URLSearchParams(window.location.search);
 
