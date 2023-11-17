@@ -26,7 +26,7 @@
                 <div class="col-lg-3">
                     <div class="sidebar">
                         <!-- Latest Posts -->
-                        @include('news.block.lasted-posts',['itemsLatest'=>[]])
+                        @include('news.block.lasted-posts',['items'=>$itemsLatest])
                         <!-- Advertisement -->
                         @include('news.block.advertisement',['itemsAdvertisement'=>[]])
                         <!-- Most Viewed -->

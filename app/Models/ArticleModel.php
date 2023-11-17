@@ -74,6 +74,34 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-items-normal'){
+            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->orderBy('a.id', 'desc')
+                          ->take(3);
+            $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-many-conditions'){
+            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->orwhere('a.type','feature')
+                          ->orderBy('a.id', 'desc')
+                          ->take(3);
+            $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-latest'){
+            $query = $this->select('a.id','a.name','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->orderBy('a.id', 'desc')
+                          ->take(4);
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 

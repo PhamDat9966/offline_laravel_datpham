@@ -32,12 +32,18 @@ class HomeController extends Controller
 
         $articleModel   = new ArticleModel();
         $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-feature']);
+        if(count($itemsFeature) < 3){
+            $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-many-conditions']); // Lấy dữ liệu bao gồm cả nổi bật và không nổi bật
+        }
+
+        $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
              'itemsCategory'        => $itemsCategory,
-             'itemsFeature'         => $itemsFeature
+             'itemsFeature'         => $itemsFeature,
+             'itemsLatest'          => $itemsLatest
         ]);
     }
 

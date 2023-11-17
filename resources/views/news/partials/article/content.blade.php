@@ -11,6 +11,7 @@
     $content            = Template::showContent($item['content'], $lenghtContent);
     $created_by         = 'Lưu Trường Hải Lân';
     $classPost          = Str::slug($categoryName);
+
 @endphp
 <div class="post_content">
     <div class="post_category cat_technology {{$classPost}}">
@@ -25,7 +26,7 @@
         </div>
         <div class="post_date"><a href="#">{{$created}}</a></div>
     </div>
-    @if ($lenghtContent == 0)
+    @if ($lenghtContent > 0)
         <div class="post_text">
             <p>
                 {{$content}}
