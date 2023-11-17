@@ -1,7 +1,7 @@
 @php
 
-    $name   = $itemFeaturedFirst['name'];
-    $thumb  = asset('images/article/' . $itemFeaturedFirst['thumb']);
+    $name   = $item['name'];
+    $thumb  = asset('images/article/' . $item['thumb']);
 
 @endphp
 <div class="post_image">

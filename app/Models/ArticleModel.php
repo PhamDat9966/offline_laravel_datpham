@@ -130,7 +130,7 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'change-type'){
-            $type  = ($params['currentType'] == 'feature') ? 'inactive' : 'feature';
+            $type  = ($params['currentType'] == 'feature') ? 'feature' : 'normal';
             $this::where('id', $params['id'])
                         ->update(['type' => $type]);
         }

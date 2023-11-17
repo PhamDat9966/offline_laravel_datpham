@@ -1,5 +1,6 @@
 @php
     use App\Helpers\Template as Template;
+    use Illuminate\Support\Str;
 
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
@@ -7,12 +8,12 @@
     $linkCategory       = '#';
     $linkArticle        = '#';
     $created            = Template::showDataFrontEnd($item['created']);
-    $content            = Template::showContent($item['content'], 500);
+    $content            = Template::showContent($item['content'], $lenghtContent);
     $created_by         = 'Lưu Trường Hải Lân';
-
+    $classPost          = Str::slug($categoryName);
 @endphp
 <div class="post_content">
-    <div class="post_category cat_technology ">
+    <div class="post_category cat_technology {{$classPost}}">
         <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
     </div>
     <div class="post_title"><a
@@ -24,9 +25,11 @@
         </div>
         <div class="post_date"><a href="#">{{$created}}</a></div>
     </div>
-    <div class="post_text">
-        <p>
-            {{$content}}
-        </p>
-    </div>
+    @if ($lenghtContent == 0)
+        <div class="post_text">
+            <p>
+                {{$content}}
+            </p>
+        </div>
+    @endif
 </div>
