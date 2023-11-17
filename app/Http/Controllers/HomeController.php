@@ -32,6 +32,7 @@ class HomeController extends Controller
 
         $articleModel   = new ArticleModel();
         $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-feature']);
+        // Trường hợp số bài viết nổi bật thấp hơn 3
         if(count($itemsFeature) < 3){
             $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-many-conditions']); // Lấy dữ liệu bao gồm cả nổi bật và không nổi bật
         }
