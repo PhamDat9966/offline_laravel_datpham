@@ -88,6 +88,7 @@ class ArticleModel extends AdminModel
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
                           ->where('a.status','=','active')
                           ->orwhere('a.type','feature')
+                          ->orderBy('a.type', 'asc')
                           ->orderBy('a.id', 'desc')
                           ->take(3);
             $result = $query->get()->toArray();
@@ -97,6 +98,16 @@ class ArticleModel extends AdminModel
             $query = $this->select('a.id','a.name','a.created','a.category_id','c.name as category_name','a.thumb')
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
                           ->where('a.status','=','active')
+                          ->orderBy('a.id', 'desc')
+                          ->take(4);
+            $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-in-category'){
+            $query = $this->select('a.id','a.name','a.created','a.content','a.created','a.thumb','a.type')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->where('a.category_id','=',$params['category_id'])
                           ->orderBy('a.id', 'desc')
                           ->take(4);
             $result = $query->get()->toArray();

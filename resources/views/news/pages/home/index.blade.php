@@ -18,7 +18,7 @@
                         @include('news.block.featured',['items'=>$itemsFeature])
 
                         <!-- Category -->
-                        @include('news.pages.child-index.category')
+                        @include('news.pages.child-index.category',['itemsCategory'=>$itemsCategory])
 
                     </div>
                 </div>

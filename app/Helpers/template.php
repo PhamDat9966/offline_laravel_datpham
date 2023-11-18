@@ -35,29 +35,35 @@ class Template{
                     $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
                 }
 
-                /*category*/
-                if(isset($currentParams['filter']['display'])){
-                    if($currentParams['filter']['display'] != ''){
-                        $link .= '&filter_display='. $currentParams['filter']['display'];
-                    }
-                }
-                if(isset($currentParams['filter']['is_home'])){
-                    if($currentParams['filter']['is_home'] != ''){
-                        $link .= '&filter_is_home='. $currentParams['filter']['is_home'];
+                foreach (['display', 'is_home', 'category', 'type'] as $filterKey) {
+                    if (isset($currentParams['filter'][$filterKey]) && $currentParams['filter'][$filterKey] != '') {
+                        $link .= "&filter_$filterKey=" . $currentParams['filter'][$filterKey];
                     }
                 }
 
-                /*article*/
-                if(isset($currentParams['filter']['category'])){
-                    if($currentParams['filter']['category'] != ''){
-                        $link .= '&filter_category='. $currentParams['filter']['category'];
-                    }
-                }
-                if(isset($currentParams['filter']['type'])){
-                    if($currentParams['filter']['type'] != ''){
-                        $link .= '&filter_type='. $currentParams['filter']['type'];
-                    }
-                }
+                // /*category*/
+                // if(isset($currentParams['filter']['display'])){
+                //     if($currentParams['filter']['display'] != ''){
+                //         $link .= '&filter_display='. $currentParams['filter']['display'];
+                //     }
+                // }
+                // if(isset($currentParams['filter']['is_home'])){
+                //     if($currentParams['filter']['is_home'] != ''){
+                //         $link .= '&filter_is_home='. $currentParams['filter']['is_home'];
+                //     }
+                // }
+
+                // /*article*/
+                // if(isset($currentParams['filter']['category'])){
+                //     if($currentParams['filter']['category'] != ''){
+                //         $link .= '&filter_category='. $currentParams['filter']['category'];
+                //     }
+                // }
+                // if(isset($currentParams['filter']['type'])){
+                //     if($currentParams['filter']['type'] != ''){
+                //         $link .= '&filter_type='. $currentParams['filter']['type'];
+                //     }
+                // }
 
                 $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
                 $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',

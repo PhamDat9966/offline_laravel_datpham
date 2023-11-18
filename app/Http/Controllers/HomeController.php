@@ -24,13 +24,12 @@ class HomeController extends Controller
 
     public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
     {
-        $sliderModel = new SliderModel();
-        $itemsSlider = $sliderModel->listItems(null, ['task'=>'news-list-items']);
-
-        $categoryModel = new CategoryModel();
-        $itemsCategory = $categoryModel->listItems(null, ['task'=> 'news-list-items-is-home']);
-
+        $sliderModel    = new SliderModel();
+        $categoryModel  = new CategoryModel();
         $articleModel   = new ArticleModel();
+
+        $itemsSlider    = $sliderModel->listItems(null, ['task'=>'news-list-items']);
+        $itemsCategory  = $categoryModel->listItems(null, ['task'=> 'news-list-items-is-home']);
         $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-feature']);
         // Trường hợp số bài viết nổi bật thấp hơn 3
         if(count($itemsFeature) < 3){
@@ -38,6 +37,10 @@ class HomeController extends Controller
         }
 
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
+        foreach($itemsCategory as $key=>$value){
+            $params = ['category_id'=>$value['id']];
+            $itemsCategory[$key]['article'] = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category']);
+        }
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,

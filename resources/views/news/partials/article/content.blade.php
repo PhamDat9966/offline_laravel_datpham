@@ -4,7 +4,10 @@
 
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
-    $categoryName       = $item['category_name'];
+
+    $showCategory       = (isset($showCategory)) ? $showCategory : 'false';
+    $categoryName       = (isset($item['category_name'])) ? $item['category_name']:"";
+
     $linkCategory       = '#';
     $linkArticle        = '#';
     $created            = Template::showDataFrontEnd($item['created']);
@@ -14,9 +17,11 @@
 
 @endphp
 <div class="post_content">
-    <div class="post_category cat_technology {{$classPost}}">
-        <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
-    </div>
+    @if($showCategory == true)
+        <div class="post_category cat_technology {{$classPost}}">
+            <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
+        </div>
+    @endif
     <div class="post_title"><a
             href="{{ $linkArticle }}">{{ $name }}</a></div>
     <div class="post_info d-flex flex-row align-items-center justify-content-start">
@@ -26,6 +31,7 @@
         </div>
         <div class="post_date"><a href="#">{{$created}}</a></div>
     </div>
+
     @if ($lenghtContent > 0)
         <div class="post_text">
             <p>

@@ -1,8 +1,11 @@
+@php
+
+@endphp
 @foreach ($itemsCategory as $key=>$item)
     @if ($item['display'] == 'list')
-        @include('news.pages.child-index.category_list')
+        @include('news.pages.child-index.category_list',['item'=>$item,'lenghtContent'=> 500])
     @elseif ($item['display'] == 'grid')
-        @include('news.pages.child-index.category_grid')
+        @include('news.pages.child-index.category_grid',['item'=>$item,'lenghtContent'=> 500])
     @endif
 @endforeach
 
