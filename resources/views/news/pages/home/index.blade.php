@@ -2,9 +2,6 @@
 {{-- @include('news.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
                                                 trước sau đó mới thực hiện khối lệnh php--}}
 @section('content')
-    @php
-
-    @endphp
     @include('news.block.slider')
 
     <!-- Content Container -->
@@ -18,7 +15,7 @@
                         @include('news.block.featured',['items'=>$itemsFeature])
 
                         <!-- Category -->
-                        @include('news.pages.child-index.category',['itemsCategory'=>$itemsCategory])
+                        @include('news.pages.home.child-index.category',['itemsCategory'=>$itemsCategory])
 
                     </div>
                 </div>

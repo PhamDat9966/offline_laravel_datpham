@@ -96,9 +96,6 @@ class Template{
         //     'slider'    =>  ['all','id','description']
         // ];
 
-        // echo "<pre>";
-        // print_r($paramsSearch);
-        // echo "</pre>";
 
         $fieldInController  = Config::get('zvn.config.search');
         $controllerName     = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';

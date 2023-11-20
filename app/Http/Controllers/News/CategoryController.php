@@ -24,13 +24,19 @@ class CategoryController extends Controller
 
     public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
     {
+        $this->params['category_id'] = $request->category_id;
         $articleModel   = new ArticleModel();
+        $categoryModel  = new CategoryModel();
 
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
+        $itemCategory  = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
+
+        $itemCategory['article'] = $articleModel->listItems($this->params, ['task'=> 'news-list-items-in-category']);
 
         return view($this->pathViewController . 'index',[
-             'params'               => $this->params,
-             'itemsLatest'          => $itemsLatest
+             'params'       => $this->params,
+             'itemsLatest'  => $itemsLatest,
+             'itemCategory' => $itemCategory
         ]);
     }
 
