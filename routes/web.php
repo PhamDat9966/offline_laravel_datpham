@@ -178,7 +178,8 @@ Route::group(['prefix'=>$prefixAdmin], function(){
 
 });
 
-Route::group(['prefix'=>$prefixNews], function(){
+// $prefixNews = 'news69'
+Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     // ====================== HOME ======================
     $prefix         =   '';
@@ -192,7 +193,20 @@ Route::group(['prefix'=>$prefixNews], function(){
         ]);
 
     });
-
     // ====================== END HOME ======================
+
+    // ====================== CATEGORY ======================
+    $prefix         =   'chuyen-muc';
+    $controllerName =   'category';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/{category_name}-{category_id}.html', [
+            'as'    => $controllerName . '/index',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'index'            // Đây là đường dẫn đến controller
+        ])->where('category_name', '[a-zA-Z0-9-_]+')
+          ->where('category_id', '[0-9]+');
+
+    });
+    // ====================== END CATEGORY ======================
 
 });
