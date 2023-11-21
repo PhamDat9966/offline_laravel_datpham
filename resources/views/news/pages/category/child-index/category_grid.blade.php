@@ -2,26 +2,26 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
 @endphp
-<div class="world">
-    <div class="row world_row">
-        <div class="col-lg-11">
-            <div class="row">
-                @foreach ($item['article'] as $article)
 
-                    <div class="col-lg-6">
-                        <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
-                            @include('news.partials.article.image',['item'=>$article])
-                            @include('news.partials.article.content',['item'=>$article,'lenghtContent'=> 200,'showCategory'=>false])
-                        </div>
+<div class="posts">
+    <div class="col-lg-12">
+        <div class="row">
+            @foreach ($item['article'] as $article)
+
+                <div class="col-lg-6">
+                    <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
+                        @include('news.partials.article.image',['item'=>$article])
+                        @include('news.partials.article.content',['item'=>$article,'lenghtContent'=> 200,'showCategory'=>false])
                     </div>
+                </div>
 
-                @endforeach
+            @endforeach
 
-            </div>
-            <div class="row">
-                <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
-                    thêm</a></div>
-            </div>
+        </div>
+        <div class="row">
+            <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
+                thêm</a></div>
         </div>
     </div>
 </div>
+

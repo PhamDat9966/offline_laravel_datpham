@@ -18,7 +18,7 @@
 @endphp
 <div class="post_content">
     @if($showCategory == true)
-        <div class="post_category cat_technology {{$classPost}}">
+        <div class="post_category cat_technology d-none {{$classPost}}">
             <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
         </div>
     @endif

@@ -32,9 +32,9 @@
 
                     <!-- Main Content -->
                     <div class="col-lg-9">
-                       <div class="posts">
-                            @include('news.pages.category.child-index.category',['itemCategory'=>$itemCategory])
-                       </div>
+
+                        @include('news.pages.category.child-index.category',['itemCategory'=>$itemCategory])
+
                     </div>
                     <!-- Sidebar -->
                     <div class="col-lg-3">
