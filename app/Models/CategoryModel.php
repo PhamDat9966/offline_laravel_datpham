@@ -212,8 +212,8 @@ class CategoryModel extends AdminModel
         if($options['task'] == 'news-get-item'){
             $result = $this::select('id','name','display')
                     ->where('id', $params['category_id'])
-                    ->first()->toArray();
-
+                    ->first();
+            if($result != null) $result->toArray();
         }
 
         return $result;

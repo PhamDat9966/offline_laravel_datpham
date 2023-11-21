@@ -22,15 +22,16 @@ class CategoryController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)// Ở Laravel, request sẽ lấy parameter từ url, ở đây tiêu biểu là lấy $_GET và $_POST
     {
         $this->params['category_id'] = $request->category_id;
         $articleModel   = new ArticleModel();
         $categoryModel  = new CategoryModel();
-
-        $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
         $itemCategory  = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
 
+        if(empty($itemCategory)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
+
+        $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
         $itemCategory['article'] = $articleModel->listItems($this->params, ['task'=> 'news-list-items-in-category']);
 
         return view($this->pathViewController . 'index',[
