@@ -1,7 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
-
+    use App\Helpers\URL;
 @endphp
 <div class="sidebar_latest">
     <div class="sidebar_title">Bài viết gần đây</div>
@@ -11,7 +11,7 @@
                 $name               = $item['name'];
                 $thumb              = asset('images/article/' . $item['thumb']);
                 $categoryName       = $item['category_name'];
-                $linkCategory       = '#';
+                $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
                 $linkArticle        = '#';
                 $created            = Template::showDataFrontEnd($item['created']);
                 $created_by         = 'Lưu Trường Hải Lân';

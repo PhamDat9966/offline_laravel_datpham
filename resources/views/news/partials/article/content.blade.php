@@ -1,14 +1,16 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    use App\Helpers\URL;
 
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
 
     $showCategory       = (isset($showCategory)) ? $showCategory : 'false';
     $categoryName       = (isset($item['category_name'])) ? $item['category_name']:"";
+    $categoryId         = (isset($item['category_id'])) ? $item['category_id']:"";
 
-    $linkCategory       = '#';
+    $linkCategory       = URL::linkCategory($categoryId,$categoryName);
     $linkArticle        = '#';
     $created            = Template::showDataFrontEnd($item['created']);
     $content            = Template::showContent($item['content'], $lenghtContent);
@@ -18,7 +20,7 @@
 @endphp
 <div class="post_content">
     @if($showCategory == true)
-        <div class="post_category cat_technology d-none {{$classPost}}">
+        <div class="post_category cat_technology {{$classPost}}">
             <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
         </div>
     @endif

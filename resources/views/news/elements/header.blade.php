@@ -1,6 +1,7 @@
 @php
     use App\Models\CategoryModel as CategoryModel;
     use Illuminate\Support\Str;
+    use App\Helpers\URL;
 
     $categoryModel  = new CategoryModel();
     $itemsCategory  = $categoryModel->listItems(null,['task'=>'news-list-items']);
@@ -14,8 +15,9 @@
         //$categoryIdCurrent   = Route::input('category_id');
 
         foreach ($itemsCategory as $item) {
-            $parameters = ['category_name' => Str::slug($item['name']), 'category_id' => $item['id']];
-            $link   = route('category/index',$parameters);
+            // $parameters = ['category_name' => Str::slug($item['name']), 'category_id' => $item['id']];
+            // $link   = route('category/index',$parameters);
+            $link                = URL::linkCategory($item['id'],$item['name']);
             $classActive         = ($categoryIdCurrent == $item['id']) ? 'class="active"' : '';
             $xhtmlMenu          .= sprintf('<li %s><a href="%s">%s</a></li>',$classActive,$link,$item['name']);
             $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">%s</a></li>',$link,$item['name']);

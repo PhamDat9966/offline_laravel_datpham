@@ -1,6 +1,3 @@
-@php
-
-@endphp
 <div class="featured">
     <div class="featured_title">
         <div class="container">
