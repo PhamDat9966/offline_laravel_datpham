@@ -9,4 +9,12 @@ class URL{
             'category_name' =>  $name
         ]);
     }
+
+    public static function linkArticle($id,$name){
+        $name = Str::slug($name);
+        return route('article/index',[
+            'article_id'   =>  $id ,
+            'article_name' =>  $name
+        ]);
+    }
 }

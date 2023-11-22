@@ -6,12 +6,12 @@
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
 
-    $showCategory       = (isset($showCategory)) ? $showCategory : 'false';
-    $categoryName       = (isset($item['category_name'])) ? $item['category_name']:"";
-    $categoryId         = (isset($item['category_id'])) ? $item['category_id']:"";
+    $showCategory           = (isset($showCategory)) ? $showCategory : 'false';
+    $categoryName = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
+    $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";
 
-    $linkCategory       = URL::linkCategory($categoryId,$categoryName);
-    $linkArticle        = '#';
+    $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
+    $linkArticle        = URL::linkArticle($item['id'],$item['name']);
     $created            = Template::showDataFrontEnd($item['created']);
     $content            = Template::showContent($item['content'], $lenghtContent);
     $created_by         = 'Lưu Trường Hải Lân';

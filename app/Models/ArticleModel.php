@@ -266,6 +266,14 @@ class ArticleModel extends AdminModel
 
         }
 
+        if($options['task'] == 'news-get-item'){
+            $result = $this::select('a.id','a.name','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name')
+                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                    ->where('a.id', $params['article_id'])
+                    ->first()->toArray();
+
+        }
+
         return $result;
     }
 

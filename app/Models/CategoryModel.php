@@ -213,7 +213,7 @@ class CategoryModel extends AdminModel
             $result = $this::select('id','name','display')
                     ->where('id', $params['category_id'])
                     ->first();
-            if($result != null) $result->toArray();
+                    if($result != null) $result->toArray();
         }
 
         return $result;

@@ -22,7 +22,7 @@ Route::get('/about', function () {
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
 $prefixNews     = config('zvn.url.prefix_news'); //news69
 
-Route::group(['prefix'=>$prefixAdmin], function(){
+Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin'], function(){
 
     // ====================== DASHBOARD ======================
     $prefix         =   'dashboard';
@@ -199,6 +199,19 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'uses'  => $controller . 'index'            // Đây là đường dẫn đến controller
         ])->where('category_name', '[a-zA-Z0-9-_]+')
           ->where('category_id', '[0-9]+');
+
+    });
+
+    // ====================== ARTICLE ======================
+    $prefix         =   'bai-viet';
+    $controllerName =   'article';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/{article_name}-{article_id}.html', [
+            'as'    => $controllerName . '/index',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'index'            // Đây là đường dẫn đến controller
+        ])->where('article_name', '[a-zA-Z0-9-_]+')
+            ->where('article_id', '[0-9]+');
 
     });
 

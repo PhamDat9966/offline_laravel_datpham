@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\ArticleModel as MainModel;
-use App\Models\CategoryModel;
-use App\Http\Requests\ArticleRequest as MainRequest;
+use App\Models\CategoryModel as MainModel;
+use App\Http\Requests\CategoryRequest as MainRequest;
 
-class ArticleController extends Controller
+class CategoryController extends Controller
 {
-    private $pathViewController  = 'admin.pages.article.';
-    private $controllerName      = 'article';
+    private $pathViewController  = 'admin.pages.category.';
+    private $controllerName      = 'category';
     private $params              = [];
     private $model;
 
@@ -30,19 +29,10 @@ class ArticleController extends Controller
         $this->params['search']['field']    = $request->input('search_field','');
         $this->params['search']['value']    = $request->input('search_value','');
 
-        $this->params['filter']['category']   = $request->input('filter_category','all');
-        $this->params['filter']['type']       = $request->input('filter_type','all');
-
+        $this->params['filter']['display']   = $request->input('filter_display','all');
+        $this->params['filter']['is_home']   = $request->input('filter_is_home','all');
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
-
-        $categoryModel  = new categoryModel();
-        $categoryList   = $categoryModel->listItems(null,['task'=>'category-list']);
-
-        $firstItem      = ['id'=> 'all','name'=> 'Tất Cả'];
-        //$categoryList   = array_unshift($categoryList,$firstItem);
-        //$categoryList = array_merge([$firstItem], $categoryList);
-        $categoryList   = array('all' => $firstItem) + $categoryList;
 
         // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
 
@@ -53,8 +43,7 @@ class ArticleController extends Controller
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,
-             'itemsStatusCount'     => $itemsStatusCount,
-             'categoryList'         => $categoryList
+             'itemsStatusCount'     => $itemsStatusCount
         ]);
     }
 
@@ -66,12 +55,8 @@ class ArticleController extends Controller
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
-        $categoryModel      = new CategoryModel();
-        $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
-
         return view($this->pathViewController . 'form', [
-            'item'          =>$item,
-            'itemsCategory' =>$itemsCategory
+            'item'=>$item
         ]);
     }
 
@@ -95,27 +80,7 @@ class ArticleController extends Controller
             $statusAction = 'chưa kích hoạt';
             $statusNextAction   = "đã được kích hoạt";
         }
-
-        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
-    }
-
-    public function type(Request $request)
-    {
-
-        $params['currentType']      = $request->type;
-        $params['id']               = $request->id;
-
-        $this->model->saveItem($params,['task' => 'change-type']);
-        // End Update
-
-        $typeAction       = "thông thường";
-        $typeNextAction   = "nổi bật";
-        if($params['currentType'] == 'normal'){
-            $typeAction = 'nổi bật';
-            $typeNextAction   = "thông thường";
-        }
-
-        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với kiểu "'.$typeAction.'" đã được thay đổi thành kiểu "'.$typeNextAction.'" !');
+        return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
 
     public function isHome(Request $request)
@@ -132,7 +97,7 @@ class ArticleController extends Controller
             $isHomeAction = 'Không hiển thị';
             $isHomeNextAction   = "Hiển thị";
         }
-        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+        return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
     }
 
     public function display(Request $request)
@@ -150,14 +115,6 @@ class ArticleController extends Controller
 
     }
 
-    public function displayFilter(Request $request)
-    {
-       $displayFilter   = $request->display;
-
-       echo "<h3 style='color:red'>displayFilter</h3>";
-
-    }
-
     public function delete(Request $request)
     {
         $params['id']               = $request->id;
@@ -171,7 +128,7 @@ class ArticleController extends Controller
 
         if($request->method() == 'POST'){
 
-            $params = $request->all();  // Lấy param từ request chi dung voi POST
+            $params = $request->all();  // Lấy param từ request
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 
@@ -186,4 +143,4 @@ class ArticleController extends Controller
 
 }
 
-// php artisan make:model ArticalModel
+// php artisan make:model CategoryModel
