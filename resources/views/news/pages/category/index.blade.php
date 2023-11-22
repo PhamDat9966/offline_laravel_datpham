@@ -4,7 +4,7 @@
 @section('content')
     <!-- Content Container -->
     <div class="section-category">
-        @include('news.block.breadcrumb',['itemBreadcrumb'=>$itemCategory])
+        @include('news.block.breadcrumb',['item'=>$itemCategory])
 
         <div class="content_container container_category">
            <div class="featured_title">

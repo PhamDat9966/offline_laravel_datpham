@@ -4,7 +4,7 @@
 @section('content')
     <!-- Content Container -->
     <div class="section-category">
-        @include('news.block.breadcrumb',['itemBreadcrumb'=>$itemArticle])
+        @include('news.block.breadcrumb_article',['item'=>$itemArticle])
 
         <div class="content_container container_category">
            <div class="featured_title">
@@ -13,9 +13,10 @@
 
                     <!-- Main Content -->
                     <div class="col-lg-9">
-
-                        @include('news.pages.article.child-index.article',['itemArticle'=>$itemArticle,'lenghtContent'=> 2000])
-
+                        <div class="single_post">
+                            @include('news.pages.article.child-index.article',['itemArticle'=>$itemArticle,'lenghtContent'=> 2000])
+                            @include('news.pages.article.child-index.related')
+                        </div>
                     </div>
                     <!-- Sidebar -->
                     <div class="col-lg-3">

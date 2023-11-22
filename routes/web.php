@@ -207,7 +207,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
     $controllerName =   'article';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
         $controller =   ucfirst($controllerName) . 'Controller@';
-        Route::get('/{article_name}-{article_id}.html', [
+        Route::get('/{article_name}-{article_id}.php', [
             'as'    => $controllerName . '/index',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'index'            // Đây là đường dẫn đến controller
         ])->where('article_name', '[a-zA-Z0-9-_]+')
