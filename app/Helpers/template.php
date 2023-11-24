@@ -293,7 +293,7 @@ class Template{
 
     public static function showContent($content,$lenght,$prefix = '...'){
         $content = str_replace(['<p>','</p>'], '', $content);
-        return preg_replace('/\s+?(\S+)?$/','', substr($content,0, $lenght) . $prefix);
+        return preg_replace('/\s+?(\S+)?$/','', substr($content,0, $lenght)).$prefix;
     }
 
 }

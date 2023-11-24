@@ -13,7 +13,7 @@
     $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
     $linkArticle        = URL::linkArticle($item['id'],$item['name']);
     $created            = Template::showDataFrontEnd($item['created']);
-    $content            = Template::showContent($item['content'], $lenghtContent);
+    $content            = html_entity_decode(Template::showContent($item['content'], $lenghtContent));
     $created_by         = 'Lưu Trường Hải Lân';
     $classPost          = Str::slug($categoryName);
 

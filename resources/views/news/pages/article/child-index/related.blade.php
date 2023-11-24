@@ -1,10 +1,20 @@
+@php
+
+@endphp
 <div class="section_title_container d-flex flex-row align-items-start justify-content-start zvn-title-category">
     <div>
         <div class="section_title">Bài viết liên quan</div>
     </div>
     <div class="section_bar"></div>
 </div>
-<div class="post_item post_h_large">
+
+@if ($items['display'] == 'list')
+    @include('news.pages.article.child-index.category_list',['item'=>$items['listItemlate'],'lenghtContent'=> 500])
+@elseif ($items['display'] == 'grid')
+    @include('news.pages.article.child-index.category_grid',['item'=>$items['listItemlate'],'lenghtContent'=> 500])
+@endif
+
+{{-- <div class="post_item post_h_large">
     <div class="row">
         <div class="col-lg-5">
             <div class="post_image"><img src="images/article/e7YyFZJCc8.jpeg" alt="images/article/e7YyFZJCc8.jpeg" class="img-fluid w-100"></div>
@@ -34,7 +44,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 

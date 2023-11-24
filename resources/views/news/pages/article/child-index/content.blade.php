@@ -1,8 +1,4 @@
 @php
-    // echo '<pre>';
-    // print_r($itemArticle);
-    // echo '</pre>';
-
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;

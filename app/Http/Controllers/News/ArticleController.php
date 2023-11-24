@@ -37,7 +37,7 @@ class ArticleController extends Controller
         if(empty($itemArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
 
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
-        $itemCategory['article'] = $articleModel->listItems($this->params, ['task'=> 'news-list-items-in-category']);
+        $itemArticle['listItemlate']  = $articleModel->listItems($this->params, ['task'=> 'list-items-late']);
 
         return view($this->pathViewController . 'index',[
              'params'       => $this->params,

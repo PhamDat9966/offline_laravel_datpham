@@ -113,6 +113,17 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'list-items-late'){
+            $query = $this->select('a.id','a.name','a.created','a.category_id','c.name as category_name','a.thumb','a.content')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.category_id','=',$params['category_id'])
+                          ->where('a.id','!=',$params['article_id'])
+                          ->where('a.status','=','active')
+                          ->orderBy('a.id', 'desc')
+                          ->take(4);
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 
@@ -267,7 +278,7 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'news-get-item'){
-            $result = $this::select('a.id','a.name','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name')
+            $result = $this::select('a.id','a.name','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
                     ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
                     ->where('a.id', $params['article_id'])
                     ->first()->toArray();
