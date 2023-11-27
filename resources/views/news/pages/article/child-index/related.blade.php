@@ -9,9 +9,9 @@
 </div>
 
 @if ($items['display'] == 'list')
-    @include('news.pages.article.child-index.category_list',['item'=>$items['listItemlate'],'lenghtContent'=> 500])
+    @include('news.pages.article.child-index.category_list',['item'=>$items['related_article'],'lenghtContent'=> 500])
 @elseif ($items['display'] == 'grid')
-    @include('news.pages.article.child-index.category_grid',['item'=>$items['listItemlate'],'lenghtContent'=> 500])
+    @include('news.pages.article.child-index.category_grid',['item'=>$items['related_article'],'lenghtContent'=> 500])
 @endif
 
 {{-- <div class="post_item post_h_large">

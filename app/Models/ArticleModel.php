@@ -113,13 +113,12 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
-        if($options['task'] == 'list-items-late'){
-            $query = $this->select('a.id','a.name','a.created','a.category_id','c.name as category_name','a.thumb','a.content')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['category_id'])
-                          ->where('a.id','!=',$params['article_id'])
-                          ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
+        if($options['task'] == 'new-list-items-related-in-category'){
+            $query = $this->select('id','name','created','thumb','content')
+                          ->where('category_id','=',$params['category_id'])
+                          ->where('id','!=',$params['article_id'])
+                          ->where('status','=','active')
+                          ->orderBy('id', 'desc')
                           ->take(4);
             $result = $query->get()->toArray();
         }

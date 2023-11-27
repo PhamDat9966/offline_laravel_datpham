@@ -31,13 +31,15 @@ class ArticleController extends Controller
         $articleModel   = new ArticleModel();
         $categoryModel  = new CategoryModel();
 
-        $itemArticle  = $articleModel->getItem($this->params,['task'=>'news-get-item']);
+        $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
         $this->params['category_id']  = $itemArticle['category_id'];
+
+        //$itemCategory   = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
 
         if(empty($itemArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
 
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
-        $itemArticle['listItemlate']  = $articleModel->listItems($this->params, ['task'=> 'list-items-late']);
+        $itemArticle['related_article']  = $articleModel->listItems($this->params, ['task'=> 'new-list-items-related-in-category']);
 
         return view($this->pathViewController . 'index',[
              'params'       => $this->params,
