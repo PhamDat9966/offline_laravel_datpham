@@ -70,20 +70,26 @@ return [
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
             'delete'    =>  ['class'=>'btn-danger btn-delete',  'title'=>'Delete',  'icon'=>'fa-trash',     'route-name'=> '/delete'],
             'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],
-        ]
+        ],
+        'level'=>[
+            'admin'         =>  ['name'=>'Admin'],
+            'member'        =>  ['name'=>'Member'],
+        ],
     ],
     'config'    =>[
         'search'    =>[
             'default'   =>  ['all','id','fullname'],
             'slider'    =>  ['all','id','name','description','link'],
             'category'  =>  ['all','id','name'],
-            'article'   =>  ['all','name','content']
+            'article'   =>  ['all','name','content'],
+            'user'      =>  ['all','username','email','fullname']
         ],
         'button'    =>[
             'default'   =>  ['edit','delete'],
             'slider'    =>  ['edit','delete','info'],
             'category'  =>  ['edit','delete'],
-            'article'   =>  ['edit','delete']
+            'article'   =>  ['edit','delete'],
+            'user'      =>  ['edit']
         ]
     ]
 ];
