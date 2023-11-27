@@ -72,7 +72,7 @@ return [
             'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],
         ],
         'level'=>[
-            'admin'         =>  ['name'=>'Admin'],
+            'admin'         =>  ['name'=>'Quản trị hệ thống'],
             'member'        =>  ['name'=>'Member'],
         ],
     ],
