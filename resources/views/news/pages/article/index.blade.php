@@ -15,7 +15,7 @@
                     <div class="col-lg-9">
                         <div class="single_post">
                             @include('news.pages.article.child-index.article',['itemArticle'=>$itemArticle,'lenghtContent'=> 2000])
-                            @include('news.pages.article.child-index.related',['items'=>$itemArticle,'lenghtContent'=> 2000])
+                            @include('news.pages.article.child-index.related',['item'=>$itemArticle,'lenghtContent'=> 2000])
                         </div>
                     </div>
                     <!-- Sidebar -->

@@ -4,7 +4,7 @@
 
 @endphp
 <div class="posts">
-    @foreach ($item as $article)
+    @foreach ($item['related_article'] as $article)
         <div class="post_item post_h_large">
             <div class="row">
                 <div class="col-lg-5">

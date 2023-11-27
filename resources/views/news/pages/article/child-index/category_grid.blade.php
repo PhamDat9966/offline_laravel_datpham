@@ -6,7 +6,7 @@
 <div class="posts">
     <div class="col-lg-12">
         <div class="row">
-            @foreach ($item as $article)
+            @foreach ($item['related_article'] as $article)
 
                 <div class="col-lg-6">
                     <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
