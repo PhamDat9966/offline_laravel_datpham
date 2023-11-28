@@ -5,30 +5,17 @@
     use App\Helpers\Form as FormTemplate;
 
     $id             = (isset($item['id']))? $item['id'] : '';
-    $name           = (isset($item['name']))? $item->name : '';
-    $description    = (isset($item['description']))? $item->description : '';
-    $link           = (isset($item['link']))? $item->link : '';
+    $username       = (isset($item['username']))? $item->username : '';
+    $fullname       = (isset($item['fullname']))? $item->fullname : '';
+    $email          = (isset($item['email']))? $item->email : '';
+    $level          = (isset($item['level']))? $item->level : '';
     $status         = (isset($item['status']))? $item->status : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
-
-    // OR
-    // $name           = (isset($item->name))? $item->name : '';
-    // $description    = (isset($item->description))? $item->description : '';
-    // $link           = (isset($item->link))? $item->link : '';
-    // $status         = (isset($item->status))? $item->status : 'null';
-    // $thumb          = (isset($item->thumb))? $item->thumb : 'null';
-
-    // Đối tượng Form là của Collective
-    // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
-
-    // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
+    $avatar          = (isset($item['avatar']))? $item->avatar : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $inputHiddenID      = Form::hidden('id' , $id);
-    $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
+    $inputHiddenThumb   = Form::hidden('avatar_current', $avatar );
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -39,17 +26,17 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  Form::label('username', 'Username', $formlabelAttr),
+            'element'   =>  Form::text('username', $username,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('description', 'Description',$formlabelAttr),
-            'element'   =>  Form::text('description', $description ,  $formInputAttr)
+            'label'     =>  Form::label('fullname', 'Fullname',$formlabelAttr),
+            'element'   =>  Form::text('fullname', $fullname ,  $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('link', 'Link',$formlabelAttr),
-            'element'   =>  Form::text('link', $link , $formInputAttr)
+            'label'     =>  Form::label('email', 'Email',$formlabelAttr),
+            'element'   =>  Form::text('email', $email , $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -57,10 +44,10 @@
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
+            'label'     =>  Form::label('avatar', 'Avatar', $formlabelAttr),
+            'element'   =>  Form::file('avatar',  $formInputAttr),
             'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $avatar , $username) : ''
         ],
         [
             'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),

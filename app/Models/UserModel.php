@@ -13,7 +13,7 @@ class UserModel extends AdminModel
         $this->table                = 'user';
         $this->folderUpload         = 'user';
         $this->fieldSearchAccepted  = ['id','name'];
-        $this->crudNotActived       = ['_token','thumb_current'];
+        $this->crudNotActived       = ['_token','avatar_current'];
     }
 
     public function listItems($params = null,$options = null){
@@ -111,12 +111,12 @@ class UserModel extends AdminModel
 
         if($options['task'] == 'add-item'){
 
-            $thumb                  = $params['thumb'];
-            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
+            $avatar                 = $params['avatar'];
+            $params['avatar']       = Str::random(10) . '.' . $avatar->clientExtension();
             $params['created_by']   = 'phamdat';
             $params['created']      = date('Y-m-d');
 
-            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image'); // Với zvn_storege_image được định nghĩa tại 'config/filesystems.php',
+            $avatar->storeAs($this->folderUpload, $params['avatar'],'zvn_storage_image'); // Với zvn_storege_image được định nghĩa tại 'config/filesystems.php',
                                                                              // là vị trí mặc định khi lưu ảnh
 
             /* Save dữ liệu theo DB oject */
@@ -127,28 +127,28 @@ class UserModel extends AdminModel
             //// DB::table('slider')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->name         = $params['name'];
-            $this->description  = $params['description'];
-            $this->link         = $params['link'];
+            $this->username     = $params['username'];
+            $this->fullname     = $params['fullname'];
+            $this->email        = $params['email'];
             $this->status       = $params['status'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
-            $this->thumb        = $params['thumb'];
+            $this->avatar       = $params['avatar'];
             $this->save();
         }
 
         if($options['task'] == 'edit-item'){
-            if(!empty($params["thumb"])){
+            if(!empty($params["avatar"])){
 
                 /*Xóa ảnh cũ*/
-                $item   =  $this->getItem($params,['task' => 'get-thumb']);
+                $item   =  $this->getItem($params,['task' => 'get-avatar']);
                 //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
-                $this->deleteThumb($params['thumb_current']);
+                $this->deleteThumb($params['avatar_current']);
                 /* Thêm ảnh mới */
                 // $thumb                  = $params['thumb'];
                 // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
                 // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-                $params['thumb']        = $this->uploadThumb($params['thumb']);
+                $params['avatar']        = $this->uploadThumb($params['avatar']);
                 /* end Thêm ảnh mới */
             }
 
@@ -177,7 +177,7 @@ class UserModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','description','status','link','thumb')
+            $result = $this::select('id','username','fullname','email','status','level','avatar')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
@@ -186,6 +186,13 @@ class UserModel extends AdminModel
 
         if($options['task'] == 'get-thumb'){
             $result = $this::select('id','thumb')
+                    ->where('id', $params['id'])
+                    ->first();
+
+        }
+
+        if($options['task'] == 'get-avatar'){
+            $result = $this::select('id','avatar')
                     ->where('id', $params['id'])
                     ->first();
 

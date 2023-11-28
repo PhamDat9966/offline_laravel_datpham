@@ -26,18 +26,23 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id         = $this->id;
-        $condThumb  = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
-        $condName   = "bail|required|between:5,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
+        $id             = $this->id;
+        $condAvatar     = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
+        $condUsername   = "bail|required|between:5,100|unique:$this->table,username";
+        $condFullname   = "bail|required|between:5,100|unique:$this->table,fullname";  // unique: Duy nhất tại table - "$this->table", column là "name"
+        $condEmail      = "bail|required|between:5,100|unique:$this->table,email";
         if(!empty($id)) {
-            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
-            $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condAvatar     = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
+            $condUsername   = "bail|required|between:5,100|unique:$this->table,username,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condFullname   = "bail|required|between:5,100|unique:$this->table,fullname,$id";
+            $condEmail      = "bail|required|between:5,100|unique:$this->table,email,$id";
         }
         return [
-            'name'          => $condName,           //'title' => 'required|unique:posts|max:255',
-            'status'        => 'bail|in:active,inactive',
-            //'thumb'         => 'bail|required|image|max:200',
-            'thumb'         => $condThumb,
+            'username'       => $condUsername,           //'title' => 'required|unique:posts|max:255',
+            'fullname'       => $condFullname,
+            'email'          => $condEmail,
+            'status'         => 'bail|in:active,inactive',
+            'avatar'         => $condAvatar,
         ];
     }
 
