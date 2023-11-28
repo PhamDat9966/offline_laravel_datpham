@@ -41,6 +41,7 @@ class UserRequest extends FormRequest
             'username'       => $condUsername,           //'title' => 'required|unique:posts|max:255',
             'fullname'       => $condFullname,
             'email'          => $condEmail,
+            'level'          => 'bail|in:admin,member',
             'status'         => 'bail|in:active,inactive',
             'avatar'         => $condAvatar,
         ];

@@ -131,6 +131,7 @@ class UserModel extends AdminModel
             $this->fullname     = $params['fullname'];
             $this->email        = $params['email'];
             $this->status       = $params['status'];
+            $this->level        = $params['level'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
             $this->avatar       = $params['avatar'];
@@ -177,7 +178,7 @@ class UserModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','username','fullname','email','status','level','avatar')
+            $result = $this::select('id','username','fullname','email','level','status','level','avatar')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();

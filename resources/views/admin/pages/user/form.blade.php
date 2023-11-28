@@ -22,6 +22,11 @@
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
+    $levelValue        = [
+                                'default'    => 'Select level',
+                                'admin'      => Config::get('zvn.template.level.admin.name'),
+                                'member'     => Config::get('zvn.template.level.member.name')
+                        ];
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -37,6 +42,10 @@
         [
             'label'     =>  Form::label('email', 'Email',$formlabelAttr),
             'element'   =>  Form::text('email', $email , $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('level', 'Level', $formlabelAttr),
+            'element'   =>  Form::select('level', $levelValue, $level, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),

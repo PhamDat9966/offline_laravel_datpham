@@ -73,7 +73,7 @@ return [
         ],
         'level'=>[
             'admin'         =>  ['name'=>'Quản trị hệ thống'],
-            'member'        =>  ['name'=>'Member'],
+            'member'        =>  ['name'=>'Người dùng thông thường'],
         ],
     ],
     'config'    =>[
