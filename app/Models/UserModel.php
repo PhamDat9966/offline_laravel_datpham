@@ -170,7 +170,8 @@ class UserModel extends AdminModel
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
             $params   = $this->prepareParams($params);
-            self::where('id', $params['id'])->update($params);
+            $password = md5($params['password']);
+            self::where('id', $params['id'])->update(['password'=>$password]);
 
         }
 
