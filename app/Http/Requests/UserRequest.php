@@ -26,25 +26,46 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        echo '<pre>';
+        print_r($this->task);
+        echo '</pre>';
+
         $id                 = $this->id;
-        $condAvatar         = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
-        $condUsername       = "bail|required|between:5,100|unique:$this->table,username";
-        $condFullname       = "bail|required|between:5,100|unique:$this->table,fullname";  // unique: Duy nhất tại table - "$this->table", column là "name"
-        $condEmail          = "bail|required|between:5,100|unique:$this->table,email";
-        $condPassword       = "bail|required|between:5,100|confirmed";
-        if(!empty($id)) {
-            $condAvatar     = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
-            $condUsername   = "bail|required|between:5,100|unique:$this->table,username,$id"; // unique nhưng ngoại trừ id hiện tại
-            $condFullname   = "bail|required|between:5,100|unique:$this->table,fullname,$id";
-            $condEmail      = "bail|required|between:5,100|unique:$this->table,email,$id";
+        $condUsername       = "";
+        $condFullname       = "";
+        $condEmail          = "";
+        $condPassword       = "";
+        $condLevel          = "";
+        $condStatus          = "";
+        $condAvatar         = "";
+
+        switch ($this->task) {
+            case 'add':
+                $condAvatar         = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
+                $condUsername       = "bail|required|between:5,100|unique:$this->table,username";
+                $condFullname       = "bail|required|between:5,100|unique:$this->table,fullname";  // unique: Duy nhất tại table - "$this->table", column là "name"
+                $condEmail          = "bail|required|between:5,100|unique:$this->table,email";
+                $condPassword       = "bail|required|between:5,100|confirmed";
+                $condLevel          = "bail|in:admin,member";
+                $condStatus         = "bail|in:active,inactive";
+                break;
+            case 'edit':
+                $condAvatar     = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
+                $condUsername   = "bail|required|between:5,100|unique:$this->table,username,$id"; // unique nhưng ngoại trừ id hiện tại
+                $condFullname   = "bail|required|between:5,100|unique:$this->table,fullname,$id";
+                $condEmail      = "bail|required|between:5,100|unique:$this->table,email,$id";
+                $condLevel      = "bail|in:admin,member";
+                $condStatus     = "bail|in:active,inactive";
+                break;
         }
+
         return [
             'username'       => $condUsername,           //'title' => 'required|unique:posts|max:255',
             'fullname'       => $condFullname,
             'email'          => $condEmail,
             'password'       => $condPassword,
-            'level'          => 'bail|in:admin,member',
-            'status'         => 'bail|in:active,inactive',
+            'level'          => $condLevel,
+            'status'         => $condStatus,
             'avatar'         => $condAvatar,
         ];
     }

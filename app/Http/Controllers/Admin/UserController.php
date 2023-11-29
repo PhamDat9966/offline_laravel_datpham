@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
       $this->model  = new MainModel();
-      $this->params['pagination']['totalItemsPerPage']  = 5;
+      $this->params['pagination']['totalItemsPerPage']  = 10;
       // share bien $controllerName cho all view
       View::share('controllerName',$this->controllerName);
     }

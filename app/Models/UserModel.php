@@ -13,7 +13,7 @@ class UserModel extends AdminModel
         $this->table                = 'user';
         $this->folderUpload         = 'user';
         $this->fieldSearchAccepted  = ['id','name'];
-        $this->crudNotActived       = ['_token','avatar_current','password_confirmation'];
+        $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task'];
     }
 
     public function listItems($params = null,$options = null){
