@@ -26,11 +26,12 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id             = $this->id;
-        $condAvatar     = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
-        $condUsername   = "bail|required|between:5,100|unique:$this->table,username";
-        $condFullname   = "bail|required|between:5,100|unique:$this->table,fullname";  // unique: Duy nhất tại table - "$this->table", column là "name"
-        $condEmail      = "bail|required|between:5,100|unique:$this->table,email";
+        $id                 = $this->id;
+        $condAvatar         = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
+        $condUsername       = "bail|required|between:5,100|unique:$this->table,username";
+        $condFullname       = "bail|required|between:5,100|unique:$this->table,fullname";  // unique: Duy nhất tại table - "$this->table", column là "name"
+        $condEmail          = "bail|required|between:5,100|unique:$this->table,email";
+        $condPassword       = "bail|required|between:5,100|confirmed";
         if(!empty($id)) {
             $condAvatar     = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
             $condUsername   = "bail|required|between:5,100|unique:$this->table,username,$id"; // unique nhưng ngoại trừ id hiện tại
@@ -41,6 +42,7 @@ class UserRequest extends FormRequest
             'username'       => $condUsername,           //'title' => 'required|unique:posts|max:255',
             'fullname'       => $condFullname,
             'email'          => $condEmail,
+            'password'       => $condPassword,
             'level'          => 'bail|in:admin,member',
             'status'         => 'bail|in:active,inactive',
             'avatar'         => $condAvatar,

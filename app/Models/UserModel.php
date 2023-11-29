@@ -13,7 +13,7 @@ class UserModel extends AdminModel
         $this->table                = 'user';
         $this->folderUpload         = 'user';
         $this->fieldSearchAccepted  = ['id','name'];
-        $this->crudNotActived       = ['_token','avatar_current'];
+        $this->crudNotActived       = ['_token','avatar_current','password_confirmation'];
     }
 
     public function listItems($params = null,$options = null){
@@ -110,7 +110,7 @@ class UserModel extends AdminModel
         }
 
         if($options['task'] == 'add-item'){
-
+            $params['password']     = md5($params['password'] );
             $avatar                 = $params['avatar'];
             $params['avatar']       = Str::random(10) . '.' . $avatar->clientExtension();
             $params['created_by']   = 'phamdat';
@@ -120,22 +120,23 @@ class UserModel extends AdminModel
                                                                              // là vị trí mặc định khi lưu ảnh
 
             /* Save dữ liệu theo DB oject */
-            // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
 
-            // self::insert($params);
+            self::insert($params);
             //// OR use
             //// DB::table('slider')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->username     = $params['username'];
-            $this->fullname     = $params['fullname'];
-            $this->email        = $params['email'];
-            $this->status       = $params['status'];
-            $this->level        = $params['level'];
-            $this->created_by   = $params['created_by'];
-            $this->created      = $params['created'];
-            $this->avatar       = $params['avatar'];
-            $this->save();
+            // $this->username     = $params['username'];
+            // $this->fullname     = $params['fullname'];
+            // $this->pasword      = $params['password'];
+            // $this->email        = $params['email'];
+            // $this->status       = $params['status'];
+            // $this->level        = $params['level'];
+            // $this->created_by   = $params['created_by'];
+            // $this->created      = $params['created'];
+            // $this->avatar       = $params['avatar'];
+            // $this->save();
         }
 
         if($options['task'] == 'edit-item'){

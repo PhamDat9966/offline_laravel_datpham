@@ -44,6 +44,14 @@
             'element'   =>  Form::text('email', $email , $formInputAttr)
         ],
         [
+            'label'     =>  Form::label('password', 'Password',$formlabelAttr),
+            'element'   =>  Form::password('password', $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('password_confirmation', 'Password_confirmation',$formlabelAttr),
+            'element'   =>  Form::password('password_confirmation', $formInputAttr)
+        ],
+        [
             'label'     =>  Form::label('level', 'Level', $formlabelAttr),
             'element'   =>  Form::select('level', $levelValue, $level, $formInputAttr)
         ],
