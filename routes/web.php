@@ -171,7 +171,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin'], function(){
 
     });
 
-        // ====================== SLIDER ======================
+        // ====================== USER ======================
         $prefix         =   'user';
         $controllerName =   'user';
         Route::group(['prefix'=>$prefix],function () use($controllerName) {
@@ -205,6 +205,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin'], function(){
             Route::post('save/{id?}', [
                 'as'    => $controllerName . '/save',
                 'uses'  => $controller . 'save'
+            ]);
+
+            Route::post('change-password/{id?}', [
+                'as'    => $controllerName . '/change-password',
+                'uses'  => $controller . 'changePassword'
             ]);
 
         });

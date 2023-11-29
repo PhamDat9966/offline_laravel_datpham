@@ -103,16 +103,28 @@ class UserController extends Controller
     {
 
         if($request->method() == 'POST'){
-
             $params = $request->all();  // Lấy param từ request
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
-
-            if($params['id'] !== null){
-                $task = 'edit-item';
-                $notify   = 'Cập nhật thành công!';
+            if(isset($params['id'])){
+                if($params['id'] !== null){
+                    $task = 'edit-item';
+                    $notify   = 'Cập nhật thành công!';
+                }
             }
             $this->model->saveItem($params,['task'=>$task]);
+            return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
+        }
+    }
+
+    public function changePassword(MainRequest $request) // MainRequest là đối tượng $request có validate
+    {
+
+        if($request->method() == 'POST'){
+            $params = $request->all();  // Lấy param từ request
+            $task   = 'change-password';
+            $this->model->saveItem($params,['task'=>$task]);
+            $notify = 'Thay đổi mật khẩu thành công!';
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
     }

@@ -163,6 +163,17 @@ class UserModel extends AdminModel
 
         }
 
+        if($options['task'] == 'change-password'){
+
+            $params['modified_by']   = 'phamdat';
+            $params['modified']      = date('Y-m-d');
+
+            //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            $params   = $this->prepareParams($params);
+            self::where('id', $params['id'])->update($params);
+
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){

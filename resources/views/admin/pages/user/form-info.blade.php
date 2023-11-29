@@ -67,24 +67,23 @@
 @endphp
 
 <!--box-lists-->
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            @include('admin.templates.x_title',['title'=>'Form'])
-            <!-- x Content -->
-            <div class="x_content" style="display: block;">
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        @include('admin.templates.x_title',['title'=>'Form Edit'])
+        <!-- x Content -->
+        <div class="x_content" style="display: block;">
+            {!! Form::open([
+                    'url'               =>  Route($controllerName.'/save'),
+                    'method'            =>  'POST',
+                    'accept-charset'    =>  'UTF-8',
+                    'enctype'           =>  'multipart/form-data',
+                    'class'             =>  'form-horizontal form-label-left',
+                    'id'                =>  'main-form'
+                ]) !!}
 
-                    {!! FormTemplate::show($elements)!!}
-            </div>
-            <!-- end x Content -->
+            {!! FormTemplate::show($elements)!!}
+            {!! Form::close() !!}
         </div>
+        <!-- end x Content -->
     </div>
 </div>

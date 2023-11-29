@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
         $condEmail          = "";
         $condPassword       = "";
         $condLevel          = "";
-        $condStatus          = "";
+        $condStatus         = "";
         $condAvatar         = "";
 
         switch ($this->task) {
@@ -56,6 +56,9 @@ class UserRequest extends FormRequest
                 $condEmail      = "bail|required|between:5,100|unique:$this->table,email,$id";
                 $condLevel      = "bail|in:admin,member";
                 $condStatus     = "bail|in:active,inactive";
+                break;
+            case 'change-password':
+                $condPassword   = "bail|required|between:5,100|confirmed";
                 break;
         }
 
