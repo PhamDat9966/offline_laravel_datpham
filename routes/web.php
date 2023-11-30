@@ -207,9 +207,14 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin'], function(){
                 'uses'  => $controller . 'save'
             ]);
 
-            Route::post('change-password/{id?}', [
+            Route::post('change-password', [
                 'as'    => $controllerName . '/change-password',
                 'uses'  => $controller . 'changePassword'
+            ]);
+
+            Route::post('change-level-post', [
+                'as'    => $controllerName . '/change-level-post',
+                'uses'  => $controller . 'levelPost'
             ]);
 
         });

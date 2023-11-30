@@ -129,6 +129,17 @@ class UserController extends Controller
         }
     }
 
+    public function levelPost(MainRequest $request) // MainRequest là đối tượng $request có validate
+    {
+        if($request->method() == 'POST'){
+            $params = $request->all();  // Lấy param từ request
+            $task   = 'change-level-post';
+            $this->model->saveItem($params,['task'=>$task]);
+            $notify = 'Thay đổi level thành công!';
+            return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
+        }
+    }
+
 }
 
 // php artisan make:model SliderModel

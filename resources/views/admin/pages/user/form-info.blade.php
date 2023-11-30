@@ -69,7 +69,7 @@
 <!--box-lists-->
 <div class="col-md-6 col-sm-12 col-xs-12">
     <div class="x_panel">
-        @include('admin.templates.x_title',['title'=>'Form Edit'])
+        @include('admin.templates.x_title',['title'=>'Form Edit Info'])
         <!-- x Content -->
         <div class="x_content" style="display: block;">
             {!! Form::open([

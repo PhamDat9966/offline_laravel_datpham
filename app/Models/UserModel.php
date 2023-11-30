@@ -175,6 +175,13 @@ class UserModel extends AdminModel
 
         }
 
+        if($options['task'] == 'change-level-post'){
+
+            $this::where('id', $params['id'])
+                ->update(['level' => $params['level']]);
+
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){

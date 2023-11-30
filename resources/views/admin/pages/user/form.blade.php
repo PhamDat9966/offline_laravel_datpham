@@ -8,6 +8,7 @@
         <div class="row">
             @include('admin.pages.user.form-info')
             @include('admin.pages.user.form-change-password')
+            @include('admin.pages.user.form-change-level')
         </div>
     @else
         @include('admin.pages.user.form-add')

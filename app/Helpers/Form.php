@@ -26,6 +26,14 @@ class Form{
                                         </div>
                                     </div>',$element['element']);
                 break;
+            case 'btn-submit-edit':
+                $result  =sprintf(' <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                                            %s
+                                        </div>
+                                    </div>',$element['element']);
+                break;
             case 'input':
                 $result  =sprintf('<div class="form-group">
                                         %s

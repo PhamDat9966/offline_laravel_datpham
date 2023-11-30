@@ -60,6 +60,9 @@ class UserRequest extends FormRequest
             case 'change-password':
                 $condPassword   = "bail|required|between:5,100|confirmed";
                 break;
+            case 'change-level':
+                $condLevel      = "bail|in:admin,member";
+                break;
         }
 
         return [
