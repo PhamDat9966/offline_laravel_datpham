@@ -25,6 +25,13 @@ class AuthController extends Controller
         return view($this->pathViewController . 'login');
     }
 
+    public function postLogin(Request $request)
+    {
+        if($request->method() == 'POST'){
+            $params = $request->all();
+        }
+    }
+
 }
 
 // php artisan make:model SliderModel

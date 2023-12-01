@@ -1,43 +1,26 @@
-@extends('news.login')               {{-- @extends sẽ load nội dung của template() sau cùng, cụ thể ở đây ta sẽ thực hiện khối lệnh php trước --}}
-{{-- @include('news.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
-                                                trước sau đó mới thực hiện khối lệnh php--}}
+@extends('news.login')
 @section('content')
-
     <div class="card fat">
         <div class="card-body">
             <h4 class="card-title">Login</h4>
-            <form method="POST">
-
+            {!! Form::open([
+                'url'               =>  Route($controllerName.'/postLogin'),
+                'method'            =>  'POST',
+                'accept-charset'    =>  'UTF-8',
+                'id'                =>  'login-form'
+            ]) !!}
                 <div class="form-group">
-                    <label for="email">E-Mail Address</label>
-
-                    <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                    {!!Form::label('email', 'E-Mail Address')!!}
+                    {!!Form::email('email', '',['class'=> 'form-control','required'=>true,'autofocus'=>true])!!}
                 </div>
-
                 <div class="form-group">
-                    <label for="password">Password
-                        <a href="forgot.html" class="float-right">
-                            Forgot Password?
-                        </a>
-                    </label>
-                    <input id="password" type="password" class="form-control" name="password" required data-eye>
+                    {!!Form::label('password', 'Password')!!}
+                    {!!Form::password('password',['class'=> 'form-control','required'=>true,'autofocus'=>true,'data-eye'=>true])!!}
                 </div>
-
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="remember"> Remember Me
-                    </label>
-                </div>
-
                 <div class="form-group no-margin">
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Login
-                    </button>
+                    {!!Form::submit('Đăng Nhập',['class'=>'btn btn-primary btn-block'])!!}
                 </div>
-                <div class="margin-top20 text-center">
-                    Don't have an account? <a href="register.html">Create One</a>
-                </div>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
     <div class="footer">

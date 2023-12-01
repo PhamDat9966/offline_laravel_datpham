@@ -12,7 +12,7 @@
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
-                    <div class="row justify-content-md-center ">
+                    <div class="text-center">
                         <img src="{{asset('auth/img/logo.png')}}">
                     </div>
                     @yield('content')
