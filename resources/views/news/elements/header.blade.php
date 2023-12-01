@@ -22,9 +22,10 @@
             $xhtmlMenu          .= sprintf('<li %s><a href="%s">%s</a></li>',$classActive,$link,$item['name']);
             $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">%s</a></li>',$link,$item['name']);
         }
+        $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),'Đăng Nhập');
 
-        $xhtmlMenu          .= '</ul></nav>';
-        $xhtmlMenuMobile    .= '</ul></nav>';
+        $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
+        $xhtmlMenuMobile    .= $xhtmlMenuUser.'</ul></nav>';
     }
 
 @endphp

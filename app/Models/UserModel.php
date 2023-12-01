@@ -219,6 +219,15 @@ class UserModel extends AdminModel
 
         }
 
+        if($options['task'] == 'auth-login'){
+
+            $result = $this->select('id','username','email','fullname','level','avatar')
+                            ->where('status','=','active')
+                            ->where('email','=',$params['email'])
+                            ->where('password','=',md5($params['password']))->first();
+            if($result) $result = $result->toArray();
+        }
+
         return $result;
     }
 

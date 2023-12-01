@@ -5,8 +5,9 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\UserModel as MainModel;
+use App\Models\UserModel;
 use App\Http\Requests\AuthRequest as MainRequest;
+
 
 class AuthController extends Controller
 {
@@ -29,9 +30,14 @@ class AuthController extends Controller
     {
         if($request->method() == 'POST'){
             $params = $request->all();
+            $userModel  = new UserModel();
+            $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
+
             echo '<pre>';
-            print_r($params);
+            print_r($userInfo);
             echo '</pre>';
+
+            if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
         }
     }
 
