@@ -263,4 +263,22 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== LOGIN ======================
+    $prefix         =   '';
+    $controllerName =   'auth';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/login', [
+            'as'    => $controllerName . '/login',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'login'            // Đây là đường dẫn đến controller
+        ]);
+        Route::get('/postLogin', [
+            'as'    => $controllerName . '/postLogin',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'postLogin'            // Đây là đường dẫn đến controller
+        ]);
+        Route::get('/logout', [
+            'as'    => $controllerName . '/logout',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'logout'            // Đây là đường dẫn đến controller
+        ]);
+    });
 });
