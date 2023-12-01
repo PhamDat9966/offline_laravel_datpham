@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\UserModel as MainModel;
-use App\Http\Requests\UserRequest as MainRequest;
+use App\Http\Requests\AuthRequest as MainRequest;
 
 class AuthController extends Controller
 {
@@ -25,10 +25,13 @@ class AuthController extends Controller
         return view($this->pathViewController . 'login');
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(MainRequest $request)
     {
         if($request->method() == 'POST'){
             $params = $request->all();
+            echo '<pre>';
+            print_r($params);
+            echo '</pre>';
         }
     }
 

@@ -26,10 +26,6 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        echo '<pre>';
-        print_r($this->task);
-        echo '</pre>';
-
         $id                 = $this->id;
         $condUsername       = "";
         $condFullname       = "";

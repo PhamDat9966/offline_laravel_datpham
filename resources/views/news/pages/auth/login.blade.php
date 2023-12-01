@@ -2,7 +2,9 @@
 @section('content')
     <div class="card fat">
         <div class="card-body">
-            <h4 class="card-title">Login</h4>
+            <h4 class="card-title">Đăng Nhập</h4>
+            @include('news.templates.error')
+            @include('news.templates.alert')
             {!! Form::open([
                 'url'               =>  Route($controllerName.'/postLogin'),
                 'method'            =>  'POST',
