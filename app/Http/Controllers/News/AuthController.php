@@ -32,15 +32,18 @@ class AuthController extends Controller
             $params = $request->all();
             $userModel  = new UserModel();
             $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
-
-            echo '<pre>';
-            print_r($userInfo);
-            echo '</pre>';
-
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
+
+            $request->session()->put('userInfo', $userInfo);
+            return redirect()->route('home');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->pull('userInfo');
+        return redirect()->route('home');
     }
 
 }
 
-// php artisan make:model SliderModel
