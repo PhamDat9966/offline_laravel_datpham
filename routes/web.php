@@ -22,7 +22,7 @@ Route::get('/about', function () {
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
 $prefixNews     = config('zvn.url.prefix_news'); //news69
 
-Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin'], function(){
+Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin']], function(){
 
     // ====================== DASHBOARD ======================
     $prefix         =   'dashboard';
@@ -261,6 +261,17 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
         ])->where('article_name', '[a-zA-Z0-9-_]+')
             ->where('article_id', '[0-9]+');
 
+    });
+
+    // ====================== NOTIFY ======================
+    $prefix         =   '';
+    $controllerName =   'notify';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/no-permission', [
+            'as'    => $controllerName . '/noPermission',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
+            'uses'  => $controller . 'noPermission'            // Đây là đường dẫn đến controller
+        ]);
     });
 
     // ====================== LOGIN ======================
