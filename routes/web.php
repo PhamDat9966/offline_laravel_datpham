@@ -271,7 +271,8 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
         Route::get('/login', [
             'as'    => $controllerName . '/login',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'login'            // Đây là đường dẫn đến controller
-        ]);
+        ])->middleware('check.login');
+
         Route::post('/postLogin', [
             'as'    => $controllerName . '/postLogin',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'postLogin'            // Đây là đường dẫn đến controller
