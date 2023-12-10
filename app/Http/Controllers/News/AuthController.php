@@ -35,7 +35,7 @@ class AuthController extends Controller
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
 
             $request->session()->put('userInfo', $userInfo);
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         }
     }
 
