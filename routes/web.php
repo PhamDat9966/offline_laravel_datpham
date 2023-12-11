@@ -271,7 +271,8 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
     // ====================== ARTICLE ======================
     $prefix         =   'bai-viet';
     $controllerName =   'article';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    // Tại đây middleware sẽ ghi lại user-Agent vào csdl để dùng làm dữ liệu để so sánh
+    Route::group(['prefix'=>$prefix,'middleware'=>['userAgent.middleware']],function () use($controllerName) {
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/{article_name}-{article_id}.php', [
             'as'    => $controllerName . '/index',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew

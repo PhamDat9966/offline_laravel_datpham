@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\View;
 
 use App\Models\CategoryModel;
 use App\Models\ArticleModel;
-use App\Models\DataViewsArticleModel;
+
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -31,7 +32,6 @@ class ArticleController extends Controller
 
         $articleModel       = new ArticleModel();
         $categoryModel      = new CategoryModel();
-        $viewsArticleModel   = new DataViewsArticleModel();
 
         $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
         $this->params['category_id']  = $itemArticle['category_id'];
@@ -40,25 +40,9 @@ class ArticleController extends Controller
 
         if(empty($itemArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
 
-        $checkIDArticleView  = $viewsArticleModel->checkArticleID($this->params,['task'=>'check-id']);
-        // echo '<pre>';
-        // print_r($checkIDArticleView);
-        // echo '</pre>';
-
-        if($checkIDArticleView == null){
-            // Nếu chưa có dữ liệu về lượt xem cho bài viết, thêm một bản ghi mới
-            $this->params['views']  = 1;
-            $this->params['status'] = 'active';
-            $viewsArticleModel->saveItem($this->params,['task'=>'add-item']);
-            $viewsArticleModel = $viewsArticleModel[0];
-        }else{
-            $this->params['id']             = $checkIDArticleView['id'];
-            $this->params['article_id']     = $checkIDArticleView['article_id'];
-            $this->params['views']          = (int)$checkIDArticleView['views'] + 1;
-            $viewsArticleModel->saveItem($this->params,['task'=>'add-views']);
-        }
-
-
+        $nowAritcleID   = $this->params['article_id'];
+        //Set id vào bản user_agents
+        DB::table('user_agents')->where('id', '>', 0)->limit(1)->orderBy('id', 'desc')->update(['article_id' => $nowAritcleID]);
 
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
         $itemArticle['related_article']  = $articleModel->listItems($this->params, ['task'=> 'new-list-items-related-in-category']);
