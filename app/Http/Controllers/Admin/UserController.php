@@ -55,10 +55,6 @@ class UserController extends Controller
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>';
-
         return view($this->pathViewController . 'form', [
             'item'=>$item
         ]);

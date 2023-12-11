@@ -1,3 +1,10 @@
+@php
+    use Illuminate\Support\Facades\Session;
+    use App\Helpers\Template as Template;
+    $userInfo = $value = Session::get('userInfo');
+    $nameUser = ucfirst($userInfo['username']);
+    $avatar   = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
+@endphp
 <div class="nav_menu">
     <nav>
         <div class="nav toggle">
@@ -7,7 +14,7 @@
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                    aria-expanded="false">
-                    <img src="{{asset('admin/img/phamdat.png')}}" alt="">PhamDat
+                    {!!$avatar!!}{{$nameUser}}
                     <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">

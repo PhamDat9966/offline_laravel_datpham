@@ -6,6 +6,10 @@
         $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
     }
 
+    if($pageIndex == null){
+        $pageButton     = '';
+    }
+
 
 @endphp
 <div class="page-header zvn-page-header clearfix">

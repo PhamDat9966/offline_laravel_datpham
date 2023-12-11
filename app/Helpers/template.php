@@ -200,6 +200,13 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showAvatar($thumbName , $thumbAlt){
+
+        $xhtml  = sprintf('
+                <img src="%s" alt="%s" class="zvn-thumb" />', asset("images/user/$thumbName"), $thumbAlt);
+        return  $xhtml;
+    }
+
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = Config::get('zvn.template.button');
 
