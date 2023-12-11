@@ -43,11 +43,21 @@ class UserController extends Controller
 
     public function form(Request $request)
     {
+        $params = [];
+        if($request->session()->has('userInfo')){
+            $data = $request->session()->all();
+            $params['userInfo'] = $data['userInfo'];
+        }
+
         $item   = null;
         if($request->id !== null){
             $params['id']   = $request->id;
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
+
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
 
         return view($this->pathViewController . 'form', [
             'item'=>$item

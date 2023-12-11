@@ -50,10 +50,11 @@ class ArticleController extends Controller
             $this->params['views']  = 1;
             $this->params['status'] = 'active';
             $viewsArticleModel->saveItem($this->params,['task'=>'add-item']);
+            $viewsArticleModel = $viewsArticleModel[0];
         }else{
-            $this->params['id']             = $checkIDArticleView[0]['id'];
-            $this->params['article_id']     = $checkIDArticleView[0]['article_id'];
-            $this->params['views']          = (int)$checkIDArticleView[0]['views'] + 1;
+            $this->params['id']             = $checkIDArticleView['id'];
+            $this->params['article_id']     = $checkIDArticleView['article_id'];
+            $this->params['views']          = (int)$checkIDArticleView['views'] + 1;
             $viewsArticleModel->saveItem($this->params,['task'=>'add-views']);
         }
 

@@ -6,6 +6,7 @@ use App\Models\AdminModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
+use Illuminate\Support\Facades\Session;
 
 class CategoryModel extends AdminModel
 {
@@ -136,6 +137,11 @@ class CategoryModel extends AdminModel
     }
 
     public function saveItem($params = null,$options = null){
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
 
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
@@ -155,7 +161,8 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'add-item'){
-            $params['created_by']   = 'phamdat';
+
+            $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
 
             /* Save dữ liệu theo DB oject */
@@ -175,7 +182,7 @@ class CategoryModel extends AdminModel
 
         if($options['task'] == 'edit-item'){
 
-            $params['modified_by']   = 'phamdat';
+            $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2

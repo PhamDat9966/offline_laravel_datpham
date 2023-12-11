@@ -6,6 +6,7 @@ use App\Models\AdminModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
+use Illuminate\Support\Facades\Session;
 
 class ArticleModel extends AdminModel
 {
@@ -172,6 +173,12 @@ class ArticleModel extends AdminModel
 
     public function saveItem($params = null,$options = null){
 
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
+
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
@@ -199,7 +206,7 @@ class ArticleModel extends AdminModel
 
             $thumb                  = $params['thumb'];
             $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-            $params['created_by']   = 'phamdat';
+            $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
 
             $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
@@ -237,7 +244,7 @@ class ArticleModel extends AdminModel
                 /* end Thêm ảnh mới */
             }
 
-            $params['modified_by']   = 'phamdat';
+            $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2

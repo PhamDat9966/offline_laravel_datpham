@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminModel;
-use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
-use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 
 class DataViewsArticleModel extends AdminModel
 {
@@ -96,11 +94,11 @@ class DataViewsArticleModel extends AdminModel
             //// OR use
             //// DB::table('article')->insert($params);
 
-            /* Save dữ liệu theo eloquent */
+            /* Save dữ liệu theo eloquent*/
             $this->table         = 'article_views';
             $this->article_id    = $params['article_id'];
             $this->views         = $params['views'];
-            $this->created_at    = $params['created'];
+            $this->created       = $params['created'];
             $this->status        = $params['status'];
             $this->save();
         }
