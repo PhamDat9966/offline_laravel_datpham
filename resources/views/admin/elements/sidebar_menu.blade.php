@@ -21,6 +21,7 @@
             <li><a href="{{ route('article')}}"><i class="fa fa-newspaper-o"></i> Article</a></li>
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Silders</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
+            <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
         </ul>
     </div>
 </div>

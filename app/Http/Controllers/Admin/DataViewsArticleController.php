@@ -38,10 +38,10 @@ class DataViewsArticleController extends Controller
         //Cập nhật Lượt Views theo 'user_agents' table
         $userAgentModel = new UserAgentModel();
         $dataUserAgent  = $userAgentModel->listItems($params = null,['task'=>'user_agents-list-items']);
-        // Mảng mới sau khi xóa các phần tử trùng 'agent' và 'article_id'
+        // Mảng $newDataView sẽ xóa các phần tử trùng 'agent' và 'article_id' trong $dataUserAgent
         $newDataView = [];
 
-        // Loại bỏ những các views trùng nhau của user theo UserAgent
+        // Loại bỏ những views trùng nhau của user theo UserAgent
         foreach ($dataUserAgent as $item) {
             $isDuplicate = false;
 
@@ -60,6 +60,7 @@ class DataViewsArticleController extends Controller
             }
         }
 
+        // Mảng đếm số lần xuất hiện của articleId
         $articleCounts = array();
 
         foreach ($newDataView as $item) {
@@ -74,6 +75,7 @@ class DataViewsArticleController extends Controller
             }
         }
 
+        // Cập nhật dataViews theo articleCount
         $dataViewsArticleModel  = new MainModel();
         $listItemsDataView      = $dataViewsArticleModel->getItem(null,['task'=>'get-all-item']);
 
@@ -86,7 +88,7 @@ class DataViewsArticleController extends Controller
                 $params['status']     = 'active';
                 $dataViewsArticleModel->saveItem($params,['task'=>'add-item']);
             }else{
-                //Nếu phần tử $articleCounts thì Cập nhật lại số views
+                //Nếu có phần tử trong $articleCounts thì Cập nhật lại số views
                 $params['article_id'] = $key;
                 $params['views']      = $value;
                 $params['status']     = 'active';

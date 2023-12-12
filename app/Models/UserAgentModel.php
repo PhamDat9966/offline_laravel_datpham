@@ -20,6 +20,33 @@ class UserAgentModel extends AdminModel
     public function listItems($params = null,$options = null){
         $result = null;
 
+        if($options['task'] == 'admin-list-items'){
+            $query = $this->select('u.id','u.agent','u.timestamps','u.article_id','a.name as article_name')
+            ->leftJoin('article as a', 'a.id', '=', 'u.article_id');
+
+            if($params['search'] !== ""){
+
+                if($params["search"]["field"] == "all"){
+
+                    $query->where(function ($query) use ($params){
+                        foreach ($this->fieldSearchAccepted as $column) {
+                            {
+                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
+                            }
+                        }
+                    }
+                );
+
+                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                }
+            }
+
+            $result = $query->orderBy('id', 'desc')
+                            ->paginate($params['pagination']['totalItemsPerPage']);
+        }
+
         if($options['task'] == 'user_agents-list-items'){
             $query = $this->select('id','agent','article_id');
             $result = $query->get()->toArray();
@@ -34,17 +61,8 @@ class UserAgentModel extends AdminModel
 
         if($options['task'] == 'admin-count-items-group-by-status'){
 
-            $query  = $this->select(DB::raw('COUNT(id) as count,status'))
-                           ->groupBy('status');
-
-                            if($params['filter']['category'] !== "all"){
-                                $query->where("category_id","=", $params['filter']['category']);
-                            }
-
-                            if($params['filter']['type'] !== "all"){
-                                $query->where("type","=", $params['filter']['type']);
-                            }
-
+            $query  = $this->select(DB::raw('COUNT(id) as count,article_id'))
+                           ->groupBy('article_id');
 
                             if($params['search'] !== ""){
 

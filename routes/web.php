@@ -236,6 +236,18 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         ]);
 
     });
+    // ====================== UserAgents ======================
+    $prefix         =   'userAgents';
+    $controllerName =   'userAgents';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+    });
 
 });
 
