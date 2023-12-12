@@ -291,6 +291,14 @@ class ArticleModel extends AdminModel
 
         }
 
+
+        if($options['task'] == 'get-all-item'){
+            $result = $this::select('a.id','a.name','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
+                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                    ->get()->toArray();
+
+        }
+
         return $result;
     }
 

@@ -103,13 +103,13 @@ class DataViewsArticleModel extends AdminModel
             $this->save();
         }
 
-        if($options['task'] == 'add-views'){
+        if($options['task'] == 'update-views'){
             // $params['modified_by']   = 'phamdat';
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
 
-            self::where('id', $params['id'])->update(['views'=>$params['views']]);
+            self::where('article_id', $params['article_id'])->update(['views'=>$params['views']]);
         }
 
     }
@@ -148,6 +148,11 @@ class DataViewsArticleModel extends AdminModel
                     ->where('a.id', $params['article_id'])
                     ->first()->toArray();
 
+        }
+
+        if($options['task'] == 'get-all-item'){
+            $query = $this->select('id','article_id','views');
+            $result = $query->get()->toArray();
         }
 
         return $result;

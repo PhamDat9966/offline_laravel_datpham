@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\DataViewsArticleModel as MainModel;
 
-use App\Models\UserAgentModel as UserAgentModel;
+use App\Models\UserAgentModel;
+use App\Models\ArticleModel;
 
 class DataViewsArticleController extends Controller
 {
@@ -59,39 +60,42 @@ class DataViewsArticleController extends Controller
             }
         }
 
-        echo '<pre>';
-        print_r($newDataView);
-        echo '</pre>';
-                // Giải thuật tính views tạm thời
-        // $checkIDArticleView  = $this->model->checkArticleID($this->params,['task'=>'check-id']);
-        // echo '<pre>';
-        // print_r($checkIDArticleView);
-        // echo '</pre>';
-        // if($checkIDArticleView == null){
-        //     // Nếu chưa có dữ liệu về lượt xem cho bài viết, thêm một bản ghi mới
-        //     $this->params['views']  = 1;
-        //     $this->params['status'] = 'active';
-        //     $viewsArticleModel->saveItem($this->params,['task'=>'add-item']);
+        $articleCounts = array();
 
-        // }else{
-        //     $checkIDArticleView = $checkIDArticleView[0];
-        //     $this->params['id']             = $checkIDArticleView['id'];
-        //     $this->params['article_id']     = $checkIDArticleView['article_id'];
-        //     $this->params['views']          = (int)$checkIDArticleView['views'] + 1;
-        //     $viewsArticleModel->saveItem($this->params,['task'=>'add-views']);
-        // }
+        foreach ($newDataView as $item) {
+             $articleId = $item['article_id'];
+
+            // Nếu $articleId chưa tồn tại trong mảng $articleCounts, thêm mới
+            if (!isset($articleCounts[$articleId])) {
+                $articleCounts[$articleId] = 1;
+            } else {
+                // Ngược lại, tăng giá trị đếm lên 1
+                $articleCounts[$articleId]++;
+            }
+        }
+
+        $dataViewsArticleModel  = new MainModel();
+        $listItemsDataView      = $dataViewsArticleModel->getItem(null,['task'=>'get-all-item']);
+
+        //updateView nếu trường hợp chưa có phần tử
+        foreach($articleCounts as $key=>$value){
+            //Nếu phần tử trong $articleCounts không tồn tại dataViewArticel thì thêm mới nó vào csdl
+            if (!in_array($key, array_column($listItemsDataView, 'article_id'))) {
+                $params['article_id'] = $key;
+                $params['views']      = $value;
+                $params['status']     = 'active';
+                $dataViewsArticleModel->saveItem($params,['task'=>'add-item']);
+            }else{
+                //Nếu phần tử $articleCounts thì Cập nhật lại số views
+                $params['article_id'] = $key;
+                $params['views']      = $value;
+                $params['status']     = 'active';
+                $dataViewsArticleModel->saveItem($params,['task'=>'update-views']);
+            }
+        }
 
         $items              = $this->model->listItems($this->params,['task' => "data-view-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
-
-        // $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
-
-        // $categoryModel  = new categoryModel();
-        // $categoryList   = $categoryModel->listItems(null,['task'=>'category-list']);
-
-        // $firstItem      = ['id'=> 'all','name'=> 'Tất Cả'];
-        // $categoryList   = array('all' => $firstItem) + $categoryList;
-
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
