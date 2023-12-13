@@ -247,6 +247,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
+        Route::get('lean', [
+            'as'    => $controllerName . '/lean',
+            'uses'  => $controller . 'lean'
+        ]);
+
     });
 
 });

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\UserAgentModel as MainModel;
+use App\Models\UserAgentsModel as MainModel;
 
 
 class UserAgentsController extends Controller
@@ -39,6 +39,19 @@ class UserAgentsController extends Controller
         ]);
     }
 
+    public function lean(Request $request)
+    {
+        $this->model = new MainModel();
+        $items       = $this->model->getItem(null,['task'=>'get-all-item']);
+        $leanArray   = array_unique($items,SORT_REGULAR); // Loại bỏ phần tử trùng
+        $this->model->remove(null,['task'=>'remove-all-rows']);
+
+        foreach($leanArray as $lean){
+            $this->model->saveItem($lean,['task'=>'add-item']);
+        }
+
+        return redirect()->route('userAgents')->with('zvn_notily','Đã loại bỏ những Agents trùng lặp!');
+    }
 }
 
 // php artisan make:model ArticalModel

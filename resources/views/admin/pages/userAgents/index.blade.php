@@ -3,6 +3,8 @@
 @php
     use App\Helpers\template as Template;
     //$xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
+    $xhtmlButtonLean    = '<a href="http://proj_news.xyz/admin69/userAgents/lean"
+                              type="button" class="btn btn-primary"> Lọc </a>';
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
 
 @endphp
@@ -20,7 +22,7 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-md-6">
-                        {{-- {!!$xhtmlButtonFilter!!} --}}
+                        {!!$xhtmlButtonLean!!}
                     </div>
                     <div class="col-md-6">
                         {!!$xhtmlAreaSearch!!}

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\DataViewsArticleModel as MainModel;
 
-use App\Models\UserAgentModel;
+use App\Models\UserAgentsModel;
 use App\Models\ArticleModel;
 
 class DataViewsArticleController extends Controller
@@ -25,7 +25,7 @@ class DataViewsArticleController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
 
         $this->params['filter']['status']   = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa, tương đương với $_GET
@@ -36,7 +36,7 @@ class DataViewsArticleController extends Controller
         $this->params['filter']['type']       = $request->input('filter_type','all');
 
         //Cập nhật Lượt Views theo 'user_agents' table
-        $userAgentModel = new UserAgentModel();
+        $userAgentModel = new UserAgentsModel();
         $dataUserAgent  = $userAgentModel->listItems($params = null,['task'=>'user_agents-list-items']);
         // Mảng $newDataView sẽ xóa các phần tử trùng 'agent' và 'article_id' trong $dataUserAgent
         $newDataView = [];
@@ -81,7 +81,7 @@ class DataViewsArticleController extends Controller
 
         //updateView nếu trường hợp chưa có phần tử
         foreach($articleCounts as $key=>$value){
-            //Nếu phần tử trong $articleCounts không tồn tại dataViewArticel thì thêm mới nó vào csdl
+            //Nếu phần tử trong $articleCounts không tồn tại trong dataViewArticel thì thêm mới nó vào csdl
             if (!in_array($key, array_column($listItemsDataView, 'article_id'))) {
                 $params['article_id'] = $key;
                 $params['views']      = $value;

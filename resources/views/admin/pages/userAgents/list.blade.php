@@ -1,10 +1,6 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
-    // echo '<pre>';
-    // print_r($items);
-    // echo '</pre>';
-    // die();
 @endphp
 
 <div class="x_content">
@@ -14,9 +10,9 @@
                 <tr class="headings">
                     <th class="column-title">#</th>
                     <th class="column-title">Agent</th>
-                    <th class="column-title">Timestamps</th>
                     <th class="column-title">Tên Bài Viết</th>
                     <th class="column-title">Id Bài Viết</th>
+                    <th class="column-title">Timestamps</th>
                     {{-- <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th> --}}
 
@@ -43,13 +39,13 @@
                                 <p><strong>Agent:</strong> {!! $agent !!}</p>
                             </td>
                             <td>
-                                {!!$timestampsHistory!!}
-                            </td>
-                            <td>
                                 {!!$article_name!!}
                             </td>
                             <td>
                                 {!!$article_id!!}
+                            </td>
+                            <td>
+                                {!!$timestampsHistory!!}
                             </td>
                         </tr>
                     @endforeach
