@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\View;
 
 use App\Models\CategoryModel;
 use App\Models\ArticleModel;
+use App\Models\UserModel;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Session\Store;
 
 class ArticleController extends Controller
 {
@@ -36,6 +39,30 @@ class ArticleController extends Controller
         $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
         $this->params['category_id']  = $itemArticle['category_id'];
 
+        if($request->session()->has('userInfo')){
+            $userInfo   = Session::get('userInfo');
+            $userModel = new UserModel();
+            $this->params['usually_category'] = $this->params['category_id'];
+            $this->params['user_id']          = $userInfo['id'];
+            if(empty($userInfo['usually_category'])){
+                $userModel->saveItem($this->params,['task'=>'update-usually_category']);
+            }else{
+
+                $usuallyCategoryArray   = explode(',',$userInfo['usually_category']);
+                $usuallyCategoryCount   = array_count_values($usuallyCategoryArray);
+
+                // Trong category co tat ca la 3 cap. Nen quy dinh chuoi ko vuot qua 3
+                if (isset($usuallyCategoryCount[$this->params['category_id']]) && $usuallyCategoryCount[$this->params['category_id']] < 3) {
+                    $this->params['usually_category'] = $userInfo['usually_category'] .','. $this->params['category_id'];
+                    // Cập nhật lại sesion
+                    $userInfo['usually_category'] = $this->params['usually_category'];
+                    $request->session()->put('userInfo', $userInfo);
+                    $userModel->saveItem($this->params,['task'=>'update-usually_category']);
+                }
+
+            }
+        }
+
         //$itemCategory   = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
 
         if(empty($itemArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
@@ -52,6 +79,10 @@ class ArticleController extends Controller
              'itemsLatest'  => $itemsLatest,
              'itemArticle'  => $itemArticle
         ]);
+    }
+
+    public function saveUsuallyCategory(){
+
     }
 
 }

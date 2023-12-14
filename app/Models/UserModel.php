@@ -190,6 +190,19 @@ class UserModel extends AdminModel
 
         }
 
+        if($options['task'] == 'insert-usually-category'){
+            $this::where('id', $params['user_id'])
+                ->insert(['usually_category' => $params['usually_category']]);
+
+        }
+
+        if($options['task'] == 'update-usually_category'){
+
+            $this::where('id', $params['user_id'])
+                ->update(['usually_category' => $params['usually_category']]);
+
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){
@@ -206,7 +219,7 @@ class UserModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','username','fullname','email','level','status','level','avatar')
+            $result = $this::select('id','username','fullname','email','level','status','level','avatar','usually_category')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
@@ -229,7 +242,7 @@ class UserModel extends AdminModel
 
         if($options['task'] == 'auth-login'){
 
-            $result = $this->select('id','username','email','fullname','level','avatar')
+            $result = $this->select('id','username','email','fullname','level','avatar','usually_category')
                             ->where('status','=','active')
                             ->where('email','=',$params['email'])
                             ->where('password','=',md5($params['password']))->first();
