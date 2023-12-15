@@ -124,14 +124,23 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
-        if($options['task'] == 'news-list-items-usually'){
+        if($options['task'] == 'news-list-items-usually-max'){
             $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['usually_key'])
+                          ->where('a.category_id','=',$params['usually_key_max'])
                           ->where('a.status','=','active')
                           ->orderBy('a.id', 'desc')
-                          ->take(3);
+                          ->take(2);
             $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-usually-second-highest'){
+            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.category_id','=',$params['usually_key_second_highest'])
+                          ->where('a.status','=','active')
+                          ->first();
+            $result = $query->toArray();
         }
 
         return $result;
