@@ -124,6 +124,16 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-items-usually'){
+            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.category_id','=',$params['usually_key'])
+                          ->where('a.status','=','active')
+                          ->orderBy('a.id', 'desc')
+                          ->take(3);
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 

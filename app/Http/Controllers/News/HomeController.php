@@ -9,6 +9,9 @@ use App\Models\SliderModel;
 use App\Models\CategoryModel;
 use App\Models\ArticleModel;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Session\Store;
+
 class HomeController extends Controller
 {
     private $pathViewController  = 'news.pages.home.';
@@ -42,12 +45,22 @@ class HomeController extends Controller
             $itemsCategory[$key]['article'] = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category']);
         }
 
+        // Nhóm bài viết thường đọc, đề xuất
+        $userInfo   = Session::get('userInfo');
+        $usuallyCategoryAr      = explode(',',$userInfo['usually_category']);
+        $usuallyCategoryCount   = array_count_values($usuallyCategoryAr);
+        $maxValue          = max($usuallyCategoryCount);
+        $maxKey            = array_search($maxValue, $usuallyCategoryCount);
+        $params['usually_key']  = $maxKey;
+        $itemsUsually           = $articleModel->listItems($params, ['task'=> 'news-list-items-usually']);
+
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
              'itemsCategory'        => $itemsCategory,
              'itemsFeature'         => $itemsFeature,
-             'itemsLatest'          => $itemsLatest
+             'itemsLatest'          => $itemsLatest,
+             'itemsUsually'         => $itemsUsually
         ]);
     }
 

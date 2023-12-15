@@ -190,12 +190,6 @@ class UserModel extends AdminModel
 
         }
 
-        if($options['task'] == 'insert-usually-category'){
-            $this::where('id', $params['user_id'])
-                ->insert(['usually_category' => $params['usually_category']]);
-
-        }
-
         if($options['task'] == 'update-usually_category'){
 
             $this::where('id', $params['user_id'])

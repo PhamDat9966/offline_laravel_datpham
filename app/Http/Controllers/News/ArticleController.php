@@ -44,23 +44,13 @@ class ArticleController extends Controller
             $userModel = new UserModel();
             $this->params['usually_category'] = $this->params['category_id'];
             $this->params['user_id']          = $userInfo['id'];
-            if(empty($userInfo['usually_category'])){
-                $userModel->saveItem($this->params,['task'=>'update-usually_category']);
-            }else{
+            $this->params['usually_category'] = $userInfo['usually_category'] .','. $this->params['category_id'];
+            // Cập nhật lại sesion
+            $userInfo['usually_category'] = $this->params['usually_category'];
 
-                $usuallyCategoryArray   = explode(',',$userInfo['usually_category']);
-                $usuallyCategoryCount   = array_count_values($usuallyCategoryArray);
+            $request->session()->put('userInfo', $userInfo);
+            $userModel->saveItem($this->params,['task'=>'update-usually_category']);
 
-                // Trong category co tat ca la 3 cap. Nen quy dinh chuoi ko vuot qua 3
-                if (isset($usuallyCategoryCount[$this->params['category_id']]) && $usuallyCategoryCount[$this->params['category_id']] < 3) {
-                    $this->params['usually_category'] = $userInfo['usually_category'] .','. $this->params['category_id'];
-                    // Cập nhật lại sesion
-                    $userInfo['usually_category'] = $this->params['usually_category'];
-                    $request->session()->put('userInfo', $userInfo);
-                    $userModel->saveItem($this->params,['task'=>'update-usually_category']);
-                }
-
-            }
         }
 
         //$itemCategory   = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
