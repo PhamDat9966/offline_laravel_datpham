@@ -45,22 +45,25 @@ class HomeController extends Controller
             $itemsCategory[$key]['article'] = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category']);
         }
 
-        // Nhóm bài viết thường đọc, đề xuất Gồm Max là category được xem nhiều nhất và secondHighest là category được xem nhiều thứ 2
-        // max lấy 2 bài và secondHighest lấy 1 bài
-        $userInfo   = Session::get('userInfo');
-        $usuallyCategoryAr      = explode(',',$userInfo['usually_category']);
-        $usuallyCategoryCount   = array_count_values($usuallyCategoryAr);
-        $maxValue          = max($usuallyCategoryCount);
-        $maxKey            = array_search($maxValue, $usuallyCategoryCount);
-        $params['usually_key_max']  = $maxKey;
-        //Lấy key value nhiều thứ 2
-        // Sắp xếp mảng theo giá trị giảm dần
-        arsort($usuallyCategoryCount);
-        $secondHighest = array_keys($usuallyCategoryCount)[1];
-        $params['usually_key_second_highest']  = $secondHighest;
+        $itemsUsually = '';
+        if (Session::has('userInfo')) {
+            // Nhóm bài viết thường đọc, đề xuất Gồm Max là category được xem nhiều nhất và secondHighest là category được xem nhiều thứ 2
+            // max lấy 2 bài và secondHighest lấy 1 bài
+            $userInfo   = Session::get('userInfo');
+            $usuallyCategoryAr      = explode(',',$userInfo['usually_category']);
+            $usuallyCategoryCount   = array_count_values($usuallyCategoryAr);
+            $maxValue          = max($usuallyCategoryCount);
+            $maxKey            = array_search($maxValue, $usuallyCategoryCount);
+            $params['usually_key_max']  = $maxKey;
+            //Lấy key value nhiều thứ 2
+            // Sắp xếp mảng theo giá trị giảm dần
+            arsort($usuallyCategoryCount);
+            $secondHighest = array_keys($usuallyCategoryCount)[1];
+            $params['usually_key_second_highest']  = $secondHighest;
 
-        $itemsUsually           = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-max']);
-        $itemsUsually[]         = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-second-highest']);
+            $itemsUsually           = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-max']);
+            $itemsUsually[]         = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-second-highest']);
+        }
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,

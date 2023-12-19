@@ -171,6 +171,29 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
+    // ====================== ARTICLE ======================
+    $prefix         =   'system';
+    $controllerName =   'system';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
     // ====================== USER ======================
     $prefix         =   'user';
     $controllerName =   'user';

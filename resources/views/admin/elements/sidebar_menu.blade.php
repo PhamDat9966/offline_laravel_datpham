@@ -22,6 +22,7 @@
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Silders</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
+            <li><a href="{{ route('system')}}"><i class="fa fa-cog"></i> System</a></li>
         </ul>
     </div>
 </div>

@@ -12,7 +12,9 @@
                 <div class="col-lg-9">
                     <div class="main_content">
                         <!-- Featured -->
-                        @include('news.block.usually',['items'=>$itemsUsually])
+                        @if ($itemsUsually != null)
+                            @include('news.block.usually',['items'=>$itemsUsually])
+                        @endif
                         <!-- Featured -->
                         @include('news.block.featured',['items'=>$itemsFeature])
 
