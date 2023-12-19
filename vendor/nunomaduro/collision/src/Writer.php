@@ -1,18 +1,13 @@
 <?php
 
-/**
- * This file is part of Collision.
- *
- * (c) Nuno Maduro <enunomaduro@gmail.com>
- *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace NunoMaduro\Collision;
 
 use NunoMaduro\Collision\Contracts\ArgumentFormatter as ArgumentFormatterContract;
 use NunoMaduro\Collision\Contracts\Highlighter as HighlighterContract;
+use NunoMaduro\Collision\Contracts\RenderlessEditor;
+use NunoMaduro\Collision\Contracts\RenderlessTrace;
 use NunoMaduro\Collision\Contracts\SolutionsRepository;
 use NunoMaduro\Collision\Contracts\Writer as WriterContract;
 use NunoMaduro\Collision\SolutionsRepositories\NullSolutionsRepository;
@@ -22,16 +17,16 @@ use Whoops\Exception\Frame;
 use Whoops\Exception\Inspector;
 
 /**
- * This is an Collision Writer implementation.
+ * @internal
  *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * @see \Tests\Unit\WriterTest
  */
-class Writer implements WriterContract
+final class Writer implements WriterContract
 {
     /**
      * The number of frames if no verbosity is specified.
      */
-    const VERBOSITY_NORMAL_FRAMES = 1;
+    public const VERBOSITY_NORMAL_FRAMES = 1;
 
     /**
      * Holds an instance of the solutions repository.
@@ -92,11 +87,6 @@ class Writer implements WriterContract
 
     /**
      * Creates an instance of the writer.
-     *
-     * @param  \NunoMaduro\Collision\Contracts\SolutionsRepository|null  $solutionsRepository
-     * @param  \Symfony\Component\Console\Output\OutputInterface|null  $output
-     * @param  \NunoMaduro\Collision\Contracts\ArgumentFormatter|null  $argumentFormatter
-     * @param  \NunoMaduro\Collision\Contracts\Highlighter|null  $highlighter
      */
     public function __construct(
         SolutionsRepository $solutionsRepository = null,
@@ -105,9 +95,9 @@ class Writer implements WriterContract
         HighlighterContract $highlighter = null
     ) {
         $this->solutionsRepository = $solutionsRepository ?: new NullSolutionsRepository();
-        $this->output = $output ?: new ConsoleOutput();
-        $this->argumentFormatter = $argumentFormatter ?: new ArgumentFormatter;
-        $this->highlighter = $highlighter ?: new Highlighter;
+        $this->output              = $output ?: new ConsoleOutput();
+        $this->argumentFormatter   = $argumentFormatter ?: new ArgumentFormatter();
+        $this->highlighter         = $highlighter ?: new Highlighter();
     }
 
     /**
@@ -121,15 +111,20 @@ class Writer implements WriterContract
 
         $editorFrame = array_shift($frames);
 
-        if ($this->showEditor && $editorFrame !== null) {
+        $exception = $inspector->getException();
+
+        if ($this->showEditor
+            && $editorFrame !== null
+            && !$exception instanceof RenderlessEditor
+        ) {
             $this->renderEditor($editorFrame);
         }
 
         $this->renderSolution($inspector);
 
-        if ($this->showTrace && ! empty($frames)) {
+        if ($this->showTrace && !empty($frames) && !$exception instanceof RenderlessTrace) {
             $this->renderTrace($frames);
-        } else {
+        } elseif (!$exception instanceof RenderlessEditor) {
             $this->output->writeln('');
         }
     }
@@ -194,10 +189,6 @@ class Writer implements WriterContract
 
     /**
      * Returns pertinent frames.
-     *
-     * @param  \Whoops\Exception\Inspector  $inspector
-     *
-     * @return array
      */
     protected function getFrames(Inspector $inspector): array
     {
@@ -211,7 +202,10 @@ class Writer implements WriterContract
                     }
 
                     foreach ($this->ignore as $ignore) {
-                        if (preg_match($ignore, $frame->getFile())) {
+                        // Ensure paths are linux-style (like the ones on $this->ignore)
+                        // @phpstan-ignore-next-line
+                        $sanitizedPath = (string) str_replace('\\', '/', $frame->getFile());
+                        if (preg_match($ignore, $sanitizedPath)) {
                             return false;
                         }
                     }
@@ -224,16 +218,12 @@ class Writer implements WriterContract
 
     /**
      * Renders the title of the exception.
-     *
-     * @param  \Whoops\Exception\Inspector  $inspector
-     *
-     * @return \NunoMaduro\Collision\Contracts\Writer
      */
     protected function renderTitleAndDescription(Inspector $inspector): WriterContract
     {
         $exception = $inspector->getException();
-        $message = rtrim($exception->getMessage());
-        $class = $inspector->getExceptionName();
+        $message   = rtrim($exception->getMessage());
+        $class     = $inspector->getExceptionName();
 
         if ($this->showTitle) {
             $this->render("<bg=red;options=bold> $class </>");
@@ -247,10 +237,6 @@ class Writer implements WriterContract
 
     /**
      * Renders the solution of the exception, if any.
-     *
-     * @param  \Whoops\Exception\Inspector  $inspector
-     *
-     * @return \NunoMaduro\Collision\Contracts\Writer
      */
     protected function renderSolution(Inspector $inspector): WriterContract
     {
@@ -259,9 +245,9 @@ class Writer implements WriterContract
 
         foreach ($solutions as $solution) {
             /** @var \Facade\IgnitionContracts\Solution $solution */
-            $title = $solution->getSolutionTitle();
+            $title       = $solution->getSolutionTitle();
             $description = $solution->getSolutionDescription();
-            $links = $solution->getDocumentationLinks();
+            $links       = $solution->getDocumentationLinks();
 
             $description = trim((string) preg_replace("/\n/", "\n    ", $description));
 
@@ -281,37 +267,31 @@ class Writer implements WriterContract
     /**
      * Renders the editor containing the code that was the
      * origin of the exception.
-     *
-     * @param  \Whoops\Exception\Frame  $frame
-     *
-     * @return \NunoMaduro\Collision\Contracts\Writer
      */
     protected function renderEditor(Frame $frame): WriterContract
     {
-        $file = $this->getFileRelativePath((string) $frame->getFile());
+        if ($frame->getFile() !== 'Unknown') {
+            $file = $this->getFileRelativePath((string) $frame->getFile());
 
-        // getLine() might return null so cast to int to get 0 instead
-        $line = (int) $frame->getLine();
-        $this->render('at <fg=green>'.$file.'</>'.':<fg=green>'.$line.'</>');
+            // getLine() might return null so cast to int to get 0 instead
+            $line = (int) $frame->getLine();
+            $this->render('at <fg=green>' . $file . '</>' . ':<fg=green>' . $line . '</>');
 
-        $content = $this->highlighter->highlight((string) $frame->getFileContents(), (int) $frame->getLine());
+            $content = $this->highlighter->highlight((string) $frame->getFileContents(), (int) $frame->getLine());
 
-        $this->output->writeln($content);
+            $this->output->writeln($content);
+        }
 
         return $this;
     }
 
     /**
      * Renders the trace of the exception.
-     *
-     * @param  array  $frames
-     *
-     * @return \NunoMaduro\Collision\Contracts\Writer
      */
     protected function renderTrace(array $frames): WriterContract
     {
         $vendorFrames = 0;
-        $userFrames = 0;
+        $userFrames   = 0;
         foreach ($frames as $i => $frame) {
             if ($this->output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE && strpos($frame->getFile(), '/vendor/') !== false) {
                 $vendorFrames++;
@@ -324,12 +304,12 @@ class Writer implements WriterContract
 
             $userFrames++;
 
-            $file = $this->getFileRelativePath($frame->getFile());
-            $line = $frame->getLine();
-            $class = empty($frame->getClass()) ? '' : $frame->getClass().'::';
+            $file     = $this->getFileRelativePath($frame->getFile());
+            $line     = $frame->getLine();
+            $class    = empty($frame->getClass()) ? '' : $frame->getClass() . '::';
             $function = $frame->getFunction();
-            $args = $this->argumentFormatter->format($frame->getArgs());
-            $pos = str_pad((string) ((int) $i + 1), 4, ' ');
+            $args     = $this->argumentFormatter->format($frame->getArgs());
+            $pos      = str_pad((string) ((int) $i + 1), 4, ' ');
 
             if ($vendorFrames > 0) {
                 $this->output->write(
@@ -342,23 +322,11 @@ class Writer implements WriterContract
             $this->render("<fg=white>    $class$function($args)</>", false);
         }
 
-        /** Let's consider add this later...
-         * if ($vendorFrames > 0) {
-         * $this->output->write(
-         * sprintf("\n      \e[2m+%s vendor frames \e[22m\n", $vendorFrames)
-         * );
-         * $vendorFrames = 0;
-         * }.
-         */
-
         return $this;
     }
 
     /**
      * Renders an message into the console.
-     *
-     * @param  string  $message
-     * @param  bool  $break
      *
      * @return $this
      */
@@ -375,16 +343,12 @@ class Writer implements WriterContract
 
     /**
      * Returns the relative path of the given file path.
-     *
-     * @param  string $filePath
-     *
-     * @return string
      */
     protected function getFileRelativePath(string $filePath): string
     {
         $cwd = (string) getcwd();
 
-        if (! empty($cwd)) {
+        if (!empty($cwd)) {
             return str_replace("$cwd/", '', $filePath);
         }
 

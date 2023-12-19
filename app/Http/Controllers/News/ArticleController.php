@@ -49,7 +49,7 @@ class ArticleController extends Controller
             $userInfo['usually_category'] = $this->params['usually_category'];
 
             $request->session()->put('userInfo', $userInfo);
-            $userModel->saveItem($this->params,['task'=>'update-usually_category']);
+            $userModel->saveItem($this->params,['task'=>'update-usually-category']);
 
         }
 

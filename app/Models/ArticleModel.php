@@ -129,8 +129,10 @@ class ArticleModel extends AdminModel
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
                           ->where('a.category_id','=',$params['usually_key_max'])
                           ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
-                          ->take(2);
+                          ->latest('a.id')
+                          //->inRandomOrder()
+                          //->orderBy('a.id', 'desc')
+                          ->take(6);
             $result = $query->get()->toArray();
         }
 
@@ -139,6 +141,7 @@ class ArticleModel extends AdminModel
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
                           ->where('a.category_id','=',$params['usually_key_second_highest'])
                           ->where('a.status','=','active')
+                          ->inRandomOrder()
                           ->first();
             $result = $query->toArray();
         }

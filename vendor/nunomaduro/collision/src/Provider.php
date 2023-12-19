@@ -1,13 +1,6 @@
 <?php
 
-/**
- * This file is part of Collision.
- *
- * (c) Nuno Maduro <enunomaduro@gmail.com>
- *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace NunoMaduro\Collision;
 
@@ -17,11 +10,11 @@ use Whoops\Run;
 use Whoops\RunInterface;
 
 /**
- * This is an Collision Provider implementation.
+ * @internal
  *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * @see \Tests\Unit\ProviderTest
  */
-class Provider implements ProviderContract
+final class Provider implements ProviderContract
 {
     /**
      * Holds an instance of the Run.
@@ -39,14 +32,11 @@ class Provider implements ProviderContract
 
     /**
      * Creates a new instance of the Provider.
-     *
-     * @param \Whoops\RunInterface|null $run
-     * @param \NunoMaduro\Collision\Contracts\Handler|null $handler
      */
     public function __construct(RunInterface $run = null, HandlerContract $handler = null)
     {
-        $this->run = $run ?: new Run;
-        $this->handler = $handler ?: new Handler;
+        $this->run     = $run ?: new Run();
+        $this->handler = $handler ?: new Handler();
     }
 
     /**

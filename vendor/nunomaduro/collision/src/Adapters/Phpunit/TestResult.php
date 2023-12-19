@@ -1,30 +1,32 @@
 <?php
 
-/**
- * This file is part of Collision.
- *
- * (c) Nuno Maduro <enunomaduro@gmail.com>
- *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace NunoMaduro\Collision\Adapters\Phpunit;
 
+use NunoMaduro\Collision\Contracts\Adapters\Phpunit\HasPrintableTestCaseName;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 /**
  * @internal
  */
 final class TestResult
 {
-    public const FAIL = 'failed';
-    public const SKIPPED = 'skipped';
+    public const FAIL       = 'failed';
+    public const SKIPPED    = 'skipped';
     public const INCOMPLETE = 'incompleted';
-    public const RISKY = 'risked';
-    public const WARN = 'warnings';
-    public const RUNS = 'pending';
-    public const PASS = 'passed';
+    public const RISKY      = 'risked';
+    public const WARN       = 'warnings';
+    public const RUNS       = 'pending';
+    public const PASS       = 'passed';
+
+    /**
+     * @readonly
+     *
+     * @var string
+     */
+    public $testCaseName;
 
     /**
      * @readonly
@@ -57,54 +59,65 @@ final class TestResult
     /**
      * @readonly
      *
-     * @var null|string
+     * @var Throwable|null
      */
-    public $warning;
+    public $throwable;
+
+    /**
+     * @readonly
+     *
+     * @var string
+     */
+    public $warning = '';
 
     /**
      * Test constructor.
-     *
-     * @param  string  $description
-     * @param  string  $type
-     * @param  string  $icon
-     * @param  string  $color
-     * @param  string  $warning
      */
-    private function __construct(string $description, string $type, string $icon, string $color, string $warning = null)
+    private function __construct(string $testCaseName, string $description, string $type, string $icon, string $color, Throwable $throwable = null)
     {
-        $this->description = $description;
-        $this->type = $type;
-        $this->icon = $icon;
-        $this->color = $color;
-        $this->warning = trim((string) preg_replace("/\r|\n/", ' ', (string) $warning));
+        $this->testCaseName = $testCaseName;
+        $this->description  = $description;
+        $this->type         = $type;
+        $this->icon         = $icon;
+        $this->color        = $color;
+        $this->throwable    = $throwable;
+
+        $asWarning = $this->type === TestResult::WARN
+             || $this->type === TestResult::RISKY
+             || $this->type === TestResult::SKIPPED
+             || $this->type === TestResult::INCOMPLETE;
+
+        if ($throwable instanceof Throwable && $asWarning) {
+            $this->warning     = trim((string) preg_replace("/\r|\n/", ' ', $throwable->getMessage()));
+        }
     }
 
     /**
      * Creates a new test from the given test case.
-     *
-     * @param  TestCase  $testCase
-     *
-     * @return self
      */
-    public static function fromTestCase(TestCase $testCase, string $type, string $warning = null): self
+    public static function fromTestCase(TestCase $testCase, string $type, Throwable $throwable = null): self
     {
+        $testCaseName = State::getPrintableTestCaseName($testCase);
+
         $description = self::makeDescription($testCase);
 
         $icon = self::makeIcon($type);
 
         $color = self::makeColor($type);
 
-        return new self($description, $type, $icon, $color, $warning);
+        return new self($testCaseName, $description, $type, $icon, $color, $throwable);
     }
 
     /**
      * Get the test case description.
-     *
-     * @return string
      */
     public static function makeDescription(TestCase $testCase): string
     {
-        $name = $testCase->getName(true);
+        $name = $testCase->getName(false);
+
+        if ($testCase instanceof HasPrintableTestCaseName) {
+            return $name;
+        }
 
         // First, lets replace underscore by spaces.
         $name = str_replace('_', ' ', $name);
@@ -116,30 +129,39 @@ final class TestResult
         $name = (string) preg_replace('/^test/', '', $name);
 
         // Removes spaces
-        $name = (string) trim($name);
+        $name = trim($name);
 
-        // Finally, lower case everything
-        return (string) mb_strtolower($name);
+        // Lower case everything
+        $name = mb_strtolower($name);
+
+        // Add the dataset name if it has one
+        if ($dataName = $testCase->dataName()) {
+            if (is_int($dataName)) {
+                $name .= sprintf(' with data set #%d', $dataName);
+            } else {
+                $name .= sprintf(' with data set "%s"', $dataName);
+            }
+        }
+
+        return $name;
     }
 
     /**
      * Get the test case icon.
-     *
-     * @return string
      */
     public static function makeIcon(string $type): string
     {
         switch ($type) {
             case self::FAIL:
-                return '✕';
+                return '⨯';
             case self::SKIPPED:
-                return 's';
+                return '-';
             case self::RISKY:
-                return 'r';
+                return '!';
             case self::INCOMPLETE:
-                return 'i';
+                return '…';
             case self::WARN:
-                return 'w';
+                return '!';
             case self::RUNS:
                 return '•';
             default:
@@ -149,8 +171,6 @@ final class TestResult
 
     /**
      * Get the test case color.
-     *
-     * @return string
      */
     public static function makeColor(string $type): string
     {
