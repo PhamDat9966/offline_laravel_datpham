@@ -144,7 +144,8 @@ class ArticleModel extends AdminModel
                           ->inRandomOrder()
                           ->first();
 
-           // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article thì thay đổi ngẫu nhiên một categoryID khác
+           // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article
+           // thì thay đổi ngẫu nhiên một categoryID khác theo danh sách $params['listCategoryID']
             if($query == null){
 
                 $randomElement = array_rand($params['listCategoryID']);
