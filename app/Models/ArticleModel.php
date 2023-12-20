@@ -143,6 +143,21 @@ class ArticleModel extends AdminModel
                           ->where('a.status','=','active')
                           ->inRandomOrder()
                           ->first();
+
+           // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article thì thay đổi ngẫu nhiên một categoryID khác
+            if($query == null){
+
+                $randomElement = array_rand($params['listCategoryID']);
+                while ($randomElement == $params['usually_key_second_highest']) {
+                    $randomElement = array_rand($params['listCategoryID']);
+                }
+                $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
+                              ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                              ->where('a.category_id','=',$randomElement)
+                              ->where('a.status','=','active')
+                              ->inRandomOrder()
+                              ->first();
+            }
             $result = $query->toArray();
         }
 

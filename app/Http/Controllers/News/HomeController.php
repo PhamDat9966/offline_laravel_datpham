@@ -52,11 +52,11 @@ class HomeController extends Controller
             // Trường hợp user chưa xem bài nào thì tạo một chuỗi ngẫu nhiên từ danh sách categoryID để làm  nhóm bài viết đề xuất
             if($userInfo['usually_category'] == null){
                 $listCategoryID = array();
-                $listCategoryID = $categoryModel->getItem(null,['task'=>'category-list-id']);
-
+                $listCategoryID = $categoryModel->listItems(null,['task'=>'category-list-id']);
+                $params['listCategoryID'] = $listCategoryID;
                 $resultRamdomString = '';
 
-                for ($i = 0; $i < 10; $i++) {
+                for ($i = 0; $i <= 10; $i++) {
                     $randomIndex = array_rand($listCategoryID);
                     $resultRamdomString .= $listCategoryID[$randomIndex]['id'] . ',';
                 }

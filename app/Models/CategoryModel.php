@@ -90,6 +90,11 @@ class CategoryModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'category-list-id'){
+            $query = $this->select('id');
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 
@@ -221,12 +226,6 @@ class CategoryModel extends AdminModel
                     ->where('id', $params['category_id'])
                     ->first();
                     if($result != null) $result->toArray();
-        }
-
-
-        if($options['task'] == 'category-list-id'){
-            $query = $this->select('id');
-            $result = $query->get()->toArray();
         }
 
         return $result;
