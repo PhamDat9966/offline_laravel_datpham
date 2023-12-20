@@ -47,9 +47,25 @@ class HomeController extends Controller
 
         $itemsUsually = '';
         if (Session::has('userInfo')) {
-            // Nhóm bài viết thường đọc, đề xuất Gồm Max là category được xem nhiều nhất và secondHighest là category được xem nhiều thứ 2
-            // max lấy 2 bài và secondHighest lấy 1 bài
+
             $userInfo                   = Session::get('userInfo');
+            // Trường hợp user chưa xem bài nào thì tạo một chuỗi ngẫu nhiên từ danh sách categoryID để làm  nhóm bài viết đề xuất
+            if($userInfo['usually_category'] == null){
+                $listCategoryID = array();
+                $listCategoryID = $categoryModel->getItem(null,['task'=>'category-list-id']);
+
+                $resultRamdomString = '';
+
+                for ($i = 0; $i < 10; $i++) {
+                    $randomIndex = array_rand($listCategoryID);
+                    $resultRamdomString .= $listCategoryID[$randomIndex]['id'] . ',';
+                }
+                $userInfo['usually_category'] = $resultRamdomString;
+            }
+
+            // Nhóm bài viết "thường đọc - đề xuất". Gồm Max là category được xem nhiều nhất và secondHighest là category được xem nhiều thứ 2
+            // Max lấy 2 bài và secondHighest lấy 1 bài
+
             $usuallyCategoryAr          = explode(',',$userInfo['usually_category']);
             $usuallyCategoryCount       = array_count_values($usuallyCategoryAr);
             $maxValue                   = max($usuallyCategoryCount);
@@ -60,7 +76,7 @@ class HomeController extends Controller
             arsort($usuallyCategoryCount);
             $secondHighest = array_keys($usuallyCategoryCount)[1];
             $params['usually_key_second_highest']  = $secondHighest;
-
+            // Suy xuất đến model
             $itemsUsually           = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-max']); // Chọn 6 phần tử mới nhất
             shuffle($itemsUsually);
             $itemsUsually           = array_slice($itemsUsually, 0, 2); //chỉ lấy 2 phần tử của mảng sau khi xáo chộn mảng

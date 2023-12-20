@@ -13,7 +13,7 @@ class UserModel extends AdminModel
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
-        $this->fieldSearchAccepted  = ['id','name'];
+        $this->fieldSearchAccepted  = ['username','email','fullname'];
         $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task'];
     }
 

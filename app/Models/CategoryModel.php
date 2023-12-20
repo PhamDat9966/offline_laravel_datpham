@@ -223,6 +223,12 @@ class CategoryModel extends AdminModel
                     if($result != null) $result->toArray();
         }
 
+
+        if($options['task'] == 'category-list-id'){
+            $query = $this->select('id');
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 
