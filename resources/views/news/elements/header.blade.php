@@ -3,7 +3,7 @@
     use App\Helpers\URL;
 
     $categoryModel  = new CategoryModel();
-    $itemsCategory  = $categoryModel->listItems(null,['task'=>'news-list-items-is-home']);
+    $itemsCategory  = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';

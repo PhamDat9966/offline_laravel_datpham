@@ -8,12 +8,12 @@ use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 
-class CategoryModel extends AdminModel
+class RssModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'category';
-        $this->folderUpload         = 'category';
-        $this->fieldSearchAccepted  = ['id','name'];
+        $this->table                = 'rss';
+        $this->folderUpload         = 'rss';
+        $this->fieldSearchAccepted  = ['id','name','link'];
         $this->crudNotActived       = ['_token'];
     }
 
@@ -21,24 +21,10 @@ class CategoryModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','status','is_home','display','created','created_by','modified','modified_by');
+            $query = $this->select('id','name','link','ordering','source','created','created_by','modified','modified_by','status');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
-            }
-
-            if($params['filter']['is_home'] !== "all"){
-                if($params['filter']['is_home'] == 'true'){
-                    $params['filter']['is_home'] = 1;
-                }else if($params['filter']['is_home'] == 'false'){
-                    $params['filter']['is_home'] = 0;
-                }
-                $query->where("is_home","=", $params['filter']['is_home']);
-            }
-
-
-            if($params['filter']['display'] !== "all"){
-                $query->where('display','=',$params['filter']['display']);
             }
 
             if($params['search'] !== ""){
@@ -60,44 +46,14 @@ class CategoryModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('id', 'desc')
+            $result = $query->orderBy('ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
         if($options['task'] == 'news-list-items'){
-            $query = $this->select('id','name')
+            $query = $this->select('id','name','link','ordering','source')
                           ->where('status','=','active')
-                          ->limit('8');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-is-home'){
-            $query = $this->select('id','name','display')
-                          ->where('status','=','active')
-                          ->where('is_home','=','1');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name')
-                          ->where('status','=','active');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'admin-list-items-in-selectbox'){
-            $query = $this->select('id','name')
-                          ->orderBy('name', 'asc')
-                          ->where('status','=','active');
-            $result = $query->pluck('name', 'id')->toArray();
-        }
-
-        if($options['task'] == 'category-list'){
-            $query = $this->select('id','name');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'category-list-id'){
-            $query = $this->select('id');
+                          ->limit('5');
             $result = $query->get()->toArray();
         }
 
@@ -107,19 +63,14 @@ class CategoryModel extends AdminModel
     public function countItems($params = null,$options = null){
 
         $result = null;
-
         if($options['task'] == 'admin-count-items-group-by-status'){
-
+            //SELECT `status`, COUNT(`id`) FROM `slider` GROUP BY `status`
+            // $result = self::select(DB::raw('COUNT(id) as count,status') )
+            //                  ->groupBy('status')
+            //                  ->get()
+            //                  ->toArray();
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
-
-                            if($params['filter']['is_home'] !== "all"){
-                                $query->where("is_home","=", $params['filter']['is_home']);
-                            }
-
-                            if($params['filter']['display'] !== "all"){
-                                $query->where("display","=", $params['filter']['display']);
-                            }
 
                             if($params['search'] !== ""){
 
@@ -139,7 +90,6 @@ class CategoryModel extends AdminModel
                                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                                 }
                             }
-
             $result     = $query->get()
                                 ->toArray();
         }
@@ -148,6 +98,7 @@ class CategoryModel extends AdminModel
     }
 
     public function saveItem($params = null,$options = null){
+
         if (Session::has('userInfo')) {
             $userInfo = Session::get('userInfo');
         } else {
@@ -160,17 +111,6 @@ class CategoryModel extends AdminModel
                         ->update(['status' => $status]);
         }
 
-        if($options['task'] == 'change-display'){
-            $this::where('id', $params['id'])
-                        ->update(['display' => $params['display']]);
-        }
-
-        if($options['task'] == 'change-is-home'){
-            $isHome  = ($params['currentIsHome'] == true) ? false : true;
-            $this::where('id', $params['id'])
-                        ->update(['is_home' => $isHome]);
-        }
-
         if($options['task'] == 'add-item'){
 
             $params['created_by']   = $userInfo['username'];
@@ -181,11 +121,14 @@ class CategoryModel extends AdminModel
 
             // self::insert($params);
             //// OR use
-            //// DB::table('category')->insert($params);
+            //// DB::table('slider')->insert($params);
 
             /* Save dữ liệu theo eloquent */
             $this->name         = $params['name'];
+            $this->link         = $params['link'];
             $this->status       = $params['status'];
+            $this->ordering     = $params['ordering'];
+            $this->source       = $params['source'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
             $this->save();
@@ -213,25 +156,11 @@ class CategoryModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','status')
+            $result = $this::select('id','name','ordering','source','status','link')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
 
-        }
-
-        if($options['task'] == 'get-thumb'){
-            $result = $this::select('id','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-
-        }
-
-        if($options['task'] == 'news-get-item'){
-            $result = $this::select('id','name','display')
-                    ->where('id', $params['category_id'])
-                    ->first();
-                    if($result != null) $result->toArray();
         }
 
         return $result;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 25, 2023 lúc 07:30 AM
+-- Thời gian đã tạo: Th12 17, 2023 lúc 08:55 PM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -129,41 +129,13 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `name`, `status`, `created`, `created_by`, `modified`, `modified_by`, `is_home`, `display`) VALUES
 (1, 'Thể thao', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-12 00:00:00', 'hailan', 1, 'list'),
-(2, 'Giáo dục', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-12 00:00:00', 'hailan', 1, 'grid'),
+(2, 'Giáo dục', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-12 00:00:00', 'hailan', 0, 'grid'),
 (3, 'Sức khỏe', 'inactive', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:33', 'hailan', 0, 'list'),
-(4, 'Du lịch', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:30', 'hailan', 0, 'list'),
+(4, 'Du lịch', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:30', 'hailan', 1, 'list'),
 (5, 'Khoa học', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-12 00:00:00', 'hailan', 0, 'list'),
-(6, 'Số hóa', 'active', '2019-05-04 00:00:00', 'admin', '2023-12-11 00:00:00', 'admin', 1, 'grid'),
+(6, 'Số hóa', 'inactive', '2019-05-04 00:00:00', 'admin', '2023-12-11 00:00:00', 'admin', 1, 'grid'),
 (7, 'Xe - Ô tô', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:36', 'hailan', 0, 'grid'),
 (8, 'Kinh doanh', 'active', '2019-05-12 00:00:00', 'hailan', NULL, NULL, 0, 'grid');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `rss`
---
-
-CREATE TABLE `rss` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `link` varchar(200) NOT NULL,
-  `ordering` int(11) DEFAULT NULL,
-  `source` varchar(45) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  `modified_by` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
---
--- Đang đổ dữ liệu cho bảng `rss`
---
-
-INSERT INTO `rss` (`id`, `name`, `status`, `link`, `ordering`, `source`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'Thế giới', 'active', 'https://vnexpress.net/rss/the-gioi.rss', 10, 'VnExpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-25 07:05:36', NULL),
-(3, 'Sức khỏe', 'active', 'https://vnexpress.net/rss/suc-khoe.rss', 10, 'VnExpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-25 00:00:00', 'admin'),
-(6, 'Số hóa', 'active', 'https://vnexpress.net/rss/so-hoa.rss', 11, 'VnExpress', '2023-12-25 00:00:00', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -289,12 +261,6 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `rss`
---
-ALTER TABLE `rss`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
 -- Chỉ mục cho bảng `slider`
 --
 ALTER TABLE `slider`
@@ -333,12 +299,6 @@ ALTER TABLE `article_views`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT cho bảng `rss`
---
-ALTER TABLE `rss`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`

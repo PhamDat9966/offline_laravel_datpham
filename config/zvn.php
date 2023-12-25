@@ -85,6 +85,7 @@ return [
             'slider'    =>  ['all','id','name','description','link'],
             'category'  =>  ['all','id','name'],
             'article'   =>  ['all','name','content'],
+            'rss'       =>  ['all','name','link'],
             'user'      =>  ['all','username','email','fullname']
         ],
         'button'    =>[
@@ -92,7 +93,8 @@ return [
             'slider'    =>  ['edit','delete','info'],
             'category'  =>  ['edit','delete'],
             'article'   =>  ['edit','delete'],
-            'user'      =>  ['edit']
+            'user'      =>  ['edit'],
+            'rss'  =>  ['edit','delete']
         ]
     ]
 ];
