@@ -171,7 +171,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
-    // ====================== ARTICLE ======================
+    // ====================== SYSTEN ======================
     $prefix         =   'system';
     $controllerName =   'system';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
@@ -384,5 +384,18 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'as'    => $controllerName . '/logout',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'logout'            // Đây là đường dẫn đến controller
         ]);
+    });
+
+    // ====================== RSS ======================
+    $prefix         =   '';
+    $controllerName =   'rss';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/tin-tuc-tong-hop', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
     });
 });
