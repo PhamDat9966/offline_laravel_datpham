@@ -25,7 +25,7 @@ class HomeController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
         $sliderModel    = new SliderModel();
         $categoryModel  = new CategoryModel();
@@ -104,4 +104,3 @@ class HomeController extends Controller
 
 }
 
-// php artisan make:model SliderModel

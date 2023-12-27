@@ -146,19 +146,20 @@ class ArticleModel extends AdminModel
 
            // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article
            // thì thay đổi ngẫu nhiên một categoryID khác theo danh sách $params['listCategoryID']
-            if($query == null){
-
+           while ($query == null) {
                 $randomElement = array_rand($params['listCategoryID']);
+
+                // Đảm bảo không chọn lại categoryID đã kiểm tra
                 while ($randomElement == $params['usually_key_second_highest']) {
                     $randomElement = array_rand($params['listCategoryID']);
                 }
 
                 $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                              ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                              ->where('a.category_id','=',$randomElement)
-                              ->where('a.status','=','active')
-                              ->inRandomOrder()
-                              ->first();
+                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                    ->where('a.category_id', '=', $randomElement)
+                    ->where('a.status', '=', 'active')
+                    ->inRandomOrder()
+                    ->first();
             }
 
             $result = $query->toArray();
