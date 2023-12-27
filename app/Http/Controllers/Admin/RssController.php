@@ -18,7 +18,7 @@ class RssController extends Controller
     public function __construct()
     {
       $this->model  = new MainModel();
-      $this->params['pagination']['totalItemsPerPage']  = 3;
+      $this->params['pagination']['totalItemsPerPage']  = 5;
       // share bien $controllerName cho all view
       View::share('controllerName',$this->controllerName);
     }
@@ -80,7 +80,7 @@ class RssController extends Controller
             $statusAction = 'chưa kích hoạt';
             $statusNextAction   = "đã được kích hoạt";
         }
-        return redirect()->route('slider')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+        return redirect()->route($this->controllerName)->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
     public function delete(Request $request)
     {

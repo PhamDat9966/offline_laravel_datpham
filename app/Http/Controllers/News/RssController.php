@@ -11,6 +11,8 @@ use App\Models\RssModel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
 
+use App\Helpers\Feed;
+
 class RssController extends Controller
 {
     private $pathViewController  = 'news.pages.rss.';
@@ -29,46 +31,8 @@ class RssController extends Controller
         $rssModel    = new RssModel();
         $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
 
-        $context = stream_context_create([
-            'http' => [
-                'protocol_version' => '1.1',
-                'header' => 'Upgrade: HTTP/1.1'
-            ]
-        ]);
-
-        $url = 'https://vnexpress.net/rss/the-gioi.rss';
-        $xmlString = file_get_contents($url, false, $context);
-
-        $data = simplexml_load_string($xmlString, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $data = json_encode($data);
-        $data = json_decode($data, TRUE);
-        $data = $data['channel']['item'];
-
-        foreach ($data as $key => $value) {
-            unset($data[$key]['guid']);
-            $tmp1 = [];
-            $tmp2 = [];
-
-            preg_match('/src="([^"]*)"/i',$value['description'], $tmp1);
-            $pattern = '.*br>(.*)';
-            preg_match('/' .$pattern. '/',$value['description'], $tmp2);
-            $data[$key]['description']  = $tmp2[1];
-            $data[$key]['thumb']        = $tmp1[1];
-        }
-
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        die();
-
-        // return view($this->pathViewController . 'index',[
-        //      'params'               => $this->params,
-        //      'itemsSlider'          => $itemsSlider,
-        //      'itemsCategory'        => $itemsCategory,
-        //      'itemsFeature'         => $itemsFeature,
-        //      'itemsLatest'          => $itemsLatest,
-        //      'itemsUsually'         => $itemsUsually
-        // ]);
+        $data = Feed::read($itemsRss);
+        dd($data);
     }
 
 }

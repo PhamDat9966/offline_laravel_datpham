@@ -25,7 +25,7 @@ $prefixNews     = config('zvn.url.prefix_news'); //news69
 Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin']], function(){
 
     // ====================== DASHBOARD ======================
-    $prefix         =   'dashboard';
+    $prefix         =   '';
     $controllerName =   'dashboard';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
@@ -393,7 +393,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/tin-tuc-tong-hop', [
-            'as'    => $controllerName,
+            'as'    => "$controllerName/index",
             'uses'  => $controller . 'index'
         ]);
 
