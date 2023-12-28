@@ -27,11 +27,6 @@
 
                         {{-- content --}}
                         <div class="post_content">
-                            {{-- @if($showCategory == true)
-                                <div class="post_category cat_technology {{$classPost}}">
-                                    <a href="{{ $linkCategory }}">{{ $categoryName }}</a>
-                                </div>
-                            @endif --}}
                             <div class="post_title"><a
                                     href="{{ $link }}">{{ $name }}</a></div>
                             <div class="post_info d-flex flex-row align-items-center justify-content-start">
