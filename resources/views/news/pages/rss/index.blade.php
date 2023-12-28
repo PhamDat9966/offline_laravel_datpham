@@ -12,10 +12,11 @@
                  <div class="row">
 
                     <!-- Main Content -->
-                    <div class="col-lg-12">
-
+                    <div class="col-lg-8">
                         @include('news.pages.rss.child-index.list',['items'=>$items])
-
+                    </div>
+                    <div class="col-lg-4">
+                        @include('news.pages.rss.child-index.box-gold',['itemsGold'=>$itemsGold])
                     </div>
                  </div>
               </div>
