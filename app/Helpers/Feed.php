@@ -134,4 +134,23 @@ class Feed{
         }
 
     }
+
+    public static function getGold(){
+        $link = 'https://sjc.com.vn/xml/tygiavang.xml';
+        $context = stream_context_create([
+            'http' => [
+                'protocol_version' => '1.1',
+                'header' => 'Upgrade: HTTP/1.1'
+            ]
+        ]);
+
+        $xmlString = file_get_contents($link, false, $context);
+
+        $data = simplexml_load_string($xmlString, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $data = json_encode($data);
+        $data = json_decode($data, TRUE);
+        $data = $data['ratelist']['city'][0]['item']; // Chỉ lấy giá vàng tại tpHCM
+        $data = array_column($data,'@attributes');
+        return $data;
+    }
 }

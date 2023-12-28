@@ -32,9 +32,12 @@ class RssController extends Controller
         $rssModel    = new RssModel();
         $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
 
-        $data = Feed::read($itemsRss);
+        $data       = Feed::read($itemsRss);
+        $itemsGold  = Feed::getGold();
+
         return view($this->pathViewController . 'index',[
-            'items'=>$data
+            'items'=>$data,
+            'itemsGold'=>$itemsGold
        ]);
     }
 
