@@ -3,9 +3,6 @@ namespace App\Helpers;
 
 class Feed{
     public static function read($itemRss){
-        // echo '<pre>';
-        // print_r($itemRss);
-        // echo '</pre>';
         $result = [];
 
         foreach ($itemRss as $value) {
@@ -62,6 +59,7 @@ class Feed{
 
                 $data[$key]['description']  = $tmp2[1] ?? $value['description'];
                 $data[$key]['thumb']        = $tmp1[1] ?? '';
+                $data[$key]['created_by']    = 'VNExpress';
             }
             return $data;
         } catch (\Throwable $th) {
@@ -88,6 +86,8 @@ class Feed{
 
                 $data[$key]['description'] = $tmp2[1] ?? $value['description'];
                 $data[$key]['thumb'] = $tmp1[1] ?? '';
+
+                $data[$key]['created_by']    = 'Tuổi trẻ';
             }
             return $data;
         } catch (\Throwable $th) {
@@ -124,6 +124,8 @@ class Feed{
 
                 $data[$key]['description']  = $tmp2[1];
                 $data[$key]['thumb']        = $tmp1[1] ?? '';
+
+                $data[$key]['created_by']    = 'Thanh niên';
             }
 
             return $data;

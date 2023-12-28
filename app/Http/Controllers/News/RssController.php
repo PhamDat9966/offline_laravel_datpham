@@ -28,11 +28,14 @@ class RssController extends Controller
 
     public function index(Request $request)
     {
+        View::share('title','Tin tức tổng hợp');
         $rssModel    = new RssModel();
         $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
 
         $data = Feed::read($itemsRss);
-        dd($data);
+        return view($this->pathViewController . 'index',[
+            'items'=>$data
+       ]);
     }
 
 }
