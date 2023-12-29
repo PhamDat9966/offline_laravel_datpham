@@ -17,6 +17,7 @@
                     </div>
                     <div class="col-lg-4">
                         @include('news.pages.rss.child-index.box-gold',['itemsGold'=>$itemsGold])
+                        @include('news.pages.rss.child-index.box-coin',['itemsCoin'=>$itemsCoin])
                     </div>
                  </div>
               </div>

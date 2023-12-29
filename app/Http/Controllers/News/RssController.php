@@ -34,10 +34,12 @@ class RssController extends Controller
 
         $data       = Feed::read($itemsRss);
         $itemsGold  = Feed::getGold();
+        $itemsCoin  = Feed::getCoin();
 
         return view($this->pathViewController . 'index',[
             'items'     =>$data,
-            'itemsGold' =>$itemsGold
+            'itemsGold' =>$itemsGold,
+            'itemsCoin' =>$itemsCoin
        ]);
     }
 
