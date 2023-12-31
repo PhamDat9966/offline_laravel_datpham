@@ -50,9 +50,14 @@
             @endforeach
 
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
                 thêm</a></div>
+        </div> --}}
+        <div class="row">
+            <div class="card">
+                    {!!$pagination!!}
+            </div>
         </div>
     </div>
 </div>
