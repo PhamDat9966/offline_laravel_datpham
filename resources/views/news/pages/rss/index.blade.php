@@ -10,8 +10,6 @@
            <div class="featured_title">
               <div class="container">
                  <div class="row">
-
-                    <!-- Main Content -->
                     <div class="col-lg-8">
                         @include('news.pages.rss.child-index.list',['items'=>$items])
                     </div>

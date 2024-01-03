@@ -34,6 +34,8 @@ class RssController extends Controller
 
     public function index(Request $request)
     {
+        $this->params['page']               = $request->input('page');
+        $this->params['search_value_rss']   = $request->input('search_value_rss');
 
         View::share('title','Tin tức tổng hợp');
         $rssModel    = new RssModel();
@@ -43,22 +45,47 @@ class RssController extends Controller
         $itemsGold  = Feed::getGold();
         $itemsCoin  = Feed::getCoin();
 
-        $totalItems = count($data);
+        //Lọc mảng theo `search_value_rss`
+        $searchValueRss = '';
+        $resultArray = [];
+        if ($request->input('search_value_rss') != null) {
+            $searchValueRss = $request->input('search_value_rss');
 
+            //$searchValueRss = 'Nhật Bản';
+            // $searchValueRss = strval($searchValueRss);
+            // $searchValueRss = strtr($searchValueRss, $diacriticsMap);
+
+            foreach ($data as $element) {
+                //$tmp = strtolower($element['title']);
+                // Chuyển đổi chuỗi có dấu thành chuỗi không dấu
+                //$tmp = strtr($tmp, $diacriticsMap);
+
+                if (mb_stripos($element['title'], $searchValueRss) !== false) {
+                    $resultArray[] = $element;
+                }
+            }
+            $data = $resultArray;
+        }
+
+        $totalItems = count($data);
         $page = 1;
         if ($request->input('page') != null) {
             $page = $request->input('page');
             $this->_pagination['currentPage']  = $page;
         }
-
-        //Cắt mảng
-        $elementCurrent = $page*($this->_pagination['totalItemsPerPage']);
+        //Cắt mảng `theo pagination` tại $elementCurrent
+        $elementCurrent = ($page-1)*($this->_pagination['totalItemsPerPage']);
         $data = array_slice($data, $elementCurrent, $this->_pagination['totalItemsPerPage']);
 
+        $link       = route('rss/index').'?';
+        if($request->input('search_value_rss') != ''){
+            $link       = route('rss/index').'?'.'search_value_rss='.$searchValueRss;
+        }
         $pagination = new Pagination($totalItems,$this->_pagination);
-        $paginationShow = $pagination->showPagination(route('rss/index'));
+        $paginationShow = $pagination->showPagination($link);
 
         return view($this->pathViewController . 'index',[
+            'params'    =>$this->params,
             'items'     =>$data,
             'itemsGold' =>$itemsGold,
             'itemsCoin' =>$itemsCoin,

@@ -9,4 +9,12 @@ class Hightlight{
         }
         return $input;
     }
+
+    public static function showRSS($input , $paramsSearch ){
+        if($paramsSearch == 'null') return $input;
+        if($paramsSearch == 'all' || $paramsSearch != null ){
+            return preg_replace("/" . preg_quote($paramsSearch,"/") . "/i",'<span class="highlight">$0</span>', $input);
+        }
+        return $input;
+    }
 }

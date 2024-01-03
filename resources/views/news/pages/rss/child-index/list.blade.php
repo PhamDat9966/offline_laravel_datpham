@@ -1,15 +1,34 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    use App\Helpers\Hightlight as Hightlight;
+
+    $searchValueRss    = ($params['search_value_rss'] != '') ? $params['search_value_rss'] : '';
+
+    $xhtmlAreaSearch    = sprintf('<div class="input-group">
+                                <input type="text" class="form-control" name="search_value_rss" value="%s">
+                                <span class="input-group-btn">
+                                    <button id="btn-clear-search-rss" type="button" class="btn btn-success"
+                                            style="margin-right: 0px">Xóa tìm kiếm</button>
+                                    <button id="btn-search-rss" type="button" class="btn btn-primary">Tìm kiếm</button>
+                                </span>
+                            </div>',$searchValueRss);
 @endphp
 
 <div class="posts">
     <div class="col-lg-12">
         <div class="row">
+            <div class="col-md-12 mb-4">
+                {!!$xhtmlAreaSearch!!}
+            </div>
+        </div>
+        <div class="row">
             @foreach ($items as $item)
                 @php
                     $name           = html_entity_decode($item['title']);
                     $name           = preg_replace('/&#\d+;/', '', $name);
+                    $name           = str_replace($params['search_value_rss'], '<span style="color: red;">'.$params['search_value_rss'].'</span>', $name);
+
                     $thumb          = $item['thumb'];
                     $link           = $item['link'];
                     $created_by     = '';
@@ -28,7 +47,7 @@
                         {{-- content --}}
                         <div class="post_content">
                             <div class="post_title"><a
-                                    href="{{ $link }}">{{ $name }}</a></div>
+                                    href="{{ $link }}">{!! $name !!}</a></div>
                             <div class="post_info d-flex flex-row align-items-center justify-content-start">
                                 <div class="post_author d-flex flex-row align-items-center justify-content-start">
                                     <div class="post_author_name"><a href="#">{{ $created_by }}</a>
