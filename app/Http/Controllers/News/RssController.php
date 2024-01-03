@@ -51,15 +51,8 @@ class RssController extends Controller
         if ($request->input('search_value_rss') != null) {
             $searchValueRss = $request->input('search_value_rss');
 
-            //$searchValueRss = 'Nhật Bản';
-            // $searchValueRss = strval($searchValueRss);
-            // $searchValueRss = strtr($searchValueRss, $diacriticsMap);
-
             foreach ($data as $element) {
-                //$tmp = strtolower($element['title']);
-                // Chuyển đổi chuỗi có dấu thành chuỗi không dấu
-                //$tmp = strtr($tmp, $diacriticsMap);
-
+                // mb_stripos hàm so sánh ký tự có dấu
                 if (mb_stripos($element['title'], $searchValueRss) !== false) {
                     $resultArray[] = $element;
                 }

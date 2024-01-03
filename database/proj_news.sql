@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 25, 2023 lúc 07:30 AM
+-- Thời gian đã tạo: Th1 03, 2024 lúc 09:03 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -135,7 +135,7 @@ INSERT INTO `category` (`id`, `name`, `status`, `created`, `created_by`, `modifi
 (5, 'Khoa học', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-12 00:00:00', 'hailan', 0, 'list'),
 (6, 'Số hóa', 'active', '2019-05-04 00:00:00', 'admin', '2023-12-11 00:00:00', 'admin', 1, 'grid'),
 (7, 'Xe - Ô tô', 'active', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:36', 'hailan', 0, 'grid'),
-(8, 'Kinh doanh', 'active', '2019-05-12 00:00:00', 'hailan', NULL, NULL, 0, 'grid');
+(8, 'Kinh doanh', 'inactive', '2019-05-12 00:00:00', 'hailan', NULL, NULL, 0, 'grid');
 
 -- --------------------------------------------------------
 
@@ -161,9 +161,12 @@ CREATE TABLE `rss` (
 --
 
 INSERT INTO `rss` (`id`, `name`, `status`, `link`, `ordering`, `source`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'Thế giới', 'active', 'https://vnexpress.net/rss/the-gioi.rss', 10, 'VnExpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-25 07:05:36', NULL),
-(3, 'Sức khỏe', 'active', 'https://vnexpress.net/rss/suc-khoe.rss', 10, 'VnExpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-25 00:00:00', 'admin'),
-(6, 'Số hóa', 'active', 'https://vnexpress.net/rss/so-hoa.rss', 11, 'VnExpress', '2023-12-25 00:00:00', 'admin', NULL, NULL);
+(1, 'Thế giới', 'active', 'https://vnexpress.net/rss/the-gioi.rss', 10, 'vnexpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-27 00:00:00', 'admin'),
+(3, 'Sức khỏe', 'inactive', 'https://vnexpress.net/rss/suc-khoe.rss', 10, 'vnexpress', '2023-12-25 07:05:36', 'phamdat', '2023-12-27 00:00:00', 'admin'),
+(6, 'Số hóa', 'inactive', 'https://vnexpress.net/rss/so-hoa.rss', 11, 'vnexpress', '2023-12-25 00:00:00', 'admin', '2023-12-27 00:00:00', 'admin'),
+(7, 'Thể Thao', 'inactive', 'https://vnexpress.net/rss/the-thao.rss', 10, 'vnexpress', '2023-12-27 00:00:00', 'admin', '2023-12-27 00:00:00', 'admin'),
+(8, 'Thời sự', 'inactive', 'https://thanhnien.vn/rss/thoi-su.rss', 5, 'thanhnien', '2023-12-27 00:00:00', 'admin', NULL, NULL),
+(9, 'Nhịp sống số', 'inactive', 'https://tuoitre.vn/rss/nhip-song-so.rss', 3, 'tuoitre', '2023-12-27 00:00:00', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -250,21 +253,21 @@ CREATE TABLE `user_agents` (
 --
 
 INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
-(1, 'agentTest01', '2023-12-17 07:54:34', 4),
-(2, 'agentTest02', '2023-12-17 07:54:34', 4),
-(3, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 5),
-(4, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 6),
-(5, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 10),
-(6, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 11),
-(7, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 13),
-(8, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 15),
-(9, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 16),
-(10, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 18),
-(11, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 19),
-(12, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 20),
-(13, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 21),
-(14, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 22),
-(15, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-17 07:54:34', 23);
+(1, 'agentTest01', '2023-12-27 06:36:12', 4),
+(2, 'agentTest02', '2023-12-27 06:36:12', 4),
+(3, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 5),
+(4, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 6),
+(5, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 10),
+(6, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 11),
+(7, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 13),
+(8, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 15),
+(9, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 16),
+(10, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 18),
+(11, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 19),
+(12, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 20),
+(13, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 21),
+(14, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 22),
+(15, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2023-12-27 06:36:13', 23);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -338,7 +341,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `rss`
 --
 ALTER TABLE `rss`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`
