@@ -42,7 +42,7 @@ class RssController extends Controller
         $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
 
         $data       = Feed::read($itemsRss);
-        $itemsGold  = Feed::getGold();
+
         $itemsCoin  = Feed::getCoin();
 
         //Lọc mảng theo `search_value_rss`
@@ -80,10 +80,27 @@ class RssController extends Controller
         return view($this->pathViewController . 'index',[
             'params'    =>$this->params,
             'items'     =>$data,
-            'itemsGold' =>$itemsGold,
             'itemsCoin' =>$itemsCoin,
             'pagination'=>$paginationShow
        ]);
+    }
+
+    public function getGold(){
+        $itemsGold  = Feed::getGold();
+        $viewContentGold = View::make($this->pathViewController . 'child-index.box-gold',['itemsGold' =>$itemsGold])->with('itemsGold', $itemsGold)->render();
+        return $viewContentGold;
+    //     return view($this->pathViewController . 'child-index.box-gold',[
+    //         'itemsGold' =>$itemsGold
+    //    ]);
+    }
+
+    public function getCoin(){
+        $itemsCoin  = Feed::getCoin();
+        $viewContentCoin = View::make($this->pathViewController . 'child-index.box-coin',['itemsCoin' =>$itemsCoin])->with('itemsCoin', $itemsCoin)->render();
+        return $viewContentCoin;
+    //     return view($this->pathViewController . 'child-index.box-coin',[
+    //         'itemsCoin' =>$itemsCoin
+    //    ]);
     }
 
 }

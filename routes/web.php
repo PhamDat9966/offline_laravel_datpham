@@ -397,5 +397,16 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'uses'  => $controller . 'index'
         ]);
 
+        Route::get('/get-gold', [
+            'as'    => "$controllerName/get-gold",
+            'uses'  => $controller . 'getGold'
+        ]);
+
+        Route::get('/get-coin', [
+            'as'    => "$controllerName/get-coin",
+            'uses'  => $controller . 'getCoin'
+        ]);
+
+
     });
 });

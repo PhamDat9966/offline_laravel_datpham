@@ -50,4 +50,22 @@ $(document).ready(function() {
 
 	});
 
+    //ajax box-gold
+    $.ajax({
+		url		: $('#box-gold').data('url'),
+		type	: 'GET',
+		success	: function(data){
+            $('#box-gold').html(data);
+		}
+	})
+
+    //ajax box-coin
+    $.ajax({
+        url		: $('#box-coin').data('url'),
+        type	: 'GET',
+        success	: function(data){
+            $('#box-coin').html(data);
+        }
+    })
+
 });

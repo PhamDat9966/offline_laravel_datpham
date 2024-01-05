@@ -14,8 +14,16 @@
                         @include('news.pages.rss.child-index.list',['items'=>$items])
                     </div>
                     <div class="col-lg-4">
-                        @include('news.pages.rss.child-index.box-gold',['itemsGold'=>$itemsGold])
-                        @include('news.pages.rss.child-index.box-coin',['itemsCoin'=>$itemsCoin])
+                        <h3>Giá Vàng</h3>
+                        <div id="box-gold" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-gold')}}">
+                            <img src="{{ asset('images/loading.gif') }}" alt="">
+                        </div>
+                        {{-- @include('news.pages.rss.child-index.box-gold',['itemsGold'=>$itemsGold]) --}}
+                        <h3>Giá Coin</h3>
+                        <div id="box-coin" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-coin')}}">
+                            <img src="{{ asset('images/loading.gif') }}" alt="">
+                        </div>
+                        {{-- @include('news.pages.rss.child-index.box-coin',['itemsCoin'=>$itemsCoin]) --}}
                     </div>
                  </div>
               </div>
