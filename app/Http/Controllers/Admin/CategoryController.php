@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\CategoryModel as MainModel;
 use App\Http\Requests\CategoryRequest as MainRequest;
+use Config;
 
 class CategoryController extends Controller
 {
@@ -70,7 +71,7 @@ class CategoryController extends Controller
 
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
         return response()->json([
-            'status' => $status,
+            'status' => Config::get('zvn.template.status')[$status],
             'link' => $link
         ]);
 

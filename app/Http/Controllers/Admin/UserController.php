@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\UserModel as MainModel;
 use App\Http\Requests\UserRequest as MainRequest;
+use Config;
 
 class UserController extends Controller
 {
@@ -71,8 +72,8 @@ class UserController extends Controller
 
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
         return response()->json([
-            'status' => $status,
-            'link' => $link
+            'status' => Config::get('zvn.template.status')[$status],
+            'link'   => $link
         ]);
 
         // $params['currentStatus']    = $request->status;

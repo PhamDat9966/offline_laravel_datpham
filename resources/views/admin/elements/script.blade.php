@@ -12,6 +12,8 @@
 <script src="{{asset('admin/asset/iCheck/icheck.min.js')}}"></script>
 <!-- sweetalert2 Scripts -->
 <script src="{{asset('admin/js/sweetalert2.all.min.js')}}"></script>
+<!-- Notify Scripts -->
+<script src="{{asset('admin/js/notify.min.js')}}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{asset('admin/js/custom.min.js')}}"></script>
 <!-- Custom my-js Scripts -->

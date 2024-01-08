@@ -290,27 +290,24 @@ $(document).ready(function() {
 	// });
 
     $('.status-ajax').on('click', function() {
-        let url = $(this).data('url');
-        let btn = $(this);
+        let url             = $(this).data('url');
+        let btn             = $(this);
+        let currentClass    = $(this).data('class');
+
         $.ajax({
             type: "GET",
             url: url,
             //dataType: "dataType",
             success: function (response) {
                 console.log(response);
-                let status = response.status;
-
-                if(status == 'inactive'){
-                    btn.removeClass('btn-success');
-                    btn.addClass('btn-info');
-                    btn.html('Chưa kích hoạt');
-                }else{
-                    btn.removeClass('btn-info');
-                    btn.addClass('btn-success');
-                    btn.html('Kích hoạt');
-                }
+                btn.removeClass(currentClass);
+                btn.addClass(response.status.class);
+                btn.html(response.status.name);
                 btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
                 btn.attr('data-url',response.link)      // thay đổi `url` HTML
+                btn.notify("Cập nhật thành công!",
+                    { className: "success" , position:"top"  }
+                );
             }
         });
 	});

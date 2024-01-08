@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\ArticleModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
+use Config;
 
 class ArticleController extends Controller
 {
@@ -87,7 +88,7 @@ class ArticleController extends Controller
 
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
         return response()->json([
-            'status' => $status,
+            'status' => Config::get('zvn.template.status')[$status],
             'link' => $link
         ]);
 
