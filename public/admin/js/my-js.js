@@ -299,10 +299,31 @@ $(document).ready(function() {
             url: url,
             //dataType: "dataType",
             success: function (response) {
-                console.log(response);
                 btn.removeClass(currentClass);
                 btn.addClass(response.status.class);
                 btn.html(response.status.name);
+                btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                btn.attr('data-url',response.link)      // thay đổi `url` HTML
+                btn.notify("Cập nhật thành công!",
+                    { className: "success" , position:"top"  }
+                );
+            }
+        });
+	});
+
+    $('.is-home-ajax').on('click', function() {
+        let url             = $(this).data('url');
+        let btn             = $(this);
+        let currentClass    = $(this).data('class');
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            //dataType: "dataType",
+            success: function (response) {
+                btn.removeClass(currentClass);
+                btn.addClass(response.isHome.class);
+                btn.html(response.isHome.name);
                 btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
                 btn.attr('data-url',response.link)      // thay đổi `url` HTML
                 btn.notify("Cập nhật thành công!",

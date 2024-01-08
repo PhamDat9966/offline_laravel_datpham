@@ -91,19 +91,18 @@ class CategoryController extends Controller
 
     public function isHome(Request $request)
     {
-
         $params['currentIsHome']    = $request->isHome;
         $params['id']               = $request->id;
+        $isHomeValue = $request->isHome == 1 ? 0 : 1;
 
         $this->model->saveItem($params,['task' => 'change-is-home']);
 
-        $isHomeAction       = "Hiển thị";
-        $isHomeNextAction   = "Không hiển thị";
-        if($params['currentIsHome'] == false){
-            $isHomeAction = 'Không hiển thị';
-            $isHomeNextAction   = "Hiển thị";
-        }
-        return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+        $link = route($this->controllerName . '/isHome',['isHome'=>$isHomeValue, 'id'=>$request->id]);
+        return response()->json([
+            'isHome' => Config::get('zvn.template.is_home')[$isHomeValue],
+            'link' => $link
+        ]);
+
     }
 
     public function display(Request $request)

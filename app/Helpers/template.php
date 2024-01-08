@@ -177,7 +177,7 @@ class Template{
         $currentTemplateIsHome  = $tmplIsHome[$isHomeValue];
         $link                   = route( $controllerName. '/isHome',['isHome'=>$isHomeValue, 'id'=>$id]);
         $xhtml  = sprintf('
-            <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentTemplateIsHome['class'], $currentTemplateIsHome['name']);
+            <button data-url="%s" data-class=%s class="btn btn-round %s is-home-ajax">%s</button>', $link , $currentTemplateIsHome['class'] ,$currentTemplateIsHome['class'], $currentTemplateIsHome['name']);
         return  $xhtml;
     }
 
