@@ -65,22 +65,16 @@ class UserController extends Controller
 
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
-
-        // Update
-        //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
-        // MainModel::where('id', $params['id'])
-        //           ->update(['status' => $status]);
+        $status = $request->status == 'active' ? 'inactive' : 'active';
 
         $this->model->saveItem($params,['task' => 'change-status']);
-        // End Update
 
-        $statusAction       = "đã được kích hoạt";
-        $statusNextAction   = "chưa kích hoạt";
-        if($params['currentStatus'] == 'inactive'){
-            $statusAction = 'chưa kích hoạt';
-            $statusNextAction   = "đã được kích hoạt";
-        }
-        return redirect()->route('user')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+        $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
+        return response()->json([
+            'status' => $status,
+            'link' => $link
+        ]);
+
     }
     public function delete(Request $request)
     {

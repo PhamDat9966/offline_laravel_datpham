@@ -289,5 +289,57 @@ $(document).ready(function() {
 	// 	format: 'dd-mm-yyyy',
 	// });
 
+    $('.status-ajax').on('click', function() {
+        let url = $(this).data('url');
+        let btn = $(this);
+        $.ajax({
+            type: "GET",
+            url: url,
+            //dataType: "dataType",
+            success: function (response) {
+                console.log(response);
+                let status = response.status;
+
+                if(status == 'inactive'){
+                    btn.removeClass('btn-success');
+                    btn.addClass('btn-info');
+                    btn.html('Chưa kích hoạt');
+                }else{
+                    btn.removeClass('btn-info');
+                    btn.addClass('btn-success');
+                    btn.html('Kích hoạt');
+                }
+                btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                btn.attr('data-url',response.link)      // thay đổi `url` HTML
+            }
+        });
+	});
+
+    // $(document).on('click', '.status-ajax', function() {
+    //     let url = $(this).data('url');
+    //     let btn = $(this);
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: url,
+    //         success: function(response) {
+    //             console.log(response);
+    //             let status = response.status;
+
+    //             if (status == 'inactive') {
+    //                 btn.removeClass('btn-success');
+    //                 btn.addClass('btn-info');
+    //                 btn.html('Chưa kích hoạt');
+    //             } else {
+    //                 btn.removeClass('btn-info');
+    //                 btn.addClass('btn-success');
+    //                 btn.html('Kích hoạt');
+    //             }
+
+                    // btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                    // btn.attr('data-url',response.link)      // giá trị của thuộc tính được gán trực tiếp vào phần tử trong HTML
+    //         }
+    //     });
+    // });
 
 });

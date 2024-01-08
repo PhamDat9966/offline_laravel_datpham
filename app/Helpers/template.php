@@ -147,8 +147,11 @@ class Template{
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
         $currentStatus  = $tmplStatus[$statusValue];
         $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
+
         $xhtml  = sprintf('
-            <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
+            <button data-url="%s" class="btn btn-round %s status-ajax">%s</button>', $link , $currentStatus['class'], $currentStatus['name']);
+        // $xhtml  = sprintf('
+        //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
         return  $xhtml;
     }
 
