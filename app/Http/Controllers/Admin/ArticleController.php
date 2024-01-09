@@ -42,8 +42,6 @@ class ArticleController extends Controller
         $categoryList   = $categoryModel->listItems(null,['task'=>'category-list']);
 
         $firstItem      = ['id'=> 'all','name'=> 'Tất Cả'];
-        //$categoryList   = array_unshift($categoryList,$firstItem);
-        //$categoryList = array_merge([$firstItem], $categoryList);
         $categoryList   = array('all' => $firstItem) + $categoryList;
 
         // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
@@ -92,22 +90,9 @@ class ArticleController extends Controller
             'link' => $link
         ]);
 
-        // $params['currentStatus']    = $request->status;
-        // $params['id']               = $request->id;
-
-        // $this->model->saveItem($params,['task' => 'change-status']);
-
-        // $statusAction       = "đã được kích hoạt";
-        // $statusNextAction   = "chưa kích hoạt";
-        // if($params['currentStatus'] == 'inactive'){
-        //     $statusAction = 'chưa kích hoạt';
-        //     $statusNextAction   = "đã được kích hoạt";
-        // }
-
-        // return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
 
-    public function type(Request $request)
+    public function type(Request $request) // Ajax
     {
 
         $params['currentType']      = $request->type;
@@ -115,15 +100,9 @@ class ArticleController extends Controller
 
         $this->model->saveItem($params,['task' => 'change-type']);
         // End Update
-
-        $typeAction       = "thông thường";
-        $typeNextAction   = "nổi bật";
-        if($params['currentType'] == 'normal'){
-            $typeAction = 'nổi bật';
-            $typeNextAction   = "thông thường";
-        }
-
-        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với kiểu "'.$typeAction.'" đã được thay đổi thành kiểu "'.$typeNextAction.'" !');
+        return response()->json([
+            'type' => 'success'
+        ]);
     }
 
     public function isHome(Request $request)
@@ -194,4 +173,3 @@ class ArticleController extends Controller
 
 }
 
-// php artisan make:model ArticalModel

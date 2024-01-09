@@ -100,16 +100,27 @@ class UserController extends Controller
     {
         $params['id']       = $request->id;
         $params['level']  = $request->level;
-        $lastLevel        = '"Quản trị hệ thống"';
-        $currentLevel     = '"Member"';
-        if($params['level'] == 'admin'){
-            $lastLevel = '"Member"';
-            $currentLevel = '"Quản trị hệ thống"';
-        }
         $this->model->saveItem($params,['task' => 'change-level']);
-        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có level là '.$lastLevel.' thay đổi thành '.$currentLevel.'');
+        return response()->json([
+            'level' => 'success'
+        ]);
 
     }
+    /* level khong su dung ajax*/
+    // public function level(Request $request)
+    // {
+    //     $params['id']       = $request->id;
+    //     $params['level']  = $request->level;
+    //     $lastLevel        = '"Quản trị hệ thống"';
+    //     $currentLevel     = '"Member"';
+    //     if($params['level'] == 'admin'){
+    //         $lastLevel = '"Member"';
+    //         $currentLevel = '"Quản trị hệ thống"';
+    //     }
+    //     $this->model->saveItem($params,['task' => 'change-level']);
+    //     return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có level là '.$lastLevel.' thay đổi thành '.$currentLevel.'');
+
+    // }
 
     //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
