@@ -202,13 +202,6 @@ $(document).ready(function() {
         // console.log(url);
     });
 
-    $selectChangeAttr.on('change',function(){
-        var select_value  = $(this).val();
-        var url           = $(this).attr('data-url');
-        url = url.replace("value_new",select_value)
-        window.location.href    = url;
-    });
-
 	$selectChangeAttrAjax.on('change', function() {
 		let select_value = $(this).val();
 		let $url = $(this).data('url');
@@ -333,31 +326,24 @@ $(document).ready(function() {
         });
 	});
 
-    // $(document).on('click', '.status-ajax', function() {
-    //     let url = $(this).data('url');
-    //     let btn = $(this);
+    // Change Ajax Category Display
+    $selectChangeAttr.on('change',function(){
+        let element = $(this);
+        var selectValue  = $(this).val();
+        var url           = $(this).data('url');
+        url = url.replace("value_new",selectValue)
 
-    //     $.ajax({
-    //         type: "GET",
-    //         url: url,
-    //         success: function(response) {
-    //             console.log(response);
-    //             let status = response.status;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (response) {
 
-    //             if (status == 'inactive') {
-    //                 btn.removeClass('btn-success');
-    //                 btn.addClass('btn-info');
-    //                 btn.html('Chưa kích hoạt');
-    //             } else {
-    //                 btn.removeClass('btn-info');
-    //                 btn.addClass('btn-success');
-    //                 btn.html('Kích hoạt');
-    //             }
-
-                    // btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                    // btn.attr('data-url',response.link)      // giá trị của thuộc tính được gán trực tiếp vào phần tử trong HTML
-    //         }
-    //     });
-    // });
+                element.notify("Cập nhật thành công!",
+                    { className: "success" , position:"top"  }
+                );
+            }
+        });
+    });
 
 });
