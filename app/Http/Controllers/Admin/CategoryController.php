@@ -35,12 +35,6 @@ class CategoryController extends Controller
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
-        // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
-
-        //     echo "<h3 style='color:blue'>".$key."</h3>";
-        //     echo "<h3 style='color:red'>".$item."</h3>";
-        // }
-
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,
@@ -75,18 +69,6 @@ class CategoryController extends Controller
             'link' => $link
         ]);
 
-        // $params['currentStatus']    = $request->status;
-        // $params['id']               = $request->id;
-
-        // $this->model->saveItem($params,['task' => 'change-status']);
-
-        // $statusAction       = "đã được kích hoạt";
-        // $statusNextAction   = "chưa kích hoạt";
-        // if($params['currentStatus'] == 'inactive'){
-        //     $statusAction = 'chưa kích hoạt';
-        //     $statusNextAction   = "đã được kích hoạt";
-        // }
-        // return redirect()->route('category')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
 
     public function isHome(Request $request)
@@ -104,21 +86,6 @@ class CategoryController extends Controller
         ]);
 
     }
-
-    // public function display(Request $request)
-    // {
-    //     $params['id']       = $request->id;
-    //     $params['display']  = $request->display;
-    //     $lastDisplay        = '"Lưới"';
-    //     $currentDisplay     = '"Danh sách"';
-    //     if($params['display'] == 'grid'){
-    //         $lastDisplay = '"Danh sách"';
-    //         $currentDisplay = '"Lưới"';
-    //     }
-    //     $this->model->saveItem($params,['task' => 'change-display']);
-    //     return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
-
-    // }
 
     public function display(Request $request) // Ajax
     {
@@ -138,7 +105,6 @@ class CategoryController extends Controller
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
-    //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 

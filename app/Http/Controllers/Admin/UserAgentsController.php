@@ -23,9 +23,9 @@ class UserAgentsController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
-        $this->params['filter']['status']   = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa, tương đương với $_GET
+        $this->params['filter']['status']   = $request->input('filter_status','all');
         $this->params['search']['field']    = $request->input('search_field','');
         $this->params['search']['value']    = $request->input('search_value','');
 

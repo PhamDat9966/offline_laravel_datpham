@@ -34,12 +34,6 @@ class RssController extends Controller
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
-        // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
-
-        //     echo "<h3 style='color:blue'>".$key."</h3>";
-        //     echo "<h3 style='color:red'>".$item."</h3>";
-        // }
-
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,
@@ -66,11 +60,6 @@ class RssController extends Controller
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
 
-        // Update
-        //$status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
-        // MainModel::where('id', $params['id'])
-        //           ->update(['status' => $status]);
-
         $this->model->saveItem($params,['task' => 'change-status']);
         // End Update
 
@@ -89,7 +78,6 @@ class RssController extends Controller
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
-    //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 
@@ -110,4 +98,3 @@ class RssController extends Controller
 
 }
 
-// php artisan make:model SliderModel

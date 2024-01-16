@@ -25,7 +25,7 @@ class ArticleController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy trực tiếp thông tin từ client chuyền về server, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
 
         $this->params['filter']['status']   = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa, tương đương với $_GET
@@ -44,11 +44,10 @@ class ArticleController extends Controller
         $firstItem      = ['id'=> 'all','name'=> 'Tất Cả'];
         $categoryList   = array('all' => $firstItem) + $categoryList;
 
-        // foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
-
-        //     echo "<h3 style='color:blue'>".$key."</h3>";
-        //     echo "<h3 style='color:red'>".$item."</h3>";
-        // }
+        /* foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
+             echo "<h3 style='color:blue'>".$key."</h3>";
+            echo "<h3 style='color:red'>".$item."</h3>";
+        } */
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
@@ -152,7 +151,6 @@ class ArticleController extends Controller
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
-    //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 

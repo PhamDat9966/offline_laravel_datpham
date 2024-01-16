@@ -76,18 +76,6 @@ class UserController extends Controller
             'link'   => $link
         ]);
 
-        // $params['currentStatus']    = $request->status;
-        // $params['id']               = $request->id;
-
-        // $this->model->saveItem($params,['task' => 'change-status']);
-
-        // $statusAction       = "đã được kích hoạt";
-        // $statusNextAction   = "chưa kích hoạt";
-        // if($params['currentStatus'] == 'inactive'){
-        //     $statusAction = 'chưa kích hoạt';
-        //     $statusNextAction   = "đã được kích hoạt";
-        // }
-        // return redirect()->route('user')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
     }
     public function delete(Request $request)
     {
@@ -106,23 +94,7 @@ class UserController extends Controller
         ]);
 
     }
-    /* level khong su dung ajax*/
-    // public function level(Request $request)
-    // {
-    //     $params['id']       = $request->id;
-    //     $params['level']  = $request->level;
-    //     $lastLevel        = '"Quản trị hệ thống"';
-    //     $currentLevel     = '"Member"';
-    //     if($params['level'] == 'admin'){
-    //         $lastLevel = '"Member"';
-    //         $currentLevel = '"Quản trị hệ thống"';
-    //     }
-    //     $this->model->saveItem($params,['task' => 'change-level']);
-    //     return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có level là '.$lastLevel.' thay đổi thành '.$currentLevel.'');
 
-    // }
-
-    //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 
@@ -166,4 +138,3 @@ class UserController extends Controller
 
 }
 
-// php artisan make:model SliderModel

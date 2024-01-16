@@ -75,16 +75,7 @@ class SliderController extends Controller
             'status' => Config::get('zvn.template.status')[$status],
             'link' => $link
         ]);
-        // $params['currentStatus']    = $request->status;
-        // $params['id']               = $request->id;
-        // $this->model->saveItem($params,['task' => 'change-status']);
-        // $statusAction       = "đã được kích hoạt";
-        // $statusNextAction   = "chưa kích hoạt";
-        // if($params['currentStatus'] == 'inactive'){
-        //     $statusAction = 'chưa kích hoạt';
-        //     $statusNextAction   = "đã được kích hoạt";
-        // }
-        // return redirect()->route('slider')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+
     }
     public function delete(Request $request)
     {
@@ -93,7 +84,6 @@ class SliderController extends Controller
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
-    //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 

@@ -13,7 +13,6 @@ class DashboardController extends Controller
 
     public function __construct()
     {
-      // share bien $controllerName cho all view
       View::share('controllerName',$this->controllerName);
     }
 

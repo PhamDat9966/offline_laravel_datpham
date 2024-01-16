@@ -38,4 +38,3 @@ class NotifyController extends Controller
 
 }
 
-// php artisan make:model SliderModel

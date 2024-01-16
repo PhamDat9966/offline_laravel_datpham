@@ -53,8 +53,6 @@ class ArticleController extends Controller
 
         }
 
-        //$itemCategory   = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
-
         if(empty($itemArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
 
         $nowAritcleID   = $this->params['article_id'];
@@ -76,5 +74,3 @@ class ArticleController extends Controller
     }
 
 }
-
-// php artisan make:model SliderModel

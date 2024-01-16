@@ -22,7 +22,7 @@ class CategoryController extends Controller
       View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy parameter từ url, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
         $this->params['category_id'] = $request->category_id;
         $articleModel   = new ArticleModel();
@@ -43,4 +43,3 @@ class CategoryController extends Controller
 
 }
 
-// php artisan make:model SliderModel
