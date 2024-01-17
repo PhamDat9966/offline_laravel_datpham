@@ -53,5 +53,3 @@ class UserAgentsController extends Controller
         return redirect()->route('userAgents')->with('zvn_notily','Đã loại bỏ những Agents trùng lặp!');
     }
 }
-
-// php artisan make:model ArticalModel

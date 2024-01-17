@@ -25,7 +25,6 @@ $(document).ready(function() {
 
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
-	console.log(searchParams);
 
 	$("a.select-field").click(function(e) {
 		e.preventDefault();
@@ -292,9 +291,14 @@ $(document).ready(function() {
             url: url,
             //dataType: "dataType",
             success: function (response) {
+                console.log(response);
                 btn.removeClass(currentClass);
                 btn.addClass(response.status.class);
+                btn.data("class", response.class);
+
+                btn.attr('data-class',response.class)
                 btn.html(response.status.name);
+
                 btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
                 btn.attr('data-url',response.link)      // thay đổi `url` HTML
                 btn.notify("Cập nhật thành công!",

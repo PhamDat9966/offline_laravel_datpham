@@ -93,8 +93,8 @@ return [
             'slider'    =>  ['edit','delete','info'],
             'category'  =>  ['edit','delete'],
             'article'   =>  ['edit','delete'],
-            'user'      =>  ['edit'],
-            'rss'  =>  ['edit','delete']
+            'user'      =>  ['edit','delete'],
+            'rss'       =>  ['edit','delete']
         ]
     ]
 ];

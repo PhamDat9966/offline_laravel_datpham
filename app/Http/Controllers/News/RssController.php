@@ -87,6 +87,7 @@ class RssController extends Controller
 
     public function getGold(){
         $itemsGold  = Feed::getGold();
+        // Cách viết để dễ hiều: Lấy toàn bộ nội dung của html `box-gold` tại `view` có gáng mảng itemsGold
         $viewContentGold = View::make($this->pathViewController . 'child-index.box-gold',['itemsGold' =>$itemsGold])->with('itemsGold', $itemsGold)->render();
         return $viewContentGold;
 

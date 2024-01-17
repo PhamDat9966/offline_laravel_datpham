@@ -13,7 +13,7 @@ class UserModel extends AdminModel
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
-        $this->fieldSearchAccepted  = ['username','email','fullname'];
+        $this->fieldSearchAccepted  = ['username','email','fullname '];
         $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task'];
     }
 
@@ -201,10 +201,10 @@ class UserModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
+            $item   =  $this->getItem($params,['task' => 'get-avatar']);
 
             //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
+            $this->deleteThumb($item['avatar']);
 
             $this->where('id', $params['id'])->delete();
         }

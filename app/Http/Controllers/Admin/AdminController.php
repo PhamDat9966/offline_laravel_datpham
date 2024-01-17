@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use App\Models\CategoryModel;
+use Config;
+// use NunoMaduro\Collision\Provider;
+
+class AdminController extends Controller
+{
+    protected $pathViewController  = '';
+    protected $controllerName      = '';
+    protected $params              = [];
+    protected $model;
+
+    public function __construct()
+    {
+      $this->params['pagination']['totalItemsPerPage']  = 10;
+      // share bien $controllerName cho all view
+      View::share('controllerName',$this->controllerName);
+    }
+
+    public function index(Request $request)
+    {
+
+        $this->params['filter']['status']   = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa, tương đương với $_GET
+        $this->params['search']['field']    = $request->input('search_field','');
+        $this->params['search']['value']    = $request->input('search_value','');
+
+        //Params-Article
+        $this->params['filter']['category']   = $request->input('filter_category','all');
+        $this->params['filter']['type']       = $request->input('filter_type','all');
+
+        //Params-Category
+        $this->params['filter']['display']   = $request->input('filter_display','all');
+        $this->params['filter']['is_home']   = $request->input('filter_is_home','all');
+
+        $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
+        $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+
+        /* foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
+             echo "<h3 style='color:blue'>".$key."</h3>";
+            echo "<h3 style='color:red'>".$item."</h3>";
+        } */
+
+        return view($this->pathViewController . 'index',[
+             'params'               => $this->params,
+             'items'                => $items,
+             'itemsStatusCount'     => $itemsStatusCount
+        ]);
+    }
+
+    public function form(Request $request)
+    {
+        $item   = null;
+        if($request->id !== null){
+            $params['id']   = $request->id;
+            $item = $this->model->getItem($params,['task'=>'get-item']);
+        }
+
+        $categoryModel      = new CategoryModel();
+        $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
+
+        return view($this->pathViewController . 'form', [
+            'item'          =>$item,
+            'itemsCategory' =>$itemsCategory
+        ]);
+    }
+
+    public function status(Request $request)
+    {
+
+        $params['currentStatus']    = $request->status;
+        $params['id']               = $request->id;
+        $status = $request->status == 'active' ? 'inactive' : 'active';
+
+        $this->model->saveItem($params,['task' => 'change-status']);
+
+        $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
+        return response()->json([
+            'status' => Config::get('zvn.template.status')[$status],
+            'link' => $link
+        ]);
+
+    }
+
+    public function type(Request $request) // Ajax
+    {
+
+        $params['currentType']      = $request->type;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-type']);
+        // End Update
+        return response()->json([
+            'type' => 'success'
+        ]);
+    }
+
+    public function isHome(Request $request)
+    {
+
+        $params['currentIsHome']    = $request->isHome;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-is-home']);
+
+        $isHomeAction       = "Hiển thị";
+        $isHomeNextAction   = "Không hiển thị";
+        if($params['currentIsHome'] == false){
+            $isHomeAction = 'Không hiển thị';
+            $isHomeNextAction   = "Hiển thị";
+        }
+        return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+    }
+
+    public function display(Request $request)
+    {
+        $params['id']       = $request->id;
+        $params['display']  = $request->display;
+        $lastDisplay        = '"Lưới"';
+        $currentDisplay     = '"Danh sách"';
+        if($params['display'] == 'grid'){
+            $lastDisplay = '"Danh sách"';
+            $currentDisplay = '"Lưới"';
+        }
+        $this->model->saveItem($params,['task' => 'change-display']);
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
+
+    }
+
+    public function displayFilter(Request $request)
+    {
+       $displayFilter   = $request->display;
+
+       echo "<h3 style='color:red'>displayFilter</h3>";
+
+    }
+
+    public function delete(Request $request)
+    {
+        $params['id']               = $request->id;
+        $this->model->deleteItem($params,['task' => 'delete-item']);
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+    }
+
+}
+

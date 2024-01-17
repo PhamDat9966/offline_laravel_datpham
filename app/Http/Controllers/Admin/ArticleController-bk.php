@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\ArticleModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
+use Config;
 use App\Http\Controllers\Admin\AdminController;
 
 class ArticleController extends AdminController

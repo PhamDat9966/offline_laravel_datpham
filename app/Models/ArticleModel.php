@@ -255,11 +255,12 @@ class ArticleModel extends AdminModel
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
 
-            // self::insert($params);
-            //// OR use
-            //// DB::table('article')->insert($params);
+            // // self::insert($params);
+            // //// OR use
+            // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
+            $this->table         = 'article';
             $this->name         = $params['name'];
             $this->content      = $params['content'];
             $this->category_id  = $params['category_id'];
@@ -303,6 +304,7 @@ class ArticleModel extends AdminModel
             //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
             $this->deleteThumb($item['thumb']);
 
+            $this->table = 'article';
             $this->where('id', $params['id'])->delete();
         }
     }
