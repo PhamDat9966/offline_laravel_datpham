@@ -9,8 +9,6 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $inputHiddenID     = Form::hidden('id' , $id);
 
-    $inputHiddenTask   = Form::hidden('task', 'change-level' );
-
     $levelValue        = [
                                 'default'    => 'Select level',
                                 'admin'      => Config::get('zvn.template.level.admin.name'),
@@ -24,7 +22,7 @@
             'element'   =>  Form::select('level', $levelValue, $level, $formInputAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . $inputHiddenTask . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success','name'=>'taskChangeLevel']),
             'type'      =>  'btn-submit-edit'
         ]
     ];

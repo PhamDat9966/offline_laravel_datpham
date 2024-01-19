@@ -14,7 +14,7 @@ class UserModel extends AdminModel
         $this->table                = 'user';
         $this->folderUpload         = 'user';
         $this->fieldSearchAccepted  = ['username','email','fullname '];
-        $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task'];
+        $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task','taskAdd','taskEditInfo','taskChangeLevel','taskChangePassword'];
     }
 
     public function listItems($params = null,$options = null){

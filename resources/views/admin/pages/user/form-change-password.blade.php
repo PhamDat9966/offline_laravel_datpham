@@ -4,7 +4,6 @@
 
     $formlabelAttr     = Config::get('zvn.template.form_label_edit');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenTask   = Form::hidden('task', 'change-password' );
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $inputHiddenID     = Form::hidden('id' , $id);
@@ -20,7 +19,7 @@
             'element'   =>  Form::password('password_confirmation', $formInputAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . $inputHiddenTask . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success','name'=>'taskChangePassword']),
             'type'      =>  'btn-submit-edit'
         ]
     ];

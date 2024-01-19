@@ -4,7 +4,6 @@
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenTask   = Form::hidden('task', 'add' );
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -56,7 +55,7 @@
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $avatar , $username) : ''
         ],
         [
-            'element'   =>  $inputHiddenTask . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','task'=>'taskAdd']),
             'type'      =>  'btn-submit'
         ]
 

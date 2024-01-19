@@ -26,6 +26,12 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $task = 'add';
+
+        if(isset($this->taskEditInfo)) $task = 'edit';
+        if(isset($this->taskChangePassword)) $task = 'change-password';
+        if(isset($this->taskChangeLevel)) $task = 'change-level';
+
         $id                 = $this->id;
         $condUsername       = "";
         $condFullname       = "";
@@ -35,7 +41,7 @@ class UserRequest extends FormRequest
         $condStatus         = "";
         $condAvatar         = "";
 
-        switch ($this->task) {
+        switch ($task) {
             case 'add':
                 $condAvatar         = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
                 $condUsername       = "bail|required|between:5,100|unique:$this->table,username";
