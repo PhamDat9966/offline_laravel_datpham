@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 19, 2024 lúc 09:37 PM
+-- Thời gian đã tạo: Th1 23, 2024 lúc 12:46 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -67,6 +67,37 @@ INSERT INTO `article` (`id`, `category_id`, `name`, `content`, `status`, `thumb`
 (21, 2, 'Blockchain và trí tuệ nhân tạo AI làm thay đổi giáo dục trực tuyến', '<p>Blockchain khiến dữ liệu trở n&ecirc;n c&ocirc;ng khai, minh bạch với người học, AI gi&uacute;p cải thiện khả năng tương t&aacute;c v&agrave; giảng dạy với từng c&aacute; nh&acirc;n.</p>\r\n\r\n<p>Sự b&ugrave;ng nổ của Internet v&agrave; những c&ocirc;ng nghệ mới như chuỗi khối (Blockchain) v&agrave; tr&iacute; tuệ nh&acirc;n tạo (AI) đ&atilde; g&oacute;p phần l&agrave;m thay đổi nền gi&aacute;o dục tr&ecirc;n to&agrave;n thế giới, h&igrave;nh th&agrave;nh những nền tảng Online Learning với nhiều ưu thế.</p>\r\n\r\n<p><strong>Mobile Learning dự b&aacute;o l&agrave; &quot;Cuộc c&aacute;ch mạng tiếp theo&quot; của gi&aacute;o dục trực tuyến</strong></p>\r\n\r\n<p>Theo nghi&ecirc;n cứu của Global Market Insights, thị trường gi&aacute;o dục trực tuyến to&agrave;n cầu đang c&oacute; tốc độ ph&aacute;t triển nhanh chưa từng thấy khi nền tảng hạ tầng Internet ng&agrave;y c&agrave;ng ho&agrave;n thiện v&agrave; phủ s&oacute;ng rộng khắp. Gi&aacute; trị c&aacute;c start-up về EdTech (C&ocirc;ng ty c&ocirc;ng nghệ chuy&ecirc;n về gi&aacute;o dục) to&agrave;n cầu được ước t&iacute;nh hơn 190 tỷ USD v&agrave;o năm 2018 v&agrave; dự kiến vượt hơn 300 tỷ USD v&agrave;o năm 2025.</p>', 'active', 'gCPGos7mhY.png', '2019-05-17 00:00:00', 'hailan', '2019-05-17 00:00:00', 'hailan', '2019-05-16', 'normal'),
 (22, 6, 'Huawei nói lệnh cấm sẽ khiến Mỹ tụt hậu về 5G', '<p>Huawei khẳng định sắc lệnh mới của Mỹ sẽ chỉ c&agrave;ng khiến qu&aacute; tr&igrave;nh triển khai c&ocirc;ng nghệ 5G ở nước n&agrave;y th&ecirc;m chậm chạp v&agrave; đắt đỏ.</p>\r\n\r\n<p>H&atilde;ng c&ocirc;ng nghệ Trung Quốc tự nhận l&agrave; &quot;người dẫn đầu kh&ocirc;ng ai s&aacute;nh kịp về c&ocirc;ng nghệ 5G&quot;, n&ecirc;n việc bị hạn chế kinh doanh ở Mỹ chỉ dẫn đến kết cục l&agrave; Mỹ sẽ bị &quot;tụt lại ph&iacute;a sau&quot; trong việc triển khai c&ocirc;ng nghệ kết nối di động thế hệ mới</p>', 'active', 'nt1QxhKUXM.jpeg', '2019-05-17 00:00:00', 'hailan', '2023-11-12 00:00:00', 'phamdat', '2019-05-16', 'normal'),
 (23, 4, 'Asus ra mắt Zenfone 6 với camera lật tự động', '<p>Với thiết kế m&agrave;n h&igrave;nh tr&agrave;n viền ho&agrave;n to&agrave;n kh&ocirc;ng tai thỏ, camera ch&iacute;nh 48 megapixel tr&ecirc;n Zenfone 6 c&oacute; thể lật từ sau ra trước biến th&agrave;nh camera selfie.</p>\r\n\r\n<p>Zenfone 6 l&agrave; một trong những smartphone c&oacute; viền m&agrave;n h&igrave;nh mỏng nhất tr&ecirc;n thị trường với tỷ lệ m&agrave;n h&igrave;nh hiển thị chiếm tới 92% diện t&iacute;ch mặt trước. M&aacute;y c&oacute; m&agrave;n h&igrave;nh 6,4 inch tr&agrave;n viền ra cả bốn cạnh, kh&ocirc;ng tai thỏ như một số mẫu Zenfone trước v&agrave; cũng kh&ocirc;ng d&ugrave;ng thiết kế đục lỗ như Galaxy S10, S10+...</p>', 'inactive', 'aiC6j6fWZY.png', '2019-05-17 00:00:00', 'hailan', '2024-01-17 00:00:00', 'admin', '2019-05-16', 'feature');
+
+--
+-- Bẫy `article`
+--
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterDeleteArticle` AFTER DELETE ON `article` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount - 1
+  WHERE `TableName` = 'article';
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterUpdateArticle` AFTER UPDATE ON `article` FOR EACH ROW BEGIN
+  -- Assuming that the primary key of the article table is 'id'
+  IF NEW.id <> OLD.id THEN
+    UPDATE `totalelements`
+    SET ElementCount = ElementCount + 1
+    WHERE `TableName` = 'article';
+  END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsArticle` AFTER INSERT ON `article` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount + 1
+  WHERE `TableName` = 'article';
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -137,6 +168,37 @@ INSERT INTO `category` (`id`, `name`, `status`, `created`, `created_by`, `modifi
 (7, 'Xe - Ô tô', 'inactive', '2019-05-04 00:00:00', 'admin', '2019-05-15 15:04:36', 'hailan', 0, 'grid'),
 (8, 'Kinh doanh', 'active', '2019-05-12 00:00:00', 'hailan', NULL, NULL, 1, 'list');
 
+--
+-- Bẫy `category`
+--
+DELIMITER $$
+CREATE TRIGGER `updateTotalElements` AFTER INSERT ON `category` FOR EACH ROW BEGIN
+  UPDATE totalelements
+  SET ElementCount = ElementCount + 1
+  WHERE TableName = 'category';
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterDelete` AFTER DELETE ON `category` FOR EACH ROW BEGIN
+  UPDATE totalelements
+  SET ElementCount = ElementCount - 1
+  WHERE TableName = 'category';
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterUpdate` AFTER UPDATE ON `category` FOR EACH ROW BEGIN
+  -- Assuming that the primary key of the article table is 'id'
+  IF NEW.id <> OLD.id THEN
+    UPDATE totalelements
+    SET ElementCount = ElementCount + 1
+    WHERE TableName = 'category';
+  END IF;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -199,6 +261,59 @@ INSERT INTO `slider` (`id`, `name`, `description`, `link`, `thumb`, `created`, `
 (5, 'Lập trình Laravel', 'Đây là khóa học nâng cao, ZendVN chỉ nhận các bạn học viên đã học xong khóa học Lập trình PHP Offline tại ZendVN; hoặc các bạn đã có làm các project về PHP, MVC, OOP, jQuery Ajax\r\nKhóa học Lập trình Laravel sẽ hướng dẫn học viên sử dụng Laravel để xây dựng nhiều loại website khác nhau trong thực tế: doanh nghiệp, tin tức, bán hàng, đa ngôn ngữ. ', 'https://zendvn.com/lap-trinh-laravel-offline-off', 'DZeaWRlkPA.png', '2019-04-24 00:00:00', 'hailan', '2019-04-24 13:28:09', NULL, 'active'),
 (6, 'Nền tảng & Tư duy lập trình', 'Khóa học Nền tảng & Tư duy lập trình giúp bạn trang bị nền tảng lập trình vững chắc để có thể theo được nghề lập trình và duy trì đam mê với nghề. Các kỹ năng phân tích giải quyết vấn đề, tìm kiếm Google, xử lý lỗi cũng sẽ được hướng dẫn trong khóa học.', 'https://zendvn.com/nen-tang-va-tu-duy-lap-trinh-off', 'ofcAvQCCIQ.png', '2019-04-24 00:00:00', 'hailan', '2019-04-24 13:28:09', NULL, 'active');
 
+--
+-- Bẫy `slider`
+--
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterDeleteSlider` AFTER DELETE ON `slider` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount - 1
+  WHERE `TableName` = 'slider';
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterUpdateSlider` AFTER UPDATE ON `slider` FOR EACH ROW BEGIN
+  -- Assuming that the primary key of the article table is 'id'
+  IF NEW.id <> OLD.id THEN
+    UPDATE `totalelements`
+    SET ElementCount = ElementCount + 1
+    WHERE `TableName` = 'slider';
+  END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsSlider` AFTER INSERT ON `slider` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount + 1
+  WHERE `TableName` = 'slider';
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `totalelements`
+--
+
+CREATE TABLE `totalelements` (
+  `TableName` varchar(255) NOT NULL,
+  `ElementCount` int(11) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `totalelements`
+--
+
+INSERT INTO `totalelements` (`TableName`, `ElementCount`, `icon`) VALUES
+('article', 20, '<i class=\"fa fa-newspaper-o\"></i>'),
+('category', 8, '<i class=\"fa fa-tasks\"></i>'),
+('slider', 6, '<i class=\"fa fa-sliders\"></i>'),
+('user', 9, '<i class=\"fa fa-users\"></i>');
+
 -- --------------------------------------------------------
 
 --
@@ -233,7 +348,39 @@ INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`,
 (5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', 'member', '2023-11-28 00:00:00', 'phamdat', '2023-11-29 00:00:00', 'phamdat', 'inactive', NULL),
 (6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', NULL, 'pL1DxiUtai.jpg', 'member', '2023-11-28 00:00:00', 'phamdat', '2023-12-11 00:00:00', 'admin', 'inactive', NULL),
 (8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', '123456', '9k04uy61T5.jpg', 'admin', '2023-11-29 00:00:00', 'phamdat', '2023-11-29 00:00:00', 'phamdat', 'active', NULL),
-(9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', 'member', '2023-11-29 00:00:00', 'phamdat', '2024-01-19 00:00:00', 'admin', 'inactive', NULL);
+(9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', 'member', '2023-11-29 00:00:00', 'phamdat', '2024-01-19 00:00:00', 'admin', 'inactive', NULL),
+(15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', 'admin', '2024-01-22 00:00:00', 'admin', NULL, NULL, 'active', NULL);
+
+--
+-- Bẫy `user`
+--
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterDeleteUser` AFTER DELETE ON `user` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount - 1
+  WHERE `TableName` = 'user';
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsAfterUpdateUser` AFTER UPDATE ON `user` FOR EACH ROW BEGIN
+  -- Assuming that the primary key of the article table is 'id'
+  IF NEW.id <> OLD.id THEN
+    UPDATE `totalelements`
+    SET ElementCount = ElementCount + 1
+    WHERE `TableName` = 'user';
+  END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateTotalElementsUser` AFTER INSERT ON `user` FOR EACH ROW BEGIN
+  UPDATE `totalelements`
+  SET ElementCount = ElementCount + 1
+  WHERE `TableName` = 'user';
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -310,6 +457,12 @@ ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Chỉ mục cho bảng `totalelements`
+--
+ALTER TABLE `totalelements`
+  ADD PRIMARY KEY (`TableName`);
+
+--
 -- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
@@ -329,7 +482,7 @@ ALTER TABLE `user_agents`
 -- AUTO_INCREMENT cho bảng `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `article_views`
@@ -341,7 +494,7 @@ ALTER TABLE `article_views`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
@@ -353,13 +506,13 @@ ALTER TABLE `rss`
 -- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `user_agents`

@@ -1,3 +1,6 @@
+@php
+    //  dd($items);
+@endphp
 @extends('admin.main')
 
 @section('content')
@@ -6,6 +9,7 @@
         <h3>Doashboard</h3>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -17,8 +21,32 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content">
+            <div class="x_content col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="top_tiles">
+                        @foreach ($items as $key => $val)
+                            @php
+                                $nameTable      = $val['TableName'];
+                                $elementCount   = $val['ElementCount'];
+                                $icon           = $val['icon'];
+                                $link           = route($nameTable);
+                            @endphp
 
+                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+                                <div class="tile-stats">
+                                    <div class="icon">{!!$icon!!}</div>
+                                    <div class="count">{{$elementCount}}</div>
+                                    <h3>Tổng số {{$nameTable}}</h3>
+                                    <p>
+                                        <a href="{{$link}}">Xem chi tiết.</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        @endforeach
+
+                    </div>
+                  </div>
             </div>
         </div>
     </div>
