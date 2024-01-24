@@ -1,6 +1,3 @@
-@php
-    //  dd($items);
-@endphp
 @extends('admin.main')
 
 @section('content')
@@ -46,7 +43,17 @@
                         @endforeach
 
                     </div>
-                  </div>
+                </div>
+                @php
+                    $linkUpdate = route('dashboard/updateDoashboard');
+                @endphp
+
+                <div class="row">
+                    <div class="zvn-add-new pull-right">
+                        <a href="{{$linkUpdate}}" class="btn btn-secondary">Cập nhật lại số liệu</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

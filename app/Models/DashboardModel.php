@@ -24,4 +24,65 @@ class DashboardModel extends AdminModel
         return $result;
     }
 
+    public function countItems($params = null,$options = null){
+
+        $result = null;
+
+        if($options['task'] == 'admin-count-category-item'){
+            $this->table     = 'category';
+            $query  = $this->select(DB::raw('COUNT(id) as count'));
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        if($options['task'] == 'admin-count-article-item'){
+            $this->table     = 'article';
+            $query  = $this->select(DB::raw('COUNT(id) as count'));
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        if($options['task'] == 'admin-count-slider-item'){
+            $this->table     = 'slider';
+            $query  = $this->select(DB::raw('COUNT(id) as count'));
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        if($options['task'] == 'admin-count-user-item'){
+            $this->table     = 'user';
+            $query  = $this->select(DB::raw('COUNT(id) as count'));
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        return $result;
+    }
+
+    public function update($params = null,$options = null){
+
+        $result = null;
+        $this->table = 'totalelements';
+        if($options['task'] == 'admin-update-category-item'){
+            $this::where('TableName', $params['category'])
+                        ->update(['ElementCount' => $params['countCurrent']]);
+        }
+
+        if($options['task'] == 'admin-update-article-item'){
+            $this::where('TableName', $params['article'])
+                        ->update(['ElementCount' => $params['countCurrent']]);
+        }
+
+        if($options['task'] == 'admin-update-slider-item'){
+            $this::where('TableName', $params['slider'])
+                        ->update(['ElementCount' => $params['countCurrent']]);
+        }
+
+        if($options['task'] == 'admin-update-user-item'){
+            $this::where('TableName', $params['user'])
+                        ->update(['ElementCount' => $params['countCurrent']]);
+        }
+
+        return $result;
+    }
 }

@@ -35,6 +35,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
+        Route::get('updateDoashboard', [
+            'as'    => $controllerName . '/updateDoashboard',
+            'uses'  => $controller . 'updateDoashboard'
+        ]);
+
     });
 
     // ====================== SLIDER ======================
