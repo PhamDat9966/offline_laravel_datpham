@@ -11,10 +11,10 @@ class SliderController extends AdminController
     {
       $this->pathViewController   = 'admin.pages.slider.';
       $this->controllerName       = 'slider';
-      $this->params['pagination']['totalItemsPerPage']  = 3;
       $this->model  = new MainModel();
 
       parent::__construct();
+      $this->params['pagination']['totalItemsPerPage']  = 3;
     }
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate

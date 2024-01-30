@@ -35,7 +35,7 @@ class ArticleController extends AdminController
         $categoryList   = array('all' => $firstItem) + $categoryList;
 
         // Lấy dữ liệu từ response của AdminController
-        $data = $response->getData();
+        $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
         $data['categoryList'] = $categoryList;
