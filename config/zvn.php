@@ -78,6 +78,11 @@ return [
             'admin'         =>  ['name'=>'Quản trị hệ thống'],
             'member'        =>  ['name'=>'Người dùng thông thường'],
         ],
+        'type_open'=>[
+            'new_window'    => '_new',
+            'new_tab'       => '_blank',
+            'current'       => ''
+        ]
     ],
     'config'    =>[
         'search'    =>[

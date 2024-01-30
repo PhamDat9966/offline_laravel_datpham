@@ -178,3 +178,23 @@ ul.main_nav_list li.active a{
 {
     color: #61e49b;
 }
+
+/* dropdown menu
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+.dropdown > .dropdown-toggle:active {
+
+    pointer-events: none;
+}
+*/
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.428571429;
+    color: #333;
+    white-space: nowrap
+}

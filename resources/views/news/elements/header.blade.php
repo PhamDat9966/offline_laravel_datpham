@@ -1,23 +1,56 @@
 @php
     use App\Models\CategoryModel as CategoryModel;
+    use App\Models\MenuModel as MenuModel;
     use App\Helpers\URL;
 
-    $categoryModel  = new CategoryModel();
-    $itemsCategory  = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+    $MenuModel      = new MenuModel();
+    $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';
-    if(count($itemsCategory) > 0){
+
+    if(count($itemsMenu) > 0){
         $xhtmlMenu          .= '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
         $xhtmlMenuMobile    .= '<nav class="menu_nav"><ul class="menu_mm">';
-        $categoryIdCurrent   = request()->category_id;
+        $menuIdCurrent      = request()->menu_id;
+        foreach ($itemsMenu as $item) {
 
-        foreach ($itemsCategory as $item) {
+            $typeOpen = '';
+            $tmpTypeOpen     = Config::get('zvn.template.type_open');
+            $typeOpen = (array_key_exists($item['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$item['type_open']] : '';
 
-            $link                = URL::linkCategory($item['id'],$item['name']);
-            $classActive         = ($categoryIdCurrent == $item['id']) ? 'class="active"' : '';
-            $xhtmlMenu          .= sprintf('<li %s><a href="%s">%s</a></li>',$classActive,$link,$item['name']);
-            $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">%s</a></li>',$link,$item['name']);
+            if($item['type_menu'] == 'link'){
+                if($item['url'] == '/'){
+                    $link                = route('home');
+                    $classActive         = ($menuIdCurrent == $item['id']) ? 'class="active"' : '';
+                    $xhtmlMenu          .= sprintf('<li %s><a href="%s" target="%s">%s</a></li>',$classActive,$link,$typeOpen,$item['name']);
+                }
+            }
+
+            // Tạm thời xếp `category_article` và `category_product` chung một nhóm.
+            if($item['type_menu'] == 'category_article' || $item['type_menu'] == 'category_product'){
+                if($item['parent_id'] === null){
+                    $parentidCurrent = $item['id'];
+                    $xhtmlMenu  .= '<li class="dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                                            '.$item['name'].'
+                                        </a>';
+                        $xhtmlMenu  .= '<ul class="dropdown-menu" role="menu">';
+                        foreach ($itemsMenu as $child) {
+                            if($child['parent_id'] == $parentidCurrent){
+                                $typeOpen = '';
+                                $tmpTypeOpen     = Config::get('zvn.template.type_open');
+                                $typeOpen = (array_key_exists($child['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$child['type_open']] : '';
+
+                                $link        = URL::linkCategory($child['url'],$item['name']);
+                                $xhtmlMenu  .= sprintf('<li><a tabindex="-1" href="%s" target="%s">%s</a></li>',$link,$typeOpen,$child['name']);
+                            }
+                        }
+                        $xhtmlMenu  .= '</li></ul>';
+                    $xhtmlMenu  .= '</li>';
+                }
+            }
+
         }
 
         $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
@@ -27,6 +60,7 @@
         if(session('userInfo')){
             $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),'Thoát');
         }
+
         $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
         $xhtmlMenuMobile    .= $xhtmlMenuUser.'</ul></nav>';
     }

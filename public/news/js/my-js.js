@@ -69,3 +69,11 @@ $(document).ready(function() {
     })
 
 });
+
+
+/* dropdown menu */
+jQuery('li.dropdown').hover(function() {
+    jQuery(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(500);
+  }, function() {
+  jQuery(this).find('.dropdown-menu').stop(true, true).delay(700).fadeOut(500);
+});
