@@ -11,6 +11,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Name</th>
                     <th class="column-title">Trạng thái</th>
+                    <th class="column-title">url</th>
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Type menu</th>
                     <th class="column-title">Type open</th>
@@ -32,6 +33,7 @@
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
+                            $url                = $val['url'];
                             $ordering           = $val['ordering'];
                             $type_menu          = $val['type_menu'];
                             $type_open          = $val['type_open'];
@@ -47,6 +49,9 @@
                             </td>
                             <td>
                                 {!!$status!!}
+                            </td>
+                            <td>
+                                {!!$url!!}
                             </td>
                             <td>
                                 {!!$ordering!!}

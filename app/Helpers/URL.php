@@ -26,8 +26,6 @@ class URL{
         $parts = explode('-', $url);
         $prefix = $parts[0];
         if($prefix == 'category'){
-            // $id   = substr($url, strlen('category-'));
-            // $id   = (int)$id;
             $id     = $parts[1];
             $nameCategory = Str::slug($name);
             $nameCategory = 'category-'.$nameCategory; // Đây là 1 lỗi cực kỳ vớ vẩn, chưa tìm ra được cách giải quyết, tạm thời phải dùng đến kết nối chuỗi 'category-'

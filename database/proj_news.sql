@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 31, 2024 lúc 08:43 AM
+-- Thời gian đã tạo: Th1 31, 2024 lúc 09:25 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -172,6 +172,20 @@ INSERT INTO `category` (`id`, `name`, `status`, `created`, `created_by`, `modifi
 -- Bẫy `category`
 --
 DELIMITER $$
+CREATE TRIGGER `category_after_delete_with_menu` BEFORE DELETE ON `category` FOR EACH ROW BEGIN
+  DELETE FROM menu WHERE menu.url = CONCAT('category-', OLD.id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `category_after_insert_with_menu` AFTER INSERT ON `category` FOR EACH ROW BEGIN
+    -- Insert into menu after category insert with menu
+    INSERT INTO menu (`name`, `status`, `url` ,`ordering`,`type_open`,`parent_id`)
+    VALUES (NEW.`name`, NEW.`status`, CONCAT('category-', NEW.`id`),10,'current',3);
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `updateTotalElements` AFTER INSERT ON `category` FOR EACH ROW BEGIN
   UPDATE totalelements
   SET ElementCount = ElementCount + 1
@@ -227,7 +241,7 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 (3, 'Blog', 'active', '', 3, 'category_article', 'current', NULL, 'main-menu'),
 (4, 'Thể thao', 'active', 'category-1', 4, NULL, 'current', 3, 'child-menu-rank-01'),
 (5, 'Giáo dục', 'active', 'category-2', 4, NULL, 'current', 3, 'child-menu-rank-01'),
-(6, 'Sức khỏe', 'active', 'category-3', 5, NULL, 'current', 3, 'child-menu-rank-01'),
+(6, 'Sức khỏe', 'inactive', 'category-3', 5, NULL, 'current', 3, 'child-menu-rank-01'),
 (7, 'Du lịch', 'active', 'category-4', 5, NULL, 'new_tab', 3, 'child-menu-rank-01'),
 (8, 'Khoa học', 'active', 'category-5', 5, NULL, 'current', 3, 'child-menu-rank-01'),
 (9, 'Số hóa', 'active', 'category-6', 5, NULL, 'current', 3, 'child-menu-rank-01'),
@@ -533,13 +547,13 @@ ALTER TABLE `article_views`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
