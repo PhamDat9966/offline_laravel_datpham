@@ -19,7 +19,7 @@
             $tmpTypeOpen     = Config::get('zvn.template.type_open');
             $typeOpen = (array_key_exists($item['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$item['type_open']] : '';
 
-            if($item['type_menu'] == 'link'){
+            if($item['type_menu'] == 'link' || $item['type_menu'] == ''){
                 if($item['url'] == '/'){
                     $link                = route('home');
                     $classActive         = ($menuIdCurrent == $item['id']) ? 'class="active"' : '';
@@ -42,7 +42,7 @@
                                 $tmpTypeOpen     = Config::get('zvn.template.type_open');
                                 $typeOpen = (array_key_exists($child['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$child['type_open']] : '';
 
-                                $link        = URL::linkCategory($child['url'],$item['name']);
+                                $link        = URL::linkMenu($child['url'],$item['name']);
                                 $xhtmlMenu  .= sprintf('<li><a tabindex="-1" href="%s" target="%s">%s</a></li>',$link,$typeOpen,$child['name']);
                             }
                         }

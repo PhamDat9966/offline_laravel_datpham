@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 30, 2024 lúc 10:54 PM
+-- Thời gian đã tạo: Th1 31, 2024 lúc 08:43 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -225,14 +225,14 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 (1, 'Trang chủ', 'active', '/', 1, 'link', 'new_window', NULL, 'main-menu'),
 (2, 'Sản phẩm', 'active', '', 2, 'category_product', 'new_tab', NULL, 'main-menu'),
 (3, 'Blog', 'active', '', 3, 'category_article', 'current', NULL, 'main-menu'),
-(4, 'Thể thao', 'active', '1', 4, NULL, 'current', 3, 'child-menu-rank-01'),
-(5, 'Giáo dục', 'active', '2', 4, NULL, 'current', 3, 'child-menu-rank-01'),
-(6, 'Sức khỏe', 'active', '3', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(7, 'Du lịch', 'active', '4', 5, NULL, 'new_tab', 3, 'child-menu-rank-01'),
-(8, 'Khoa học', 'active', '5', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(9, 'Số hóa', 'active', '6', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(10, 'Xe - Ô tô', 'active', '7', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(12, 'Kinh doanh', 'active', '8', 5, NULL, 'current', 3, 'child-menu-rank-01');
+(4, 'Thể thao', 'active', 'category-1', 4, NULL, 'current', 3, 'child-menu-rank-01'),
+(5, 'Giáo dục', 'active', 'category-2', 4, NULL, 'current', 3, 'child-menu-rank-01'),
+(6, 'Sức khỏe', 'active', 'category-3', 5, NULL, 'current', 3, 'child-menu-rank-01'),
+(7, 'Du lịch', 'active', 'category-4', 5, NULL, 'new_tab', 3, 'child-menu-rank-01'),
+(8, 'Khoa học', 'active', 'category-5', 5, NULL, 'current', 3, 'child-menu-rank-01'),
+(9, 'Số hóa', 'active', 'category-6', 5, NULL, 'current', 3, 'child-menu-rank-01'),
+(10, 'Xe - Ô tô', 'active', 'category-7', 5, NULL, 'current', 3, 'child-menu-rank-01'),
+(12, 'Kinh doanh', 'active', 'category-8', 5, NULL, 'current', 3, 'child-menu-rank-01');
 
 -- --------------------------------------------------------
 
