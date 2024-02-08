@@ -8,6 +8,8 @@ use App\Models\MenuModel as MainModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
 
+use App\Models\CategoryModel;
+
 class MenuController extends AdminController
 {
     public function __construct()
@@ -26,16 +28,18 @@ class MenuController extends AdminController
         // Gọi method index của AdminController
         $response = parent::index($request);
 
-        $this->params['filter']['category']   = $request->input('filter_category','all');
-        $this->params['filter']['type']       = $request->input('filter_type','all');
-
-        // Thêm nội dung mới của ArticleController
-
-
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
+        $params = $data['params'];
+
+        // Thêm nội dung mới menu là category
+
+        $categoryModel  = new categoryModel();
+        $categoryList   = $categoryModel->listItems($params, ['task' => 'admin-list-items']);
+
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
+        $data['categoryList'] = $categoryList;
 
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);

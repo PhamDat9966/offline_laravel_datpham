@@ -4,6 +4,10 @@
 @endphp
 
 <div class="x_content">
+    <div class="title">
+        <h2>Menu</h2>
+        <div class="clearfix"></div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped jambo_table bulk_action">
             <thead>
@@ -15,7 +19,8 @@
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Type menu</th>
                     <th class="column-title">Type open</th>
-                    <th class="column-title">Menu cha</th>
+                    <th class="column-title">Id cha</th>
+                    <th class="column-title">Container</th>
                     <th class="column-title">Ghi chú</th>
                 </tr>
             </thead>
@@ -38,6 +43,7 @@
                             $type_menu          = $val['type_menu'];
                             $type_open          = $val['type_open'];
                             $parent_id          = $val['parent_id'];
+                            $container          = $val['container'];
                             $note               = $val['note'];
 
                         @endphp
@@ -64,6 +70,9 @@
                             </td>
                             <td>
                                 {!!$parent_id!!}
+                            </td>
+                            <td>
+                                {!!$container!!}
                             </td>
                             <td width="15%">
                                 {!!$note!!}

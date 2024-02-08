@@ -20,7 +20,7 @@ class MenuModel extends AdminModel
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('m.id','m.name','m.status','m.url','m.ordering','m.type_menu','m.type_open','m.parent_id','m.note');
+            $query = $this->select('m.id','m.name','m.status','m.url','m.ordering','m.type_menu','m.type_open','m.parent_id','m.container','m.note');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('a.status','=',$params['filter']['status']);
@@ -50,7 +50,7 @@ class MenuModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name','url','type_menu','type_open','parent_id')
+            $query = $this->select('id','name','url','type_menu','type_open','parent_id','container')
                           ->where('status','=','active')
                           ->orderBy('ordering', 'asc');
             $result = $query->get()->toArray();

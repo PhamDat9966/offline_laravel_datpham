@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 31, 2024 lúc 09:25 AM
+-- Thời gian đã tạo: Th2 08, 2024 lúc 01:44 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -172,20 +172,6 @@ INSERT INTO `category` (`id`, `name`, `status`, `created`, `created_by`, `modifi
 -- Bẫy `category`
 --
 DELIMITER $$
-CREATE TRIGGER `category_after_delete_with_menu` BEFORE DELETE ON `category` FOR EACH ROW BEGIN
-  DELETE FROM menu WHERE menu.url = CONCAT('category-', OLD.id);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `category_after_insert_with_menu` AFTER INSERT ON `category` FOR EACH ROW BEGIN
-    -- Insert into menu after category insert with menu
-    INSERT INTO menu (`name`, `status`, `url` ,`ordering`,`type_open`,`parent_id`)
-    VALUES (NEW.`name`, NEW.`status`, CONCAT('category-', NEW.`id`),10,'current',3);
-END
-$$
-DELIMITER ;
-DELIMITER $$
 CREATE TRIGGER `updateTotalElements` AFTER INSERT ON `category` FOR EACH ROW BEGIN
   UPDATE totalelements
   SET ElementCount = ElementCount + 1
@@ -228,6 +214,7 @@ CREATE TABLE `menu` (
   `type_menu` varchar(255) DEFAULT NULL,
   `type_open` varchar(255) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `container` varchar(255) DEFAULT NULL,
   `note` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -235,18 +222,13 @@ CREATE TABLE `menu` (
 -- Đang đổ dữ liệu cho bảng `menu`
 --
 
-INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `type_open`, `parent_id`, `note`) VALUES
-(1, 'Trang chủ', 'active', '/', 1, 'link', 'new_window', NULL, 'main-menu'),
-(2, 'Sản phẩm', 'active', '', 2, 'category_product', 'new_tab', NULL, 'main-menu'),
-(3, 'Blog', 'active', '', 3, 'category_article', 'current', NULL, 'main-menu'),
-(4, 'Thể thao', 'active', 'category-1', 4, NULL, 'current', 3, 'child-menu-rank-01'),
-(5, 'Giáo dục', 'active', 'category-2', 4, NULL, 'current', 3, 'child-menu-rank-01'),
-(6, 'Sức khỏe', 'inactive', 'category-3', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(7, 'Du lịch', 'active', 'category-4', 5, NULL, 'new_tab', 3, 'child-menu-rank-01'),
-(8, 'Khoa học', 'active', 'category-5', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(9, 'Số hóa', 'active', 'category-6', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(10, 'Xe - Ô tô', 'active', 'category-7', 5, NULL, 'current', 3, 'child-menu-rank-01'),
-(12, 'Kinh doanh', 'active', 'category-8', 5, NULL, 'current', 3, 'child-menu-rank-01');
+INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `type_open`, `parent_id`, `container`, `note`) VALUES
+(1, 'Trang chủ', 'active', '/', 1, 'link', 'new_window', NULL, NULL, 'main-menu'),
+(2, 'Sản phẩm', 'active', '', 2, 'category_product', 'new_tab', NULL, NULL, 'main-menu'),
+(3, 'Blog', 'active', '', 3, 'category_article', 'current', NULL, '', 'main-menu'),
+(4, 'Test-01', 'active', '', NULL, NULL, NULL, 3, NULL, NULL),
+(5, 'Test-02', 'active', '', NULL, NULL, NULL, 3, NULL, NULL),
+(6, 'Category', 'active', '', NULL, NULL, NULL, 3, 'category', NULL);
 
 -- --------------------------------------------------------
 
@@ -466,7 +448,40 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (15, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2024-01-25 07:19:12', 23),
 (16, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2024-01-30 05:34:37', 16),
 (17, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2024-01-30 05:34:38', 16),
-(18, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2024-01-30 05:34:38', 16);
+(18, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '2024-01-30 05:34:38', 16),
+(19, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:20', 23),
+(20, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:21', 23),
+(21, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:21', 23),
+(22, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:33', 22),
+(23, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:33', 22),
+(24, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:34', 22),
+(25, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:34', 22),
+(26, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:35', 22),
+(27, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:24:35', 22),
+(28, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:26:08', 22),
+(29, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:26:09', 22),
+(30, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:26:09', 22),
+(31, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:27:53', 22),
+(32, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:27:54', 22),
+(33, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:27:54', 22),
+(34, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:28:49', 22),
+(35, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:29:58', 22),
+(36, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:30:55', 22),
+(37, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:31:52', 22),
+(38, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:32:23', 22),
+(39, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:32:56', 22),
+(40, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:33:26', 22),
+(41, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:35:42', 22),
+(42, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:42:13', 22),
+(43, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:42:41', 22),
+(44, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:45:17', 22),
+(45, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:45:35', 22),
+(46, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:45:50', 22),
+(47, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:45:51', 22),
+(48, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:45:51', 22),
+(49, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:46:34', 22),
+(50, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:46:34', 22),
+(51, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-02-06 10:46:35', 22);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -547,13 +562,13 @@ ALTER TABLE `article_views`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
@@ -577,7 +592,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -67,6 +67,11 @@
             <!--List content-->
             @include("admin.pages.menu.list")
             <!--end List-->
+
+            <!--List content-->
+            {{-- @include("admin.pages.menu.listContainer") --}}
+            <!--end List-->
+
         </div>
     </div>
 </div>
