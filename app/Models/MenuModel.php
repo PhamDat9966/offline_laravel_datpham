@@ -56,6 +56,12 @@ class MenuModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-items-parent'){
+            $query = $this->select('id','name')
+                          ->where('status','=','active');
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 

@@ -15,7 +15,6 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
     $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -25,6 +24,12 @@
 
     $categoryValue     = $itemsCategory;
 
+    $type_open         = [
+                                '_new'      => 'new_window',
+                                '_blank'    => 'category_product',
+                                'link'      => 'current'
+                        ];
+
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -33,8 +38,19 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formCkeditorAttr)
+            'label'     =>  Form::label('url', 'Url', $formlabelAttr),
+            'element'   =>  Form::text('url', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('type_open', 'Type Open', $formlabelAttr),
+            'element'   =>  Form::select('type_open', $type_open, null , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
+            'element'   =>  Form::select('parent', $parentArray, null , $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -42,17 +58,7 @@
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
-            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
-        ],
-        [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
-            'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
-        ],
-        [
-            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 

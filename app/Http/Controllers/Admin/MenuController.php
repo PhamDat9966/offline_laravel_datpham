@@ -34,7 +34,6 @@ class MenuController extends AdminController
         $params = $data['params'];
 
         // Thêm nội dung mới menu là category
-
         $categoryModel  = new categoryModel();
         $categoryList   = $categoryModel->listItems($params, ['task' => 'admin-list-items']);
 
@@ -61,6 +60,26 @@ class MenuController extends AdminController
             $this->model->saveItem($params,['task'=>$task]);
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
+    }
+
+    public function form(Request $request) //index trèn thêm dữ liệu
+    {
+        // Gọi method index của AdminController
+        $response = parent::form($request);
+
+        // Lấy dữ liệu từ response của AdminController
+        $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
+
+        $parentArray = $this->model->listItems(null,["task"=> "news-list-items-parent"]);
+
+        $parentArray = array_column($parentArray, 'name', 'id');
+        array_unshift($parentArray, 'Không có phần tử cha');
+
+        // Thêm dữ liệu mới vào dữ liệu từ AdminController
+        $data['parentArray'] = $parentArray;
+
+        // Trả về response mới
+        return view($this->pathViewController . 'form', (array)$data);
     }
 }
 

@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
+
 @endphp
 
 <div class="x_content">
@@ -29,7 +30,6 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-
 
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
