@@ -1,5 +1,6 @@
 @php
     use App\Models\CategoryModel as CategoryModel;
+    use App\Models\ArticleModel as ArticleModel;
     use App\Models\MenuModel as MenuModel;
     use App\Helpers\URL;
 
@@ -7,8 +8,14 @@
     $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
     global $categoryMenu;
-    $categoryModul  = new CategoryModel();
-    $categoryMenu   = $categoryModul->listItems(null,['task'=>'news-list-items-navbar-menu']);
+    $categoryModel  = new CategoryModel();
+    $categoryMenu   = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+
+    global $articleMenu;
+    $articleModel   = new ArticleModel();
+    $articleMenu    = $articleModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+
+    //dd($articleMenu);
 
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';
@@ -28,6 +35,7 @@
         global $xhtmlMenu;
         global $menuIdCurrent;
         global $categoryMenu;
+        global $articleMenu;
 
         foreach ($items as $item) {
 
@@ -87,6 +95,15 @@
                             $xhtmlMenu  .= '</ul>';
                         }
 
+                        if($item['container'] == 'article'){
+                            $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+                                foreach ($articleMenu as $keyArticle => $valArticle) {
+                                    $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                                    $xhtmlMenu      .= '<li><a class="nav-link" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
+                                }
+                            $xhtmlMenu  .= '</ul>';
+                        }
+
                     $xhtmlMenu  .= '</li>';
                 }
 
@@ -108,22 +125,6 @@
     // Gọi hàm đệ quy để tạo menu từ mảng
     buildMenu($itemsMenu, null, null);
 
-    //test url rounte của category và article
-    // $thethao        = route('category/index',[
-    //                     'category_id'   =>  1,
-    //                     'category_name' =>  'the-thao'
-    //                 ]);
-    // $xhtmlMenu          .= sprintf('<li><a href="%s">Thể thaoTEST</a></li>',$thethao);
-    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Thể thao</a></li>',$thethao);
-
-    // $baivietCaudo   = route('article/index',[
-    //                     'article_id'   =>  16,
-    //                     'article_name' =>  'nhung-cau-do'
-    //                 ]);
-    // $xhtmlMenu          .= sprintf('<li><a href="%s">Câu đốTEST</li>',$baivietCaudo);
-    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Câu đố rèn luyện</li>',$baivietCaudo);
-
-
     $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
     $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
 
@@ -137,93 +138,6 @@
 
 
     //--end--//
-
-
-    // if(count($itemsMenu) > 0){
-    //     $xhtmlMenu          .= '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
-    //     $xhtmlMenuMobile    .= '<nav class="menu_nav"><ul class="menu_mm">';
-    //     $menuIdCurrent      = request()->menu_id;
-    //     foreach ($itemsMenu as $item) {
-
-    //         $typeOpen = '';
-    //         $tmpTypeOpen     = Config::get('zvn.template.type_open');
-    //         $typeOpen = (array_key_exists($item['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$item['type_open']] : '';
-
-    //         if($item['type_menu'] == 'link' || $item['type_menu'] == ''){
-    //             if($item['url'] == '/'){
-    //                 $link                = route('home');
-    //                 $classActive         = ($menuIdCurrent == $item['id']) ? 'class="active"' : '';
-    //                 $xhtmlMenu          .= sprintf('<li %s><a href="%s" target="%s">%s</a></li>',$classActive,$link,$typeOpen,$item['name']);
-    //             }
-    //         }
-
-    //         // Tạm thời xếp `category_article` và `category_product` chung một nhóm.
-    //         if($item['type_menu'] == 'category_article' || $item['type_menu'] == 'category_product'){
-
-    //             // Hasn't child
-    //             if($item['parent_id'] === null){
-    //                 $parentidCurrent = $item['id'];
-    //                 $xhtmlMenu  .= '<li class="dropdown">
-    //                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-    //                                         '.$item['name'].'
-    //                                     </a>';
-
-    //                     if($item['container'] == 'category'){
-    //                         $xhtmlMenu  .= '<ul class="dropdown-menu" role="menu">';
-    //                             foreach ($categoryMenu as $keyCategory => $valCategory) {
-    //                                 $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
-    //                                 $xhtmlMenu      .= '<li><a href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
-    //                             }
-    //                         $xhtmlMenu  .= '</ul>';
-    //                     }
-
-    //                 $xhtmlMenu  .= '</li>';
-    //             }
-
-    //             // Has child
-    //             // if($item['parent_id'] === null){
-    //             //     $parentidCurrent = $item['id'];
-    //             //     $xhtmlMenu  .= '<li class="dropdown">
-    //             //                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-    //             //                             '.$item['name'].'
-    //             //                         </a>';
-    //             //         $xhtmlMenu  .= '<ul class="dropdown-menu" role="menu">';
-    //             //         foreach ($itemsMenu as $child) {
-    //             //             if($child['parent_id'] == $parentidCurrent){
-    //             //                 $typeOpen = '';
-    //             //                 $tmpTypeOpen     = Config::get('zvn.template.type_open');
-    //             //                 $typeOpen = (array_key_exists($child['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$child['type_open']] : '';
-
-    //             //                 $link        = URL::linkMenu($child['url'],$item['name']);
-    //             //                 $xhtmlMenu  .= sprintf('<ul><a tabindex="-1" href="%s" target="%s">%s</a>',$link,$typeOpen,$child['name']);
-
-    //             //                 //Container
-
-    //             //                 $xhtmlMenu  .='</ul>';
-    //             //             }
-    //             //         }
-    //             //         $xhtmlMenu  .= '</li></ul>';
-    //             //     $xhtmlMenu  .= '</li>';
-    //             // }
-
-
-    //         }
-
-    //     }
-
-    //     $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
-    //     $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
-
-    //     $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),'Đăng Nhập');
-    //     if(session('userInfo')){
-    //         $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),'Thoát');
-    //     }
-
-    //     $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
-    //     $xhtmlMenuMobile    .= $xhtmlMenuUser.'</ul></nav>';
-    // }
-
-
 
 @endphp
 <header class="header">

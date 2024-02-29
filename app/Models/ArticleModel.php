@@ -136,6 +136,12 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-items-navbar-menu'){
+            $query = $this->select('id','name')
+                          ->where('status','=','active');
+            $result = $query->get()->toArray();
+        }
+
         if($options['task'] == 'news-list-items-usually-second-highest'){
             $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
                           ->leftJoin('category as c', 'a.category_id', '=', 'c.id')

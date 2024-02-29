@@ -80,10 +80,20 @@ return [
             'member'        =>  ['name'=>'Người dùng thông thường'],
         ],
         'type_open'=>[
-            'new_window'    => '_new',
-            'new_tab'       => '_blank',
-            'current'       => ''
-        ]
+            'current'    => 'Mở tại cửa sổ hiện hành',
+            '_new'       => 'Mở cửa sổ mới',
+            '_blank'     => 'Mở một tab mới'
+        ],
+        'type_menu'=>[
+            'link'              => 'Kiểu đường Link',
+            'category_product'  => 'Kiểu category_product',
+            'category_article'  => 'Kiểu category_article'
+        ],
+        'container'=>[
+            'none'          => 'Không chứa container',
+            'category'      => 'Category',
+            'article'       => 'Article'
+        ],
     ],
     'config'    =>[
         'search'    =>[

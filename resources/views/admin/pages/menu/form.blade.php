@@ -21,30 +21,28 @@
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
 
-    $statusValue       = [
+    $statusValue       =    [
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
-                          ];
+                            ];
 
     $categoryValue     = $itemsCategory;
     $type_menuArr         = [
-                                      'link'               => 'Kiểu đường Link',
-                                      'category_product'   => 'Kiểu category_product',
-                                      'category_article'   => 'Kiểu category_article'
-                        ];
+                                'link'               => Config::get('zvn.template.type_menu.link'),
+                                'category_product'   => Config::get('zvn.template.type_menu.category_product'),
+                                'category_article'   => Config::get('zvn.template.type_menu.category_article'),
+                            ];
 
     $type_openArr         = [
-                                'current'   => 'Mở tại cửa sổ hiện hành',
-                                '_new'      => 'Mở cửa sổ mới',
-                                '_blank'    => 'Mở một tab mới'
-
-                        ];
+                                'current'   => Config::get('zvn.template.type_open.current'),
+                                '_new'      => Config::get('zvn.template.type_open._new'),
+                                '_blank'    => Config::get('zvn.template.type_open._blank'),
+                            ];
 
     $containerArr         = [
-                                'none'      => 'Không chứa container',
-                                'category'  => 'Category',
-                                'article'   => 'Article'
-
+                                'none'      => Config::get('zvn.template.container.none'),
+                                'category'  => Config::get('zvn.template.container.category'),
+                                'article'   => Config::get('zvn.template.container.article'),
                             ];
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
