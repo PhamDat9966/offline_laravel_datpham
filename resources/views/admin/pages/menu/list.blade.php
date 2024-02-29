@@ -23,6 +23,7 @@
                     <th class="column-title">Id cha</th>
                     <th class="column-title">Container</th>
                     <th class="column-title">Ghi chú</th>
+                    <th class="column-title">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,11 +47,13 @@
                             $container          = $val['container'];
                             $note               = $val['note'];
 
+                            $orderingAjax       = '<input class="select2_group form-control" type="number" id="quantity-menu-'.$id.'" name="quantity-menu-'.$id.'" min="1" max="999" value='.$ordering.'>';
+                            $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
-                            <td width="15%">
+                            <td width="12%">
                                 <p><strong>Name:</strong> {!! $name !!}</p>
                             </td>
                             <td>
@@ -60,7 +63,7 @@
                                 {!!$url!!}
                             </td>
                             <td>
-                                {!!$ordering!!}
+                                {!!$orderingAjax!!}
                             </td>
                             <td>
                                 {!!$type_menu!!}
@@ -74,8 +77,11 @@
                             <td>
                                 {!!$container!!}
                             </td>
-                            <td width="15%">
+                            <td width="10%">
                                 {!!$note!!}
+                            </td>
+                            <td>
+                                {!!$listButtonAction!!}
                             </td>
                         </tr>
                     @endforeach

@@ -96,7 +96,6 @@ class Template{
         //     'slider'    =>  ['all','id','description']
         // ];
 
-
         $fieldInController  = Config::get('zvn.config.search');
         $controllerName     = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';
         $xhtmlField         = null;
@@ -307,22 +306,3 @@ class Template{
     }
 
 }
-
-//          class    title   icon    route-name
-//edit
-//deltet
-
-// <a href="http://proj_news.xyz/admin123/slider/form/3" type="button" class="btn btn-icon btn-success" data-toggle="tooltip" data-placement="top" data-original-title="Edit">
-//      <i class="fa fa-pencil"></i>
-// </a>
-// <a href="http://proj_news.xyz/admin123/slider/delete/3" type="button" class="btn btn-icon btn-danger btn-delete" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
-//      <i class="fa fa-trash"></i>
-// </a>';
-
-// <a href="http://proj_news.xyz/admin123/slider/form/3" type="button" class="btn btn-icon btn-success" data-toggle="tooltip" data-placement="top" data-original-title="Edit">
-//     <i class="fa fa-pencil"></i>
-// </a>
-
-// <a href="http://proj_news.xyz/admin123/slider/delete/3" type="button" class="btn btn-icon btn-danger btn-delete" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
-//     <i class="fa fa-trash"></i>
-// </a>

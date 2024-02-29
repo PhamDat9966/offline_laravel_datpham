@@ -40,8 +40,14 @@ class ArticleController extends Controller
         $this->params['category_id']  = $itemArticle['category_id'];
 
         if($request->session()->has('userInfo')){
-            $userInfo   = Session::get('userInfo');
-            $userModel = new UserModel();
+            $userInfo       = Session::get('userInfo');
+            $userModel      = new UserModel();
+            $strlenCategoryUsually = strlen($userInfo['usually_category']);
+            // Nếu chuỗi dài quá 80 ký tự, loại bớt 40 ký tự đầu của chuỗi usually_category để ghi lại thói quen mới
+            if($strlenCategoryUsually >= 80){
+                $userInfo['usually_category'] = substr($userInfo['usually_category'], 40);
+            }
+
             $this->params['usually_category'] = $this->params['category_id'];
             $this->params['user_id']          = $userInfo['id'];
             $this->params['usually_category'] = $userInfo['usually_category'] .','. $this->params['category_id'];

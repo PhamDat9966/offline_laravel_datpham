@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\MenuModel as MainModel;
-use App\Http\Requests\ArticleRequest as MainRequest;
+use App\Http\Requests\MenuRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
 
 use App\Models\CategoryModel;
@@ -46,7 +46,7 @@ class MenuController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        //dd($request->all());
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -81,5 +81,6 @@ class MenuController extends AdminController
         // Trả về response mới
         return view($this->pathViewController . 'form', (array)$data);
     }
+
 }
 

@@ -1,14 +1,14 @@
 @php
     $pageTitle      = 'Quản lý ' .ucfirst($controllerName);
-    $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-arrow-left"></i> Quay về</a>', route($controllerName));
+    $pageButton     = sprintf('<a href="%s" class="btn btn-info"><i class="fa fa-arrow-left"></i> Quay về</a>', route($controllerName));
 
     if($pageIndex == true){
         $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
     }
 
-    if($pageIndex == null){
-        $pageButton     = '';
-    }
+    // if($pageIndex == null){
+    //     $pageButton     = '';
+    // }
 
 
 @endphp

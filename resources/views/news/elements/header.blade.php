@@ -30,6 +30,7 @@
         global $categoryMenu;
 
         foreach ($items as $item) {
+
             if ($item['parent_id'] == $parentId) {
 
                 // Kiểm tra xem có con hay không
@@ -44,21 +45,16 @@
 
                 if($hasChildren != 1 && $item['container'] == ''){
 
-                    if($item['url'] == '/' || $item['url'] == null){
-                        $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$link,$typeOpen,$item['name']);
+                    $routeString = $item['url'];
+                    $typeOpen    = $item['type_open'];
+                    if (strpos($routeString, 'route(') !== false) {
+                        $routeUrl = eval("return $routeString;");
+                        $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeUrl,$typeOpen,$item['name']);
+                    } else {
+                        $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     }
 
-                    if($item['url'] != null && $item['url'] != '/'){
-                        $routeString = $item['url'];
-
-                        if (strpos($routeString, 'route(') !== false) {
-                            $routeUrl = eval("return $routeString;");
-                            $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeUrl,$typeOpen,$item['name']);
-                        } else {
-                            $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
-                        }
-                    }
-                }
+                }else
                 // Nếu có con, gọi đệ quy để xử lý menu con
                 if ($hasChildren == 1) {
                     $navChildLinkClass  = 'nav-link';
@@ -113,19 +109,19 @@
     buildMenu($itemsMenu, null, null);
 
     //test url rounte của category và article
-    $thethao        = route('category/index',[
-                        'category_id'   =>  1,
-                        'category_name' =>  'the-thao'
-                    ]);
-    $xhtmlMenu          .= sprintf('<li><a href="%s">Thể thaoTEST</a></li>',$thethao);
-    $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Thể thao</a></li>',$thethao);
+    // $thethao        = route('category/index',[
+    //                     'category_id'   =>  1,
+    //                     'category_name' =>  'the-thao'
+    //                 ]);
+    // $xhtmlMenu          .= sprintf('<li><a href="%s">Thể thaoTEST</a></li>',$thethao);
+    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Thể thao</a></li>',$thethao);
 
-    $baivietCaudo   = route('article/index',[
-                        'article_id'   =>  16,
-                        'article_name' =>  'nhung-cau-do'
-                    ]);
-    $xhtmlMenu          .= sprintf('<li><a href="%s">Câu đốTEST</li>',$baivietCaudo);
-    $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Câu đố rèn luyện</li>',$baivietCaudo);
+    // $baivietCaudo   = route('article/index',[
+    //                     'article_id'   =>  16,
+    //                     'article_name' =>  'nhung-cau-do'
+    //                 ]);
+    // $xhtmlMenu          .= sprintf('<li><a href="%s">Câu đốTEST</li>',$baivietCaudo);
+    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Câu đố rèn luyện</li>',$baivietCaudo);
 
 
     $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));

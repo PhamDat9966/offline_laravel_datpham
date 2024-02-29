@@ -2,6 +2,7 @@
 
 return [
     'url'       =>[
+        'localhost'         =>'http://proj_news.xyz/',
         'prefix_admin'      =>'admin69',
         'prefix_news'       =>'news69',
         'prefix_bookstore'  =>'bookstore'
@@ -99,7 +100,8 @@ return [
             'category'  =>  ['edit','delete'],
             'article'   =>  ['edit','delete'],
             'user'      =>  ['edit','delete'],
-            'rss'       =>  ['edit','delete']
+            'rss'       =>  ['edit','delete'],
+            'menu'      =>  ['edit','delete']
         ]
     ]
 ];

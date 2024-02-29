@@ -3,13 +3,18 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
+    //dd($item);
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $status         = (isset($item['status']))? $item->status : '';
-    $category       = (isset($item['category_id']))? $item->category_id : '';
-    $content        = (isset($item['content']))? $item->content : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
+    $url            = (isset($item['url']))? $item->url : '';
+    $ordering       = (isset($item['ordering']))? $item->ordering : 10;
+    $type_menu      = (isset($item['type_menu']))? $item->type_menu : '';
+    $type_open      = (isset($item['type_open']))? $item->type_open : '';
+    $parent_id      = (isset($item['parent_id']))? $item->parent_id : '';
+    $container      = (isset($item['container']))? $item->container : '';
+    $note           = (isset($item['note']))? $item->note : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
@@ -17,18 +22,30 @@
     $inputHiddenID     = Form::hidden('id' , $id);
 
     $statusValue       = [
-                                'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
     $categoryValue     = $itemsCategory;
-
-    $type_open         = [
-                                '_new'      => 'new_window',
-                                '_blank'    => 'category_product',
-                                'link'      => 'current'
+    $type_menuArr         = [
+                                      'link'               => 'Kiểu đường Link',
+                                      'category_product'   => 'Kiểu category_product',
+                                      'category_article'   => 'Kiểu category_article'
                         ];
+
+    $type_openArr         = [
+                                'current'   => 'Mở tại cửa sổ hiện hành',
+                                '_new'      => 'Mở cửa sổ mới',
+                                '_blank'    => 'Mở một tab mới'
+
+                        ];
+
+    $containerArr         = [
+                                'none'      => 'Không chứa container',
+                                'category'  => 'Category',
+                                'article'   => 'Article'
+
+                            ];
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -39,23 +56,47 @@
         ],
         [
             'label'     =>  Form::label('url', 'Url', $formlabelAttr),
-            'element'   =>  Form::text('url', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::text('url', $url,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('type_menu', 'Type Menu', $formlabelAttr),
+            'element'   =>  Form::select('type_menu', $type_menuArr, $type_menu , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('type_open', 'Type Open', $formlabelAttr),
-            'element'   =>  Form::select('type_open', $type_open, null , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::select('type_open', $type_openArr, $type_open , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
-            'element'   =>  Form::select('parent', $parentArray, null , $formInputAttr)
+            'element'   =>  Form::select('parent_id', $parentArray, null , $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
+            'label'     =>  Form::label('ordering', 'Ordering', $formlabelAttr),
+            'element'   =>  Form::number('ordering', $ordering ,$formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
+            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
+            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
+            'label'     =>  Form::label('container', 'Container', $formlabelAttr),
+            'element'   =>  Form::select('container', $containerArr, $container, $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
+            'label'     =>  Form::label('note', 'Note',$formlabelAttr),
+            'element'   =>  Form::textarea('note', $note, $formCkeditorAttr)
         ],
         [
             'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
