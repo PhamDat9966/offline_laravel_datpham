@@ -234,6 +234,13 @@ class UserModel extends AdminModel
 
         }
 
+        if($options['task'] == 'get-password'){
+            $result = $this::select('id','password')
+                    ->where('id', $params['id'])
+                    ->first();
+            if($result) $result = $result->toArray();
+        }
+
         if($options['task'] == 'auth-login'){
 
             $result = $this->select('id','username','email','fullname','level','avatar','usually_category')

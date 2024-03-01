@@ -280,6 +280,25 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
+    // ====================== ChangePassword ======================
+    $prefix         =   'changePassword';
+    $controllerName =   'changePassword';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
     // ====================== RSS ======================
     $prefix         =   'rss';
     $controllerName =   'rss';

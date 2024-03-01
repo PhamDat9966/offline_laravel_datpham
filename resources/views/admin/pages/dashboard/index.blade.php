@@ -50,7 +50,7 @@
 
                 <div class="row">
                     <div class="zvn-add-new pull-right">
-                        <a href="{{$linkUpdate}}" class="btn btn-secondary">Cập nhật lại số liệu</a>
+                        <a href="{{$linkUpdate}}" class="btn btn-secondary">Cập nhật lại số liệu nếu có lỗi</a>
                     </div>
                 </div>
 
