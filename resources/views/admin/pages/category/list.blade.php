@@ -11,6 +11,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Category Info</th>
                     <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Ordering</th>
                     <th class="column-title">Hiển thị Home</th>
                     <th class="column-title">Kiểu hiển thị</th>
                     <th class="column-title">Tạo mới</th>
@@ -33,7 +34,10 @@
                             $isHome             = Template::showItemIsHome( $controllerName,$id,$val['is_home']);
                             $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id);
+                            $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
+
+
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 
@@ -44,6 +48,9 @@
                             </td>
                             <td>
                                 {!!$status!!}
+                            </td>
+                            <td>
+                                {!!$ordering!!}
                             </td>
                             <td>
                                 {!!$isHome!!}

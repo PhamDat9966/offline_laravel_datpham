@@ -7,6 +7,7 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
+use Config;
 
 class CategoryModel extends AdminModel
 {
@@ -21,7 +22,7 @@ class CategoryModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','status','is_home','display','created','created_by','modified','modified_by');
+            $query = $this->select('id','name','status','ordering','is_home','display','created','created_by','modified','modified_by');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -154,6 +155,9 @@ class CategoryModel extends AdminModel
             $userInfo = ['username'=>'admin'];
         }
 
+        $params['modified_by']   = $userInfo['username'];
+        $params['modified']      = date('Y-m-d');
+
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
@@ -169,6 +173,15 @@ class CategoryModel extends AdminModel
             $isHome  = ($params['currentIsHome'] == true) ? false : true;
             $this::where('id', $params['id'])
                         ->update(['is_home' => $isHome]);
+        }
+
+        if($options['task'] == 'change-ordering'){
+            $this::where('id', $params['id'])
+                        ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+
         }
 
         if($options['task'] == 'add-item'){

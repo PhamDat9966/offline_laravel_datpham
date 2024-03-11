@@ -35,6 +35,14 @@ class CategoryController extends AdminController
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
     }
+
+    public function ordering(Request $request){
+        $params['id']       = $request->id;
+        $params['ordering']    = $request->ordering;
+
+        $return = $this->model->saveItem($params,['task' => 'change-ordering']);
+        echo json_encode($return);
+    }
 }
 
 // php artisan make:model CategoryModel

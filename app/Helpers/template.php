@@ -11,6 +11,13 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemHistoryModified($by, $time, $id){
+        $xhtml  = sprintf('
+            <p class="modified-ordering-'.$id.'"><i class="fa fa-user"></i> %s</p>
+            <p class="modified-by-ordering-'.$id.'"><i class="fa fa-clock-o"></i> %s</p>', date(Config::get('zvn.format.short_time'),strtotime($time)), $by);
+        return  $xhtml;
+    }
+
     public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentParams = null){
 
         $xhtml          = '';
@@ -177,6 +184,14 @@ class Template{
         $link                   = route( $controllerName. '/isHome',['isHome'=>$isHomeValue, 'id'=>$id]);
         $xhtml  = sprintf('
             <button data-url="%s" data-class=%s class="btn btn-round %s is-home-ajax">%s</button>', $link , $currentTemplateIsHome['class'] ,$currentTemplateIsHome['class'], $currentTemplateIsHome['name']);
+        return  $xhtml;
+    }
+
+    public static function showItemOrdering($controllerName , $orderingValue , $id){
+
+        $link                   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);
+        $xhtml  = sprintf('
+            <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" value="%s" style="width: 60px">', $id , $link ,$orderingValue);
         return  $xhtml;
     }
 

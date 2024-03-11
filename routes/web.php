@@ -116,6 +116,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'displayFilter'
         ]);
 
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'

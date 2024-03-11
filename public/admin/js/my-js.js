@@ -7,21 +7,23 @@ $(document).ready(function() {
 	// console.log(paramsString);
     // end test
 
-	let $btnSearch        = $("button#btn-search");
-	let $btnClearSearch	  = $("button#btn-clear-search");
+	let $btnSearch                  = $("button#btn-search");
+	let $btnClearSearch	            = $("button#btn-clear-search");
 
-	let $inputSearchField = $("input[name  = search_field]");
-	let $inputSearchValue = $("input[name  = search_value]");
+	let $inputSearchField           = $("input[name  = search_field]");
+	let $inputSearchValue           = $("input[name  = search_value]");
 
-	let $selectFilter     = $("select[name = select_filter]");
-	let $selectChangeAttr = $("select[name =  select_change_attr]");
-	let $selectChangeAttrAjax = $("select[name =  select_change_attr_ajax]");
+    let $selectFilter               = $("select[name = select_filter]");
+	let $selectChangeAttr           = $("select[name =  select_change_attr]");
+	let $selectChangeAttrAjax       = $("select[name =  select_change_attr_ajax]");
 
-    let $selectChangeDisplayFilter = $("select[name =  select_change_display_filter]");
-    let $selectChangeIsHomeFilter = $("select[name =  select_change_is_home_filter]");
+    let $selectChangeDisplayFilter  = $("select[name =  select_change_display_filter]");
+    let $selectChangeIsHomeFilter   = $("select[name =  select_change_is_home_filter]");
 
     let $selectChangeCategoryFilter = $("select[name =  select_change_is_category_filter]");
     let $selectChangeTypeFilter     = $("select[name =  select_change_type_filter]");
+
+    let $inputOrdering              = $("input.ordering");
 
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
@@ -332,16 +334,43 @@ $(document).ready(function() {
 
     // Change Ajax Category Display
     $selectChangeAttr.on('change',function(){
-        let element = $(this);
-        var selectValue  = $(this).val();
+        let element       = $(this);
+        var selectValue   = $(this).val();
         var url           = $(this).data('url');
-        url = url.replace("value_new",selectValue)
+        url               = url.replace("value_new",selectValue)
 
         $.ajax({
             type: "GET",
             url: url,
             dataType: "json",
             success: function (response) {
+
+                element.notify("Cập nhật thành công!",
+                    { className: "success" , position:"top"  }
+                );
+            }
+        });
+    });
+
+    $inputOrdering.on('change',function(){
+        let element      = $(this);
+        var selectValue  = $(this).val();
+        var url          = $(this).data('url');
+        var inputId      = $(this).attr("id");
+        url               = url.replace("value_new",selectValue);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                var responseArr = $.parseJSON(response);
+                var modified    = responseArr.modified;
+                var modifiedBy  = responseArr.modified_by;
+
+                var modifiedText = '<i class="fa fa-user"></i>'+' '+modified;
+                $("p.modified-"+inputId).html(modifiedText);
+
+                var modifiedBytText = '<i class="fa fa-clock-o"></i>'+' '+modifiedBy;
+                $("p.modified-by-"+inputId).html(modifiedBytText);
 
                 element.notify("Cập nhật thành công!",
                     { className: "success" , position:"top"  }
