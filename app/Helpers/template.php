@@ -191,7 +191,7 @@ class Template{
 
         $link                   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);
         $xhtml  = sprintf('
-            <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" min="1" max="999"  value="%s" style="width: 60px">', $id , $link ,$orderingValue);
+            <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" value="%s" style="width: 60px">', $id , $link ,$orderingValue);
         return  $xhtml;
     }
 

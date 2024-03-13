@@ -36,14 +36,5 @@ class RssController extends AdminController
         }
     }
 
-    public function ordering(Request $request){
-
-        $params['id']       = $request->id;
-        $params['ordering']    = $request->ordering;
-
-        $this->model->saveItem($params,['task' => 'change-ordering']);
-        echo "Cập nhật menu thành công";
-    }
-
 }
 

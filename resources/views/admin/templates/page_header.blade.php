@@ -4,10 +4,8 @@
 
     if($pageIndex == true){
         $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
-    }else
-    if($pageIndex == true){
-        $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
-    }else
+    }
+
     if($pageIndex == 'none'){
         $pageButton     = '';
     }

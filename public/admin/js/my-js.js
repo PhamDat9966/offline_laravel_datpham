@@ -358,37 +358,23 @@ $(document).ready(function() {
         var url          = $(this).data('url');
         var inputId      = $(this).attr("id");
         url               = url.replace("value_new",selectValue);
-        console.log(url);
-
         $.ajax({
             type: "GET",
             url: url,
             success: function (response) {
+                var responseArr = $.parseJSON(response);
+                var modified    = responseArr.modified;
+                var modifiedBy  = responseArr.modified_by;
 
-                try {
-                    // Cho trường hợp có gắn modified và modified_by
-                    var responseArr = $.parseJSON(response);
-                    var modified    = responseArr.modified;
-                    var modifiedBy  = responseArr.modified_by;
+                var modifiedText = '<i class="fa fa-user"></i>'+' '+modified;
+                $("p.modified-"+inputId).html(modifiedText);
 
-                    var modifiedText = '<i class="fa fa-user"></i>'+' '+modified;
-                    var modifiedBytText = '<i class="fa fa-clock-o"></i>'+' '+modifiedBy;
+                var modifiedBytText = '<i class="fa fa-clock-o"></i>'+' '+modifiedBy;
+                $("p.modified-by-"+inputId).html(modifiedBytText);
 
-                    // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modifiedText);
-                    $("p.modified-by-"+inputId).html(modifiedBytText);
-
-                    // Hiển thị thông báo thành công
-                    element.notify("Cập nhật thành công!",
-                        { className: "success", position: "top" }
-                    );
-                } catch (error) {
-                    // Cho trường hợp không gắn modified và modified_by
-                    element.notify(response,
-                        { className: "success", position: "top" }
-                    );
-                }
-
+                element.notify("Cập nhật thành công!",
+                    { className: "success" , position:"top"  }
+                );
             }
         });
     });
