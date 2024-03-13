@@ -30,7 +30,7 @@
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $link               = Hightlight::show($val['link'], $params['search'] , 'link');
-                            $ordering           = $val['ordering'];
+                            $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $source             = $val['source'];
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
@@ -42,7 +42,7 @@
                             <td>{{ $index }}</td>
                             <td>{!! $name !!}</td>
                             <td>{!! $link !!}</td>
-                            <td>{{ $ordering }}</td>
+                            <td>{!! $ordering !!}</td>
                             <td>{{ $source }}</td>
                             <td>
                                 {!!$status!!}
