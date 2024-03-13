@@ -278,6 +278,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'status'
         ]);
 
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
@@ -328,6 +333,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('change-status-{status}/{id}', [
             'as'    => $controllerName . '/status',
             'uses'  => $controller . 'status'
+        ]);
+
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
         ]);
 
         Route::post('save/{id?}', [
