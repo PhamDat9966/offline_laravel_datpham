@@ -291,11 +291,13 @@ $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: url,
-            //dataType: "dataType",
+
             success: function (response) {
-                console.log(response);
-                btn.removeClass(currentClass);
-                btn.addClass(response.status.class);
+
+                var newClass = 'btn btn-round status-ajax ' + response.status.class;
+                btn.removeClass();
+                btn.addClass(newClass);
+
                 btn.data("class", response.class);
 
                 btn.attr('data-class',response.class)
@@ -318,13 +320,15 @@ $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: url,
-            //dataType: "dataType",
+
             success: function (response) {
-                btn.removeClass(currentClass);
-                btn.addClass(response.isHome.class);
-                btn.html(response.isHome.name);
-                btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                btn.attr('data-url',response.link)      // thay đổi `url` HTML
+                var responseArr = $.parseJSON(response);
+
+                btn.removeClass();
+                btn.addClass(responseArr.isHome.class);
+                btn.html(responseArr.isHome.name);
+                btn.data("url", responseArr.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                btn.attr('data-url',responseArr.link)      // thay đổi `url` HTML
                 btn.notify("Cập nhật thành công!",
                     { className: "success" , position:"top"  }
                 );
@@ -338,13 +342,10 @@ $(document).ready(function() {
         var selectValue   = $(this).val();
         var url           = $(this).data('url');
         url               = url.replace("value_new",selectValue)
-
         $.ajax({
             type: "GET",
             url: url,
-            dataType: "json",
             success: function (response) {
-
                 element.notify("Cập nhật thành công!",
                     { className: "success" , position:"top"  }
                 );
@@ -357,7 +358,7 @@ $(document).ready(function() {
         var selectValue  = $(this).val();
         var url          = $(this).data('url');
         var inputId      = $(this).attr("id");
-        url               = url.replace("value_new",selectValue);
+        url              = url.replace("value_new",selectValue);
         $.ajax({
             type: "GET",
             url: url,

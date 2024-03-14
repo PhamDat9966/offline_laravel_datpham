@@ -36,6 +36,35 @@ class CategoryController extends AdminController
         }
     }
 
+    public function isHome(Request $request)
+    {
+
+        $params['currentIsHome']    = $request->isHome;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-is-home']);
+
+        $response           = [];
+        $response['isHome']['name']     = "Hiển thị";
+        $response['isHome']['class']    = "btn btn-round btn-primary is-home-ajax";
+        $response['link']              = route($this->controllerName.'/isHome',['isHome'=>1, 'id'=>$params['id']]);
+
+        if($params['currentIsHome'] == true){
+            $response['isHome']['name']     = "Không hiển thị";
+            $response['isHome']['class']    = "btn btn-round btn-warning is-home-ajax";
+            $response['link']               = route($this->controllerName.'/isHome',['isHome'=>0, 'id'=>$params['id']]);
+        }
+        echo json_encode($response);
+        // $isHomeAction       = "Hiển thị";
+        // $isHomeNextAction   = "Không hiển thị";
+        // if($params['currentIsHome'] == false){
+        //     $isHomeAction = 'Không hiển thị';
+        //     $isHomeNextAction   = "Hiển thị";
+        // }
+
+        //return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
+    }
+
     public function ordering(Request $request){
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
