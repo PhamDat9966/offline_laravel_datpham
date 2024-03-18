@@ -40,14 +40,12 @@
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
                             $url                = $val['url'];
-                            $ordering           = $val['ordering'];
+                            $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $type_menu          = $val['type_menu'];
                             $type_open          = $val['type_open'];
                             $parent_id          = $val['parent_id'];
                             $container          = $val['container'];
                             $note               = $val['note'];
-
-                            $orderingAjax       = '<input class="select2_group form-control" type="number" id="quantity-menu-'.$id.'" name="quantity-menu-'.$id.'" min="1" max="999" value='.$ordering.'>';
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 
@@ -63,7 +61,7 @@
                                 {!!$url!!}
                             </td>
                             <td>
-                                {!!$orderingAjax!!}
+                                {!!$ordering!!}
                             </td>
                             <td>
                                 {!!$type_menu!!}

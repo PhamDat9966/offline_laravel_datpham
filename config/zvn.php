@@ -12,7 +12,10 @@ return [
         'long_time'         =>'H:m:s d/m/Y'
     ],
     'template'  =>[
-
+        'font_awesome'=>[
+            'user'          =>'<i class="fa fa-user"></i>',
+            'clock'         =>'<i class="fa fa-clock-o"></i>'
+        ],
         'form_label'=>[
             'class'         => 'control-label col-md-3 col-sm-3 col-xs-12',
         ],

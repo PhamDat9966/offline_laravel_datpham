@@ -105,6 +105,16 @@ class RssModel extends AdminModel
             $userInfo = ['username'=>'admin'];
         }
 
+        $params['modified_by']   = $userInfo['username'];
+        $params['modified']      = date('Y-m-d');
+
+        if($options['task'] == 'change-ordering'){
+            $this::where('id', $params['id'])
+                        ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+        }
+
+
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
@@ -115,6 +125,15 @@ class RssModel extends AdminModel
 
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
+
+            $params['modified_by']   = $userInfo['username'];
+            $params['modified']      = date('Y-m-d');
+
+            if($options['task'] == 'change-ordering'){
+                $this::where('id', $params['id'])
+                            ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+            }
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2

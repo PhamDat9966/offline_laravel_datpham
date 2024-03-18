@@ -77,12 +77,20 @@ class AdminController extends Controller
         $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';
 
-        $this->model->saveItem($params,['task' => 'change-status']);
+        $returnModified                 = $this->model->saveItem($params,['task' => 'change-status']);
+
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
         return response()->json([
-            'status' => Config::get('zvn.template.status')[$status],
-            'link' => $link
+            'status'        => Config::get('zvn.template.status')[$status],
+            'link'          => $link,
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
         ]);
 
     }

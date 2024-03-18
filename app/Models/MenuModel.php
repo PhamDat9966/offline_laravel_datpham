@@ -7,7 +7,7 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-
+use Config;
 class MenuModel extends AdminModel
 {
     public function __construct(){
@@ -108,10 +108,22 @@ class MenuModel extends AdminModel
             $userInfo = ['username'=>'admin'];
         }
 
+        $params['modified_by']   = $userInfo['username'];
+        $params['modified']      = date('Y-m-d');
+
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status]);
+        }
+
+        if($options['task'] == 'change-ordering'){
+            $this::where('id', $params['id'])
+                        ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+            // $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            // return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+
         }
 
         if($options['task'] == 'add-item'){

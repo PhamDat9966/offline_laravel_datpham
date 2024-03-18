@@ -7,14 +7,14 @@ class Template{
     public static function showItemHistory($by, $time){
         $xhtml  = sprintf('
             <p><i class="fa fa-user"></i> %s</p>
-            <p><i class="fa fa-clock-o"></i> %s</p>', date(Config::get('zvn.format.short_time'),strtotime($time)), $by);
+            <p><i class="fa fa-clock-o"></i> %s</p>', $by,date(Config::get('zvn.format.short_time'),strtotime($time)),);
         return  $xhtml;
     }
 
     public static function showItemHistoryModified($by, $time, $id){
         $xhtml  = sprintf('
-            <p class="modified-ordering-'.$id.'"><i class="fa fa-user"></i> %s</p>
-            <p class="modified-by-ordering-'.$id.'"><i class="fa fa-clock-o"></i> %s</p>', date(Config::get('zvn.format.short_time'),strtotime($time)), $by);
+            <p class="modified-by-'.$id.'"><i class="fa fa-user"></i> %s</p>
+            <p class="modified-'.$id.'"><i class="fa fa-clock-o"></i> %s</p>', $by,date(Config::get('zvn.format.short_time'),strtotime($time)));
         return  $xhtml;
     }
 
@@ -155,7 +155,7 @@ class Template{
         $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
 
         $xhtml  = sprintf('
-            <button data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>', $link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
+            <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',$id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
         // $xhtml  = sprintf('
         //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
         return  $xhtml;
@@ -191,7 +191,7 @@ class Template{
 
         $link                   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);
         $xhtml  = sprintf('
-            <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" value="%s" style="width: 60px">', $id , $link ,$orderingValue);
+        <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" min="1" max="999"  value="%s" style="width: 60px">', $id , $link ,$orderingValue);
         return  $xhtml;
     }
 
