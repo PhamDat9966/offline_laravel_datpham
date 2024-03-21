@@ -85,12 +85,17 @@ class AdminController extends Controller
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
+        //Class của bootstrap và class khi status thay đổi trạng thái
+        $infomationStatus           =   Config::get('zvn.template.status')[$status];
+        $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
+
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
+
         return response()->json([
-            'status'        => Config::get('zvn.template.status')[$status],
-            'link'          => $link,
-            'modified'      =>$returnModified['modified'],
-            'modified_by'   =>$returnModified['modified_by'],
+            'status'        =>  $infomationStatus,
+            'link'          =>  $link,
+            'modified'      =>  $returnModified['modified'],
+            'modified_by'   =>  $returnModified['modified_by'],
         ]);
 
     }
@@ -118,8 +123,20 @@ class AdminController extends Controller
             $lastDisplay = '"Danh sách"';
             $currentDisplay = '"Lưới"';
         }
-        $this->model->saveItem($params,['task' => 'change-display']);
-        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
+        $returnModified = $this->model->saveItem($params,['task' => 'change-display']);
+       //return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
+
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //echo json_encode($returnModified);
+        return response()->json([
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
+        ]);
 
     }
 
@@ -136,6 +153,25 @@ class AdminController extends Controller
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+    }
+
+    public function ordering(Request $request){
+        $params['id']       = $request->id;
+        $params['ordering']    = $request->ordering;
+
+        $returnModified = $this->model->saveItem($params,['task' => 'change-ordering']);
+
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //echo json_encode($returnModified);
+        return response()->json([
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
+        ]);
     }
 
 }

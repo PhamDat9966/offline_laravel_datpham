@@ -11,7 +11,6 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Article</th>
                     <th class="column-title">Số Lượt Xem</th>
-                    <th class="column-title">Trạng thái</th>
                     <th class="column-title">Ngày Bắt Đầu Đếm</th>
                     <th class="column-title">Lượt Xem Gần Nhất</th>
                     {{-- <th class="column-title">Tạo mới</th>
@@ -34,7 +33,6 @@
                             $views              = $val['views'];
                             $createdHistory     = Template::showItemHistory('',$val['created']);
                             $modifiedHistory    = Template::showItemHistory('',$val['modified']);
-                            $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
                             // $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
                             // $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
                         @endphp
@@ -46,9 +44,6 @@
                             </td>
                             <td>
                                 {!!$views!!}
-                            </td>
-                            <td>
-                                {!!$status!!}
                             </td>
                             <td>
                                 {!!$createdHistory!!}

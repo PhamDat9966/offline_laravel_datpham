@@ -34,7 +34,7 @@
                             $source             = $val['source'];
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 

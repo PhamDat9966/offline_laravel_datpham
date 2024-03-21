@@ -169,13 +169,17 @@ class CategoryModel extends AdminModel
 
         if($options['task'] == 'change-display'){
             $this::where('id', $params['id'])
-                        ->update(['display' => $params['display']]);
+                        ->update(['display' => $params['display'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
         if($options['task'] == 'change-is-home'){
-            $isHome  = ($params['currentIsHome'] == true) ? false : true;
             $this::where('id', $params['id'])
-                        ->update(['is_home' => $isHome]);
+                        ->update(['is_home' => $params['currentIsHome'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
         if($options['task'] == 'change-ordering'){

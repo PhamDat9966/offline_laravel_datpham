@@ -285,17 +285,37 @@ $(document).ready(function() {
 
     // Change Ajax Category Display
     $selectChangeAttr.on('change',function(){
-        let element       = $(this);
-        var selectValue   = $(this).val();
-        var url           = $(this).data('url');
+        let element         = $(this);
+        var selectValue     = $(this).val();
+        var url             = $(this).data('url');
+        var selectChangeID  = $(this).attr("id");
+        var inputId         = selectChangeID.charAt(selectChangeID.length - 1);
+
         url               = url.replace("value_new",selectValue)
         $.ajax({
             type: "GET",
             url: url,
             success: function (response) {
-                element.notify("Cập nhật thành công!",
-                    { className: "success" , position:"top"  }
-                );
+                try {
+                    // Cho trường hợp có gắn modified và modified_by
+                    var modified    = response.modified;
+                    var modifiedBy  = response.modified_by;
+
+                    // Cập nhật html các phần tử của p gồm modified và modified_by
+                    $("p.modified-"+inputId).html(modified);
+                    $("p.modified-by-"+inputId).html(modifiedBy);
+
+                    // Hiển thị thông báo thành công
+                    element.notify("Cập nhật thành công!",
+                        { className: "success", position: "top" }
+                    );
+                } catch (error) {
+                    console.log(response);
+                    // Cho trường hợp không gắn modified và modified_by
+                    element.notify("Cập nhật thành công!",
+                        { className: "success", position: "top" }
+                    );
+                }
             }
         });
     });
@@ -313,17 +333,13 @@ $(document).ready(function() {
             success: function (response) {
                 try {
                     // Cho trường hợp có gắn modified và modified_by
-                    var responseArr = $.parseJSON(response);
                     console.log(response);
-                    var modified    = responseArr.modified;
-                    var modifiedBy  = responseArr.modified_by;
-
-                    var modifiedText    = '<i class="fa fa-user"></i>'+' '+modifiedBy;
-                    var modifiedBytText = '<i class="fa fa-clock-o"></i>'+' '+modified;
+                    var modified    = response.modified;
+                    var modifiedBy  = response.modified_by;
 
                     // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modifiedText);
-                    $("p.modified-by-"+inputId).html(modifiedBytText);
+                    $("p.modified-"+inputId).html(modified);
+                    $("p.modified-by-"+inputId).html(modifiedBy);
 
                     // Hiển thị thông báo thành công
                     element.notify("Cập nhật thành công!",
@@ -353,10 +369,9 @@ $(document).ready(function() {
             url: url,
 
             success: function (response) {
-                console.log(response);
                 try {
                     // Trường hợp có thay đổi modified và modified_by
-                    var newClass = 'btn btn-round status-ajax ' + response.status.class;
+                    var newClass = response.status.class;
                     btn.removeClass();
                     btn.addClass(newClass);
 
@@ -391,25 +406,50 @@ $(document).ready(function() {
 
     $('.is-home-ajax').on('click', function() {
         let element         = $(this);
-        let url             = $(this).data('url');
         let btn             = $(this);
         let currentClass    = $(this).data('class');
+
+        var isHomeId        = $(this).attr("id");
+        var inputId         = isHomeId.charAt(isHomeId.length - 1);
+        let url             = $(this).data('url');
 
         $.ajax({
             type: "GET",
             url: url,
 
             success: function (response) {
-                var responseArr = $.parseJSON(response);
 
-                btn.removeClass();
-                btn.addClass(responseArr.isHome.class);
-                btn.html(responseArr.isHome.name);
-                btn.data("url", responseArr.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                btn.attr('data-url',responseArr.link)      // thay đổi `url` HTML
-                btn.notify("Cập nhật thành công!",
-                    { className: "success" , position:"top"  }
-                );
+                try {
+                    // Trường hợp có thay đổi modified và modified_by
+                    var newClass = response.isHome.class;
+                    btn.removeClass();
+                    btn.addClass(newClass);
+
+                    btn.data("class", response.class);
+
+                    btn.attr('data-class',response.class)
+                    btn.html(response.isHome.name);
+
+                    btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                    btn.attr('data-url',response.link)      // thay đổi `url` HTML
+
+                    var modified    = response.modified;
+                    var modifiedBy  = response.modified_by;
+
+                    // Cập nhật html các phần tử của p gồm modified và modified_by
+                    $("p.modified-"+inputId).html(modified);
+                    $("p.modified-by-"+inputId).html(modifiedBy);
+
+                    btn.notify("Cập nhật thành công!",
+                        { className: "success" , position:"top"  }
+                    );
+
+                } catch (error) {
+                    // Cho trường hợp không gắn modified và modified_by
+                    btn.notify("Cập nhật thành công!",
+                        { className: "success" , position:"top"  }
+                    );
+                }
             }
         });
 	});

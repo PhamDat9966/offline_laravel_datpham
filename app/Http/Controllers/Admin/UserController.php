@@ -22,10 +22,18 @@ class UserController extends AdminController
     public function level(Request $request)
     {
         $params['id']       = $request->id;
-        $params['level']  = $request->level;
-        $this->model->saveItem($params,['task' => 'change-level']);
+        $params['level']    = $request->level;
+        $returnModified     = $this->model->saveItem($params,['task' => 'change-level']);
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //echo json_encode($returnModified);
         return response()->json([
-            'level' => 'success'
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
         ]);
 
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\CategoryModel as MainModel;
 use App\Http\Requests\CategoryRequest as MainRequest;
+use Config;
 
 class CategoryController extends AdminController
 {
@@ -42,35 +43,31 @@ class CategoryController extends AdminController
         $params['currentIsHome']    = $request->isHome;
         $params['id']               = $request->id;
 
-        $this->model->saveItem($params,['task' => 'change-is-home']);
+        $params['currentIsHome']    = ($params['currentIsHome'] == true) ? false : true;
+        $returnModified = $this->model->saveItem($params,['task' => 'change-is-home']);
 
-        $response           = [];
-        $response['isHome']['name']     = "Hiển thị";
-        $response['isHome']['class']    = "btn btn-round btn-primary is-home-ajax";
-        $response['link']              = route($this->controllerName.'/isHome',['isHome'=>1, 'id'=>$params['id']]);
 
-        if($params['currentIsHome'] == true){
-            $response['isHome']['name']     = "Không hiển thị";
-            $response['isHome']['class']    = "btn btn-round btn-warning is-home-ajax";
-            $response['link']               = route($this->controllerName.'/isHome',['isHome'=>0, 'id'=>$params['id']]);
-        }
-        echo json_encode($response);
-        // $isHomeAction       = "Hiển thị";
-        // $isHomeNextAction   = "Không hiển thị";
-        // if($params['currentIsHome'] == false){
-        //     $isHomeAction = 'Không hiển thị';
-        //     $isHomeNextAction   = "Hiển thị";
-        // }
 
-        //return redirect()->route('article')->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$isHomeAction.'" đã được thay đổi thành trạng thái "'.$isHomeNextAction.'" !');
-    }
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
 
-    public function ordering(Request $request){
-        $params['id']       = $request->id;
-        $params['ordering']    = $request->ordering;
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
-        $return = $this->model->saveItem($params,['task' => 'change-ordering']);
-        echo json_encode($return);
+        //Class của bootstrap và class khi isHome thay đổi trạng thái
+        $isHome = ($params['currentIsHome'] == true) ? 1 : 0;
+        $infomationIsHome           =   Config::get('zvn.template.is_home')[$isHome];
+        $infomationIsHome['class']  =   'btn btn-round is-home-ajax '. $infomationIsHome['class'];
+
+        $link = route($this->controllerName . '/isHome',['isHome'=>$isHome, 'id'=>$request->id]);
+
+        return response()->json([
+            'isHome'        =>  $infomationIsHome,
+            'link'          =>  $link,
+            'modified'      =>  $returnModified['modified'],
+            'modified_by'   =>  $returnModified['modified_by'],
+        ]);
+
     }
 }
 

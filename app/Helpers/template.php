@@ -166,7 +166,7 @@ class Template{
         $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
 
-        $xhtml   =sprintf('<select name="select_change_attr" data-url=%s class="form-control input-sm">',$link);
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr" data-url=%s class="form-control input-sm">',$id,$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
@@ -183,7 +183,7 @@ class Template{
         $currentTemplateIsHome  = $tmplIsHome[$isHomeValue];
         $link                   = route( $controllerName. '/isHome',['isHome'=>$isHomeValue, 'id'=>$id]);
         $xhtml  = sprintf('
-            <button data-url="%s" data-class=%s class="btn btn-round %s is-home-ajax">%s</button>', $link , $currentTemplateIsHome['class'] ,$currentTemplateIsHome['class'], $currentTemplateIsHome['name']);
+            <button id="isHome-%s" data-url="%s" data-class=%s class="btn btn-round %s is-home-ajax">%s</button>',$id ,$link , $currentTemplateIsHome['class'] ,$currentTemplateIsHome['class'], $currentTemplateIsHome['name']);
         return  $xhtml;
     }
 
@@ -200,7 +200,7 @@ class Template{
 
         $link           = route($controllerName. '/display',['display'=>'value_new', 'id'=>$id]);
 
-        $xhtml   =sprintf('<select name="select_change_attr" data-url=%s class="form-control input-sm">',$link);
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr" data-url=%s class="form-control input-sm">',$id,$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
