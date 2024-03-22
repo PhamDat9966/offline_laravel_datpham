@@ -85,7 +85,7 @@ class AdminController extends Controller
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
-        //Class của bootstrap và class khi status thay đổi trạng thái
+        //Class của bootstrap và class khi status thay đổi trạng thái sẽ được quyết định tại đây
         $infomationStatus           =   Config::get('zvn.template.status')[$status];
         $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
 
@@ -124,7 +124,6 @@ class AdminController extends Controller
             $currentDisplay = '"Lưới"';
         }
         $returnModified = $this->model->saveItem($params,['task' => 'change-display']);
-       //return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' có display là '.$lastDisplay.' thay đổi thành '.$currentDisplay.'');
 
         $userIcon   = config('zvn.template.font_awesome.user');
         $clockIcon  = config('zvn.template.font_awesome.clock');
@@ -132,7 +131,6 @@ class AdminController extends Controller
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
-        //echo json_encode($returnModified);
         return response()->json([
             'modified'      =>$returnModified['modified'],
             'modified_by'   =>$returnModified['modified_by'],
@@ -167,7 +165,7 @@ class AdminController extends Controller
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
-        //echo json_encode($returnModified);
+        //trả về là chuỗi json mà Ajax không cần chuyển đổi
         return response()->json([
             'modified'      =>$returnModified['modified'],
             'modified_by'   =>$returnModified['modified_by'],

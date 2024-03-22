@@ -166,7 +166,7 @@ class Template{
         $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
 
-        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr" data-url=%s class="form-control input-sm">',$id,$link);
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
@@ -200,7 +200,7 @@ class Template{
 
         $link           = route($controllerName. '/display',['display'=>'value_new', 'id'=>$id]);
 
-        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr" data-url=%s class="form-control input-sm">',$id,$link);
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($key == $displayValue) $xhtmlSelect = 'selected="selected"';

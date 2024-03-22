@@ -54,7 +54,7 @@ class CategoryController extends AdminController
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
-        //Class của bootstrap và class khi isHome thay đổi trạng thái
+        //Class của bootstrap và class khi isHome thay đổi trạng thái sẽ quyết định tại đây
         $isHome = ($params['currentIsHome'] == true) ? 1 : 0;
         $infomationIsHome           =   Config::get('zvn.template.is_home')[$isHome];
         $infomationIsHome['class']  =   'btn btn-round is-home-ajax '. $infomationIsHome['class'];

@@ -24,6 +24,8 @@ $(document).ready(function() {
     let $selectChangeTypeFilter     = $("select[name =  select_change_type_filter]");
 
     let $inputOrdering              = $("input.ordering");
+    let $btnStatus                  = $('.status-ajax');
+    let $btnIsHome                  = $('.is-home-ajax');
 
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
@@ -284,40 +286,41 @@ $(document).ready(function() {
 	// });
 
     // Change Ajax Category Display
-    $selectChangeAttr.on('change',function(){
+    $selectChangeAttrAjax.on('change',function(){
         let element         = $(this);
         var selectValue     = $(this).val();
         var url             = $(this).data('url');
         var selectChangeID  = $(this).attr("id");
         var inputId         = selectChangeID.charAt(selectChangeID.length - 1);
-
         url               = url.replace("value_new",selectValue)
-        $.ajax({
-            type: "GET",
-            url: url,
-            success: function (response) {
-                try {
-                    // Cho trường hợp có gắn modified và modified_by
-                    var modified    = response.modified;
-                    var modifiedBy  = response.modified_by;
 
-                    // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modified);
-                    $("p.modified-by-"+inputId).html(modifiedBy);
+        callAjax(element,url,inputId,'select-box');
+        // $.ajax({
+        //     type: "GET",
+        //     url: url,
+        //     success: function (response) {
+        //         try {
+        //             // Cho trường hợp có gắn modified và modified_by
+        //             var modified    = response.modified;
+        //             var modifiedBy  = response.modified_by;
 
-                    // Hiển thị thông báo thành công
-                    element.notify("Cập nhật thành công!",
-                        { className: "success", position: "top" }
-                    );
-                } catch (error) {
-                    console.log(response);
-                    // Cho trường hợp không gắn modified và modified_by
-                    element.notify("Cập nhật thành công!",
-                        { className: "success", position: "top" }
-                    );
-                }
-            }
-        });
+        //             // Cập nhật html các phần tử của p gồm modified và modified_by
+        //             $("p.modified-"+inputId).html(modified);
+        //             $("p.modified-by-"+inputId).html(modifiedBy);
+
+        //             // Hiển thị thông báo thành công
+        //             element.notify("Cập nhật thành công!",
+        //                 { className: "success", position: "top" }
+        //             );
+        //         } catch (error) {
+        //             console.log(response);
+        //             // Cho trường hợp không gắn modified và modified_by
+        //             element.notify("Cập nhật thành công!",
+        //                 { className: "success", position: "top" }
+        //             );
+        //         }
+        //     }
+        // });
     });
 
     $inputOrdering.on('change',function(){
@@ -327,35 +330,37 @@ $(document).ready(function() {
         var orderingId   = $(this).attr("id");
         var inputId      = orderingId.charAt(orderingId.length - 1);
         url              = url.replace("value_new",selectValue);
-        $.ajax({
-            type: "GET",
-            url: url,
-            success: function (response) {
-                try {
-                    // Cho trường hợp có gắn modified và modified_by
-                    console.log(response);
-                    var modified    = response.modified;
-                    var modifiedBy  = response.modified_by;
 
-                    // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modified);
-                    $("p.modified-by-"+inputId).html(modifiedBy);
+        callAjax(element,url,inputId,'ordering');
+        // $.ajax({
+        //     type: "GET",
+        //     url: url,
+        //     success: function (response) {
+        //         try {
+        //             // Cho trường hợp có gắn modified và modified_by
+        //             console.log(response);
+        //             var modified    = response.modified;
+        //             var modifiedBy  = response.modified_by;
 
-                    // Hiển thị thông báo thành công
-                    element.notify("Cập nhật thành công!",
-                        { className: "success", position: "top" }
-                    );
-                } catch (error) {
-                    // Cho trường hợp không gắn modified và modified_by
-                    element.notify(response,
-                        { className: "success", position: "top" }
-                    );
-                }
-            }
-        });
+        //             // Cập nhật html các phần tử của p gồm modified và modified_by
+        //             $("p.modified-"+inputId).html(modified);
+        //             $("p.modified-by-"+inputId).html(modifiedBy);
+
+        //             // Hiển thị thông báo thành công
+        //             element.notify("Cập nhật thành công!",
+        //                 { className: "success", position: "top" }
+        //             );
+        //         } catch (error) {
+        //             // Cho trường hợp không gắn modified và modified_by
+        //             element.notify(response,
+        //                 { className: "success", position: "top" }
+        //             );
+        //         }
+        //     }
+        // });
     });
 
-    $('.status-ajax').on('click', function() {
+    $btnStatus.on('click', function() {
         let element         = $(this);
         let btn             = $(this);
         let currentClass    = $(this).data('class');
@@ -363,151 +368,187 @@ $(document).ready(function() {
         var statusId        = $(this).attr("id");
         var inputId         = statusId.charAt(statusId.length - 1);
         let url             = $(this).data('url');
+        callAjax(element,url,inputId,'status');
+        // $.ajax({
+        //     type: "GET",
+        //     url: url,
 
-        $.ajax({
-            type: "GET",
-            url: url,
+        //     success: function (response) {
+        //         try {
+        //             // Trường hợp có thay đổi modified và modified_by
+        //             var newClass = response.status.class;
+        //             btn.removeClass();
+        //             btn.addClass(newClass);
 
-            success: function (response) {
-                try {
-                    // Trường hợp có thay đổi modified và modified_by
-                    var newClass = response.status.class;
-                    btn.removeClass();
-                    btn.addClass(newClass);
+        //             btn.data("class", response.class);
 
-                    btn.data("class", response.class);
+        //             btn.attr('data-class',response.class)
+        //             btn.html(response.status.name);
 
-                    btn.attr('data-class',response.class)
-                    btn.html(response.status.name);
+        //             btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+        //             btn.attr('data-url',response.link)      // thay đổi `url` HTML
 
-                    btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                    btn.attr('data-url',response.link)      // thay đổi `url` HTML
+        //             var modified    = response.modified;
+        //             var modifiedBy  = response.modified_by;
 
-                    var modified    = response.modified;
-                    var modifiedBy  = response.modified_by;
+        //             // Cập nhật html các phần tử của p gồm modified và modified_by
+        //             $("p.modified-"+inputId).html(modified);
+        //             $("p.modified-by-"+inputId).html(modifiedBy);
 
-                    // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modified);
-                    $("p.modified-by-"+inputId).html(modifiedBy);
+        //             btn.notify("Cập nhật thành công!",
+        //                 { className: "success" , position:"top"  }
+        //             );
 
-                    btn.notify("Cập nhật thành công!",
-                        { className: "success" , position:"top"  }
-                    );
-
-                } catch (error) {
-                    // Cho trường hợp không gắn modified và modified_by
-                    btn.notify("Cập nhật thành công!",
-                        { className: "success" , position:"top"  }
-                    );
-                }
-            }
-        });
+        //         } catch (error) {
+        //             // Cho trường hợp không gắn modified và modified_by
+        //             btn.notify("Cập nhật thành công!",
+        //                 { className: "success" , position:"top"  }
+        //             );
+        //         }
+        //     }
+        // });
 	});
 
-    $('.is-home-ajax').on('click', function() {
+    $btnIsHome.on('click', function() {
         let element         = $(this);
-        let btn             = $(this);
         let currentClass    = $(this).data('class');
 
         var isHomeId        = $(this).attr("id");
         var inputId         = isHomeId.charAt(isHomeId.length - 1);
         let url             = $(this).data('url');
 
-        $.ajax({
-            type: "GET",
-            url: url,
+        callAjax(element,url,inputId,'is-home');
+        // $.ajax({
+        //     type: "GET",
+        //     url: url,
 
-            success: function (response) {
+        //     success: function (response) {
 
-                try {
-                    // Trường hợp có thay đổi modified và modified_by
-                    var newClass = response.isHome.class;
-                    btn.removeClass();
-                    btn.addClass(newClass);
+        //         try {
+        //             // Trường hợp có thay đổi modified và modified_by
+        //             var newClass = response.isHome.class;
+        //             btn.removeClass();
+        //             btn.addClass(newClass);
 
-                    btn.data("class", response.class);
+        //             btn.data("class", response.class);
 
-                    btn.attr('data-class',response.class)
-                    btn.html(response.isHome.name);
+        //             btn.attr('data-class',response.class)
+        //             btn.html(response.isHome.name);
 
-                    btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                    btn.attr('data-url',response.link)      // thay đổi `url` HTML
+        //             btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+        //             btn.attr('data-url',response.link)      // thay đổi `url` HTML
 
-                    var modified    = response.modified;
-                    var modifiedBy  = response.modified_by;
+        //             var modified    = response.modified;
+        //             var modifiedBy  = response.modified_by;
 
-                    // Cập nhật html các phần tử của p gồm modified và modified_by
-                    $("p.modified-"+inputId).html(modified);
-                    $("p.modified-by-"+inputId).html(modifiedBy);
+        //             // Cập nhật html các phần tử của p gồm modified và modified_by
+        //             $("p.modified-"+inputId).html(modified);
+        //             $("p.modified-by-"+inputId).html(modifiedBy);
 
-                    btn.notify("Cập nhật thành công!",
-                        { className: "success" , position:"top"  }
-                    );
+        //             btn.notify("Cập nhật thành công!",
+        //                 { className: "success" , position:"top"  }
+        //             );
 
-                } catch (error) {
-                    // Cho trường hợp không gắn modified và modified_by
-                    btn.notify("Cập nhật thành công!",
-                        { className: "success" , position:"top"  }
-                    );
-                }
-            }
-        });
+        //         } catch (error) {
+        //             // Cho trường hợp không gắn modified và modified_by
+        //             btn.notify("Cập nhật thành công!",
+        //                 { className: "success" , position:"top"  }
+        //             );
+        //         }
+        //     }
+        // });
+
 	});
 
-    function callAjax(element,url,type){
+    function callAjax(element,url,inputId,type){
         $.ajax({
             type: "GET",
             url: url,
             success: function (response) {
-                if(response){
+                try {
+                    // Trường hợp có thay đổi modified và modified_by
                     switch(type){
                         case 'ordering':
-                            var responseArr = $.parseJSON(response);
-                            var modified    = responseArr.modified;
-                            var modifiedBy  = responseArr.modified_by;
+                            var modified    = response.modified;
+                            var modifiedBy  = response.modified_by;
 
-                            var modifiedText = '<i class="fa fa-user"></i>'+' '+modified;
-                            $("p.modified-"+inputId).html(modifiedText);
+                            // Cập nhật html các phần tử của p gồm modified và modified_by
+                            $("p.modified-"+inputId).html(modified);
+                            $("p.modified-by-"+inputId).html(modifiedBy);
 
-                            var modifiedBytText = '<i class="fa fa-clock-o"></i>'+' '+modifiedBy;
-                            $("p.modified-by-"+inputId).html(modifiedBytText);
+                            // Hiển thị thông báo thành công
+                            element.notify("Cập nhật thành công!",
+                                { className: "success", position: "top" }
+                            );
+                            break;
+                        case 'status':
+                            var newClass = response.status.class;
+                            element.removeClass();
+                            element.addClass(newClass);
+
+                            element.data("class", response.class);
+
+                            element.attr('data-class',response.class)
+                            element.html(response.status.name);
+
+                            element.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                            element.attr('data-url',response.link)      // thay đổi `url` HTML
+
+                            var modified    = response.modified;
+                            var modifiedBy  = response.modified_by;
+
+                            // Cập nhật html các phần tử của p gồm modified và modified_by
+                            $("p.modified-"+inputId).html(modified);
+                            $("p.modified-by-"+inputId).html(modifiedBy);
 
                             element.notify("Cập nhật thành công!",
                                 { className: "success" , position:"top"  }
                             );
                             break;
-                        case 'status':
-                            var newClass = 'btn btn-round status-ajax ' + response.status.class;
-                            btn.removeClass();
-                            btn.addClass(newClass);
+                        case 'is-home':
+                            var newClass = response.isHome.class;
+                            element.removeClass();
+                            element.addClass(newClass);
 
-                            btn.data("class", response.class);
+                            element.data("class", response.class);
 
-                            btn.attr('data-class',response.class)
-                            btn.html(response.status.name);
+                            element.attr('data-class',response.class)
+                            element.html(response.isHome.name);
 
-                            btn.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                            btn.attr('data-url',response.link)      // thay đổi `url` HTML
-                            btn.notify("Cập nhật thành công!",
+                            element.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                            element.attr('data-url',response.link)      // thay đổi `url` HTML
+
+                            var modified    = response.modified;
+                            var modifiedBy  = response.modified_by;
+
+                            // Cập nhật html các phần tử của p gồm modified và modified_by
+                            $("p.modified-"+inputId).html(modified);
+                            $("p.modified-by-"+inputId).html(modifiedBy);
+
+                            element.notify("Cập nhật thành công!",
                                 { className: "success" , position:"top"  }
                             );
                             break;
-                        case 'is-home-ajax':
-                            var responseArr = $.parseJSON(response);
+                        case 'select-box':
+                            var modified    = response.modified;
+                            var modifiedBy  = response.modified_by;
 
-                            btn.removeClass();
-                            btn.addClass(responseArr.isHome.class);
-                            btn.html(responseArr.isHome.name);
-                            btn.data("url", responseArr.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
-                            btn.attr('data-url',responseArr.link)      // thay đổi `url` HTML
-                            btn.notify("Cập nhật thành công!",
-                                { className: "success" , position:"top"  }
+                            // Cập nhật html các phần tử của p gồm modified và modified_by
+                            $("p.modified-"+inputId).html(modified);
+                            $("p.modified-by-"+inputId).html(modifiedBy);
+
+                            // Hiển thị thông báo thành công
+                            element.notify("Cập nhật thành công!",
+                                { className: "success", position: "top" }
                             );
                             break;
+                        }
 
-                    }
-                }else{
-                    console.log(response);
+                } catch (error) {
+                    // Cho trường hợp không gắn modified và modified_by
+                    element.notify("Cập nhật thành công!",
+                        { className: "success" , position:"top"  }
+                    );
                 }
             }
         });
