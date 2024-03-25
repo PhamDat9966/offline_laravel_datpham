@@ -3,6 +3,12 @@
     use App\Models\ArticleModel as ArticleModel;
     use App\Models\MenuModel as MenuModel;
     use App\Helpers\URL;
+    use Illuminate\Http\Request;
+
+    $request = Request::capture();
+    global $host;
+    $host = $request->getHost();
+    $host = 'http://'.$host;
 
     $MenuModel      = new MenuModel();
     $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
@@ -36,6 +42,7 @@
         global $menuIdCurrent;
         global $categoryMenu;
         global $articleMenu;
+        global $host;
 
         foreach ($items as $item) {
 
@@ -44,7 +51,6 @@
                 // Kiểm tra xem có con hay không
                 $hasChildren     = hasChildren($items, $item['id']);
 
-                $link            = route('home');
                 $classActive     = ($menuIdCurrent == $item['id']) ? 'class="active"' : '';
 
                 $typeOpen        = '';
@@ -53,15 +59,14 @@
 
                 if($hasChildren != 1 && $item['container'] == ''){
 
-                    $routeString = $item['url'];
-                    $typeOpen    = $item['type_open'];
-                    if (strpos($routeString, 'route(') !== false) {
-                        $routeUrl = eval("return $routeString;");
-                        $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeUrl,$typeOpen,$item['name']);
+                    $routeString        = $item['url'];
+                    $typeOpen           = $item['type_open'];
+                    $first_character    = substr($item['url'] , 0, 1);
+                    if($first_character == '/'){
+                        $xhtmlMenu     .= sprintf('<li %s><a class="%s" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     } else {
-                        $xhtmlMenu      .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
+                        $xhtmlMenu     .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     }
-
                 }else
                 // Nếu có con, gọi đệ quy để xử lý menu con
                 if ($hasChildren == 1) {
