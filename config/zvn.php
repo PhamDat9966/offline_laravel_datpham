@@ -2,7 +2,6 @@
 
 return [
     'url'       =>[
-        'localhost'         =>'http://proj_news.xyz/',
         'prefix_admin'      =>'admin69',
         'prefix_news'       =>'',
         'prefix_bookstore'  =>'bookstore'

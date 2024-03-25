@@ -9,6 +9,11 @@
     global $host;
     $host = $request->getHost();
     $host = 'http://'.$host;
+    $prefixNews     = config('zvn.url.prefix_news');
+    if($prefixNews != null){
+        $host = $host.'/'.$prefixNews;
+    }
+
 
     $MenuModel      = new MenuModel();
     $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
