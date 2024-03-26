@@ -176,6 +176,21 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemSelectWithArray($controllerName , $id , $displayValue , $fieldName, $array){
+
+        $tmplDisplay     = $array;
+        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showItemIsHome($controllerName , $id , $isHomeValue){
         $tmplIsHome             = Config::get('zvn.template.is_home');
 

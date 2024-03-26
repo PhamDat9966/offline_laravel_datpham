@@ -1,6 +1,15 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
+    use App\Models\MenuModel as MenuModel;
+
+    $menuModel      = new MenuModel();
+    $tempArray      = $menuModel->listItems(null,["task"=> "news-list-items-parent"]);
+    $parentArray    = array();
+    $parentArray[0] = 'Không';
+    foreach ($tempArray as $key => $value) {
+        $parentArray[$value['id']] = $value['name'];
+    }
 
 @endphp
 
@@ -17,10 +26,10 @@
                     <th class="column-title">Name</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">url</th>
+                    <th class="column-title">Id cha</th>
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Type menu</th>
                     <th class="column-title">Type open</th>
-                    <th class="column-title">Id cha</th>
                     <th class="column-title">Container</th>
                     <th class="column-title">Ghi chú</th>
                     <th class="column-title">Hành động</th>
@@ -41,9 +50,11 @@
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
                             $url                = $val['url'];
                             $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
-                            $type_menu          = $val['type_menu'];
-                            $type_open          = $val['type_open'];
+                            $type_menu          = Template::showItemSelect( $controllerName,$id,$val['type_menu'],'type_menu');
+                            $type_open          = Template::showItemSelect( $controllerName,$id,$val['type_open'],'type_open');
+
                             $parent_id          = $val['parent_id'];
+                            $parent_id          = Template::showItemSelectWithArray($controllerName,$id,$val['parent_id'],'parent_id',$parentArray);
                             $container          = $val['container'];
                             $note               = $val['note'];
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
@@ -61,6 +72,9 @@
                                 {!!$url!!}
                             </td>
                             <td>
+                                {!!$parent_id!!}
+                            </td>
+                            <td>
                                 {!!$ordering!!}
                             </td>
                             <td>
@@ -68,9 +82,6 @@
                             </td>
                             <td>
                                 {!!$type_open!!}
-                            </td>
-                            <td>
-                                {!!$parent_id!!}
                             </td>
                             <td>
                                 {!!$container!!}

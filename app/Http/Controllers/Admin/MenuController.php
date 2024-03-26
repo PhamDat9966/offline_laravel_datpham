@@ -70,10 +70,13 @@ class MenuController extends AdminController
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
-        $parentArray = $this->model->listItems(null,["task"=> "news-list-items-parent"]);
+        $tempArray = $this->model->listItems(null,["task"=> "news-list-items-parent"]);
 
-        $parentArray = array_column($parentArray, 'name', 'id');
-        array_unshift($parentArray, 'Không có phần tử cha');
+        $parentArray    = array();
+        $parentArray[0] = 'Không có phần tử cha';
+        foreach ($tempArray as $key => $value) {
+            $parentArray[$value['id']] = $value['name'];
+        }
 
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
         $data['parentArray'] = $parentArray;
@@ -89,6 +92,36 @@ class MenuController extends AdminController
 
         $this->model->saveItem($params,['task' => 'change-ordering']);
         echo "Cập nhật menu thành công";
+    }
+
+    public function typeMenu(Request $request) // Ajax
+    {
+
+        $params['currentType']      = $request->type_menu;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-type-menu']);
+        echo "Success";
+    }
+
+    public function typeOpen(Request $request) // Ajax
+    {
+
+        $params['currentType']      = $request->type_open;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-type-open']);
+        echo "Success";
+    }
+
+    public function parentId(Request $request) // Ajax
+    {
+
+        $params['currentType']      = $request->parent_id;
+        $params['id']               = $request->id;
+
+        $this->model->saveItem($params,['task' => 'change-parent-id']);
+        echo "Success";
     }
 
 }

@@ -128,6 +128,21 @@ class MenuModel extends AdminModel
 
         }
 
+        if($options['task'] == 'change-type-menu'){
+            $this::where('id', $params['id'])
+                        ->update(['type_menu' => $params['currentType'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+        }
+
+        if($options['task'] == 'change-type-open'){
+            $this::where('id', $params['id'])
+                        ->update(['type_open' => $params['currentType'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+        }
+
+        if($options['task'] == 'change-parent-id'){
+            $this::where('id', $params['id'])
+                        ->update(['parent_id' => $params['currentType'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+        }
+
         if($options['task'] == 'add-item'){
 
             $params['created_by']   = $userInfo['username'];
@@ -144,6 +159,7 @@ class MenuModel extends AdminModel
                 $prefixNews     = config('zvn.url.prefix_news');
                 $url            = $localhost.$prefixNews.$params['url'];
             }
+
             if($params['parent_id'] == 0) $params['parent_id'] = null;
             if($params['container'] == 'none') $params['container'] = null;
 

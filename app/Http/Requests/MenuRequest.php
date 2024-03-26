@@ -28,13 +28,13 @@ class MenuRequest extends FormRequest
     {
         $id         = $this->id;
         $condName   = "bail|required|between:1,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
-        $condUrl    = "bail|between:0,100";
+        //$condUrl    = "bail|between:0,100";
         if(!empty($id)) {
-            $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condName   = "bail|required|between:1,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [
             'name'          => $condName,
-            'url'           => $condUrl,
+            //'url'           => $condUrl,
             'status'        => 'bail|in:active,inactive'
         ];
     }

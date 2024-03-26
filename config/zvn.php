@@ -82,14 +82,14 @@ return [
             'member'        =>  ['name'=>'Người dùng thông thường'],
         ],
         'type_open'=>[
-            'current'    => 'Mở tại cửa sổ hiện hành',
-            '_new'       => 'Mở cửa sổ mới',
-            '_blank'     => 'Mở một tab mới'
+            'current'    => ['name'=>'Mở tại cửa sổ hiện hành'],
+            '_new'       => ['name'=>'Mở cửa sổ mới'],
+            '_blank'     => ['name'=>'Mở một tab mới']
         ],
         'type_menu'=>[
-            'link'              => 'Kiểu đường Link',
-            'category_product'  => 'Kiểu category_product',
-            'category_article'  => 'Kiểu category_article'
+            'link'              => ['name'=>'Kiểu đường Link'],
+            'category_product'  => ['name'=>'Kiểu Category Product'],
+            'category_article'  => ['name'=>'Kiểu Category Article']
         ],
         'container'=>[
             'none'          => 'Không chứa container',

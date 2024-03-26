@@ -465,6 +465,7 @@ $(document).ready(function() {
             type: "GET",
             url: url,
             success: function (response) {
+                console.log(response);
                 try {
                     // Trường hợp có thay đổi modified và modified_by
                     switch(type){

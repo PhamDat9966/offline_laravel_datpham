@@ -14,7 +14,6 @@
         $host = $host.'/'.$prefixNews;
     }
 
-
     $MenuModel      = new MenuModel();
     $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
@@ -25,8 +24,6 @@
     global $articleMenu;
     $articleModel   = new ArticleModel();
     $articleMenu    = $articleModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
-
-    //dd($articleMenu);
 
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';

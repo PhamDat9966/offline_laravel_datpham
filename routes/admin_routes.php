@@ -263,6 +263,21 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'ordering'
         ]);
 
+        Route::get('change-type-menu-{type_menu}/{id}', [
+            'as'    => $controllerName . '/type_menu',
+            'uses'  => $controller . 'typeMenu'
+        ]);
+
+        Route::get('change-type-open-{type_open}/{id}', [
+            'as'    => $controllerName . '/type_open',
+            'uses'  => $controller . 'typeOpen'
+        ]);
+
+        Route::get('change-parent-{parent_id}/{id}', [
+            'as'    => $controllerName . '/parent_id',
+            'uses'  => $controller . 'parentId'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'

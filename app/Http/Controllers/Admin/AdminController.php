@@ -107,10 +107,7 @@ class AdminController extends Controller
         $params['id']               = $request->id;
 
         $this->model->saveItem($params,['task' => 'change-type']);
-        // End Update
-        return response()->json([
-            'type' => 'success'
-        ]);
+        echo "Success";
     }
 
     public function display(Request $request)

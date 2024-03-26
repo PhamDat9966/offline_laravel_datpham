@@ -28,15 +28,15 @@
 
     $categoryValue     = $itemsCategory;
     $type_menuArr         = [
-                                'link'               => Config::get('zvn.template.type_menu.link'),
-                                'category_product'   => Config::get('zvn.template.type_menu.category_product'),
-                                'category_article'   => Config::get('zvn.template.type_menu.category_article'),
+                                'link'               => Config::get('zvn.template.type_menu.link.name'),
+                                'category_product'   => Config::get('zvn.template.type_menu.category_product.name'),
+                                'category_article'   => Config::get('zvn.template.type_menu.category_article.name'),
                             ];
 
     $type_openArr         = [
-                                'current'   => Config::get('zvn.template.type_open.current'),
-                                '_new'      => Config::get('zvn.template.type_open._new'),
-                                '_blank'    => Config::get('zvn.template.type_open._blank'),
+                                'current'   => Config::get('zvn.template.type_open.current.name'),
+                                '_new'      => Config::get('zvn.template.type_open._new.name'),
+                                '_blank'    => Config::get('zvn.template.type_open._blank.name'),
                             ];
 
     $containerArr         = [
@@ -69,7 +69,7 @@
         ],
         [
             'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
-            'element'   =>  Form::select('parent_id', $parentArray, null , $formInputAttr)
+            'element'   =>  Form::select('parent_id', $parentArray, $parent_id , $formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
