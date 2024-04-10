@@ -1,11 +1,18 @@
 <!-- menu profile quick info -->
+@php
+    use Illuminate\Support\Facades\Session;
+    use App\Helpers\Template as Template;
+    $userInfo = $value = Session::get('userInfo');
+    $nameUser = ucfirst($userInfo['username']);
+    $avatar   = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
+@endphp
 <div class="profile clearfix">
     <div class="profile_pic">
-        <img src="{{asset('admin/img/phamdat.png')}}" alt="..." class="img-circle profile_img">
+        <img src="{{asset('images/user/'.$userInfo['avatar'].'')}}" alt="..." class="img-circle profile_img">
     </div>
     <div class="profile_info">
         <span>Welcome,</span>
-        <h2>Pham Dat</h2>
+        <h2>{{$nameUser}}</h2>
     </div>
 </div>
 <!-- /menu profile quick info -->
@@ -20,12 +27,12 @@
             <li><a href="{{ route('category')}}"><i class="fa fa fa-building-o"></i> Category</a></li>
             <li><a href="{{ route('article')}}"><i class="fa fa-newspaper-o"></i> Article</a></li>
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Silders</a></li>
+            <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
             <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
             <li><a href="{{ route('rss')}}"><i class="fa fa-newspaper-o"></i> Rss</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
-            <li><a href="{{ route('system')}}"><i class="fa fa-cog"></i> System</a></li>
         </ul>
     </div>
 </div>
