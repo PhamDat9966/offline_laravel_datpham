@@ -4,7 +4,6 @@ namespace UniSharp\LaravelFilemanager\Traits;
 
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\Str;
 
 trait LfmHelpers
 {
@@ -269,7 +268,7 @@ trait LfmHelpers
      */
     private function removeFirstSlash($path)
     {
-        if (Str::startsWith($path, $this->ds)) {
+        if (starts_with($path, $this->ds)) {
             $path = substr($path, 1);
         }
 
@@ -285,11 +284,7 @@ trait LfmHelpers
     private function removeLastSlash($path)
     {
         // remove last slash
-        // if (ends_with($path, $this->ds)) {
-        //     $path = substr($path, 0, -1);
-        // }
-
-        if (Str::endsWith($path, $this->ds)) {
+        if (ends_with($path, $this->ds)) {
             $path = substr($path, 0, -1);
         }
 
@@ -337,11 +332,7 @@ trait LfmHelpers
      */
     public function isProcessingImages()
     {
-
-        return lcfirst(Str::singular(request('type', '') ?: '')) === 'image';
-
-        // Hàm cũ không được Laravel 8x hỗ trợ
-        //return lcfirst(str_singular(request('type', '') ?: '')) === 'image';
+        return lcfirst(str_singular(request('type', '') ?: '')) === 'image';
     }
 
     /**

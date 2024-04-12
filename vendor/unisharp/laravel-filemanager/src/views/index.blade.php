@@ -1,6 +1,3 @@
-@php
-    use Illuminate\Support\Str;
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -209,16 +206,9 @@
           }
       });
       },
-
-      acceptedFiles: "{{ lcfirst(Str::singular(request('type') ?: '')) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
-      maxFilesize: ({{ lcfirst(Str::singular(request('type') ?: '')) == 'image' ? config('lfm.max_image_size') : config('lfm.max_file_size') }} / 1000)
+      acceptedFiles: "{{ lcfirst(str_singular(request('type') ?: '')) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
+      maxFilesize: ({{ lcfirst(str_singular(request('type') ?: '')) == 'image' ? config('lfm.max_image_size') : config('lfm.max_file_size') }} / 1000)
     }
   </script>
 </body>
 </html>
-
-@php
-    // Hàm cũ
-    //      acceptedFiles: "{{ lcfirst(str_singular(request('type') ?: '')) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
-    //      maxFilesize: ({{ lcfirst(str_singular(request('type') ?: '')) == 'image' ? config('lfm.max_image_size') : config('lfm.max_file_size') }} / 1000)
-@endphp
