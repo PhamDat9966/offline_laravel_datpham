@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
 @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 <table class="table table-responsive table-condensed table-striped hidden-xs table-list-view">
   <thead>
@@ -13,7 +16,7 @@
       <td>
         <i class="fa {{ $item->icon }}"></i>
         <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}" title="{{$item->name}}">
-          {{ str_limit($item->name, $limit = 40, $end = '...') }}
+          {{ Str::limit($item->name, $limit = 40, $end = '...') }}
         </a>
       </td>
       <td>{{ $item->size }}</td>
@@ -67,7 +70,7 @@
             <div class="media-heading">
               <p>
                 <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}">
-                  {{ str_limit($item->name, $limit = 20, $end = '...') }}
+                  {{ Str::limit($item->name, $limit = 20, $end = '...') }}
                 </a>
                 &nbsp;&nbsp;
                 {{-- <a href="javascript:rename('{{ $item->name }}')">
