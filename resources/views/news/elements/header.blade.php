@@ -135,6 +135,9 @@
     $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
     $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
 
+    $xhtmlMenu          .= sprintf('<li><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
+    $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
+
     $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),'Đăng Nhập');
     if(session('userInfo')){
         $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),'Thoát');
