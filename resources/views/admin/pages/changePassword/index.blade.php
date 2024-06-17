@@ -39,7 +39,7 @@
 
 @section('content')
 <!-- page content -->
-@include('admin.templates.page_header', ['pageIndex' => 'none'])
+@include('admin.templates.page_header', ['pageIndex' => false])
 @include('admin.templates.zvn_notily')
 @include('admin.templates.error')
 

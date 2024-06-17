@@ -10,7 +10,7 @@
         $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
     }else
 
-    if($pageIndex == 'none'){
+    if($pageIndex == false){
         $pageButton     = '';
     }
 

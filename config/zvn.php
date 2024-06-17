@@ -10,6 +10,9 @@ return [
         'short_time'        =>'d/m/Y',
         'long_time'         =>'H:m:s d/m/Y'
     ],
+    'path'       =>[
+        'gallery'           =>'images/shares'
+    ],
     'template'  =>[
         'font_awesome'=>[
             'user'          =>'<i class="fa fa-user"></i>',

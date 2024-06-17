@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Routing
@@ -54,6 +55,67 @@ return [
 
     'shared_folder_name' => 'shares',
     'thumb_folder_name'  => 'thumbs',
+
+    /*
+    |--------------------------------------------------------------------------
+    | folder
+    |--------------------------------------------------------------------------
+    */
+    'folder_categories' => [
+        'file'  => [
+            'folder_name'  => 'files',
+            'startup_view' => 'list',
+            'max_size'     => 50000, // size in KB
+            'valid_mime'   => [
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'application/pdf',
+                'text/plain',
+            ],
+        ],
+        'image' => [
+            'folder_name'  => 'photos',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'valid_mime'   => [
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+            ],
+        ],
+    ],
+
+    // 'folder_categories' => [
+    //     'files' => [
+    //                 'folder_name' => 'files',
+    //                 'startup_view' => 'list',
+    //                 'max_size' => 1000000,
+    //                 'thumb' => false,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //             'gallery' => [
+    //                 'folder_name' => 'galleries',
+    //                 'startup_view' => 'grid',
+    //                 'max_size' => 5000000,
+    //                 'thumb' => true,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //             'article' => [
+    //                 'folder_name' => 'articles',
+    //                 'startup_view' => 'list',
+    //                 'max_size' => 2000000,
+    //                 'thumb' => false,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //         ],
+
+
 
     /*
     |--------------------------------------------------------------------------

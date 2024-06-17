@@ -23,8 +23,9 @@ class GalleryshowController extends Controller
     public function index(Request $request)
     {
         view()->share('title', 'Thư viện hình ảnh');
-        //$directory  = public_path('zvn.path.gallery');
-        $directory  = public_path('images/shares'); // Đảm bảo đường dẫn thư mục đúng
+        $directory  = public_path(config('zvn.path.gallery'));
+        //$directory  = public_path('images/shares'); // Đảm bảo đường dẫn thư mục đúng
+
         $images     = File::files($directory);
         return view($this->pathViewController . 'index', compact('images'));
     }
