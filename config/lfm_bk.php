@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Routing
@@ -12,6 +13,7 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
+    //'middlewares' => ['web', 'auth'],
     'middlewares' => ['web', 'permission.admin'],
 
     // The url to this package. Change it if necessary.
@@ -33,7 +35,8 @@ return [
     // Then you can rewrite userField function in App\Handler\ConfigHander class
     // And set 'user_field' to App\Handler\ConfigHander::class
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
+    //'user_field' => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
+    'user_field' => App\Handlers\LfmConfigHandler::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -45,11 +48,74 @@ return [
     // You should create routes to serve images if it is not set to public.
     'base_directory' => 'public',
 
+    //'images_folder_name' => 'photos',
     'images_folder_name' => 'images',
+    //'files_folder_name'  => 'files',
     'files_folder_name'  => 'images',
 
-    'shared_folder_name' => '',             // ở đây
+    'shared_folder_name' => '',
     'thumb_folder_name'  => 'thumbs',
+
+    /*
+    |--------------------------------------------------------------------------
+    | folder
+    |--------------------------------------------------------------------------
+    */
+    // 'folder_categories' => [
+    //     'file'  => [
+    //         'folder_name'  => 'files',
+    //         'startup_view' => 'list',
+    //         'max_size'     => 50000, // size in KB
+    //         'valid_mime'   => [
+    //             'image/jpeg',
+    //             'image/pjpeg',
+    //             'image/png',
+    //             'image/gif',
+    //             'application/pdf',
+    //             'text/plain',
+    //         ],
+    //     ],
+    //     'image' => [
+    //         'folder_name'  => 'photos',
+    //         'startup_view' => 'grid',
+    //         'max_size'     => 50000, // size in KB
+    //         'valid_mime'   => [
+    //             'image/jpeg',
+    //             'image/pjpeg',
+    //             'image/png',
+    //             'image/gif',
+    //         ],
+    //     ],
+    // ],
+
+    // 'folder_categories' => [
+    //     'files' => [
+    //                 'folder_name' => 'files',
+    //                 'startup_view' => 'list',
+    //                 'max_size' => 1000000,
+    //                 'thumb' => false,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //             'gallery' => [
+    //                 'folder_name' => 'galleries',
+    //                 'startup_view' => 'grid',
+    //                 'max_size' => 5000000,
+    //                 'thumb' => true,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //             'article' => [
+    //                 'folder_name' => 'articles',
+    //                 'startup_view' => 'list',
+    //                 'max_size' => 2000000,
+    //                 'thumb' => false,
+    //                 'thumb_width' => 200,
+    //                 'thumb_height' => 200,
+    //             ],
+    //         ],
+
+
 
     /*
     |--------------------------------------------------------------------------

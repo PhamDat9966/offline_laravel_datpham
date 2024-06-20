@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\UserModel;
 use App\Http\Requests\AuthRequest as MainRequest;
+use Illuminate\Support\Facades\Session;
 
 
 class AuthController extends Controller
@@ -23,18 +24,35 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
+
+        $previousUrl = url()->previous();   // Đây là "URL trước đó"
+        $currentUrl = $request->url();      // Đây là  "URL đăng nhập"
+
+        // Kiểm tra nếu "URL trước đó" không phải là URL đăng nhập, nếu nó không phải url đăng nhập thì ghi vào intended
+        if (strpos($previousUrl, $currentUrl) === false) {
+            Session::put('url.intended', $previousUrl);
+        }
+
         return view($this->pathViewController . 'login');
     }
 
     public function postLogin(MainRequest $request)
     {
         if($request->method() == 'POST'){
+
             $params = $request->all();
             $userModel  = new UserModel();
             $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
-
             $request->session()->put('userInfo', $userInfo);
+
+            //Kiểm tra "URL trước đó" trong session
+            if (Session::get('url')['intended']) {
+                // Tiến đến "url trước đó" khi đăng nhập
+                return redirect()->intended(Session::get('url')['intended']);
+            }
+
             return redirect()->route('dashboard');
         }
     }

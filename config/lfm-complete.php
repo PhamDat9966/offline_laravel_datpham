@@ -48,7 +48,7 @@ return [
     'images_folder_name' => 'images',
     'files_folder_name'  => 'images',
 
-    'shared_folder_name' => '',             // ở đây
+    'shared_folder_name' => '',
     'thumb_folder_name'  => 'thumbs',
 
     /*

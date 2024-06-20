@@ -7,5 +7,7 @@ class LfmConfigHandler extends \UniSharp\LaravelFilemanager\Handlers\ConfigHandl
     public function userField()
     {
         return parent::userField();
+
+        //return 1; // hien folder 1 o cotegory share
     }
 }
