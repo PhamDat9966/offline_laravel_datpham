@@ -266,7 +266,7 @@ section
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	
+
 }
 .nopadding
 {
@@ -556,7 +556,7 @@ section
 }
 .main_nav_list li:not(:last-child)
 {
-	margin-right: 43px;
+	padding-right: 43px;
 }
 .main_nav_list li a
 {

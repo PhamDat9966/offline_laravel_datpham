@@ -215,7 +215,7 @@ ul.main_nav_list li.active a{
 .dropdown-menu .dropdown-submenu {
     display: none;
     position: absolute;
-    left: 100%;
+    left: 99%;
     top: -7px;
 
 }
@@ -228,4 +228,12 @@ ul.main_nav_list li.active a{
 }
 .nav-link{
     padding: 0.25rem 0.5rem;
+}
+
+.main_nav_list li a.active{
+    color: #61e49b !important;
+}
+
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active {
+    color: #61e49b !important;
 }

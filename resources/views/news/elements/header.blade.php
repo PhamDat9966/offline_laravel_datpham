@@ -29,9 +29,19 @@
     $xhtmlMenuMobile    = '';
 
     global $xhtmlMenu;
-    global $menuIdCurrent;
+    global $currentUrl;
 
-    $menuIdCurrent      = request()->menu_id;
+    // Lấy giao thức (http hoặc https)
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    // Lấy tên máy chủ (domain)
+    $hostCurrent = $_SERVER['HTTP_HOST'];
+
+    // Lấy đường dẫn (path)
+    $path = $_SERVER['REQUEST_URI'];
+
+    // Ghép lại thành URL hoàn chỉnh
+    $currentUrl = $protocol . $hostCurrent . $path;
 
     $xhtmlMenu  .= '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
 
@@ -41,19 +51,20 @@
 
         // Sử dụng global để tham chiếu đến biến toàn cục
         global $xhtmlMenu;
-        global $menuIdCurrent;
         global $categoryMenu;
         global $articleMenu;
         global $host;
+        global $currentUrl;
 
         foreach ($items as $item) {
 
             if ($item['parent_id'] == $parentId) {
-
                 // Kiểm tra xem có con hay không
                 $hasChildren     = hasChildren($items, $item['id']);
 
-                $classActive     = ($menuIdCurrent == $item['id']) ? 'class="active"' : '';
+                $menuUrl = $host . $item['url'];
+                // Kiểm tra trạng thái "active"
+                $classActive = ($currentUrl == $menuUrl || hasActiveChild($items, $item['id'], $currentUrl)) ? 'active' : '';
 
                 $typeOpen        = '';
                 $tmpTypeOpen     = Config::get('zvn.template.type_open');
@@ -65,7 +76,7 @@
                     $typeOpen           = $item['type_open'];
                     $first_character    = substr($item['url'] , 0, 1);
                     if($first_character == '/'){
-                        $xhtmlMenu     .= sprintf('<li %s><a class="%s" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
+                        $xhtmlMenu     .= sprintf('<li class=""><a class="%s %s" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     } else {
                         $xhtmlMenu     .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     }
@@ -75,7 +86,7 @@
                     $navChildLinkClass  = 'nav-link';
 
                     $xhtmlMenu      .= '<li class="dropdown">
-                                            <a class="btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn nav-link dropdown-toggle '.$classActive.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
                                                 '.$item['name'].'
                                             </a>';
 
@@ -89,7 +100,7 @@
                 if($item['container'] != ''){
                     $parentidCurrent = $item['id'];
                     $xhtmlMenu  .= '<li class="dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle '.$classActive.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
                                             '.$item['name'].'
                                         </a>';
 
@@ -97,7 +108,7 @@
                             $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
                                 foreach ($categoryMenu as $keyCategory => $valCategory) {
                                     $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
-                                    $xhtmlMenu      .= '<li><a class="nav-link" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
+                                    $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
                                 }
                             $xhtmlMenu  .= '</ul>';
                         }
@@ -106,7 +117,7 @@
                             $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
                                 foreach ($articleMenu as $keyArticle => $valArticle) {
                                     $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
-                                    $xhtmlMenu      .= '<li><a class="nav-link" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
+                                    $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
                                 }
                             $xhtmlMenu  .= '</ul>';
                         }
@@ -129,14 +140,29 @@
         return false;
     }
 
+    // Hàm kiểm tra xem có con active hay không
+    function hasActiveChild($items, $parentId, $currentUrl)
+    {
+        global $host;
+        foreach ($items as $item) {
+            if ($item['parent_id'] == $parentId) {
+                $menuUrl = $host . $item['url'];
+                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // Gọi hàm đệ quy để tạo menu từ mảng
     buildMenu($itemsMenu, null, null);
 
-    $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
-    $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
+    // $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
+    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
 
-    $xhtmlMenu          .= sprintf('<li><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
-    $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
+    // $xhtmlMenu          .= sprintf('<li><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
+    // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
 
     $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),'Đăng Nhập');
     if(session('userInfo')){
