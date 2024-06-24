@@ -5,12 +5,15 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+
 use App\Models\RssModel;
-use App\Helpers\Feed;
-use App\Helpers\Pagination;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
+
+use App\Helpers\Feed;
+use App\Helpers\Pagination;
+
 class RssController extends Controller
 {
     private $pathViewController  = 'news.pages.rss.';

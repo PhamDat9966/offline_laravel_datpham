@@ -27,6 +27,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+
         $sliderModel    = new SliderModel();
         $categoryModel  = new CategoryModel();
         $articleModel   = new ArticleModel();

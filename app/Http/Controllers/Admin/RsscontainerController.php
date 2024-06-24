@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\RssModel as MainModel;
 use App\Http\Requests\RssRequest as MainRequest;
-
-class RssController extends Controller
+use App\Models\RssModel;
+use App\Helpers\Feed;
+use Carbon\Carbon;
+class RsscontainerController extends Controller
 {
-    private $pathViewController  = 'admin.pages.rss.';
-    private $controllerName      = 'rss';
+    private $pathViewController  = 'admin.pages.rsscontainer.';
+    private $controllerName      = 'rsscontainer';
     private $params              = [];
     private $model;
 
@@ -31,13 +33,25 @@ class RssController extends Controller
         $this->params['search']['field']    = $request->input('search_field','');
         $this->params['search']['value']    = $request->input('search_value','');
 
-        $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
-        $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+        $rssModel    = new RssModel();
+        $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
+
+        $data       = Feed::read($itemsRss);
+
+        $currentdate = date('Y-m-d');
+        $pubDateFirst = $data[0]['pubDate'];
+        // Chuyển đổi chuỗi thành đối tượng Carbon
+        $date = Carbon::parse($pubDateFirst);
+        // Lấy ngày dưới dạng "Y-m-d"
+        $strDate = $date->format('Y-m-d');
+
+        // dd($currentdate);
+        dd($strDate);
+        dd($data);
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
-             'items'                => $items,
-             'itemsStatusCount'     => $itemsStatusCount
+             'items'                => $data,
         ]);
     }
 

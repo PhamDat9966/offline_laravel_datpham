@@ -112,4 +112,17 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== TaskScheduler ======================
+    $prefix         =   'daily-scheduler';
+    $controllerName =   'dailyScheduler';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'runDailyTask'
+        ]);
+
+    });
+
 });
