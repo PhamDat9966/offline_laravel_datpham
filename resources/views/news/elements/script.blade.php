@@ -11,20 +11,8 @@
 <script src="{{asset('news/js/parallax-js-master/parallax.min.js')}}"></script>
 <script src="{{asset('news/js/custom.js')}}"></script>
 <script src="{{asset('news/js/my-js.js')}}"></script>
-<script src="{{asset('news/js/rundailytask-js.js')}}"></script>
-{{-- <script>
-    $(document).ready(function() {
-        // Gửi yêu cầu Ajax đến /run-daily-task khi trang được tải
-        $.ajax({
-            url: '/run-daily-task',
-            type: 'GET',
-            success: function(response) {
-                console.log(response);
-                console.log('Daily task run successfully.');
-            },
-            error: function(response) {
-                console.log('Failed to run daily task.');
-            }
-        });
-    });
-</script> --}}
+{{-- Chỉ khởi động DailyTask khi controller là Rss --}}
+@if($controllerName == 'rss')
+    <script src="{{asset('news/js/rundailytask-js.js')}}"></script>
+@endif
+

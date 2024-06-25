@@ -38,12 +38,18 @@ class DailyTask extends Command
         $now = Carbon::now();
         $nowDay = $now->toDateString();
 
+        $yesterday      = Carbon::yesterday();
+        $yesterdayDay   = $yesterday->toDateString();
         foreach($data as $value){
             // Chuyển đổi thời gian về dạng Y-m-d
             $pubDate = Carbon::parse($value['pubDate']);
             $pubDate = $pubDate->toDateString();
             //Lọc lại chỉ lấy những tin trùng với ngày hôm nay $now
             if($nowDay == $pubDate){
+                $dataNews[] = $value;
+            }else
+            //Trường hợp hôm nay chưa có tin mới thì lấy tin của ngày hôm qua
+            if($yesterdayDay == $pubDate){
                 $dataNews[] = $value;
             }
         }
