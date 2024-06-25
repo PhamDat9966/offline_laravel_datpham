@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 21, 2024 lúc 09:10 AM
+-- Thời gian đã tạo: Th6 25, 2024 lúc 08:34 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -264,12 +264,50 @@ CREATE TABLE `rss` (
 --
 
 INSERT INTO `rss` (`id`, `name`, `status`, `link`, `ordering`, `source`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'Thế giới - vnexpress', 'active', 'https://vnexpress.net/rss/the-gioi.rss', 10, 'vnexpress', '2023-12-25 07:05:36', 'phamdat', '2024-06-17 00:00:00', 'admin'),
+(1, 'Thế giới - vnexpress', 'active', 'https://vnexpress.net/rss/the-gioi.rss', 10, 'vnexpress', '2023-12-25 07:05:36', 'phamdat', '2024-06-24 00:00:00', 'admin'),
 (3, 'Sức khỏe - vnexpress', 'inactive', 'https://vnexpress.net/rss/suc-khoe.rss', 10, 'vnexpress', '2023-12-25 07:05:36', 'phamdat', '2024-06-17 00:00:00', 'admin'),
 (6, 'Số hóa - vnexpress', 'inactive', 'https://vnexpress.net/rss/so-hoa.rss', 11, 'vnexpress', '2023-12-25 00:00:00', 'admin', '2024-06-17 00:00:00', 'admin'),
 (7, 'Thể Thao - vnexpress', 'inactive', 'https://vnexpress.net/rss/the-thao.rss', 10, 'vnexpress', '2023-12-27 00:00:00', 'admin', '2024-06-17 00:00:00', 'admin'),
-(8, 'Thời sự - thanhnien', 'inactive', 'https://thanhnien.vn/rss/thoi-su.rss', 5, 'thanhnien', '2023-12-27 00:00:00', 'admin', '2024-06-17 00:00:00', 'admin'),
-(9, 'Nhịp sống số - tuoitre', 'inactive', 'https://tuoitre.vn/rss/nhip-song-so.rss', 1, 'tuoitre', '2023-12-27 00:00:00', 'admin', '2024-06-17 00:00:00', 'admin');
+(8, 'Thời sự - thanhnien', 'inactive', 'https://thanhnien.vn/rss/thoi-su.rss', 5, 'thanhnien', '2023-12-27 00:00:00', 'admin', '2024-06-22 00:00:00', 'admin'),
+(9, 'Nhịp sống số - tuoitre', 'inactive', 'https://tuoitre.vn/rss/nhip-song-so.rss', 1, 'tuoitre', '2023-12-27 00:00:00', 'admin', '2024-06-24 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `rssnews`
+--
+
+CREATE TABLE `rssnews` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `pubDate` datetime DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `thumb` varchar(255) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `rssnews`
+--
+
+INSERT INTO `rssnews` (`id`, `title`, `description`, `pubDate`, `link`, `thumb`, `created_by`) VALUES
+(74, 'Vụ khủng bố Dagestan phơi bày lỗ hổng an ninh Nga', 'Vụ khủng bố mới nhất tại Dagestan và tình trạng bạo lực gia tăng gần đây đang làm bật lên những thức thức an ninh nghiêm trọng mà Nga phải đối mặt.', '2024-06-25 12:04:56', 'https://vnexpress.net/vu-khung-bo-dagestan-phoi-bay-lo-hong-an-ninh-nga-4762213.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/ap24176260237873-1719288234-1666-1719288537.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=xyUh2aPWMxIJetEh7mL5Fg', 'Thanh niên'),
+(75, 'Ukraine tập kích trạm liên lạc không gian tại Crimea', 'Lực lượng Ukraine tấn công trạm liên lạc không gian NIP-16 của Nga tại Crimea cuối tuần trước, có thể bằng tên lửa ATACMS do Mỹ viện trợ.', '2024-06-25 12:04:31', 'https://vnexpress.net/ukraine-tap-kich-tram-lien-lac-khong-gian-tai-crimea-4762325.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/5563187178137268170a-nga-17192-5366-3429-1719287779.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9FUmKnqyN9uBK7ZMqdq4Fw', 'Thanh niên'),
+(76, '\'Đại dịch\' trẻ vị thành niên phạm tội bạo lực ở Thụy Điển', 'Hàng loạt thiếu niên trong các trung tâm giáo dưỡng của Thụy Điển gia nhập băng đảng theo lời dụ dỗ, gây ra những vụ nổ súng chết người.', '2024-06-25 12:03:22', 'https://vnexpress.net/dai-dich-tre-vi-thanh-nien-pham-toi-bao-luc-o-thuy-dien-4762242.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/https-cloudfront-us-east-2-ima-2732-9826-1719291875.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=HHlbPEcavo292XxkcSlmxw', 'Thanh niên'),
+(77, 'Mỹ lần đầu phóng tên lửa hiện đại hơn ATACMS vào mục tiêu di động', 'Mỹ khai hỏa hai quả đạn PrSM đánh trúng mục tiêu di động, trong chương trình phát triển mẫu tên lửa thay thế ATACMS, khí tài đang được Ukraine sử dụng.', '2024-06-25 11:07:14', 'https://vnexpress.net/my-lan-dau-phong-ten-lua-hien-dai-hon-atacms-vao-muc-tieu-di-dong-4762264.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/M-1719285494-6619-1719285780.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=KASbB4Hl3Q42prPt8zzylQ', 'Thanh niên'),
+(78, 'Quận trưởng Nga mất chức vì hai con bị nghi tham gia khủng bố', 'Magomed Omarov, quận trưởng ở Cộng hòa Dagestan, bị cách chức sau khi có thông tin hai con trai tham gia vụ khủng bố ở miền nam Nga khiến 20 người chết.', '2024-06-25 10:46:50', 'https://vnexpress.net/quan-truong-nga-mat-chuc-vi-hai-con-bi-nghi-tham-gia-khung-bo-4762289.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/qua-n-tru-o-ng-jpeg-7063-17192-3976-7581-1719287189.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Wr2y_g09rYh3su7h9PWpTA', 'Thanh niên'),
+(79, 'Khách sạn Nhật hứng chỉ trích vì từ chối người Israel', 'Khách sạn ở thành phố Kyoto hứng chỉ trích sau cáo buộc hủy đặt phòng của du khách Israel vì \"tội ác chiến tranh\" Tel Aviv gây ra ở Gaza.', '2024-06-25 09:44:16', 'https://vnexpress.net/khach-san-nhat-hung-chi-trich-vi-tu-choi-nguoi-israel-4762228.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/khach-san-1719280363-4745-1719280750.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=M0TWT1axxtKQhm2gjctU0Q', 'Thanh niên'),
+(80, 'Cháy tòa nhà văn phòng Nga, 8 người chết', 'Hỏa hoạn bùng lên tại tòa nhà từng là trung tâm nghiên cứu điện tử gần Moskva, khiến ít nhất 8 người thiệt mạng.', '2024-06-25 09:11:22', 'https://vnexpress.net/chay-toa-nha-van-phong-nga-8-nguoi-chet-4762225.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/Chy-1719280306-7326-1719280449.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=I3p9xVnAEiZ4pLN4MQ55vQ', 'Thanh niên'),
+(81, 'Ukraine đã tập kích hơn 30 cơ sở dầu khí của Nga', 'Tổng thống Zelensky tuyên bố Ukraine đã dùng UAV tấn công hơn 30 cơ sở dầu khí Nga, trong đó có nhà máy lọc dầu và kho chứa.', '2024-06-25 09:07:39', 'https://vnexpress.net/ukraine-da-tap-kich-hon-30-co-so-dau-khi-cua-nga-4762234.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/5563187178137268169a-nga-17192-4908-1579-1719279463.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=DcrlO_orvHrjOI2aIK6xvw', 'Thanh niên'),
+(82, 'Thanh niên Philippines quay lưng với nghề nông', 'Cuộc sống khổ cực, vất vả trên ruộng đồng không còn hấp dẫn người trẻ Philippines, dù quốc gia này là nước nhập khẩu gạo lớn nhất thế giới.', '2024-06-25 09:00:00', 'https://vnexpress.net/thanh-nien-philippines-quay-lung-voi-nghe-nong-4761944.html', 'https://i1-vnexpress.vnecdn.net/2024/06/24/imrs-1-1719224157-3299-1719224461.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=gaDErM6VrpR_z-_kNBg99Q', 'Thanh niên'),
+(83, 'Mỹ sốc trước video lính Israel trói người Palestine trên nắp capo xe', 'Mỹ nói video người đàn ông Palestine bị lính Israel trói trên nắp capo xe quân sự \"gây sốc\", kêu gọi điều tra để tìm người chịu trách nhiệm.', '2024-06-25 07:53:09', 'https://vnexpress.net/my-soc-truoc-video-linh-israel-troi-nguoi-palestine-tren-nap-capo-xe-4762195.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/AFP20240221AA210220241543816v1-9225-5741-1719276016.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Hvggj4_CH4Sm2ridQ2v9kQ', 'Thanh niên'),
+(84, 'Ukraine thay tư lệnh lực lượng liên quân', 'Tổng thống Zelensky thay tư lệnh lực lượng liên quân Yuriy Sodol, sau khi xuất hiện thông tin trung tướng này có năng lực chỉ huy kém trong cuộc xung đột với Nga.', '2024-06-25 07:42:29', 'https://vnexpress.net/ukraine-thay-tu-lenh-luc-luong-lien-quan-4762201.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/afp-20240616-34x323f-v1-highre-9869-8057-1719275668.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=UAhRbLFiGnLESlppkVbFUw', 'Thanh niên'),
+(85, 'Ông chủ WikiLeaks đạt thỏa thuận tránh ngồi tù ở Mỹ', 'Ông chủ WikiLeaks Assange đồng ý nhận tội trong thỏa thuận với Bộ Tư pháp Mỹ để tránh bị ngồi tù ở nước này và có thể quay về Australia.', '2024-06-25 07:19:38', 'https://vnexpress.net/ong-chu-wikileaks-dat-thoa-thuan-tranh-ngoi-tu-o-my-4762199.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/nguoisanglapwikileaksjpeg23987-1824-5747-1719274468.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ocuqjOO176PIGjs_vBL_UA', 'Thanh niên'),
+(86, 'Ông Macron cảnh báo nguy cơ nội chiến nếu phe trung dung thất cử', 'Ông Macron cảnh báo đảng cực hữu Mặt trận Quốc gia hay liên minh cánh tả New Popular Front đắc cử đều nguy cơ đẩy Pháp vào \"nội chiến\".', '2024-06-25 06:40:06', 'https://vnexpress.net/ong-macron-canh-bao-nguy-co-noi-chien-neu-phe-trung-dung-that-cu-4762189.html', 'https://i1-vnexpress.vnecdn.net/2024/06/25/afp-20240624-hl-xbouzas-243685-9930-8455-1719271858.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=xRPEVZh7xOkc2L4Bedeerg', 'Thanh niên'),
+(87, 'Cuộc bầu cử sớm nguy cơ khiến Pháp \'thủng ngân sách\'', 'Nếu phe cực tả hoặc cực hữu thắng trong cuộc bầu cử sớm và thực hiện cam kết giảm thuế, tăng lương, nước Pháp có nguy cơ thâm hụt ngân sách nghiêm trọng.', '2024-06-25 05:00:00', 'https://vnexpress.net/cuoc-bau-cu-som-nguy-co-khien-phap-thung-ngan-sach-4761954.html', 'https://i1-vnexpress.vnecdn.net/2024/06/24/afp-20240621-34y93qa-v2-highre-7048-7209-1719223907.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=qfDIZxsiAK9zjRsBOAeNAQ', 'Thanh niên'),
+(88, 'Israel có thể phải đối đầu liên minh nhóm vũ trang ở Lebanon', 'Các nhóm vũ trang thân Iran tại Iraq và các nước Trung Đông gửi thông điệp sẵn sàng đến Lebanon hỗ trợ Hezbollah nếu chiến tranh tổng lực nổ ra với Israel.', '2024-06-25 01:00:00', 'https://vnexpress.net/israel-co-the-phai-doi-dau-lien-minh-nhom-vu-trang-o-lebanon-4761788.html', 'https://i1-vnexpress.vnecdn.net/2024/06/24/hezbollah-2-1719198712-1719206-4564-3388-1719211961.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9Pd6UQs34MdzpIgFzToCQg', 'Thanh niên'),
+(89, 'Ukraine nhận lợi nhuận từ tài sản Nga vào tuần tới', 'Quan chức EU cho biết Ukraine sẽ được nhận lợi nhuận từ tài sản phong tỏa của Nga theo hai đợt, đợt đầu gần 1,5 tỷ USD vào tuần tới.', '2024-06-25 00:58:25', 'https://vnexpress.net/ukraine-nhan-loi-nhuan-tu-tai-san-nga-vao-tuan-toi-4762155.html', 'https://i1-vnexpress.vnecdn.net/2024/06/24/Borrell-1719245651-8902-1719245918.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=TZZD4rSRWC8nOkYjNGRWuQ', 'Thanh niên');
 
 -- --------------------------------------------------------
 
@@ -662,7 +700,20 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (219, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:01:33', 20),
 (220, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:05:35', 20),
 (221, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:05:36', 20),
-(222, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:05:36', 20);
+(222, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:05:36', 20),
+(223, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:14:42', 20),
+(224, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:14:43', 20),
+(225, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-21 14:14:43', 20),
+(226, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-22 02:15:21', 16),
+(227, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-22 02:15:22', 16),
+(228, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-22 02:15:22', 16),
+(229, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 03:08:45', 16),
+(230, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 03:08:46', 16),
+(231, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-06-25 03:08:46', 16),
+(232, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-06-25 03:09:34', 16),
+(233, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-06-25 03:09:34', 16),
+(234, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-06-25 03:09:35', 16),
+(235, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-06-25 03:09:35', 16);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -698,6 +749,12 @@ ALTER TABLE `menu`
 --
 ALTER TABLE `rss`
   ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Chỉ mục cho bảng `rssnews`
+--
+ALTER TABLE `rssnews`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `slider`
@@ -758,6 +815,12 @@ ALTER TABLE `rss`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT cho bảng `rssnews`
+--
+ALTER TABLE `rssnews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
 -- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
@@ -773,7 +836,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

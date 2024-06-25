@@ -37,6 +37,24 @@ class RsscontainerController extends Controller
         $itemsRss    = $rssModel->listItems(null, ['task'=>'news-list-items']);
 
         $data       = Feed::read($itemsRss);
+        //Lọc dữ liệu theo thời gian hiện tại
+        $dataNew    = array();
+
+        // Lấy thời gian hiện tại
+        $now = Carbon::now();
+        $nowDay = $now->toDateString();
+
+        foreach($data as $value){
+            // Chuyển đổi thời gian về dạng Y-m-d
+            $pubDate = Carbon::parse($value['pubDate']);
+            $pubDate = $pubDate->toDateString();
+            //Lọc lại chỉ lấy những tin trùng với current day
+            if($nowDay == $pubDate){
+                $dataNew[] = $value;
+            }
+        }
+
+        dd($dataNew);
 
         $currentdate = date('Y-m-d');
         $pubDateFirst = $data[0]['pubDate'];

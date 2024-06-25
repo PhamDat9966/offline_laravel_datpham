@@ -25,7 +25,10 @@ class TaskSchedulerController extends Controller
             Cache::put('last_run_daily_task', $now);
 
             // Lấy thông báo từ cache và trả về response.
-            $message = Cache::get('daily_task_message', 'Daily task has already run recently.');
+            $message        = Cache::get('daily_task_message', 'Daily task has already run recently.');
+            //$dataNewCache   = Cache::get('dataNew');
+
+            //return response()->json(['message' => $dataNewCache]);
             return response()->json(['message' => $message]);
         }
 
