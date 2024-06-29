@@ -7,16 +7,17 @@ class Feed{
 
         foreach ($itemRss as $value) {
             switch (Feed::checkSourceLink($value['source'], $value['link'])) {
-                case 'thanhnien':
-                    $data   = Feed::readThanhnien($value['link']);
-                    $result = array_merge_recursive($result,$data);
-                    break;
                 case 'vnexpress':
                     $data   = Feed::readVNExpress($value['link']);
                     $result = array_merge_recursive($result,$data);
                     break;
+                case 'thanhnien':
+                    $data   = Feed::readThanhnien($value['link']);
+                    $result = array_merge_recursive($result,$data);
+                    break;
                 case 'tuoitre':
                     $data = Feed::readTuoiTre($value['link']);
+                    $result = array_merge_recursive($result,$data);
                     break;
             }
 
@@ -28,7 +29,8 @@ class Feed{
     public static function checkSourceLink($source, $link)
     {
         $sourceFromLink = explode('.', parse_url($link, PHP_URL_HOST))[0];
-        return ($source == $sourceFromLink);
+        $source = ($source == $sourceFromLink) ? $source :'';
+        return $source;
     }
 
     public static function readVNExpress($link){
@@ -89,6 +91,7 @@ class Feed{
 
                 $data[$key]['created_by']    = 'Tuổi trẻ';
             }
+
             return $data;
         } catch (\Throwable $th) {
             return [];

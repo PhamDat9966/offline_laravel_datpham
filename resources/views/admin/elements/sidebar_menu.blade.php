@@ -30,7 +30,8 @@
             <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
             <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
-            <li><a href="{{ route('rss')}}"><i class="fa fa-newspaper-o"></i> Rss</a></li>
+            <li><a href="{{ route('rss')}}"><i class="fa fa-navicon"></i> Rss</a></li>
+            <li><a href="{{ route('rssnews')}}"><i class="fa fa-newspaper-o"></i> Rss News</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
         </ul>

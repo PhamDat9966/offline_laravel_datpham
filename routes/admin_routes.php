@@ -343,9 +343,9 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
-    // ====================== RSS CONTAINER======================
-    $prefix         =   'rsscontainer';
-    $controllerName =   'rsscontainer';
+    // ====================== RSSNEWS ======================
+    $prefix         =   'rssnews';
+    $controllerName =   'rssnews';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';

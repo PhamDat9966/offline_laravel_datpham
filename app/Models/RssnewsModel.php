@@ -13,26 +13,30 @@ class RssnewsModel extends AdminModel
     public function __construct(){
         $this->table                = 'rssnews as rss';
         $this->folderUpload         = 'rssnews';
-        $this->fieldSearchAccepted  = ['name','content'];
+        $this->fieldSearchAccepted  = ['name','title'];
         $this->crudNotActived       = ['_token','thumb_current'];
     }
 
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by');
+            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('a.status','=',$params['filter']['status']);
             }
 
-            if($params['filter']['category'] !== "all"){
-                $query->where("category_id","=", $params['filter']['category']);
-            }
+            // if($params['filter']['domain'] !== "all"){
+            //     $query->where("domain","=", $params['filter']['domain']);
+            // }
 
-            if($params['filter']['type'] !== "all"){
-                $query->where("type","=", $params['filter']['type']);
-            }
+            // if($params['filter']['category'] !== "all"){
+            //     $query->where("category_id","=", $params['filter']['category']);
+            // }
+
+            // if($params['filter']['type'] !== "all"){
+            //     $query->where("type","=", $params['filter']['type']);
+            // }
 
             if($params['search'] !== ""){
 
@@ -58,116 +62,11 @@ class RssnewsModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items'){
-            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by')
-                        //   ->where('status','=','active')
+            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain')
+                          ->where('status','=','active')
+                          //->where('domain','=','vnexpress')
                           ->limit('50');
             $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-feature'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->where('a.type','feature')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-normal'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-many-conditions'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orwhere('a.type','feature')
-                          ->orderBy('a.type', 'asc')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-latest'){
-            $query = $this->select('a.id','a.name','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-in-category'){
-            $query = $this->select('a.id','a.name','a.created','a.content','a.created','a.thumb','a.type')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->where('a.category_id','=',$params['category_id'])
-                          ->orderBy('a.id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'new-list-items-related-in-category'){
-            $query = $this->select('id','name','created','thumb','content')
-                          ->where('category_id','=',$params['category_id'])
-                          ->where('id','!=',$params['article_id'])
-                          ->where('status','=','active')
-                          ->orderBy('id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-usually-max'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['usually_key_max'])
-                          ->where('a.status','=','active')
-                          ->latest('a.id')
-                          //->inRandomOrder()
-                          //->orderBy('a.id', 'desc')
-                          ->take(6);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name')
-                          ->where('status','=','active');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-usually-second-highest'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['usually_key_second_highest'])
-                          ->where('a.status','=','active')
-                          ->inRandomOrder()
-                          ->first();
-
-           // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article
-           // thì thay đổi ngẫu nhiên một categoryID khác theo danh sách $params['listCategoryID']
-           while ($query == null) {
-                $randomElement = array_rand($params['listCategoryID']);
-
-                // Đảm bảo không chọn lại categoryID đã kiểm tra
-                while ($randomElement == $params['usually_key_second_highest']) {
-                    $randomElement = array_rand($params['listCategoryID']);
-                }
-
-                $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                    ->where('a.category_id', '=', $randomElement)
-                    ->where('a.status', '=', 'active')
-                    ->inRandomOrder()
-                    ->first();
-            }
-
-            $result = $query->toArray();
         }
 
         return $result;
@@ -182,13 +81,13 @@ class RssnewsModel extends AdminModel
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
 
-                            if($params['filter']['category'] !== "all"){
-                                $query->where("category_id","=", $params['filter']['category']);
-                            }
+                            // if($params['filter']['category'] !== "all"){
+                            //     $query->where("category_id","=", $params['filter']['category']);
+                            // }
 
-                            if($params['filter']['type'] !== "all"){
-                                $query->where("type","=", $params['filter']['type']);
-                            }
+                            // if($params['filter']['type'] !== "all"){
+                            //     $query->where("type","=", $params['filter']['type']);
+                            // }
 
 
                             if($params['search'] !== ""){
@@ -236,31 +135,7 @@ class RssnewsModel extends AdminModel
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
-        if($options['task'] == 'change-type'){
-            $type  = ($params['currentType'] == 'feature') ? 'feature' : 'normal';
-            $this::where('id', $params['id'])
-                        ->update(['type' => $type]);
-        }
-
-        if($options['task'] == 'change-display'){
-            $this::where('id', $params['id'])
-                        ->update(['display' => $params['display']]);
-        }
-
-        if($options['task'] == 'change-is-home'){
-            $isHome  = ($params['currentIsHome'] == true) ? false : true;
-            $this::where('id', $params['id'])
-                        ->update(['is_home' => $isHome]);
-        }
-
         if($options['task'] == 'add-item'){
-
-            $thumb                  = $params['thumb'];
-            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-            $params['created_by']   = $userInfo['username'];
-            $params['created']      = date('Y-m-d');
-
-            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
@@ -270,14 +145,14 @@ class RssnewsModel extends AdminModel
             // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->table         = 'article';
-            $this->name         = $params['name'];
-            $this->content      = $params['content'];
-            $this->category_id  = $params['category_id'];
-            $this->status       = $params['status'];
-            $this->created_by   = $params['created_by'];
-            $this->created      = $params['created'];
-            $this->thumb        = $params['thumb'];
+            $this->table            = 'rssnews';
+            $this->title            = $params['title'];
+            $this->description      = $params['description'];
+            $this->pubDate          = $params['pubDate'];
+            $this->link             = $params['link'];
+            $this->thumb            = $params['thumb'];
+            $this->created_by       = $params['created_by'];
+            $this->active           = $params['active'];
             $this->save();
         }
 

@@ -44,12 +44,32 @@ class DailyTask extends Command
             // Chuyển đổi thời gian về dạng Y-m-d
             $pubDate = Carbon::parse($value['pubDate']);
             $pubDate = $pubDate->toDateString();
+
             //Lọc lại chỉ lấy những tin trùng với ngày hôm nay $now
             if($nowDay == $pubDate){
                 $dataNews[] = $value;
-            }else
-            //Trường hợp hôm nay chưa có tin mới thì lấy tin của ngày hôm qua
-            if($yesterdayDay == $pubDate){
+            }
+
+        }
+
+        $countArray = count($dataNews);
+
+        //Trường hợp hôm nay chưa có hoặc chỉ có dưới 5 tin mới thì lấy thêm tin của ngày hôm qua
+        if($countArray <= 4){
+            foreach($data as $value){
+                // Chuyển đổi thời gian về dạng Y-m-d
+                $pubDate = Carbon::parse($value['pubDate']);
+                $pubDate = $pubDate->toDateString();
+
+                if($yesterdayDay == $pubDate){
+                    $dataNews[] = $value;
+                }
+            }
+        }
+
+        //Trường hợp ngày hôm nay và hôm qua không có tin thì lấy mặc định (ví dụ như rss của tuoitre)
+        if(empty($dataNews)){
+            foreach($data as $value){
                 $dataNews[] = $value;
             }
         }
@@ -61,13 +81,20 @@ class DailyTask extends Command
         // Chay http://proj_news.xyz/run-daily-task để kiểm tra kết quả
 
         foreach ($dataNews as $item) {
+
+            $host = parse_url($item['link'], PHP_URL_HOST);
+            $hostParts = explode('.', $host);
+            $domain = $hostParts[0];
+
             DB::table('rssnews')->insert([
-                'title' => $item['title'],
-                'description' => $item['description'],
-                'pubDate' => Carbon::parse($item['pubDate']),
-                'link' => $item['link'],
-                'thumb' => $item['thumb'],
-                'created_by' => $item['created_by']
+                'title'         => $item['title'],
+                'description'   => $item['description'],
+                'pubDate'       => Carbon::parse($item['pubDate']),
+                'link'          => $item['link'],
+                'thumb'         => $item['thumb'],
+                'created_by'    => $item['created_by'],
+                'status'        => 'active',
+                'domain'        => $domain
             ]);
         }
 

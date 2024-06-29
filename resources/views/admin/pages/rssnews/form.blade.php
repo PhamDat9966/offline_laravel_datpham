@@ -6,34 +6,24 @@
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
-    $link           = (isset($item['link']))? $item->link : '';
-    $ordering       = (isset($item['ordering']))? $item->ordering : '';
-    $source         = (isset($item['source']))? $item->source : '';
     $status         = (isset($item['status']))? $item->status : '';
-
-    // OR
-    // $name           = (isset($item->name))? $item->name : '';
-    // $description    = (isset($item->description))? $item->description : '';
-    // $link           = (isset($item->link))? $item->link : '';
-    // $status         = (isset($item->status))? $item->status : 'null';
-    // $thumb          = (isset($item->thumb))? $item->thumb : 'null';
-
-    // Đối tượng Form là của Collective
-    // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
-
-    // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
+    $category       = (isset($item['category_id']))? $item->category_id : '';
+    $content        = (isset($item['content']))? $item->content : '';
+    $thumb          = (isset($item['thumb']))? $item->thumb : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenID      = Form::hidden('id' , $id);
+    $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
+    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
-    $statusValue        = [
+    $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
+
+    $categoryValue     = $itemsCategory;
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -43,16 +33,8 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('link', 'Link',$formlabelAttr),
-            'element'   =>  Form::text('link', $link , $formInputAttr)
-        ],
-        [
-            'label'     =>  Form::label('ordering', 'Ordering',$formlabelAttr),
-            'element'   =>  Form::text('ordering', $ordering , $formInputAttr)
-        ],
-        [
-            'label'     =>  Form::label('source', 'Source',$formlabelAttr),
-            'element'   =>  Form::text('source', $source , $formInputAttr)
+            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
+            'element'   =>  Form::textarea('content', $content, $formCkeditorAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -60,7 +42,17 @@
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
+            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
+            'element'   =>  Form::file('thumb',  $formInputAttr),
+            'type'      =>  'thumb',
+            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+        ],
+        [
+            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -92,6 +84,7 @@
                     ]) !!}
 
                     {!! FormTemplate::show($elements)!!}
+
                 {!! Form::close() !!}
             </div>
             <!-- end x Content -->
@@ -102,3 +95,6 @@
 <!-- /page content -->
 @endsection
 
+{{-- <script>
+    CKEDITOR.replace('content');
+</script> --}}

@@ -31,7 +31,6 @@
 
                     $thumb          = $item['thumb'];
                     $link           = $item['link'];
-                    $created_by     = '';
                     $created        = $item['pubDate'];
                     $content        = html_entity_decode(Template::showContent($item['description'], 300));
                     $created_by      = $item['created_by'];
@@ -73,11 +72,11 @@
             <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
                 thêm</a></div>
         </div> --}}
-        {{-- <div class="row">
-            <div class="card">
-                    {!!$pagination!!}
-            </div>
-        </div> --}}
+            {{-- <div class="row">
+                <div class="card">
+                        {!!$pagination!!}
+                </div>
+            </div> --}}
     </div>
 </div>
 
