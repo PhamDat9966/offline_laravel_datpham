@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\View;
 use App\Models\RssModel as MainModel;
 use App\Http\Requests\RssRequest as MainRequest;
 
+use Config;
+
 class RssController extends Controller
 {
     private $pathViewController  = 'admin.pages.rss.';
@@ -54,22 +56,52 @@ class RssController extends Controller
         ]);
     }
 
+    // public function status(Request $request)
+    // {
+
+    //     $params['currentStatus']    = $request->status;
+    //     $params['id']               = $request->id;
+
+    //     $this->model->saveItem($params,['task' => 'change-status']);
+    //     // End Update
+
+    //     $statusAction       = "đã được kích hoạt";
+    //     $statusNextAction   = "chưa kích hoạt";
+    //     if($params['currentStatus'] == 'inactive'){
+    //         $statusAction = 'chưa kích hoạt';
+    //         $statusNextAction   = "đã được kích hoạt";
+    //     }
+    //     return redirect()->route($this->controllerName)->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+    // }
+
     public function status(Request $request)
     {
 
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
+        $status = $request->status == 'active' ? 'inactive' : 'active';
 
-        $this->model->saveItem($params,['task' => 'change-status']);
-        // End Update
+        $returnModified                 = $this->model->saveItem($params,['task' => 'change-status']);
 
-        $statusAction       = "đã được kích hoạt";
-        $statusNextAction   = "chưa kích hoạt";
-        if($params['currentStatus'] == 'inactive'){
-            $statusAction = 'chưa kích hoạt';
-            $statusNextAction   = "đã được kích hoạt";
-        }
-        return redirect()->route($this->controllerName)->with('zvn_notily','Trạng thái ID = '.$params['id'].' với trạng thái "'.$statusAction.'" đã được thay đổi thành trạng thái "'.$statusNextAction.'" !');
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //Class của bootstrap và class khi status thay đổi trạng thái sẽ được quyết định tại đây
+        $infomationStatus           =   Config::get('zvn.template.status')[$status];
+        $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
+
+        $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
+
+        return response()->json([
+            'status'        =>  $infomationStatus,
+            'link'          =>  $link,
+            'modified'      =>  $returnModified['modified'],
+            'modified_by'   =>  $returnModified['modified_by'],
+        ]);
+
     }
     public function delete(Request $request)
     {
@@ -97,14 +129,22 @@ class RssController extends Controller
     }
 
     public function ordering(Request $request){
-
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
-        $this->model->saveItem($params,['task' => 'change-ordering']);
-        echo "Cập nhật menu thành công";
+        $returnModified = $this->model->saveItem($params,['task' => 'change-ordering']);
+
+        $userIcon   = Config::get('zvn.template.font_awesome.user');
+        $clockIcon  = Config::get('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //trả về là chuỗi json mà Ajax không cần chuyển đổi
+        return response()->json([
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
+        ]);
     }
-
-
 }
 

@@ -113,6 +113,8 @@ class RssModel extends AdminModel
             $this::where('id', $params['id'])
                         ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
 
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
 

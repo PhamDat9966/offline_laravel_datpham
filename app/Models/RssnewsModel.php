@@ -130,9 +130,9 @@ class RssnewsModel extends AdminModel
         if($options['task'] == 'change-status'){
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
-                        ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
-            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+                        ->update(['status' => $status]);
+            // $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            // return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
         if($options['task'] == 'add-item'){
@@ -156,40 +156,11 @@ class RssnewsModel extends AdminModel
             $this->save();
         }
 
-        if($options['task'] == 'edit-item'){
-
-            if(!empty($params["thumb"])){
-                /*Xóa ảnh cũ*/
-                $item   =  $this->getItem($params,['task' => 'get-thumb']);
-                //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
-                $this->deleteThumb($params['thumb_current']);
-                /* Thêm ảnh mới */
-                // $thumb                  = $params['thumb'];
-                // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-                // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-                $params['thumb']        = $this->uploadThumb($params['thumb']);
-                /* end Thêm ảnh mới */
-            }
-
-            $params['modified_by']   = $userInfo['username'];
-            $params['modified']      = date('Y-m-d');
-
-            //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            $params   = $this->prepareParams($params);
-            self::where('id', $params['id'])->update($params);
-
-        }
-
     }
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
-
-            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
-
-            $this->table = 'article';
+            $this->table = 'rssnews';
             $this->where('id', $params['id'])->delete();
         }
     }

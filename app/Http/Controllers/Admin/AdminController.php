@@ -156,8 +156,8 @@ class AdminController extends Controller
 
         $returnModified = $this->model->saveItem($params,['task' => 'change-ordering']);
 
-        $userIcon   = config('zvn.template.font_awesome.user');
-        $clockIcon  = config('zvn.template.font_awesome.clock');
+        $userIcon   = Config::get('zvn.template.font_awesome.user');
+        $clockIcon  = Config::get('zvn.template.font_awesome.clock');
 
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];

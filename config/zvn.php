@@ -116,7 +116,7 @@ return [
             'article'   =>  ['edit','delete'],
             'user'      =>  ['edit','delete'],
             'rss'       =>  ['edit','delete'],
-            'rssnews'   =>  ['edit','delete'],
+            'rssnews'   =>  ['delete'],
             'menu'      =>  ['edit','delete']
         ]
     ]

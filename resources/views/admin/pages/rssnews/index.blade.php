@@ -11,7 +11,7 @@
 
 @section('content')
 <!-- page content -->
-@include('admin.templates.page_header', ['pageIndex' => true])
+@include('admin.templates.page_header', ['pageIndex' => false])
 
 @include('admin.templates.zvn_notily')
 
@@ -21,7 +21,7 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         {!!$xhtmlButtonFilter!!}
                     </div>
                     {{-- <div class="col-md-2">
@@ -30,7 +30,7 @@
                     <div class="col-md-2">
                         {!!$xhtmlItemTypeFilter!!}
                     </div> --}}
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">

@@ -8,6 +8,8 @@ use App\Models\RssnewsModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 
+use Config;
+
 class RssnewsController extends Controller
 {
     private $pathViewController = 'admin.pages.rssnews.';  // slider
@@ -79,8 +81,13 @@ class RssnewsController extends Controller
         $this->model->saveItem($params, ['task' => 'change-status']);
         $status = $request->status == 'active' ? 'inactive' : 'active';
         $link = route($this->controllerName . '/status', ['status' => $status, 'id' => $request->id]);
+
+        //Class của bootstrap và class khi status thay đổi trạng thái sẽ được quyết định tại đây
+        $infomationStatus           =   Config::get('zvn.template.status')[$status];
+        $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
+
         return response()->json([
-            'statusObj' => config('zvn.template.status')[$status],
+            'status' => $infomationStatus,
             'link' => $link,
         ]);
     }

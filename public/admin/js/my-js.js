@@ -360,6 +360,7 @@ $(document).ready(function() {
         // });
     });
 
+    //$btnStatus = $('.status-ajax');
     $btnStatus.on('click', function() {
         let element         = $(this);
         let btn             = $(this);
@@ -368,6 +369,7 @@ $(document).ready(function() {
         var statusId        = $(this).attr("id");
         var inputId         = statusId.charAt(statusId.length - 1);
         let url             = $(this).data('url');
+
         callAjax(element,url,inputId,'status');
         // $.ajax({
         //     type: "GET",
@@ -459,6 +461,17 @@ $(document).ready(function() {
         // });
 
 	});
+
+    // $inputOrdering.on('change',function(){
+    //     let element      = $(this);
+    //     var selectValue  = $(this).val();
+    //     var url          = $(this).data('url');
+    //     var orderingId   = $(this).attr("id");
+    //     var inputId      = orderingId.charAt(orderingId.length - 1);
+    //     url              = url.replace("value_new",selectValue);
+
+    //     callAjax(element,url,inputId,'ordering');
+    // });
 
     function callAjax(element,url,inputId,type){
         $.ajax({
