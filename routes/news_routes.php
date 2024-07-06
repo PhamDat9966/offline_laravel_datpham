@@ -112,6 +112,19 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== PHONE CONTACT ======================
+    $prefix         =   'phonecontact';
+    $controllerName =   'phonecontact';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'contact'
+        ]);
+
+    });
+
     // ====================== TaskScheduler ======================
     $prefix         =   'daily-scheduler';
     $controllerName =   'dailyScheduler';

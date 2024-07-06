@@ -13,7 +13,7 @@ $(document).ready(function() {
 	let $inputSearchField           = $("input[name  = search_field]");
 	let $inputSearchValue           = $("input[name  = search_value]");
 
-    let $selectFilter               = $("select[name = select_filter]");
+    let $selectFilter               = $("select[name =  select_filter]");
 	let $selectChangeAttr           = $("select[name =  select_change_attr]");
 	let $selectChangeAttrAjax       = $("select[name =  select_change_attr_ajax]");
 
@@ -69,7 +69,7 @@ $(document).ready(function() {
         var search_field    = $inputSearchField.val();
         var search_value    = $inputSearchValue.val();
 
-        let params          = ['filter_status','filter_is_home','filter_display','filter_category','filter_type'];
+        let params          = ['filter_status','filter_is_home','filter_display','filter_category','filter_type','filter_date'];
         let link            = '';
         var searchParams    = new URLSearchParams(window.location.search);
 
@@ -461,17 +461,6 @@ $(document).ready(function() {
         // });
 
 	});
-
-    // $inputOrdering.on('change',function(){
-    //     let element      = $(this);
-    //     var selectValue  = $(this).val();
-    //     var url          = $(this).data('url');
-    //     var orderingId   = $(this).attr("id");
-    //     var inputId      = orderingId.charAt(orderingId.length - 1);
-    //     url              = url.replace("value_new",selectValue);
-
-    //     callAjax(element,url,inputId,'ordering');
-    // });
 
     function callAjax(element,url,inputId,type){
         $.ajax({

@@ -37,6 +37,11 @@ return [
             'block'         =>  ['name'=>'Bị khóa',         'class'=>'btn-info'],
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
         ],
+        'contact'=>[
+            'active'        =>  ['name'=>'Đã liên hệ',      'class'=>'btn-success'],
+            'inactive'      =>  ['name'=>'Chưa liên hệ',    'class'=>'btn-danger'],
+            'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
+        ],
         'is_home'=>[
             1               =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             0               =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
@@ -74,6 +79,7 @@ return [
             'description'   =>  ['name'=>'Search by Description'],
             'link'          =>  ['name'=>'Search by Link'],
             'content'       =>  ['name'=>'Search by Content'],
+            'phonenumber'   =>  ['name'=>'Search by Phonenumber'],
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -107,7 +113,8 @@ return [
             'category'  =>  ['all','id','name'],
             'article'   =>  ['all','name','content'],
             'rss'       =>  ['all','name','link'],
-            'user'      =>  ['all','username','email','fullname']
+            'user'      =>  ['all','username','email','fullname'],
+            'phone'     =>  ['all','phonenumber'],
         ],
         'button'    =>[
             'default'   =>  ['edit','delete'],
@@ -117,7 +124,8 @@ return [
             'user'      =>  ['edit','delete'],
             'rss'       =>  ['edit','delete'],
             'rssnews'   =>  ['delete'],
-            'menu'      =>  ['edit','delete']
+            'menu'      =>  ['edit','delete'],
+            'phone'     =>  ['delete']
         ]
     ]
 ];

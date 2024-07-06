@@ -25,7 +25,6 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-
         $this->params['filter']['status']   = $request->input('filter_status','all'); // $request->input() là do laravel định nghĩa, tương đương với $_GET
         $this->params['search']['field']    = $request->input('search_field','');
         $this->params['search']['value']    = $request->input('search_value','');
@@ -37,6 +36,9 @@ class AdminController extends Controller
         //Params-Category
         $this->params['filter']['display']   = $request->input('filter_display','all');
         $this->params['filter']['is_home']   = $request->input('filter_is_home','all');
+
+        //Params date
+        $this->params['filter']['date']      = $request->input('filter_date');
 
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
@@ -72,7 +74,6 @@ class AdminController extends Controller
 
     public function status(Request $request)
     {
-
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';

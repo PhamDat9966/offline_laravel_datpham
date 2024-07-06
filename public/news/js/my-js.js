@@ -87,3 +87,35 @@ $(document).ready(function() {
     });
 
 });
+
+// Phone liên hệ
+$(document).ready(function() {
+    $('#submitModal').on('click', function() {
+        var input = $('#modal-input').val();
+        // Phải nhập số điện thoại từ 9 đến 12 ký tự và phải nhập số
+        var isValid = /^\d{9,12}$/.test(input);
+
+        if (!isValid) {
+            // alert('Số điện thoại của bạn không hợp lệ, hãy nhập ký tự số và nhập từ 9 đến 12 số');
+            $(".modal-body p").html("Số điện thoại của bạn không hợp lệ! Vui lòng nhập ký tự số và nhập từ 9 đến 12 số</b>");
+        } else {
+            // Thực hiện gửi dữ liệu nếu input hợp lệ
+            $.ajax({
+                url: 'http://proj_news.xyz/phonecontact',
+                method: 'GET',
+                data: {
+                    input: input,
+                    _token: '{{ csrf_token() }}'  // Bao gồm CSRF token nếu cần
+                },
+                success: function(response) {
+                    $('#exampleModal').modal('hide');
+                    alert('Your data has been sent!');
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('There was an error sending your data.');
+                }
+            });
+        }
+    });
+});

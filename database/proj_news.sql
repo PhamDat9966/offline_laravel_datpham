@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 02, 2024 lúc 01:48 PM
+-- Thời gian đã tạo: Th7 06, 2024 lúc 08:03 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -243,6 +243,29 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `phonecontact`
+--
+
+CREATE TABLE `phonecontact` (
+  `id` int(11) NOT NULL,
+  `phonenumber` int(200) NOT NULL,
+  `status` varchar(225) NOT NULL,
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phonecontact`
+--
+
+INSERT INTO `phonecontact` (`id`, `phonenumber`, `status`, `created`) VALUES
+(1, 11111, 'active', '2024-07-04 00:00:00'),
+(3, 1113333, 'inactive', '2024-07-04 08:43:00'),
+(4, 1234567890, 'active', '2024-07-05 11:53:00'),
+(5, 1111111111, 'inactive', '2024-07-06 13:01:00');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `rss`
 --
 
@@ -294,29 +317,17 @@ CREATE TABLE `rssnews` (
 --
 
 INSERT INTO `rssnews` (`id`, `title`, `description`, `pubDate`, `link`, `thumb`, `created_by`, `status`, `domain`) VALUES
-(3233, 'Trận tập kích \'xóa sổ loạt chiến đấu cơ Su-27\' tại căn cứ Ukraine', 'UAV Nga liên tục quần thảo trên căn cứ Mirgorod của Ukraine mà không bị cản trở, giúp hiệu chỉnh đòn tấn công vào hàng loạt tiêm kích Su-27.', '2024-07-02 16:51:16', 'https://vnexpress.net/tran-tap-kich-xoa-so-loat-chien-dau-co-su-27-tai-can-cu-ukraine-4765231.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/mirgorod4JPG-1719909395-1842-1719909461.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=DhcrZa1hFend8V2I-z3m6w', 'VNExpress', 'active', 'vnexpress'),
-(3234, 'Thủ tướng Hungary lần đầu thăm Ukraine kể từ đầu chiến sự', 'Thủ tướng Hungary Viktor Orban lần đầu đến Kiev kể từ khi chiến sự bùng phát, để thảo luận với Tổng thống Zelensky về triển vọng hòa bình cho Ukraine.', '2024-07-02 16:50:01', 'https://vnexpress.net/thu-tuong-hungary-lan-dau-tham-ukraine-ke-tu-dau-chien-su-4765264.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/thu-tuong-orban-1719910575-171-1505-3906-1719910855.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=qvDhTguWceRYiH2Slc79XQ', 'VNExpress', 'active', 'vnexpress'),
-(3235, 'Tập đoàn Trump sắp xây chung cư hạng sang ở Arab Saudi', 'Trump Organization hợp tác cùng một doanh nghiệp Arab Saudi xây tòa chung cư cao tầng hạng sang đầu tiên mang tên Tháp Trump ở Jeddah.', '2024-07-02 16:32:13', 'https://vnexpress.net/tap-doan-trump-sap-xay-chung-cu-hang-sang-o-arab-saudi-4765310.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/dar-global-trump-organization-1134-5284-1719910790.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=8iJYNHTdbpuW47-oMKnqvw', 'VNExpress', 'active', 'vnexpress'),
-(3236, 'Nga \'mổ xẻ\' cụm thiết bị dẫn đường của tên lửa ATACMS', 'Truyền thông Nga công bố video chuyên gia nước này mổ xẻ, phân tích cụm thiết bị dẫn đường bên trong tên lửa đạn đạo ATACMS mà Ukraine sử dụng.', '2024-07-02 16:06:49', 'https://vnexpress.net/nga-mo-xe-cum-thiet-bi-dan-duong-cua-ten-lua-atacms-4765278.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/5563187178137268184a-nga-17199-7818-1390-1719908784.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=dqWcb3S139_7WtXHQyv9qg', 'VNExpress', 'active', 'vnexpress'),
-(3237, 'Thủ tướng Netanyahu: Israel đang tiến tới giai đoạn cuối loại bỏ Hamas', 'Thủ tướng Israel Netanyahu cho biết quân đội nước này đang tiến gần đến \"giai đoạn cuối cùng của việc loại bỏ\" lực lượng Hamas ở Dải Gaza.', '2024-07-02 15:52:17', 'https://vnexpress.net/thu-tuong-netanyahu-israel-dang-tien-toi-giai-doan-cuoi-loai-bo-hamas-4765257.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/afp-20240618-34xd4cx-v3-highre-7935-4340-1719908487.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=DZrsA89QvrDCjZPAf9k9TA', 'VNExpress', 'active', 'vnexpress'),
-(3238, 'Nga tuyên bố tập kích đoàn tàu chở khí tài ở Kharkov', 'Nga thông báo tập kích tàu chở khí tài của Lữ đoàn 117 Ukraine ở tỉnh Kharkov, được cho là đã phá hủy nhiều phương tiện do phương Tây chuyển giao.', '2024-07-02 15:36:57', 'https://vnexpress.net/nga-tuyen-bo-tap-kich-doan-tau-cho-khi-tai-o-kharkov-4765116.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/kharkov1JPG-1719893095-6162-1719893225.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=CS6tOIDK59pK6cO6bR7Wxw', 'VNExpress', 'active', 'vnexpress'),
-(3239, 'Hy Lạp áp dụng làm việc 6 ngày một tuần với một số ngành', 'Chính phủ Hy Lạp cho phép doanh nghiệp một số ngành áp dụng làm việc 48 tiếng một tuần trong bối cảnh dân số giảm và thiếu lao động lành nghề.', '2024-07-02 15:04:51', 'https://vnexpress.net/hy-lap-ap-dung-lam-viec-6-ngay-mot-tuan-voi-mot-so-nganh-4765200.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/SOOKW3W3GJPB3BFQAGHFMATB6Q-694-3288-9450-1719904353.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=UdWrMtK8jXnP5BSAFA60-Q', 'VNExpress', 'active', 'vnexpress'),
-(3240, 'Thủ tướng đề nghị Hàn Quốc mở cửa hơn nữa cho hàng hóa Việt Nam', 'Thủ tướng Phạm Minh Chính hội kiến Chủ tịch Quốc hội Hàn Quốc, đề nghị nước này mở cửa hơn nữa cho hàng hóa xuất khẩu thế mạnh của Việt Nam, trong đó có nông thủy sản.', '2024-07-02 14:01:22', 'https://vnexpress.net/thu-tuong-de-nghi-han-quoc-mo-cua-hon-nua-cho-hang-hoa-viet-nam-4765203.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/fe4d1077fe085c560519-171989751-5953-4835-1719904393.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Mu39dbbmSkAzLsOmfrmMsA', 'VNExpress', 'active', 'vnexpress'),
-(3241, 'Ngựa kỵ binh tháo chạy, gây náo loạn London', 'Ba con ngựa kỵ binh hoàng gia vùng chạy khỏi đội hình, gây náo loạn đường phố London và va chạm với ôtô.', '2024-07-02 11:53:30', 'https://vnexpress.net/ngua-ky-binh-thao-chay-gay-nao-loan-london-4765057.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/nguaquanoi-1719884242-17198842-4583-3037-1719891748.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=qfv5xjn6VozNdMudJE9jcQ', 'VNExpress', 'active', 'vnexpress'),
-(3242, 'Drone Ukraine tập kích loạt pháo tự hành Nga', 'Ukraine đăng video triển khai drone FPV tấn công một pháo Msta-S và hai pháo BM-21 Grad của Nga, dường như đã khiến chúng bị phá hủy.', '2024-07-02 11:41:07', 'https://vnexpress.net/drone-ukraine-tap-kich-loat-phao-tu-hanh-nga-4765146.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/document5188336870278318227000-3109-6260-1719892897.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=jW1fZf_OwGiGds4oPamPkA', 'VNExpress', 'active', 'vnexpress'),
-(3243, 'Cháu trai ông Kadyrov làm lãnh đạo Hội đồng An ninh Chechnya', 'Tướng Ramzan Kadyrov cho biết ông đã bổ nhiệm cháu trai 27 tuổi làm người đứng đầu Hội đồng An ninh của Cộng hòa Chechnya.', '2024-07-02 11:39:38', 'https://vnexpress.net/chau-trai-ong-kadyrov-lam-lanh-dao-hoi-dong-an-ninh-chechnya-4765156.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/32kf2vf-highres-jpeg-3106-1719-6787-5351-1719893502.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=hOpzh3k4rYXmQ3aStbwCMg', 'VNExpress', 'active', 'vnexpress'),
-(3244, 'Hunter Biden kiện Fox News vì bị phát sóng \'cảnh nóng\'', 'Hunter Biden, con trai Tổng thống Mỹ, kiện Fox News vì phát sóng hình ảnh khỏa thân của ông này mà không được cho phép.', '2024-07-02 11:25:55', 'https://vnexpress.net/hunter-biden-kien-fox-news-vi-bi-phat-song-canh-nong-4765032.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/afp-20240607-2156534944-v1-hig-9782-3916-1719885563.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=EAC75c939_mG4kv1b2kCtA', 'VNExpress', 'active', 'vnexpress'),
-(3245, 'Quá trình tập dượt có thể gây \'thảm họa tranh luận\' cho ông Biden', 'Đội ngũ cố vấn đã liên tục tập dượt cho ông Biden nhiều ngày trước cuộc tranh luận với Trump, nhưng điều này có thể đã khiến Tổng thống 81 tuổi quá tải và vấp váp.', '2024-07-02 11:02:08', 'https://vnexpress.net/qua-trinh-tap-duot-co-the-gay-tham-hoa-tranh-luan-cho-ong-biden-4764551.html', 'https://i1-vnexpress.vnecdn.net/2024/07/01/afp-20240628-34zm6p7-v2-highre-6517-8611-1719826063.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=EMoQnOgSc13-WNS-MSgsKg', 'VNExpress', 'active', 'vnexpress'),
-(3246, 'Khoảnh khắc Nga tấn công loạt tiêm kích Su-27 ở căn cứ Ukraine', 'Nga phóng tên lửa Iskander tập kích sân bay Mirgorod thuộc tỉnh Poltava, phá hủy và làm hư hại ít nhất 6 tiêm kích Su-27 của Ukraine.', '2024-07-02 10:21:07', 'https://vnexpress.net/khoanh-khac-nga-tan-cong-loat-tiem-kich-su-27-o-can-cu-ukraine-4765068.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/mirgorod1-1719887063-4982-1719888550.gif?w=1200&h=0&q=100&dpr=1&fit=crop&s=2vC0Hhb6ckITtY72OKWbMw&t=image', 'VNExpress', 'active', 'vnexpress'),
-(3247, 'Máy bay Tây Ban Nha gặp nhiễu động, 40 người bị thương', 'Máy bay chở 325 người của hãng hàng không Tây Ban Nha Air Europa gặp nhiễu động, ít nhất 40 người bị thương.', '2024-07-02 09:54:32', 'https://vnexpress.net/may-bay-tay-ban-nha-gap-nhieu-dong-40-nguoi-bi-thuong-4765039.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/dia-trung-hai-1719886301-7965-1719886597.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=pCBnqFGV_fjP_68UF8KmJQ', 'VNExpress', 'active', 'vnexpress'),
-(3248, 'Giới chức Israel đổ lỗi nhau sau vụ thả giám đốc bệnh viện Gaza', 'Các quan chức Israel đổ lỗi lẫn nhau sau quyết định thả Abu Salmiya, giám đốc bệnh viện lớn nhất Gaza, nơi bị nghi là cơ sở ẩn náu của Hamas.', '2024-07-02 09:43:58', 'https://vnexpress.net/gioi-chuc-israel-do-loi-nhau-sau-vu-tha-giam-doc-benh-vien-gaza-4765061.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/57niq4k3j7wwph7ctwuzoqm7bq-171-3838-2635-1719888210.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=1Ckc5oTEhquDIBRekN-eoQ', 'VNExpress', 'active', 'vnexpress'),
-(3249, 'London trưng bày búp bê Barbie từng bay vào vũ trụ', 'Búp bê Barbie từng được đưa lên Trạm vũ Trụ Quốc tế sẽ được trưng bày tại bảo tàng ở London.', '2024-07-02 09:10:56', 'https://vnexpress.net/london-trung-bay-bup-be-barbie-tung-bay-vao-vu-tru-4764960.html', 'https://i1-vnexpress.vnecdn.net/2024/07/01/EJUA63D5X5YGBKN3QFRBRROXXM-171-8162-5006-1719843596.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=tf8P-N2TOv2YH3NJzhYuzg', 'VNExpress', 'active', 'vnexpress'),
-(3250, 'Cựu phụ tá của ông Trump ngồi tù', 'Steve Bannon, cựu cố vấn của ông Trump, đã trình diện nhà tù để thi hành bản án 4 tháng vì tội khinh thường quốc hội.', '2024-07-02 08:38:53', 'https://vnexpress.net/cuu-phu-ta-cua-ong-trump-ngoi-tu-4765007.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/AFP20240701362A248v1HighResUsJ-8197-4022-1719877656.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=t-aaWDdV8HquNtyBzPmHvQ', 'VNExpress', 'active', 'vnexpress'),
-(3251, 'Tổng thống Biden chỉ trích phán quyết về quyền miễn tố của Trump', 'Ông Biden chỉ trích phán quyết của Tòa án Tối cao về quyền miễn tố của ông Trump, cho rằng điều này sẽ tạo tiền lệ nguy hiểm về quyền lực tổng thống.', '2024-07-02 07:55:02', 'https://vnexpress.net/tong-thong-biden-chi-trich-phan-quyet-ve-quyen-mien-to-cua-trump-4765017.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/AFP2024070136246TUv1HighResUsP-8408-6681-1719879799.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ULEOzA2rNsS1ClDsVeFMjw', 'VNExpress', 'active', 'vnexpress'),
-(3252, 'Houthi tập kích 4 tàu hàng tại 4 vùng biển', 'Lực lượng Houthi thông báo đã tấn công 4 tàu trên Biển Đỏ, biển Arab, Địa Trung Hải và Ấn Độ Dương \"có liên quan Mỹ, Anh và Israel\".', '2024-07-02 07:00:30', 'https://vnexpress.net/houthi-tap-kich-4-tau-hang-tai-4-vung-bien-4765006.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/delonix-4c595d6b50-1719876924-8146-1719877376.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=VFvfAxON1CekQiX42jTtxQ', 'VNExpress', 'active', 'vnexpress'),
-(3253, 'Người mang biệt danh \'Cậu bé Phật\' Nepal lĩnh 10 năm tù', 'Ram Bahadur Bomjan, có biệt danh \"Cậu bé Phật\" từ hồi niên thiếu, bị tòa án Nepal phạt tù vì tội lạm dụng tình dục trẻ em.', '2024-07-02 06:45:45', 'https://vnexpress.net/nguoi-mang-biet-danh-cau-be-phat-nepal-linh-10-nam-tu-4764982.html', 'https://i1-vnexpress.vnecdn.net/2024/07/01/Boy-1719852544-1369-1719852585.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=Hb1P_DvINuIr9orVjIqjlg', 'VNExpress', 'active', 'vnexpress'),
-(3254, 'Ông Macron nguy cơ \'mất cả chì lẫn chài\' trong ván cược với phe cực hữu', 'Liên minh cầm quyền trung dung bị cả phe cực hữu lẫn cánh tả đánh bại sau vòng bầu cử đầu tiên, cho thấy ván cược của ông Macron nguy cơ phản tác dụng.', '2024-07-02 05:00:00', 'https://vnexpress.net/ong-macron-nguy-co-mat-ca-chi-lan-chai-trong-van-cuoc-voi-phe-cuc-huu-4764556.html', 'https://i1-vnexpress.vnecdn.net/2024/07/01/afp-20240630-34zy8yk-v1-highre-8051-6628-1719812191.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=jaZOJqjesIG2raryaLpx6A', 'VNExpress', 'active', 'vnexpress'),
-(3255, 'Khu phố Nhật Bản chống chọi nạn chết cô độc', 'Tokiwadaira, một trong những khu dân cư lớn nhất Nhật, triển khai các biện pháp đối phó nạn chết trong cô độc, khi nhiều cư dân tại đây cao tuổi, sống một mình.', '2024-07-02 01:00:00', 'https://vnexpress.net/khu-pho-nhat-ban-chong-choi-nan-chet-co-doc-4764766.html', 'https://i1-vnexpress.vnecdn.net/2024/07/01/3846-1719827960-6619-1719828454.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=lu4LPzi1lqNvQY_MqLluZA', 'VNExpress', 'active', 'vnexpress');
+(3267, 'Tân Thủ tướng Hà Lan quyết siết nhập cư \'nghiêm ngặt chưa từng thấy\'', 'Dick Schoof, cựu quan chức tình báo Hà Lan vừa nhậm chức Thủ tướng, tuyên bố sẽ triển khai chính sách nhập cư \"nghiêm ngặt chưa từng thấy\".', '2024-07-03 14:03:15', 'https://vnexpress.net/tan-thu-tuong-ha-lan-quyet-siet-nhap-cu-nghiem-ngat-chua-tung-thay-4765532.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/dick-schoof-1719978872-2152-1719979283.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Sd8oqLoXLBdtHOKQ2_zt4A', 'VNExpress', 'active', 'vnexpress'),
+(3268, 'Nhân chứng vụ giẫm đạp ở Ấn Độ: \'Mọi người giẫm lên tôi\'', 'Khi tìm cách đến gần giáo sĩ Bhole Baba sau buổi thuyết giảng ở bang Uttar Pradesh, Ramji Lal bị đám đông đẩy ngã, đè lên trên đến bất tỉnh.', '2024-07-03 11:32:43', 'https://vnexpress.net/nhan-chung-vu-giam-dap-o-an-do-moi-nguoi-giam-len-toi-4765470.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/giam-dap-4-1719969242-4071-1719977197.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=cPNqxMoQDXUkX7OxJSz_Zg', 'VNExpress', 'active', 'vnexpress'),
+(3269, 'Mỹ sẽ viện trợ 2,3 tỷ USD vũ khí cho Ukraine', 'Lầu Năm Góc nói Mỹ sẽ sớm công bố gói viện trợ quân sự mới 2,3 tỷ USD cho Ukraine, bao gồm vũ khí chống tăng và hệ thống phòng không.', '2024-07-03 11:23:01', 'https://vnexpress.net/my-se-vien-tro-2-3-ty-usd-vu-khi-cho-ukraine-4765522.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/npho-1719978454-6046-1719978730.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=w4DlcnVOJDXjqvslrBwN8g', 'VNExpress', 'active', 'vnexpress'),
+(3270, 'Lỗ hổng phòng không khiến Ukraine mất loạt máy bay quý giá', 'Lưới phòng không suy yếu khiến Ukraine không thể bảo vệ sân bay quân sự ở sâu trong hậu phương, cho phép Nga tung đòn đánh chính xác cao.', '2024-07-03 10:33:07', 'https://vnexpress.net/lo-hong-phong-khong-khien-ukraine-mat-loat-may-bay-quy-gia-4765489.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/patriotukraine1-1719976238-8792-1719976270.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=KBGy8MLhktb1b6oukwOzdA', 'VNExpress', 'active', 'vnexpress'),
+(3271, 'Hơn 200 ứng viên nghị sĩ Pháp rút lui để ngăn phe cực hữu nắm quyền', 'Hơn 200 ứng viên nghị sĩ từ đảng của Tổng thống Macron và liên minh cánh tả đã rút lui để ngăn phe cực hữu thắng bầu cử quốc hội.', '2024-07-03 10:29:20', 'https://vnexpress.net/hon-200-ung-vien-nghi-si-phap-rut-lui-de-ngan-phe-cuc-huu-nam-quyen-4765496.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/AFP20240702HLNGUYONNET2446034v-8948-2684-1719974722.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=1Gl62jl53T1TcKBFjWvblQ', 'VNExpress', 'active', 'vnexpress'),
+(3272, 'Hungary kêu gọi Ukraine \'nhanh chóng ngừng bắn\' với Nga', 'Thủ tướng Orban kêu gọi Ukraine chấp nhận \"nhanh chóng ngừng bắn\" với Nga để thúc đẩy hòa đàm, song ông Zelensky dường như không hưởng ứng.', '2024-07-03 10:13:05', 'https://vnexpress.net/hungary-keu-goi-ukraine-nhanh-chong-ngung-ban-voi-nga-4765477.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/Orban-1719973094-5534-1719973196.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=ANjBkxFWV3qmjLFgk-ulGg', 'VNExpress', 'active', 'vnexpress'),
+(3273, 'Cảnh tang thương sau vụ giẫm đạp khiến 121 người chết', 'Đoàn người hối hả đưa thi thể đến nơi tập trung trong tiếng khóc than của người thân, khiến hiện trường vụ giẫm đạp làm 121 người chết ở Uttar Pradesh càng tang thương.', '2024-07-03 09:34:59', 'https://vnexpress.net/canh-tang-thuong-sau-vu-giam-dap-khien-121-nguoi-chet-4765483.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/giam-dap-3-1719969243.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=RXrcm-fmLe6JztvraYR7Sw', 'VNExpress', 'active', 'vnexpress'),
+(3274, 'Lính Nga dùng xe máy tiến công ở Ukraine', 'Lính Nga đang tích cực sử dụng xe máy trong nỗ lực tiếp cận Ugledar ở Donbass, được cho là giúp giảm nguy cơ bị UAV Ukraine tấn công.', '2024-07-03 09:10:12', 'https://vnexpress.net/linh-nga-dung-xe-may-tien-cong-o-ukraine-4765254.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/aqe-1719914270-7402-1719914514.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=z-xzOI7UQa6qkPXpDoaL8w', 'VNExpress', 'active', 'vnexpress'),
+(3275, 'Tòa New York hoãn kết án ông Trump', 'Thẩm phán New York hoãn tuyên án ông Trump trong vụ chi tiền bịt miệng đến tháng 9, do phía cựu tổng thống muốn áp dụng phán quyết về đặc quyền miễn tố.', '2024-07-03 07:23:39', 'https://vnexpress.net/toa-new-york-hoan-ket-an-ong-trump-4765447.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/AFP-20240628-34ZM7D7-v1-HighRe-8296-7286-1719965073.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=aPI1OR0YFMaH-ncwsdc3VQ', 'VNExpress', 'active', 'vnexpress'),
+(3276, 'Ông Biden nêu lý do thất thế trong tranh luận với ông Trump', 'Tổng thống Biden giải thích các chuyến công du nước ngoài liên tục khiến ông mệt mỏi và thất thế trước đối thủ trong màn tranh luận tuần trước.', '2024-07-03 07:04:17', 'https://vnexpress.net/ong-biden-neu-ly-do-that-the-trong-tranh-luan-voi-ong-trump-4765451.html', 'https://i1-vnexpress.vnecdn.net/2024/07/03/5563187178137268428a-my-171996-8089-3400-1719964030.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=2y-FVmL6WL2L7xL7zLu-XQ', 'VNExpress', 'active', 'vnexpress'),
+(3277, 'Nỗi bất đồng khiến hàng rào chống cực hữu Pháp lung lay', 'Mâu thuẫn giữa đảng trung dung của ông Macron với các đối tác cánh tả liên quan chiến sự Gaza đang làm suy yếu liên minh ngăn phe cực hữu trỗi dậy.', '2024-07-03 05:00:00', 'https://vnexpress.net/noi-bat-dong-khien-hang-rao-chong-cuc-huu-phap-lung-lay-4765048.html', 'https://i1-vnexpress.vnecdn.net/2024/07/02/afp-20240609-34w62xu-v1-highre-8630-9875-1719910504.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=zXO0pBMl9uzE8fTimPrs9w', 'VNExpress', 'active', 'vnexpress');
 
 -- --------------------------------------------------------
 
@@ -754,6 +765,12 @@ ALTER TABLE `menu`
   ADD KEY `parent_menu_id` (`parent_id`);
 
 --
+-- Chỉ mục cho bảng `phonecontact`
+--
+ALTER TABLE `phonecontact`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `rss`
 --
 ALTER TABLE `rss`
@@ -818,6 +835,12 @@ ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
+-- AUTO_INCREMENT cho bảng `phonecontact`
+--
+ALTER TABLE `phonecontact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT cho bảng `rss`
 --
 ALTER TABLE `rss`
@@ -827,7 +850,7 @@ ALTER TABLE `rss`
 -- AUTO_INCREMENT cho bảng `rssnews`
 --
 ALTER TABLE `rssnews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3256;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3278;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`

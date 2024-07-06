@@ -42,7 +42,7 @@ class Template{
                     $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
                 }
 
-                foreach (['display', 'is_home', 'category', 'type'] as $filterKey) {
+                foreach (['display', 'is_home', 'category', 'type','date'] as $filterKey) {
                     if (isset($currentParams['filter'][$filterKey]) && $currentParams['filter'][$filterKey] != '') {
                         $link .= "&filter_$filterKey=" . $currentParams['filter'][$filterKey];
                     }
@@ -161,6 +161,27 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemContact($controllerName , $id , $status){
+        // status       class           name
+        // active       btn-success     Kich hoat
+        // inactive     btn-info        Chua duoc kich hoat
+
+        $tmplStatus     =   Config::get('zvn.template.contact');
+
+        // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
+        // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
+
+        $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
+        $currentStatus  = $tmplStatus[$statusValue];
+        $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
+
+        $xhtml  = sprintf('
+            <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',$id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
+        // $xhtml  = sprintf('
+        //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
+        return  $xhtml;
+    }
+
     public static function showItemSelect($controllerName , $id , $displayValue , $fieldName){
 
         $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
@@ -241,7 +262,6 @@ class Template{
 
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = Config::get('zvn.template.button');
-
         // $buttonInArea   =   [
         //     'default'   =>  ['edit','delete'],
         //     'slider'    =>  ['edit','delete']
@@ -255,6 +275,7 @@ class Template{
         foreach($listButtons as $btn){
             $currentButton  = $tmplButton[$btn];
             $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
+
             $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
                                         <i class="fa %s"></i>
                                 </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);

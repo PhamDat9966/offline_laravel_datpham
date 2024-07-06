@@ -14,7 +14,14 @@
 <script src="{{asset('admin/js/sweetalert2.all.min.js')}}"></script>
 <!-- Notify Scripts -->
 <script src="{{asset('admin/js/notify.min.js')}}"></script>
+
+<!-- Tạo calendar với Bootstrap Datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="{{asset('admin/js/custom.min.js')}}"></script>
 <!-- Custom my-js Scripts -->
 <script src="{{asset('admin/js/my-js.js')}}"></script>
+<script src="{{asset('admin/js/calendar.js')}}"></script>
+
+

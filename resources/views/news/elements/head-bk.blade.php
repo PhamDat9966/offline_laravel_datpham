@@ -18,4 +18,5 @@
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/my-style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/my-category.css')}}">
 
-
+<!--SweetAlert2  -->
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> --}}

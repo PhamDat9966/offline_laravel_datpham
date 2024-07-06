@@ -188,11 +188,20 @@
                                 <div class="logo"><span>ZEND</span>VN</div>
                             </a>
                         </div>
-                        <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-start">
+                        <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-center">
                             <a href="#">
                                 <div class="background_image"
                                      style="background-image:url({!!asset('news/images/zendvn-online.png')!!});background-size: contain"></div>
                             </a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            </button>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justfy-content-start ml-5">
+                            <!-- Phone liên hệ -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -232,4 +241,30 @@
         </div>
     </div>
     {!!$xhtmlMenuMobile!!}
+</div>
+
+<!-- Đây là popup của box Phone liên hệ -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title font-weight-bold" id="exampleModalLabel">Liên hệ với chúng tôi</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="logo mb-3"><span>ZEND</span>VN</div>
+        <h5 class="font-italic">Để lại số điện thoại của bạn để nhận cuộc gọi từ chúng tôi.</h5>
+        <input type="text" id="modal-input" class="form-control" placeholder="Số điện thoại của bạn">
+        {{-- Đây là nơi xuất thông báo lỗi --}}
+        <p class="text-danger"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary" id="submitModal">Liên hệ</button>
+    </div>
+    </div>
+</div>
 </div>
