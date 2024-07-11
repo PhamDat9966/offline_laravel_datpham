@@ -4,6 +4,8 @@
     use App\Helpers\template as Template;
     $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search']);
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+    $xhtmlCreated               = Template::showCreatedFilter($params['filter']['created']);
+    $xhtmlModified              = Template::showModifiedFilter($params['filter']['modified']);
 @endphp
 
 @section('content')
@@ -18,10 +20,16 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        {!!$xhtmlCreated!!}
+                    </div>
+                    <div class="col-md-2">
+                        {!!$xhtmlModified!!}
+                    </div>
+                    <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">

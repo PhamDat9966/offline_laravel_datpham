@@ -6,6 +6,8 @@
     $xhtmlAreaSearch            = Template::showAreaSearch($controllerName, $params['search']);
     $xhtmlItemIsHomeFilter      = Template::showItemIsHomeFilter($controllerName, $params['filter']['is_home']);
     $xhtmlItemDisplayFilter     = Template::showItemDisplayFilter($controllerName, $params['filter']['display']);
+    $xhtmlCreated               = Template::showCreatedFilter($params['filter']['created']);
+    $xhtmlModified              = Template::showModifiedFilter($params['filter']['modified']);
 @endphp
 
 @section('content')
@@ -20,18 +22,24 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         {{-- filter is home --}}
                         {!!$xhtmlItemIsHomeFilter!!}
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         {{-- filter display --}}
                         {!!$xhtmlItemDisplayFilter!!}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
+                        {!!$xhtmlCreated!!}
+                    </div>
+                    <div class="col-md-2">
+                        {!!$xhtmlModified!!}
+                    </div>
+                    <div class="col-md-3">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">

@@ -33,8 +33,8 @@
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $isHome             = Template::showItemIsHome( $controllerName,$id,$val['is_home']);
                             $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
-                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id);
+                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],$params['filter']['created']);
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,$params['filter']['modified']);
                             $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
 

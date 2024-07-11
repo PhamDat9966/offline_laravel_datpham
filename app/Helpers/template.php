@@ -1,20 +1,38 @@
 <?php
 namespace App\Helpers;
 use Config; // Ở đây nó là một đối tượng
+use Carbon\Carbon;
 
 class Template{
 
-    public static function showItemHistory($by, $time){
+    public static function showItemHistory($by, $time, $filterValue = null){
+        $pubDate = Carbon::parse($time);
+        $pubDate = $pubDate->toDateString();
+
+        $stringtime = date(Config::get('zvn.format.short_time'),strtotime($time));
+        if($filterValue == $pubDate ){
+            $stringtime = '<span class="highlight">'. $stringtime .'</span>';
+        }
+
         $xhtml  = sprintf('
             <p><i class="fa fa-user"></i> %s</p>
-            <p><i class="fa fa-clock-o"></i> %s</p>', $by,date(Config::get('zvn.format.short_time'),strtotime($time)),);
+            <p><i class="fa fa-clock-o"></i> %s</p>', $by,$stringtime);
         return  $xhtml;
     }
 
-    public static function showItemHistoryModified($by, $time, $id){
+    public static function showItemHistoryModified($by, $time, $id, $filterValue = null){
+        $pubDate = Carbon::parse($time);
+        $pubDate = $pubDate->toDateString();
+
+        $stringtime = date(Config::get('zvn.format.short_time'),strtotime($time));
+
+        if($filterValue == $pubDate ){
+            $stringtime = '<span class="highlight">'. $stringtime .'</span>';
+        }
+
         $xhtml  = sprintf('
             <p class="modified-by-'.$id.'"><i class="fa fa-user"></i> %s</p>
-            <p class="modified-'.$id.'"><i class="fa fa-clock-o"></i> %s</p>', $by,date(Config::get('zvn.format.short_time'),strtotime($time)));
+            <p class="modified-'.$id.'"><i class="fa fa-clock-o"></i> %s</p>', $by,$stringtime);
         return  $xhtml;
     }
 
@@ -356,4 +374,27 @@ class Template{
         return preg_replace('/\s+?(\S+)?$/','', substr($content,0, $lenght)).$prefix;
     }
 
+    public static function showCreatedFilter($creadedFilter){
+        $xhtml  =  '<div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Created: </span>
+                        <input type="text" id="datepicker" name="created" class="form-control" placeholder="Choose a date" value="'.$creadedFilter.'">
+                    </div>';
+        return $xhtml;
+    }
+
+    public static function showModifiedFilter($modifiedFilter){
+        $xhtml  =  '<div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Modified: </span>
+                        <input type="text" class="datepicker" name="modified" class="form-control" placeholder="Choose a date" value="'.$modifiedFilter.'">
+                    </div>';
+        return $xhtml;
+    }
+
+    public static function showDateFilter($dateFilter){
+        $xhtml = '<div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Lọc theo ngày-tháng-năm: </span>
+                    <input type="text" id="datepicker" name="date" class="form-control" placeholder="Choose a date" value="'.$dateFilter.'">
+                 </div>';
+       return $xhtml;
+    }
 }

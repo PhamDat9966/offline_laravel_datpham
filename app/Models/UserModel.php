@@ -14,18 +14,30 @@ class UserModel extends AdminModel
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
-        $this->fieldSearchAccepted  = ['username','email','fullname '];
+        $this->fieldSearchAccepted  = ['username','email','fullname'];
         $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task','taskAdd','taskEditInfo','taskChangeLevel','taskChangePassword'];
     }
 
     public function listItems($params = null,$options = null){
-
+       // dd($params);
         $result = null;
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('id','username','email','fullname','password','avatar','level','created','created_by','modified','modified_by','status');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
+            }
+
+            if($params['filter']['date'] !== null){
+                $query->where('created',"like","%".$params['filter']['date']."%");
+            }
+
+            if($params['filter']['created'] !== null){
+                $query->where('created',"like","%".$params['filter']['created']."%");
+            }
+
+            if($params['filter']['modified'] !== null){
+                $query->where('modified',"like","%".$params['filter']['modified']."%");
             }
 
             if($params['search'] !== ""){
@@ -72,6 +84,18 @@ class UserModel extends AdminModel
             //                  ->toArray();
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
+
+                            if($params['filter']['date'] !== null){
+                                $query->where("created","like","%".$params['filter']['date']."%");
+                            }
+
+                            if($params['filter']['created'] !== null){
+                                $query->where("created","like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where("modified","like","%".$params['filter']['modified']."%");
+                            }
 
                             if($params['search'] !== ""){
 

@@ -2,19 +2,15 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-
-    $xhtmlCalendar      = '<div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Chọn ngày-tháng-năm: </span>
-                                <input type="text" id="datepicker" name="date" class="form-control" placeholder="Choose a date" value="'.$params['filter']['date'].'">
-                            </div>';
+    $xhtmlButtonFilter  = Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
+    $xhtmlAreaSearch    = Template::showAreaSearch($controllerName, $params['search']);
+    $xhtmlCalendar      = Template::showDateFilter($params['filter']['date']);
 
 @endphp
 
 @section('content')
 <!-- page content -->
-@include('admin.templates.page_header', ['pageIndex' => true])
+@include('admin.templates.page_header', ['pageIndex' => false])
 
 @include('admin.templates.zvn_notily')
 

@@ -28,6 +28,18 @@ class CategoryModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
+            if($params['filter']['date'] !== null){
+                $query->where('created',"like","%".$params['filter']['date']."%");
+            }
+
+            if($params['filter']['created'] !== null){
+                $query->where('created',"like","%".$params['filter']['created']."%");
+            }
+
+            if($params['filter']['modified'] !== null){
+                $query->where('modified',"like","%".$params['filter']['modified']."%");
+            }
+
             if($params['filter']['is_home'] !== "all"){
                 if($params['filter']['is_home'] == 'true'){
                     $params['filter']['is_home'] = 1;
@@ -113,6 +125,19 @@ class CategoryModel extends AdminModel
 
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
+
+
+                            if($params['filter']['date'] !== null){
+                                $query->where("created","like","%".$params['filter']['date']."%");
+                            }
+
+                            if($params['filter']['created'] !== null){
+                                $query->where("created","like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where("modified","like","%".$params['filter']['modified']."%");
+                            }
 
                             if($params['filter']['is_home'] !== "all"){
                                 $query->where("is_home","=", $params['filter']['is_home']);

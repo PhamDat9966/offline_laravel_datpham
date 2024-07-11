@@ -28,6 +28,18 @@ class SliderModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
+            if($params['filter']['date'] !== null){
+                $query->where('created',"like","%".$params['filter']['date']."%");
+            }
+
+            if($params['filter']['created'] !== null){
+                $query->where('created',"like","%".$params['filter']['created']."%");
+            }
+
+            if($params['filter']['modified'] !== null){
+                $query->where('modified',"like","%".$params['filter']['modified']."%");
+            }
+
             if($params['search'] !== ""){
 
                 if($params["search"]["field"] == "all"){
@@ -72,6 +84,19 @@ class SliderModel extends AdminModel
             //                  ->toArray();
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
+
+
+                            if($params['filter']['date'] !== null){
+                                $query->where("created","like","%".$params['filter']['date']."%");
+                            }
+
+                            if($params['filter']['created'] !== null){
+                                $query->where("created","like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where("modified","like","%".$params['filter']['modified']."%");
+                            }
 
                             if($params['search'] !== ""){
 

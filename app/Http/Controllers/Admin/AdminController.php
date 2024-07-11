@@ -38,6 +38,8 @@ class AdminController extends Controller
         $this->params['filter']['is_home']   = $request->input('filter_is_home','all');
 
         //Params date
+        $this->params['filter']['created']   = $request->input('filter_created');
+        $this->params['filter']['modified']  = $request->input('filter_modified');
         $this->params['filter']['date']      = $request->input('filter_date');
 
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);

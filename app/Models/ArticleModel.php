@@ -183,6 +183,13 @@ class ArticleModel extends AdminModel
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
 
+                           if($params['filter']['created'] !== null){
+                                $query->where('created',"like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where('modified',"like","%".$params['filter']['modified']."%");
+                            }
                             if($params['filter']['category'] !== "all"){
                                 $query->where("category_id","=", $params['filter']['category']);
                             }

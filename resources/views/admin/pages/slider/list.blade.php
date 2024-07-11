@@ -32,8 +32,8 @@
                             $link               = Hightlight::show($val['link'], $params['search'] , 'link');
 
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
-                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id);
+                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],$params['filter']['created']);
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,$params['filter']['modified']);
                             $thumb              = Template::showItemThumb($controllerName,$val['thumb'],$val['name']);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
