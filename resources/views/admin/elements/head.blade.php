@@ -17,9 +17,11 @@
 <link href="{{asset('admin/asset/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
 <!-- ckeditor -->
 <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script>
-
 <!-- Tạo calendar với Bootstrap Datepicker -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<!--Bootstrap Tags Input-->
+<link href="{{asset('admin/asset/bootstrap-tagsinput/src/bootstrap-tagsinput.css')}}" rel="stylesheet">
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> --}}
 
 <!-- Custom Theme Style -->
 <link href="{{asset('admin/css/custom.min.css')}}" rel="stylesheet">

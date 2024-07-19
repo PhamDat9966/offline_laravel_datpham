@@ -457,7 +457,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         ]);
     });
 
-    // // ====================== SETTING ======================
+    // ====================== SETTING ======================
     $prefix         =   'setting';
     $controllerName =   'setting';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
@@ -467,6 +467,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'as'    => $controllerName,
             'uses'  => $controller . 'index'
         ]);
+
+        // Route::get('/general', [
+        //     'as'    => $controllerName . '/general_setting',
+        //     'uses'  => $controller . 'general'
+        // ]);
 
         Route::get('form/{id?}', [
             'as'    => $controllerName . '/form',

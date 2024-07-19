@@ -81,3 +81,9 @@ span.highlight{
     padding-left: 0;
     padding-right: 20px;
 }
+
+/* Bootstrap tags input */
+.bootstrap-tagsinput {
+    width: 100% !important;
+    min-height: 150px;
+}

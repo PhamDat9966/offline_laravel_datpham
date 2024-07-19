@@ -558,3 +558,33 @@ $(document).ready(function() {
     }
 
 });
+
+// Button Logo at Setting-Controller
+$(document).ready(function() {
+    $('#lfm').filemanager('image');
+
+    // Nếu có thể tự config
+    // var route_prefix = "laravel-filemanager?type=image";
+    // $('#lfm').filemanager('file', {prefix: route_prefix});
+});
+
+// Menu click tại id=setting
+$(document).ready(function(){
+    // Chọn phần tử <ul> có class là 'child_menu'
+    $("ul.child_menu").css("display", "none");
+
+    // Sự kiện click menu li id="setting" chạy kép dùng một lần, giữ lại class active cho 1 lần duy nhất
+    $("li#setting").one("click", function(){
+        $('li#setting ul').slideDown();
+        $("li#setting").addClass("active");
+    });
+
+});
+
+// Tags Input
+$(document).ready(function(){
+    // $('.tags').tagsInput({
+    //     'width':'100%'
+
+    // });
+});
