@@ -43,7 +43,9 @@
                 <div class="tab-pane fade active in" role="tabpanel" aria-labelledby="home-tab">
                     @switch($type)
                         @case('general')
-                            @include('admin.pages.setting.child-index.from-general')
+                            @foreach ($items as $item)
+                                @include('admin.pages.setting.child-index.from-general',['item'=>$item])
+                            @endforeach
                             @break
                         @case('email')
                             @include('admin.pages.setting.child-index.from-email-account')

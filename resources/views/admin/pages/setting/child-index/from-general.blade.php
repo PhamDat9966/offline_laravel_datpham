@@ -3,19 +3,21 @@
     use App\Helpers\Form as FormTemplate;
     use Illuminate\Http\Request;
 
+    //dd($item->logo);
+
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-    $logo               = (isset($items['logo']))? $items['logo'] : '';
+    $logo               = (isset($item->logo))? $item->logo : '';
     $logoUrl            = (!empty($logo)) ? $host . $logo : '';
-    $hotline            = (isset($items['hotline']))? $items['hotline'] : '';
-    $timeword           = (isset($items['timeword']))? $items['timeword'] : '';
-    $copyright          = (isset($items['copyright']))? $items['copyright'] : '';
-    $address            = (isset($items['address']))? $items['address'] : '';
-    $introduction       = (isset($items['introduction']))? $items['introduction'] : '';
-    $googlemap          = (isset($items['googlemap']))? $items['googlemap'] : '';
+    $hotline            = (isset($item->hotline))? $item->hotline : '';
+    $timeword           = (isset($item->timeword))? $item->timeword : '';
+    $copyright          = (isset($item->copyright))? $item->copyright : '';
+    $address            = (isset($item->address))? $item->address : '';
+    $introduction       = (isset($item->introduction))? $item->introduction : '';
+    $googlemap          = (isset($item->googlemap))? $item->googlemap : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');

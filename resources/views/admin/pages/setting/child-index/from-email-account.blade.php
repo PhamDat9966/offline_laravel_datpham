@@ -31,21 +31,27 @@
     ];
 
 @endphp
-<div class="tab-pane fade show active in" id="email" role="tabpanel" aria-labelledby="home-tab">
-    <!-- x Content -->
-    <div class="x_content" style="display: block;">
-        {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-        {!! Form::open([
-                'url'               =>  Route($controllerName.'/save'),
-                'method'            =>  'POST',
-                'accept-charset'    =>  'UTF-8',
-                'enctype'           =>  'multipart/form-data',
-                'class'             =>  'form-horizontal form-label-left',
-                'id'                =>  'main-form'
-            ]) !!}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="tab-pane fade show active in" id="email" role="tabpanel" aria-labelledby="home-tab">
+                <!-- x Content -->
+                <div class="x_content" style="display: block;">
+                    {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
+                    {!! Form::open([
+                            'url'               =>  Route($controllerName.'/save'),
+                            'method'            =>  'POST',
+                            'accept-charset'    =>  'UTF-8',
+                            'enctype'           =>  'multipart/form-data',
+                            'class'             =>  'form-horizontal form-label-left',
+                            'id'                =>  'main-form'
+                        ]) !!}
 
-            {!! FormTemplate::show($elements)!!}
+                        {!! FormTemplate::show($elements)!!}
 
-        {!! Form::close() !!}
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
     </div>
 </div>

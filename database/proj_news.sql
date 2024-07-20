@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 20, 2024 lúc 09:02 AM
+-- Thời gian đã tạo: Th7 20, 2024 lúc 09:59 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -337,23 +337,21 @@ INSERT INTO `rssnews` (`id`, `title`, `description`, `pubDate`, `link`, `thumb`,
 
 CREATE TABLE `setting` (
   `id` int(11) NOT NULL,
-  `setting_key` varchar(255) NOT NULL,
-  `setting_value` text NOT NULL,
-  `type` varchar(255) DEFAULT NULL
+  `setting_value` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `setting`
 --
 
-INSERT INTO `setting` (`id`, `setting_key`, `setting_value`, `type`) VALUES
-(1, 'logo', '/images/logo/zenvnlogo.JPG', 'general'),
-(2, 'hotline', '123456789', 'general'),
-(3, 'timeword', '24/24', 'general'),
-(4, 'copyright', '@2020 - Bản quyền công ty lập trình Zendvn', 'general'),
-(5, 'address', 'Số 01, Khối A1, Toà nhà Đạt Gia, 43 Đường Cây Keo, Tam Phú, Thủ Đức, Hồ Chí Minh', 'general'),
-(6, 'introduction', 'Công Ty Cổ Phần Lập Trình Zend Việt Nam - Mã số thuế: 0314390745.\r\nGiấy phép đăng ký kinh doanh số 0314390745 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 09/05/2017\r\n', 'general'),
-(7, 'googlemap', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.3604198520575!2d106.73612927408858!3d10.86016745764545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d5640014e7%3A0x3bb323b29d50dca9!2zWmVuZFZOIC0gxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6pu!5e0!3m2!1svi!2s!4v1721455847550!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>\r\n', 'general');
+INSERT INTO `setting` (`id`, `setting_value`, `value`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'setting-general', '{\"logo\":\"\\/images\\/logo\\/zenvnlogo.JPG\",\"hotline\":\"123456789\",\"timeword\":\"24\\/24\",\"copyright\":\"@2020 - B\\u1ea3n quy\\u1ec1n c\\u00f4ng ty l\\u1eadp tr\\u00ecnh Zendvn\",\"address\":\"S\\u1ed1 01, Kh\\u1ed1i A1, To\\u00e0 nh\\u00e0 \\u0110\\u1ea1t Gia, 43 \\u0110\\u01b0\\u1eddng C\\u00e2y Keo, Tam Ph\\u00fa, Th\\u1ee7 \\u0110\\u1ee9c, H\\u1ed3 Ch\\u00ed Minh\",\"introduction\":\"C\\u00f4ng Ty C\\u1ed5 Ph\\u1ea7n L\\u1eadp Tr\\u00ecnh Zend Vi\\u1ec7t Nam - M\\u00e3 s\\u1ed1 thu\\u1ebf: 0314390745.\\r\\nGi\\u1ea5y ph\\u00e9p \\u0111\\u0103ng k\\u00fd kinh doanh s\\u1ed1 0314390745 do S\\u1edf K\\u1ebf ho\\u1ea1ch v\\u00e0 \\u0110\\u1ea7u t\\u01b0 Th\\u00e0nh ph\\u1ed1 H\\u1ed3 Ch\\u00ed Minh c\\u1ea5p ng\\u00e0y 09\\/05\\/2017\\r\\n\",\"googlemap\":\"<iframe src=\\\"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m18!1m12!1m3!1d3918.3604198520575!2d106.73612927408858!3d10.86016745764545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d5640014e7%3A0x3bb323b29d50dca9!2zWmVuZFZOIC0gxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6pu!5e0!3m2!1svi!2s!4v1721455847550!5m2!1svi!2s\\\" width=\\\"600\\\" height=\\\"450\\\" style=\\\"border:0;\\\" allowfullscreen=\\\"\\\" loading=\\\"lazy\\\" referrerpolicy=\\\"no-referrer-when-downgrade\\\"><\\/iframe>\\r\\n\"}', 'active', '2024-07-20 14:33:27', 'Admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -813,7 +811,7 @@ ALTER TABLE `rssnews`
 --
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `setting_key` (`setting_key`);
+  ADD UNIQUE KEY `setting_key` (`setting_value`);
 
 --
 -- Chỉ mục cho bảng `slider`
@@ -889,7 +887,7 @@ ALTER TABLE `rssnews`
 -- AUTO_INCREMENT cho bảng `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`

@@ -20,16 +20,20 @@ class SettingModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
 
+        if(!empty($params['type'])){
+            $params['type'] = 'setting-' . $params['type'];
+        }
+
         if($options['task'] == 'get-all-items'){
-            $result = $this::select('id','setting_key','setting_value')
+            $result = $this::select('id','setting_value ','value')
                     //->first();
                     ->get()->toArray();
 
         }
 
         if($options['task'] == 'get-items'){
-            $result = $this::select('id','setting_key','setting_value')
-                    ->where('type', $params['type'])
+            $result = $this::select('id','setting_value','value')
+                    ->where('setting_value', $params['type'])
                     //->first();
                     ->get()->toArray();
 
