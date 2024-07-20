@@ -26,14 +26,30 @@ class SettingController extends Controller
     public function index(Request $request) //index trèn thêm dữ liệu
     {
         $params = $request->all();
-        $item   = null;
-        if($request->id !== null){
+        $items   = null;
+
+        if($params !== null){
             $params['id']   = $request->id;
-            $item = $this->model->getItem($params,['task'=>'get-item']);
+            $itemsTemp = $this->model->getItem($params,['task'=>'get-items']);
+
+            foreach($itemsTemp as $value){
+                $items[$value['setting_key']] = $value['setting_value'];
+            }
         }
+        return view($this->pathViewController . 'index', [
+            'items'      =>$items,
+            'params'    =>$params
+        ]);
+    }
+
+    public function getItem(Request $request) //index trèn thêm dữ liệu
+    {
+        $params = $request->all();
+        $items   = null;
+        $items = $this->model->getItem($params,['task'=>'get-all-items']);
 
         return view($this->pathViewController . 'index', [
-            'item'      =>$item,
+            'items'      =>$items,
             'params'    =>$params
         ]);
     }

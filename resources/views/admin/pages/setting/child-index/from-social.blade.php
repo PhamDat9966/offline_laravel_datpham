@@ -15,7 +15,7 @@
 
     $facebookTagsInput = '<input type="text" value="'.$facebook.'" data-role="tagsinput" class="tags" name="facebook">';
     $youtubeTagsInput  = '<input type="text" value="'.$youtube.'" data-role="tagsinput" class="tags" name="youtube">';
-    $googleTagsInput  = '<input type="text" value="'.$google.'" data-role="tagsinput" class="tags" name="youtube">';
+    $googleTagsInput   = '<input type="text" value="'.$google.'" data-role="tagsinput" class="tags" name="youtube">';
 
     $elements   = [
         [

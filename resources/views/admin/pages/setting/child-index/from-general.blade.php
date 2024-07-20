@@ -1,19 +1,25 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
+    use Illuminate\Http\Request;
 
-    $id                 = (isset($item['id']))? $item['id'] : '';
-    $hotline            = (isset($item['hotline']))? $item->hotline : '';
-    $timeword           = (isset($item['timeword']))? $item->timeword : '';
-    $copyright          = (isset($item['content']))? $item->copyright : '';
-    $address            = (isset($item['content']))? $item->address : '';
-    $introduction       = (isset($item['introduction']))? $item->introduction : '';
-    $googlemap          = (isset($item['googlemap']))? $item->googlemap : '';
+    $request = Request::capture();
+    global $host;
+    $host = $request->getHost();
+    $host = 'http://'.$host;
+
+    $logo               = (isset($items['logo']))? $items['logo'] : '';
+    $logoUrl            = (!empty($logo)) ? $host . $logo : '';
+    $hotline            = (isset($items['hotline']))? $items['hotline'] : '';
+    $timeword           = (isset($items['timeword']))? $items['timeword'] : '';
+    $copyright          = (isset($items['copyright']))? $items['copyright'] : '';
+    $address            = (isset($items['address']))? $items['address'] : '';
+    $introduction       = (isset($items['introduction']))? $items['introduction'] : '';
+    $googlemap          = (isset($items['googlemap']))? $items['googlemap'] : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
-    $inputHiddenID     = Form::hidden('id' , $id);
 
     $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -27,9 +33,9 @@
                                 <i class="fa fa-picture-o"></i> Choose
                                 </a>
                             </span>
-                                <input id="thumbnail" class="form-control" type="text" name="filepath" value="1235645654654">
+                                <input id="thumbnail" class="form-control" type="text" name="filepath" value="'.$logo.'">
                             </div>
-                            <img id="holder" style="margin-top:15px;max-height:100px;" src="12321321">';
+                            <img id="holder" style="margin-top:15px;max-height:100px;" src="'.$logoUrl.'">';
                             //input value của input quyết định xem đường dẫn của ảnh
                             //image src quyet định hình ảnh ở vị trí nào, nếu không xuất ảnh để giá trị rỗng
     $elements   = [
@@ -59,10 +65,10 @@
         ],
         [
             'label'     =>  Form::label('googlemap', 'Google Maps',$formlabelAttr),
-            'element'   =>  Form::textarea('googlemap', $googlemap, $formCkeditorAttr)
+            'element'   =>  Form::textarea('googlemap', $googlemap, $formInputAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success','name'=>'taskGeneral']),
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','name'=>'taskGeneral']),
             'type'      =>  'btn-submit'
         ]
 

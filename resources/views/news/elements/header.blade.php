@@ -5,6 +5,8 @@
     use App\Helpers\URL;
     use Illuminate\Http\Request;
 
+    use App\Models\SettingModel as SettingModel;
+
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
@@ -172,9 +174,15 @@
     $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
     $xhtmlMenuMobile    .= $xhtmlMenuUser.'</ul></nav>';
 
+    //--end navbar--//
 
-    //--end--//
-
+    $logo ='';
+    $settingModel = new SettingModel();
+    $setting = $settingModel->getItem(null,['task'=>'get-all-items']);
+    foreach ($setting as $value) {
+        if($value['setting_key'] == 'logo') $logo = $host . $value['setting_value'];
+        break;
+    }
 @endphp
 <header class="header">
     <!-- Header Content -->
@@ -185,7 +193,8 @@
                     <div class="header_content d-flex flex-row align-items-center justfy-content-start">
                         <div class="logo_container">
                             <a href="{!! route('home') !!}">
-                                <div class="logo"><span>ZEND</span>VN</div>
+                                {{-- <div class="logo"><span>ZEND</span>VN</div> --}}
+                                <div class="logo"><img src="{{$logo}}" alt="Logo"></div>
                             </a>
                         </div>
                         <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-center">
