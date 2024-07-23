@@ -26,10 +26,25 @@ class SettingRequest extends FormRequest
      */
     public function rules()
     {
+       // dd($this->taskEmailAccount);
         $task = "";
-        if(isset($this->taskGeneral))   $task = "general";
-        if(isset($this->taskEmail))     $task = "email";
-        if(isset($this->taskSocial))    $task = "social";
+        if(isset($this->taskGeneral))       $task = "general";
+        if(isset($this->taskEmailAccount))  $task = "emailAccount";
+        if(isset($this->taskSocial))        $task = "social";
+
+        $condLogo           = '';
+        $condHotline        = '';
+        $condTimeword       = '';
+        $condCopyright      = '';
+        $condAddress        = '';
+        $condIntroduction   = '';
+
+        $condEmail          = '';
+        $condPassword       = '';
+
+        $condFacebook       = '';
+        $condYoutube        = '';
+        $condGoogle         = '';
 
         switch ($task) {
             case 'general':
@@ -40,32 +55,48 @@ class SettingRequest extends FormRequest
                 $condAddress        = 'bail|required';
                 $condIntroduction   = 'bail|required';
                 break;
-            case 'email':
+            case 'emailAccount':
+                $condEmail          = "bail|required|email";
+                $condPassword       = "bail|required|between:1,100";
                 break;
             case 'social':
+                $condFacebook       = 'bail|required';
+                $condYoutube        = 'bail|required';
+                $condGoogle         = 'bail|required';
                 break;
         }
 
         return [
-            'filepath'      => $condLogo,
+            'logo'          => $condLogo,
             'hotline'       => $condHotline,
             'timeword'      => $condTimeword,
             'copyright'     => $condCopyright,
             'address'       => $condAddress,
-            'introduction'  => $condIntroduction
+            'introduction'  => $condIntroduction,
+            'email'         => $condEmail,
+            'password'      => $condPassword,
+            'facebook'      => $condFacebook,
+            'youtube'       => $condYoutube,
+            'google'        => $condGoogle
         ];
     }
 
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'filepath.required'         => 'Đường dẫn Logo không được rỗng, hãy chọn một hình ảnh có sẵn hoặc tải lên.',
+            'logo.required'         => 'Đường dẫn Logo không được rỗng, hãy chọn một hình ảnh có sẵn hoặc tải lên.',
             'hotline.required'          => 'Hotline không được rỗng.',
             'hotline.numeric'           => 'Hotline chỉ nhập ký tự số.',
             'timeword.required'         => 'Timeword không được rỗng',
             'copyright.required'        => 'Copyright không được rỗng.',
             'address.required'          => 'Địa chỉ không được rỗng.',
-            'introduction.required'     => 'Hãy viết vài dòng giới thiệu'
+            'introduction.required'     => 'Hãy viết vài dòng giới thiệu',
+            'email.required'            => 'Email không được rỗng',
+            'email.email'               => 'Hãy nhập một email',
+            'password.required'         => 'Password không được rỗng',
+            'facebook.required'         => 'Facebook không được rỗng',
+            'youtube.required'          => 'Youtube không được rỗng',
+            'google.required'           => 'Google không được rỗng',
         ];
     }
 

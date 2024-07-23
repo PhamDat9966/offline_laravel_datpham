@@ -6,16 +6,13 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
 
-    $id                = (isset($params['id']))? $params['id'] : '';
-    $facebook          = (isset($item['facebook']))? $item->facebook : 'https://www.facebook.com/zendvngroup';
-    $youtube           = (isset($item['youtube']))? $item->youtube : 'https://www.youtube.com/@luutruonghailan_zendvn';
-    $google            =  (isset($item['google']))? $item->google : 'https://www.youtube.com/user/zendvn123';
-
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $facebook          = (isset($item->facebook))? $item->facebook : 'https://www.facebook.com/zendvngroup12345';
+    $youtube           = (isset($item->youtube))? $item->youtube : 'https://www.youtube.com/@luutruonghailan_zendvn12345';
+    $google            = (isset($item->google))? $item->google : 'https://www.youtube.com/user/zendvn12345';
 
     $facebookTagsInput = '<input type="text" value="'.$facebook.'" data-role="tagsinput" class="tags" name="facebook">';
     $youtubeTagsInput  = '<input type="text" value="'.$youtube.'" data-role="tagsinput" class="tags" name="youtube">';
-    $googleTagsInput   = '<input type="text" value="'.$google.'" data-role="tagsinput" class="tags" name="youtube">';
+    $googleTagsInput   = '<input type="text" value="'.$google.'" data-role="tagsinput" class="tags" name="google">';
 
     $elements   = [
         [
@@ -31,7 +28,7 @@
             'element'   =>  $googleTagsInput
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ],
 
@@ -47,7 +44,7 @@
                 <div class="x_content" style="display: block;">
                     {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
                     {!! Form::open([
-                            'url'               =>  Route($controllerName.'/save'),
+                            'url'               =>  Route($controllerName.'/saveSocial'),
                             'method'            =>  'POST',
                             'accept-charset'    =>  'UTF-8',
                             'enctype'           =>  'multipart/form-data',

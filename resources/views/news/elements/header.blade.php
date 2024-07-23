@@ -176,13 +176,22 @@
 
     //--end navbar--//
 
-    $logo ='';
+    //--logo--//
+    $logo ='<span>ZEND</span>VN</div>';
     $settingModel = new SettingModel();
     $setting = $settingModel->getItem(null,['task'=>'get-all-items']);
-    foreach ($setting as $value) {
-        if($value['setting_key'] == 'logo') $logo = $host . $value['setting_value'];
-        break;
+
+    if(!empty($setting)){
+        foreach ($setting as $value) {
+            if($value['setting_value'] == 'setting-general'){
+                $valueTemp = json_decode($value['value']);
+                $valueLogo = $valueTemp->logo;
+                $logo      = $host . $valueLogo;
+            }
+            break;
+        }
     }
+    //--end logo--//
 @endphp
 <header class="header">
     <!-- Header Content -->

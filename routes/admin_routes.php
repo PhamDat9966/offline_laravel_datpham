@@ -468,11 +468,6 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
-        // Route::get('/general', [
-        //     'as'    => $controllerName . '/general_setting',
-        //     'uses'  => $controller . 'general'
-        // ]);
-
         Route::get('form/{id?}', [
             'as'    => $controllerName . '/form',
             'uses'  => $controller . 'form'
@@ -493,6 +488,21 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
+        Route::post('saveGeneral/{id?}', [
+            'as'    => $controllerName . '/saveGeneral',
+            'uses'  => $controller . 'saveGeneral'
+        ]);
+
+        Route::post('saveEmail/{id?}', [
+            'as'    => $controllerName . '/saveEmail',
+            'uses'  => $controller . 'saveEmail'
+        ]);
+
+
+        Route::post('saveSocial/{id?}', [
+            'as'    => $controllerName . '/saveSocial',
+            'uses'  => $controller . 'saveSocial'
+        ]);
     });
 
 

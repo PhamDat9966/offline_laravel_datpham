@@ -6,18 +6,16 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
 
-    $id                = (isset($params['id']))? $params['id'] : '';
-    $bcc               = (isset($item['bcc']))? $item->bcc : 'email01@gmail,email02@mail.com';
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $bcc               = (!empty($item->bcc))? $item->bcc : 'email01@gmail,email02@mail.com';
 
-    $tagsInput = '<input type="text" value="'.$bcc.'" data-role="tagsinput" class="tags">';
+    $tagsInput = '<input type="text" value="'.$bcc.'" data-role="tagsinput" class="tags" name="bcc">';
     $elements   = [
         [
             'label'     =>  Form::label('bcc','Bcc',$formlabelAttr),
             'element'   =>  $tagsInput
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -32,7 +30,7 @@
                 <div class="x_content" style="display: block;">
                     {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
                     {!! Form::open([
-                            'url'               =>  Route($controllerName.'/save'),
+                            'url'               =>  Route($controllerName.'/saveEmail'),
                             'method'            =>  'POST',
                             'accept-charset'    =>  'UTF-8',
                             'enctype'           =>  'multipart/form-data',

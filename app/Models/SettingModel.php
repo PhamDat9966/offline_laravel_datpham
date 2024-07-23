@@ -22,13 +22,14 @@ class SettingModel extends AdminModel
 
         if(!empty($params['type'])){
             $params['type'] = 'setting-' . $params['type'];
+        }else{
+            $params['type'] = 'setting-general';
         }
 
         if($options['task'] == 'get-all-items'){
-            $result = $this::select('id','setting_value ','value')
+            $result = $this::select('id','setting_value','value')
                     //->first();
                     ->get()->toArray();
-
         }
 
         if($options['task'] == 'get-items'){
@@ -36,10 +37,71 @@ class SettingModel extends AdminModel
                     ->where('setting_value', $params['type'])
                     //->first();
                     ->get()->toArray();
-
         }
 
         return $result;
+    }
+
+    public function saveItem($params = null,$options = null){
+
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
+        $setting                 = [];
+
+        $setting['modified_by']   = $userInfo['username'];
+        $setting['modified']      = date('Y-m-d');
+
+        if($options['task'] == 'change-status'){
+            $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
+            $this::where('id', $params['id'])
+                        ->update(['status' => $status]);
+            // $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            // return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+        }
+
+        if($options['task'] == 'edit-item-general'){
+            $params                     = $this->prepareParams($params);
+            $setting['setting_value']   = 'setting-general';
+            $setting['value']           = json_encode($params);
+            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+        }
+
+        if($options['task'] == 'edit-item-email'){
+            $params                = $this->prepareParams($params);
+            $selectSetting         = [];
+            $selectSetting['type'] = 'email';
+            $settingData           = $this->getItem($selectSetting,['task'=>'get-items']);
+            $updateJson            = json_decode($settingData[0]['value']);
+
+            foreach($params as $key=>$value){
+                $updateJson->$key = $value;
+            }
+
+            $setting['setting_value']   = 'setting-email';
+            $setting['value']           = json_encode($updateJson);
+            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+        }
+
+        if($options['task'] == 'edit-item-social'){
+            $params                = $this->prepareParams($params);
+            $selectSetting         = [];
+            $selectSetting['type'] = 'social';
+            $settingData           = $this->getItem($selectSetting,['task'=>'get-items']);
+            $updateJson            = json_decode($settingData[0]['value']);
+            //dd($params);
+            foreach($params as $key=>$value){
+                $updateJson->$key = $value;
+            }
+
+            $setting['id']              = 3;
+            $setting['setting_value']   = 'setting-social';
+            $setting['value']           = json_encode($updateJson);
+            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+
+        }
     }
 
 }

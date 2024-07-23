@@ -6,16 +6,14 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
 
-    $id                = (isset($params['id']))? $params['id'] : '';
-    $username          = (isset($item['username']))? $item->username : '';
-    $password          = (isset($item['password']))? $item->password : '';
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $email             = (isset($item->email))? $item->email : '';
+    $password          = (isset($item->password))? $item->password : '';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('username', 'Tài khoảng', $formlabelAttr),
-            'element'   =>  Form::text('username', $username,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::text('email', $email,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
@@ -24,7 +22,7 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','name'=>'taskEmailAccount']),
             'type'      =>  'btn-submit'
         ]
 
@@ -39,7 +37,7 @@
                 <div class="x_content" style="display: block;">
                     {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
                     {!! Form::open([
-                            'url'               =>  Route($controllerName.'/save'),
+                            'url'               =>  Route($controllerName.'/saveEmail'),
                             'method'            =>  'POST',
                             'accept-charset'    =>  'UTF-8',
                             'enctype'           =>  'multipart/form-data',
