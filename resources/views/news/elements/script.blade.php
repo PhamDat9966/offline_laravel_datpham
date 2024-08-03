@@ -9,6 +9,10 @@
 <script src="{{asset('news/js/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
 <script src="{{asset('news/js/easing/easing.js')}}"></script>
 <script src="{{asset('news/js/parallax-js-master/parallax.min.js')}}"></script>
+
+<!-- Tạo calendar với Bootstrap Datepicker -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script src="{{asset('news/js/custom.js')}}"></script>
 <script src="{{asset('news/js/my-js.js')}}"></script>
 
@@ -19,3 +23,5 @@
     @endif
 @endisset
 
+{{--Calendar--}}
+<script src="{{asset('news/js/timeMeet.js')}}"></script>

@@ -365,7 +365,7 @@ $(document).ready(function() {
         let element         = $(this);
         let btn             = $(this);
         let currentClass    = $(this).data('class');
-
+        console.log($(this));
         var statusId        = $(this).attr("id");
         var inputId         = statusId.charAt(statusId.length - 1);
         let url             = $(this).data('url');
@@ -581,10 +581,4 @@ $(document).ready(function(){
 
 });
 
-// Tags Input
-$(document).ready(function(){
-    // $('.tags').tagsInput({
-    //     'width':'100%'
 
-    // });
-});

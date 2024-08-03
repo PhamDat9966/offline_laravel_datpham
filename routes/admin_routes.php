@@ -505,6 +505,70 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         ]);
     });
 
+    // ====================== Branch ======================
+    $prefix         =   'branch';
+    $controllerName =   'branch';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+    });
+
+    // ====================== SLIDER ======================
+    $prefix         =   'appointment';
+    $controllerName =   'appointment';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => 'admin/'. $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => 'admin/'. $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
 
 });
 

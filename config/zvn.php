@@ -80,6 +80,7 @@ return [
             'link'          =>  ['name'=>'Search by Link'],
             'content'       =>  ['name'=>'Search by Content'],
             'phonenumber'   =>  ['name'=>'Search by Phonenumber'],
+            'address'       =>  ['name'=>'Search by Address'],
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -105,6 +106,16 @@ return [
             'category'      => 'Category',
             'article'       => 'Article'
         ],
+        'sex'=>[
+            'nam'           => 'Nam',
+            'nu'            => 'Nữ',
+            'other'         => 'Khác'
+        ],
+        'service'=>[
+            'science'       => 'Khóa học',
+            'book'          => 'Sách',
+            'internship'    => 'Thực tập'
+        ]
     ],
     'config'    =>[
         'search'    =>[
@@ -115,17 +126,20 @@ return [
             'rss'       =>  ['all','name','link'],
             'user'      =>  ['all','username','email','fullname'],
             'phone'     =>  ['all','phonenumber'],
+            'branch'    =>  ['all','name','address']
         ],
         'button'    =>[
-            'default'   =>  ['edit','delete'],
-            'slider'    =>  ['edit','delete','info'],
-            'category'  =>  ['edit','delete'],
-            'article'   =>  ['edit','delete'],
-            'user'      =>  ['edit','delete'],
-            'rss'       =>  ['edit','delete'],
-            'rssnews'   =>  ['delete'],
-            'menu'      =>  ['edit','delete'],
-            'phone'     =>  ['delete']
+            'default'       =>  ['edit','delete'],
+            'slider'        =>  ['edit','delete','info'],
+            'category'      =>  ['edit','delete'],
+            'article'       =>  ['edit','delete'],
+            'user'          =>  ['edit','delete'],
+            'rss'           =>  ['edit','delete'],
+            'rssnews'       =>  ['delete'],
+            'menu'          =>  ['edit','delete'],
+            'phone'         =>  ['delete'],
+            'branch'        =>  ['edit','delete'],
+            'appointment'   =>  ['delete'],
         ]
     ]
 ];

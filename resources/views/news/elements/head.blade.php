@@ -15,6 +15,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('news/js/OwlCarousel2-2.2.1/animate.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/main_styles.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/responsive.css')}}">
+<!-- Tạo calendar với Bootstrap Datepicker -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/my-style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('news/css/my-category.css')}}">
 

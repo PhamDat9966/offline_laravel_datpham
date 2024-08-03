@@ -198,29 +198,36 @@
     <div class="header_content_container">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <div class="header_content d-flex flex-row align-items-center justfy-content-start">
-                        <div class="logo_container">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="header_content d-flex flex-row align-items-center justfy-content-start mt-3">
+                        <div class="logo_container" style="height: 100px;">
                             <a href="{!! route('home') !!}">
                                 {{-- <div class="logo"><span>ZEND</span>VN</div> --}}
-                                <div class="logo"><img src="{{$logo}}" alt="Logo"></div>
+                                <div class="logo"><img class="w-100 logosize" style="height:auto" src="{{$logo}}" alt="Logo"></div>
                             </a>
                         </div>
-                        <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-center">
-                            <a href="#">
-                                <div class="background_image"
-                                     style="background-image:url({!!asset('news/images/zendvn-online.png')!!});background-size: contain"></div>
-                            </a>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
-                            </button>
-                        </div>
-                        <div class="d-flex flex-row align-items-center justfy-content-start ml-5">
-                            <!-- Phone liên hệ -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
-                            </button>
-                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-center">
+                        <a href="#">
+                            <div class="background_image"
+                                    style="background-image:url({!!asset('news/images/zendvn-online.png')!!});background-size: contain"></div>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="flex-row align-items-center mt-3">
+                        <!-- Phone liên hệ -->
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                        </button>
+                        <a class="btn btn-danger btn-block" href="{!! route('appointment') !!}"" role="button">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>  Đặt lịch hẹn
+                        </a>
                     </div>
                 </div>
             </div>

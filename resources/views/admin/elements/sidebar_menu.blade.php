@@ -30,7 +30,7 @@
             <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
             <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
-            <li><a href="{{ route('phone')}}"><i class="fa fa-volume-control-phone"></i> Phone</a></li>
+            <li><a href="{{ route('phone')}}"><i class="fa fa-volume-control-phone"></i> Contact</a></li>
             <li id='setting'>
                 <a><i class="fa fa-cog"></i> Setting<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
@@ -41,6 +41,8 @@
             </li>
             <li><a href="{{ route('rss')}}"><i class="fa fa-navicon"></i> Rss</a></li>
             <li><a href="{{ route('rssnews')}}"><i class="fa fa-newspaper-o"></i> Rss News</a></li>
+            <li><a href="{{ route('admin/appointment')}}"><i class="fa fa-calculator"></i> Lịch hẹn</a></li>
+            <li><a href="{{ route('branch')}}"><i class="fa fa-suitcase"></i> Chi nhánh</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
         </ul>

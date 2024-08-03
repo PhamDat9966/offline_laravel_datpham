@@ -84,7 +84,7 @@ class SettingRequest extends FormRequest
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'logo.required'         => 'Đường dẫn Logo không được rỗng, hãy chọn một hình ảnh có sẵn hoặc tải lên.',
+            'logo.required'             => 'Đường dẫn Logo không được rỗng, hãy chọn một hình ảnh có sẵn hoặc tải lên.',
             'hotline.required'          => 'Hotline không được rỗng.',
             'hotline.numeric'           => 'Hotline chỉ nhập ký tự số.',
             'timeword.required'         => 'Timeword không được rỗng',

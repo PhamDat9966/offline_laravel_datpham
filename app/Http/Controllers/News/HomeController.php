@@ -67,10 +67,11 @@ class HomeController extends Controller
         $categoryModel  = new CategoryModel();
         $articleModel   = new ArticleModel();
 
+        $listCategoryID = array();
+        $listCategoryID = $categoryModel->listItems(null,['task'=>'category-list-id']);
         // Trường hợp user chưa xem bài nào thì tạo một chuỗi ngẫu nhiên từ danh sách categoryID để làm  nhóm bài viết đề xuất
         if($userInfo['usually_category'] == null){
-            $listCategoryID = array();
-            $listCategoryID = $categoryModel->listItems(null,['task'=>'category-list-id']);
+
             $params['listCategoryID'] = $listCategoryID;
             $resultRamdomString = '';
 
@@ -92,7 +93,23 @@ class HomeController extends Controller
         //Lấy key value nhiều thứ 2
         // Sắp xếp mảng theo giá trị giảm dần
         arsort($usuallyCategoryCount);
-        $secondHighest = array_keys($usuallyCategoryCount)[1];
+
+        $secondHighest = 1;
+        if(!isset(array_keys($usuallyCategoryCount)[1])){
+            /*
+                Trường hợp danh sách thường xem chưa có value nhiều thứ 2:
+                Lấy ramdoom một phần tử bất kỳ từ danh sách category rồi đặt cho secondHighest để tránh lỗi
+            */
+
+            // Lấy một khóa ngẫu nhiên từ mảng
+            $randomKey = array_rand($listCategoryID);
+            // Lấy phần tử tương ứng với khóa ngẫu nhiên
+            $randomElement = $listCategoryID[$randomKey];
+            $secondHighest = $randomElement['id'];
+        }else{
+            $secondHighest = array_keys($usuallyCategoryCount)[1];
+        }
+
         $params['usually_key_second_highest']  = $secondHighest;
         // Suy xuất đến model
         $itemsUsually           = $articleModel->listItems($params, ['task'=> 'news-list-items-usually-max']); // Chọn 6 phần tử mới nhất
