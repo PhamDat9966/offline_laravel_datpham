@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- page content -->
-@include('admin.templates.page_header', ['pageIndex' => true])
+@include('admin.templates.page_header', ['pageIndex' => false])
 
 @include('admin.templates.zvn_notily')
 

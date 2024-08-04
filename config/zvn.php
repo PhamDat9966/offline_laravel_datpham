@@ -37,6 +37,11 @@ return [
             'block'         =>  ['name'=>'Bị khóa',         'class'=>'btn-info'],
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
         ],
+        'statusAppointment'=>[
+            'active'        =>  ['name'=>'Đã liên hệ',      'class'=>'btn-info'],
+            'inactive'      =>  ['name'=>'Chưa liên hệ',    'class'=>'btn-danger'],
+            'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
+        ],
         'contact'=>[
             'active'        =>  ['name'=>'Đã liên hệ',      'class'=>'btn-success'],
             'inactive'      =>  ['name'=>'Chưa liên hệ',    'class'=>'btn-danger'],
@@ -83,6 +88,11 @@ return [
             'address'       =>  ['name'=>'Search by Address'],
         ],
         'button'            =>[
+            'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
+            'delete'    =>  ['class'=>'btn-danger btn-delete',  'title'=>'Delete',  'icon'=>'fa-trash',     'route-name'=> '/delete'],
+            'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],
+        ],
+        'buttonAppointment' =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
             'delete'    =>  ['class'=>'btn-danger btn-delete',  'title'=>'Delete',  'icon'=>'fa-trash',     'route-name'=> '/delete'],
             'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],

@@ -34,8 +34,8 @@
 
                             $note               = $val['note'];
                             $branch             = $val['branch_info'];
-
-                            $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
+                            $timeMeet           = $val['timeMeet'];
+                            $status             = Template::showItemStatusAppointment( $controllerName,$id,$val['status']);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
 
                         @endphp
@@ -53,6 +53,9 @@
                             </td>
                             <td>
                                 {!!$branch!!}
+                            </td>
+                            <td>
+                                {!!$timeMeet!!}
                             </td>
                             <td>
                                 {!!$status!!}

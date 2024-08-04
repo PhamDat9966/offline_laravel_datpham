@@ -365,7 +365,6 @@ $(document).ready(function() {
         let element         = $(this);
         let btn             = $(this);
         let currentClass    = $(this).data('class');
-        console.log($(this));
         var statusId        = $(this).attr("id");
         var inputId         = statusId.charAt(statusId.length - 1);
         let url             = $(this).data('url');
@@ -467,7 +466,9 @@ $(document).ready(function() {
             type: "GET",
             url: url,
             success: function (response) {
+                console.log('this is callAjax');
                 console.log(response);
+                console.log(response.status.class);
                 try {
                     // Trường hợp có thay đổi modified và modified_by
                     switch(type){

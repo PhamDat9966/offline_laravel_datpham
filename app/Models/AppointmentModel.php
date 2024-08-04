@@ -29,17 +29,9 @@ class AppointmentModel extends AdminModel
                 $query->where('status','=',$params['filter']['status']);
             }
 
-            if($params['filter']['date'] !== null){
-                $query->where('created',"like","%".$params['filter']['date']."%");
-            }
-
-            if($params['filter']['created'] !== null){
-                $query->where('created',"like","%".$params['filter']['created']."%");
-            }
-
-            if($params['filter']['modified'] !== null){
-                $query->where('modified',"like","%".$params['filter']['modified']."%");
-            }
+            // if($params['filter']['date'] !== null){
+            //     $query->where('timeMeet',"like","%".$params['filter']['date']."%");
+            // }
 
             if($params['search'] !== ""){
 
@@ -86,17 +78,9 @@ class AppointmentModel extends AdminModel
             $query  = $this->select(DB::raw('COUNT(id) as count,status'))
                            ->groupBy('status');
 
-                            if($params['filter']['date'] !== null){
-                                $query->where("created","like","%".$params['filter']['date']."%");
-                            }
-
-                            if($params['filter']['created'] !== null){
-                                $query->where("created","like","%".$params['filter']['created']."%");
-                            }
-
-                            if($params['filter']['modified'] !== null){
-                                $query->where("modified","like","%".$params['filter']['modified']."%");
-                            }
+                            // if($params['filter']['date'] !== null){
+                            //     $query->where("created","like","%".$params['filter']['date']."%");
+                            // }
 
                             if($params['search'] !== ""){
 
@@ -154,39 +138,23 @@ class AppointmentModel extends AdminModel
             $this->status       = 'inactive';
             $this->note         = $params['note'];
             $this->save();
+        };
+
+        if($options['task'] == 'change-status'){
+            $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
+            $this::where('id', $params['id'])
+                        ->update(['status' => $status]);
+            return array();
         }
 
     }
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
-
-            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
-
+            // Tương tự eloquent ở trên, tại đây là tác vụ delete ta vẫn phải đặt table một lần nữa
+            $this->table = 'appointment';
             $this->where('id', $params['id'])->delete();
         }
-    }
-
-    public function getItem($params = null,$options = null){
-        $result   = null;
-        if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','description','status','link','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-                    //->get();
-
-        }
-
-        if($options['task'] == 'get-thumb'){
-            $result = $this::select('id','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-
-        }
-
-        return $result;
     }
 
 }

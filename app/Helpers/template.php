@@ -179,6 +179,27 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemStatusAppointment($controllerName , $id , $status){
+        // status       class           name
+        // active       btn-success     Kich hoat
+        // inactive     btn-info        Chua duoc kich hoat
+
+        $tmplStatus     =   Config::get('zvn.template.statusAppointment');
+
+        // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
+        // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
+
+        $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
+        $currentStatus  = $tmplStatus[$statusValue];
+        $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
+
+        $xhtml  = sprintf('
+            <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',$id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
+        // $xhtml  = sprintf('
+        //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
+        return  $xhtml;
+    }
+
     public static function showItemContact($controllerName , $id , $status){
         // status       class           name
         // active       btn-success     Kich hoat
