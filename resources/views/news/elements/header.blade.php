@@ -225,7 +225,7 @@
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
                         </button>
-                        <a class="btn btn-danger btn-block" href="{!! route('appointment') !!}"" role="button">
+                        <a class="btn btn-danger btn-block" href="{!! route('appointmentnews') !!}"" role="button">
                             <i class="fa fa-calendar" aria-hidden="true"></i>  Đặt lịch hẹn
                         </a>
                     </div>

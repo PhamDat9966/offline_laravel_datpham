@@ -10,10 +10,10 @@ use App\Http\Requests\AppointmentRequest as MainRequest;
 use App\Models\BranchModel as BranchModel;
 use App\Models\AppointmentModel as MainModel;
 
-class AppointmentController extends Controller
+class AppointmentnewsController extends Controller
 {
-    private $pathViewController  = 'news.pages.appointment.';
-    private $controllerName      = 'appointment';
+    private $pathViewController  = 'news.pages.appointmentnews.';
+    private $controllerName      = 'appointmentnews';
     private $params              = [];
     private $model;
 

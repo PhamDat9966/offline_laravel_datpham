@@ -140,7 +140,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     // ====================== GALLERY ======================
     $prefix         =   'dat-lich-hen';
-    $controllerName =   'appointment';
+    $controllerName =   'appointmentnews';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';

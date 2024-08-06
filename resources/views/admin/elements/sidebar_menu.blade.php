@@ -41,7 +41,7 @@
             </li>
             <li><a href="{{ route('rss')}}"><i class="fa fa-navicon"></i> Rss</a></li>
             <li><a href="{{ route('rssnews')}}"><i class="fa fa-newspaper-o"></i> Rss News</a></li>
-            <li><a href="{{ route('admin/appointment')}}"><i class="fa fa-calculator"></i> Lịch hẹn</a></li>
+            <li><a href="{{ route('appointment')}}"><i class="fa fa-calculator"></i> Lịch hẹn</a></li>
             <li><a href="{{ route('branch')}}"><i class="fa fa-suitcase"></i> Chi nhánh</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>

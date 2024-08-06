@@ -16,6 +16,7 @@ class AppointmentModel extends AdminModel
     public function __construct(){
         $this->table                = 'appointment as a';
         $this->folderUpload         = 'appointment';
+        $this->fieldSearchAccepted  = ['name','phonenumber','email'];
         $this->crudNotActived       = ['_token'];
     }
 
@@ -23,15 +24,23 @@ class AppointmentModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','fullname','timeMeet','phone','email','appoint','sex','branch_id','branch_info','note','status');
+            $query = $this->select('id','name','timeMeet','phonenumber','email','appoint','sex','branch_id','branch_info','note','status');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
             }
 
-            // if($params['filter']['date'] !== null){
-            //     $query->where('timeMeet',"like","%".$params['filter']['date']."%");
-            // }
+            if($params['filter']['timeMeet'] !== null){
+                $query->where('timeMeet',"like","%".$params['filter']['timeMeet']."%");
+            }
+
+            if($params['filter']['sex'] !== "all"){
+                $query->where('sex',"like","%".$params['filter']['sex']."%");
+            }
+
+            if($params['filter']['status'] !== "all"){
+                $query->where('a.status','=',$params['filter']['status']);
+            }
 
             if($params['search'] !== ""){
 
@@ -127,9 +136,9 @@ class AppointmentModel extends AdminModel
             //Với eloquent phải set lại tên bản chính xác
             //việc sử dụng biệt danh cho bảng (alias) không được hỗ trợ khi thực hiện các thao tác ghi (insert, update, delete)
             $this->table        = 'appointment';
-            $this->fullname     = $params['fullname'];
+            $this->name         = $params['fullname'];
             $this->timeMeet     = $params['timeMeet'];
-            $this->phone        = $params['phone'];
+            $this->phonenumber  = $params['phone'];
             $this->email        = $params['email'];
             $this->appoint      = $params['service'];
             $this->sex          = $params['sex'];

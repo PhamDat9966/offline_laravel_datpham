@@ -2,8 +2,10 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+    $xhtmlButtonFilter      =   Template::showAppointmentButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
+    $xhtmlTimeMeet          =   Template::showTimeMeet($params['filter']['timeMeet']);
+    $xhtmlItemSexFilter     =   Template::showItemSexFilter($controllerName, $params['filter']['sex']);
+    $xhtmlAreaSearch        =   Template::showAreaSearch($controllerName, $params['search']);
 @endphp
 
 @section('content')
@@ -18,10 +20,16 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        {!!$xhtmlTimeMeet!!}
+                    </div>
+                    <div class="col-md-2">
+                        {!!$xhtmlItemSexFilter!!}
+                    </div>
+                    <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}
                         {{-- <div class="input-group">
                             <div class="input-group-btn">

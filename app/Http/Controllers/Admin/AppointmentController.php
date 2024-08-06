@@ -25,9 +25,12 @@ class AppointmentController extends Controller
 
     public function index(Request $request)
     {
-        $this->params['filter']['status'] = $request->input('filter_status', 'all');
-        $this->params['search']['field']  = $request->input('search_field', ''); // all id description
-        $this->params['search']['value']  = $request->input('search_value', '');
+
+        $this->params['filter']['status']   = $request->input('filter_status', 'all');
+        $this->params['filter']['timeMeet'] = $request->input('filter_timeMeet');
+        $this->params['filter']['sex']      = $request->input('filter_sex');
+        $this->params['search']['field']    = $request->input('search_field', ''); // all id description
+        $this->params['search']['value']    = $request->input('search_value', '');
 
         $items              = $this->model->listItems($this->params, ['task'  => 'admin-list-items']);
         $itemsStatusCount   = $this->model->countItems($this->params, ['task' => 'admin-count-items-group-by-status']); // [ ['status', 'count']]

@@ -537,14 +537,14 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         ])->where('id', '[0-9]+');
     });
 
-    // ====================== SLIDER ======================
+    // ====================== APPOINTMENT ======================
     $prefix         =   'appointment';
     $controllerName =   'appointment';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [
-            'as'    => 'admin/'. $controllerName,
+            'as'    => $controllerName,
             'uses'  => $controller . 'index'
         ]);
 

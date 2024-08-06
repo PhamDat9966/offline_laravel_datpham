@@ -38,6 +38,7 @@ return [
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
         ],
         'statusAppointment'=>[
+            'all'           =>  ['name'=>'Tất cả',          'class'=>'btn-info'],
             'active'        =>  ['name'=>'Đã liên hệ',      'class'=>'btn-info'],
             'inactive'      =>  ['name'=>'Chưa liên hệ',    'class'=>'btn-danger'],
             'default'       =>  ['name'=>'Chưa xác định',   'class'=>'btn-info']
@@ -59,6 +60,12 @@ return [
             'all'           =>  ['name'=>'Tất cả'],
             'feature'       =>  ['name'=>'Nổi bật'],
             'normal'        =>  ['name'=>'Bình thường'],
+        ],
+        'type_sex'=>[
+            'all'           =>  ['name'=>'Giới tính'],
+            'nam'           =>  ['name'=>'Nam'],
+            'nu'            =>  ['name'=>'Nữ'],
+            'other'         =>  ['name'=>'Khác'],
         ],
         'is_home_filter'=>[
             'all'           =>  ['name'=>'Tất cả'],
@@ -129,14 +136,15 @@ return [
     ],
     'config'    =>[
         'search'    =>[
-            'default'   =>  ['all','id','fullname'],
-            'slider'    =>  ['all','id','name','description','link'],
-            'category'  =>  ['all','id','name'],
-            'article'   =>  ['all','name','content'],
-            'rss'       =>  ['all','name','link'],
-            'user'      =>  ['all','username','email','fullname'],
-            'phone'     =>  ['all','phonenumber'],
-            'branch'    =>  ['all','name','address']
+            'default'       =>  ['all','id','fullname'],
+            'slider'        =>  ['all','id','name','description','link'],
+            'category'      =>  ['all','id','name'],
+            'article'       =>  ['all','name','content'],
+            'rss'           =>  ['all','name','link'],
+            'user'          =>  ['all','username','email','fullname'],
+            'phone'         =>  ['all','phonenumber'],
+            'branch'        =>  ['all','name','address'],
+            'appointment'   =>  ['all','name','phonenumber','email']
         ],
         'button'    =>[
             'default'       =>  ['edit','delete'],

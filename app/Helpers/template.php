@@ -112,15 +112,50 @@ class Template{
         // </a>
     }
 
+    public static function showAppointmentButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentParams = null){
+
+        $xhtml          = '';
+        $tmplStatus     = Config::get('zvn.template.statusAppointment');
+
+        if(count($itemsStatusCount) > 0){
+
+            array_unshift($itemsStatusCount,[
+                'count' =>array_sum(array_column($itemsStatusCount,'count')),
+                'status'=>'all'
+            ]);
+
+            foreach($itemsStatusCount as $item){
+                $statusValue    = $item['status'];
+                $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
+
+                $currentTemplateStatus  = $tmplStatus[$statusValue];
+                   //$value['status'] active inactive block
+                $link    = route($controllerName) . "?filter_status=" . $statusValue;
+
+                if($paramsSearch['value'] != ''){
+                    $link .= '&search_field='.$paramsSearch['field'] . '&search_value=' . $paramsSearch['value'];
+                }
+
+                foreach (['display', 'is_home', 'category', 'type','date'] as $filterKey) {
+                    if (isset($currentParams['filter'][$filterKey]) && $currentParams['filter'][$filterKey] != '') {
+                        $link .= "&filter_$filterKey=" . $currentParams['filter'][$filterKey];
+                    }
+                }
+
+                $class   = ($currentFilterStatus == $statusValue) ? 'btn-danger' : 'btn-primary';
+                $xhtml  .= sprintf('<a href="%s" type="button" class="btn %s"> %s <span class="badge bg-white">%s</span></a>',
+                                    $link,$class,$currentTemplateStatus['name'],$item['count']
+                                );
+            }
+        }
+
+        return $xhtml;
+    }
+
     public static function showAreaSearch($controllerName, $paramsSearch){
 
         $xhtml              = null;
         $tmplField          = Config::get('zvn.template.search');
-        // $fieldInController  = [
-        //     'default'   =>  ['all','id','fullname'],
-        //     'slider'    =>  ['all','id','description']
-        // ];
-
         $fieldInController  = Config::get('zvn.config.search');
         $controllerName     = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';
         $xhtmlField         = null;
@@ -131,8 +166,6 @@ class Template{
 
         $searchValue    = $paramsSearch['value'];
         $searchFiel     = ($paramsSearch['field'] !=='') ? $paramsSearch['field'] : 'all';
-
-        //$tmplField[$searchFiel]['name'] là  'Search by All' 'Search by ID'
 
         $xhtml  .= sprintf('
         <div class="input-group">
@@ -386,6 +419,22 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemSexFilter($controllerName , $typeFilterValue){
+        $tmplDisplay    = Config::get('zvn.template.type_sex');
+
+        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_sex_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($key) == strval($typeFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showDataFrontEnd($datatime){
         return date_format(date_create($datatime), Config::get('zvn.format.short_time'));
     }
@@ -407,6 +456,14 @@ class Template{
         $xhtml  =  '<div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Modified: </span>
                         <input type="text" class="datepicker" name="modified" class="form-control" placeholder="Choose a date" value="'.$modifiedFilter.'">
+                    </div>';
+        return $xhtml;
+    }
+
+    public static function showTimeMeet($timeMeetFilter){
+        $xhtml  =  '<div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">TimeMeet: </span>
+                        <input type="text" id="datepicker" name="timeMeet" class="form-control" placeholder="Choose a date" value="'.$timeMeetFilter.'">
                     </div>';
         return $xhtml;
     }

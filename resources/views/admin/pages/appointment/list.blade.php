@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
+    //  dd($params);
 @endphp
 
 <div class="x_content">
@@ -22,16 +23,22 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                 = $val['id'];
-                            $name               = Hightlight::show($val['fullname'], $params['search'] , 'fullname');
+                            $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $email              = Hightlight::show($val['email'], $params['search'] , 'email');
-                            $sex                = $val['sex'];
-                            $phone              = $val['phone'];
 
+                            $sex                = $val['sex'];
+                            $paramsTemp         = [];
+                            if(isset($params['filter']['sex'])){
+                                $paramsTemp['search']['field'] = 'sex';
+                                $paramsTemp['search']['value'] =  $sex ;
+                                $sex                = Hightlight::show($val['sex'], $paramsTemp['search'] , 'sex');
+                            }
+
+                            $phone              = Hightlight::show($val['phonenumber'], $params['search'] , 'phonenumber');
                             $note               = $val['note'];
                             $branch             = $val['branch_info'];
                             $timeMeet           = $val['timeMeet'];
