@@ -249,8 +249,6 @@ class Template{
 
         $xhtml  = sprintf('
             <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',$id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
-        // $xhtml  = sprintf('
-        //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
         return  $xhtml;
     }
 
@@ -433,6 +431,30 @@ class Template{
         }
         $xhtml  .='</select>';
         return  $xhtml;
+    }
+
+    public static function showItemFilterSimpleFrontend($filterValue, $firstElement){
+        // $firstElement có value là rỗng trong select box, nó sẽ ko tham gia vào quá trình gửi dữ liệu với $_GET hoặc $_POST
+        $tmpList     = config('zvn.template.'.$filterValue.'');
+        $xhtml       ='<select class="form-control" name="'.$filterValue.'">';
+        $xhtml      .=   '<option selected value="">'.$firstElement.'</option>';
+        foreach ($tmpList as $key=>$value) {
+            $xhtml  .=    '<option value="'.$key.'">'.$value.'</option>';
+        }
+        $xhtml      .= '</select>';
+        return $xhtml;
+    }
+
+    public static function showItemFilterSimpleFrontendWithArray($arrayList, $filterName ,$firstElement){
+
+        $xhtml        ='<select class="form-control" name="'.$filterName.'">';
+        $xhtml       .=   '<option selected value="">'.$firstElement.'</option>';
+        foreach ($arrayList as $value) {
+            $xhtml   .=    '<option value="'.$value['id'].'">'.$value['address'].'</option>';
+        }
+        $xhtml       .= '</select>';
+
+        return $xhtml;
     }
 
     public static function showDataFrontEnd($datatime){

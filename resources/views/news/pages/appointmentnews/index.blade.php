@@ -4,33 +4,14 @@
 @section('content')
 
 @php
+    use App\Helpers\template as Template;
+
     $router     = route($controllerName.'/save');
     $timeMeet   = '<input type="text" id="datetime-picker" name="timeMeet" class="form-control" placeholder="Chọn ngày và giờ gặp mặt">';
 
-    $xhtmlbranch        ='<select class="form-control" name="branch">';
-    $xhtmlbranch       .=   '<option selected value="">Chi nhánh</option>';
-    foreach ($branch as $value) {
-        $xhtmlbranch   .=    '<option value="'.$value['id'].'">'.$value['address'].'</option>';
-    }
-    $xhtmlbranch    .= '</select>';
-
-    $sexList         = config('zvn.template.sex');
-    $xhtmlSex        ='<select class="form-control" name="sex">';
-    $xhtmlSex       .=   '<option selected value="">Giới tính</option>';
-    foreach ($sexList as $sexKey=>$sexValue) {
-        $xhtmlSex   .=    '<option value="'.$sexKey.'">'.$sexValue.'</option>';
-    }
-    $xhtmlSex    .= '</select>';
-
-    $serviceList     = config('zvn.template.service');
-    $xhtmlService    ='<select class="form-control" name="service">';
-    $xhtmlService   .=   '<option selected value="">Dịch vụ</option>';
-    foreach ($serviceList as $serviceKey=>$serviceValue) {
-        $xhtmlService   .=    '<option value="'.$serviceKey.'">'.$serviceValue.'</option>';
-    }
-    $xhtmlService    .= '</select>';
-
-   // dd($sexList);
+    $xhtmlbranch    = Template::showItemFilterSimpleFrontendWithArray($branch, 'branch' ,'Dịch vụ');
+    $xhtmlSex       = Template::showItemFilterSimpleFrontend('sex', 'Giới tính');
+    $xhtmlService   = Template::showItemFilterSimpleFrontend('service', 'Dịch vụ');
 
 @endphp
     <!-- Content Container -->
