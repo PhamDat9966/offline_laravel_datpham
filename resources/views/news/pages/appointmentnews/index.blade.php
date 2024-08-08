@@ -8,8 +8,9 @@
 
     $router     = route($controllerName.'/save');
     $timeMeet   = '<input type="text" id="datetime-picker" name="timeMeet" class="form-control" placeholder="Chọn ngày và giờ gặp mặt">';
-
     $xhtmlbranch    = Template::showItemFilterSimpleFrontendWithArray($branch, 'branch' ,'Chi nhánh');
+
+    $xhtmlbranch    = Template::showItemFilterSimpleFrontendWithArray($branch, 'branch' ,'Dịch vụ');
     $xhtmlSex       = Template::showItemFilterSimpleFrontend('sex', 'Giới tính');
     $xhtmlService   = Template::showItemFilterSimpleFrontend('service', 'Dịch vụ');
 
