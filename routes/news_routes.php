@@ -157,4 +157,23 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== CONTACT ======================
+    $prefix         =   'lien-he';
+    $controllerName =   'contact';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+
+    });
+
 });

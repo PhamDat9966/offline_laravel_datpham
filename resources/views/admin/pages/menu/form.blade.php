@@ -73,11 +73,6 @@
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
-            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
-        ],
-        [
             'label'     =>  Form::label('ordering', 'Ordering', $formlabelAttr),
             'element'   =>  Form::number('ordering', $ordering ,$formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
