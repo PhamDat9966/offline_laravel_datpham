@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 06, 2024 lúc 08:02 PM
+-- Thời gian đã tạo: Th8 09, 2024 lúc 08:36 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -168,6 +168,7 @@ CREATE TABLE `branch` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL,
+  `googlemap` text DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
@@ -179,10 +180,10 @@ CREATE TABLE `branch` (
 -- Đang đổ dữ liệu cho bảng `branch`
 --
 
-INSERT INTO `branch` (`id`, `name`, `address`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'Chi nhánh 1 ', 'Tầng 5, Tòa nhà Songdo, 62A Phạm Ngọc Thạch, Phường 6, Quận 3, Hồ Chí Minh', 'active', '2024-08-03 02:09:49', 'admin', NULL, NULL),
-(2, 'Chi nhánh 2', '757C Kha Vạn Cân, P.Linh Tây, Thủ Đức, Hcm', 'active', '2024-08-03 02:10:01', 'admin', NULL, NULL),
-(3, 'Chi nhánh 3', '523 Đỗ Xuân Hợp, Block C chung cư The Art, KDCQ10', 'active', '2024-08-03 02:10:09', 'admin', '2024-08-03 00:00:00', 'admin');
+INSERT INTO `branch` (`id`, `name`, `address`, `googlemap`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'Chi nhánh 1 ', 'Tầng 5, Tòa nhà Songdo, 62A Phạm Ngọc Thạch, Phường 6, Quận 3, Hồ Chí Minh', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.360420162197!2d106.73409077043847!3d10.860167434007112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d5640014e7%3A0x3bb323b29d50dca9!2zWmVuZFZOIC0gxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6pu!5e0!3m2!1svi!2s!4v1723180040792!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:09:49', 'admin', NULL, NULL),
+(2, 'Chi nhánh 2', '757C Kha Vạn Cân, P.Linh Tây, Thủ Đức, Hcm', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.394524423644!2d106.75456067408862!3d10.857567757693781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752790c6385033%3A0xcea70174e60f1df1!2zNzU3QyDEkC4gS2hhIFbhuqFuIEPDom4sIEtodSBQaOG7kSAzLCBUaOG7pyDEkOG7qWMsIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1723180130179!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:10:01', 'admin', NULL, NULL),
+(3, 'Chi nhánh 3', '523 Đỗ Xuân Hợp, Block C chung cư The Art, KDCQ10', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7837.938494461986!2d106.76874347770996!3d10.81366530000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175270f5c87c7f5%3A0x7523fa4ea7f3c8fa!2sChung%20C%C6%B0%20The%20Art!5e0!3m2!1svi!2s!4v1723180243970!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:10:09', 'admin', '2024-08-03 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -285,6 +286,7 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 (7, 'Article', 'active', '/bai-viet', 8, 'category_article', 'current', 3, '', '<p>Article container</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (8, 'Tin tức tổng hợp', 'active', '/tin-tuc-tong-hop', 14, 'category_product', 'current', NULL, NULL, '<p>main-menu</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (9, 'Hình ảnh', 'active', '/thu-vien-hinh-anh', 13, 'link', 'current', NULL, NULL, '<p>main-menu</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
+(10, 'Liên hệ', 'active', '/lien-he', 20, 'link', 'current', NULL, NULL, '<p>main-menu</p>', '2024-08-08 00:00:00', 'admin', '2024-08-08 00:00:00', 'admin'),
 (20, 'Category-content', 'inactive', '#', 7, 'link', 'current', 3, 'category', NULL, NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (21, 'Article-container', 'inactive', '/', 5, 'category_article', 'current', NULL, 'article', '<p>Article container</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (23, 'Giáo Dục', 'active', '/chuyen-muc/category-giao-duc-2.html', 10, 'link', NULL, 3, NULL, '<p>category-giaoduc-id=2</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
@@ -960,7 +962,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecontact`

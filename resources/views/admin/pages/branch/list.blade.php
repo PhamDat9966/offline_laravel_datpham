@@ -28,6 +28,8 @@
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $address            = Hightlight::show($val['address'], $params['search'] , 'address');
+                            $googlemap          = $val['googlemap'];
+                            $googlemap          = str_replace('height="450"', 'height="200"', $googlemap);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
@@ -39,6 +41,11 @@
                             <td width="30%">
                                 <p><strong>Tên chi nhánh:</strong> {!! $name !!}</p>
                                 <p><strong>Địa chỉ:</strong> {!! $address !!}</p>
+                                <p><strong>Google Map:</strong>
+                                    <span class="h-10 d-inline-block">
+                                        {!! $googlemap !!}
+                                    </span>
+                                </p>
                             </td>
                             <td>
                                 {!!$status!!}

@@ -11,6 +11,7 @@ $(document).ready(function() {
 	let $btnClearSearch	     = $("button#btn-clear-search-rss");
 
 	let $inputSearchValue = $("input[name  = search_value_rss]");
+    let $selectChangeGoogleMap      = $("select[name =  select_change_is_googlemap_filter]");
 
     $btnSearchRss.click(function(){
 
@@ -67,6 +68,27 @@ $(document).ready(function() {
             $('#box-coin').html(data);
         }
     })
+
+    $selectChangeGoogleMap.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+        //var pathname	= window.location.pathname;
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        // params 			= ['filter_status','search_field', 'search_value'];
+        // let link        = '';
+
+        // $.each( params, function( key, value ) {
+		// 	if (searchParams.has(value) ) {
+		// 		link += value + "=" + searchParams.get(value) + "&"
+		// 	}
+		// });
+        window.location.href    = url + '?' + 'filter_googlemap=' + select_value;
+
+        // url = url+'?filter_display='+select_value;
+        // console.log(url);
+    });
 
 });
 

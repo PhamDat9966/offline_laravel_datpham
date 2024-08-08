@@ -457,6 +457,23 @@ class Template{
         return $xhtml;
     }
 
+    public static function showBranchGoogleMapSelect($controllerName,$arrayList, $name ,$firstElement, $itemGooglemap){
+        $link         = route($controllerName);
+        $xhtml        = sprintf('<select name=%s data-url=%s class="form-control">',$name,$link);
+
+        if(isset($itemGooglemap) && !empty($itemGooglemap)){
+            $firstElement = $itemGooglemap['address'];
+        }
+
+        $xhtml       .=   '<option selected value="">'.$firstElement.'</option>';
+        foreach ($arrayList as $value) {
+            $xhtml   .=    '<option value="'.$value['id'].'">'.$value['address'].'</option>';
+        }
+        $xhtml       .= '</select>';
+
+        return $xhtml;
+    }
+
     public static function showDataFrontEnd($datatime){
         return date_format(date_create($datatime), Config::get('zvn.format.short_time'));
     }

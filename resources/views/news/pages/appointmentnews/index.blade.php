@@ -8,7 +8,6 @@
 
     $router     = route($controllerName.'/save');
     $timeMeet   = '<input type="text" id="datetime-picker" name="timeMeet" class="form-control" placeholder="Chọn ngày và giờ gặp mặt">';
-
     $xhtmlbranch    = Template::showItemFilterSimpleFrontendWithArray($branch, 'branch' ,'Chi nhánh');
     $xhtmlSex       = Template::showItemFilterSimpleFrontend('sex', 'Giới tính');
     $xhtmlService   = Template::showItemFilterSimpleFrontend('service', 'Dịch vụ');
@@ -35,52 +34,50 @@
                         </div>
                         <div class="col-lg-12 mb-12">
                             <div class="row">
-                                    <form method="GET" action="{{$router}}" accept-charset="UTF-8" enctype="multipart/form-data" class="contact-form row" id="main-form"><input name="_token" type="hidden" value="XGzMbjHQ5DGTCLNz6ptF0lusIBlvXcR0GJd2wRct">
-                                        <div class="col-lg-7 mb-7">
-                                            <div class="row">
-                                                <div class="col-lg-6 mb-6">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" name="fullname" placeholder="Họ và tên" class="form-control">
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        {!! $timeMeet !!}
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" name="phone" placeholder="Số điện thoại" class="form-control">
-                                                    </div>
+                                <form method="GET" action="{{$router}}" accept-charset="UTF-8" enctype="multipart/form-data" class="contact-form row" id="main-form"><input name="_token" type="hidden" value="XGzMbjHQ5DGTCLNz6ptF0lusIBlvXcR0GJd2wRct">
+                                    <div class="col-lg-12 mb-12">
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-6">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="fullname" placeholder="Họ và tên" class="form-control">
                                                 </div>
-                                                <div class="col-lg-6 mb-6">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" name="email" placeholder="Email" class="form-control">
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        {!!$xhtmlService !!}
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        {!! $xhtmlSex !!}
-                                                    </div>
+                                                <div class="input-group mb-3">
+                                                    {!! $timeMeet !!}
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    {!!$xhtmlService !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-6">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="phone" placeholder="Số điện thoại" class="form-control">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="email" placeholder="Email" class="form-control">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    {!! $xhtmlSex !!}
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-lg-5 mb-5">
-                                            <div class="row">
-                                                <div class="input-group mb-3">
-                                                    {!! $xhtmlbranch !!}
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <textarea class="form-control" name="note" placeholder="Ghi chú (nếu có) ..." rows="3"></textarea>
-                                                </div>
-                                            </div>
+                                    <div class="col-lg-12 mb-12">
+                                        <div class="input-group mb-3">
+                                            {!! $xhtmlbranch !!}
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <input type="hidden" id="custId" name="id" value="">
-                                            <button type="submit"  class="btn btn-primary">Đặt lịch hẹn</button>
+                                        <div class="input-group mb-3">
+                                            <textarea class="form-control" name="note" placeholder="Ghi chú (nếu có) ..."  rows="5"></textarea>
                                         </div>
+                                    </div>
 
-                                    </form>
-                                    <!--/main content -->
+                                    <div class="col-md-12">
+                                        <input type="hidden" id="custId" name="id" value="">
+                                        <button type="submit"  class="btn btn-primary">Đặt lịch hẹn</button>
+                                    </div>
+
+                                </form>
+                                <!--/main content -->
                             </div>
                         </div>
 

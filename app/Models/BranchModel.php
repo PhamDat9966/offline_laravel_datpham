@@ -20,7 +20,7 @@ class BranchModel extends AdminModel
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('b.id','b.name','b.address','b.status','b.created','b.created_by','b.modified','b.modified_by');
+            $query = $this->select('b.id','b.name','b.address','b.googlemap','b.status','b.created','b.created_by','b.modified','b.modified_by');
 
             if($params['search'] !== ""){
 
@@ -191,14 +191,21 @@ class BranchModel extends AdminModel
         $result   = null;
 
         if($options['task'] == 'get-all-item'){
-            $result = $this::select('b.id','b.name','b.address')
+            $result = $this::select('b.id','b.name','b.address','b.googlemap')
                     ->get()->toArray();
 
         }
 
         if($options['task'] == 'get-item-with-id'){
-            $result = $this::select('b.id','b.name','b.address')
+            $result = $this::select('b.id','b.name','b.address','b.googlemap')
                     ->where('id', $params['id'])
+                    ->first()->toArray();
+
+        }
+
+        if($options['task'] == 'get-item-googlemap-with-id'){
+            $result = $this::select('b.id','b.name','b.address','b.googlemap')
+                    ->where('id', $params['filter_googlemap'])
                     ->first()->toArray();
 
         }
