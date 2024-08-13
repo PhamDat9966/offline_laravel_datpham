@@ -30,6 +30,9 @@ return [
         'form_ckeditor'=>[
             'class'         => 'form-control col-md-6 col-xs-12 ckeditor',
         ],
+        'form_area'=>[
+            'class'         => 'form-control col-md-6 col-xs-12',
+        ],
         'status'=>[
             'all'           =>  ['name'=>'Tất cả',          'class'=>'btn-info'],
             'active'        =>  ['name'=>'Kích hoạt',       'class'=>'btn-success'],

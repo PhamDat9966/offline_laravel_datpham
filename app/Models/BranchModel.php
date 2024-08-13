@@ -190,6 +190,13 @@ class BranchModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
 
+        if($options['task'] == 'get-item'){
+            $result = $this::select('id','name','address','googlemap','status')
+                    ->where('id', $params['id'])
+                    ->first();
+                    //->get();
+        }
+
         if($options['task'] == 'get-all-item'){
             $result = $this::select('b.id','b.name','b.address','b.googlemap')
                     ->get()->toArray();

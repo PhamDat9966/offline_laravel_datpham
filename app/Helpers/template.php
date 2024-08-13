@@ -457,17 +457,16 @@ class Template{
         return $xhtml;
     }
 
-    public static function showBranchGoogleMapSelect($controllerName,$arrayList, $name ,$firstElement, $itemGooglemap){
+    public static function showBranchGoogleMapSelect($controllerName,$arrayList, $name, $itemGooglemap){
         $link         = route($controllerName);
         $xhtml        = sprintf('<select name=%s data-url=%s class="form-control">',$name,$link);
 
-        if(isset($itemGooglemap) && !empty($itemGooglemap)){
-            $firstElement = $itemGooglemap['address'];
-        }
-
-        $xhtml       .=   '<option selected value="">'.$firstElement.'</option>';
         foreach ($arrayList as $value) {
-            $xhtml   .=    '<option value="'.$value['id'].'">'.$value['address'].'</option>';
+            if(isset($itemGooglemap) && !empty($itemGooglemap) && ($value['id'] == $itemGooglemap['id'])){
+                $xhtml       .=   '<option selected value="">'.$itemGooglemap['address'].'</option>';
+            }else{
+                $xhtml   .=    '<option value="'.$value['id'].'">'.$value['address'].'</option>';
+            }
         }
         $xhtml       .= '</select>';
 

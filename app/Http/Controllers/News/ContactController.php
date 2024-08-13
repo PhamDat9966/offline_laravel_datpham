@@ -32,12 +32,13 @@ class ContactController extends Controller
       //  dd($params);
         $branch     = new BranchModel();
         $branchList = $branch->getItem(null,['task'=>'get-all-item']);
-
         $itemGooglemap = [];
-        //if($params['filter_googlemap'] != null){
+
         if(isset($params['filter_googlemap']) && !empty($params['filter_googlemap'])){
             $itemGooglemap = $branch->getItem($params,['task'=>'get-item-googlemap-with-id']);
         }
+
+        //dd($itemGooglemap);
 
         return view($this->pathViewController . 'index',[
             'branch' => $branchList,

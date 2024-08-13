@@ -28,7 +28,7 @@ $(document).ready(function() {
     let $btnStatus                  = $('.status-ajax');
     let $btnIsHome                  = $('.is-home-ajax');
 
-    let $selectChangeGoogleMap      = $("select[name =  select_change_is_googlemap_filter]");
+
 
 	//let searchParams= new URLSearchParams(window.location.search);
 	let searchParams	= window.location.search;
@@ -203,27 +203,6 @@ $(document).ready(function() {
 			}
 		});
         window.location.href    = url + '?' + link + 'filter_is_home=' + select_value;
-
-        // url = url+'?filter_display='+select_value;
-        // console.log(url);
-    });
-
-    $selectChangeCategoryFilter.on('change',function(){
-        var select_value  = $(this).val();
-        var url           = $(this).attr('data-url');
-        //var pathname	= window.location.pathname;
-
-        let searchParams = new URLSearchParams(window.location.search);
-
-        params 			= ['filter_status','search_field', 'search_value'];
-        let link        = '';
-
-        $.each( params, function( key, value ) {
-			if (searchParams.has(value) ) {
-				link += value + "=" + searchParams.get(value) + "&"
-			}
-		});
-        window.location.href    = url + '?' + link + 'filter_category=' + select_value;
 
         // url = url+'?filter_display='+select_value;
         // console.log(url);
@@ -627,4 +606,22 @@ $(document).ready(function(){
 
 });
 
+// View googleMap tại admin-branch-form
+$(document).ready(function() {
+    $('#googlemap').on('input', function() {
+        // Lấy giá trị từ textarea
+        var iframeContent = $(this).val();
 
+        // Xác định phần tử đích
+        var $mapView = $('#google-map-view');
+
+        // Kiểm tra xem giá trị có phải là một iframe hợp lệ không
+        if (iframeContent.includes('<iframe') && iframeContent.includes('</iframe>')) {
+            // Chèn nội dung iframe vào phần tử đích
+            $mapView.html(iframeContent);
+        } else {
+            // Nếu không hợp lệ, xóa nội dung của phần tử đích
+            $mapView.html('');
+        }
+    });
+});

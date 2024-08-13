@@ -6,16 +6,15 @@
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
-    $status         = (isset($item['status']))? $item->status : '';
-    $category       = (isset($item['category_id']))? $item->category_id : '';
-    $content        = (isset($item['content']))? $item->content : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
+    $address        = (isset($item['address']))? $item->address : '';
+    $googlemap      = (isset($item['googlemap']))? $item->googlemap : '';
+    $status         = (isset($item['googlemap']))? $item->status : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
+    $formAreaAttr      = Config::get('zvn.template.form_area');
     $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
     $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -23,8 +22,7 @@
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
-    $categoryValue     = $itemsCategory;
-
+    $googleMapView = '<div id="google-map-view">'.$googlemap.'</div>';
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -33,26 +31,24 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formCkeditorAttr)
+            'label'     =>  Form::label('address', 'Address', $formlabelAttr),
+            'element'   =>  Form::text('address', $address,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
-            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
-            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
+            'label'     =>  Form::label('googlemap', 'Googlemap',$formlabelAttr),
+            'element'   =>  Form::textarea('googlemap', $googlemap, $formAreaAttr)
         ],
         [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
-            'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+            'label'     =>  Form::label('googlemap', 'Googlemap View',$formlabelAttr),
+            'element'   =>  $googleMapView
         ],
         [
-            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
