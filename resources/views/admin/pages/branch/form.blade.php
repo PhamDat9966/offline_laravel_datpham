@@ -17,7 +17,7 @@
     $inputHiddenID     = Form::hidden('id' , $id);
 
     $statusValue       = [
-                                'default'    => Config::get('zvn.template.status.all.name'),
+                                // 'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
