@@ -173,6 +173,11 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'uses'  => $controller . 'save'
         ]);
 
+        Route::post('postContact/{id?}', [
+            'as'    => $controllerName . '/postContact',
+            'uses'  => $controller . 'postContact'
+        ]);
+
 
     });
 

@@ -6,14 +6,14 @@
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
 
-    $email             = (isset($item->email))? $item->email : '';
-    $password          = (isset($item->password))? $item->password : '';
+    $username             = (isset($item->username))? $item->username : '';
+    $password             = (isset($item->password))? $item->password : '';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('username', 'Tài khoảng', $formlabelAttr),
-            'element'   =>  Form::text('email', $email,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::text('username', $username,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [

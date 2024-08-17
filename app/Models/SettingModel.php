@@ -27,14 +27,14 @@ class SettingModel extends AdminModel
         }
 
         if($options['task'] == 'get-all-items'){
-            $result = $this::select('id','setting_value','value')
+            $result = $this::select('id','key_value','value')
                     //->first();
                     ->get()->toArray();
         }
 
         if($options['task'] == 'get-items'){
-            $result = $this::select('id','setting_value','value')
-                    ->where('setting_value', $params['type'])
+            $result = $this::select('id','key_value','value')
+                    ->where('key_value', $params['type'])
                     //->first();
                     ->get()->toArray();
         }
@@ -64,9 +64,9 @@ class SettingModel extends AdminModel
 
         if($options['task'] == 'edit-item-general'){
             $params                     = $this->prepareParams($params);
-            $setting['setting_value']   = 'setting-general';
+            $setting['key_value']   = 'setting-general';
             $setting['value']           = json_encode($params);
-            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+            self::where('key_value', $setting['key_value'])->update(['value'=>$setting['value']]);
         }
 
         if($options['task'] == 'edit-item-email'){
@@ -80,9 +80,9 @@ class SettingModel extends AdminModel
                 $updateJson->$key = $value;
             }
 
-            $setting['setting_value']   = 'setting-email';
-            $setting['value']           = json_encode($updateJson);
-            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+            $setting['key_value']   = 'setting-email';
+            $setting['value']       = json_encode($updateJson);
+            self::where('key_value', $setting['key_value'])->update(['value'=>$setting['value']]);
         }
 
         if($options['task'] == 'edit-item-social'){
@@ -97,9 +97,9 @@ class SettingModel extends AdminModel
             }
 
             $setting['id']              = 3;
-            $setting['setting_value']   = 'setting-social';
+            $setting['key_value']   = 'setting-social';
             $setting['value']           = json_encode($updateJson);
-            self::where('setting_value', $setting['setting_value'])->update(['value'=>$setting['value']]);
+            self::where('key_value', $setting['key_value'])->update(['value'=>$setting['value']]);
 
         }
     }

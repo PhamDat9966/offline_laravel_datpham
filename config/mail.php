@@ -29,7 +29,8 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    //'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'smtp.gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,8 +43,8 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
-
+    //'port' => env('MAIL_PORT', 587),
+    'port' => 587,
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -71,7 +72,8 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    //'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => 'tls',
 
     /*
     |--------------------------------------------------------------------------

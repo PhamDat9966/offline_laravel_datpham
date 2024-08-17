@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File; // Import thư viện File
-use App\Http\Requests\AppointmentRequest as MainRequest;
+use App\Http\Requests\ContactRequest as MainRequest;
 use App\Models\BranchModel as BranchModel;
 use App\Models\AppointmentModel as MainModel;
+use App\Mail\MailService;
 
 class ContactController extends Controller
 {
@@ -62,5 +63,21 @@ class ContactController extends Controller
             $this->model->saveItem($params,['task'=>$task]);
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
+    }
+
+    public function postContact(MainRequest $request){
+        //dd($request->all());
+        $data = [
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'phone'     => $request->phone,
+            'message'   => $request->message
+        ];
+
+        $mailService   =   new MailService();
+        $mailService->sendContactConform($data);
+        $mailService->sendContactInfo($data);
+        return redirect()->route($this->controllerName)->with('news_notify','Cám ơn bạn đã gửi thông tin liên hệ với chúng tôi, chúng tôi sẽ phản hồi cho bạn trong thời gian sớm nhất');
+        dd($mail);
     }
 }

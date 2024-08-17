@@ -72,7 +72,6 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <input type="hidden" id="custId" name="id" value="">
                                         <button type="submit"  class="btn btn-primary">Đặt lịch hẹn</button>
                                     </div>
 

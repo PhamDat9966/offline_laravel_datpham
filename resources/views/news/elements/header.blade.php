@@ -183,7 +183,7 @@
 
     if(!empty($setting)){
         foreach ($setting as $value) {
-            if($value['setting_value'] == 'setting-general'){
+            if($value['key_value'] == 'setting-general'){
                 $valueTemp = json_decode($value['value']);
                 $valueLogo = $valueTemp->logo;
                 $logo      = $host . $valueLogo;

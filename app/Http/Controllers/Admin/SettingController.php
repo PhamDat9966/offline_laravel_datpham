@@ -33,7 +33,7 @@ class SettingController extends Controller
             $itemsTemp = $this->model->getItem($params,['task'=>'get-items']);
 
             foreach($itemsTemp as $value){
-                $items[$value['setting_value']] = json_decode($value['value']);
+                $items[$value['key_value']] = json_decode($value['value']);
             }
         }
 
