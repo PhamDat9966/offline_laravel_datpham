@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-lg-12 mb-12">
                             <div class="row">
-                                <form method="POST" action="{{$router}}" accept-charset="UTF-8" enctype="multipart/form-data" class="contact-form row" id="main-form">
+                                <form method="POST" action="{{$router}}" accept-charset="UTF-8" enctype="multipart/form-data" class="contact-form row" id="contact-form">
                                     @csrf
                                     <div class="col-lg-6 mb-6">
                                        {!! $iframe !!}

@@ -141,3 +141,20 @@ $(document).ready(function() {
         }
     });
 });
+
+// localStorage
+$(document).ready(function() {
+
+    $('#contact-form').on('submit', function() {
+        localStorage.setItem("name",$('#contact-form [name="name"]').val());
+        localStorage.setItem("email",$('#contact-form [name="email"]').val());
+        localStorage.setItem("phone",$('#contact-form [name="phone"]').val());
+
+    });
+
+    if ($('#contact-form') . length > 0){
+        $('#contact-form [name="name"]').val(localStorage.getItem("name"));
+        $('#contact-form [name="email"]').val(localStorage.getItem("email"));
+        $('#contact-form [name="phone"]').val(localStorage.getItem("phone"));
+    }
+});
