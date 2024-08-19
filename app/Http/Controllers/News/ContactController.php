@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File; // Import thư viện File
 use App\Http\Requests\ContactRequest as MainRequest;
 use App\Models\BranchModel as BranchModel;
-use App\Models\AppointmentModel as MainModel;
+use App\Models\ContactModel as MainModel;
 use App\Mail\MailService;
 
 class ContactController extends Controller
@@ -66,7 +66,6 @@ class ContactController extends Controller
     }
 
     public function postContact(MainRequest $request){
-        //dd($request->all());
         $data = [
             'name'      => $request->name,
             'email'     => $request->email,
@@ -74,10 +73,16 @@ class ContactController extends Controller
             'message'   => $request->message
         ];
 
+        /*send mail*/
         $mailService   =   new MailService();
         $mailService->sendContactConform($data);
         $mailService->sendContactInfo($data);
+
+        /*save contact to database*/
+        $params                 = $request->all();
+        $params['ip_address']   = $request->ip();
+        $this->model->saveItem($params,['task'=>'news-add-item']);
+
         return redirect()->route($this->controllerName)->with('news_notify','Cám ơn bạn đã gửi thông tin liên hệ với chúng tôi, chúng tôi sẽ phản hồi cho bạn trong thời gian sớm nhất');
-        dd($mail);
     }
 }

@@ -570,5 +570,38 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
+    // ====================== CONTACT ======================
+    $prefix         =   'contact';
+    $controllerName =   'contact';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => 'admin.' . $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => 'admin/'. $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
 });
 

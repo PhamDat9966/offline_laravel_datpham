@@ -35,9 +35,6 @@
                                     @csrf
                                     <div class="col-lg-6 mb-6">
                                        {!! $iframe !!}
-                                       {{-- <div class="input-group">
-                                            <label for="branch">Chi nhánh:</label>
-                                        </div> --}}
                                        <div class="input-group">
                                             <label for="branch">Chi nhánh :</label>
                                             {!! $xhtmlbranch !!}
@@ -76,7 +73,6 @@
                                             <textarea class="form-control" name="message" rows="3"></textarea>
                                         </div>
                                         <div class="input-group mb-3 ml-3">
-                                            <input type="hidden" id="custId" name="id" value="">
                                             <button type="submit"  class="btn btn-primary">Gửi tin nhắn</button>
                                         </div>
                                     </div>

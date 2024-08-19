@@ -28,7 +28,7 @@ class ContactRequest extends FormRequest
     {
         $condName       = "bail|required";
         $condEmail      = "bail|required";
-        $condPhone      = "bail|required";
+        $condPhone      = "bail|required|numeric|digits_between:8,15";
         $condMessage    = "bail|required";
 
         return [
@@ -45,6 +45,8 @@ class ContactRequest extends FormRequest
             'name.required'         => 'Name không được rỗng',
             'email.required'        => 'Email không được rỗng',
             'phone.required'        => 'Phone không được rỗng',
+            'phone.numeric'         => 'Phone hãy nhập số',
+            'phone.digits_between'  => 'Phone hãy từ 8 đến 15 số',
             'message.required'      => 'Message không được rỗng',
         ];
     }

@@ -1,10 +1,11 @@
 <?php
 
-$prefixNews     = config('zvn.url.prefix_news'); //news69
+$prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
 
-Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
+Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin']], function(){
 
-    $prefix         =   'lien-he';
+    // ====================== APPOINTMENT ======================
+    $prefix         =   'contact';
     $controllerName =   'contact';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
@@ -14,12 +15,22 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'uses'  => $controller . 'index'
         ]);
 
-        Route::post('postContact/{id?}', [
-            'as'    => $controllerName . '/postContact',
-            'uses'  => $controller . 'postContact'
-        ]);
-
-
     });
 
+});
+
+
+
+$prefixNews     = config('zvn.url.prefix_news');
+Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
+    $prefix         =   'lien-he';
+    $controllerName =   'contact';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+    });
 });

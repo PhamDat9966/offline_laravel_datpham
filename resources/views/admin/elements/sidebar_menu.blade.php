@@ -30,7 +30,8 @@
             <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
             <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
-            <li><a href="{{ route('phone')}}"><i class="fa fa-volume-control-phone"></i> Contact</a></li>
+            <li><a href="{{ route('admin.contact')}}"><i class="fa fa-paper-plane"></i>Liên hệ</a></li>
+            <li><a href="{{ route('phone')}}"><i class="fa fa-volume-control-phone"></i>Fast Phone</a></li>
             <li id='setting'>
                 <a><i class="fa fa-cog"></i> Setting<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">

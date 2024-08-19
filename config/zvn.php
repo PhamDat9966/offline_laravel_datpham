@@ -96,6 +96,7 @@ return [
             'content'       =>  ['name'=>'Search by Content'],
             'phonenumber'   =>  ['name'=>'Search by Phonenumber'],
             'address'       =>  ['name'=>'Search by Address'],
+            'phone'         =>  ['name'=>'Search by Phone']
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -147,7 +148,8 @@ return [
             'user'          =>  ['all','username','email','fullname'],
             'phone'         =>  ['all','phonenumber'],
             'branch'        =>  ['all','name','address'],
-            'appointment'   =>  ['all','name','phonenumber','email']
+            'appointment'   =>  ['all','name','phonenumber','email'],
+            'contact'       =>  ['all','name','email','phone'],
         ],
         'button'    =>[
             'default'       =>  ['edit','delete'],
