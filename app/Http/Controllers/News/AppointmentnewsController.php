@@ -45,11 +45,6 @@ class AppointmentnewsController extends Controller
             $params = $request->all();  // Lấy param từ request chi dung voi POST
             $task   = 'add-item';
             $notify = 'Đặt lịch hẹn thành công! Cám ơn bạn đã ghi đầy đủ thông tin, chúng tôi sẽ liên hệ sau.';
-
-            if($params['id'] !== null){
-                $task = 'edit-item';
-                $notify   = 'Cập nhật thành công!';
-            }
             $this->model->saveItem($params,['task'=>$task]);
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }

@@ -23,14 +23,14 @@
                         <div class="col-lg-12 mb-12">
                             <!--main content -->
                             <div class="title-box mb-4">
-                                @include('admin.templates.zvn_notily')
+                                @include('news.templates.zvn_notily')
                             </div>
                             <div class="title-box mb-4">
                                 <p>Vui lòng để lại thông tin, nhu cầu của quý khách. Chúng tôi sẽ liên hệ đến Quý Khách trong thời gian sớm nhất</p>
                             </div>
                         </div>
                         <div class="col-lg-12 mb-12">
-                                @include('admin.templates.error')
+                                @include('news.templates.error')
                         </div>
                         <div class="col-lg-12 mb-12">
                             <div class="row">

@@ -272,3 +272,8 @@ label {
     margin: 0.4rem 0;
 }
 
+/* error.blade */
+.error_p{
+    line-height: 1 !important;
+    color: brown;
+}

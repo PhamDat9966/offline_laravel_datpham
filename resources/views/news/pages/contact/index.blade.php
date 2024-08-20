@@ -26,7 +26,7 @@
                         <div class="col-lg-12 mb-12">
                             <!--main content -->
                             <div class="title-box mb-4">
-                                @include('admin.templates.zvn_notily')
+                                @include('news.templates.zvn_notily')
                             </div>
                         </div>
                         <div class="col-lg-12 mb-12">
@@ -46,7 +46,7 @@
                                             <p>Vui lòng để lại thông tin với chúng tôi. Chúng tôi sẽ liên hệ đến Quý Khách trong thời gian sớm nhất</p>
                                         </div>
                                         <div class="mb-3 ml-3">
-                                            @include('admin.templates.error')
+                                            @include('news.templates.error')
                                         </div>
                                         <div class="input-group ml-3">
                                             <label for="fullname">Họ tên:</label>
