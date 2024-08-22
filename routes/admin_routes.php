@@ -603,5 +603,15 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
+    // ====================== LOGVIEWER ======================
+    $prefix = 'logs';
+    Route::group(['prefix' => $prefix], function () {
+        Route::get('/', [
+            'as' => 'admin.logs.index', // Đặt tên cho route
+            'uses' => function () {
+                return view('admin.pages.logs.index');
+            }
+        ]);
+    });
 });
 

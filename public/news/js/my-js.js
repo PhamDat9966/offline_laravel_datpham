@@ -152,7 +152,7 @@ $(document).ready(function() {
 
     });
 
-    if ($('#contact-form') . length > 0){
+    if ($('#contact-form') . length > 0){ // Kiểm tra xem có phần tử nào trên trang với ID là contact-form hay không
         $('#contact-form [name="name"]').val(localStorage.getItem("name"));
         $('#contact-form [name="email"]').val(localStorage.getItem("email"));
         $('#contact-form [name="phone"]').val(localStorage.getItem("phone"));
