@@ -8,6 +8,7 @@ use App\Models\ArticleModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends AdminController
 {
@@ -60,6 +61,29 @@ class ArticleController extends AdminController
             $this->model->saveItem($params,['task'=>$task]);
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
+    }
+
+    public function form(Request $request)
+    {
+        $item   = null;
+        $autoIncrement = DB::select("SELECT AUTO_INCREMENT
+                                     FROM INFORMATION_SCHEMA.TABLES
+                                     WHERE TABLE_SCHEMA = 'proj_news'
+                                     AND TABLE_NAME = 'article'");
+        $autoIncrement = $autoIncrement[0]->AUTO_INCREMENT;
+        if($request->id !== null){
+            $params['id']   = $request->id;
+            $item = $this->model->getItem($params,['task'=>'get-item']);
+        }
+
+        $categoryModel      = new CategoryModel();
+        $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
+
+        return view($this->pathViewController . 'form', [
+            'item'          =>$item,
+            'itemsCategory' =>$itemsCategory,
+            'autoIncrement' =>$autoIncrement
+        ]);
     }
 }
 

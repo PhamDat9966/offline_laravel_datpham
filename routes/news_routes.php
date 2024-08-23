@@ -44,6 +44,18 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== ARTICLE PLUS ======================
+    $prefixAlias = 'bv';
+    $controllerName = 'article';
+    Route::group(['middleware'=>['userAgent.middleware']], function () use($controllerName, $prefixAlias) {
+        $controller = ucfirst($controllerName) . 'Controller@';
+        Route::get($prefixAlias . '-{article_name}-{article_id}.php', [
+            'as'    => $controllerName . '/alias',
+            'uses'  => $controller . 'index'
+        ])->where('article_name', '[a-zA-Z0-9-_]+')
+            ->where('article_id', '[0-9]+');
+    });
+
     // ====================== NOTIFY ======================
     $prefix         =   '';
     $controllerName =   'notify';

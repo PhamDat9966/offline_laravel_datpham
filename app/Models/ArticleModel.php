@@ -278,8 +278,9 @@ class ArticleModel extends AdminModel
             // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->table         = 'article';
+            $this->table        = 'article';
             $this->name         = $params['name'];
+            $this->slug         = $params['slug'];
             $this->content      = $params['content'];
             $this->category_id  = $params['category_id'];
             $this->status       = $params['status'];
@@ -330,7 +331,7 @@ class ArticleModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','category_id','content','status','thumb')
+            $result = $this::select('id','name','slug','category_id','content','status','thumb')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();

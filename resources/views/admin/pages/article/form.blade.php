@@ -6,6 +6,7 @@
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
+    $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
     $category       = (isset($item['category_id']))? $item->category_id : '';
     $content        = (isset($item['content']))? $item->content : '';
@@ -24,12 +25,24 @@
                           ];
 
     $categoryValue     = $itemsCategory;
+    $inputNameArticle = '<input class="form-control col-md-6 col-xs-12"
+                                name="name"
+                                type="text"
+                                value="'.$name.'"
+                                id="name_article"
+                                data-auto-increment="'.$autoIncrement.'"
+                                >';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+            'element'   =>  Form::text('slug', $slug,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [

@@ -625,3 +625,25 @@ $(document).ready(function() {
         }
     });
 });
+
+// View Article Plus
+$(document).ready(function() {
+    $('#name_article').on('input', function() {
+        var nameArticle = $(this).val();
+        var autoIncrementValue = $(this).data('auto-increment');
+        // Convert to slug
+        var slug = nameArticle.toLowerCase(); // Chuyển thành chữ thường
+        slug = slug.replace(/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g, 'a');
+        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g, 'e');
+        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/g, 'i');
+        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g, 'o');
+        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g, 'u');
+        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/g, 'y');
+        slug = slug.replace(/đ/g, 'd');
+        slug = slug.replace(/[^a-z0-9\s-]/g, ''); // Xóa các ký tự đặc biệt
+        slug = slug.replace(/\s+/g, '-'); // Thay thế khoảng trắng bằng dấu gạch ngang
+        slug = 'bv-' + slug + '-' + autoIncrementValue; // Thêm tiền tố 'bv-'
+
+        $('#slug').val(slug); // Gán giá trị đã xử lý vào input slug
+    });
+});
