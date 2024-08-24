@@ -92,7 +92,7 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name')
+            $query = $this->select('id','name','slug')
                           ->where('status','=','active');
             $result = $query->get()->toArray();
         }
@@ -229,7 +229,9 @@ class CategoryModel extends AdminModel
             //// DB::table('category')->insert($params);
 
             /* Save dữ liệu theo eloquent */
+            $this->table        = 'category';
             $this->name         = $params['name'];
+            $this->slug         = $params['slug'];
             $this->status       = $params['status'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];

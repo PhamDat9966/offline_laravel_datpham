@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\CategoryModel as MainModel;
 use App\Http\Requests\CategoryRequest as MainRequest;
 use Config;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends AdminController
 {
@@ -68,6 +69,25 @@ class CategoryController extends AdminController
             'modified_by'   =>  $returnModified['modified_by'],
         ]);
 
+    }
+
+    public function form(Request $request)
+    {
+        $item   = null;
+        $autoIncrement = DB::select("SELECT AUTO_INCREMENT
+                                     FROM INFORMATION_SCHEMA.TABLES
+                                     WHERE TABLE_SCHEMA = 'proj_news'
+                                     AND TABLE_NAME = 'category'");
+        $autoIncrement = $autoIncrement[0]->AUTO_INCREMENT;
+        if($request->id !== null){
+            $params['id']   = $request->id;
+            $item = $this->model->getItem($params,['task'=>'get-item']);
+        }
+
+        return view($this->pathViewController . 'form', [
+            'item'          =>$item,
+            'autoIncrement' =>$autoIncrement
+        ]);
     }
 }
 

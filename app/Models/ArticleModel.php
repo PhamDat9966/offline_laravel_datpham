@@ -137,7 +137,7 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name')
+            $query = $this->select('id','name','slug')
                           ->where('status','=','active');
             $result = $query->get()->toArray();
         }

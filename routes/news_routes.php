@@ -30,6 +30,20 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     });
 
+    // ====================== CATEGORY PLUS ======================
+    $prefixAlias    = 'cm';  // Thay đổi từ 'category' sang 'cm'
+    $controllerName = 'category';
+
+    Route::group([], function () use ($prefixAlias, $controllerName) {
+        $controller = ucfirst($controllerName) . 'Controller@';
+
+        Route::get("$prefixAlias-{category_name}-{category_id}.html", [
+            'as'    => $controllerName . '/alias',
+            'uses'  => $controller . 'index'
+        ])->where('category_name', '[a-zA-Z0-9-_]+')
+        ->where('category_id', '[0-9]+');
+    });
+
     // ====================== ARTICLE ======================
     $prefix         =   'bai-viet';
     $controllerName =   'article';

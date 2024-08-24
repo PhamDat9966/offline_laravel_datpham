@@ -6,21 +6,8 @@
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
+    $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
-
-    // OR
-    // $name           = (isset($item->name))? $item->name : '';
-    // $description    = (isset($item->description))? $item->description : '';
-    // $link           = (isset($item->link))? $item->link : '';
-    // $status         = (isset($item->status))? $item->status : 'null';
-    // $thumb          = (isset($item->thumb))? $item->thumb : 'null';
-
-    // Đối tượng Form là của Collective
-    // $nameLabel  =   Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $nameInput  =   Form::text('name', $name, ['class' => 'form-control col-md-6 col-xs-12','id'=>'name']);
-
-    // $descriptionLabel   =   Form::label('description', 'Description', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']);
-    // $descriptionInput   =   Form::text('description', $description , ['class' => 'form-control col-md-6 col-xs-12','id'=>'description']);
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
@@ -32,11 +19,23 @@
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
+    $inputNameCategory = '<input class="form-control col-md-6 col-xs-12"
+                                 name="name"
+                                 type="text"
+                                 value="'.$name.'"
+                                 id="name_category"
+                                 data-auto-increment="'.$autoIncrement.'"
+                         >';
+
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  $inputNameCategory
+        ],
+        [
+            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+            'element'   =>  Form::text('slug', $slug,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [

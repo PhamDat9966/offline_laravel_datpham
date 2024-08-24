@@ -27,6 +27,8 @@
     $articleModel   = new ArticleModel();
     $articleMenu    = $articleModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
+    //dd($categoryMenu);
+
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';
 
@@ -109,7 +111,13 @@
                         if($item['container'] == 'category'){
                             $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
                                 foreach ($categoryMenu as $keyCategory => $valCategory) {
-                                    $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
+                                    $categoryLink = '';
+                                    if($valCategory['slug'] != null){
+                                        $categoryLink     = $host . '/' . $valCategory['slug'] . '.html';
+                                    }else {
+                                        $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
+                                    }
+
                                     $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
                                 }
                             $xhtmlMenu  .= '</ul>';
@@ -118,7 +126,13 @@
                         if($item['container'] == 'article'){
                             $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
                                 foreach ($articleMenu as $keyArticle => $valArticle) {
-                                    $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                                    $articleLink = '';
+                                    if($valArticle['slug'] != null){
+                                        $articleLink     = $host . '/' . $valArticle['slug'] . '.php';
+                                    }else {
+                                        $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                                    }
+
                                     $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
                                 }
                             $xhtmlMenu  .= '</ul>';

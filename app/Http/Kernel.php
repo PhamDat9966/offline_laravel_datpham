@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'check.login' => \App\Http\Middleware\CheckLogin::class,
         'permission.admin' => \App\Http\Middleware\PermissionAdmin::class,
         'userAgent.middleware' => \App\Http\Middleware\UserAgentMiddleware::class,
+        'redirect.category.url' => \App\Http\Middleware\RedirectCategoryURL::class,
 
     ];
 
