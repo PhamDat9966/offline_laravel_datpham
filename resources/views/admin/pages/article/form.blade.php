@@ -25,13 +25,17 @@
                           ];
 
     $categoryValue     = $itemsCategory;
-    $inputNameArticle = '<input class="form-control col-md-6 col-xs-12"
-                                name="name"
-                                type="text"
-                                value="'.$name.'"
-                                id="name_article"
-                                data-auto-increment="'.$autoIncrement.'"
-                                >';
+    $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
+                                 name="name"
+                                 type="text"
+                                 value="'.$name.'"
+                                 id="name_article"
+                                 data-auto-increment="'.$autoIncrement.'"
+                          >';
+    $contentTextarea  = '<textarea class="form-control col-md-6 col-xs-12"
+                                   name="content" cols="50" rows="10"
+                                   id="editor" style="visibility: hidden; display: none;"></textarea>';
+    $testFileManageInCke    = '<textarea name="content" id="editor" rows="10" cols="80"></textarea>';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -111,3 +115,5 @@
 {{-- <script>
     CKEDITOR.replace('content');
 </script> --}}
+
+

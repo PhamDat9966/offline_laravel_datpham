@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\AdminModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
-use DB;                                     // DB thao tác trên csdl
+use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config;
@@ -15,6 +15,7 @@ class ArticleModel extends AdminModel
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content'];
         $this->crudNotActived       = ['_token','thumb_current'];
+        $this->dataBaseName         = DB::connection()->getDatabaseName();
     }
 
     public function listItems($params = null,$options = null){
@@ -336,6 +337,13 @@ class ArticleModel extends AdminModel
                     ->first();
                     //->get();
 
+        }
+
+        if($options['task'] == 'get-auto-increment'){
+            $result = DB::select("SELECT AUTO_INCREMENT
+                                  FROM INFORMATION_SCHEMA.TABLES
+                                  WHERE TABLE_SCHEMA = '".$this->dataBaseName."'
+                                  AND TABLE_NAME = 'article'");
         }
 
         if($options['task'] == 'get-thumb'){

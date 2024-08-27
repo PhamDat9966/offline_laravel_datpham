@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\AdminModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
-use DB;                                     // DB thao tác trên csdl
+use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config;
@@ -16,6 +16,7 @@ class CategoryModel extends AdminModel
         $this->folderUpload         = 'category';
         $this->fieldSearchAccepted  = ['id','name'];
         $this->crudNotActived       = ['_token'];
+        $this->dataBaseName         = DB::connection()->getDatabaseName();
     }
 
     public function listItems($params = null,$options = null){
@@ -279,6 +280,13 @@ class CategoryModel extends AdminModel
                     ->where('id', $params['category_id'])
                     ->first();
                     if($result != null) $result->toArray();
+        }
+
+        if($options['task'] == 'get-auto-increment'){
+            $result = DB::select("SELECT AUTO_INCREMENT
+                                  FROM INFORMATION_SCHEMA.TABLES
+                                  WHERE TABLE_SCHEMA = '".$this->dataBaseName."'
+                                  AND TABLE_NAME = 'category'");
         }
 
         return $result;

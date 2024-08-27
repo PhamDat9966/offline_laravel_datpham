@@ -74,11 +74,10 @@ class CategoryController extends AdminController
     public function form(Request $request)
     {
         $item   = null;
-        $autoIncrement = DB::select("SELECT AUTO_INCREMENT
-                                     FROM INFORMATION_SCHEMA.TABLES
-                                     WHERE TABLE_SCHEMA = 'proj_news'
-                                     AND TABLE_NAME = 'category'");
+
+        $autoIncrement = $this->model->getItem(null,['task'=>'get-auto-increment']);
         $autoIncrement = $autoIncrement[0]->AUTO_INCREMENT;
+
         if($request->id !== null){
             $params['id']   = $request->id;
             $item = $this->model->getItem($params,['task'=>'get-item']);
