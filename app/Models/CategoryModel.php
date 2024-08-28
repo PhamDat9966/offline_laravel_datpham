@@ -16,7 +16,6 @@ class CategoryModel extends AdminModel
         $this->folderUpload         = 'category';
         $this->fieldSearchAccepted  = ['id','name'];
         $this->crudNotActived       = ['_token'];
-        $this->dataBaseName         = DB::connection()->getDatabaseName();
     }
 
     public function listItems($params = null,$options = null){
@@ -283,9 +282,10 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'get-auto-increment'){
+            $dataBaseName         = DB::connection()->getDatabaseName();
             $result = DB::select("SELECT AUTO_INCREMENT
                                   FROM INFORMATION_SCHEMA.TABLES
-                                  WHERE TABLE_SCHEMA = '".$this->dataBaseName."'
+                                  WHERE TABLE_SCHEMA = '".$dataBaseName."'
                                   AND TABLE_NAME = 'category'");
         }
 

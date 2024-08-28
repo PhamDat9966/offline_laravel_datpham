@@ -4,6 +4,11 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
+    $request = Request::capture();
+    global $host;
+    $host = $request->getHost();
+    $host = 'http://'.$host;
+
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
@@ -32,10 +37,6 @@
                                  id="name_article"
                                  data-auto-increment="'.$autoIncrement.'"
                           >';
-    $contentTextarea  = '<textarea class="form-control col-md-6 col-xs-12"
-                                   name="content" cols="50" rows="10"
-                                   id="editor" style="visibility: hidden; display: none;"></textarea>';
-    $testFileManageInCke    = '<textarea name="content" id="editor" rows="10" cols="80"></textarea>';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -66,7 +67,7 @@
             'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
             'element'   =>  Form::file('thumb',  $formInputAttr),
             'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
         ],
         [
             'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),

@@ -32,6 +32,7 @@
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $content            = Hightlight::show($val['content'], $params['search'] , 'content');
+                            $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
                             $categoryName       = $val['category_name'];
 
                             $miniThumb          = $val['thumb'];
@@ -47,6 +48,7 @@
                             <td>{{ $index }}</td>
                             <td width="30%">
                                 <p><strong>Name:</strong> {!! $name !!}</p>
+                                <p><strong>Slug:</strong> {!! $slug !!}</p>
                                 <p><strong>Content:</strong> {!! $content !!}</p>
                             </td>
                             <td width="10%">

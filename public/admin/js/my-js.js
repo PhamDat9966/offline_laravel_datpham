@@ -673,11 +673,18 @@ $(document).ready(function() {
 //-- Tích hợp Cấu hình CKEditor để sử dụng Laravel File Manager --
 $(document).ready(function() {
     var options = {
-        filebrowserImageBrowseUrl: 'http://proj_news.xyz/laravel-filemanager?type=Images',
-        filebrowserImageUploadUrl: 'http://proj_news.xyz/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: 'http://proj_news.xyz/laravel-filemanager?type=Files',
-        filebrowserUploadUrl: 'http://proj_news.xyz/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
     };
+
+    // var options = {
+    //     filebrowserImageBrowseUrl: 'http://proj_news.xyz/laravel-filemanager?type=Images',
+    //     filebrowserImageUploadUrl: 'http://proj_news.xyz/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+    //     filebrowserBrowseUrl: 'http://proj_news.xyz/laravel-filemanager?type=Files',
+    //     filebrowserUploadUrl: 'http://proj_news.xyz/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+    // };
 
     /* Lỗi: "Uncaught The editor instance "content" is already attached to the provided element".
 
@@ -695,4 +702,15 @@ $(document).ready(function() {
         CKEDITOR.instances['content'].destroy(true);
     }
     CKEDITOR.replace('content', options);
+});
+
+// -- Thumb Reviews Article Form: Hiện ảnh khi chọn ảnh ở thumb
+$(document).ready(function() {
+    $('#thumb').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#thumb-preview').attr('src', e.target.result).show();
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
 });

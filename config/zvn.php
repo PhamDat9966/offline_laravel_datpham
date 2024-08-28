@@ -96,7 +96,8 @@ return [
             'content'       =>  ['name'=>'Search by Content'],
             'phonenumber'   =>  ['name'=>'Search by Phonenumber'],
             'address'       =>  ['name'=>'Search by Address'],
-            'phone'         =>  ['name'=>'Search by Phone']
+            'phone'         =>  ['name'=>'Search by Phone'],
+            'slug'          =>  ['name'=>'Search by Slug']
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -143,7 +144,7 @@ return [
             'default'       =>  ['all','id','fullname'],
             'slider'        =>  ['all','id','name','description','link'],
             'category'      =>  ['all','id','name'],
-            'article'       =>  ['all','name','content'],
+            'article'       =>  ['all','name','slug','content'],
             'rss'           =>  ['all','name','link'],
             'user'          =>  ['all','username','email','fullname'],
             'phone'         =>  ['all','phonenumber'],

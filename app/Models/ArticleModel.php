@@ -13,15 +13,15 @@ class ArticleModel extends AdminModel
     public function __construct(){
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
-        $this->fieldSearchAccepted  = ['name','content'];
+        $this->fieldSearchAccepted  = ['name','content','slug'];
         $this->crudNotActived       = ['_token','thumb_current'];
-        $this->dataBaseName         = DB::connection()->getDatabaseName();
     }
 
     public function listItems($params = null,$options = null){
+
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('a.id','a.name','a.content','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
+            $query = $this->select('a.id','a.name','a.content','a.slug','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
                         ->leftJoin('category as c', 'a.category_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
@@ -340,9 +340,10 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'get-auto-increment'){
+            $dataBaseName = DB::connection()->getDatabaseName();
             $result = DB::select("SELECT AUTO_INCREMENT
                                   FROM INFORMATION_SCHEMA.TABLES
-                                  WHERE TABLE_SCHEMA = '".$this->dataBaseName."'
+                                  WHERE TABLE_SCHEMA = '".$dataBaseName."'
                                   AND TABLE_NAME = 'article'");
         }
 

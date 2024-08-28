@@ -319,7 +319,7 @@ class Template{
     public static function showItemThumb($controllerName , $thumbName , $thumbAlt){
 
         $xhtml  = sprintf('
-            <p><img src="%s" alt="%s" class="zvn-thumb" /></p>', asset("images/$controllerName/$thumbName"), $thumbAlt);
+            <p><img id="thumb-preview" src="%s" alt="%s" class="zvn-thumb" /></p>', asset("images/$controllerName/$thumbName"), $thumbAlt);
         return  $xhtml;
     }
 
