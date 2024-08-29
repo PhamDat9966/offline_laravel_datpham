@@ -85,7 +85,7 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-is-home'){
-            $query = $this->select('id','name','display')
+            $query = $this->select('id','name','slug','display')
                           ->where('status','=','active')
                           ->where('is_home','=','1');
             $result = $query->get()->toArray();

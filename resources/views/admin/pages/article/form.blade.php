@@ -52,7 +52,7 @@
         ],
         [
             'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formCkeditorAttr)
+            'element'   =>  Form::textarea('content', $content, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),

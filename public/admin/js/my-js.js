@@ -714,3 +714,14 @@ $(document).ready(function() {
         reader.readAsDataURL(event.target.files[0]);
     });
 });
+
+$(document).ready(function() {
+    // Sử dụng id mới để không bị xung đột
+    $('#thumb_slider').change(function(event) {
+        var readerSlider = new FileReader();
+        readerSlider.onload = function(e) {
+            $('#thumb-slider-preview').attr('src', e.target.result).show();
+        }
+        readerSlider.readAsDataURL(event.target.files[0]);
+    });
+});

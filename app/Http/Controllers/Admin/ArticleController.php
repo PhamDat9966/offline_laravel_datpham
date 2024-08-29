@@ -71,6 +71,9 @@ class ArticleController extends AdminController
 
         if($request->id !== null){
             $params['id']   = $request->id;
+            $autoIncrement  = $params['id'];
+             // Trong trường hợp edit thì autoIncrement sẽ không tạo mới, autoIncrement = id hiện có,
+             // tránh lỗi khi lấy dữ liệu $this->model->getItem($params,['task'=>'get-item']); trong trường hợp copy paste để sửa lại slug
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 

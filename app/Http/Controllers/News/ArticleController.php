@@ -34,8 +34,9 @@ class ArticleController extends Controller
 
         $articleModel       = new ArticleModel();
         $categoryModel      = new CategoryModel();
-
+       // dd($this->params);
         $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
+
         $this->params['category_id']  = $itemArticle['category_id'];
 
         if($request->session()->has('userInfo')){

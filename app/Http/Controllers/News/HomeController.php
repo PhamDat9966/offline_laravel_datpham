@@ -66,15 +66,14 @@ class HomeController extends Controller
 
         $categoryModel  = new CategoryModel();
         $articleModel   = new ArticleModel();
+        $params         = [];
 
         $listCategoryID = array();
         $listCategoryID = $categoryModel->listItems(null,['task'=>'category-list-id']);
+        $params['listCategoryID'] = $listCategoryID;
         // Trường hợp user chưa xem bài nào thì tạo một chuỗi ngẫu nhiên từ danh sách categoryID để làm  nhóm bài viết đề xuất
         if($userInfo['usually_category'] == null){
-
-            $params['listCategoryID'] = $listCategoryID;
             $resultRamdomString = '';
-
             for ($i = 0; $i <= 10; $i++) {
                 $randomIndex = array_rand($listCategoryID);
                 $resultRamdomString .= $listCategoryID[$randomIndex]['id'] . ',';

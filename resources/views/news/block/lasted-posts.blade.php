@@ -12,7 +12,12 @@
                 $thumb              = asset('images/article/' . $item['thumb']);
                 $categoryName       = $item['category_name'];
                 $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
-                $linkArticle        = URL::linkArticle($item['id'],$item['name']);
+                $linkArticle        = '';
+                if(!empty($item['slug'])){
+                    $linkArticle    = $item['slug'].'.php';
+                }else{
+                    $linkArticle    = URL::linkArticle($item['id'],$item['name']);
+                }
                 $created            = Template::showDataFrontEnd($item['created']);
                 $created_by         = 'Lưu Trường Hải Lân';
                 $classPost          = Str::slug($categoryName);

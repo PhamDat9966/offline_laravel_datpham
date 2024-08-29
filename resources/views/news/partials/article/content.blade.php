@@ -2,16 +2,22 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
-
+    //dd($item);
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
 
     $showCategory           = (isset($showCategory)) ? $showCategory : 'false';
-    $categoryName = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
+    $categoryName           = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
     $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";
 
     $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
-    $linkArticle        = URL::linkArticle($item['id'],$item['name']);
+    $linkArticle        = '';
+    if(!empty($item['slug'])){
+        $linkArticle    = $item['slug'] . '.php';
+    }else{
+        $linkArticle    = URL::linkArticle($item['id'],$item['name']);
+    }
+
     $created            = Template::showDataFrontEnd($item['created']);
     $content            = html_entity_decode(Template::showContent($item['content'], $lenghtContent));
     $created_by         = 'Lưu Trường Hải Lân';
