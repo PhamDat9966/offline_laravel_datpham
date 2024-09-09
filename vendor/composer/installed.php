@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f77afa2cd4dc212fa4408863e6fb9c574d6aa402',
+        'reference' => '67e6417e4d76443a13d95b38b63e5a2f960d4209',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -388,6 +388,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'kalnoy/nestedset' => array(
+            'pretty_version' => 'v6.0.4',
+            'version' => '6.0.4.0',
+            'reference' => 'd81102c980b9962516c0fd8fda21dd916a23a3d7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../kalnoy/nestedset',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -415,7 +424,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f77afa2cd4dc212fa4408863e6fb9c574d6aa402',
+            'reference' => '67e6417e4d76443a13d95b38b63e5a2f960d4209',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

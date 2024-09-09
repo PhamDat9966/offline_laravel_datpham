@@ -83,9 +83,12 @@ class CategoryController extends AdminController
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
+        $nodes = $this->model->listItems($this->params, ['task'=>'admin-list-items-in-select-box']);
+       // dd($node);
         return view($this->pathViewController . 'form', [
             'item'          =>$item,
-            'autoIncrement' =>$autoIncrement
+            'autoIncrement' =>$autoIncrement,
+            'nodes'         =>$nodes
         ]);
     }
 }

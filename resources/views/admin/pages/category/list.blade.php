@@ -11,7 +11,6 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Category Info</th>
                     <th class="column-title">Trạng thái</th>
-                    <th class="column-title">Ordering</th>
                     <th class="column-title">Hiển thị Home</th>
                     <th class="column-title">Kiểu hiển thị</th>
                     <th class="column-title">Tạo mới</th>
@@ -35,7 +34,6 @@
                             $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],$params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,$params['filter']['modified']);
-                            $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
 
                         @endphp
@@ -47,9 +45,6 @@
                             </td>
                             <td>
                                 {!!$status!!}
-                            </td>
-                            <td>
-                                {!!$ordering!!}
                             </td>
                             <td>
                                 {!!$isHome!!}

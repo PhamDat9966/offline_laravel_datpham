@@ -8,6 +8,7 @@
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
+    $parent_id      = (isset($item['parent_id']))? $item->parent_id : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
@@ -18,6 +19,7 @@
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
+    //dd($nodes);
 
     $inputNameCategory = '<input class="form-control col-md-6 col-xs-12"
                                  name="name"
@@ -39,9 +41,13 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
+            'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
+            'element'   =>  Form::select('parent_id', $nodes, $parent_id, $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+        ],
+        [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
-            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),

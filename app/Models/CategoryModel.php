@@ -9,20 +9,26 @@ use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo loc
 use Illuminate\Support\Facades\Session;
 use Config;
 
+use Kalnoy\Nestedset\NodeTrait;
+
 class CategoryModel extends AdminModel
 {
-    public function __construct(){
-        $this->table                = 'category';
-        $this->folderUpload         = 'category';
-        $this->fieldSearchAccepted  = ['id','name'];
-        $this->crudNotActived       = ['_token'];
-    }
+    // public function __construct(){
+    //     $this->table                = 'category';
+    //     $this->folderUpload         = 'category';
+    //     $this->fieldSearchAccepted  = ['id','name'];
+    //     $this->crudNotActived       = ['_token'];
+    // }
+
+    use NodeTrait;
+    protected $table    = 'category';
+    protected $guarded  = [];
 
     public function listItems($params = null,$options = null){
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','status','ordering','is_home','display','created','created_by','modified','modified_by');
+            $query = $this->select('id','name','status','is_home','display','created','created_by','modified','modified_by');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -73,8 +79,7 @@ class CategoryModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('id', 'desc')
-                            ->paginate($params['pagination']['totalItemsPerPage']);
+            $result = $query->get();
         }
 
         if($options['task'] == 'news-list-items'){
@@ -97,11 +102,20 @@ class CategoryModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
-        if($options['task'] == 'admin-list-items-in-selectbox'){
-            $query = $this->select('id','name')
-                          ->orderBy('name', 'asc')
-                          ->where('status','=','active');
-            $result = $query->pluck('name', 'id')->toArray();
+        // if($options['task'] == 'admin-list-items-in-selectbox'){
+        //     $query = $this->select('id','name')
+        //                   ->orderBy('name', 'asc')
+        //                   ->where('status','=','active');
+        //     $result = $query->pluck('name', 'id')->toArray();
+        // }
+
+        if($options['task'] == 'admin-list-items-in-select-box'){
+            $query  = self::select('id','name')->where('_lft','<>',NULL)->withDepth()->defaultOrder();
+            $nodes  = $query->get()->toFlatTree();
+
+            foreach($nodes as $value){
+                $result[$value['id']] = str_repeat('|----',$value['depth']) . $value['name'];
+            }
         }
 
         if($options['task'] == 'category-list'){
@@ -220,6 +234,7 @@ class CategoryModel extends AdminModel
 
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
+            $parent                 = self::find($params['parent_id']); // Tạo parent Oject theo Nestedset
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
@@ -229,13 +244,16 @@ class CategoryModel extends AdminModel
             //// DB::table('category')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->table        = 'category';
-            $this->name         = $params['name'];
-            $this->slug         = $params['slug'];
-            $this->status       = $params['status'];
-            $this->created_by   = $params['created_by'];
-            $this->created      = $params['created'];
-            $this->save();
+            // $this->table        = 'category';
+            // $this->name         = $params['name'];
+            // $this->slug         = $params['slug'];
+            // $this->status       = $params['status'];
+            // $this->created_by   = $params['created_by'];
+            // $this->created      = $params['created'];
+            // $this->save();
+
+            /* Save dữ liệu với Nestedset có parent*/
+            self::create($this->prepareParams($params),$parent);
         }
 
         if($options['task'] == 'edit-item'){
@@ -260,7 +278,7 @@ class CategoryModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','status')
+            $result = $this::select('id','name','parent_id','status')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
