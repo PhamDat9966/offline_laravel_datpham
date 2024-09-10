@@ -111,11 +111,21 @@ class CategoryModel extends AdminModel
 
         if($options['task'] == 'admin-list-items-in-select-box'){
             $query  = self::select('id','name')->where('_lft','<>',NULL)->withDepth()->defaultOrder();
+
+            if(isset($params['id'])){
+                $node   = self::find($params['id']);
+                $query->where('_lft' , '<' , $node->_lft)->orWhere('_lft' , '>' , $node->_rgt);
+            }
+
             $nodes  = $query->get()->toFlatTree();
 
             foreach($nodes as $value){
                 $result[$value['id']] = str_repeat('|----',$value['depth']) . $value['name'];
             }
+        }
+
+        if($options['task'] == 'admin-tree'){
+            $result = self::get()->toTree();
         }
 
         if($options['task'] == 'category-list'){
@@ -261,9 +271,11 @@ class CategoryModel extends AdminModel
             $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
 
-            //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            $params   = $this->prepareParams($params);
-            self::where('id', $params['id'])->update($params);
+            $parent = self::find($params['parent_id']);
+
+            $query = $current = self::find($params['id']);
+            $query->update($this->prepareParams($params));
+            if($current->parent_id != $params['parent_id']) $query->prependToNode($parent)->save();
 
         }
 

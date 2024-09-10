@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 09, 2024 lúc 09:01 AM
+-- Thời gian đã tạo: Th9 10, 2024 lúc 09:31 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -215,18 +215,16 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 6),
-(2, 'Thể thao', 'cm-category-the-thao-1', 'active', 1, 'list', '2024-07-01 00:00:00', 'admin', '2024-07-12 00:00:00', 'hailan', NULL, NULL, NULL),
-(3, 'Giáo dục', NULL, 'inactive', 1, 'list', '2019-05-04 00:00:00', 'admin', '2024-03-20 00:00:00', 'admin', NULL, NULL, NULL),
-(4, 'Sức khỏe', NULL, 'active', 0, 'list', '2019-05-04 00:00:00', 'admin', '2024-03-20 00:00:00', 'admin', NULL, NULL, NULL),
-(5, 'Du lịch', NULL, 'inactive', 0, 'list', '2019-05-04 00:00:00', 'admin', '2024-07-02 00:00:00', 'admin', NULL, NULL, NULL),
-(6, 'Khoa học', NULL, 'active', 1, 'grid', '2019-05-04 00:00:00', 'admin', '2024-07-02 00:00:00', 'admin', NULL, NULL, NULL),
-(7, 'Số hóa', NULL, 'inactive', 1, 'grid', '2019-05-04 00:00:00', 'admin', '2024-07-02 00:00:00', 'admin', NULL, NULL, NULL),
-(8, 'Xe - Ô tô', NULL, 'active', 0, 'list', '2019-05-04 00:00:00', 'admin', '2024-07-02 00:00:00', 'admin', NULL, NULL, NULL),
-(9, 'Kinh doanh', NULL, 'active', 1, 'list', '2019-05-16 00:00:00', 'hailan', '2024-07-02 00:00:00', 'admin', NULL, NULL, NULL),
-(23, 'đây là test category', 'cm-day-la-test-category-23', 'active', NULL, NULL, '2024-08-24 00:00:00', 'admin', '2024-08-27 00:00:00', 'admin', NULL, NULL, NULL),
-(26, 'test001', 'cm-test001-26', 'active', NULL, NULL, '2024-09-09 00:00:00', 'admin', '2024-09-09 00:00:00', 'admin', 1, 2, 5),
-(27, 'test002', 'cm-test002-27', 'active', NULL, NULL, '2024-09-09 00:00:00', 'admin', '2024-09-09 00:00:00', 'admin', 26, 3, 4);
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 20),
+(2, 'Thể Thao', 'cm-the-thao-2', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 2, 5),
+(3, 'Giáo dục', 'cm-giao-duc-3', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 6, 7),
+(4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 8, 9),
+(5, 'Du lịch', 'cm-du-lich-5', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 10, 11),
+(6, 'Khoa học', 'cm-khoa-hoc-6', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 12, 13),
+(7, 'Số hóa', 'cm-so-hoa-7', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 14, 15),
+(8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 16, 17),
+(9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 1, 18, 19),
+(10, 'Thể thao child001', 'cm-the-thao-child001-11', 'active', NULL, NULL, '2024-09-10 00:00:00', 'dat123', '2024-09-10 00:00:00', 'dat123', 2, 3, 4);
 
 --
 -- Bẫy `category`
@@ -537,7 +535,7 @@ CREATE TABLE `totalelements` (
 
 INSERT INTO `totalelements` (`TableName`, `ElementCount`, `icon`) VALUES
 ('article', 21, '<i class=\"fa fa-newspaper-o\"></i>'),
-('category', 21, '<i class=\"fa fa-tasks\"></i>'),
+('category', 19, '<i class=\"fa fa-tasks\"></i>'),
 ('slider', 6, '<i class=\"fa fa-sliders\"></i>'),
 ('user', 9, '<i class=\"fa fa-users\"></i>');
 
@@ -572,7 +570,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`,
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', 'admin', '2014-12-13 07:20:03', 'admin', '2024-03-22 00:00:00', 'dat123', 'active', NULL),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-03-23 00:00:00', 'admin', 'inactive', NULL),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-03-23 00:00:00', 'admin', 'active', NULL),
-(5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', 'admin', '2023-11-28 00:00:00', 'phamdat', '2024-08-06 00:00:00', 'admin', 'inactive', NULL),
+(5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', 'admin', '2023-11-28 00:00:00', 'phamdat', '2024-09-10 00:00:00', 'admin', 'active', NULL),
 (6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', NULL, 'pL1DxiUtai.jpg', 'admin', '2023-11-28 00:00:00', 'phamdat', '2024-03-22 00:00:00', 'admin', 'active', NULL),
 (8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', '123456', '9k04uy61T5.jpg', 'admin', '2023-11-29 00:00:00', 'phamdat', '2023-11-29 00:00:00', 'phamdat', 'active', NULL),
 (9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', 'member', '2023-11-29 00:00:00', 'phamdat', '2024-01-19 00:00:00', 'admin', 'inactive', NULL),
@@ -1305,7 +1303,7 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `contact`

@@ -79,12 +79,16 @@ class CategoryController extends AdminController
         $autoIncrement = $autoIncrement[0]->AUTO_INCREMENT;
 
         if($request->id !== null){
-            $params['id']   = $request->id;
-            $item = $this->model->getItem($params,['task'=>'get-item']);
+            $this->params['id']   = $request->id;
+            $item = $this->model->getItem($this->params,['task'=>'get-item']);
         }
 
         $nodes = $this->model->listItems($this->params, ['task'=>'admin-list-items-in-select-box']);
-       // dd($node);
+        echo '<pre>';
+        print_r($nodes);
+        echo '</pre>';
+        $tree  = $this->model->listItems($this->params, ['task'=>'admin-tree']);
+
         return view($this->pathViewController . 'form', [
             'item'          =>$item,
             'autoIncrement' =>$autoIncrement,
