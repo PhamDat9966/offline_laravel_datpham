@@ -84,10 +84,8 @@ class CategoryController extends AdminController
         }
 
         $nodes = $this->model->listItems($this->params, ['task'=>'admin-list-items-in-select-box']);
-        echo '<pre>';
-        print_r($nodes);
-        echo '</pre>';
-        $tree  = $this->model->listItems($this->params, ['task'=>'admin-tree']);
+
+        $tree  = $this->model->listItems($this->params, ['task'=>'admin-tree']);//test
 
         return view($this->pathViewController . 'form', [
             'item'          =>$item,
