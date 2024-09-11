@@ -1,13 +1,13 @@
 @extends('admin.main')
 
 @php
-    use App\Helpers\template as Template;
-    $xhtmlButtonFilter          = Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params);
-    $xhtmlAreaSearch            = Template::showAreaSearch($controllerName, $params['search']);
-    $xhtmlItemIsHomeFilter      = Template::showItemIsHomeFilter($controllerName, $params['filter']['is_home']);
-    $xhtmlItemDisplayFilter     = Template::showItemDisplayFilter($controllerName, $params['filter']['display']);
-    $xhtmlCreated               = Template::showCreatedFilter($params['filter']['created']);
-    $xhtmlModified              = Template::showModifiedFilter($params['filter']['modified']);
+    use App\Helpers\Template as Template;
+    // $xhtmlButtonFilter          = Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'],$params);
+    // $xhtmlAreaSearch            = Template::showAreaSearch($controllerName, $params['search']);
+    // $xhtmlItemIsHomeFilter      = Template::showItemIsHomeFilter($controllerName, $params['filter']['is_home']);
+    // $xhtmlItemDisplayFilter     = Template::showItemDisplayFilter($controllerName, $params['filter']['display']);
+    // $xhtmlCreated               = Template::showCreatedFilter($params['filter']['created']);
+    // $xhtmlModified              = Template::showModifiedFilter($params['filter']['modified']);
 @endphp
 
 @section('content')
@@ -23,24 +23,24 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-md-3">
-                        {!!$xhtmlButtonFilter!!}
+                        {{-- {!!$xhtmlButtonFilter!!} --}}
                     </div>
                     <div class="col-md-1">
                         {{-- filter is home --}}
-                        {!!$xhtmlItemIsHomeFilter!!}
+                        {{-- {!!$xhtmlItemIsHomeFilter!!} --}}
                     </div>
                     <div class="col-md-1">
                         {{-- filter display --}}
-                        {!!$xhtmlItemDisplayFilter!!}
+                        {{-- {!!$xhtmlItemDisplayFilter!!} --}}
                     </div>
                     <div class="col-md-2">
-                        {!!$xhtmlCreated!!}
+                        {{-- {!!$xhtmlCreated!!} --}}
                     </div>
                     <div class="col-md-2">
-                        {!!$xhtmlModified!!}
+                        {{-- {!!$xhtmlModified!!} --}}
                     </div>
                     <div class="col-md-3">
-                        {!!$xhtmlAreaSearch!!}
+                        {{-- {!!$xhtmlAreaSearch!!} --}}
                     </div>
                 </div>
             </div>

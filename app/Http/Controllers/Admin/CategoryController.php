@@ -20,6 +20,22 @@ class CategoryController extends AdminController
         parent::__construct();
     }
 
+    public function index(Request $request)
+    {
+
+        $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
+
+        /* foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
+             echo "<h3 style='color:blue'>".$key."</h3>";
+            echo "<h3 style='color:red'>".$item."</h3>";
+        } */
+
+        return view($this->pathViewController . 'index',[
+             'params'               => $this->params,
+             'items'                => $items
+        ]);
+    }
+
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 
@@ -93,6 +109,12 @@ class CategoryController extends AdminController
             'nodes'         =>$nodes
         ]);
     }
+
+    public function move(Request $request){
+        $params['type'] = $request->type;
+        $params['id']   = $request->id;
+        $this->model->move($params, null);
+        return redirect()->route($this->controllerName);
+    }
 }
 
-// php artisan make:model CategoryModel

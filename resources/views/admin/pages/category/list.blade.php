@@ -11,6 +11,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Category Info</th>
                     <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Sắp xếp</th>
                     <th class="column-title">Hiển thị Home</th>
                     <th class="column-title">Kiểu hiển thị</th>
                     <th class="column-title">Tạo mới</th>
@@ -27,24 +28,27 @@
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                 = $val['id'];
-                            $name               = Hightlight::show($val['name'], $params['search'] , 'name');
-
+                            $name               = Template::showNestedSetName($val['name'],$val['depth']);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
+                            $move               = Template::showNestedSetUpDown($controllerName, $id);
                             $isHome             = Template::showItemIsHome( $controllerName,$id,$val['is_home']);
                             $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
-                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],$params['filter']['created']);
-                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,$params['filter']['modified']);
+                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],'');
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,'');
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
 
                         @endphp
 
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
-                            <td width="40%">
-                                <p><strong>Name:</strong> {!! $name !!}</p>
+                            <td width="20%">
+                                <p> {!! $name !!}</p>
                             </td>
                             <td>
                                 {!!$status!!}
+                            </td>
+                            <td>
+                                {!!$move!!}
                             </td>
                             <td>
                                 {!!$isHome!!}

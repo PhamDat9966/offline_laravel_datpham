@@ -1,5 +1,6 @@
 <?php
 namespace App\Helpers;
+use App\Models\CategoryModel;
 use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
 
@@ -513,5 +514,35 @@ class Template{
                     <input type="text" id="datepicker" name="date" class="form-control" placeholder="Choose a date" value="'.$dateFilter.'">
                  </div>';
        return $xhtml;
+    }
+
+    public static function showNestedSetName($name,$level){
+        $xhtml  = str_repeat('|------ ',$level - 1);
+        $xhtml .= sprintf('<span class="badge badge-dange p-1">%s</span><strong>%s</strong>',$level,$name);
+        return $xhtml;
+    }
+
+    public static function showNestedSetUpDown($controllerName,$id){
+        $upButton   = sprintf(
+        '<a href="%s" type="button" class="btn btn-primary mb-0" data-toggle="tooltip" title="" data-original-title="Up">
+                    <i class="fa fa-long-arrow-up"></i>
+                </a>', route("$controllerName/move",['id' => $id, 'type' => 'up']));
+
+        $downButton = sprintf(
+        '<a href="%s" type="button" class="btn btn-primary mb-0" data-toggle="tooltip" title="" data-original-title="Down">
+                    <i class="fa fa-long-arrow-down"></i>
+                </a>', route("$controllerName/move",['id' => $id, 'type' => 'down']));
+
+        $node = CategoryModel::find($id);
+
+        if(empty($node->getPrevSibling()) || empty($node->getPrevSibling()->parent_id)) $upButton = '';
+        if(empty($node->getNextSibling())) $downButton = '';
+
+        $xhtml = '
+        <span style="width:36px,display:inline-block">'.$upButton.'</span>
+        <span style="width:36px,display:inline-block">'.$downButton.'</span>
+        ';
+
+        return $xhtml;
     }
 }

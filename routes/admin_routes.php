@@ -106,6 +106,13 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
+        Route::get('move-{type}/{id}' , $controller . 'move')->name("$controllerName/move")->where('id','[0-9]+');
+
+        // Route::get('move-{type}/{id}', [
+        //     'as'    => $controllerName . '/move',
+        //     'uses'  => $controller . 'move'
+        // ])->where('id','[0-9]+');
+
     });
 
     // ====================== ARTICLE ======================

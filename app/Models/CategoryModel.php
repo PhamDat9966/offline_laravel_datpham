@@ -28,58 +28,12 @@ class CategoryModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','name','status','is_home','display','created','created_by','modified','modified_by');
 
-            if($params['filter']['status'] !== "all"){
-                $query->where('status','=',$params['filter']['status']);
-            }
-
-            if($params['filter']['date'] !== null){
-                $query->where('created',"like","%".$params['filter']['date']."%");
-            }
-
-            if($params['filter']['created'] !== null){
-                $query->where('created',"like","%".$params['filter']['created']."%");
-            }
-
-            if($params['filter']['modified'] !== null){
-                $query->where('modified',"like","%".$params['filter']['modified']."%");
-            }
-
-            if($params['filter']['is_home'] !== "all"){
-                if($params['filter']['is_home'] == 'true'){
-                    $params['filter']['is_home'] = 1;
-                }else if($params['filter']['is_home'] == 'false'){
-                    $params['filter']['is_home'] = 0;
-                }
-                $query->where("is_home","=", $params['filter']['is_home']);
-            }
-
-
-            if($params['filter']['display'] !== "all"){
-                $query->where('display','=',$params['filter']['display']);
-            }
-
-            if($params['search'] !== ""){
-
-                if($params["search"]["field"] == "all"){
-
-                    $query->where(function ($query) use ($params){
-                        foreach ($this->fieldSearchAccepted as $column) {
-                            {
-                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
-                            }
-                        }
-                    }
-                );
-
-                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
-                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
-                }
-            }
-
-            $result = $query->get();
+            $result = self::withDepth()
+                      ->having('depth','>',0)
+                      ->defaultOrder()
+                      ->get()
+                      ->toFlatTree();
         }
 
         if($options['task'] == 'news-list-items'){
@@ -324,4 +278,11 @@ class CategoryModel extends AdminModel
         return $result;
     }
 
+    public function move($params = null,$options = null){
+        $node       = self::find($params['id']);
+        $historyBy  = session('userInfo')['username'];
+        $this->where('id',$params['id'])->update(['modified_by' => $historyBy]);
+        if($params['type'] == 'down') $node->down();
+        if($params['type'] == 'up')   $node->up();
+    }
 }
