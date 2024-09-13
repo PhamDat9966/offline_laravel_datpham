@@ -104,31 +104,23 @@
 
                 if($item['container'] != ''){
                     $parentidCurrent = $item['id'];
-                    $xhtmlMenu  .= '<li class="dropdown">
-                                        <a class="nav-link dropdown-toggle '.$classActive.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-                                            '.$item['name'].'
-                                        </a>';
+
+                        /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
+                          Nếu con có class active, thì cha sẽ được gắng class active */
+                        $classActiveCategoryFather = buildMenuCategory($categoryMenu);
+                        if (strpos($classActiveCategoryFather, 'active') !== false) {
+                            $classActiveCategoryFather = 'active';
+                        }else{
+                            $classActiveCategoryFather = '';
+                        }
+
+                        $xhtmlMenu  .= '<li class="dropdown">
+                                            <a class="nav-link dropdown-toggle '.$classActiveCategoryFather.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                                                '.$item['name'].'
+                                            </a>';
 
                         if($item['container'] == 'category'){
-                            // $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                            //     foreach ($categoryMenu as $keyCategory => $valCategory) {
-                            //         $hasChildrenCategory     = hasChildren($categoryMenu, $valCategory['id']);
-                            //         //dd($hasChildrenCategory);
-                            //         $categoryLink = '';
-                            //         if($valCategory['slug'] != null){
-                            //             $categoryLink     = $host . '/' . $valCategory['slug'] . '.html';
-                            //         }else {
-                            //             $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
-                            //         }
-                            //         if($hasChildrenCategory != true){
-                            //             $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
-                            //         } else {
-                            //             $xhtmlMenu      .=      '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                            //             buildMenu($categoryMenu, $valCategory['id'], $navChildLinkClass);
-                            //             $xhtmlMenu      .=      '</ul>';
-                            //         }
-                            //     }
-                            // $xhtmlMenu  .= '</ul>';
+                            //Đây là danh mục, category.
                             $xhtmlMenu .= buildMenuCategory($categoryMenu);
                         }
 
@@ -195,39 +187,41 @@
         return false;
     }
 
+    // Hàm đệ quy build Category ra menu
     function buildMenuCategory($itemsCategory)
     {
         global $host;
         global $currentUrl;
+        $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
 
-        $xhtmlCategory      = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
 
-            $menuUrl = $host .'/'. $valueCategory['slug'] . '.html';
+            $menuUrl = $host . '/' . $valueCategory['slug'] . '.html';
 
-            // Kiểm tra trạng thái "active"
-           // $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
-            $classActive = ($currentUrl == $menuUrl || hasActiveChildCategory($itemsCategory, $valueCategory['id'], $currentUrl)) ? 'active' : '';
+            // Kiểm tra URL của phần tử cha có khớp không
+            $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
 
-            $categoryLink = '';
-            if($valueCategory['slug'] != null){
-                $categoryLink     = $host . '/' . $valueCategory['slug'] . '.html';
-            }else {
-                $categoryLink     = URL::linkCategory($valueCategory['id'],$valueCategory['name']);
-            }
+            // Kiểm tra nếu bất kỳ phần tử con nào có class active
+            if ($valueCategory['children'] != null) {
+                $childActive = buildMenuCategory($valueCategory['children']);
 
-            if($valueCategory['children'] == null){
-                $xhtmlCategory      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a></li>';
-            }
-            else{
-                $xhtmlCategory      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a>';
-                $xhtmlCategory      .=  buildMenuCategory($valueCategory['children']);
-                $xhtmlCategory      .= '</li>';
+                // Nếu con có class active, thì cha cũng phải có class active
+                if (strpos($childActive, 'active') !== false) {
+                    $classActive = 'active';
+                }
+
+                $xhtmlCategory .= '<li><a class="nav-link ' . $classActive . '" href="' . $menuUrl . '">' . $valueCategory['name'] . '</a>';
+                $xhtmlCategory .= $childActive;  // Gắn menu con
+                $xhtmlCategory .= '</li>';
+            } else {
+                $xhtmlCategory .= '<li><a class="nav-link ' . $classActive . '" href="' . $menuUrl . '">' . $valueCategory['name'] . '</a></li>';
             }
         }
-        $xhtmlCategory     .= '</ul>';
+
+        $xhtmlCategory .= '</ul>';
         return $xhtmlCategory;
     }
+
 
 
     // Gọi hàm đệ quy để tạo menu từ mảng
