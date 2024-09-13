@@ -96,6 +96,7 @@ class CategoryController extends AdminController
 
         if($request->id !== null){
             $this->params['id']   = $request->id;
+            $autoIncrement        = $this->params['id'];
             $item = $this->model->getItem($this->params,['task'=>'get-item']);
         }
 

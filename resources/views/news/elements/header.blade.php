@@ -49,6 +49,7 @@
 
     $xhtmlMenu  .= '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
 
+
     // Hàm đệ quy để tạo menu
     function buildMenu($items, $parentId = null, $navLinkClass = null)
     {
@@ -109,18 +110,26 @@
                                         </a>';
 
                         if($item['container'] == 'category'){
-                            $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                                foreach ($categoryMenu as $keyCategory => $valCategory) {
-                                    $categoryLink = '';
-                                    if($valCategory['slug'] != null){
-                                        $categoryLink     = $host . '/' . $valCategory['slug'] . '.html';
-                                    }else {
-                                        $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
-                                    }
-
-                                    $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
-                                }
-                            $xhtmlMenu  .= '</ul>';
+                            // $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+                            //     foreach ($categoryMenu as $keyCategory => $valCategory) {
+                            //         $hasChildrenCategory     = hasChildren($categoryMenu, $valCategory['id']);
+                            //         //dd($hasChildrenCategory);
+                            //         $categoryLink = '';
+                            //         if($valCategory['slug'] != null){
+                            //             $categoryLink     = $host . '/' . $valCategory['slug'] . '.html';
+                            //         }else {
+                            //             $categoryLink     = URL::linkCategory($valCategory['id'],$valCategory['name']);
+                            //         }
+                            //         if($hasChildrenCategory != true){
+                            //             $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valCategory['name'].'</a></li>';
+                            //         } else {
+                            //             $xhtmlMenu      .=      '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+                            //             buildMenu($categoryMenu, $valCategory['id'], $navChildLinkClass);
+                            //             $xhtmlMenu      .=      '</ul>';
+                            //         }
+                            //     }
+                            // $xhtmlMenu  .= '</ul>';
+                            $xhtmlMenu .= buildMenuCategory($categoryMenu);
                         }
 
                         if($item['container'] == 'article'){
@@ -170,6 +179,56 @@
         }
         return false;
     }
+
+    function hasActiveChildCategory($items, $parentId, $currentUrl)
+    {
+        // dd($items);
+        global $host;
+        foreach ($items as $item) {
+            if ($item['parent_id'] == $parentId) {
+                $menuUrl = $host .'/'.  $item['slug'] . '.html';
+                if ($menuUrl == $currentUrl || hasActiveChildCategory($items, $item['id'], $currentUrl)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function buildMenuCategory($itemsCategory)
+    {
+        global $host;
+        global $currentUrl;
+
+        $xhtmlCategory      = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+        foreach ($itemsCategory as $keyCategory => $valueCategory) {
+
+            $menuUrl = $host .'/'. $valueCategory['slug'] . '.html';
+
+            // Kiểm tra trạng thái "active"
+           // $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
+            $classActive = ($currentUrl == $menuUrl || hasActiveChildCategory($itemsCategory, $valueCategory['id'], $currentUrl)) ? 'active' : '';
+
+            $categoryLink = '';
+            if($valueCategory['slug'] != null){
+                $categoryLink     = $host . '/' . $valueCategory['slug'] . '.html';
+            }else {
+                $categoryLink     = URL::linkCategory($valueCategory['id'],$valueCategory['name']);
+            }
+
+            if($valueCategory['children'] == null){
+                $xhtmlCategory      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a></li>';
+            }
+            else{
+                $xhtmlCategory      .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a>';
+                $xhtmlCategory      .=  buildMenuCategory($valueCategory['children']);
+                $xhtmlCategory      .= '</li>';
+            }
+        }
+        $xhtmlCategory     .= '</ul>';
+        return $xhtmlCategory;
+    }
+
 
     // Gọi hàm đệ quy để tạo menu từ mảng
     buildMenu($itemsMenu, null, null);

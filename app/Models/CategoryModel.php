@@ -51,9 +51,13 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name','slug')
-                          ->where('status','=','active');
-            $result = $query->get()->toArray();
+            $result =   self::withDepth()
+                    ->having('depth','>','0')
+                    ->defaultOrder()
+                    ->where('status','active')
+                    ->get()
+                    ->toTree()
+                    ->toArray();
         }
 
         // if($options['task'] == 'admin-list-items-in-selectbox'){
