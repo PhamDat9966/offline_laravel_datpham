@@ -60,6 +60,24 @@ class CategoryModel extends AdminModel
                     ->toArray();
         }
 
+        /* những phương thức liên quan đến mô hình Nested Set Model*/
+        if($options['task'] == 'test-command-withDepth'){
+            //withDepth() là phương thức lấy danh sách các node xong thêm một cột tính cột độ sâu của node
+            $result =   self::withDepth()->get()->toArray();
+        }
+
+        if($options['task'] == 'test-command-defaultOrder'){
+            //Phương thức defaultOrder() Dựa vào các giá trị _lft (left) và _rgt (right). Phương thức defaultOrder() sẽ sắp xếp các mục theo thứ tự tự nhiên dựa trên hai cột này
+            $result =   self::defaultOrder()->get()->toArray();
+        }
+
+        if($options['task'] == 'test-command-toTree'){
+            //toTree() là phương thức Chuyển đổi danh sách các mục thành một cây phân cấp (nested tree) để dễ dàng hiển thị theo cấu trúc cây cha - con.
+            $result =   self::withDepth()->having('depth','>','0')->defaultOrder()->get()->toTree()->toArray();
+            //$result =   self::withDepth()->having('depth','>','0')->defaultOrder()->get()->toFlatTree()->toArray();
+        }
+        /*end*/
+
         // if($options['task'] == 'admin-list-items-in-selectbox'){
         //     $query = $this->select('id','name')
         //                   ->orderBy('name', 'asc')

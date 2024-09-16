@@ -22,12 +22,15 @@
     global $categoryMenu;
     $categoryModel  = new CategoryModel();
     $categoryMenu   = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+    //Test command
+    // $categoryTest   = $categoryModel->listItems(null,['task'=>'test-command-toTree']);
+    // dd($categoryTest);
 
     global $articleMenu;
     $articleModel   = new ArticleModel();
     $articleMenu    = $articleModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
 
-    //dd($categoryMenu);
+
 
     $xhtmlMenu          = '';
     $xhtmlMenuMobile    = '';
@@ -205,7 +208,8 @@
             if ($valueCategory['children'] != null) {
                 $childActive = buildMenuCategory($valueCategory['children']);
 
-                // Nếu con có class active, thì cha cũng phải có class active
+                //Hàm strpos sẽ tìm xem, trong phép đệ quy menu con được return dưới dạng xhtml có chuỗi 'active' không
+                // Nếu trong xhtml của phần tử con có class active, thì cha sẽ được gán class active
                 if (strpos($childActive, 'active') !== false) {
                     $classActive = 'active';
                 }

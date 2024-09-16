@@ -28,8 +28,8 @@
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
+    $categoryValue  = $itemsCategory;
 
-    $categoryValue     = $itemsCategory;
     $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
                                  name="name"
                                  type="text"

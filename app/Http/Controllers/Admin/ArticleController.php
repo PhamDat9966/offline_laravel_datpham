@@ -30,9 +30,13 @@ class ArticleController extends AdminController
 
         // Thêm nội dung mới của ArticleController
         $categoryModel  = new categoryModel();
-        $categoryList   = $categoryModel->listItems(null, ['task' => 'category-list']);
-        $firstItem      = ['id' => 'all', 'name' => 'Tất Cả'];
-        $categoryList   = array('all' => $firstItem) + $categoryList;
+        //$categoryList   = $categoryModel->listItems(null, ['task' => 'category-list']);
+        // $firstItem      = ['id' => 'all', 'name' => 'Tất Cả'];
+        // $categoryList   = array('all' => $firstItem) + $categoryList;
+
+        $categoryList   = $categoryModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
+        unset($categoryList[1]); // Xóa phần tử root
+        $categoryList = ['all' => 'Tất cả'] + $categoryList; // Thêm phần tử có key = 'all' và value = 'Tất cả' vào đầu mảng
 
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
@@ -78,7 +82,9 @@ class ArticleController extends AdminController
         }
 
         $categoryModel      = new CategoryModel();
-        $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
+        $itemsCategory      = $categoryModel->listItems(null,["task"=>'admin-list-items-in-select-box']);
+        unset($itemsCategory[1]); // Xóa phần tử root
+        $itemsCategory = ['all' => 'Tất cả'] + $itemsCategory;
 
         return view($this->pathViewController . 'form', [
             'item'          =>$item,

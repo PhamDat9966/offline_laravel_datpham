@@ -405,15 +405,28 @@ class Template{
         return  $xhtml;
     }
 
+    // public static function showItemCategoryFilter($controllerName , $categoryFilterValue = null, $categoryList = null){
+    //     $tmplCategory   = $categoryList;
+    //     $link           = route($controllerName);
+
+    //     $xhtml   =sprintf('<select name="select_change_is_category_filter" data-url=%s class="form-control input-sm">',$link);
+    //     foreach($tmplCategory as $key => $value){
+    //         $xhtmlSelect = '';
+    //         if(strval($value['id']) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
+    //         $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect , $value['name']);
+    //     }
+    //     $xhtml  .='</select>';
+    //     return  $xhtml;
+    // }
+
     public static function showItemCategoryFilter($controllerName , $categoryFilterValue = null, $categoryList = null){
         $tmplCategory   = $categoryList;
         $link           = route($controllerName);
-
         $xhtml   =sprintf('<select name="select_change_is_category_filter" data-url=%s class="form-control input-sm">',$link);
         foreach($tmplCategory as $key => $value){
             $xhtmlSelect = '';
-            if(strval($value['id']) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
-            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect , $value['name']);
+            if(strval($key) == strval($categoryFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect , $value);
         }
         $xhtml  .='</select>';
         return  $xhtml;
