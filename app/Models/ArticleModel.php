@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminModel;
+use App\Models\CategoryModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
@@ -25,11 +26,31 @@ class ArticleModel extends AdminModel
                         ->leftJoin('category as c', 'a.category_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
-                $query->where('a.status','=',$params['filter']['status']);
+               $query->where('a.status','=',$params['filter']['status']);
+
             }
 
             if($params['filter']['category'] !== "all"){
-                $query->where("category_id","=", $params['filter']['category']);
+
+                // Cách 1: từ $params['filter']['category'] rồi lấy danh sách con, sau đó tạo mảng $categories đưa cha và danh sách con vào rồi whereIn để lọc
+                $category = CategoryModel::find($params['filter']['category']); // Lấy danh mục cha
+                $childCategories = CategoryModel::whereBetween('_lft', [$category->_lft + 1, $category->_rgt - 1])
+                                                ->orderBy('_lft')
+                                                ->get()
+                                                ->toArray(); // Danh sách các danh mục con dưới dạng array
+
+                $categories = [];
+                $categories[0] = (int)$params['filter']['category'];
+                foreach($childCategories as $childCategoryValue){
+                    $categories[] = $childCategoryValue['id'];
+                }
+
+                // Cách 2: Dùng các phương thức hỗ trợ của Nester set module
+                // $categories  = CategoryModel::descendantsAndSelf($params['filter']['category'])
+                //             ->pluck('id')
+                //             ->toArray();
+
+                $query->whereIn('a.category_id',$categories);
             }
 
             if($params['filter']['type'] !== "all"){
