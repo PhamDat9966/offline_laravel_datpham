@@ -26,6 +26,7 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this->toArray());
         $task = 'add';
 
         if(isset($this->taskEditInfo)) $task = 'edit';
