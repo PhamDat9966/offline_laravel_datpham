@@ -15,7 +15,7 @@ class ArticleModel extends AdminModel
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content','slug'];
-        $this->crudNotActived       = ['_token','thumb_current'];
+        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
     }
 
     public function listItems($params = null,$options = null){

@@ -55,6 +55,58 @@ class Form{
         }
         return $result;
     }
+
+    public static function showArticleInfo( $elements ){
+        $xhtml   = '';
+        foreach( $elements as $element ){
+            $xhtml .= self::formGroupArticleInfo($element);
+        }
+        return $xhtml;
+    }
+
+    public static function formGroupArticleInfo( $element , $params = null ){
+
+        $result  = '';
+        $type   = (isset($element['type'])) ? $element['type'] : 'input'; // nếu không tồn tại nếu $element không có 'type' thì maực định sẽ được đặt
+                                                                          // là 'input'
+        switch( $type ){
+            case 'btn-submit':
+                $result  =sprintf(' <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-3">
+                                            %s
+                                        </div>
+                                    </div>',$element['element']);
+                break;
+            case 'btn-submit-edit':
+                $result  =sprintf(' <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-4">
+                                            %s
+                                        </div>
+                                    </div>',$element['element']);
+                break;
+            case 'input':
+                $result  =sprintf('<div class="form-group">
+                                        %s
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            %s
+                                        </div>
+                                    </div>',$element['label'],$element['element']);
+                break;
+            case 'thumb':
+                $result  =sprintf('<div class="form-group">
+                                        %s
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            %s
+                                            <p style="margin-top: 50px;">%s</p>
+                                        </div>
+                                    </div>',$element['label'],$element['element'],$element['thumb']);
+                break;
+
+        }
+        return $result;
+    }
 }
 
 // <div class="form-group">

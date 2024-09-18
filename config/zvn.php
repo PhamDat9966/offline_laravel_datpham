@@ -21,11 +21,17 @@ return [
         'form_label'=>[
             'class'         => 'control-label col-md-3 col-sm-3 col-xs-12',
         ],
+        'form_label_02'=>[
+            'class'         => 'control-label col-md-2 col-sm-3 col-xs-12',
+        ],
         'form_label_edit'=>[
             'class'         => 'control-label col-md-4 col-sm-3 col-xs-12',
         ],
         'form_input'=>[
             'class'         => 'form-control col-md-6 col-xs-12',
+        ],
+        'form_input_10'=>[
+            'class'         => 'form-control col-md-10 col-xs-12',
         ],
         'form_ckeditor'=>[
             'class'         => 'form-control col-md-6 col-xs-12 ckeditor',
