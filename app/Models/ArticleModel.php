@@ -272,6 +272,12 @@ class ArticleModel extends AdminModel
                         ->update(['type' => $type]);
         }
 
+        if($options['task'] == 'change-category'){
+            $category_id = $params['category_id'];
+            $this::where('id', $params['id'])
+                        ->update(['category_id' => $category_id,'modified' => $params['modified'],'modified_by' =>  $params['modified_by']]);
+        }
+
         if($options['task'] == 'change-display'){
             $this::where('id', $params['id'])
                         ->update(['display' => $params['display']]);

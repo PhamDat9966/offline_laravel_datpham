@@ -92,5 +92,17 @@ class ArticleController extends AdminController
             'autoIncrement' =>$autoIncrement
         ]);
     }
+
+    public function changeCategory(Request $request)
+    {
+        $params["category_id"]      = $request->category_id;
+        $params["id"]               = $request->id;
+
+        $this->model->saveItem($params, ['task' => 'change-category']);
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 }
 

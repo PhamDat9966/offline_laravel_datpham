@@ -268,6 +268,21 @@ class Template{
         return  $xhtml;
     }
 
+    public static function select($fieldName , $idItem ,  $arraySelectList , $idCategory , $field ){
+        // $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+        $link   = $field['data-url'];
+        $class  = $field['class'];
+
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="%s">',$idItem,$link,$class);
+        foreach($arraySelectList as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $idCategory) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect , $value );
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showItemSelectWithArray($controllerName , $id , $displayValue , $fieldName, $array){
 
         $tmplDisplay     = $array;

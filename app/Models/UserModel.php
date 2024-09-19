@@ -19,7 +19,6 @@ class UserModel extends AdminModel
     }
 
     public function listItems($params = null,$options = null){
-       // dd($params);
         $result = null;
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('id','username','email','fullname','password','avatar','level','created','created_by','modified','modified_by','status');
