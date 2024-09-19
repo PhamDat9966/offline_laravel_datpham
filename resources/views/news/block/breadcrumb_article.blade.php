@@ -1,7 +1,22 @@
 @php
     use App\Helpers\URL;
-    $nameBreadcrumb = $item['name'];
-    $linkCategory   = URL::linkCategory($item['category_id'],$item['category_name']);
+
+    $request = Request::capture();
+    global $host;
+    $host = $request->getHost();
+    $host = 'http://'.$host;
+
+    $nameBreadcrumb     = $item['name'];
+    $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
+
+    $xhtmlBreadcrumbs   = '<ul class="d-flex flex-row align-items-start justify-content-start">';
+    $xhtmlBreadcrumbs  .=       '<li><a href="'.route('home').'">Trang chủ</a></li>';
+    foreach ($categoryFamily as $valueCategory) {
+        $linkCategory      =    $host . '/' . $valueCategory['slug'] . '.php';
+        $xhtmlBreadcrumbs .=    '<li><a href="'.$linkCategory.'">'. $valueCategory['name'] .'</a></li>';
+    }
+    $xhtmlBreadcrumbs     .=    '<li>'.$nameBreadcrumb.'</li>';
+    $xhtmlBreadcrumbs  .= '</ul>';
 @endphp
 <div class="home">
     <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{{asset('news/images/footer.jpg')}}" data-speed="0.8"></div>
@@ -12,11 +27,7 @@
                 <div class="home_content">
                    <div class="home_title">{{ $nameBreadcrumb }}</div>
                    <div class="breadcrumbs">
-                      <ul class="d-flex flex-row align-items-start justify-content-start">
-                         <li><a href="{{route('home')}}">Trang chủ</a></li>
-                         <li><a href="{{$linkCategory}}">{{$item['category_name']}}</a></li>
-                         <li>{{ $nameBreadcrumb }}</li>
-                      </ul>
+                      {!! $xhtmlBreadcrumbs !!}
                    </div>
                 </div>
              </div>

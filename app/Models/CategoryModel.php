@@ -114,6 +114,17 @@ class CategoryModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'category-family-ancestors'){
+
+            $category = $this::find($params['category_id']); // Lấy phần tử con
+
+            $result = $this::where('id', '>', 1) // Loại bỏ phần tử root
+                            ->where('_lft', '<=', $category->_lft) // Lấy các phần tử có _lft nhỏ hơn (tổ tiên), ở đây sử dụng dấu <= để lấy ds có chính nó
+                            ->where('_rgt', '>=', $category->_rgt) // Lấy các phần tử có _rgt lớn hơn
+                            ->orderBy('_lft') // Sắp xếp theo thứ tự phân cấp
+                            ->get()->toArray(); // Lấy các phần tử tổ tiên
+        }
+
         return $result;
     }
 

@@ -181,7 +181,7 @@
         global $host;
         foreach ($items as $item) {
             if ($item['parent_id'] == $parentId) {
-                $menuUrl = $host .'/'.  $item['slug'] . '.html';
+                $menuUrl = $host .'/'.  $item['slug'] . '.php';
                 if ($menuUrl == $currentUrl || hasActiveChildCategory($items, $item['id'], $currentUrl)) {
                     return true;
                 }
@@ -199,7 +199,7 @@
 
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
 
-            $menuUrl = $host . '/' . $valueCategory['slug'] . '.html';
+            $menuUrl = $host . '/' . $valueCategory['slug'] . '.php';
 
             // Kiểm tra URL của phần tử cha có khớp không
             $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
