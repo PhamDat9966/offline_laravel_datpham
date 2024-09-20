@@ -2,7 +2,7 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
-    //dd($item);
+
     $name               = $item['name'];
     $thumb              = asset('images/article/' . $item['thumb']);
 

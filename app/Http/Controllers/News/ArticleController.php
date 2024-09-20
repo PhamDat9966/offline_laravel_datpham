@@ -68,13 +68,13 @@ class ArticleController extends Controller
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
         $itemArticle['related_article']  = $articleModel->listItems($this->params, ['task'=> 'new-list-items-related-in-category']);
 
-        $categoryFamily = $categoryModel->listItems($this->params,['task' => 'category-family-ancestors']);
+        $breadcrumbs = $categoryModel->listItems($this->params,['task' => 'category-family-ancestors']);
 
         return view($this->pathViewController . 'index',[
              'params'           => $this->params,
              'itemsLatest'      => $itemsLatest,
              'itemArticle'      => $itemArticle,
-             'categoryFamily'   => $categoryFamily
+             'breadcrumbs'      => $breadcrumbs
         ]);
     }
 

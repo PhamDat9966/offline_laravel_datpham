@@ -1,6 +1,9 @@
 @extends('news.main')               {{-- @extends sẽ load nội dung của template() sau cùng, cụ thể ở đây ta sẽ thực hiện khối lệnh php trước --}}
 {{-- @include('news.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
                                                 trước sau đó mới thực hiện khối lệnh php--}}
+@php
+   // dd($itemCategory);
+@endphp
 @section('content')
     <!-- Content Container -->
     <div class="section-category">

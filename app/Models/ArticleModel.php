@@ -136,6 +136,16 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-items-in-category-id-array'){
+            $query = $this->select('a.id','a.name','a.slug','a.created','a.content','a.created','a.thumb','a.type')
+                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
+                          ->where('a.status','=','active')
+                          ->whereIn('a.category_id',$params['category_id'])
+                          ->orderBy('a.id', 'desc')
+                          ->take(4);
+            $result = $query->get()->toArray();
+        }
+
         if($options['task'] == 'new-list-items-related-in-category'){
             $query = $this->select('id','name','created','thumb','content')
                           ->where('category_id','=',$params['category_id'])

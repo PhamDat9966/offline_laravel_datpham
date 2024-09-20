@@ -1,5 +1,17 @@
 @php
-    $nameBreadcrumb = $item['name']
+    $request = Request::capture();
+    global $host;
+    $host = $request->getHost();
+    $host = 'http://'.$host;
+
+    $nameBreadcrumb = $item['name'];
+    $xhtmlBreadcrumbs   = '<ul class="d-flex flex-row align-items-start justify-content-start">';
+    $xhtmlBreadcrumbs  .=       '<li><a href="'.route('home').'">Trang chủ</a></li>';
+    foreach ($breadcrumbs as $valueBreadcrumb) {
+        $linkBreadcrumbs   =    $host . '/' . $valueBreadcrumb['slug'] . '.php';
+        $xhtmlBreadcrumbs .=    '<li><a href="'.$linkBreadcrumbs.'">'. $valueBreadcrumb['name'] .'</a></li>';
+    }
+    $xhtmlBreadcrumbs  .= '</ul>';
 @endphp
 <div class="home">
     <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{{asset('news/images/footer.jpg')}}" data-speed="0.8"></div>
@@ -10,10 +22,7 @@
                 <div class="home_content">
                    <div class="home_title">{{ $nameBreadcrumb }}</div>
                    <div class="breadcrumbs">
-                      <ul class="d-flex flex-row align-items-start justify-content-start">
-                         <li><a href="{{route('home')}}">Trang chủ</a></li>
-                         <li>{{ $nameBreadcrumb }}</li>
-                      </ul>
+                        {!! $xhtmlBreadcrumbs !!}
                    </div>
                 </div>
              </div>

@@ -34,10 +34,25 @@ class CategoryController extends Controller
         $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
         $itemCategory['article'] = $articleModel->listItems($this->params, ['task'=> 'news-list-items-in-category']);
 
+        //Lấy danh sách con
+        $categoryChildList       = $categoryModel->listItems($this->params,['task' => 'category-child']);
+        //Lấy danh sách bài viết từ danh sách category con
+        if($categoryChildList != null){
+           $params = [];
+            foreach($categoryChildList as $valueCategoryChild ){
+                $params['category_id'][] = $valueCategoryChild['id'];
+            }
+            $articlesInChild            = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category-id-array']);
+            //Gán
+            $itemCategory['article_child'] = $articlesInChild;
+        }
+        $breadcrumbs = $categoryModel->listItems($this->params,['task' => 'category-family-ancestors']);
+
         return view($this->pathViewController . 'index',[
-             'params'       => $this->params,
-             'itemsLatest'  => $itemsLatest,
-             'itemCategory' => $itemCategory
+             'params'           => $this->params,
+             'itemsLatest'      => $itemsLatest,
+             'itemCategory'     => $itemCategory,
+             'breadcrumbs'      => $breadcrumbs
         ]);
     }
 

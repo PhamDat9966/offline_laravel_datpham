@@ -11,9 +11,9 @@
 
     $xhtmlBreadcrumbs   = '<ul class="d-flex flex-row align-items-start justify-content-start">';
     $xhtmlBreadcrumbs  .=       '<li><a href="'.route('home').'">Trang chủ</a></li>';
-    foreach ($categoryFamily as $valueCategory) {
-        $linkCategory      =    $host . '/' . $valueCategory['slug'] . '.php';
-        $xhtmlBreadcrumbs .=    '<li><a href="'.$linkCategory.'">'. $valueCategory['name'] .'</a></li>';
+    foreach ($breadcrumbs as $valueBreadcrumb) {
+        $linkBreadcrumbs   =    $host . '/' . $valueBreadcrumb['slug'] . '.php';
+        $xhtmlBreadcrumbs .=    '<li><a href="'.$linkBreadcrumbs.'">'. $valueBreadcrumb['name'] .'</a></li>';
     }
     $xhtmlBreadcrumbs     .=    '<li>'.$nameBreadcrumb.'</li>';
     $xhtmlBreadcrumbs  .= '</ul>';
