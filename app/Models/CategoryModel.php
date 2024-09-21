@@ -115,7 +115,7 @@ class CategoryModel extends AdminModel
         }
 
         if($options['task'] == 'category-family-ancestors'){
-
+            /* cách 01 */
             $category = $this::find($params['category_id']); // Lấy phần tử con
 
             $result = $this::where('id', '>', 1) // Loại bỏ phần tử root
@@ -123,6 +123,15 @@ class CategoryModel extends AdminModel
                             ->where('_rgt', '>=', $category->_rgt) // Lấy các phần tử có _rgt lớn hơn
                             ->orderBy('_lft') // Sắp xếp theo thứ tự phân cấp
                             ->get()->toArray(); // Lấy các phần tử tổ tiên
+
+            /* cách 02: Dùng các phương thúc của nested set model */
+            // $result = self::withDepth()->having('depth','>',0)->defaultOrder()->ancestorsAndSelf($params['catgory_id'])->toArray();
+        }
+
+        if($options['task'] == 'category-ancestor'){
+            $category   = $this::find($params['category_id']);
+            $result     = $category->ancestors()->get()->toArray(); // Lấy tất cả các danh mục cha (tổ tiên)
+            array_shift($result); // Loại bỏ phần tử root
         }
 
         if($options['task'] == 'category-child'){

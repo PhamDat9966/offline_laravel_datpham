@@ -70,11 +70,17 @@ class ArticleController extends Controller
 
         $breadcrumbs = $categoryModel->listItems($this->params,['task' => 'category-family-ancestors']);
 
+        /* Cấu hình cho menu category tại article Views */
+        $params['category_id']  = $itemArticle['category_id'];
+        $ancestorCategoryIds     = $categoryModel->listItems($params,['task' => 'category-ancestor']);
+
         return view($this->pathViewController . 'index',[
-             'params'           => $this->params,
-             'itemsLatest'      => $itemsLatest,
-             'itemArticle'      => $itemArticle,
-             'breadcrumbs'      => $breadcrumbs
+             'params'               => $this->params,
+             'itemsLatest'          => $itemsLatest,
+             'itemArticle'          => $itemArticle,
+             'breadcrumbs'          => $breadcrumbs,
+             'categoryId'           => $params['category_id'],  // mục tiêu đến category menu
+             'ancestorCategoryIds'  => $ancestorCategoryIds     // mục tiêu đến category menu
         ]);
     }
 
