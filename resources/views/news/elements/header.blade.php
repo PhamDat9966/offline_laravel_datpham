@@ -107,7 +107,7 @@
                     $navChildLinkClass  = 'nav-link';
 
                     $xhtmlMenu      .= '<li class="dropdown">
-                                            <a class="btn nav-link dropdown-toggle '.$classActive.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn nav-link dropdown-toggle '.$classActive.'" href="#" id="navbarDropdown" role="button"  data-toggle="dropdown" data-delay="2000" aria-haspopup="true" aria-expanded="false">
                                                 '.$item['name'].'
                                             </a>';
 
@@ -217,7 +217,6 @@
         global $host;
         global $currentUrl;
         $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-           // dd($itemsCategory);
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
 
             $menuUrl = $host . '/' . $valueCategory['slug'] . '.php';
