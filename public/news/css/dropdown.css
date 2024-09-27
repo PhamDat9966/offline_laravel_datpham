@@ -4,9 +4,6 @@
     transition: display 2s ease-in-out; /* Thiết lập transition cho việc biến mất */
 }
 
-/* .dropdown:hover > .dropdown-menu {
-    display: block;
-} */
 .dropdown > .dropdown-toggle:active {
     pointer-events: none;
 }

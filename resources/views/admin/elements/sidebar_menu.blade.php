@@ -45,6 +45,8 @@
             <li><a href="{{ route("admin.logs.index")}}"><i class="fa fa-history"></i> LogViewer</a></li>
             <li><a href="{{ route('appointment')}}"><i class="fa fa-calculator"></i> Lịch hẹn</a></li>
             <li><a href="{{ route('branch')}}"><i class="fa fa-suitcase"></i> Chi nhánh</a></li>
+            <li><a href="{{ route('attribute')}}"><i class="fa fa-cube"></i> Thuộc tính</a></li>
+            <li><a href="{{ route('attributevalue')}}"><i class="fa fa-cubes"></i> Giá trị thuộc tính</a></li>
             <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
             <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
         </ul>

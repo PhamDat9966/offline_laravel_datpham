@@ -2,7 +2,7 @@
 
 return [
     'url'       =>[
-        'prefix_admin'      =>'admin69',
+        'prefix_admin'      =>'admin96',
         'prefix_news'       =>'',
         'prefix_bookstore'  =>'bookstore'
     ],
@@ -157,6 +157,8 @@ return [
             'branch'        =>  ['all','name','address'],
             'appointment'   =>  ['all','name','phonenumber','email'],
             'contact'       =>  ['all','name','email','phone'],
+            'attribute'     =>  ['all','name'],
+            'attributevalue'=>  ['all','name']
         ],
         'button'    =>[
             'default'       =>  ['edit','delete'],
@@ -170,6 +172,11 @@ return [
             'phone'         =>  ['delete'],
             'branch'        =>  ['edit','delete'],
             'appointment'   =>  ['delete'],
+            'attribute'     =>  ['edit','delete'],
+            'attributevalue'=>  ['edit','delete'],
+        ],
+        'lock'   =>[
+            'attribute_main_id'     =>  [1,2,3]
         ]
     ]
 ];
