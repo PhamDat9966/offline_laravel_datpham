@@ -22,18 +22,29 @@
 
     foreach ($itemsAttribute as $itemAttribute) {
         //Lấy các name của từng Attributevalue nối vào tags theo attribute_id
+        $ids        = '';
         $tags       = '';
         foreach ($itemsAttributevalue as $tagValue) {
             if($tagValue['attribute_id'] == $itemAttribute['id']){
+                $ids    .= $tagValue['id'] . ',';
                 $tags   .= $tagValue['name'] . ',';
+                // $tags   .= $tagValue['id'] .':'. $tagValue['name'] . ',';
             }
         }
+        $ids  = rtrim($ids, ",");
         $tags = rtrim($tags, ",");
+        /* Ý tưởng: tạo 2 input, một thẻ chứa các tag name của các phần tử, một thẻ chứa các id của phần tử.
+            Sau đó dùng jquery để đồng bộ trong tác vụ `xóa tags`: attribute.js */
 
-        // Sau đó gắng tags vào mỗi thẻ form của attribute tương ứng
-        $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['id'].'">';
+        // input chứa tập hợp các name dưới dạng tags
+        $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['name'].'">';
         $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
         $elements[$i]['element'] = $tagsInput;
+        // input chứa tập hợp các id tương ứng dưới dạng hidden
+        $i=$i+1;
+        $iputHiddenIDS           = '<input type="hidden" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
+        $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-ids' , ucwords($itemAttribute['name']) .'-ids' , $formlabelAttr );
+        $elements[$i]['element'] = $iputHiddenIDS;
         $i++;
     }
 

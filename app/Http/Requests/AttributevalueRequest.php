@@ -32,8 +32,7 @@ class AttributevalueRequest extends FormRequest
             $condName   = "bail|required|between:2,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [
-            'name'          => $condName,
-            'status'        => 'bail|in:active,inactive'
+
         ];
     }
 

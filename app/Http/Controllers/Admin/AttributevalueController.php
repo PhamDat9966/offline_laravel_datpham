@@ -53,6 +53,7 @@ class AttributevalueController extends Controller
 
     public function save(MainRequest $request)
     {
+        dd($request->all());
 
         if ($request->method() == 'POST') {
             $params = $request->all();

@@ -29,6 +29,7 @@
 <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script> --}}
 
 <script src="{{asset('admin/js/my-js.js')}}"></script>
+<script src="{{asset('admin/js/attribute.js')}}"></script>
 
 
 
