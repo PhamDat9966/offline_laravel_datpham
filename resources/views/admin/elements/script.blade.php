@@ -29,6 +29,12 @@
 <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script> --}}
 
 <script src="{{asset('admin/js/my-js.js')}}"></script>
+
+<!-- Truyền mảng itemsAttribute từ PHP vào JavaScript -->
+<script>
+     var tagToIdMap = @json($tagToIdMap ?? []);
+</script>
+
 <script src="{{asset('admin/js/attribute.js')}}"></script>
 
 

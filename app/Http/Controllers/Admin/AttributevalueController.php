@@ -45,9 +45,22 @@ class AttributevalueController extends Controller
         $attributeModel         = new AttributeModel();
         $itemsAttribute         = $attributeModel->listItems(null, ['task' => 'admin-list-items-array']);
 
+        //Mảng json để đồng bộ hóa input attribute và input attribute tại js: attribute.js
+        $tagToIdMap = [];
+        foreach($itemsAttributevalue as $attributeValue){
+            // Loại bỏ tất cả khoảng trắng của chuỗi, để thực hiện phép so sánh tại jquery
+            if (strpos($attributeValue['name'] , ' ') !== false) {
+                $attributeValue['name']  = str_replace(' ', '', $attributeValue['name'] );
+            }
+
+            $tagToIdMap[$attributeValue['name']] = $attributeValue['id'];
+        }
+
+
         return view($this->pathViewController .  'form', [
             'itemsAttributevalue'   => $itemsAttributevalue,
-            'itemsAttribute'        => $itemsAttribute
+            'itemsAttribute'        => $itemsAttribute,
+            'tagToIdMap'            => $tagToIdMap
         ]);
     }
 

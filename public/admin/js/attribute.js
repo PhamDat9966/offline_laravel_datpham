@@ -1,35 +1,40 @@
+
 // Jquery đồng bộ hóa 2 input là tags name và ids
-// Lấy thẻ input tags và input ẩn lưu id
-var $tagInput = $('input[name="color"]');
-var $hiddenInput = $('input[name="color_ids"]');
+// Đây là mảng json ánh xạ: ánh xạ giữa tags và ids
+console.log(tagToIdMap);
+// Xử lý đồng bộ hóa giữa các input text và hidden
+$('input[data-role="tagsinput"]').each(function() {
+    var $tagInput = $(this);  // Thẻ input chứa tags
+    var inputName = $tagInput.attr('name');  // Lấy tên của input (ví dụ: color, slogan, material)
+    var $hiddenInput = $('#' + inputName + '_ids');  // Thẻ input hidden chứa id tương ứng
 
-// Lưu danh sách các tag ban đầu
-var initialTags = $tagInput.val().split(',');
+    console.log($tagInput, $hiddenInput);  // Debug để đảm bảo đã lấy đúng các input
 
-// Theo dõi sự kiện khi tag được xóa
-$tagInput.on('itemRemoved', function(event) {
-    // Lấy ra giá trị hiện tại của các tags (trước khi xóa)
-    var currentTags = initialTags;  // Lấy danh sách các tags trước khi xóa
-    var currentIds = $hiddenInput.val().split(',');  // Các id hiện tại
+    // Xử lý khi tag bị xóa
+    $tagInput.on('itemRemoved', function(event) {
+        var removedTag = event.item.trim();  // Tên của tag vừa bị xóa
+        console.log('Removed tag:', removedTag);  // Kiểm tra tag vừa bị xóa
 
-    // Lấy ra tag vừa bị xóa
-    var removedTag = event.item;  // Lấy tag name vừa bị xóa
+        // Loại bỏ khoảng trắng, điều này là bắt buộc nếu không phép so sánh chuỗi sẽ bị lỗi khi có khoảng trắng
+        removedTag = removedTag.replace(/\s+/g, '');
 
-    // Xử lý logic để xóa id tương ứng với tag vừa bị xóa
-    var tagIndex = currentTags.indexOf(removedTag);  // Vị trí của tag bị xóa
+        // Lấy giá trị id của tag vừa bị xóa thông qua ánh xạ
+        var removedTagId = tagToIdMap[removedTag];
+        console.log('ID of removed tag:', removedTagId);  // Debug để kiểm tra ID
 
-    console.log('Removed Tag:', removedTag);
-    console.log('Tag Index:', tagIndex);
+        // Lấy tất cả các ids hiện tại
+        var currentIds = $hiddenInput.val().split(',').map(id => id.trim());
 
-    if (tagIndex > -1) {
-        currentIds.splice(tagIndex, 1);  // Xóa id tương ứng với tag
-    }
+        // Tìm và xóa id tương ứng
+        var tagIdIndex = currentIds.indexOf(removedTagId.toString());  // Tìm vị trí của id tương ứng
+        if (tagIdIndex > -1) {
+            currentIds.splice(tagIdIndex, 1);  // Xóa id
+        }
 
-    // Cập nhật lại giá trị cho input ẩn chứa id
-    $hiddenInput.val(currentIds.join(','));
-
-    // Cập nhật lại danh sách tags
-    initialTags = $tagInput.val().split(',');
-
-    console.log('Updated IDs:', $hiddenInput.val());
+        // Cập nhật lại giá trị của input hidden
+        $hiddenInput.val(currentIds.join(','));
+        console.log('Updated IDs:', $hiddenInput.val());  // Kiểm tra xem ID đã được cập nhật chưa
+    });
 });
+
+

@@ -3,7 +3,7 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
-
+    //dd($itemsAttributevalue);
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
 
@@ -19,6 +19,8 @@
 
     $elements = [];
     $i=0; //phần tử định vị
+
+    //dd($itemsAttribute);
 
     foreach ($itemsAttribute as $itemAttribute) {
         //Lấy các name của từng Attributevalue nối vào tags theo attribute_id

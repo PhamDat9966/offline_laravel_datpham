@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 28, 2024 lúc 07:26 AM
+-- Thời gian đã tạo: Th9 30, 2024 lúc 09:02 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -210,12 +210,12 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `stat
 (1, 1, 'vàng', NULL, 'active', NULL, NULL, NULL, NULL),
 (2, 1, 'tím', NULL, 'active', NULL, NULL, NULL, NULL),
 (3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
-(4, 2, 'Học hành khét lẹt - chân thành không giả mạo', NULL, 'active', NULL, NULL, NULL, NULL),
-(5, 2, 'Học im lặng - nhưng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
-(6, 2, 'Ăn nhanh - ngủ ngon - học chăm - chơi hết mình', NULL, 'active', NULL, NULL, NULL, NULL),
+(4, 2, 'Học hành nữa học mãi', NULL, 'active', NULL, NULL, NULL, NULL),
+(5, 2, 'Học im lặng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
+(6, 2, 'Ăn nhanh ngủ ngon học chăm chơi hết mình', NULL, 'active', NULL, NULL, NULL, NULL),
 (7, 2, 'Vì sức khỏe cộng đồng ', NULL, 'active', NULL, NULL, NULL, NULL),
 (8, 2, 'Hạnh phúc cho mọi nhà ', NULL, 'active', NULL, NULL, NULL, NULL),
-(9, 2, 'Dù tốt dù xấu - hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
+(9, 2, 'Dù tốt dù xấu hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
 (10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
 (11, 3, 'thép', NULL, 'active', NULL, NULL, NULL, NULL),
 (12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
