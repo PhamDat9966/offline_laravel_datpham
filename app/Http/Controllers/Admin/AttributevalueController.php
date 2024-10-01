@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\AttributevalueModel as MainModel;
 use App\Http\Requests\AttributevalueRequest as MainRequest;
 use App\Models\AttributeModel as AttributeModel;
+use App\Helpers\Form as Form;
 
 class AttributevalueController extends Controller
 {
@@ -48,14 +49,21 @@ class AttributevalueController extends Controller
         //Mảng json để đồng bộ hóa input attribute và input attribute tại js: attribute.js
         $tagToIdMap = [];
         foreach($itemsAttributevalue as $attributeValue){
-            // Loại bỏ tất cả khoảng trắng của chuỗi, để thực hiện phép so sánh tại jquery
-            if (strpos($attributeValue['name'] , ' ') !== false) {
-                $attributeValue['name']  = str_replace(' ', '', $attributeValue['name'] );
-            }
 
+            // Chuyển chữ in hoa về chữ thường.
+            $attributeValue['name']  = mb_strtolower($attributeValue['name']);
+            // Loại bỏ dấu tiếng việt
+            $attributeValue['name']  = Form::removeAccents($attributeValue['name']);
+            // Chuyển khoảng trắng thành `-`
+            if (strpos($attributeValue['name'] , ' ') !== false) {
+                $attributeValue['name']  = str_replace(' ', '-', $attributeValue['name'] );
+            }
+            //Loại ở các dấu gạch `-` ở đầu dòng và cuối dòng
+            $attributeValue['name'] = trim($attributeValue['name'] , '-');
+
+            // Ghi vòa map ánh xạ, để thực hiện phép so sánh tại jquery
             $tagToIdMap[$attributeValue['name']] = $attributeValue['id'];
         }
-
 
         return view($this->pathViewController .  'form', [
             'itemsAttributevalue'   => $itemsAttributevalue,

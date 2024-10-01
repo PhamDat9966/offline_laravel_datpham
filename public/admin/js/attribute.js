@@ -15,9 +15,16 @@ $('input[data-role="tagsinput"]').each(function() {
         var removedTag = event.item.trim();  // Tên của tag vừa bị xóa
         console.log('Removed tag:', removedTag);  // Kiểm tra tag vừa bị xóa
 
-        // Loại bỏ khoảng trắng, điều này là bắt buộc nếu không phép so sánh chuỗi sẽ bị lỗi khi có khoảng trắng
-        removedTag = removedTag.replace(/\s+/g, '');
+        //Chuyển đổi ký tự in hoa về chữ thường
+        removedTag = removedTag.toLowerCase();
+        //Loại bỏ dấu tiếng việt
+        removedTag = removeAccents(removedTag);
+        // Chuyển khoảng trăng thành dấu `-`, điều này là bắt buộc nếu không phép so sánh chuỗi sẽ bị lỗi khi có khoảng trắng
+        removedTag = removedTag.replace(/\s+/g, '-');
+        // Loại bỏ dấu `-` ở đầu dòng và cuối dòng
+        removedTag = removedTag.replace(/^-+|-+$/g, '');
 
+        console.log(removedTag);
         // Lấy giá trị id của tag vừa bị xóa thông qua ánh xạ
         var removedTagId = tagToIdMap[removedTag];
         console.log('ID of removed tag:', removedTagId);  // Debug để kiểm tra ID
@@ -36,5 +43,35 @@ $('input[data-role="tagsinput"]').each(function() {
         console.log('Updated IDs:', $hiddenInput.val());  // Kiểm tra xem ID đã được cập nhật chưa
     });
 });
+
+
+//Phương thức loại bỏ dấu tiếng Việt
+function removeAccents(str) {
+    var accents = [
+        'à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ',
+        'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ',
+        'ì', 'í', 'ị', 'ỉ', 'ĩ',
+        'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ',
+        'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ',
+        'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ',
+        'đ'
+    ];
+
+    var noAccents = [
+        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+        'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
+        'i', 'i', 'i', 'i', 'i',
+        'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
+        'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
+        'y', 'y', 'y', 'y', 'y',
+        'd'
+    ];
+
+    // Thay thế các dấu bằng các ký tự không dấu
+    return str.split('').map(function(char, i) {
+        var accentIndex = accents.indexOf(char);
+        return accentIndex !== -1 ? noAccents[accentIndex] : char;
+    }).join('');
+}
 
 

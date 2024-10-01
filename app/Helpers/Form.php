@@ -107,39 +107,72 @@ class Form{
         }
         return $result;
     }
+    //Phương thức loại bỏ dấu tiếng việt
+    public static function removeAccents($stringTV) {
+        // Danh sách các ký tự có dấu
+        $accents = array(
+            'à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ',
+            'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ',
+            'ì', 'í', 'ị', 'ỉ', 'ĩ',
+            'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ',
+            'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ', // Chú ý chữ 'ữ'
+            'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ',
+            'đ' // Chữ 'đ'
+        );
+
+        // Danh sách các ký tự không dấu tương ứng
+        $noAccents = array(
+            'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+            'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
+            'i', 'i', 'i', 'i', 'i',
+            'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
+            'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
+            'y', 'y', 'y', 'y', 'y',
+            'd' // Thay thế chữ 'đ'
+        );
+
+        // Thay thế các ký tự có dấu thành không dấu
+        // có vẻ như nó đã hoạt động không tốt ở chữ `ữ` và chữ `đ`
+        return str_replace($accents, $noAccents, $stringTV);
+    }
+
+    //Phương thức cho trường hợp sử dụng chữ hoa
+    function removeAccentsBK($str) {
+        // Mảng chứa các ký tự tiếng Việt có dấu
+        $accents = array(
+            'à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ',
+            'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ',
+            'ì', 'í', 'ị', 'ỉ', 'ĩ',
+            'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ',
+            'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ',
+            'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ',
+            'đ', 'Đ', // Chữ đ và Đ
+            'À', 'Á', 'Ạ', 'Ả', 'Ã', 'Â', 'Ầ', 'Ấ', 'Ậ', 'Ẩ', 'Ẫ', 'Ă', 'Ằ', 'Ắ', 'Ặ', 'Ẳ', 'Ẵ',
+            'È', 'É', 'Ẹ', 'Ẻ', 'Ẽ', 'Ê', 'Ề', 'Ế', 'Ệ', 'Ể', 'Ễ',
+            'Ì', 'Í', 'Ị', 'Ỉ', 'Ĩ',
+            'Ò', 'Ó', 'Ọ', 'Ỏ', 'Õ', 'Ô', 'Ồ', 'Ố', 'Ộ', 'Ổ', 'Ỗ', 'Ơ', 'Ờ', 'Ớ', 'Ợ', 'Ở', 'Ỡ',
+            'Ù', 'Ú', 'Ụ', 'Ủ', 'Ũ', 'Ư', 'Ừ', 'Ứ', 'Ự', 'Ử', 'Ữ',
+            'Ỳ', 'Ý', 'Ỵ', 'Ỷ', 'Ỹ'
+        );
+
+        // Mảng tương ứng với ký tự không dấu
+        $noAccents = array(
+            'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+            'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
+            'i', 'i', 'i', 'i', 'i',
+            'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
+            'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
+            'y', 'y', 'y', 'y', 'y',
+            'd', 'D',
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
+            'I', 'I', 'I', 'I', 'I',
+            'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
+            'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+            'Y', 'Y', 'Y', 'Y', 'Y'
+        );
+
+        return str_replace($accents, $noAccents, $str);
+    }
+
 }
-
-// <div class="form-group">
-// <label for="thumb" class="control-label col-md-3 col-sm-3 col-xs-12">Thumb</label>
-// <div class="col-md-6 col-sm-6 col-xs-12">
-//     <input class="form-control col-md-6 col-xs-12" name="thumb" type="file" id="thumb">
-//     <p style="margin-top: 50px;"><img src="http://proj_news.xyz/images/slider/LWi6hINpXz.jpeg" alt="Ưu đãi học phí" class="zvn-thumb"></p>
-// </div>
-// </div>
-
-// <div class="ln_solid"></div>
-// <div class="form-group">
-//     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-//         <input name="id" type="hidden" value="3">
-//         <input name="thumb_current" type="hidden" value="LWi6hINpXz.jpeg">
-//         <input class="btn btn-success" type="submit" value="Save">
-//     </div>
-// </div>
-
-// <div class="form-group">
-//     {!! $nameLabel !!}
-//     <div class="col-md-6 col-sm-6 col-xs-12">
-//         {!! $nameInput !!}
-//     </div>
-// </div>
-
-// <div class="form-group">
-//     <label for="status" class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-//     <div class="col-md-6 col-sm-6 col-xs-12">
-//         <select class="form-control col-md-6 col-xs-12" id="status" name="status">
-//             <option value="default">Select status</option>
-//             <option value="active" selected="selected">Kích hoạt</option>
-//             <option value="inactive">Chưa kích hoạt</option>
-//         </select>
-//     </div>
-// </div>
