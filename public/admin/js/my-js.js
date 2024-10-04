@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // test
+
 	// var ojbectURL	= window.location;
     // console.log(ojbectURL);
 	// var searchParams = new URLSearchParams(window.location.search);
@@ -722,3 +722,5 @@ $(document).ready(function() {
         readerSlider.readAsDataURL(event.target.files[0]);
     });
 });
+
+

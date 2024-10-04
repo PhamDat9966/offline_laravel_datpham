@@ -28,14 +28,15 @@
 <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script> --}}
 
+<!-- Truyền mảng ánh xạ $tagToIdMap từ PHP vào JavaScript phải dùng  window.tagToIdMap vì để biến có thể sử dụng khi load DOM xong-->
+<script>
+    window.tagToIdMap = @json($tagToIdMap ?? []);
+</script>
+<!-- Tạm đặt attribute.js phía trên my-js.js do tích hợp CKEditor trong my-js.js có sự xung đột, gây lỗi làm dừng load DOM-->
+<script src="{{asset('admin/js/attribute.js')}}"></script>
+
 <script src="{{asset('admin/js/my-js.js')}}"></script>
 
-<!-- Truyền mảng itemsAttribute từ PHP vào JavaScript -->
-<script>
-     var tagToIdMap = @json($tagToIdMap ?? []);
-</script>
-
-<script src="{{asset('admin/js/attribute.js')}}"></script>
 
 
 

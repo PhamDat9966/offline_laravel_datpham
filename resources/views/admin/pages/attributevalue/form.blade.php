@@ -7,20 +7,8 @@
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
 
-    $statusValue        = [
-                            'default'    => Config::get('zvn.template.status.all.name'),
-                            'active'     => Config::get('zvn.template.status.active.name'),
-                            'inactive'   => Config::get('zvn.template.status.inactive.name')
-                          ];
-
-
-    $bcc        = (!empty($item->bcc))? $item->bcc : 'email01@gmail,email02@mail.com';
-    $tagsInput  = '<input type="text" value="'.$bcc.'" data-role="tagsinput" class="tags" name="bcc">';
-
     $elements = [];
     $i=0; //phần tử định vị
-
-    //dd($itemsAttribute);
 
     foreach ($itemsAttribute as $itemAttribute) {
         //Lấy các name của từng Attributevalue nối vào tags theo attribute_id
@@ -42,11 +30,18 @@
         $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['name'].'">';
         $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
         $elements[$i]['element'] = $tagsInput;
-        // input chứa tập hợp các id tương ứng dưới dạng hidden
+        // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
         $i=$i+1;
-        $iputHiddenIDS           = '<input type="hidden" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
+        $iputHiddenIDS           = '<input type="text" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'" disabled>';
         $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-ids' , ucwords($itemAttribute['name']) .'-ids' , $formlabelAttr );
         $elements[$i]['element'] = $iputHiddenIDS;
+
+        // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
+        $i=$i+1;
+        $iputHiddenAddIDS        = '<input type="text" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="" disabled>';
+        $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-add' , ucwords($itemAttribute['name']) .'-add' , $formlabelAttr );
+        $elements[$i]['element'] = $iputHiddenAddIDS;
+
         $i++;
     }
 
@@ -62,6 +57,7 @@
 @include('admin.templates.error')
 
 <!--box-lists-->
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
