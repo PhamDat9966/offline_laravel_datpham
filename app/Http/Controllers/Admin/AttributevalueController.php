@@ -74,21 +74,28 @@ class AttributevalueController extends Controller
 
     public function save(MainRequest $request)
     {
-        dd($request->all());
+        // Tạo nhóm giá trị trả về theo thuộc tính - attribute
+        $params         = $request->all();
+        $paramsGroup    = [];
+        $attributeModel = new AttributeModel();
+        $attributekeys      = $attributeModel->getItem(null, ['task' => 'get-items-name']);
+        unset($params['_token']);
 
-        if ($request->method() == 'POST') {
-            $params = $request->all();
-
-            $task   = "add-item";
-            $notify = "Thêm phần tử thành công!";
-
-            if ($params['id'] !== null) {
-                $task   = "edit-item";
-                $notify = "Cập nhật phần tử thành công!";
+        foreach ($attributekeys as $key) {
+            if (isset($params[$key])) {
+                $paramsGroup[$key] = [
+                    $key            => $params[$key],
+                    $key . '_ids'   => $params[$key . '_ids'] ?? null,
+                    $key . '_add'   => $params[$key . '_add'] ?? null
+                ];
             }
-            $this->model->saveItem($params, ['task' => $task]);
-            return redirect()->route($this->controllerName)->with("zvn_notify", $notify);
         }
+        // Duyệt nhóm input theo từng trường hợp
+        foreach ($paramsGroup as $key => $inputsValue) {
+
+        }
+
+        dd($paramsGroup);
     }
 
     public function status(Request $request)

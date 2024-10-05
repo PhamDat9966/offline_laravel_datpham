@@ -209,6 +209,16 @@ class AttributeModel extends AdminModel
 
         }
 
+        if($options['task'] == 'get-items-name'){
+            $resultArray = null;
+            $resultArray = $this::select('name')
+                            ->get()->toArray();
+            //dd($resultArray);
+            foreach($resultArray as $key=>$value){
+                $result[] = $value['name'];
+            }
+        }
+
         if($options['task'] == 'get-auto-increment'){
             $dataBaseName = DB::connection()->getDatabaseName();
             $result = DB::select("SELECT AUTO_INCREMENT

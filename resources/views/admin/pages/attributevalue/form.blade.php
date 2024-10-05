@@ -32,13 +32,13 @@
         $elements[$i]['element'] = $tagsInput;
         // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
         $i=$i+1;
-        $iputHiddenIDS           = '<input type="text" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'" disabled>';
+        $iputHiddenIDS           = '<input type="text" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
         $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-ids' , ucwords($itemAttribute['name']) .'-ids' , $formlabelAttr );
         $elements[$i]['element'] = $iputHiddenIDS;
 
         // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
         $i=$i+1;
-        $iputHiddenAddIDS        = '<input type="text" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="" disabled>';
+        $iputHiddenAddIDS        = '<input type="text" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
         $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-add' , ucwords($itemAttribute['name']) .'-add' , $formlabelAttr );
         $elements[$i]['element'] = $iputHiddenAddIDS;
 

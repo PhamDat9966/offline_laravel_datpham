@@ -30,6 +30,11 @@
         <!-- /footer -->
     </div>
 </div>
+
+    {{-- Các script chung --}}
     @include('admin.elements.script')
+
+    {{-- Phần này sẽ load script riêng cho từng trang, cụ thể trang nào có sử dụng ckeditor --}}
+    @yield('script')
 </body>
 </html>
