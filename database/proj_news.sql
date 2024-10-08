@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2024 lúc 09:42 AM
+-- Thời gian đã tạo: Th10 08, 2024 lúc 06:02 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -208,18 +208,16 @@ CREATE TABLE `attribute_value` (
 
 INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
 (1, 1, 'vàng', NULL, 'active', NULL, NULL, NULL, NULL),
-(2, 1, 'tím', NULL, 'active', NULL, NULL, NULL, NULL),
+(2, 1, 'đỏ', NULL, 'active', NULL, NULL, NULL, NULL),
 (3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
-(4, 2, 'Học nữa học mãi', NULL, 'active', NULL, NULL, NULL, NULL),
-(5, 2, 'học im lặng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
-(6, 2, 'Ăn nhanh ngủ ngon học chăm chơi hết mình', NULL, 'active', NULL, NULL, NULL, NULL),
+(4, 2, 'Học hành khét lẹt chân thành không giả mạo', NULL, 'active', NULL, NULL, NULL, NULL),
+(5, 2, 'Học im lặng nhưng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
 (7, 2, 'Vì sức khỏe cộng đồng ', NULL, 'active', NULL, NULL, NULL, NULL),
-(8, 2, 'hạnh phúc cho mọi nhà ', NULL, 'active', NULL, NULL, NULL, NULL),
-(9, 2, 'dù tốt dù xấu hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
+(8, 2, 'Hạnh phúc cho mọi nhà ', NULL, 'active', NULL, NULL, NULL, NULL),
+(9, 2, 'Dù tốt dù xấu hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
 (10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
 (11, 3, 'thép', NULL, 'active', NULL, NULL, NULL, NULL),
-(12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
-(13, 1, 'đỏ', NULL, 'active', '2024-09-26 00:00:00', 'admin', NULL, NULL);
+(12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1106,7 +1104,7 @@ ALTER TABLE `attribute`
 -- AUTO_INCREMENT cho bảng `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `branch`
