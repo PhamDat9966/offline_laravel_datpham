@@ -202,7 +202,7 @@ class AttributeModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','status','fieldClass')
+            $result = $this::select('id','name','status')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
@@ -211,43 +211,12 @@ class AttributeModel extends AdminModel
 
         if($options['task'] == 'get-items-name'){
             $resultArray = null;
-            $resultArray = $this::select('name')
+            $resultArray = $this::select('a.id','a.name')
                             ->get()->toArray();
-            //dd($resultArray);
-            foreach($resultArray as $key=>$value){
-                $result[] = $value['name'];
-            }
-        }
-
-        if($options['task'] == 'get-auto-increment'){
-            $dataBaseName = DB::connection()->getDatabaseName();
-            $result = DB::select("SELECT AUTO_INCREMENT
-                                  FROM INFORMATION_SCHEMA.TABLES
-                                  WHERE TABLE_SCHEMA = '".$dataBaseName."'
-                                  AND TABLE_NAME = 'article'");
-        }
-
-        if($options['task'] == 'get-thumb'){
-            $result = $this::select('id','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-
-        }
-        //dd($params);
-        if($options['task'] == 'news-get-item'){
-            $result = $this::select('a.id','a.name','a.slug','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
-                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                    ->where('a.id', $params['article_id'])
-                    ->first()->toArray();
-
-        }
-
-
-        if($options['task'] == 'get-all-item'){
-            $result = $this::select('a.id','a.name','a.slug','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
-                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                    ->get()->toArray();
-
+            $result = $resultArray;
+            // foreach($resultArray as $key=>$value){
+            //     $result[] = $value['name'];
+            // }
         }
 
         return $result;

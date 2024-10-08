@@ -59,122 +59,6 @@ class AttributevalueModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
-        if($options['task'] == 'news-list-items-feature'){
-            $query = $this->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->where('a.type','feature')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-normal'){
-            $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-many-conditions'){
-            $query = $this->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orwhere('a.type','feature')
-                          ->orderBy('a.type', 'asc')
-                          ->orderBy('a.id', 'desc')
-                          ->take(3);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-latest'){
-            $query = $this->select('a.id','a.name','a.slug','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->orderBy('a.id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-in-category'){
-            $query = $this->select('a.id','a.name','a.slug','a.created','a.content','a.created','a.thumb','a.type')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->where('a.category_id','=',$params['category_id'])
-                          ->orderBy('a.id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-in-category-id-array'){
-            $query = $this->select('a.id','a.name','a.slug','a.created','a.content','a.created','a.thumb','a.type')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.status','=','active')
-                          ->whereIn('a.category_id',$params['category_id'])
-                          ->orderBy('a.id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'new-list-items-related-in-category'){
-            $query = $this->select('id','name','created','thumb','content')
-                          ->where('category_id','=',$params['category_id'])
-                          ->where('id','!=',$params['article_id'])
-                          ->where('status','=','active')
-                          ->orderBy('id', 'desc')
-                          ->take(4);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-usually-max'){
-            $query = $this->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['usually_key_max'])
-                          ->where('a.status','=','active')
-                          ->latest('a.id')
-                          //->inRandomOrder()
-                          //->orderBy('a.id', 'desc')
-                          ->take(6);
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name','slug')
-                          ->where('status','=','active');
-            $result = $query->get()->toArray();
-        }
-
-        if($options['task'] == 'news-list-items-usually-second-highest'){
-            $query = $this->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb')
-                          ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                          ->where('a.category_id','=',$params['usually_key_second_highest'])
-                          ->where('a.status','=','active')
-                          ->inRandomOrder()
-                          ->first();
-
-           // Trường hợp categoryID theo giá trị  $params['usually_key_second_highest'] không có article
-           // thì thay đổi ngẫu nhiên một categoryID khác theo danh sách $params['listCategoryID']
-           while ($query == null) {
-                $randomElement = array_rand($params['listCategoryID']);
-
-                // Đảm bảo không chọn lại categoryID đã kiểm tra
-                while ($randomElement == $params['usually_key_second_highest']) {
-                    $randomElement = array_rand($params['listCategoryID']);
-                }
-
-                $query = $this->select('a.id','a.name','a.content','a.created','a.category_id','c.name as category_name','a.thumb')
-                    ->leftJoin('category as c', 'a.category_id', '=', 'c.id')
-                    ->where('a.category_id', '=', $randomElement)
-                    ->where('a.status', '=', 'active')
-                    ->inRandomOrder()
-                    ->first();
-            }
-
-            $result = $query->toArray();
-        }
-
         return $result;
     }
 
@@ -287,21 +171,19 @@ class AttributevalueModel extends AdminModel
     }
 
     public function deleteItem($params = null,$options = null){
-        if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
 
-            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
+        if($options['task'] == 'delete-items'){
 
-            $this->table = 'article';
-            $this->where('id', $params['id'])->delete();
+            $this->table = 'attribute_value';
+            $this->where('attribute_id', $params['attribute_id'])
+                 ->whereNotIn('id', $params['attributevalue_ids'])->delete();
         }
     }
 
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','status','fieldClass')
+            $result = $this::select('id','name')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
@@ -312,6 +194,16 @@ class AttributevalueModel extends AdminModel
             $result = $this::select('av.id','av.name','av.attribute_id','av.fieldClass','av.status')
                     ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id')
                     ->get()->toArray();
+
+        }
+
+        if($options['task'] == 'get-all-count-items'){
+            $attributeIds = $params['attributeId'];
+
+            $result = $this::select('attribute_id', DB::raw('COUNT(id) as total'))
+                        ->whereIn('attribute_id', $attributeIds)
+                        ->groupBy('attribute_id')
+                        ->get()->toArray();
 
         }
 

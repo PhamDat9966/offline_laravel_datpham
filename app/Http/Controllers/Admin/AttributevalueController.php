@@ -81,21 +81,45 @@ class AttributevalueController extends Controller
         $attributekeys      = $attributeModel->getItem(null, ['task' => 'get-items-name']);
         unset($params['_token']);
 
-        foreach ($attributekeys as $key) {
-            if (isset($params[$key])) {
-                $paramsGroup[$key] = [
-                    $key            => $params[$key],
-                    $key . '_ids'   => $params[$key . '_ids'] ?? null,
-                    $key . '_add'   => $params[$key . '_add'] ?? null
+        $paramsIDs = [];
+        foreach($attributekeys as $id){
+            $paramsIDs['attributeId'][] = $id['id'];
+        }
+
+        foreach ($attributekeys as $keyvalue) {
+            if (isset($params[$keyvalue['name']])) {
+                $paramsGroup[$keyvalue['id']] = [
+                    $keyvalue['name']            => $params[$keyvalue['name']],
+                    $keyvalue['name'] . '_ids'   => $params[$keyvalue['name'] . '_ids'] ?? null,
+                    $keyvalue['name'] . '_add'   => $params[$keyvalue['name'] . '_add'] ?? null
                 ];
             }
         }
         // Duyệt nhóm input theo từng trường hợp
-        foreach ($paramsGroup as $key => $inputsValue) {
+        // Đếm số phần tử attributevalue theo các ids của attribute
+        $totalAttributeValueIDs = $this->model->getItem($paramsIDs, ['task' => 'get-all-count-items']);
+
+        foreach ($paramsGroup as $idAttribute => $inputsValue) {
+            $nameAttribute  = key($inputsValue);
+            $arrayInputID   = explode(',', $inputsValue[$nameAttribute . '_ids']);
+            $countInputAttrValueID = count($arrayInputID);
+
+            // Delete items theo tags input
+            foreach($totalAttributeValueIDs as $totalAttributeValueID){
+                if($idAttribute == $totalAttributeValueID['attribute_id']){
+                    if($totalAttributeValueID['total'] > $countInputAttrValueID){
+                        $params['attribute_id']         = $totalAttributeValueID['attribute_id'];
+                        $params['attributevalue_ids']   = $arrayInputID;
+
+                        $this->model->deleteItem($params, ['task' => 'delete-items']);
+                        $notify = 'Đã xóa các tag thành công!';
+                    }
+                }
+            }
 
         }
 
-        dd($paramsGroup);
+        return redirect()->route($this->controllerName)->with("zvn_notify", $notify);
     }
 
     public function status(Request $request)

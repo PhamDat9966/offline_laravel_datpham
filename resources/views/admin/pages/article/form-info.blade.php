@@ -7,8 +7,6 @@
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-   // dd($item);
-
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
