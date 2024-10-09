@@ -10,6 +10,11 @@
         $pageButton     = '';
     }
 
+    if($pageIndex == 'tags'){
+        $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-tags"></i> Tags Action</a>', route($controllerName) . '/form');
+    }
+
+
 
 @endphp
 <div class="page-header zvn-page-header clearfix">

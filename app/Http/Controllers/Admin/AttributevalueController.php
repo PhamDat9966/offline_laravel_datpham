@@ -76,12 +76,15 @@ class AttributevalueController extends Controller
     {
         // Tạo nhóm giá trị trả về theo thuộc tính - attribute
         $params         = $request->all();
+        $notify         = '';
         $paramsGroup    = [];
         $attributeModel = new AttributeModel();
         $attributekeys      = $attributeModel->getItem(null, ['task' => 'get-items-name']);
         unset($params['_token']);
-
         $paramsIDs = [];
+
+        //dd($params);
+
         foreach($attributekeys as $id){
             $paramsIDs['attributeId'][] = $id['id'];
         }
@@ -95,16 +98,21 @@ class AttributevalueController extends Controller
                 ];
             }
         }
+
+        //dd($paramsGroup);
+
         // Duyệt nhóm input theo từng trường hợp
         // Đếm số phần tử attributevalue theo các ids của attribute
         $totalAttributeValueIDs = $this->model->getItem($paramsIDs, ['task' => 'get-all-count-items']);
 
+        //Tác vụ thêm mới, xóa tags ... Trọng tâm được xử lý qua $paramsGroup
         foreach ($paramsGroup as $idAttribute => $inputsValue) {
-            $nameAttribute  = key($inputsValue);
+            $nameAttribute  = key($inputsValue); // Tại đây nó sẽ trả về truỗi: `color`, `slogan` hoặc `material`....
+
             $arrayInputID   = explode(',', $inputsValue[$nameAttribute . '_ids']);
             $countInputAttrValueID = count($arrayInputID);
 
-            // Delete items theo tags input
+            // Delete items theo tags input: ví dụ các input-color_ids,slogan_ids...
             foreach($totalAttributeValueIDs as $totalAttributeValueID){
                 if($idAttribute == $totalAttributeValueID['attribute_id']){
                     if($totalAttributeValueID['total'] > $countInputAttrValueID){
@@ -117,6 +125,13 @@ class AttributevalueController extends Controller
                 }
             }
 
+            // Add new items theo tags input: ví dụ color_add, slogan_add, material...;
+            if($inputsValue[ $nameAttribute . '_add'] != null){
+                $params['names']         = explode('|', $inputsValue[$nameAttribute . '_add']);
+                $params['attribute_id'] = $idAttribute;
+                $this->model->saveItem($params,['task'=>'add-item']);
+                $notify = 'Đã thêm các tags mới thành công!';
+            }
         }
 
         return redirect()->route($this->controllerName)->with("zvn_notify", $notify);

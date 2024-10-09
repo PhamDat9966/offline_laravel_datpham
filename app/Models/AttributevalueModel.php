@@ -3,10 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminModel;
-use App\Models\CategoryModel;
-use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
-use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config;
 class AttributevalueModel extends AdminModel
@@ -144,23 +141,22 @@ class AttributevalueModel extends AdminModel
 
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
+            $params['fieldClass']   = (isset($params['fieldClass'])) ? $params['fieldClass'] : '';
+            $params['status']       = 'active';
 
-            /* Save dữ liệu theo DB oject */
-            // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            $attributeValues        = [];
+            foreach($params['names'] as $name){
+                $attributeValues[] = [
+                    'attribute_id'  => $params['attribute_id'],
+                    'name'          => $name,
+                    'status'        => 'active', // Ví dụ giá trị status
+                    'created'       => $params['created'], // Ngày giờ hiện tại
+                    'created_by'    => $params['created_by'],
+                ];
+            }
 
-            // // self::insert($params);
-            // //// OR use
-            // DB::table('article')->insert($params);
-
-            /* Save dữ liệu theo eloquent */
             $this->table            = 'attribute_value';
-            $this->name             = $params['name'];
-            $this->attribute_id     = $params['attribute_id'];
-            $this->fieldClass       = $params['fieldClass'];
-            $this->status           = $params['status'];
-            $this->created_by       = $params['created_by'];
-            $this->created          = $params['created'];
-            $this->save();
+            $this::insert($attributeValues);
         }
 
         if($options['task'] == 'edit-item'){
