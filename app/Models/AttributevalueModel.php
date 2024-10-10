@@ -136,7 +136,7 @@ class AttributevalueModel extends AdminModel
                         ->update(['is_home' => $isHome]);
         }
 
-        if($options['task'] == 'add-item'){
+        if($options['task'] == 'add-items'){
 
 
             $params['created_by']   = $userInfo['username'];
@@ -145,7 +145,7 @@ class AttributevalueModel extends AdminModel
             $params['status']       = 'active';
 
             $attributeValues        = [];
-            foreach($params['names'] as $name){
+            foreach($params['namesAddnew'] as $name){
                 $attributeValues[] = [
                     'attribute_id'  => $params['attribute_id'],
                     'name'          => $name,
@@ -186,9 +186,17 @@ class AttributevalueModel extends AdminModel
 
         }
 
-        if($options['task'] == 'get-all-item'){
+        if($options['task'] == 'get-all-items'){
             $result = $this::select('av.id','av.name','av.attribute_id','av.fieldClass','av.status')
                     ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id')
+                    ->get()->toArray();
+
+        }
+
+        if($options['task'] == 'get-all-items-with-attributeId'){
+            $attributeId = $params['attribute_id'];
+            $result = $this::select('id','name')
+                    ->where('attribute_id', $attributeId)
                     ->get()->toArray();
 
         }

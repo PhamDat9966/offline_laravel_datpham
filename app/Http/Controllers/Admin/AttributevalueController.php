@@ -42,7 +42,7 @@ class AttributevalueController extends Controller
     public function form(Request $request)
     {
 
-        $itemsAttributevalue    = $this->model->getItem(null, ['task' => 'get-all-item']);
+        $itemsAttributevalue    = $this->model->getItem(null, ['task' => 'get-all-items']);
         $attributeModel         = new AttributeModel();
         $itemsAttribute         = $attributeModel->listItems(null, ['task' => 'admin-list-items-array']);
 
@@ -107,10 +107,35 @@ class AttributevalueController extends Controller
 
         //Tác vụ thêm mới, xóa tags ... Trọng tâm được xử lý qua $paramsGroup
         foreach ($paramsGroup as $idAttribute => $inputsValue) {
-            $nameAttribute  = key($inputsValue); // Tại đây nó sẽ trả về truỗi: `color`, `slogan` hoặc `material`....
+            $nameAttribute          = key($inputsValue); // Tại đây nó sẽ trả về truỗi: `color`, `slogan` hoặc `material`....
 
-            $arrayInputID   = explode(',', $inputsValue[$nameAttribute . '_ids']);
-            $countInputAttrValueID = count($arrayInputID);
+            $arrayInputID           = explode(',', $inputsValue[$nameAttribute . '_ids']);
+            $countInputAttrValueID  = count($arrayInputID);
+
+            // Add new items theo tags input: ví dụ color_add, slogan_add, material...;
+            if($inputsValue[ $nameAttribute . '_add'] != null){
+                $params['namesAddnew']    = explode('|', $inputsValue[$nameAttribute . '_add']); //$params['names'] phụ trách việc thêm mới
+                $params['namesAddnew']    = array_values(array_unique($params['namesAddnew'])); // Loại bỏ các phần tử có giá trị trùng lặp
+                $params['attribute_id'] = $idAttribute;
+
+                /*Xử lý tình huống khi thêm một tag mới có giá trị bằng với tag đã xóa sẵn. Ví dụ như xóa tag `cam` rồi thêm tag cam
+                  Tránh việc xóa đi rồi thêm lại một tag đã có sẵn. */
+                $itemsAttrValues             = $this->model->getItem($params, ['task' => 'get-all-items-with-attributeId']);
+                foreach($itemsAttrValues as $keyAttrValues=>$valAttrValues){
+                    foreach($params['namesAddnew'] as $valueParamName){
+                       if(trim($valueParamName) == trim($valAttrValues['name'])){ //Kiểm tra xem nó có tồn tại trong csdl trước đó hay không?
+                            if (!in_array($valAttrValues['id'], $arrayInputID)){//Kiểm tra xem nó đã tồn tại trong mảng chưa?
+
+                                $arrayInputID[]  =  $valAttrValues['id'];   // Khôi phục lại id tại mảng input, tránh xóa nhầm
+                                $params['namesAddnew'] = array_diff($params['namesAddnew'], [$valueParamName]);  // Loại bỏ khỏi mảng thêm mới
+                            }
+
+                       };
+                    }
+                }
+                $this->model->saveItem($params,['task'=>'add-items']);
+                $notify = 'Đã thêm các tags mới thành công!';
+            }
 
             // Delete items theo tags input: ví dụ các input-color_ids,slogan_ids...
             foreach($totalAttributeValueIDs as $totalAttributeValueID){
@@ -124,17 +149,9 @@ class AttributevalueController extends Controller
                     }
                 }
             }
-
-            // Add new items theo tags input: ví dụ color_add, slogan_add, material...;
-            if($inputsValue[ $nameAttribute . '_add'] != null){
-                $params['names']         = explode('|', $inputsValue[$nameAttribute . '_add']);
-                $params['attribute_id'] = $idAttribute;
-                $this->model->saveItem($params,['task'=>'add-item']);
-                $notify = 'Đã thêm các tags mới thành công!';
-            }
         }
 
-        return redirect()->route($this->controllerName)->with("zvn_notify", $notify);
+        // return redirect()->route($this->controllerName)->with("zvn_notify", $notify);
     }
 
     public function status(Request $request)
