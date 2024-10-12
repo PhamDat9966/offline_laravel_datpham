@@ -2,19 +2,13 @@
     $pageTitle      = 'Quản lý ' .ucfirst($controllerName);
     $pageButton     = sprintf('<a href="%s" class="btn btn-info"><i class="fa fa-arrow-left"></i> Quay về</a>', route($controllerName));
 
-    if($pageIndex == true){
-        $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
-    }else
-
-    if($pageIndex == false){
-        $pageButton     = '';
+    if ($pageIndex === true) {
+        $pageButton = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-plus-circle"></i> Thêm mới</a>', route($controllerName) . '/form');
+    } elseif ($pageIndex === false) {
+        $pageButton = '';
+    } elseif ($pageIndex === "tags") {
+        $pageButton = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-tags"></i> Tags Action</a>', route($controllerName) . '/form');
     }
-
-    if($pageIndex == 'tags'){
-        $pageButton     = sprintf('<a href="%s" class="btn btn-success"><i class="fa fa-tags"></i> Tags Action</a>', route($controllerName) . '/form');
-    }
-
-
 
 @endphp
 <div class="page-header zvn-page-header clearfix">

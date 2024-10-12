@@ -212,9 +212,9 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `stat
 (3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
 (4, 2, 'Học hành khét lẹt chân thành không giả mạo', NULL, 'active', NULL, NULL, NULL, NULL),
 (5, 2, 'Học im lặng nhưng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
-(7, 2, 'Vì sức khỏe cộng đồng ', NULL, 'active', NULL, NULL, NULL, NULL),
-(8, 2, 'Hạnh phúc cho mọi nhà ', NULL, 'active', NULL, NULL, NULL, NULL),
-(9, 2, 'Dù tốt dù xấu hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
+(7, 2, 'Vì sức khỏe cộng đồng', NULL, 'active', NULL, NULL, NULL, NULL),
+(8, 2, 'Hạnh phúc cho mọi nhà', NULL, 'active', NULL, NULL, NULL, NULL),
+(9, 2, 'Dù tốt dù xấu hãy là chính bạn', NULL, 'active', NULL, NULL, NULL, NULL),
 (10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
 (11, 3, 'thép', NULL, 'active', NULL, NULL, NULL, NULL),
 (12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL);

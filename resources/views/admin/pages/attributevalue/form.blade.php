@@ -25,22 +25,29 @@
         $tags = rtrim($tags, ",");
         /* Ý tưởng: tạo 2 input, một thẻ chứa các tag name của các phần tử, một thẻ chứa các id của phần tử.
             Sau đó dùng jquery để đồng bộ trong tác vụ `xóa tags`: attribute.js */
-
-        // input chứa tập hợp các name dưới dạng tags
+        //Gom trung 3 input.
         $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['name'].'">';
-        $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
-        $elements[$i]['element'] = $tagsInput;
-        // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
-        $i=$i+1;
-        $iputHiddenIDS           = '<input type="text" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
-        $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-ids' , ucwords($itemAttribute['name']) .'-ids' , $formlabelAttr );
-        $elements[$i]['element'] = $iputHiddenIDS;
+        $iputHiddenIDS           = '<input type="hidden" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
+        $iputHiddenAddIDS        = '<input type="hidden" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
 
-        // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
-        $i=$i+1;
-        $iputHiddenAddIDS        = '<input type="text" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
-        $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-add' , ucwords($itemAttribute['name']) .'-add' , $formlabelAttr );
-        $elements[$i]['element'] = $iputHiddenAddIDS;
+        $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
+        $elements[$i]['element'] = $tagsInput . $iputHiddenIDS . $iputHiddenAddIDS;
+
+        // input chứa tập hợp các name dưới dạng tags: Tách 3 thẻ ra để test dữ liệu, tạm giữ lại khi cần
+        // $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['name'].'">';
+        // $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
+        // $elements[$i]['element'] = $tagsInput;
+        // // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
+        // $i=$i+1;
+        // $iputHiddenIDS           = '<input type="text" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
+        // $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-ids' , ucwords($itemAttribute['name']) .'-ids' , $formlabelAttr );
+        // $elements[$i]['element'] = $iputHiddenIDS;
+
+        // // input chứa tập hợp các id tương ứng dưới dạng hidden, tạm thời ở đây sẽ show input
+        // $i=$i+1;
+        // $iputHiddenAddIDS        = '<input type="text" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
+        // $elements[$i]['label']   = Form::label( $itemAttribute['name'] .'-add' , ucwords($itemAttribute['name']) .'-add' , $formlabelAttr );
+        // $elements[$i]['element'] = $iputHiddenAddIDS;
 
         $i++;
     }

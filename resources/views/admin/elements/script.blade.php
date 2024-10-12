@@ -26,18 +26,12 @@
 <script src="{{asset('admin/js/custom.min.js')}}"></script>
 <!-- laravel File Manager Scripts -->
 <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
-
-<!-- Sử dụng điều kiện trong view để thêm CKEditor -->
-{{-- @if(isset($isCkeditorRequired) && $isCkeditorRequired)
-    <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script>
-@endif --}}
-
 <!-- Truyền mảng ánh xạ $tagToIdMap từ PHP vào JavaScript phải dùng  window.tagToIdMap vì để biến có thể sử dụng khi load DOM xong-->
 <script>
     window.tagToIdMap = @json($tagToIdMap ?? []);
 </script>
 <!-- Tạm đặt attribute.js phía trên my-js.js do tích hợp CKEditor trong my-js.js có sự xung đột, gây lỗi làm dừng load DOM-->
-<script src="{{asset('admin/js/attribute.js')}}"></script>
+<script src="{{asset('admin/js/attribute-value.js')}}"></script>
 <script src="{{asset('admin/js/my-js.js')}}"></script>
 
 <!--Cách ly tạm thời giải thuật tích hợp CKEditor để tránh gây lỗi load DOM cho các giải thuật khác-->
