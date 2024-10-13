@@ -16,8 +16,8 @@
 <script src="{{asset('admin/js/notify.min.js')}}"></script>
 <!-- bootstrap tags input -->
 <script src="{{asset('admin/asset/bootstrap-tagsinput/src/bootstrap-tagsinput.js')}}"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
-
+<!-- Jquery Tags Input-->
+{{-- <script src="{{asset('admin/asset/jquery-tagsinput/jquery.tagsinput.min.js')}}"></script> --}}
 <!-- Tạo calendar với Bootstrap Datepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="{{asset('admin/js/calendar.js')}}"></script>
@@ -33,6 +33,7 @@
 <!-- Tạm đặt attribute.js phía trên my-js.js do tích hợp CKEditor trong my-js.js có sự xung đột, gây lỗi làm dừng load DOM-->
 <script src="{{asset('admin/js/attribute-value.js')}}"></script>
 <script src="{{asset('admin/js/my-js.js')}}"></script>
+
 
 <!--Cách ly tạm thời giải thuật tích hợp CKEditor để tránh gây lỗi load DOM cho các giải thuật khác-->
 {{-- <script src="{{asset('admin/js/laravelfilemanager.js')}}"></script> --}}

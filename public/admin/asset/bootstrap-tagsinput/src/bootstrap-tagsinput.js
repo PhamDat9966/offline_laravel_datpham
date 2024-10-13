@@ -19,8 +19,8 @@
     maxTags: undefined,
     maxChars: undefined,
     confirmKeys: [13, 44],
-    delimiter: ',',
-    delimiterRegex: null,
+    delimiter: '$',         // Thay đổi từ ',' sang '$'
+    delimiterRegex: /\$/,   // Thêm regex để hỗ trợ ký tự đặc biệt như '$'
     cancelConfirmKeysOnEmpty: true,
     onTagExists: function(item, $tag) {
       $tag.hide().fadeIn();

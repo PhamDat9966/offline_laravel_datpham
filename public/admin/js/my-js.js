@@ -691,5 +691,12 @@ $(document).ready(function() {
 
 
 
-
+// Bootstrap tags input
+$(document).ready(function() {
+    console.log('abc');
+    // Khởi tạo với tùy chọn delimiter mới là dấu '$'
+    $('input[data-role="tagsinput"]').tagsinput({
+        delimiter: '$'  // Thay thế dấu phân cách bằng '$'
+    });
+});
 

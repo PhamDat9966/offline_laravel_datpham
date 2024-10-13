@@ -71,6 +71,7 @@ $(document).ready(function() {
         // Lắng nghe sự kiện khi phần tử mới được thêm
         $tagInput.on('itemAdded', function(event) {
             var newTag = event.item.trim(); // Tên của tag mới được thêm
+            console.log('New tag:', newTag);  // Kiểm tra tag vừa bị xóa
             // Nếu addInput đã có giá trị, nối thêm vào với dấu
             if ($addInput.val()) {
                 $addInput.val($addInput.val() + '|' + newTag);

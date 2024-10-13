@@ -17,7 +17,7 @@
         foreach ($itemsAttributevalue as $tagValue) {
             if($tagValue['attribute_id'] == $itemAttribute['id']){
                 $ids    .= $tagValue['id'] . ',';
-                $tags   .= $tagValue['name'] . ',';
+                $tags   .= $tagValue['name'] . '$';
                 // $tags   .= $tagValue['id'] .':'. $tagValue['name'] . ',';
             }
         }
@@ -26,7 +26,7 @@
         /* Ý tưởng: tạo 2 input, một thẻ chứa các tag name của các phần tử, một thẻ chứa các id của phần tử.
             Sau đó dùng jquery để đồng bộ trong tác vụ `xóa tags`: attribute.js */
         //Gom trung 3 input.
-        $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags" name="'.$itemAttribute['name'].'">';
+        $tagsInput               = '<input type="text" value="'.$tags.'" data-role="tagsinput" class="tags form-control" name="'.$itemAttribute['name'].'">';
         $iputHiddenIDS           = '<input type="hidden" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
         $iputHiddenAddIDS        = '<input type="hidden" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
 
