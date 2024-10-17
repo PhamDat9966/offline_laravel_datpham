@@ -1,6 +1,6 @@
 <?php
 namespace App\Helpers;
-use App\Models\CategoryModel;
+use App\Models\CategoryArticleModel;
 use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
 
@@ -561,7 +561,7 @@ class Template{
                     <i class="fa fa-long-arrow-down"></i>
                 </a>', route("$controllerName/move",['id' => $id, 'type' => 'down']));
 
-        $node = CategoryModel::find($id);
+        $node = CategoryArticleModel::find($id);
 
         if(empty($node->getPrevSibling()) || empty($node->getPrevSibling()->parent_id)) $upButton = '';
         if(empty($node->getNextSibling())) $downButton = '';

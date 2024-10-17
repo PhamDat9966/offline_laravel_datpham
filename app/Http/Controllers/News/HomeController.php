@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderModel;
-use App\Models\CategoryModel;
+use App\Models\CategoryArticleModel;
 use App\Models\ArticleModel;
 
 use Illuminate\Support\Facades\Session;
@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
 
         $sliderModel    = new SliderModel();
-        $categoryModel  = new CategoryModel();
+        $categoryModel  = new CategoryArticleModel();
         $articleModel   = new ArticleModel();
 
         $itemsSlider    = $sliderModel->listItems(null, ['task'=>'news-list-items']);
@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     public function usuallyItem($userInfo){
 
-        $categoryModel  = new CategoryModel();
+        $categoryModel  = new CategoryArticleModel();
         $articleModel   = new ArticleModel();
         $params         = [];
 

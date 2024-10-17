@@ -26,7 +26,11 @@
                                 $nameTable      = $val['TableName'];
                                 $elementCount   = $val['ElementCount'];
                                 $icon           = $val['icon'];
-                                $link           = route($nameTable);
+                                // Tách chuỗi theo dấu '_', sau đó chuyển ký tự đầu của từng từ thành chữ in hoa (trừ từ đầu tiên)
+                                $strArray   = explode('_', $nameTable);
+                                $routerTable = array_shift($strArray) . implode('', array_map('ucfirst', $strArray));
+
+                                $link           = route($routerTable);
                             @endphp
 
                             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">

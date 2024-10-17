@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\CategoryModel;
+use App\Models\CategoryArticleModel;
 use Config;
 // use NunoMaduro\Collision\Provider;
 
@@ -65,7 +65,7 @@ class AdminController extends Controller
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
-        $categoryModel      = new CategoryModel();
+        $categoryModel      = new CategoryArticleModel();
         $itemsCategory      = $categoryModel->listItems(null,["task"=> "admin-list-items-in-selectbox"]);
 
         return view($this->pathViewController . 'form', [

@@ -1,5 +1,5 @@
 @php
-    use App\Models\CategoryModel as CategoryModel;
+    use App\Models\CategoryArticleModel as CategoryModel;
     use App\Models\ArticleModel as ArticleModel;
     use App\Models\MenuModel as MenuModel;
     use App\Helpers\URL;

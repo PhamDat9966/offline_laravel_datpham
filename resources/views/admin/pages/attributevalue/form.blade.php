@@ -18,7 +18,6 @@
             if($tagValue['attribute_id'] == $itemAttribute['id']){
                 $ids    .= $tagValue['id'] . ',';
                 $tags   .= $tagValue['name'] . '$';
-                // $tags   .= $tagValue['id'] .':'. $tagValue['name'] . ',';
             }
         }
         $ids  = rtrim($ids, ",");

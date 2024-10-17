@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-use App\Models\CategoryModel;
+use App\Models\CategoryArticleModel;
 use App\Models\ArticleModel;
 use App\Models\UserModel;
 
@@ -33,7 +33,7 @@ class ArticleController extends Controller
         $this->params['article_name'] = $request->article_name;
 
         $articleModel       = new ArticleModel();
-        $categoryModel      = new CategoryModel();
+        $categoryModel      = new CategoryArticleModel();
        // dd($this->params);
         $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
 

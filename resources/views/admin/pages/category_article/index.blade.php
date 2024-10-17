@@ -53,7 +53,7 @@
         <div class="x_panel">
             @include('admin.templates.x_title',['title'=>'Danh sách'])
             <!--List content-->
-            @include("admin.pages.category.list")
+            @include("admin.pages.category_article.list")
             <!--end List-->
         </div>
     </div>

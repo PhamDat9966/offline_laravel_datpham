@@ -24,8 +24,27 @@
         <ul class="nav side-menu">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
             <li><a href="{{ route('user') }}"><i class="fa fa-user"></i> User</a></li>
-            <li><a href="{{ route('category')}}"><i class="fa fa fa-building-o"></i> Category</a></li>
-            <li><a href="{{ route('article')}}"><i class="fa fa-newspaper-o"></i> Article</a></li>
+            <li id='article-manage'>
+                <a><i class="fa fa-newspaper-o"></i> Quản lý bài viết<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('article')}}"> Article</a></li>
+                    <li><a href="{{ route('categoryArticle')}}"> Category</a></li>
+                </ul>
+            </li>
+            <li id='product'>
+                <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('product')}}"> Product</a></li>
+                    <li><a href="{{ route('attributevalue')}}"> Category</a></li>
+                </ul>
+            </li>
+            <li id='attribute'>
+                <a><i class="fa fa-cubes"></i> Quản lý Thuộc tính<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('attribute')}}"> Loại thuộc tính</a></li>
+                    <li><a href="{{ route('attributevalue')}}"> Giá trị thuộc tính</a></li>
+                </ul>
+            </li>
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li>
             <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
@@ -40,15 +59,23 @@
                     <li><a href="{{ route('setting',['type'=>'social'])}}">Social</a></li>
                 </ul>
             </li>
-            <li><a href="{{ route('rss')}}"><i class="fa fa-navicon"></i> Rss</a></li>
-            <li><a href="{{ route('rssnews')}}"><i class="fa fa-newspaper-o"></i> Rss News</a></li>
+            <li id='rss'>
+                <a><i class="fa fa-rss"></i> Quản lý Rss<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('rss')}}"> Rss</a></li>
+                    <li><a href="{{ route('rssnews')}}"> Rss News</a></li>
+                </ul>
+            </li>
             <li><a href="{{ route("admin.logs.index")}}"><i class="fa fa-history"></i> LogViewer</a></li>
             <li><a href="{{ route('appointment')}}"><i class="fa fa-calculator"></i> Lịch hẹn</a></li>
             <li><a href="{{ route('branch')}}"><i class="fa fa-suitcase"></i> Chi nhánh</a></li>
-            <li><a href="{{ route('attribute')}}"><i class="fa fa-cube"></i> Thuộc tính</a></li>
-            <li><a href="{{ route('attributevalue')}}"><i class="fa fa-cubes"></i> Giá trị thuộc tính</a></li>
-            <li><a href="{{ route('dataViewsArticle')}}"><i class="fa fa-clone"></i> Data Views</a></li>
-            <li><a href="{{ route('userAgents')}}"><i class="fa fa-jsfiddle"></i> UserAgents</a></li>
+            <li id='userAgents'>
+                <a><i class="fa fa-jsfiddle"></i> Quản lý views người dùng<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('dataViewsArticle')}}"> Data Views</a></li>
+                    <li><a href="{{ route('userAgents')}}"> UserAgents</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

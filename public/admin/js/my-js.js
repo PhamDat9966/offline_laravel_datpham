@@ -590,7 +590,7 @@ $(document).ready(function() {
     // $('#lfm').filemanager('file', {prefix: route_prefix});
 });
 
-// Menu click tại id=setting
+// Menu click xuất ra menu con tại sidebar_menu
 $(document).ready(function(){
     // Chọn phần tử <ul> có class là 'child_menu'
     $("ul.child_menu").css("display", "none");

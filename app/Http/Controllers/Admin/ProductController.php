@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\ArticleModel as MainModel;
+use App\Models\ProductModel as MainModel;
 use App\Models\CategoryArticleModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
 
-class ArticleController extends AdminController
+class ProductController extends AdminController
 {
     public function __construct()
     {
-        $this->pathViewController   = 'admin.pages.article.';
-        $this->controllerName       = 'article';
+        $this->pathViewController   = 'admin.pages.product.';
+        $this->controllerName       = 'product';
         $this->model  = new MainModel();
         View::share('controllerName',$this->controllerName);
         parent::__construct();
@@ -28,7 +28,7 @@ class ArticleController extends AdminController
         $this->params['filter']['category']   = $request->input('filter_category','all');
         $this->params['filter']['type']       = $request->input('filter_type','all');
 
-        // Thêm nội dung mới của ArticleController
+        // Thêm nội dung mới của ProductController
         $categoryModel  = new CategoryArticleModel();
         //$categoryList   = $categoryModel->listItems(null, ['task' => 'category-list']);
         // $firstItem      = ['id' => 'all', 'name' => 'Tất Cả'];

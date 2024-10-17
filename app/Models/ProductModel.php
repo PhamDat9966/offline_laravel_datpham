@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config;
-class ArticleModel extends AdminModel
+class ProductModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'article as a';
-        $this->folderUpload         = 'article';
+        $this->table                = 'product as p';
+        $this->folderUpload         = 'product';
         $this->fieldSearchAccepted  = ['name','content','slug'];
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
     }
@@ -22,8 +22,8 @@ class ArticleModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('a.id','a.name','a.content','a.slug','a.status','a.category_id','a.thumb','a.type','c.name as category_name')
-                        ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
+            $query = $this->select('p.id','p.name','p.content','p.slug','p.status','p.category_product_id','p.thumb','p.type','c.name as category_name');
+                        // ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
                $query->where('a.status','=',$params['filter']['status']);

@@ -29,7 +29,7 @@ class DashboardModel extends AdminModel
         $result = null;
 
         if($options['task'] == 'admin-count-category-item'){
-            $this->table     = 'category';
+            $this->table     = 'category_article';
             $query  = $this->select(DB::raw('COUNT(id) as count'));
             $result     = $query->get()
                                 ->toArray();

@@ -8,7 +8,7 @@ use App\Models\MenuModel as MainModel;
 use App\Http\Requests\MenuRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
 
-use App\Models\CategoryModel;
+use App\Models\CategoryArticleModel;
 
 class MenuController extends AdminController
 {
@@ -34,7 +34,7 @@ class MenuController extends AdminController
         $params = $data['params'];
 
         // Thêm nội dung mới menu là category
-        $categoryModel  = new categoryModel();
+        $categoryModel  = new CategoryArticleModel();
         $categoryList   = $categoryModel->listItems($params, ['task' => 'admin-list-items']);
 
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
