@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    //dd($item->toArray());
 @endphp
 
 <div class="posts">

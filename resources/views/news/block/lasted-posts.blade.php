@@ -11,7 +11,7 @@
                 $name               = $item['name'];
                 $thumb              = asset('images/article/' . $item['thumb']);
                 $categoryName       = $item['category_name'];
-                $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
+                $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
                 $linkArticle        = '';
                 if(!empty($item['slug'])){
                     $linkArticle    = $item['slug'].'.php';

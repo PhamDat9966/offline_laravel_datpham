@@ -127,7 +127,7 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-in-category'){
-            $query = $this->select('a.id','a.name','a.slug','a.created','a.content','a.created','a.thumb','a.type')
+            $query = $this->select('a.id','a.category_id','a.name','a.slug','c.name as category_name','a.created','a.content','a.created','a.thumb','a.type')
                           ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
                           ->where('a.status','=','active')
                           ->where('a.category_id','=',$params['category_id'])

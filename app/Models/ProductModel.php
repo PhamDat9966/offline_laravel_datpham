@@ -22,7 +22,7 @@ class ProductModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('p.id','p.name','p.content','p.slug','p.status','p.category_product_id','p.thumb','p.type','c.name as category_name');
+            $query = $this->select('p.id','p.name','p.content','p.slug','p.status','p.category_product_id','p.thumb');
                         // ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){

@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    //dd($item);
 @endphp
 <div class="posts">
     @foreach ($item->article as $article)

@@ -55,7 +55,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
-    // ====================== CATEGORY ======================
+    // ====================== CATEGORY ARTICLE ======================
     $prefix         =   'categoryArticle';
     $controllerName =   'categoryArticle';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
@@ -114,6 +114,67 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         // ])->where('id','[0-9]+');
 
     });
+
+    // ====================== CATEGORY PRODUCT======================
+    $prefix         =   'categoryProduct';
+    $controllerName =   'categoryProduct';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::get('change-is-home-{isHome}/{id}', [
+            'as'    => $controllerName . '/isHome',
+            'uses'  => $controller . 'isHome'
+        ]);
+
+        Route::get('change-display-{display}/{id}', [
+            'as'    => $controllerName . '/display',
+            'uses'  => $controller . 'display'
+        ]);
+
+        Route::get('change-display-filter-{display}', [
+            'as'    => $controllerName . '/displayFilter',
+            'uses'  => $controller . 'displayFilter'
+        ]);
+
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+        Route::get('move-{type}/{id}' , $controller . 'move')->name("$controllerName/move")->where('id','[0-9]+');
+
+        // Route::get('move-{type}/{id}', [
+        //     'as'    => $controllerName . '/move',
+        //     'uses'  => $controller . 'move'
+        // ])->where('id','[0-9]+');
+
+    });
+
 
     // ====================== ARTICLE ======================
     $prefix         =   'article';

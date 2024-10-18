@@ -19,7 +19,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     // ====================== CATEGORY ======================
     $prefix         =   'chuyen-muc';
-    $controllerName =   'category';
+    $controllerName =   'categoryArticle';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/{category_name}-{category_id}.html', [
@@ -32,7 +32,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
 
     // ====================== CATEGORY PLUS ======================
     $prefixAlias    = 'cm';  // Thay đổi từ 'category' sang 'cm'
-    $controllerName = 'category';
+    $controllerName = 'categoryArticle';
 
     Route::group([], function () use ($prefixAlias, $controllerName) {
         $controller = ucfirst($controllerName) . 'Controller@';

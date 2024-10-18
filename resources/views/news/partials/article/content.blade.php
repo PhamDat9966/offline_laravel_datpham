@@ -10,7 +10,7 @@
     $categoryName           = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
     $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";
 
-    $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
+    $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
     $linkArticle        = '';
     if(!empty($item['slug'])){
         $linkArticle    = $item['slug'] . '.php';

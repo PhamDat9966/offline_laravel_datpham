@@ -2,12 +2,12 @@
 {{-- @include('news.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
                                                 trước sau đó mới thực hiện khối lệnh php--}}
 @php
-   // dd($itemCategory);
+  //  dd($itemCategoryArticle->toArray());
 @endphp
 @section('content')
     <!-- Content Container -->
     <div class="section-category">
-        @include('news.block.breadcrumb',['item'=>$itemCategory])
+        @include('news.block.breadcrumb',['item'=>$itemCategoryArticle])
 
         <div class="content_container container_category">
            <div class="featured_title">
@@ -17,7 +17,7 @@
                     <!-- Main Content -->
                     <div class="col-lg-9">
 
-                        @include('news.pages.category.child-index.category',['itemCategory'=>$itemCategory])
+                        @include('news.pages.category_article.child-index.category',['itemCategoryArticle'=>$itemCategoryArticle])
 
                     </div>
                     <!-- Sidebar -->

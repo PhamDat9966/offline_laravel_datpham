@@ -2,11 +2,11 @@
 namespace App\Helpers;
 use Illuminate\Support\Str;
 class URL{
-    public static function linkCategory($id,$name){
+    public static function linkCategoryArticle($id,$name){
         $id   = (int)$id;
         $nameCategory = Str::slug($name);
         $nameCategory = 'category-'.$nameCategory; // Đây là 1 lỗi cực kỳ vớ vẩn, chưa tìm ra được cách giải quyết, tạm thời phải dùng đến kết nối chuỗi 'category-'
-        return route('category/index',[
+        return route('categoryArticle/index',[
             'category_id'   =>  $id,
             'category_name' =>  $nameCategory
 
