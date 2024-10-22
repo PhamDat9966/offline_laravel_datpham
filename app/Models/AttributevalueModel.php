@@ -19,7 +19,7 @@ class AttributevalueModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('av.id','av.attribute_id','av.name','av.fieldClass','av.status')
+            $query = $this->select('av.id','av.attribute_id','av.name','a.name as attribute_name','av.fieldClass','av.status')
                            ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id');
             if($params['filter']['status'] !== "all"){
                $query->where('av.status','=',$params['filter']['status']);
@@ -189,6 +189,7 @@ class AttributevalueModel extends AdminModel
         if($options['task'] == 'get-all-items'){
             $result = $this::select('av.id','av.name','av.attribute_id','av.fieldClass','av.status')
                     ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id')
+                    ->where('av.status','=','active')
                     ->get()->toArray();
 
         }

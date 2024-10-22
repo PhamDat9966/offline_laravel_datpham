@@ -150,6 +150,7 @@ return [
             'default'           =>  ['all','id','fullname'],
             'slider'            =>  ['all','id','name','description','link'],
             'categoryArticle'   =>  ['all','id','name'],
+            'categoryProduct'   =>  ['all','id','name'],
             'article'           =>  ['all','name','slug','content'],
             'rss'               =>  ['all','name','link'],
             'user'              =>  ['all','username','email','fullname'],
@@ -164,6 +165,7 @@ return [
             'default'           =>  ['edit','delete'],
             'slider'            =>  ['edit','delete','info'],
             'categoryArticle'   =>  ['edit','delete'],
+            'categoryProduct'   =>  ['edit','delete'],
             'article'           =>  ['edit','delete'],
             'product'           =>  ['edit','delete'],
             'user'              =>  ['edit','delete'],
@@ -174,7 +176,7 @@ return [
             'branch'            =>  ['edit','delete'],
             'appointment'       =>  ['delete'],
             'attribute'         =>  ['edit','delete'],
-            'attributevalue'    =>  ['edit','delete'],
+            'attributevalue'    =>  ['delete'],
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3]

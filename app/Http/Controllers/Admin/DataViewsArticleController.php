@@ -75,6 +75,11 @@ class DataViewsArticleController extends Controller
             }
         }
 
+        // Sử dụng array_filter để loại bỏ key rỗng
+        $articleCounts = array_filter($articleCounts, function($value, $key) {
+            return $key !== "";
+        }, ARRAY_FILTER_USE_BOTH);
+
         // Cập nhật dataViews theo articleCount
         $dataViewsArticleModel  = new MainModel();
         $listItemsDataView      = $dataViewsArticleModel->getItem(null,['task'=>'get-all-item']);

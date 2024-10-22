@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\CategoryArticleModel as MainModel;
+use App\Models\CategoryProductModel as MainModel;
 use App\Http\Requests\CategoryProductRequest as MainRequest;
 use Config;
 use Illuminate\Support\Facades\DB;
@@ -13,8 +13,8 @@ class CategoryProductController extends AdminController
 {
     public function __construct()
     {
-        $this->pathViewController   = 'admin.pages.category_article.';
-        $this->controllerName       = 'categoryArticle';
+        $this->pathViewController   = 'admin.pages.category_product.';
+        $this->controllerName       = 'categoryProduct';
         $this->model  = new MainModel();
         View::share('controllerName',$this->controllerName);
         parent::__construct();

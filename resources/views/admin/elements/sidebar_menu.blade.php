@@ -35,11 +35,11 @@
                 <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ route('product')}}"> Product</a></li>
-                    <li><a href="{{ route('attributevalue')}}"> Category</a></li>
+                    <li><a href="{{ route('categoryProduct')}}"> Category</a></li>
                 </ul>
             </li>
             <li id='attribute'>
-                <a><i class="fa fa-cubes"></i> Quản lý Thuộc tính<span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-cubes"></i> Quản lý Thuộc tính Sản Phẩm<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ route('attribute')}}"> Loại thuộc tính</a></li>
                     <li><a href="{{ route('attributevalue')}}"> Giá trị thuộc tính</a></li>

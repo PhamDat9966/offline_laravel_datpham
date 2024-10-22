@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\CategoryArticleModel as MainModel;
-use App\Http\Requests\CategoryRequest as MainRequest;
+use App\Http\Requests\CategoryArticleRequest as MainRequest;
 use Config;
 use Illuminate\Support\Facades\DB;
 

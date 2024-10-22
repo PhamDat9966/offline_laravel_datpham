@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 17, 2024 lúc 10:27 AM
+-- Thời gian đã tạo: Th10 22, 2024 lúc 05:28 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -102,7 +102,7 @@ INSERT INTO `article` (`id`, `category_id`, `name`, `slug`, `content`, `status`,
 (21, 3, 'Blockchain và trí tuệ nhân tạo AI làm thay đổi giáo dục trực tuyến', 'bv-blockchain-va-tri-tue-nhan-tao-ai-lam-thay-doi-giao-duc-truc-tuyen-21', '<p>Blockchain khiến dữ liệu trở n&ecirc;n c&ocirc;ng khai, minh bạch với người học, AI gi&uacute;p cải thiện khả năng tương t&aacute;c v&agrave; giảng dạy với từng c&aacute; nh&acirc;n.</p>\r\n\r\n<p>Sự b&ugrave;ng nổ của Internet v&agrave; những c&ocirc;ng nghệ mới như chuỗi khối (Blockchain) v&agrave; tr&iacute; tuệ nh&acirc;n tạo (AI) đ&atilde; g&oacute;p phần l&agrave;m thay đổi nền gi&aacute;o dục tr&ecirc;n to&agrave;n thế giới, h&igrave;nh th&agrave;nh những nền tảng Online Learning với nhiều ưu thế.</p>\r\n\r\n<p><strong>Mobile Learning dự b&aacute;o l&agrave; &quot;Cuộc c&aacute;ch mạng tiếp theo&quot; của gi&aacute;o dục trực tuyến</strong></p>\r\n\r\n<p>Theo nghi&ecirc;n cứu của Global Market Insights, thị trường gi&aacute;o dục trực tuyến to&agrave;n cầu đang c&oacute; tốc độ ph&aacute;t triển nhanh chưa từng thấy khi nền tảng hạ tầng Internet ng&agrave;y c&agrave;ng ho&agrave;n thiện v&agrave; phủ s&oacute;ng rộng khắp. Gi&aacute; trị c&aacute;c start-up về EdTech (C&ocirc;ng ty c&ocirc;ng nghệ chuy&ecirc;n về gi&aacute;o dục) to&agrave;n cầu được ước t&iacute;nh hơn 190 tỷ USD v&agrave;o năm 2018 v&agrave; dự kiến vượt hơn 300 tỷ USD v&agrave;o năm 2025.</p>', 'active', 'Im5BdAHqV1.png', '2019-05-17 00:00:00', 'hailan', '2024-09-16 00:00:00', 'admin', '2019-05-16', 'normal'),
 (22, 6, 'Huawei nói lệnh cấm sẽ khiến Mỹ tụt hậu về 5G', 'bv-huawei-noi-lenh-cam-se-khien-my-tut-hau-ve-5g-22', '<p>Huawei khẳng định sắc lệnh mới của Mỹ sẽ chỉ c&agrave;ng khiến qu&aacute; tr&igrave;nh triển khai c&ocirc;ng nghệ 5G ở nước n&agrave;y th&ecirc;m chậm chạp v&agrave; đắt đỏ.</p>\r\n\r\n<p>H&atilde;ng c&ocirc;ng nghệ Trung Quốc tự nhận l&agrave; &quot;người dẫn đầu kh&ocirc;ng ai s&aacute;nh kịp về c&ocirc;ng nghệ 5G&quot;, n&ecirc;n việc bị hạn chế kinh doanh ở Mỹ chỉ dẫn đến kết cục l&agrave; Mỹ sẽ bị &quot;tụt lại ph&iacute;a sau&quot; trong việc triển khai c&ocirc;ng nghệ kết nối di động thế hệ mới</p>', 'active', 'nt1QxhKUXM.jpeg', '2019-05-17 00:00:00', 'hailan', '2024-08-29 00:00:00', 'admin', '2019-05-16', 'normal'),
 (23, 7, 'Asus ra mắt Zenfone 6 với camera lật tự động', 'bv-asus-ra-mat-zenfone-6-voi-camera-lat-tu-dong-23', '<p>Với thiết kế m&agrave;n h&igrave;nh tr&agrave;n viền ho&agrave;n to&agrave;n kh&ocirc;ng tai thỏ, camera ch&iacute;nh 48 megapixel tr&ecirc;n Zenfone 6 c&oacute; thể lật từ sau ra trước biến th&agrave;nh camera selfie.</p>\r\n\r\n<p>Zenfone 6 l&agrave; một trong những smartphone c&oacute; viền m&agrave;n h&igrave;nh mỏng nhất tr&ecirc;n thị trường với tỷ lệ m&agrave;n h&igrave;nh hiển thị chiếm tới 92% diện t&iacute;ch mặt trước. M&aacute;y c&oacute; m&agrave;n h&igrave;nh 6,4 inch tr&agrave;n viền ra cả bốn cạnh, kh&ocirc;ng tai thỏ như một số mẫu Zenfone trước v&agrave; cũng kh&ocirc;ng d&ugrave;ng thiết kế đục lỗ như Galaxy S10, S10+...</p>', 'active', 'aiC6j6fWZY.png', '2019-05-17 00:00:00', 'hailan', '2024-09-19 00:00:00', 'admin', '2019-05-16', 'normal'),
-(34, 6, 'trí tuệ nhân tạo AI', 'bv-tri-tue-nhan-tao-ai-34', '<p>Trong thời đại m&agrave; tiến bộ c&ocirc;ng nghệ kh&ocirc;ng chỉ l&agrave; một lựa chọn m&agrave; c&ograve;n l&agrave; điều cần thiết, c&aacute;c doanh nghiệp đang ng&agrave;y c&agrave;ng chuyển sang sử dụng Tr&iacute; tuệ nh&acirc;n tạo (AI) để hợp l&yacute; h&oacute;a hoạt động, n&acirc;ng cao hiệu quả v&agrave; đạt được hiệu quả hoạt động xuất sắc. Việc t&iacute;ch hợp AI trong khu&ocirc;n khổ Vận h&agrave;nh xuất sắc (Operational Excellence) hay Lean Six Sigma kh&ocirc;ng chỉ c&oacute; thể tối ưu h&oacute;a hoạt động, quy tr&igrave;nh v&agrave; hệ thống của c&ocirc;ng ty m&agrave; c&ograve;n đ&oacute;ng g&oacute;p đ&aacute;ng kể v&agrave;o văn h&oacute;a cải tiến li&ecirc;n tục v&agrave; tạo ra gi&aacute; trị.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"http://proj_news.xyz/images/article/tri-tue-nhan-tao-ai-la-gi-ung-dung-nhu-the-nao-trong-cuoc-song--6.jpg\" style=\"height:354px; width:630px\" /></p>\r\n\r\n<p>B&agrave;i viết n&agrave;y t&igrave;m hiểu c&aacute;c c&acirc;u hỏi &#39;tại sao&#39;, &#39;c&aacute;i g&igrave;&#39;, &#39;như thế n&agrave;o&#39; v&agrave; &#39;điều g&igrave; sẽ xảy ra tiếp theo&#39; khi &aacute;p dụng AI trong kinh doanh, n&ecirc;u bật cả những cơ hội v&agrave; th&aacute;ch thức m&agrave; n&oacute; mang lại.</p>', 'active', 'cC2FlDJ7S3.jpg', '2024-08-23 00:00:00', 'admin', '2024-09-24 00:00:00', 'dat123', NULL, NULL);
+(34, 7, 'trí tuệ nhân tạo AI', 'bv-tri-tue-nhan-tao-ai-34', '<p>Trong thời đại m&agrave; tiến bộ c&ocirc;ng nghệ kh&ocirc;ng chỉ l&agrave; một lựa chọn m&agrave; c&ograve;n l&agrave; điều cần thiết, c&aacute;c doanh nghiệp đang ng&agrave;y c&agrave;ng chuyển sang sử dụng Tr&iacute; tuệ nh&acirc;n tạo (AI) để hợp l&yacute; h&oacute;a hoạt động, n&acirc;ng cao hiệu quả v&agrave; đạt được hiệu quả hoạt động xuất sắc. Việc t&iacute;ch hợp AI trong khu&ocirc;n khổ Vận h&agrave;nh xuất sắc (Operational Excellence) hay Lean Six Sigma kh&ocirc;ng chỉ c&oacute; thể tối ưu h&oacute;a hoạt động, quy tr&igrave;nh v&agrave; hệ thống của c&ocirc;ng ty m&agrave; c&ograve;n đ&oacute;ng g&oacute;p đ&aacute;ng kể v&agrave;o văn h&oacute;a cải tiến li&ecirc;n tục v&agrave; tạo ra gi&aacute; trị.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"http://proj_news.xyz/images/article/tri-tue-nhan-tao-ai-la-gi-ung-dung-nhu-the-nao-trong-cuoc-song--6.jpg\" style=\"height:354px; width:630px\" /></p>\r\n\r\n<p>B&agrave;i viết n&agrave;y t&igrave;m hiểu c&aacute;c c&acirc;u hỏi &#39;tại sao&#39;, &#39;c&aacute;i g&igrave;&#39;, &#39;như thế n&agrave;o&#39; v&agrave; &#39;điều g&igrave; sẽ xảy ra tiếp theo&#39; khi &aacute;p dụng AI trong kinh doanh, n&ecirc;u bật cả những cơ hội v&agrave; th&aacute;ch thức m&agrave; n&oacute; mang lại.</p>', 'active', 'cC2FlDJ7S3.jpg', '2024-08-23 00:00:00', 'admin', '2024-10-22 00:00:00', 'dat123', NULL, NULL);
 
 --
 -- Bẫy `article`
@@ -155,14 +155,22 @@ CREATE TABLE `article_views` (
 --
 
 INSERT INTO `article_views` (`id`, `article_id`, `views`, `created`, `status`, `modified`) VALUES
-(1, 23, 2, '2024-02-29 00:00:00', 'active', '2024-02-29 13:46:40'),
+(1, 23, 3, '2024-02-29 00:00:00', 'active', '2024-02-29 13:46:40'),
 (2, 16, 5, '2024-03-12 00:00:00', 'active', '2024-03-12 09:05:57'),
 (3, 15, 3, '2024-03-25 00:00:00', 'active', '2024-03-25 14:44:49'),
 (4, 21, 4, '2024-06-17 00:00:00', 'active', '2024-06-17 23:55:11'),
 (5, 22, 3, '2024-06-17 00:00:00', 'active', '2024-06-17 23:56:14'),
 (6, 4, 2, '2024-09-17 00:00:00', 'active', '2024-09-18 04:27:19'),
 (7, 35, 1, '2024-10-16 00:00:00', 'active', '2024-10-16 13:48:04'),
-(8, 34, 3, '2024-10-16 00:00:00', 'active', '2024-10-16 13:55:55');
+(8, 34, 3, '2024-10-16 00:00:00', 'active', '2024-10-16 13:55:55'),
+(9, 20, 5, '2024-10-21 00:00:00', 'active', '2024-10-21 08:46:15'),
+(10, 18, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 08:51:07'),
+(11, 14, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 08:55:23'),
+(12, 11, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 08:59:21'),
+(13, 7, 2, '2024-10-21 00:00:00', 'active', '2024-10-21 09:05:09'),
+(14, 6, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 09:05:59'),
+(15, 3, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 09:06:06'),
+(16, 5, 1, '2024-10-21 00:00:00', 'active', '2024-10-21 09:06:12');
 
 -- --------------------------------------------------------
 
@@ -212,16 +220,16 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `stat
 (1, 1, 'vàng', NULL, 'active', NULL, NULL, NULL, NULL),
 (2, 1, 'đỏ', NULL, 'active', NULL, NULL, NULL, NULL),
 (3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
-(4, 2, 'Học hành khét lẹt, chân thành không giả mạo', NULL, 'active', NULL, NULL, NULL, NULL),
+(4, 2, 'Học hành khét lẹt, chân thành không giả mạo', NULL, 'active', NULL, NULL, '2024-10-21 00:00:00', 'admin'),
 (5, 2, 'Học im lặng, nhưng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
 (7, 2, 'Đừng xấu hổ khi không biết, chỉ xấu hổ khi không học', NULL, 'active', NULL, NULL, NULL, NULL),
 (8, 2, 'Sức khỏe mạnh mẽ, cuộc sống tràn đầy năng lượng', NULL, 'active', NULL, NULL, NULL, NULL),
 (9, 2, 'Dù tốt dù xấu, hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
 (10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
-(11, 3, 'thép', NULL, 'active', NULL, NULL, NULL, NULL),
+(11, 3, 'inox', NULL, 'active', NULL, NULL, NULL, NULL),
 (12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
 (46, 1, 'nâu', NULL, 'active', '2024-10-13 00:00:00', 'admin', NULL, NULL),
-(47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', NULL, NULL);
+(47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', '2024-10-21 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -279,14 +287,14 @@ CREATE TABLE `category_article` (
 INSERT INTO `category_article` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
 (1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 20),
 (2, 'Thể Thao', 'cm-the-thao-2', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 3, 3, 6),
-(3, 'Giáo dục', 'cm-giao-duc-3', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 2, 7),
-(4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 8, 15),
+(3, 'Giáo dục', 'cm-giao-duc-3', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 2, 7),
+(4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 8, 15),
 (5, 'Du lịch', 'cm-du-lich-5', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'admin', 4, 9, 12),
 (6, 'Khoa học', 'cm-khoa-hoc-6', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 4, 13, 14),
 (7, 'Số hóa', 'cm-so-hoa-7', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 5, 10, 11),
 (8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 16, 17),
 (9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', NULL, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 18, 19),
-(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 2, 4, 5);
+(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', NULL, 'list', '2024-09-10 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 2, 4, 5);
 
 --
 -- Bẫy `category_article`
@@ -340,6 +348,17 @@ CREATE TABLE `category_product` (
   `_lft` int(11) DEFAULT NULL,
   `_rgt` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_product`
+--
+
+INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 10),
+(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 2, 3),
+(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 8, 9),
+(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 4, 5),
+(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -705,7 +724,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `level`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', 'admin', '2024-07-01 00:00:00', 'admin', '2024-09-18 00:00:00', 'admin', 'active', '6,6,6,2,2,2,2,2,2,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6'),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', 'admin', '2024-07-01 00:00:00', 'admin', '2024-09-18 00:00:00', 'admin', 'active', '6,6,6,2,2,2,2,2,2,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,6'),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', 'admin', '2014-12-13 07:20:03', 'admin', '2024-03-22 00:00:00', 'dat123', 'active', NULL),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-09-20 00:00:00', 'dat123', 'active', NULL),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-03-23 00:00:00', 'admin', 'active', NULL),
@@ -764,51 +783,44 @@ CREATE TABLE `user_agents` (
 --
 
 INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
-(1, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 4),
-(2, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-16 03:46:17', 5),
-(3, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 3),
-(4, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 4),
-(5, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 4),
-(6, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 6),
-(7, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 7),
-(8, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 7),
-(9, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 11),
-(10, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 14),
-(11, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 15),
-(12, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 15),
-(13, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 15),
-(14, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 16),
-(15, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 16),
-(16, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 16),
-(17, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-16 03:46:17', 16),
-(18, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 16),
-(19, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 18),
-(20, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 20),
-(21, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 20),
-(22, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 20),
-(23, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-16 03:46:17', 20),
-(24, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-16 03:46:18', 20),
-(25, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 21),
-(26, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 21),
-(27, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 21),
-(28, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 21),
-(29, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 22),
-(30, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 22),
-(31, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 22),
-(32, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 23),
-(33, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 23),
-(34, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 34),
-(35, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 34),
-(36, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 34),
-(37, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-16 03:46:18', 35),
-(38, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 13:51:08', NULL),
-(39, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 13:53:08', NULL),
-(40, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 13:55:19', 20),
-(41, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 13:55:20', 20),
-(42, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 13:55:20', 20),
-(43, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 14:31:58', 20),
-(44, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 14:31:59', 20),
-(45, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-16 14:31:59', 20);
+(1, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-21 02:07:08', NULL),
+(2, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 3),
+(3, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 4),
+(4, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 4),
+(5, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-21 02:07:08', 5),
+(6, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 6),
+(7, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 7),
+(8, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 7),
+(9, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 11),
+(10, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 14),
+(11, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 15),
+(12, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 15),
+(13, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 15),
+(14, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 16),
+(15, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-21 02:07:08', 16),
+(16, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 16),
+(17, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', '2024-10-21 02:07:08', 16),
+(18, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 16),
+(19, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 18),
+(20, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 20),
+(21, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36', '2024-10-21 02:07:09', 20),
+(22, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 20),
+(23, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 20),
+(24, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 20),
+(25, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 21),
+(26, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 21),
+(27, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 21),
+(28, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 21),
+(29, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 22),
+(30, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 22),
+(31, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 22),
+(32, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 23),
+(33, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 23),
+(34, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 23),
+(35, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 34),
+(36, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 34),
+(37, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 34),
+(38, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2024-10-21 02:07:09', 35);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -952,7 +964,7 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT cho bảng `article_views`
 --
 ALTER TABLE `article_views`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `attribute`
@@ -982,7 +994,7 @@ ALTER TABLE `category_article`
 -- AUTO_INCREMENT cho bảng `category_product`
 --
 ALTER TABLE `category_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `contact`
@@ -1042,7 +1054,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -11,7 +11,7 @@ use Config;
 
 use Kalnoy\Nestedset\NodeTrait;
 
-class CategoryArticleModel extends AdminModel
+class CategoryProductModel extends AdminModel
 {
     // public function __construct(){
     //     $this->table                = 'category';
@@ -21,7 +21,7 @@ class CategoryArticleModel extends AdminModel
     // }
 
     use NodeTrait;
-    protected $table    = 'category_article';
+    protected $table    = 'category_product';
     protected $guarded  = [];
 
     public function listItems($params = null,$options = null){

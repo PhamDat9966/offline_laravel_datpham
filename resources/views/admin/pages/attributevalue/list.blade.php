@@ -10,7 +10,8 @@
             <thead>
                 <tr class="headings">
                     <th class="column-title">#</th>
-                    <th class="column-title">Thuộc tính</th>
+                    <th class="column-title">Giá trị thuộc tính</th>
+                    <th class="column-title">Loại thuộc tính</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">fieldClass</th>
                     <th class="column-title">Hành động</th>
@@ -26,6 +27,7 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
+                            $nameAttribute      = Hightlight::show($val['attribute_name'], $params['search'] , 'attribute_name');
                             $fieldClass         = $val['fieldClass'];
 
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']);
@@ -37,6 +39,9 @@
                             <td>{{ $index }}</td>
                             <td width="30%">
                                 <p><strong>Name:</strong> {!! $name !!}</p>
+                            </td>
+                            <td>
+                                {!!$nameAttribute!!}
                             </td>
                             <td>
                                 {!!$status!!}

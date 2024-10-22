@@ -30,6 +30,7 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['article_name'], $params['search'] , 'article_name');
+                            $name               = ($name != '') ? $name : '<strong style="color:red;">Bài viết đã bị xóa</strong>';
                             $views              = $val['views'];
                             $createdHistory     = Template::showItemHistory('',$val['created']);
                             $modifiedHistory    = Template::showItemHistory('',$val['modified']);
