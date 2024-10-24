@@ -24,7 +24,6 @@ class CategoryProductController extends AdminController
     {
 
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
-
         /* foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
              echo "<h3 style='color:blue'>".$key."</h3>";
             echo "<h3 style='color:red'>".$item."</h3>";

@@ -1,6 +1,5 @@
 <?php
 namespace App\Helpers;
-use App\Models\CategoryArticleModel;
 use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
 
@@ -561,7 +560,10 @@ class Template{
                     <i class="fa fa-long-arrow-down"></i>
                 </a>', route("$controllerName/move",['id' => $id, 'type' => 'down']));
 
-        $node = CategoryArticleModel::find($id);
+        $module = 'App\\Models\\' . ucfirst($controllerName) . 'Model';
+        $node   = $module::find($id);
+        /* việc sử dụng biến động để gọi tên một model như $module::find($id) không trực tiếp tìm được model vì PHP không tự động nhận diện
+        nó là một class hợp lệ, cần xây dựng đầy đủ tên không gian tên (namespace) của model*/
 
         if(empty($node->getPrevSibling()) || empty($node->getPrevSibling()->parent_id)) $upButton = '';
         if(empty($node->getNextSibling())) $downButton = '';

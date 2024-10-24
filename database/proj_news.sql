@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 22, 2024 lúc 05:28 AM
+-- Thời gian đã tạo: Th10 24, 2024 lúc 03:37 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -356,9 +356,9 @@ CREATE TABLE `category_product` (
 INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
 (1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 10),
 (6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 2, 3),
-(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 8, 9),
-(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 4, 5),
-(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 6, 7);
+(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 4, 5, 6),
+(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, 'grid', '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 1, 4, 7),
+(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 8, 9);
 
 -- --------------------------------------------------------
 
