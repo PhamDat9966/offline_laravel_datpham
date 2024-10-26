@@ -392,7 +392,6 @@ $(document).ready(function() {
         var statusId        = $(this).attr("id");
         var inputId         = statusId.charAt(statusId.length - 1);
         let url             = $(this).data('url');
-
         callAjax(element,url,inputId,'status');
         // $.ajax({
         //     type: "GET",

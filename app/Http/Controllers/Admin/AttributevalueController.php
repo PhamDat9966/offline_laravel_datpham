@@ -9,6 +9,8 @@ use App\Http\Requests\AttributevalueRequest as MainRequest;
 use App\Models\AttributeModel as AttributeModel;
 use App\Helpers\Form as Form;
 
+use Config;
+
 class AttributevalueController extends Controller
 {
     private $pathViewController = 'admin.pages.attributevalue.';  // slider
@@ -155,14 +157,29 @@ class AttributevalueController extends Controller
 
     public function status(Request $request)
     {
-        $params["currentStatus"]  = $request->status;
-        $params["id"]             = $request->id;
-        $this->model->saveItem($params, ['task' => 'change-status']);
+        $params['currentStatus']    = $request->status;
+        $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';
-        $link = route($this->controllerName . '/status', ['status' => $status, 'id' => $request->id]);
+
+        $returnModified                 = $this->model->saveItem($params,['task' => 'change-status']);
+
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //Class của bootstrap và class khi status thay đổi trạng thái sẽ được quyết định tại đây
+        $infomationStatus           =   Config::get('zvn.template.status')[$status];
+        $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
+
+        $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
+
         return response()->json([
-            'statusObj' => config('zvn.template.status')[$status],
-            'link' => $link,
+            'status'        =>  $infomationStatus,
+            'link'          =>  $link,
+            'modified'      =>  $returnModified['modified'],
+            'modified_by'   =>  $returnModified['modified_by'],
         ]);
     }
 
