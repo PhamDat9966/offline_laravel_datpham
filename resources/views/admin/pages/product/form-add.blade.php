@@ -4,6 +4,8 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
+    //dd($attributesWithValue);
+
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
@@ -14,14 +16,12 @@
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
     $category       = (isset($item['category_id']))? $item->category_id : '';
-    $content        = (isset($item['content']))? $item->content : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
+    $description    = (isset($item['content']))? $item->description : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
     $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -38,6 +38,32 @@
                                  data-auto-increment="'.$autoIncrement.'"
                           >';
 
+    $elementsAttribute  = [];
+    $inputAttributes    = '';
+
+    $i = 0;
+    foreach($attributesWithValue as $attribute){
+
+        $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
+
+        $inputAttributes     .= '<div">';
+        //$inputAttributes     .= '<span class="badge">'..'</span>'
+        foreach($attribute['attribute_values'] as $attributeValues){
+
+            $inputAttributes .= '<input name="'.$attributeValues['value_name'].'"
+                                        type="checkbox"
+                                        value="'.$attributeValues['value_name'].'"
+                                        id="'.$attributeValues['value_id'].'"
+                                >';
+        }
+        $inputAttributes     .= '</div>';
+
+        $elementsAttribute[$i]['element'] = $inputAttributes;
+
+        $i++;
+    }
+
+    //dd($elementsAttribute);
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -51,8 +77,8 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formInputAttr)
+            'label'     =>  Form::label('description', 'Description',$formlabelAttr),
+            'element'   =>  Form::textarea('description', $description, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -64,17 +90,20 @@
             'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
-            'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
-        ],
-        [
-            'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
     ];
+
+    // Xác định vị trí muốn chèn (ví dụ chèn vào sau phần tử có khóa 2)
+    $position = 3;
+    // Tách mảng elements làm 2 phần rồi chèn các phần tử của mảng elementsAttribute vào giữa
+    $firstPart  = array_slice($elements, 0, $position, true);
+    $secondPart = array_slice($elements, $position, null, true);
+
+    $elements   = $firstPart + $elementsAttribute + $secondPart;
+
 
 @endphp
 

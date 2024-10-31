@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 28, 2024 lúc 06:50 AM
+-- Thời gian đã tạo: Th10 31, 2024 lúc 09:07 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -192,7 +192,8 @@ CREATE TABLE `attribute` (
 INSERT INTO `attribute` (`id`, `name`, `status`, `fieldClass`) VALUES
 (1, 'color', 'active', 'màu sắc'),
 (2, 'slogan', 'active', 'khẩu hiệu'),
-(3, 'material', 'active', 'chất liệu');
+(3, 'material', 'active', 'chất liệu'),
+(4, 'storage', 'active', 'Dung lượng');
 
 -- --------------------------------------------------------
 
@@ -229,7 +230,11 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `stat
 (11, 3, 'inox', NULL, 'active', NULL, NULL, NULL, NULL),
 (12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
 (46, 1, 'nâu', NULL, 'active', '2024-10-13 00:00:00', 'admin', NULL, NULL),
-(47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', '2024-10-26 00:00:00', 'admin');
+(47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', '2024-10-26 00:00:00', 'admin'),
+(48, 4, '128 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
+(49, 4, '256 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
+(50, 4, '512 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
+(51, 4, '1 TB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -354,11 +359,15 @@ CREATE TABLE `category_product` (
 --
 
 INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 10),
-(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, 'list', '2024-10-22 00:00:00', 'dat123', '2024-10-26 00:00:00', 'admin', 1, 2, 3),
-(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 4, 5, 6),
-(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, 'grid', '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 1, 4, 7),
-(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 8, 9);
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 18),
+(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, 'list', '2024-10-22 00:00:00', 'dat123', '2024-10-26 00:00:00', 'admin', 1, 2, 7),
+(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 4, 9, 10),
+(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, 'grid', '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 1, 8, 13),
+(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 14, 15),
+(7, 'Tivi', 'cm-tivi-7', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 1, 16, 17),
+(8, 'Iphone', 'cm-iphone-8', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 3, 4),
+(9, 'Samsung', 'cm-samsung-9', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 5, 6),
+(10, 'decktop', 'cm-decktop-10', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 4, 11, 12);
 
 -- --------------------------------------------------------
 
@@ -507,11 +516,13 @@ INSERT INTO `phonecontact` (`id`, `phonenumber`, `status`, `created`) VALUES
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `thumb` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `category_product_id` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
+  `create` datetime DEFAULT NULL,
+  `created_by` varchar(225) DEFAULT NULL,
   `maketing_price` int(11) DEFAULT NULL,
   `is_new` int(11) DEFAULT NULL,
   `is_sale` int(11) DEFAULT NULL,
@@ -952,6 +963,14 @@ ALTER TABLE `product`
   ADD KEY `category_id` (`category_product_id`);
 
 --
+-- Chỉ mục cho bảng `product_has_attribute`
+--
+ALTER TABLE `product_has_attribute`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_has_attribute_index_0` (`product_id`,`attribute_value_id`),
+  ADD KEY `attribute_value_id` (`attribute_value_id`);
+
+--
 -- Chỉ mục cho bảng `rss`
 --
 ALTER TABLE `rss`
@@ -1020,13 +1039,13 @@ ALTER TABLE `article_views`
 -- AUTO_INCREMENT cho bảng `attribute`
 --
 ALTER TABLE `attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT cho bảng `branch`
@@ -1044,7 +1063,7 @@ ALTER TABLE `category_article`
 -- AUTO_INCREMENT cho bảng `category_product`
 --
 ALTER TABLE `category_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `contact`
@@ -1127,6 +1146,13 @@ ALTER TABLE `attribute_value`
 --
 ALTER TABLE `menu`
   ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`);
+
+--
+-- Các ràng buộc cho bảng `product_has_attribute`
+--
+ALTER TABLE `product_has_attribute`
+  ADD CONSTRAINT `product_has_attribute_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `product_has_attribute_ibfk_2` FOREIGN KEY (`attribute_value_id`) REFERENCES `attribute_value` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

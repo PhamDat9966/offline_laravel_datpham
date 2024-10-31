@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\ProductModel as MainModel;
-use App\Models\CategoryArticleModel;
-use App\Http\Requests\ArticleRequest as MainRequest;
+use App\Models\CategoryProductModel;
+use App\Http\Requests\ProductRequest as MainRequest;
+
 use App\Http\Controllers\Admin\AdminController;
+use App\Models\AttributeModel;
+use App\Models\AttributevalueModel;
 
 class ProductController extends AdminController
 {
@@ -29,7 +32,7 @@ class ProductController extends AdminController
         $this->params['filter']['type']       = $request->input('filter_type','all');
 
         // Thêm nội dung mới của ProductController
-        $categoryModel  = new CategoryArticleModel();
+        $categoryModel  = new CategoryProductModel();
         //$categoryList   = $categoryModel->listItems(null, ['task' => 'category-list']);
         // $firstItem      = ['id' => 'all', 'name' => 'Tất Cả'];
         // $categoryList   = array('all' => $firstItem) + $categoryList;
@@ -73,6 +76,9 @@ class ProductController extends AdminController
         $autoIncrement = $this->model->getItem(null,['task'=>'get-auto-increment']);
         $autoIncrement = $autoIncrement[0]->AUTO_INCREMENT;
 
+        $attributeModel         = new AttributeModel();
+        $attributesWithValue    = $attributeModel->getItem( null , ['task'=>'get-attributes-with-attributevalues']);
+
         if($request->id !== null){
             $params['id']   = $request->id;
             $autoIncrement  = $params['id'];
@@ -81,15 +87,16 @@ class ProductController extends AdminController
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
 
-        $categoryModel      = new CategoryArticleModel();
+        $categoryModel      = new CategoryProductModel();
         $itemsCategory      = $categoryModel->listItems(null,["task"=>'admin-list-items-in-select-box']);
         unset($itemsCategory[1]); // Xóa phần tử root
         $itemsCategory = ['all' => 'Tất cả'] + $itemsCategory;
 
         return view($this->pathViewController . 'form', [
-            'item'          =>$item,
-            'itemsCategory' =>$itemsCategory,
-            'autoIncrement' =>$autoIncrement
+            'item'                  =>$item,
+            'itemsCategory'         =>$itemsCategory,
+            'autoIncrement'         =>$autoIncrement,
+            'attributesWithValue'   =>$attributesWithValue
         ]);
     }
 

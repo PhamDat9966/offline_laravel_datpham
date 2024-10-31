@@ -8,7 +8,7 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-use Config;
+use App\Models\AttributevalueModel;
 class AttributeModel extends AdminModel
 {
     public function __construct(){
@@ -16,6 +16,27 @@ class AttributeModel extends AdminModel
         $this->folderUpload         = 'attribute';
         $this->fieldSearchAccepted  = ['name','fieldClass'];
         $this->crudNotActived       = ['_token'];
+    }
+
+    public function attributeValues()
+    {
+        // Thiết lập quan hệ trong Model. Trong Model Attribute, bạn có thể thiết lập một quan hệ hasMany với AttributeValue,
+        // vì một attribute có thể có nhiều attribute_value:
+        return $this->hasMany(AttributeValueModel::class, 'attribute_id', 'id');
+    }
+
+    public function getAttributesWithValuesUsingJoin($attributeIds = [])
+    {
+        return $this->select(
+                'a.id as attribute_id',
+                'a.name as attribute_name',
+                'av.id as value_id',
+                'av.name as value_name'
+            )
+            ->leftJoin('attribute_value as av', 'a.id', '=', 'av.id')
+            ->whereIn('a.id', $attributeIds)
+            ->get();
+
     }
 
     public function listItems($params = null,$options = null){
@@ -124,7 +145,7 @@ class AttributeModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
@@ -153,13 +174,6 @@ class AttributeModel extends AdminModel
 
         if($options['task'] == 'add-item'){
 
-            $thumb                  = $params['thumb'];
-            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-            $params['created_by']   = $userInfo['username'];
-            $params['created']      = date('Y-m-d');
-
-            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
 
@@ -168,15 +182,10 @@ class AttributeModel extends AdminModel
             // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->table        = 'article';
+            $this->table        = 'attribute';
             $this->name         = $params['name'];
-            $this->slug         = $params['slug'];
-            $this->content      = $params['content'];
-            $this->category_id  = $params['category_id'];
             $this->status       = $params['status'];
-            $this->created_by   = $params['created_by'];
-            $this->created      = $params['created'];
-            $this->thumb        = $params['thumb'];
+            $this->fieldClass   = $params['fieldClass'];
             $this->save();
         }
 
@@ -214,9 +223,34 @@ class AttributeModel extends AdminModel
             $resultArray = $this::select('a.id','a.name')
                             ->get()->toArray();
             $result = $resultArray;
-            // foreach($resultArray as $key=>$value){
-            //     $result[] = $value['name'];
-            // }
+        }
+
+        if($options['task'] == 'get-attributes-with-attributevalues'){
+
+            $attributes = $this->select('id','name','status')
+                               ->get()->toArray();
+
+            $attributeValueModel = new AttributevalueModel();
+            $attributeValues = $attributeValueModel->select('id','attribute_id','name','status')
+                                                   ->get()->toArray();
+
+            $attrWithvalues = [];
+            $i=0;
+            $k=0;
+            foreach($attributes as $keyAttr=>$valAttr){
+                $attrWithvalues[$i]['attribute_id']   = $valAttr['id'];
+                $attrWithvalues[$i]['attribute_name'] = $valAttr['name'];
+                foreach($attributeValues as $keyAttrVal=>$valAttrVal){
+                    if($valAttr['id'] == $valAttrVal['attribute_id']){
+                        $attrWithvalues[$i]['attribute_values'][$k]['value_id']     = $valAttrVal['id'];
+                        $attrWithvalues[$i]['attribute_values'][$k]['value_name']   = $valAttrVal['name'];
+                        $k++;
+                    }
+                }
+                $i++;
+            }
+
+            $result = $attrWithvalues;
         }
 
         return $result;

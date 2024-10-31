@@ -8,11 +8,11 @@
 
     @if (isset($item['id']))
         <div class="row">
-            @include('admin.pages.article.form-info')
-            @include('admin.pages.article.form-change-category')
+            @include('admin.pages.product.form-info')
+            @include('admin.pages.product.form-change-category')
         </div>
     @else
-        @include('admin.pages.article.form-add')
+        @include('admin.pages.product.form-add')
     @endif
 @endsection
 
@@ -21,7 +21,7 @@
     <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script>
     <script>
         // Khởi tạo CKEditor, tích hợp với Laravel file manager
-        CKEDITOR.replace('content', {
+        CKEDITOR.replace('description', {
             filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
             filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
             filebrowserBrowseUrl: '/laravel-filemanager?type=Files',

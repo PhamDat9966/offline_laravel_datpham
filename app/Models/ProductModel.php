@@ -316,15 +316,14 @@ class ProductModel extends AdminModel
             // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
-            $this->table        = 'article';
-            $this->name         = $params['name'];
-            $this->slug         = $params['slug'];
-            $this->content      = $params['content'];
-            $this->category_id  = $params['category_id'];
-            $this->status       = $params['status'];
-            $this->created_by   = $params['created_by'];
-            $this->created      = $params['created'];
-            $this->thumb        = $params['thumb'];
+            $this->table                = 'product';
+            $this->name                 = $params['name'];
+            $this->slug                 = $params['slug'];
+            $this->content              = $params['description'];
+            $this->category_product_id  = $params['category_product_id'];
+            $this->status               = $params['status'];
+            $this->created_by           = $params['created_by'];
+            $this->created              = $params['created'];
             $this->save();
         }
 
