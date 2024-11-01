@@ -46,7 +46,7 @@
 
         $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
 
-        $inputAttributes     .= '<div">';
+        $inputAttributes     = '<div class="form-control col-md-6 col-xs-12">';
         //$inputAttributes     .= '<span class="badge">'..'</span>'
         foreach($attribute['attribute_values'] as $attributeValues){
 
@@ -63,7 +63,6 @@
         $i++;
     }
 
-    //dd($elementsAttribute);
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -99,11 +98,13 @@
     // Xác định vị trí muốn chèn (ví dụ chèn vào sau phần tử có khóa 2)
     $position = 3;
     // Tách mảng elements làm 2 phần rồi chèn các phần tử của mảng elementsAttribute vào giữa
-    $firstPart  = array_slice($elements, 0, $position, true);
+    $firstPart = array_slice($elements, 0, $position, true);
     $secondPart = array_slice($elements, $position, null, true);
 
-    $elements   = $firstPart + $elementsAttribute + $secondPart;
-
+    // Ghép elementsAttribute vào phần thứ nhất
+    $formElements01 = array_merge($firstPart, $elementsAttribute);
+    // Nối phần thứ 2 vào phần đã ghép
+    $elements   = array_merge($formElements01, $secondPart);
 
 @endphp
 
