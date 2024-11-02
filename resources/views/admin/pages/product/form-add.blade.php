@@ -46,15 +46,20 @@
 
         $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
 
-        $inputAttributes     = '<div class="form-control col-md-6 col-xs-12">';
+        $inputAttributes     = '<div class="col-md-8 col-xs-12">';
         //$inputAttributes     .= '<span class="badge">'..'</span>'
         foreach($attribute['attribute_values'] as $attributeValues){
-
-            $inputAttributes .= '<input name="'.$attributeValues['value_name'].'"
-                                        type="checkbox"
-                                        value="'.$attributeValues['value_name'].'"
-                                        id="'.$attributeValues['value_id'].'"
-                                >';
+            $inputAttributes .= '<div style="position: relative;margin:5px;">';
+            $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
+            $inputAttributes .=         '<input name="'.$attributeValues['value_name'].'" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
+                                                type="checkbox"
+                                                value="'.$attributeValues['value_name'].'"
+                                                id="'.$attributeValues['value_id'].'"
+                                        >';
+            $inputAttributes .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$attributeValues['value_id'].'"></label>';
+            $inputAttributes .=     '</div>';
+            $inputAttributes .=     '<strong style="margin-left: 2px;margin-top: 2px;">' . $attributeValues['value_name'] . '</strong>';
+            $inputAttributes .='</div>';
         }
         $inputAttributes     .= '</div>';
 
