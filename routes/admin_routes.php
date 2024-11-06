@@ -344,7 +344,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
-        Route::get('change-category-{category_id}/{id}', [
+        Route::get('change-category-{category_product_id}/{id}', [
             'as'    => $controllerName . '/change-category',
             'uses'  => $controller . 'changeCategory'
         ]);

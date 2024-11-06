@@ -89,7 +89,7 @@ class AdminController extends Controller
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
 
         //Class của bootstrap và class khi status thay đổi trạng thái sẽ được quyết định tại đây
-        $infomationStatus           =   Config::get('zvn.template.status')[$status];
+        $infomationStatus           =   config('zvn.template.status')[$status];
         $infomationStatus['class']  =   'btn btn-round status-ajax '. $infomationStatus['class'];
 
         $link = route($this->controllerName . '/status',['status'=>$status, 'id'=>$request->id]);
@@ -159,8 +159,8 @@ class AdminController extends Controller
 
         $returnModified = $this->model->saveItem($params,['task' => 'change-ordering']);
 
-        $userIcon   = Config::get('zvn.template.font_awesome.user');
-        $clockIcon  = Config::get('zvn.template.font_awesome.clock');
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
 
         $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
         $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];

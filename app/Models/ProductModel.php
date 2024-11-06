@@ -8,7 +8,6 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-use Config;
 class ProductModel extends AdminModel
 {
     public function __construct(){
@@ -22,7 +21,7 @@ class ProductModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('p.id','p.name','p.content','p.slug','p.status','p.category_product_id','p.thumb');
+            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id');
                         // ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
@@ -272,7 +271,7 @@ class ProductModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
@@ -301,30 +300,42 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'add-item'){
 
-            $thumb                  = $params['thumb'];
-            $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
-
-            $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-
-            /* Save dữ liệu theo DB oject */
-            // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-
-            // // self::insert($params);
-            // //// OR use
-            // DB::table('article')->insert($params);
 
             /* Save dữ liệu theo eloquent */
             $this->table                = 'product';
             $this->name                 = $params['name'];
             $this->slug                 = $params['slug'];
-            $this->content              = $params['description'];
-            $this->category_product_id  = $params['category_product_id'];
+            $this->description          = $params['description'];
             $this->status               = $params['status'];
+            $this->category_product_id  = $params['category_id'];
             $this->created_by           = $params['created_by'];
             $this->created              = $params['created'];
             $this->save();
+
+            //Kiểm tra và lưu các attribute_value vào bảng `product_has_attribute`
+            if ($params['attribute_value']) {
+                // Mảng chứa dữ liệu cho bảng `product_has_attribute`
+                $attributesData = [];
+
+                foreach ($params['attribute_value'] as $attributeValue) {
+                    $arrayAttribute     = explode('$',$attributeValue);
+                    $attributeValueId   = $arrayAttribute[0];
+                    $attributeValueName = $arrayAttribute[1];
+
+                    $attributesData[] = [
+                        'product_id'            => $this->id,
+                        'attribute_value_id'    => $attributeValueId,
+                        'product_name'          => $this->name,
+                        'attribute_value_name'  => $attributeValueName
+                    ];
+                }
+
+                // Lưu nhiều bản ghi vào `product_has_attribute` cùng lúc
+                DB::table('product_has_attribute')->insert($attributesData);
+            }
+
         }
 
         if($options['task'] == 'edit-item'){
@@ -355,12 +366,12 @@ class ProductModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
 
+            // $item   =  $this->getItem($params,['task' => 'get-thumb']);
             //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
+            // $this->deleteThumb($item['thumb']);
 
-            $this->table = 'article';
+            $this->table = 'product';
             $this->where('id', $params['id'])->delete();
         }
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 31, 2024 lúc 09:07 AM
+-- Thời gian đã tạo: Th10 06, 2024 lúc 06:35 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -521,7 +521,7 @@ CREATE TABLE `product` (
   `description` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `create` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
   `created_by` varchar(225) DEFAULT NULL,
   `maketing_price` int(11) DEFAULT NULL,
   `is_new` int(11) DEFAULT NULL,
@@ -536,6 +536,23 @@ CREATE TABLE `product` (
   `fieldClass` varchar(255) DEFAULT NULL,
   `fieldWeb` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`) VALUES
+(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- Bẫy `product`
+--
+DELIMITER $$
+CREATE TRIGGER `after_product_delete` BEFORE DELETE ON `product` FOR EACH ROW DELETE FROM product_has_attribute 
+    WHERE product_id = OLD.id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -555,6 +572,15 @@ CREATE TABLE `product_has_attribute` (
   `default` varchar(255) DEFAULT NULL,
   `fieldClass` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_has_attribute`
+--
+
+INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`) VALUES
+(4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', NULL, NULL, NULL, NULL, NULL),
+(5, 2, 46, 'Samsung Galaxy Z Fold6', 'nâu', NULL, NULL, NULL, NULL, NULL),
+(6, 3, 4, 'abc123', 'Học hành khét lẹt, chân thành không giả mạo', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1093,7 +1119,13 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `product_has_attribute`
+--
+ALTER TABLE `product_has_attribute`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

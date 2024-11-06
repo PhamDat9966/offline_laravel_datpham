@@ -57,7 +57,6 @@ class ProductController extends AdminController
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
-            dd($params);
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 

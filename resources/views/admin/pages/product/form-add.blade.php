@@ -54,7 +54,7 @@
             $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
             $inputAttributes .=         '<input name="attribute_value[]" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
                                                 type="checkbox"
-                                                value="'.$attributeValues['value_id'].'"
+                                                value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'"
                                                 id="'.$attributeValues['value_id'].'"
                                         >';
 

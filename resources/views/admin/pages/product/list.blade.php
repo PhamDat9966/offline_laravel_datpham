@@ -31,10 +31,10 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
-                            $content            = Hightlight::show($val['content'], $params['search'] , 'content');
+                            $content            = Hightlight::show($val['description'], $params['search'] , 'description');
                             $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
                             // $categoryName       = $val['category_name'];
-                            $categoryName       = Template::select('category_id', $id , $categoryList , $val['category_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_id'=>'value_new'])]);
+                            $categoryName       = Template::select('category_product_id', $id , $categoryList , $val['category_product_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_product_id'=>'value_new'])]);
                             $miniThumb          = $val['thumb'];
                             $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
