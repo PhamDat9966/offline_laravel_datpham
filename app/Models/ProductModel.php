@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\AdminModel;
 use App\Models\CategoryArticleModel;
+use App\Models\ProductHasAttributeModel;    //Model quan hệ
+
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
@@ -11,15 +13,23 @@ use Illuminate\Support\Facades\Session;
 class ProductModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'product as p';
+        $this->table                = 'product';
         $this->folderUpload         = 'product';
         $this->fieldSearchAccepted  = ['name','content','slug'];
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
     }
 
-    public function listItems($params = null,$options = null){
+    // Quan hệ với bảng product_has_attribute
+    public function attributes()
+    {
+        $this->table  = 'product';
+        return $this->hasMany(ProductHasAttributeModel::class, 'product_id', 'id');
+    }
 
+    public function listItems($params = null,$options = null){
         $result = null;
+        $this->table    = 'product as p';
+
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id');
                         // ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
@@ -379,11 +389,15 @@ class ProductModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','slug','category_id','content','status','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-                    //->get();
 
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            //Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel
+            // Ở đây cũng có thể chỉ cần gọi mỗi attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
+            $product = self::with('attributes.attributeValue')->find($params['id']);
+            $productArray = $product->toArray();
+
+            dd($productArray);
         }
 
         if($options['task'] == 'get-auto-increment'){

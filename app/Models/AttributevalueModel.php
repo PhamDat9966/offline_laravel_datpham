@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 class AttributevalueModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'attribute_value as av';
+        $this->table                = 'attribute_value';
         $this->folderUpload         = 'attribute_value';
         $this->fieldSearchAccepted  = ['name','fieldClass'];
         $this->crudNotActived       = ['_token'];
@@ -16,7 +16,9 @@ class AttributevalueModel extends AdminModel
 
     public function listItems($params = null,$options = null){
 
-        $result = null;
+        $result         = null;
+        $this->table    = 'attribute_value as av';
+
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('av.id','av.attribute_id','av.name','a.name as attribute_name','av.fieldClass','av.status')
                            ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id');
@@ -176,7 +178,9 @@ class AttributevalueModel extends AdminModel
     }
 
     public function getItem($params = null,$options = null){
-        $result   = null;
+        $result         = null;
+        $this->table    = 'attribute_value as av';
+
         if($options['task'] == 'get-item'){
             $result = $this::select('id','name')
                     ->where('id', $params['id'])
