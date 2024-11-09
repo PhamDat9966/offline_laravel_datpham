@@ -392,12 +392,13 @@ class ProductModel extends AdminModel
 
             $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
 
-            //Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel
-            // Ở đây cũng có thể chỉ cần gọi mỗi attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
-            $product = self::with('attributes.attributeValue')->find($params['id']);
-            $productArray = $product->toArray();
+            // Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel
+            // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
 
-            dd($productArray);
+            $product = self::with('attributes')->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
+            //$product = self::with('attributes.attributeValue')->find($params['id']);     // Sử dụng khi cần truy vấn đến bản attribute_value để lấy attribute_value.name
+
+            $result = $product;
         }
 
         if($options['task'] == 'get-auto-increment'){

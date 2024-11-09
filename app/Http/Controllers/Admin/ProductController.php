@@ -79,12 +79,20 @@ class ProductController extends AdminController
         $attributeModel         = new AttributeModel();
         $attributesWithValue    = $attributeModel->getItem( null , ['task'=>'get-attributes-with-attributevalues']);
 
+        $item_has_attribute_ids = [];   // Mảng chưa id của thuộc tính sản phẩm
+
         if($request->id !== null){
             $params['id']   = $request->id;
             $autoIncrement  = $params['id'];
              // Trong trường hợp edit thì autoIncrement sẽ không tạo mới, autoIncrement = id hiện có,
              // tránh lỗi khi lấy dữ liệu $this->model->getItem($params,['task'=>'get-item']); trong trường hợp copy paste để sửa lại slug
             $item = $this->model->getItem($params,['task'=>'get-item']);
+
+            if($item['attributes']){
+                foreach($item['attributes'] as $itemAttribute){
+                    $item_has_attribute_ids[] = $itemAttribute['attribute_value_id'];
+                }
+            }
         }
 
         $categoryModel      = new CategoryProductModel();
@@ -93,10 +101,11 @@ class ProductController extends AdminController
         $itemsCategory = ['all' => 'Tất cả'] + $itemsCategory;
 
         return view($this->pathViewController . 'form', [
-            'item'                  =>$item,
-            'itemsCategory'         =>$itemsCategory,
-            'autoIncrement'         =>$autoIncrement,
-            'attributesWithValue'   =>$attributesWithValue
+            'item'                      =>$item,
+            'item_has_attribute_ids'    =>$item_has_attribute_ids,
+            'itemsCategory'             =>$itemsCategory,
+            'autoIncrement'             =>$autoIncrement,
+            'attributesWithValue'       =>$attributesWithValue
         ]);
     }
 

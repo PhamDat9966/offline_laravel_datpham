@@ -1,6 +1,11 @@
+@extends('admin.main')
+
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
+
+   //dd($item->toArray());
+    //dd($attributesWithValue);
 
     $request = Request::capture();
     global $host;
@@ -11,14 +16,13 @@
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
-    $content        = (isset($item['content']))? $item->content : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
+    $category       = (isset($item['category_product_id']))? $item->category_product_id : '';
+    $description    = (isset($item['content']))? $item->description : '';
 
-    $formlabelAttr     = Config::get('zvn.template.form_label_02');
-    $formInputAttr     = Config::get('zvn.template.form_input_10');
+    $formlabelAttr     = Config::get('zvn.template.form_label');
+    $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
     $statusValue       = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -27,7 +31,7 @@
                           ];
     $categoryValue  = $itemsCategory;
 
-    $inputNameArticle  = '<input class="form-control col-md-10 col-xs-12"
+    $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
                                  name="name"
                                  type="text"
                                  value="'.$name.'"
@@ -35,9 +39,43 @@
                                  data-auto-increment="'.$autoIncrement.'"
                           >';
 
-    $submitButton      = '<input name="id" type="hidden" value="'.$id.'">
-                          <input name="thumb_current" type="hidden" value="'.$thumb.'">
-                          <input class="btn btn-success" name="taskEditInfo" type="submit" value="Save">';
+    $elementsAttribute  = [];
+    $inputAttributes    = '';
+
+    $i = 0;
+
+    foreach($attributesWithValue as $attribute){
+
+        $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
+
+        $inputAttributes     = '<div class="col-md-12 col-xs-12">';
+
+        foreach($attribute['attribute_values'] as $attributeValues){
+
+            $flagCheckbox     = '';
+            $flagCheckbox = (in_array($attributeValues['value_id'] , $item_has_attribute_ids)) ? 'checked' : '';
+
+
+            $inputAttributes .= '<div style="position: relative;margin:5px;">';
+            $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
+            $inputAttributes .=         '<input name="attribute_value[]" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
+                                                type="checkbox"
+                                                value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'"
+                                                id="'.$attributeValues['value_id'].'"
+                                                ' .$flagCheckbox. '
+                                        >';
+
+            $inputAttributes .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$attributeValues['value_id'].'"></label>';
+            $inputAttributes .=     '</div>';
+            $inputAttributes .=     '<strong style="margin-left: 2px;margin-top: 2px;">' . $attributeValues['value_name'] . '</strong>';
+            $inputAttributes .='</div>';
+        }
+        $inputAttributes     .= '</div>';
+
+        $elementsAttribute[$i]['element'] = $inputAttributes;
+
+        $i++;
+    }
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -52,8 +90,8 @@
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formInputAttr)
+            'label'     =>  Form::label('description', 'Description',$formlabelAttr),
+            'element'   =>  Form::textarea('description', $description, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -61,44 +99,69 @@
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
-            'type'      =>  'thumb',
-            'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : ''
+            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
+            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
         ],
         [
-            'label'     => Form::label('', '', $formlabelAttr),
-            'element'   => $submitButton
-        ],
-        // [
-        //     'element'   =>  $inputHiddenID . $inputHiddenThumb . Form::submit('Save',['class'=>'btn btn-success','name'=>'taskEditInfo']),
-        //     'type'      =>  'btn-submit'
-        // ]
+            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'type'      =>  'btn-submit'
+        ]
+
     ];
+
+    // Xác định vị trí muốn chèn (ví dụ chèn vào sau phần tử có khóa 2)
+    $position = 3;
+    // Tách mảng elements làm 2 phần rồi chèn các phần tử của mảng elementsAttribute vào giữa
+    $firstPart = array_slice($elements, 0, $position, true);
+    $secondPart = array_slice($elements, $position, null, true);
+
+    // Ghép elementsAttribute vào phần thứ nhất
+    $formElements01 = array_merge($firstPart, $elementsAttribute);
+    // Nối phần thứ 2 vào phần đã ghép
+    $elements   = array_merge($formElements01, $secondPart);
 
 @endphp
 
+@section('content')
+<!-- page content -->
+@include('admin.templates.page_header', ['pageIndex' => false])
+
+@include('admin.templates.error')
+
 <!--box-lists-->
-<div class="col-md-9 col-sm-12 col-xs-12">
-    <div class="x_panel">
-        @include('admin.templates.x_title',['title'=>'Form Edit Info'])
-        <!-- x Content -->
-        <div class="x_content" style="display: block;">
-            {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-            {!! Form::open([
-                    'url'               =>  Route($controllerName.'/save'),
-                    'method'            =>  'POST',
-                    'accept-charset'    =>  'UTF-8',
-                    'enctype'           =>  'multipart/form-data',
-                    'class'             =>  'form-horizontal form-label-left',
-                    'id'                =>  'main-form'
-                ]) !!}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            @include('admin.templates.x_title',['title'=>'Form'])
+            <!-- x Content -->
+            <div class="x_content" style="display: block;">
+                {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
+                {!! Form::open([
+                        'url'               =>  Route($controllerName.'/save'),
+                        'method'            =>  'POST',
+                        'accept-charset'    =>  'UTF-8',
+                        'enctype'           =>  'multipart/form-data',
+                        'class'             =>  'form-horizontal form-label-left',
+                        'id'                =>  'main-form'
+                    ]) !!}
 
-                {!! FormTemplate::showArticleInfo($elements)!!}
+                    {!! FormTemplate::show($elements)!!}
 
-            {!! Form::close() !!}
+                {!! Form::close() !!}
+            </div>
+            <!-- end x Content -->
         </div>
-        <!-- end x Content -->
     </div>
 </div>
+
+<!-- /page content -->
+@endsection
+
+{{-- <script>
+    CKEDITOR.replace('content');
+</script> --}}
+
+
+
+
 
