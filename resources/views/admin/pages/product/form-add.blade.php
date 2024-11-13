@@ -70,6 +70,9 @@
         $i++;
     }
 
+    //Dropzone thumb
+    $thumbs = '<input type="file" name="file" style="display: none;">';
+
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -85,6 +88,10 @@
         [
             'label'     =>  Form::label('description', 'Description',$formlabelAttr),
             'element'   =>  Form::textarea('description', $description, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('thumbs', 'Thumbs',$formlabelAttr),
+            'type'      =>  "dropzone"
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -146,12 +153,28 @@
         </div>
     </div>
 </div>
-
 <!-- /page content -->
 @endsection
 
-{{-- <script>
-    CKEDITOR.replace('content');
-</script> --}}
+
+{{--  @section('after_script')  --}}
+@section('script')
+    <script>
+    $(document).ready(function() {
+
+        //Dropzone.autoDiscover = false Ngăn Dropzone tự động tìm kiếm các form với class "dropzone". Dùng cho trường hợp tạo dropzone cho thẻ div thay vì form
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone("div#mydropzone", {
+            url: "{{route($controllerName.'/save')}}",
+            dictDefaultMessage: "Kéo thả hình ảnh vào để tải lên",
+            dictRemoveFile: "Xóa",
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true
+        });
+
+    });
+    </script>
+@endsection
 
 

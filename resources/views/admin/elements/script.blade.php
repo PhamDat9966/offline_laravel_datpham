@@ -30,10 +30,14 @@
 <script>
     window.tagToIdMap = @json($tagToIdMap ?? []);
 </script>
-<!-- Tạm đặt attribute.js phía trên my-js.js do tích hợp CKEditor trong my-js.js có sự xung đột, gây lỗi làm dừng load DOM-->
+{{-- Tạm đặt attribute.js phía trên my-js.js do tích hợp CKEditor trong my-js.js có sự xung đột, gây lỗi làm dừng load DOM --}}
 <script src="{{asset('admin/js/attribute-value.js')}}"></script>
-<script src="{{asset('admin/js/my-js.js')}}"></script>
 
+{{-- Dropzone  --}}
+<script src="{{asset('admin/asset/dropzone/dist/dropzone.js')}}"></script>
+{{--  <link rel="stylesheet" href="{{asset('admin/asset/dropzone/dist/dropzone.css')}}" type="text/css" />  --}}
+
+<script src="{{asset('admin/js/my-js.js')}}"></script>
 
 <!--Cách ly tạm thời giải thuật tích hợp CKEditor để tránh gây lỗi load DOM cho các giải thuật khác-->
 {{-- <script src="{{asset('admin/js/laravelfilemanager.js')}}"></script> --}}

@@ -42,6 +42,15 @@ class Form{
                                         </div>
                                     </div>',$element['label'],$element['element']);
                 break;
+            case 'dropzone':
+                $result  =sprintf('<div class="form-group">
+                                        %s
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                             <div class="dropzone" id="mydropzone">
+                                             </div>
+                                        </div>
+                                    </div>',$element['label']);
+                break;
             case 'thumb':
                 $result  =sprintf('<div class="form-group">
                                         %s

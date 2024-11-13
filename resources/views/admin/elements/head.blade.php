@@ -19,9 +19,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 <!--Bootstrap Tags Input-->
 <link href="{{asset('admin/asset/bootstrap-tagsinput/src/bootstrap-tagsinput.css')}}" rel="stylesheet">
-<!--Jquery Tags Input-->
-{{-- <link href="{{asset('admin/asset/jquery-tagsinput/jquery.tagsinput.min.css')}}" rel="stylesheet"> --}}
-
+<!--Dropzone-->
+<link rel="stylesheet" href="{{asset('admin/asset/dropzone/dist/min/dropzone.min.css')}}" type="text/css" />
 <!-- Custom Theme Style -->
 <link href="{{asset('admin/css/custom.min.css')}}" rel="stylesheet">
 <!-- Custom Theme Style -->
