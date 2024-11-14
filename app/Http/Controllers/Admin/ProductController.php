@@ -120,5 +120,17 @@ class ProductController extends AdminController
             'status' => 'success'
         ]);
     }
+
+    public function media(Request $request){
+        $path = public_path('images/product');
+
+        if(!file_exists($path)) mkdir($path,0777, true);
+        $file = $request->file('file');
+        $name = $this->model->uploadThumb($file);
+        return response()->json([
+            'name'              => $name,
+            'original_name'     => $file->getClientOriginalName(),
+        ]);
+    }
 }
 

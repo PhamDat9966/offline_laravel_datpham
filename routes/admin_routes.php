@@ -344,6 +344,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
+        Route::post('media/{id?}', [
+            'as'    => $controllerName . '/media',
+            'uses'  => $controller . 'media'
+        ]);
+
         Route::get('change-category-{category_product_id}/{id}', [
             'as'    => $controllerName . '/change-category',
             'uses'  => $controller . 'changeCategory'

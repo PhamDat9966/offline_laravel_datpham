@@ -35,6 +35,6 @@
     @include('admin.elements.script')
 
     {{-- Phần này sẽ load script riêng cho từng trang, cụ thể trang nào có sử dụng ckeditor --}}
-    @yield('script')
+    @yield('after_script')
 </body>
 </html>

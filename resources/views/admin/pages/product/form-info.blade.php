@@ -4,7 +4,6 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
-   //dd($item->toArray());
     //dd($attributesWithValue);
 
     $request = Request::capture();
@@ -16,7 +15,7 @@
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
-    $category       = (isset($item['category_product_id']))? $item->category_product_id : '';
+    $category       = (isset($item['category_id']))? $item->category_id : '';
     $description    = (isset($item['content']))? $item->description : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
@@ -51,18 +50,12 @@
         $inputAttributes     = '<div class="col-md-12 col-xs-12">';
 
         foreach($attribute['attribute_values'] as $attributeValues){
-
-            $flagCheckbox     = '';
-            $flagCheckbox = (in_array($attributeValues['value_id'] , $item_has_attribute_ids)) ? 'checked' : '';
-
-
             $inputAttributes .= '<div style="position: relative;margin:5px;">';
             $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
             $inputAttributes .=         '<input name="attribute_value[]" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
                                                 type="checkbox"
                                                 value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'"
                                                 id="'.$attributeValues['value_id'].'"
-                                                ' .$flagCheckbox. '
                                         >';
 
             $inputAttributes .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$attributeValues['value_id'].'"></label>';
@@ -76,6 +69,9 @@
 
         $i++;
     }
+
+    //Dropzone thumb
+    $thumbs = '<input type="file" name="file" style="display: none;">';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -92,6 +88,10 @@
         [
             'label'     =>  Form::label('description', 'Description',$formlabelAttr),
             'element'   =>  Form::textarea('description', $description, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('thumbs', 'Thumbs',$formlabelAttr),
+            'type'      =>  "dropzone"
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -148,20 +148,76 @@
                     {!! FormTemplate::show($elements)!!}
 
                 {!! Form::close() !!}
+                {{--  custom file preview dropzone   --}}
+
+                <div id="tpl" style="display: none;">
+                    <div class="dz-preview dz-file-preview">
+                        <div class="dz-image" style="margin:auto">
+                            <img data-dz-thumbnail />
+                        </div>
+                        <div class="dz-details">
+                            <div class="dz-size"><span data-dz-size></span></div>
+                            <div class="dz-filename"><span data-dz-name></span></div>
+                        </div>
+                        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                        <div class="dz-success-mark"><span>✔</span></div>
+                        <div class="dz-error-mark"><span>✘</span></div>
+                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                        <div style="margin-top: 5px"  class="input-thumb">
+                            <input type="text" placeholder="Alt ảnh" name="thumb[alt][]" class="dz-custom-input">
+                        </div>
+                    </div>
+                </div>
+
+                {{--  End custom file preview dropzone  --}}
             </div>
             <!-- end x Content -->
         </div>
     </div>
 </div>
-
 <!-- /page content -->
 @endsection
 
-{{-- <script>
-    CKEDITOR.replace('content');
-</script> --}}
+@section('after_script')
+    <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        // Khởi tạo CKEditor, tích hợp với Laravel file manager
+        CKEDITOR.replace('description', {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}'
+        });
+    </script>
 
+    <script>
+    $(document).ready(function() {
+        Dropzone.autoDiscover = false;
+        /*Dropzone.autoDiscover = false Ngăn Dropzone tự động tìm kiếm các form với class "dropzone".
+          Dùng cho trường hợp tạo dropzone cho thẻ div thay vì form */
 
+        var myDropzone = new Dropzone("div#mydropzone", {
+            url: "{{route($controllerName.'/media')}}",
+            dictDefaultMessage: "Kéo thả hình ảnh vào để tải lên",
+            dictRemoveFile: "Xóa",
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            previewTemplate: document.querySelector('#tpl').innerHTML,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            init: function() {
+                this.on("success", function(file, response) {
+                    console.log('File đã tải lên thành công:', response);
+                });
+                this.on("error", function(file, response) {
+                    console.error('Lỗi khi tải lên:', response);
+                });
+            }
+        });
 
+    });
+    </script>
+@endsection
 
 
