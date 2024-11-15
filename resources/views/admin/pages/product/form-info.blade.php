@@ -190,12 +190,17 @@
         });
     </script>
 
+    <!-- jQuery UI Sortable -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
     <script>
     $(document).ready(function() {
+
         Dropzone.autoDiscover = false;
         /*Dropzone.autoDiscover = false Ngăn Dropzone tự động tìm kiếm các form với class "dropzone".
           Dùng cho trường hợp tạo dropzone cho thẻ div thay vì form */
-
+        let uploadedDocumentMap = {};
         var myDropzone = new Dropzone("div#mydropzone", {
             url: "{{route($controllerName.'/media')}}",
             dictDefaultMessage: "Kéo thả hình ảnh vào để tải lên",
@@ -206,18 +211,52 @@
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
-            init: function() {
-                this.on("success", function(file, response) {
-                    console.log('File đã tải lên thành công:', response);
+
+            init: function () {
+                const dropzoneInstance = this;
+
+                // Khởi tạo Sortable trên khu vực preview của Dropzone
+                $("#mydropzone").sortable({
+                    items: ".dz-preview", // Chỉ sắp xếp các file preview
+                    cursor: "move",
+                    opacity: 0.7,
+                    update: function (event, ui) {
+                        const sortedPreviews = $(this).sortable("toArray");
+                        console.log("Thứ tự mới:", sortedPreviews);
+                    }
                 });
-                this.on("error", function(file, response) {
-                    console.error('Lỗi khi tải lên:', response);
+
+                // Lắng nghe sự kiện thêm file để cập nhật Sortable
+                this.on("addedfile", function (file) {
+                    $("#mydropzone").sortable("refresh"); // Làm mới Sortable sau khi thêm file
                 });
             }
+
+            {{--  success: function(file, response){
+                $(file, previewElement)
+                    .find('.input-thumb')
+                    .append('<input type="hidden" name="[name][]" value="${response.name}">');
+                uploadedDocumentMap[file.name] = response.name;
+            },
+            removedfile: function (file){
+                file.previewElement.remove();
+                var name = '';
+                if(typeof file.nam !== 'undefined') {
+
+                } else {
+                    name = uploadedDocumentMap[file.name]
+                }
+            },
+            error: function (file, response){
+                return false;
+            }  --}}
+
         });
 
     });
+
     </script>
+
 @endsection
 
 
