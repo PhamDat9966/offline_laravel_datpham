@@ -354,6 +354,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'changeCategory'
         ]);
 
+        Route::post('/delete-media', [
+            'as'    => $controllerName . '/deleteMedia',
+            'uses'  => $controller . 'deleteMedia'
+        ]);
+
     });
 
     // ====================== SYSTEN ======================

@@ -213,7 +213,9 @@
             },
 
             init: function () {
+
                 const dropzoneInstance = this;
+                const uploadedFiles = {}; // Đối tượng lưu trữ các file đã tải lên
 
                 // Khởi tạo Sortable trên khu vực preview của Dropzone
                 $("#mydropzone").sortable({
@@ -230,6 +232,44 @@
                 this.on("addedfile", function (file) {
                     $("#mydropzone").sortable("refresh"); // Làm mới Sortable sau khi thêm file
                 });
+
+                // Khi upload thành công, nhận phản hồi từ server
+                this.on("success", function (file, response) {
+                    if (response.name) {
+                        uploadedFiles[file.upload.uuid] = response.name; // Lưu bằng UUID của file
+                        console.log("Tệp đã tải lên:",  uploadedFiles[file.upload.uuid]);
+                    }
+                });
+
+                // Sự kiện khi nhấn nút "Xóa"
+                this.on("removedfile", function (file) {
+
+                    const serverFileName = uploadedFiles[file.upload.uuid]; // Lấy tên file từ đối tượng
+
+                    if (serverFileName) {
+
+                        console.log("File server name:", serverFileName);
+
+                        // Gửi yêu cầu xóa file đến server
+                        $.ajax({
+                            url:"{{route($controllerName.'/deleteMedia')}}",
+                            method: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                fileName: serverFileName
+                            },
+                            success: function (response) {
+                                console.log("File đã được xóa:", response);
+                            },
+                            error: function (xhr) {
+                                console.error("Lỗi khi xóa file:", xhr.responseText);
+                            }
+                        });
+                    } else {
+                        console.warn("Không tìm thấy tên file trên server.");
+                    }
+                });
+
             }
 
             {{--  success: function(file, response){

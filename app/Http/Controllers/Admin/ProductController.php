@@ -132,5 +132,19 @@ class ProductController extends AdminController
             'original_name'     => $file->getClientOriginalName(),
         ]);
     }
+
+    public function deleteMedia(Request $request){
+
+        $fileName = $request->input('fileName'); // Lấy tên file từ yêu cầu
+        $filePath = public_path('images/product/' . $fileName); // Đường dẫn đến file
+
+        if (file_exists($filePath)) {
+            unlink($filePath); // Xóa file
+            return response()->json(['success' => 'File đã được xóa']);
+        }
+
+        return response()->json(['error' => 'File không tồn tại']);
+
+    }
 }
 
