@@ -359,6 +359,13 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'deleteMedia'
         ]);
 
+        Route::post('/cleanup-temporary-files', [
+            'as'    => $controllerName . '/cleanupTemporaryFiles',
+            'uses'  => $controller . 'cleanupTemporaryFiles'
+        ]);
+
+        //Route::post('/cleanup-temporary-files', [UploadController::class, 'cleanupTemporaryFiles'])->name('cleanup.temporary.files');
+
     });
 
     // ====================== SYSTEN ======================

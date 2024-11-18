@@ -53,6 +53,12 @@ class AdminModel extends Model
         return $thumbName;
     }
 
+    public function uploadTempDropzoneThumb($thumbObj){
+        $thumbName       = 'temp_' . Str::random(10) . '.' . $thumbObj->clientExtension();
+        $thumbObj->storeAs($this->folderUpload, $thumbName ,'zvn_storage_image');
+        return $thumbName;
+    }
+
     public function deleteThumb($thumbName){
         Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $thumbName);
     }

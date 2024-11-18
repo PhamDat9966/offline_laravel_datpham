@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Models\AttributeModel;
 use App\Models\AttributevalueModel;
 
+use Illuminate\Support\Facades\File;
+
 class ProductController extends AdminController
 {
     public function __construct()
@@ -122,15 +124,21 @@ class ProductController extends AdminController
     }
 
     public function media(Request $request){
-        $path = public_path('images/product');
 
-        if(!file_exists($path)) mkdir($path,0777, true);
-        $file = $request->file('file');
-        $name = $this->model->uploadThumb($file);
-        return response()->json([
-            'name'              => $name,
-            'original_name'     => $file->getClientOriginalName(),
-        ]);
+        if ($request->hasFile('file')) {
+            $path = public_path('images/product');
+
+            if(!file_exists($path)) mkdir($path,0777, true);
+            $file = $request->file('file');
+            $name = $this->model->uploadTempDropzoneThumb($file); //thêm tiền tố temp_ vào tên file khi upload
+
+            return response()->json([
+                'name'              => $name,
+                'original_name'     => $file->getClientOriginalName(),
+            ]);
+        }
+
+        return response()->json(['error' => 'Không có file được tải lên'], 400);
     }
 
     public function deleteMedia(Request $request){
@@ -145,6 +153,22 @@ class ProductController extends AdminController
 
         return response()->json(['error' => 'File không tồn tại']);
 
+    }
+
+    public function cleanupTemporaryFiles()
+    {
+        /* Dọn Dẹp File thông qua Sự Kiện Form */
+        $tempPath = public_path('images/product');
+
+        // Lấy danh sách file có tiền tố 'temp_'
+        $files = File::files($tempPath);
+        foreach ($files as $file) {
+            if (str_starts_with($file->getFilename(), 'temp_')) {
+                File::delete($file->getPathname()); // Xóa file tạm
+            }
+        }
+
+        return response()->json(['success' => 'File tạm đã được dọn dẹp']);
     }
 }
 

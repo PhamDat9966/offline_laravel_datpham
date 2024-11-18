@@ -295,6 +295,25 @@
 
     });
 
+    /*  Cleanup file ảnh qua Sự Kiện Form (f5 hoặc refresh)
+        Sự kiện được kích hoạt khi trang được tải lại (refresh/F5) hoặc khi người dùng thoát khỏi form hoặc không submit*/
+    window.addEventListener("beforeunload", function (e) {
+        // Gửi yêu cầu AJAX để xóa file tạm
+        $.ajax({
+            url: "{{route($controllerName.'/cleanupTemporaryFiles')}}",
+            method: "POST",
+            data: {
+                _token: "{{ csrf_token() }}" // CSRF Token
+            },
+            success: function (response) {
+                console.log("Đã dọn dẹp file tạm:", response);
+            },
+            error: function (xhr) {
+                console.error("Lỗi khi dọn dẹp file tạm:", xhr.responseText);
+            }
+        });
+    });
+
     </script>
 
 @endsection
