@@ -55,17 +55,39 @@ class ProductController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-        dd($request->all());
+        // dd($request->all());
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 
+            /* Sử lý ảnh tại dropzone */
+            $thumbNames     = $request->input('thumb.name');        // Mảng chứa tên file từ form
+            $imagePath      = public_path('images/product');       // Đường dẫn thư mục chứa ảnh
+            $updatedNames   = [];                                        // Mảng lưu tên file mới
+            foreach($thumbNames  as $tempName){
+                // Loại bỏ tiền tố 'temp_'
+                $newName = str_replace('temp_', '', $tempName);
+
+                // Đường dẫn file cũ và mới, ở đây khi đổi tên file sử dụng hàm `move`nên ta vẫn phải thiết lập đường dẫn để đổi tên
+                $oldFilePath = $imagePath . '/' . $tempName;
+                $newFilePath = $imagePath . '/' . $newName;
+
+                if (File::exists($oldFilePath)) {
+                    // Đổi tên file
+                    File::move($oldFilePath, $newFilePath);
+                    $updatedNames[] = $newName; // Lưu lại tên file mới
+                }
+            }
+            dd($updatedNames);
+            /* End Sử lý ảnh tại dropzone */
+
             if($params['id'] !== null){
                 $task = 'edit-item';
                 $notify   = 'Cập nhật thành công!';
             }
+
             $this->model->saveItem($params,['task'=>$task]);
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }

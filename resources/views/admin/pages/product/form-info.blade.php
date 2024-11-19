@@ -201,6 +201,8 @@
         /*Dropzone.autoDiscover = false Ngăn Dropzone tự động tìm kiếm các form với class "dropzone".
           Dùng cho trường hợp tạo dropzone cho thẻ div thay vì form */
         let uploadedDocumentMap = {};
+        let isSubmitting = false;           // Cờ theo dõi trạng thái submit form
+
         var myDropzone = new Dropzone("div#mydropzone", {
             url: "{{route($controllerName.'/media')}}",
             dictDefaultMessage: "Kéo thả hình ảnh vào để tải lên",
@@ -235,10 +237,20 @@
 
                 // Khi upload thành công, nhận phản hồi từ server
                 this.on("success", function (file, response) {
+                    isSubmitting = true; // Đặt cờ, nhằm ngăn chặn sự kiện `beforeunload` clear file temp
+
                     if (response.name) {
                         uploadedFiles[file.upload.uuid] = response.name; // Lưu bằng UUID của file
                         console.log("Tệp đã tải lên:",  uploadedFiles[file.upload.uuid]);
                     }
+
+                    // Gắn hidden input chứa thông tin file đã upload
+                    $(file.previewElement)
+                        .find('.input-thumb')
+                        .append(`<input type="hidden" name="thumb[name][]" value="${response.name}">`);
+
+                    // Lưu thông tin file đã upload vào biến
+                    uploadedDocumentMap[file.name] = response.name;
                 });
 
                 // Sự kiện khi nhấn nút "Xóa"
@@ -298,6 +310,12 @@
     /*  Cleanup file ảnh qua Sự Kiện Form (f5 hoặc refresh)
         Sự kiện được kích hoạt khi trang được tải lại (refresh/F5) hoặc khi người dùng thoát khỏi form hoặc không submit*/
     window.addEventListener("beforeunload", function (e) {
+
+        if (isSubmitting) {
+            // Nếu đang submit form, không kích hoạt xóa file tạm
+            return;
+        }
+
         // Gửi yêu cầu AJAX để xóa file tạm
         $.ajax({
             url: "{{route($controllerName.'/cleanupTemporaryFiles')}}",
