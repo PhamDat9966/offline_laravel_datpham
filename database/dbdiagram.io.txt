@@ -1,0 +1,2 @@
+Mô hình dbdiagram cho database:
+https://dbdiagram.io/d/project_news-673d73fde9daa85aca0f871b
