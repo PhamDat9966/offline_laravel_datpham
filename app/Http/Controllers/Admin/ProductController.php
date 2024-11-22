@@ -55,7 +55,7 @@ class ProductController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-        dd($request->all());
+        // dd($request->all());
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -77,10 +77,8 @@ class ProductController extends AdminController
                 if (File::exists($oldFilePath)) {
                     // Đổi tên file
                     File::move($oldFilePath, $newFilePath);
-                    $updatedNames[] = $newName; // Lưu lại tên file mới
                 }
             }
-            dd($updatedNames);
             /* End Sử lý ảnh tại dropzone */
 
             if($params['id'] !== null){

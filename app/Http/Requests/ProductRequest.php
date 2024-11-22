@@ -58,10 +58,10 @@ class ProductRequest extends FormRequest
         // }
 
         return [
-            'name'          => $condName,
-            'status'        => $condStatus,
-            'thumb'         => $condThumb,
-            'category_id'   => $condCategory
+            'name'                  => $condName,
+            'status'                => $condStatus,
+            'thumb'                 => $condThumb,
+            'category_product_id'   => $condCategory
         ];
     }
 

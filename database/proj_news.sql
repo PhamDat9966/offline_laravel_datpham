@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 20, 2024 lúc 07:11 AM
+-- Thời gian đã tạo: Th10 22, 2024 lúc 05:42 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -405,12 +405,20 @@ CREATE TABLE `media` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `attribute_value_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `is_video` int(11) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `is_video` varchar(225) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `url` varchar(255) NOT NULL,
   `media_type` enum('default','attribute') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `media`
+--
+
+INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `is_video`, `description`, `url`, `media_type`) VALUES
+(22, 19, NULL, '[{\"name\":\"CeytglqoZ7.jpg\",\"alt\":\"abc\",\"size\":36345}]', 'false', 'image not for attribute_values', '', 'default'),
+(23, 19, NULL, '[{\"name\":\"CeytglqoZ7.jpg\",\"alt\":\"abc\",\"size\":36345},{\"name\":\"f0kABIv0Y6.jpg\",\"alt\":\"1234\",\"size\":31082}]', 'false', 'image not for attribute_values', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -524,7 +532,8 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`) VALUES
 (2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'test001', 'bv-test001-39', 9, '<p>test001 abc 12345</p>', 'active', NULL, '2024-11-22 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Bẫy `product`
@@ -564,7 +573,9 @@ INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `
 (6, 3, 4, 'abc123', 'Học hành khét lẹt, chân thành không giả mạo', NULL, NULL, NULL, NULL, NULL),
 (10, 5, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL),
 (11, 5, 2, 'iphone 15', 'đỏ', NULL, NULL, NULL, NULL, NULL),
-(12, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL);
+(12, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL),
+(35, 19, 1, 'test001', 'vàng', NULL, NULL, NULL, NULL, NULL),
+(36, 19, 2, 'test001', 'đỏ', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1080,7 +1091,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1098,13 +1109,13 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

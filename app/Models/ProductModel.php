@@ -10,6 +10,8 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
+
 class ProductModel extends AdminModel
 {
     public function __construct(){
@@ -319,7 +321,7 @@ class ProductModel extends AdminModel
             $this->slug                 = $params['slug'];
             $this->description          = $params['description'];
             $this->status               = $params['status'];
-            $this->category_product_id  = $params['category_id'];
+            $this->category_product_id  = $params['category_product_id'];
             $this->created_by           = $params['created_by'];
             $this->created              = $params['created'];
             $this->save();
@@ -344,6 +346,46 @@ class ProductModel extends AdminModel
 
                 // Lưu nhiều bản ghi vào `product_has_attribute` cùng lúc
                 DB::table('product_has_attribute')->insert($attributesData);
+            }
+
+            //Kiểm tra và lưu các thông tin thumb vào bảng media
+            $thumbNameArray     = [];
+            $thumbAltArray      = [];
+
+            /* Hai mảng $thumbNameArray, $thumbAltArray có nhiệm vụ trống lỗi: "Cannot access offset of type string on string".
+                Trong trường hợp chúng ta foreach và sử dụng trực tiếp trên $params. Cụ thể lỗi sẽ phát sinh tại: $params['thumb']['name'][$key] khi upload từ 2 ảnh trở lên */
+
+            if (isset($params['thumb']['name'])) {
+                $thumbNameArray = $params['thumb']['name'];
+                $thumbAltArray  = $params['thumb']['alt'];
+
+                foreach ($thumbNameArray as $key=>$value) {
+                    // Mảng chứa dữ liệu cho bảng `media`
+                    $thumbData  = [];
+                    $thumb      = [];
+
+                    $thumbName              = str_replace('temp_', '', $value);
+
+                    $thumb['name']    = $thumbName;
+                    $thumb['alt']     = $thumbAltArray[$key];
+                    $thumb['size']    = File::size(public_path("images/$this->folderUpload/" . $thumbName ));
+
+                    $thumbJson              = json_encode($thumb);
+                    $thumbData = [
+                        'product_id'            => $this->id,
+                        'attribute_value_id'    => null, // Gán NULL cho ảnh default, không phụ thuộc vào thuộc tính
+                        'content'               => $thumbJson,
+                        'is_video'              => 'false',
+                        'description'           => 'image not for attribute_values',
+                        'url'                   => '',
+                        'media_type'            => 'default'
+                    ];
+
+                    // Lưu nhiều bản ghi vào `media` cùng lúc
+                    DB::table('media')->insert($thumbData);
+                }
+
+
             }
 
         }

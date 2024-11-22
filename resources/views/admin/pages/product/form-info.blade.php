@@ -100,7 +100,7 @@
         ],
         [
             'label'     =>  Form::label('category', 'Category', $formlabelAttr),
-            'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
+            'element'   =>  Form::select('category_product_id', $categoryValue, $category, $formInputAttr)
         ],
         [
             'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
