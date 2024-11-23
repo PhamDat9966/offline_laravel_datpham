@@ -242,3 +242,69 @@ span.highlight{
     border: 2px dashed #999;
     background-color: #f3f3f3;
 }
+
+/*Dropzone*/
+.dz-preview .dz-image {
+    width: 100%;
+    height: auto; /* Tự động điều chỉnh chiều cao theo tỷ lệ */
+}
+
+.dz-preview .dz-image img {
+    display: block;
+    max-width: 100%; /* Không vượt quá khung cha */
+    height: auto; /* Tự động điều chỉnh chiều cao theo tỷ lệ */
+}
+
+/* Style cho khung nhập Alt (dz-custom-input) */
+.dz-custom-input {
+    width: 100%; /* Đặt chiều rộng full khung Dropzone */
+    padding: 8px; /* Tăng khoảng cách bên trong */
+    margin-top: 5px; /* Khoảng cách trên giữa input và hình ảnh */
+    font-size: 14px; /* Cỡ chữ */
+    color: #495057; /* Màu chữ dễ nhìn */
+    background-color: #f8f9fa; /* Màu nền nhạt để phân biệt */
+    border: 1px solid #ced4da; /* Viền nhẹ */
+    border-radius: 4px; /* Bo góc nhẹ */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); /* Hiệu ứng sâu hơn cho input */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dz-custom-input:focus {
+    border-color: #80bdff; /* Đổi màu viền khi focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Hiệu ứng nổi bật khi focus */
+}
+
+/* Style cho dz-success-mark */
+.dz-success-mark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #28a745; /* Màu xanh lá */
+    font-size: 20px; /* Tăng kích thước */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40, 167, 69, 0.1); /* Nền mờ */
+    border-radius: 50%; /* Bo tròn hoàn toàn */
+    width: 30px;
+    height: 30px;
+}
+
+/* Style cho dz-error-mark */
+.dz-error-mark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #dc3545; /* Màu đỏ */
+    font-size: 20px; /* Tăng kích thước */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 53, 69, 0.1); /* Nền mờ */
+    border-radius: 50%; /* Bo tròn hoàn toàn */
+    width: 30px;
+    height: 30px;
+}
+/*End Dropzone*/

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\AdminModel;
 use App\Models\CategoryArticleModel;
 use App\Models\ProductHasAttributeModel;    //Model quan hệ
+use App\Models\MediaModel;    //Model quan hệ
 
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
@@ -26,6 +27,13 @@ class ProductModel extends AdminModel
     {
         $this->table  = 'product';
         return $this->hasMany(ProductHasAttributeModel::class, 'product_id', 'id');
+    }
+
+    // Quan hệ với bảng media
+    public function media()
+    {
+        $this->table  = 'product';
+        return $this->hasMany(MediaModel::class, 'product_id', 'id');
     }
 
     public function listItems($params = null,$options = null){
@@ -434,13 +442,16 @@ class ProductModel extends AdminModel
 
             $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
 
-            // Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel
+            // Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel và media
             // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
 
-            $product = self::with('attributes')->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
-            //$product = self::with('attributes.attributeValue')->find($params['id']);     // Sử dụng khi cần truy vấn đến bản attribute_value để lấy attribute_value.name
+            $product = self::with(['attributes','media'])->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
 
-            $result = $product;
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null; // Trả về null nếu không tìm thấy sản phẩm
+            }
         }
 
         if($options['task'] == 'get-auto-increment'){

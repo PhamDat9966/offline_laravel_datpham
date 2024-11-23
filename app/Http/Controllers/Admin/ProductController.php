@@ -20,6 +20,7 @@ class ProductController extends AdminController
     {
         $this->pathViewController   = 'admin.pages.product.';
         $this->controllerName       = 'product';
+        $this->srcMedia             = asset("images/$this->controllerName");
         $this->model  = new MainModel();
         View::share('controllerName',$this->controllerName);
         parent::__construct();
@@ -35,9 +36,6 @@ class ProductController extends AdminController
 
         // Thêm nội dung mới của ProductController
         $categoryModel  = new CategoryProductModel();
-        //$categoryList   = $categoryModel->listItems(null, ['task' => 'category-list']);
-        // $firstItem      = ['id' => 'all', 'name' => 'Tất Cả'];
-        // $categoryList   = array('all' => $firstItem) + $categoryList;
 
         $categoryList   = $categoryModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
         unset($categoryList[1]); // Xóa phần tử root
@@ -55,10 +53,12 @@ class ProductController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-        // dd($request->all());
+
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
+            dd($params);
+
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 
@@ -102,6 +102,7 @@ class ProductController extends AdminController
         $attributesWithValue    = $attributeModel->getItem( null , ['task'=>'get-attributes-with-attributevalues']);
 
         $item_has_attribute_ids = [];   // Mảng chưa id của thuộc tính sản phẩm
+        $media                  = [];   // Mảng chứa media sản phẩm
 
         if($request->id !== null){
             $params['id']   = $request->id;
@@ -115,6 +116,13 @@ class ProductController extends AdminController
                     $item_has_attribute_ids[] = $itemAttribute['attribute_value_id'];
                 }
             }
+
+            if($item['media']){
+                foreach($item['media'] as $itemMedia){
+                    $media[] = $itemMedia['content'];
+                }
+            }
+
         }
 
         $categoryModel      = new CategoryProductModel();
@@ -127,7 +135,9 @@ class ProductController extends AdminController
             'item_has_attribute_ids'    =>$item_has_attribute_ids,
             'itemsCategory'             =>$itemsCategory,
             'autoIncrement'             =>$autoIncrement,
-            'attributesWithValue'       =>$attributesWithValue
+            'attributesWithValue'       =>$attributesWithValue,
+            'media'                     =>$media,
+            'srcMedia'                  =>$this->srcMedia
         ]);
     }
 

@@ -12,10 +12,7 @@
                     <th class="column-title">Product Info</th>
                     <th class="column-title">Thumb</th>
                     <th class="column-title">Category Name</th>
-                    <th class="column-title">Kiểu bài viết</th>
                     <th class="column-title">Trạng thái</th>
-                    {{-- <th class="column-title">Tạo mới</th>
-                    <th class="column-title">Chỉnh sửa</th> --}}
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -33,14 +30,12 @@
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $content            = Hightlight::show($val['description'], $params['search'] , 'description');
                             $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
-                            // $categoryName       = $val['category_name'];
+
                             $categoryName       = Template::select('category_product_id', $id , $categoryList , $val['category_product_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_product_id'=>'value_new'])]);
                             $miniThumb          = $val['thumb'];
                             $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $type               = Template::showItemSelect( $controllerName,$id,$val['type'], 'type');
-                            // $createdHistory     = Template::showItemHistory($val['created_by'],$val['created']);
-                            // $modifiedHistory    = Template::showItemHistory($val['modified_by'],$val['modified']);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
 
@@ -51,14 +46,11 @@
                                 <p><strong>Slug:</strong> {!! $slug !!}</p>
                                 <p><strong>Content:</strong> {!! $content !!}</p>
                             </td>
-                            <td width="10%">
+                            <td width="20%">
                                 {!!$thumb!!}
                             </td>
                             <td width="15%">
                                 {!!$categoryName!!}
-                            </td>
-                            <td>
-                                {!!$type!!}
                             </td>
                             <td>
                                 {!!$status!!}

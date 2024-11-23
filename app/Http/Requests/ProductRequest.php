@@ -28,7 +28,7 @@ class ProductRequest extends FormRequest
     {
         $task = 'add';
         //dd($this->toArray());
-        if(isset($this->taskEditInfo)) $task = 'edit';
+        if($this->id != null) $task = 'edit';
         if(isset($this->taskChangeCategory)) $task = 'change-category';
 
         $id         = $this->id;
@@ -46,9 +46,6 @@ class ProductRequest extends FormRequest
             case 'edit':
                 $condName           = "bail|required|between:5,100|unique:$this->table,name,$id";
                 $condStatus         = "bail|in:active,inactive";
-                break;
-            case 'change-category':
-                $condCategory       = "bail|required|numeric";
                 break;
         }
 

@@ -4,8 +4,6 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
-    //dd($attributesWithValue);
-
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
@@ -16,7 +14,7 @@
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
     $category       = (isset($item['category_id']))? $item->category_id : '';
-    $description    = (isset($item['content']))? $item->description : '';
+    $description    = (isset($item['description']))? $item->description : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
@@ -50,12 +48,16 @@
         $inputAttributes     = '<div class="col-md-12 col-xs-12">';
 
         foreach($attribute['attribute_values'] as $attributeValues){
+            $flagCheckbox     = '';
+            $flagCheckbox = (in_array($attributeValues['value_id'] , $item_has_attribute_ids)) ? 'checked' : '';
+
             $inputAttributes .= '<div style="position: relative;margin:5px;">';
             $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
             $inputAttributes .=         '<input name="attribute_value[]" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
                                                 type="checkbox"
                                                 value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'"
                                                 id="'.$attributeValues['value_id'].'"
+                                                ' .$flagCheckbox. '
                                         >';
 
             $inputAttributes .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$attributeValues['value_id'].'"></label>';
@@ -202,6 +204,7 @@
           Dùng cho trường hợp tạo dropzone cho thẻ div thay vì form */
         let uploadedDocumentMap = {};
         let isSubmitting = false;           // Cờ theo dõi trạng thái submit form
+        const files = @json($media);        // Chuyền dữ liệu media vào javasript trong trường hợp edit
 
         var myDropzone = new Dropzone("div#mydropzone", {
             url: "{{route($controllerName.'/media')}}",
@@ -214,10 +217,45 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
 
+            thumbnailWidth: 120, // Điều chỉnh chiều rộng thumbnail
+            thumbnailHeight: null, // Đặt null để tự động điều chỉnh chiều cao theo tỷ lệ
+
             init: function () {
 
                 const dropzoneInstance = this;
                 const uploadedFiles = {}; // Đối tượng lưu trữ các file đã tải lên
+
+                //Edit item thumb tại dropzone
+                for(var i in files){
+                    var fileData    = JSON.parse(files[i]); // Chuyển đổi JSON  --}}
+
+                    var mockFile = {
+                        name: fileData.name,
+                        size: fileData.size,
+                        accepted: true
+                    };
+
+                    // Thêm file vào Dropzone
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile,  "{{$srcMedia}}" + "/" + fileData.name);
+                    this.emit("complete", mockFile);
+
+                    /* khi sử dụng this.displayExitingFile(file,src); Sẽ xuất hiện lỗi: `Uncaught TypeError: this.displayExitingFile is not a function`
+                    xảy ra vì trong Dropzone.js không có phương thức gốc tên là displayExitingFile. Thay vào đó, ta nên sử dụng các phương thức
+                    của Dropzone như emit để hiển thị các file hiện có.*/
+
+                    // Đánh dấu file là hoàn thành tải
+                    mockFile.previewElement.classList.add("dz-complete");
+
+                    // Thêm thông tin input hidden
+                    $(mockFile.previewElement)
+                        .find(".input-thumb")
+                        .append(
+                            `<input type="hidden" name="thumb[name][]" value="${fileData.name}">`
+                    );
+
+                    $(mockFile.previewElement).find('.input-thumb [name="thumb[alt][]"]').val(fileData.alt); // gán alt vào ảnh
+                }
 
                 // Khởi tạo Sortable trên khu vực preview của Dropzone
                 $("#mydropzone").sortable({
