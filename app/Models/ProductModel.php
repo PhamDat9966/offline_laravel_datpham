@@ -18,7 +18,7 @@ class ProductModel extends AdminModel
     public function __construct(){
         $this->table                = 'product';
         $this->folderUpload         = 'product';
-        $this->fieldSearchAccepted  = ['name','content','slug'];
+        $this->fieldSearchAccepted  = ['name','slug'];
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','attribute_value','thumb'];
     }
 
@@ -41,19 +41,18 @@ class ProductModel extends AdminModel
         $this->table    = 'product as p';
 
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id');
-                        // ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
+            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id')
+                           ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
-               $query->where('a.status','=',$params['filter']['status']);
+               $query->where('p.status','=',$params['filter']['status']);
 
             }
 
             if($params['filter']['category'] !== "all"){
-
                 // Cách 1: từ $params['filter']['category'] rồi lấy danh sách con, sau đó tạo mảng $categories đưa cha và danh sách con vào rồi whereIn để lọc
-                $category        = CategoryArticleModel::find($params['filter']['category']); // Lấy danh mục cha
-                $childCategories = CategoryArticleModel::whereBetween('_lft', [$category->_lft + 1, $category->_rgt - 1])
+                $category        = CategoryProductModel::find($params['filter']['category']); // Lấy danh mục cha
+                $childCategories = CategoryProductModel::whereBetween('_lft', [$category->_lft + 1, $category->_rgt - 1])
                                                         ->orderBy('_lft')
                                                         ->get()
                                                         ->toArray(); // Danh sách các danh mục con dưới dạng array
@@ -69,7 +68,7 @@ class ProductModel extends AdminModel
                 //             ->pluck('id')
                 //             ->toArray();
 
-                $query->whereIn('a.category_id',$categories);
+                $query->whereIn('p.category_product_id',$categories);
             }
 
             if($params['filter']['type'] !== "all"){
@@ -83,19 +82,19 @@ class ProductModel extends AdminModel
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('p.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('p.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
 
-            $result = $query->orderBy('id', 'desc')
+            $result = $query->orderBy('p.id', 'desc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -242,7 +241,7 @@ class ProductModel extends AdminModel
                                 $query->where('modified',"like","%".$params['filter']['modified']."%");
                             }
                             if($params['filter']['category'] !== "all"){
-                                $query->where("category_id","=", $params['filter']['category']);
+                                $query->where("category_product_id","=", $params['filter']['category']);
                             }
 
                             if($params['filter']['type'] !== "all"){

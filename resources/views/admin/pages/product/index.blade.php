@@ -6,7 +6,6 @@
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
 
     $xhtmlCategoryFilter    = Template::showItemCategoryFilter($controllerName, $params['filter']['category'], $categoryList);
-    $xhtmlItemTypeFilter    = Template::showItemTypeFilter($controllerName, $params['filter']['type']);
 @endphp
 
 @section('content')
@@ -25,10 +24,9 @@
                         {!!$xhtmlButtonFilter!!}
                     </div>
                     <div class="col-md-2">
-                        {!!$xhtmlCategoryFilter!!}
                     </div>
                     <div class="col-md-2">
-                        {!!$xhtmlItemTypeFilter!!}
+                        {!!$xhtmlCategoryFilter!!}
                     </div>
                     <div class="col-md-4">
                         {!!$xhtmlAreaSearch!!}

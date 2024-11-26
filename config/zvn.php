@@ -159,7 +159,8 @@ return [
             'appointment'       =>  ['all','name','phonenumber','email'],
             'contact'           =>  ['all','name','email','phone'],
             'attribute'         =>  ['all','name'],
-            'attributevalue'    =>  ['all','name']
+            'attributevalue'    =>  ['all','name'],
+            'product'           =>  ['all','name','slug'],
         ],
         'button'    =>[
             'default'           =>  ['edit','delete'],
