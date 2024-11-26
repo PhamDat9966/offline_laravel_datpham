@@ -27,11 +27,10 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         $task = 'add';
-        //dd($this->toArray());
+        // dd($this->toArray());
         if($this->id != null) $task = 'edit';
-        if(isset($this->taskChangeCategory)) $task = 'change-category';
 
-        $id         = $this->id;
+        $id             = $this->id;
         $condName       = "";
         $condCategory   = "";
         $condStatus     = "";
@@ -44,7 +43,8 @@ class ProductRequest extends FormRequest
                 $condCategory       = "bail|required|numeric";
                 break;
             case 'edit':
-                $condName           = "bail|required|between:5,100|unique:$this->table,name,$id";
+                $condName           = "bail|required|between:5,100";
+                //$condName           = "bail|required|between:5,100|unique:$this->table,name,$id";
                 $condStatus         = "bail|in:active,inactive";
                 break;
         }
@@ -65,9 +65,9 @@ class ProductRequest extends FormRequest
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'name.required'         => 'Tên bài viết không được rỗng',
-            'name.between'          => 'Tên bài viết có độ dài từ 5 đển 100 ký tự',
-            'name.unique'           => 'Tên bài viết không được trùng với những bài viết sẵn có',
+            'name.required'         => 'Tên sản phẩm không được rỗng',
+            'name.between'          => 'Tên sản phẩm có độ dài từ 5 đển 100 ký tự',
+            'name.unique'           => 'Tên sản phẩm không được trùng với tên sản phẩm sẵn có',
             'status.in'             => 'Status nên chọn active hoặc inactive',
             'thumb.required'        => 'Ảnh không được rỗng',
             'thumb.mimes'           => 'Hãy chọn ảnh có đuôi là : jpeg,jpg,png,gif',

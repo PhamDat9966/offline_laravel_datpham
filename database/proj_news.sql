@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 22, 2024 lúc 05:42 AM
+-- Thời gian đã tạo: Th10 26, 2024 lúc 02:41 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -417,8 +417,10 @@ CREATE TABLE `media` (
 --
 
 INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `is_video`, `description`, `url`, `media_type`) VALUES
-(22, 19, NULL, '[{\"name\":\"CeytglqoZ7.jpg\",\"alt\":\"abc\",\"size\":36345}]', 'false', 'image not for attribute_values', '', 'default'),
-(23, 19, NULL, '[{\"name\":\"CeytglqoZ7.jpg\",\"alt\":\"abc\",\"size\":36345},{\"name\":\"f0kABIv0Y6.jpg\",\"alt\":\"1234\",\"size\":31082}]', 'false', 'image not for attribute_values', '', 'default');
+(54, 5, NULL, '{\"name\":\"NMfuTdFgUW.jpg\",\"alt\":\"bbbb\",\"size\":36345}', 'false', 'image not for attribute_values', '', 'default'),
+(55, 5, NULL, '{\"name\":\"WuhN1zjEcI.jpg\",\"alt\":\"cccc\",\"size\":31082}', 'false', 'image not for attribute_values', '', 'default'),
+(61, 5, NULL, '{\"name\":\"YKWqGqWC9z.jpg\",\"alt\":\"iphone 15 default\",\"size\":76803}', '0', 'image not for attribute_values', '', 'default'),
+(62, 5, NULL, '{\"name\":\"RPKnTYGlGU.jpg\",\"alt\":null,\"size\":30922}', '0', 'image not for attribute_values', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -522,18 +524,19 @@ CREATE TABLE `product` (
   `price_increase_percent` int(11) DEFAULT NULL,
   `price_increase_type` varchar(255) DEFAULT NULL,
   `fieldClass` varchar(255) DEFAULT NULL,
-  `fieldWeb` varchar(255) DEFAULT NULL
+  `fieldWeb` varchar(255) DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`) VALUES
-(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 'test001', 'bv-test001-39', 9, '<p>test001 abc 12345</p>', 'active', NULL, '2024-11-22 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
+(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00');
 
 --
 -- Bẫy `product`
@@ -574,8 +577,38 @@ INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `
 (10, 5, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL),
 (11, 5, 2, 'iphone 15', 'đỏ', NULL, NULL, NULL, NULL, NULL),
 (12, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL),
-(35, 19, 1, 'test001', 'vàng', NULL, NULL, NULL, NULL, NULL),
-(36, 19, 2, 'test001', 'đỏ', NULL, NULL, NULL, NULL, NULL);
+(45, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(46, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(47, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(51, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(52, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(53, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(54, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(55, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(56, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(57, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(58, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(59, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(60, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(61, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(62, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(63, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(64, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(65, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(66, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(67, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(68, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(69, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(70, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(71, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(72, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(73, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(74, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(75, NULL, 46, NULL, 'nâu', NULL, NULL, NULL, NULL, NULL),
+(76, NULL, 1, NULL, 'vàng', NULL, NULL, NULL, NULL, NULL),
+(77, NULL, 2, NULL, 'đỏ', NULL, NULL, NULL, NULL, NULL),
+(78, NULL, 3, NULL, 'xanh', NULL, NULL, NULL, NULL, NULL),
+(79, NULL, 46, NULL, 'nâu', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1091,7 +1124,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1109,13 +1142,13 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

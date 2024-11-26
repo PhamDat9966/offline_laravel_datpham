@@ -13,7 +13,7 @@
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
-    $category       = (isset($item['category_id']))? $item->category_id : '';
+    $category       = (isset($item['category_product_id']))? $item->category_product_id : '';
     $description    = (isset($item['description']))? $item->description : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');

@@ -19,7 +19,7 @@ class ProductModel extends AdminModel
         $this->table                = 'product';
         $this->folderUpload         = 'product';
         $this->fieldSearchAccepted  = ['name','content','slug'];
-        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
+        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','attribute_value','thumb'];
     }
 
     // Quan hệ với bảng product_has_attribute
@@ -400,21 +400,72 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'edit-item'){
 
-            if(!empty($params["thumb"])){
-                /*Xóa ảnh cũ*/
-                $item   =  $this->getItem($params,['task' => 'get-thumb']);
-                //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
-                $this->deleteThumb($params['thumb_current']);
-                /* Thêm ảnh mới */
-                // $thumb                  = $params['thumb'];
-                // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-                // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-                $params['thumb']        = $this->uploadThumb($params['thumb']);
-                /* end Thêm ảnh mới */
+            //Kiểm tra và lưu các attribute_value vào bảng `product_has_attribute`
+            // if ($params['attribute_value']) {
+            //     // Mảng chứa dữ liệu cho bảng `product_has_attribute`
+            //     $attributesData = [];
+
+            //     foreach ($params['attribute_value'] as $attributeValue) {
+            //         $arrayAttribute     = explode('$',$attributeValue);
+            //         $attributeValueId   = $arrayAttribute[0];
+            //         $attributeValueName = $arrayAttribute[1];
+
+            //         $attributesData[] = [
+            //             'product_id'            => $this->id,
+            //             'attribute_value_id'    => $attributeValueId,
+            //             'product_name'          => $this->name,
+            //             'attribute_value_name'  => $attributeValueName
+            //         ];
+            //     }
+
+            //     // Lưu nhiều bản ghi vào `product_has_attribute` cùng lúc
+            //     DB::table('product_has_attribute')->insert($attributesData);
+            // }
+
+
+            //Lấy danh sách ảnh của ID sản phẩm sẵn có: $mediasInItems
+            $params['product_id'] = $params['id'];
+            $mediaOject        = new MediaModel();
+            $mediasInDB     = $mediaOject->getItem($params,['task'=>'get-item-default']);
+            $mediasInDB     = $mediasInDB->toArray();
+
+            $mediaNameDB    = [];
+            foreach($mediasInDB as $key=>$mediaElement){
+                $mediasInDB[$key]['content'] =   json_decode($mediaElement['content']);
+                $mediaNameDB[]               =   $mediasInDB[$key]['content']->name;
             }
 
+            //dd($mediasInDB);
+
+            //Kiểm tra các ảnh từ edit Input đầu vào và danh sách có sẵn trong cơ sở dữ liệu hay ko, nếu media input không có sẵn trong csdl thì thêm mới
+            foreach($params['thumb']['name'] as $keyMedia=>$mediaNameInput){
+                if(!in_array($mediaNameInput, $mediaNameDB)){
+                    $paramInput                     = [];
+                    $paramInput['product_id']       = $params['id'];
+                    $paramInput['content']['name']  = str_replace('temp_', '', $mediaNameInput);
+                    $paramInput['content']['alt']   = $params['thumb']['alt'][$keyMedia];
+                    $paramInput['content']['size']  = File::size(public_path("images/$this->folderUpload/" . $paramInput['content']['name'] ));
+                    $paramInput['content']          = json_encode($paramInput['content']);
+
+                    //Save media
+                    $mediaOject->saveItem($paramInput,['task'=>'add-item']);
+                }
+            }
+
+            //Kiểm tra các ảnh có trong database có trong danh sách input không, nếu không thì xóa ảnh  đó đi
+            foreach($mediasInDB as $keyDB=>$mediaDB){
+                if(!in_array($mediaDB['content']->name, $params['thumb']['name'] )){
+                    $paramDelete['id'] = $mediaDB['id'];
+
+                    //Delete media
+                    $mediaOject->deleteItem($paramDelete,['task'=>'delete-item']);
+                }
+            }
+
+            //Cập nhật lại product's item
             $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
+            unset($params['product_id']);
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
             $params   = $this->prepareParams($params);

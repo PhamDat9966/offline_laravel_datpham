@@ -29,4 +29,49 @@ class MediaModel extends AdminModel
         $this->table  = 'media';
         return $this->belongsTo(ProductHasAttributeModel::class, 'attribute_value_id', 'id');
     }
+
+    public function getItem($params = null,$options = null){
+        $result   = null;
+        if($options['task'] == 'get-item-default'){
+            $result = $this::select('id','product_id','content')
+                        ->where('product_id', $params['product_id'])
+                        ->get();
+        }
+
+        return $result;
+    }
+
+    public function saveItem($params = null,$options = null){
+
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
+
+        $params['modified_by']   = $userInfo['username'];
+        $params['modified']      = date('Y-m-d');
+
+        if($options['task'] == 'add-item'){
+
+            /* Save dữ liệu theo eloquent */
+            $this->table                = 'media';
+            $this->product_id           = $params['product_id'];
+            $this->attribute_value_id   = null;
+            $this->content              = $params['content'];
+            $this->is_video             = false;
+            $this->description          = 'image not for attribute_values';
+            $this->url                  = '';
+            $this->media_type           = 'default';
+            $this->save();
+        }
+
+    }
+
+    public function deleteItem($params = null,$options = null){
+        if($options['task'] == 'delete-item'){
+            $this->table = 'media';
+            $this->where('id', $params['id'])->delete();
+        }
+    }
 }
