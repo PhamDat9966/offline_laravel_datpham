@@ -42,8 +42,7 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'admin-list-items'){
             $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id')
-                          ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id');
-                        //   ->leftJoin('media as m', 'p.id', '=', 'm.product_id');
+                           ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id');
 
             if($params['filter']['status'] !== "all"){
                $query->where('p.status','=',$params['filter']['status']);
@@ -97,56 +96,6 @@ class ProductModel extends AdminModel
 
             $result = $query->orderBy('p.id', 'desc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
-
-        }
-
-        if($options['task'] == 'admin-list-media-for-items-to-array'){
-            $products = $this->select(
-                                'p.id',
-                                'p.name',
-                                'p.description',
-                                'p.slug',
-                                'p.status',
-                                'p.category_product_id',
-                                'm.id as media_id',
-                                'm.content as media_content',
-                                'm.is_video',
-                                'm.description as media_description',
-                                'm.url as media_url',
-                                'm.media_type'
-                            )
-                            ->from('product as p')
-                            ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id')
-                            ->leftJoin('media as m', 'p.id', '=', 'm.product_id')
-                            ->orderBy('p.id', 'desc')
-                            ->get();
-
-            $groupedProducts = [];
-            foreach ($products as $product) {
-                $productId = $product->id;
-                if (!isset($groupedProducts[$productId])) {
-                    $groupedProducts[$productId] = [
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'description' => $product->description,
-                        'slug' => $product->slug,
-                        'status' => $product->status,
-                        'category_product_id' => $product->category_product_id,
-                        'media_list' => [],
-                    ];
-                }
-
-                $groupedProducts[$productId]['media_list'][] = [
-                    'id' => $product->media_id,
-                    'content' => $product->media_content,
-                    'is_video' => $product->is_video,
-                    'description' => $product->media_description,
-                    'url' => $product->media_url,
-                    'media_type' => $product->media_type,
-                ];
-            }
-
-            return $groupedProducts;
         }
 
         if($options['task'] == 'news-list-items'){

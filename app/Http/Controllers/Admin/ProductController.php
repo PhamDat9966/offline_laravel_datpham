@@ -41,11 +41,15 @@ class ProductController extends AdminController
         unset($categoryList[1]); // Xóa phần tử root
         $categoryList = ['all' => 'Tất cả'] + $categoryList; // Thêm phần tử có key = 'all' và value = 'Tất cả' vào đầu mảng
 
+        //Lấy dữ liệu media theo từng products
+        $mediasProduct = $this->model->listItems(null,['task'=>'admin-list-media-for-items-to-array']);
+
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
-        $data['categoryList'] = $categoryList;
+        $data['categoryList']   = $categoryList;
+        $data['mediasProduct']  = $mediasProduct;
 
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);

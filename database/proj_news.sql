@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 26, 2024 lúc 02:41 AM
+-- Thời gian đã tạo: Th10 27, 2024 lúc 05:19 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -420,7 +420,10 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `is_vi
 (54, 5, NULL, '{\"name\":\"NMfuTdFgUW.jpg\",\"alt\":\"bbbb\",\"size\":36345}', 'false', 'image not for attribute_values', '', 'default'),
 (55, 5, NULL, '{\"name\":\"WuhN1zjEcI.jpg\",\"alt\":\"cccc\",\"size\":31082}', 'false', 'image not for attribute_values', '', 'default'),
 (61, 5, NULL, '{\"name\":\"YKWqGqWC9z.jpg\",\"alt\":\"iphone 15 default\",\"size\":76803}', '0', 'image not for attribute_values', '', 'default'),
-(62, 5, NULL, '{\"name\":\"RPKnTYGlGU.jpg\",\"alt\":null,\"size\":30922}', '0', 'image not for attribute_values', '', 'default');
+(62, 5, NULL, '{\"name\":\"RPKnTYGlGU.jpg\",\"alt\":null,\"size\":30922}', '0', 'image not for attribute_values', '', 'default'),
+(64, 2, NULL, '{\"name\":\"RdvhKclELg.jpg\",\"alt\":\"ccc\",\"size\":44383}', '0', 'image not for attribute_values', '', 'default'),
+(65, 2, NULL, '{\"name\":\"wnCDjBshGj.jpg\",\"alt\":null,\"size\":20871}', '0', 'image not for attribute_values', '', 'default'),
+(66, 2, NULL, '{\"name\":\"ZL137YhL9L.jpg\",\"alt\":null,\"size\":15164}', '0', 'image not for attribute_values', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -534,8 +537,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-27 00:00:00'),
+(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00'),
 (5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00');
 
 --
@@ -1124,7 +1127,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`

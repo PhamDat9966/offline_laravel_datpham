@@ -339,6 +339,23 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemMediaList($controllerName , $mediaList){
+        $xhtml  = '';
+        foreach($mediaList as $media){
+            $mediaContent   = json_decode($media['content']);
+
+            $linkMedia      = (!empty($mediaContent->name))
+                                    ? asset("images/$controllerName/" . $mediaContent->name)
+                                    : '';
+            $mediaAlt       = (!empty($content['alt']))
+                                    ? asset("images/$controllerName/" . $mediaContent->alt)
+                                    : '';
+            $xhtml  .= sprintf('
+                            <img id="thumb-preview" src="%s" alt="%s" class="zvn-media" style="margin:auto" />', $linkMedia , $mediaAlt);
+        }
+        return  $xhtml;
+    }
+
     public static function showAvatar($thumbName , $thumbAlt){
 
         $xhtml  = sprintf('

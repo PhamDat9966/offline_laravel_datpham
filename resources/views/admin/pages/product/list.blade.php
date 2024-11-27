@@ -10,7 +10,7 @@
                 <tr class="headings">
                     <th class="column-title">#</th>
                     <th class="column-title">Product Info</th>
-                    <th class="column-title">Thumb</th>
+                    <th class="column-title">Media</th>
                     <th class="column-title">Category Name</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Hành động</th>
@@ -21,19 +21,19 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-                           //dd($val);
 
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                 = $val['id'];
+                            $mediaList          = $mediasProduct[$id]['media_list'];
+
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $content            = Hightlight::show($val['description'], $params['search'] , 'description');
                             $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
 
                             $categoryName       = Template::select('category_product_id', $id , $categoryList , $val['category_product_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_product_id'=>'value_new'])]);
-                            $miniThumb          = $val['thumb'];
-                            $thumb              = Template::showItemThumb($controllerName,$miniThumb,$val['name']);
+                            $medias             = Template::showItemMediaList($controllerName,$mediaList);
                             $status             = Template::showItemStatus( $controllerName,$id,$val['status']); // $controllerName đã được share tại SliderController.php
                             $type               = Template::showItemSelect( $controllerName,$id,$val['type'], 'type');
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
@@ -47,7 +47,7 @@
                                 <p><strong>Content:</strong> {!! $content !!}</p>
                             </td>
                             <td width="20%">
-                                {!!$thumb!!}
+                                {!!$medias!!}
                             </td>
                             <td width="15%">
                                 {!!$categoryName!!}
