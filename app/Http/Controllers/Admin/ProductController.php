@@ -68,18 +68,20 @@ class ProductController extends AdminController
             /* Sử lý ảnh tại dropzone */
             $thumbNames     = $request->input('thumb.name');        // Mảng chứa tên file từ form
             $imagePath      = public_path('images/product');       // Đường dẫn thư mục chứa ảnh
-            $updatedNames   = [];                                        // Mảng lưu tên file mới
-            foreach($thumbNames  as $tempName){
-                // Loại bỏ tiền tố 'temp_'
-                $newName = str_replace('temp_', '', $tempName);
+            $updatedNames   = [];
+            if($thumbNames){                                   // Mảng lưu tên file mới
+                foreach($thumbNames  as $tempName){
+                    // Loại bỏ tiền tố 'temp_'
+                    $newName = str_replace('temp_', '', $tempName);
 
-                // Đường dẫn file cũ và mới, ở đây khi đổi tên file sử dụng hàm `move`nên ta vẫn phải thiết lập đường dẫn để đổi tên
-                $oldFilePath = $imagePath . '/' . $tempName;
-                $newFilePath = $imagePath . '/' . $newName;
+                    // Đường dẫn file cũ và mới, ở đây khi đổi tên file sử dụng hàm `move`nên ta vẫn phải thiết lập đường dẫn để đổi tên
+                    $oldFilePath = $imagePath . '/' . $tempName;
+                    $newFilePath = $imagePath . '/' . $newName;
 
-                if (File::exists($oldFilePath)) {
-                    // Đổi tên file
-                    File::move($oldFilePath, $newFilePath);
+                    if (File::exists($oldFilePath)) {
+                        // Đổi tên file
+                        File::move($oldFilePath, $newFilePath);
+                    }
                 }
             }
             /* End Sử lý ảnh tại dropzone */
