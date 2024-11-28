@@ -473,43 +473,34 @@ class ProductModel extends AdminModel
             // }
 
 
-            //Lấy danh sách ảnh của ID sản phẩm sẵn có: $mediasInItems
-            $params['product_id'] = $params['id'];
-            $mediaOject        = new MediaModel();
-            $mediasInDB     = $mediaOject->getItem($params,['task'=>'get-item-default']);
-            $mediasInDB     = $mediasInDB->toArray();
+            //Xóa tất cả thông tin về ảnh của sản phẩm trên table `media`,
+            //ghi lại mới toàn bộ thông tin ảnh sản phẩm, làm việc này nhằm tự động tạo nên thứ tự cho ảnh trong danh sách
 
-            $mediaNameDB    = [];
-            foreach($mediasInDB as $key=>$mediaElement){
-                $mediasInDB[$key]['content'] =   json_decode($mediaElement['content']);
-                $mediaNameDB[]               =   $mediasInDB[$key]['content']->name;
-            }
-
-            //dd($mediasInDB);
-
+            $this->table = 'media';
+            $this->where('product_id', $params['id'])->delete();
             //Kiểm tra các ảnh từ edit Input đầu vào và danh sách có sẵn trong cơ sở dữ liệu hay ko, nếu media input không có sẵn trong csdl thì thêm mới
-            foreach($params['thumb']['name'] as $keyMedia=>$mediaNameInput){
-                if(!in_array($mediaNameInput, $mediaNameDB)){
-                    $paramInput                     = [];
-                    $paramInput['product_id']       = $params['id'];
-                    $paramInput['content']['name']  = str_replace('temp_', '', $mediaNameInput);
-                    $paramInput['content']['alt']   = $params['thumb']['alt'][$keyMedia];
-                    $paramInput['content']['size']  = File::size(public_path("images/$this->folderUpload/" . $paramInput['content']['name'] ));
-                    $paramInput['content']          = json_encode($paramInput['content']);
+            if(!empty($params['thumb']['name'])){
+                foreach ($params['thumb']['name'] as $keyMedia => $mediaNameInput) {
+                    //$mediaOject        = new MediaModel();
+                    $content = [];
+                    $content['name']    = str_replace('temp_', '', $mediaNameInput);
+                    $content['alt']     = $params['thumb']['alt'][$keyMedia];
+                    $content['size']    = File::size(public_path("images/$this->folderUpload/" . $content['name']));
 
-                    //Save media
-                    $mediaOject->saveItem($paramInput,['task'=>'add-item']);
+                    $batchInsert[] = [
+                        'product_id' => $params['id'],
+                        'content' => json_encode($content),
+                        'is_video' => 'false',
+                        'description' => '',
+                        'url' => '',
+                        'media_type' => 'default',
+                    ];
                 }
-            }
 
-            //Kiểm tra các ảnh có trong database có trong danh sách input không, nếu không thì xóa ảnh  đó đi
-            foreach($mediasInDB as $keyDB=>$mediaDB){
-                if(!in_array($mediaDB['content']->name, $params['thumb']['name'] )){
-                    $paramDelete['id'] = $mediaDB['id'];
-
-                    //Delete media
-                    $mediaOject->deleteItem($paramDelete,['task'=>'delete-item']);
-                }
+                // Insert tất cả các phần tử vào database. Cách này là thao tác trực tiếp với table.
+                // Trường hợp sử dụng đối tượng là `$mediaOject= new MediaModel();` thì phải đưa nó vào vòng lặp để $mediaOject reset trạng thái của nó
+                // Nếu không reset trạng thái nó sẽ chỉ lưu được 1 phần tử duy nhất ở hàm : $mediaObject->saveItem($paramInput, ['task' => 'add-item']);
+                DB::table('media')->insert($batchInsert);
             }
 
             //Cập nhật lại product's item
@@ -518,6 +509,7 @@ class ProductModel extends AdminModel
             unset($params['product_id']);
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
+            $this->table = 'product';
             $params   = $this->prepareParams($params);
             self::where('id', $params['id'])->update($params);
 
