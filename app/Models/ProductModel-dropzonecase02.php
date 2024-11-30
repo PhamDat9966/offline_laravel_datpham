@@ -455,95 +455,94 @@ class ProductModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
+            /*Attribute_value của Item*/
+            //Kiểm tra và lưu các attribute_value vào bảng `product_has_attribute`
+            // if ($params['attribute_value']) {
+            //     // Mảng chứa dữ liệu cho bảng `product_has_attribute`
+            //     $attributesData = [];
 
-            /* ATTIBUTE */
-            // Kiểm tra xem dách sách các `attribute_value` được nhập có giống với và các `attribute_value` của sản phẩm tại table `attribute_value`(current) có khác nhau ko? Nếu khác nhau thì tiến hành cập nhật
-            $currentAttributeItem           = ProductHasAttributeModel::where('product_id', $params['id'])->pluck('attribute_value_id')->toArray();
-            $idsAttributevalItemInput       = [];
-            $namesAttributevalItemInput     = [];
-            if($params['attribute_value']){
-                foreach($params['attribute_value'] as $attributeValue){
-                    $tempAttributeValueArr = explode('$',$attributeValue);
-                    $idsAttributevalItemInput[]   = $tempAttributeValueArr[0];
-                    $namesAttributevalItemInput[] = $tempAttributeValueArr[1];
-                }
-            }
-            //Kiểm tra 1: Nếu attribute_value  nào không có trong dánh sách mảng IDs được nhập ($idsAttributevalItem) thì xóa phần tử đó
-            $deleteAttributevalID   = array_diff($currentAttributeItem,$idsAttributevalItemInput);
-            if($deleteAttributevalID){
-                ProductHasAttributeModel::where('product_id', $params['id'])
-                                        ->whereIn('attribute_value_id', $deleteAttributevalID)
-                                        ->delete();
-            }
-            //Kiểm tra 2: Nếu attribute_value từ Input nào không nằm danh sách của $currentAttributeItem từ bản, thì thêm mới attribute_value đó
-            $updateAttributevalID   = array_diff($idsAttributevalItemInput,$currentAttributeItem);
-            $attributesData = [];
-            if ($updateAttributevalID) {
+            //     foreach ($params['attribute_value'] as $attributeValue) {
+            //         $arrayAttribute     = explode('$',$attributeValue);
+            //         $attributeValueId   = $arrayAttribute[0];
+            //         $attributeValueName = $arrayAttribute[1];
 
-                foreach ($updateAttributevalID as $index=>$attributeValueID) {
+            //         $attributesData[] = [
+            //             'product_id'            => $this->id,
+            //             'attribute_value_id'    => $attributeValueId,
+            //             'product_name'          => $this->name,
+            //             'attribute_value_name'  => $attributeValueName
+            //         ];
+            //     }
 
-                    $attributesData[] = [
-                        'product_id'            => $params['id'],
-                        'attribute_value_id'    => $attributeValueID,
-                        'product_name'          => $params['name'],
-                        'attribute_value_name'  => $namesAttributevalItemInput[$index]
-                    ];
-                }
+            //     // Lưu nhiều bản ghi vào `product_has_attribute` cùng lúc
+            //     DB::table('product_has_attribute')->insert($attributesData);
+            // }
 
-                // Lưu nhiều bản ghi vào `product_has_attribute` cùng lúc
-                DB::table('product_has_attribute')->insert($attributesData);
-            }
+            /*Media*/
+           // dd($params);
+            // Lấy danh sách ID hiện tại trong database
 
-            /* MEDIA */
-            // Kiểm tra xem, danh sách `name` của các thumb được nhập và `name` của file thumb trong bản `media` (current) có khác nhau không, nếu khác nhau thì tiến hành update
-            $flagThumbUpdate        = false;
-            $currentMediaContents   = MediaModel::where('product_id', $params['id'])->pluck('content')->toArray();
-            $currentMediaNames      = [];
-            foreach($currentMediaContents as $mediaElement){
-                $tempMediaElement    = json_decode($mediaElement);
-                $currentMediaNames[] = $tempMediaElement->name;
+             // Lấy `product_id` từ request
+            $productId = $params['id'];
+
+            // Danh sách các ảnh từ params
+            $thumbAlts = $params['thumb']['alt'];
+            $thumbNames = $params['thumb']['name'];
+            $thumbIds = $params['thumb']['id'] ?? []; // Có thể rỗng nếu toàn ảnh mới
+           // dd($thumbNames);
+
+            // Xóa media không có trong danh sách:
+            // Lấy danh sách ID trong cơ sở dữ liệu cho sản phẩm này
+            $currentMediaIds = MediaModel::where('product_id', $params['id'])->pluck('id')->toArray();
+            // Tìm các ID bị xóa
+            $deletedMediaIds = array_diff($currentMediaIds, $params['thumb']['id']);
+            // Xóa các `media` bị xóa
+            if (!empty($deletedMediaIds)) {
+                MediaModel::whereIn('id', $deletedMediaIds)->delete();
             }
 
-            $thumbNamesInput    = $params['thumb']['name'];
 
-            //Kiểm tra từ $params xem dropzone có thểm ảnh hới hoặc xóa ảnh cũ không, nếu có (true) thì tiến hành cập nhật
-            //Khi sử dụng flag để xác định xem user có tao tác trên dropzone không, nếu có mới tiến hành thao tác update để tranh việc thêm, xóa dữ liệu không cần thiết
-            $flagThumbUpdate    = (array_diff_assoc($thumbNamesInput,$currentMediaNames) || array_diff_assoc($currentMediaNames,$thumbNamesInput)) ? true : false;
+            // Lặp qua danh sách ảnh để xử lý
+            foreach ($thumbNames as $index => $thumbName) {
+                $thumbAlt = $thumbAlts[$index] ?? null;
+                echo "<h3 style='color:red'>".$index."</h3>";
+                // Ảnh cũ (có ID)
+                if (isset($thumbIds[$index])) {
+                    $thumbId = $thumbIds[$index];
 
-            // Update: Xóa tất cả thông tin về ảnh của sản phẩm trên table `media`,
-            // ghi lại mới toàn bộ thông tin ảnh sản phẩm, làm việc này nhằm tự động tạo nên thứ tự cho ảnh trong danh sách
-            if($flagThumbUpdate == true){
-
-                $this->table = 'media';
-                $this->where('product_id', $params['id'])->delete(); //Xóa ảnh toàn bộ danh sách ảnh có liên quan đến product_id
-
-                //Kiểm tra các ảnh từ edit Input đầu vào và danh sách có sẵn trong cơ sở dữ liệu hay ko, nếu media input không có sẵn trong csdl thì thêm mới
-                if(!empty($params['thumb']['name'])){
-                    foreach ($params['thumb']['name'] as $keyMedia => $mediaNameInput) {
-                        //$mediaOject        = new MediaModel();
-                        $content = [];
-                        $content['name']    = str_replace('temp_', '', $mediaNameInput);
-                        $content['alt']     = $params['thumb']['alt'][$keyMedia];
-                        $content['size']    = File::size(public_path("images/$this->folderUpload/" . $content['name']));
-
-                        $batchInsert[] = [
-                            'product_id' => $params['id'],
-                            'content' => json_encode($content),
-                            'is_video' => 'false',
-                            'description' => '',
-                            'url' => '',
-                            'media_type' => 'default',
-                        ];
-                    }
-
-                    // Insert tất cả các phần tử vào database. Cách này là thao tác trực tiếp với table.
-                    // Trường hợp sử dụng đối tượng là `$mediaOject= new MediaModel();` thì phải đưa nó vào vòng lặp để $mediaOject reset trạng thái của nó
-                    // Nếu không reset trạng thái nó sẽ chỉ lưu được 1 phần tử duy nhất ở hàm : $mediaObject->saveItem($paramInput, ['task' => 'add-item']);
-                    DB::table('media')->insert($batchInsert);
+                    MediaModel::where('id', $thumbId)->update([
+                        'content' => json_encode([
+                            'name' => str_replace('temp_', '', $thumbName),
+                            'alt' => $thumbAlt,
+                        ]),
+                        'position' => $index, // Lưu thứ tự mới
+                    ]);
+                } else {
+                    // Ảnh mới (không có ID)
+                    MediaModel::create([
+                        'product_id' => $productId,
+                        'content' => json_encode([
+                            'name' => str_replace('temp_', '', $thumbName),
+                            'alt' => $thumbAlt,
+                        ]),
+                        'position' => $index, // Thứ tự mới
+                    ]);
                 }
             }
 
-            /* PRODUCT */
+            // Đảm bảo xóa các ảnh bị xóa khỏi Dropzone
+            $existingMediaIds = MediaModel::where('product_id', $productId)->pluck('id')->toArray();
+            $submittedIds = $thumbIds;
+
+            $idsToDelete = array_diff($existingMediaIds, $submittedIds);
+
+            if (!empty($idsToDelete)) {
+                MediaModel::whereIn('id', $idsToDelete)->delete();
+            }
+
+
+
+            /*Cập nhật lại product's item*/
             $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
             unset($params['product_id']);

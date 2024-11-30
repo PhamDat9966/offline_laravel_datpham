@@ -115,6 +115,7 @@ class ProductController extends AdminController
              // Trong trường hợp edit thì autoIncrement sẽ không tạo mới, autoIncrement = id hiện có,
              // tránh lỗi khi lấy dữ liệu $this->model->getItem($params,['task'=>'get-item']); trong trường hợp copy paste để sửa lại slug
             $item = $this->model->getItem($params,['task'=>'get-item']);
+           //dd($item->toArray());
 
             if($item['attributes']){
                 foreach($item['attributes'] as $itemAttribute){
@@ -123,8 +124,15 @@ class ProductController extends AdminController
             }
 
             if($item['media']){
-                foreach($item['media'] as $itemMedia){
-                    $media[] = $itemMedia['content'];
+                foreach ($item['media'] as $itemMedia) {
+                    // Giải mã JSON thành mảng PHP
+                    $decodedMedia = json_decode($itemMedia['content'], true);
+
+                    // Thêm id vào mảng
+                    $decodedMedia = array('id'=>$itemMedia['id']) + $decodedMedia;
+
+                    // Mã hóa lại thành JSON và thêm vào mảng $media
+                    $media[] = json_encode($decodedMedia);
                 }
             }
 
