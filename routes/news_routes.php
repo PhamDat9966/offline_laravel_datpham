@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 
 $prefixNews     = config('zvn.url.prefix_news'); //news69
 

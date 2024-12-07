@@ -365,10 +365,7 @@ class Template{
 
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = Config::get('zvn.template.button');
-        // $buttonInArea   =   [
-        //     'default'   =>  ['edit','delete'],
-        //     'slider'    =>  ['edit','delete']
-        // ];
+        //dd($tmplButton);
         $buttonInArea   = Config::get('zvn.config.button');
 
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';

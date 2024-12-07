@@ -16,7 +16,7 @@
     @endif
 @endsection
 
-@section('script')
+@section('after_script')
     <!-- Đưa mã nguồn CKEditor vào -->
     <script src="{{asset('admin/js/ckeditor/ckeditor.js')}}"></script>
     <script>

@@ -103,7 +103,9 @@ return [
             'phonenumber'   =>  ['name'=>'Search by Phonenumber'],
             'address'       =>  ['name'=>'Search by Address'],
             'phone'         =>  ['name'=>'Search by Phone'],
-            'slug'          =>  ['name'=>'Search by Slug']
+            'slug'          =>  ['name'=>'Search by Slug'],
+            'code'          =>  ['name'=>'Search by Code'],
+            'value'         =>  ['name'=>'Search by Value'],
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -161,6 +163,7 @@ return [
             'attribute'         =>  ['all','name'],
             'attributevalue'    =>  ['all','name'],
             'product'           =>  ['all','name','slug'],
+            'coupon'            =>  ['all','code','value'],
         ],
         'button'    =>[
             'default'           =>  ['edit','delete'],
@@ -178,6 +181,7 @@ return [
             'appointment'       =>  ['delete'],
             'attribute'         =>  ['edit','delete'],
             'attributevalue'    =>  ['delete'],
+            'coupon'            =>  ['edit','delete'],
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3]

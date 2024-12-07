@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 30, 2024 lúc 06:04 AM
+-- Thời gian đã tạo: Th12 07, 2024 lúc 06:44 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -398,6 +398,37 @@ INSERT INTO `contact` (`id`, `name`, `email`, `phone`, `message`, `status`, `tim
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `coupon`
+--
+
+CREATE TABLE `coupon` (
+  `id` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `value` int(11) NOT NULL,
+  `start_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `end_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `start_price` int(11) NOT NULL,
+  `end_price` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `total_use` int(11) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `coupon`
+--
+
+INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `start_price`, `end_price`, `total`, `total_use`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, '5KOyp5', 'percent', 10, '2024-12-05 08:20:01', '2024-12-18 08:20:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `media`
 --
 
@@ -523,9 +554,6 @@ CREATE TABLE `product` (
   `is_show_contact` int(11) DEFAULT NULL,
   `is_availabe` int(11) DEFAULT NULL,
   `total_rating` int(11) DEFAULT NULL,
-  `price_increase_value` int(11) DEFAULT NULL,
-  `price_increase_percent` int(11) DEFAULT NULL,
-  `price_increase_type` varchar(255) DEFAULT NULL,
   `fieldClass` varchar(255) DEFAULT NULL,
   `fieldWeb` varchar(255) DEFAULT NULL,
   `modified_by` varchar(255) DEFAULT NULL,
@@ -536,10 +564,10 @@ CREATE TABLE `product` (
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `price_increase_value`, `price_increase_percent`, `price_increase_type`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-27 00:00:00'),
-(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00'),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-30 00:00:00');
+INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
+(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-27 00:00:00'),
+(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00'),
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-30 00:00:00');
 
 --
 -- Bẫy `product`
@@ -955,6 +983,12 @@ ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `coupon`
+--
+ALTER TABLE `coupon`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `media`
 --
 ALTER TABLE `media`
@@ -1090,6 +1124,12 @@ ALTER TABLE `category_product`
 --
 ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `coupon`
+--
+ALTER TABLE `coupon`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `media`
