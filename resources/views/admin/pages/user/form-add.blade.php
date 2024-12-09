@@ -15,7 +15,6 @@
                                 'admin'      => Config::get('zvn.template.level.admin.name'),
                                 'member'     => Config::get('zvn.template.level.member.name')
                         ];
-
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [

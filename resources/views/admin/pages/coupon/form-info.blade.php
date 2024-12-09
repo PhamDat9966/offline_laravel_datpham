@@ -30,19 +30,26 @@
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
 
-    $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
-                                 name="code"
-                                 type="text"
-                                 value="'.$code.'"
-                                 id="code"
-                          >';
+    $inputCode            = '<div class="input-group">
+                                <input id="code" class="form-control" type="text" name="code" value="'.$code.'">
+                                <span class="input-group-btn">
+                                    <a id="btn-genarate-coupon-code" class="btn btn-success">
+                                        Tạo lại mã
+                                    </a>
+                                </span>
+                            </div>';
 
-    $daterange             = '<input class="form-control col-md-6 col-xs-12"
+    $typeValue          = [
+                                'default'   => 'Chọn hình thức giảm giá',
+                                'percent'   => Config::get('zvn.template.type_coupon_discount.percent.name'),
+                                'price'     => Config::get('zvn.template.type_coupon_discount.price.name')
+                            ];
+    $daterange          = '<input class="form-control col-md-6 col-xs-12"
                                  name="daterange"
                                  type="text"
                                  value=""
                                  id="daterange"
-                          >';
+                        >';
 
     $submitButton      = '<input name="id" type="hidden" value="'.$id.'">
                           <input class="btn btn-success" name="taskEditInfo" type="submit" value="Save">';
@@ -51,17 +58,16 @@
     $elements   = [
         [
             'label'     =>  Form::label('code', 'Code', $formlabelAttr),
-            'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  $inputCode                            // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
             'label'     =>  Form::label('type', 'Loại giảm giá', $formlabelAttr),
-            'element'   =>  Form::text('type', $type,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'element'   =>  Form::select('type', $typeValue, $type, $formInputAttr)
         ],
         [
             'label'     =>  Form::label('value', 'Giá trị', $formlabelAttr),
-            'element'   =>  Form::text('value', $value,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'element'   =>  Form::number('value', $value,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
@@ -146,6 +152,21 @@ $(document).ready(function () {
         startDate: moment().startOf('month'), // Ngày bắt đầu mặc định
         endDate: moment().endOf('month'), // Ngày kết thúc mặc định
     });
+
+    $('#btn-genarate-coupon-code').click(function() {
+        // Hàm tạo chuỗi ngẫu nhiên 6 ký tự
+        function generateRandomString(length) {
+            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        // Gán chuỗi ngẫu nhiên vào input với ID code
+        $('#code').val(generateRandomString(6));
+    })
 });
 
 </script>

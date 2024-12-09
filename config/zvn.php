@@ -145,7 +145,11 @@ return [
             'science'       => 'Khóa học',
             'book'          => 'Sách',
             'internship'    => 'Thực tập'
-        ]
+        ],
+        'type_coupon_discount'=>[
+            'percent'       => ['name'=>'Giảm theo %'],
+            'price'         => ['name'=>'Giảm trực tiếp']
+        ],
     ],
     'config'    =>[
         'search'    =>[

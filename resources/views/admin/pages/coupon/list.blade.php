@@ -60,8 +60,8 @@
                                 <p><strong>Đến:</strong> {!! $end_price !!}</p>
                             </td>
                             <td width="15%">
-                                <p><strong>Từ:</strong> {!! $total !!}</p>
-                                <p><strong>Đến:</strong> {!! $total_use !!}</p>
+                                <p><strong>Tổng:</strong> {!! $total !!}</p>
+                                <p><strong>Đã sử dụng:</strong> {!! $total_use !!}</p>
                             </td>
                             <td>
                                 {!!$status!!}
