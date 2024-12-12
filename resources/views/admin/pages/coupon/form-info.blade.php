@@ -47,9 +47,13 @@
     $daterange          = '<input class="form-control col-md-6 col-xs-12"
                                  name="daterange"
                                  type="text"
-                                 value=""
                                  id="daterange"
+                                 value="'.old('daterange', date("d/m/Y H:m:s", strtotime($start_time)).' - '.date("d/m/Y H:m:s", strtotime($end_time))).'"
+
                         >';
+
+    $hiddenInputStartEndDATE = '<input type="hidden" id="start_time" name="start_time" value="'.old('startTime', date("Y/m/d H:m:s", strtotime($start_time))).'"/>
+                                <input type="hidden" id="end_time" name="end_time" value="'.old('endTime', date("Y/m/d H:m:s", strtotime($end_time))).'" />';
 
     $submitButton      = '<input name="id" type="hidden" value="'.$id.'">
                           <input class="btn btn-success" name="taskEditInfo" type="submit" value="Save">';
@@ -67,12 +71,17 @@
         ],
         [
             'label'     =>  Form::label('value', 'Giá trị', $formlabelAttr),
-            'element'   =>  Form::number('value', $value,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'element'   =>  Form::number('value', $value,   $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('price','Khoảng giá áp dụng', $formlabelAttr),
+            'element'   =>  sprintf('<div class="col-md-6">%s</div><div class="col-md-6">%s</div>',
+                            Form::number('start_price',$start_price,$formInputAttr + ['placeholder'=>'Từ']),
+                            Form::number('end_price',$end_price,$formInputAttr + ['placeholder'=>'Đến']))
         ],
         [
             'label'     =>  Form::label('daterange', 'Thời gian áp dụng', $formlabelAttr),
-            'element'   =>  $daterange
+            'element'   =>  $daterange . $hiddenInputStartEndDATE
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -133,10 +142,22 @@
 
 <script>
 $(document).ready(function () {
+    // Lấy giá trị mặc định từ input
+    {{--  var startDateTemp = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm:ss');
+    var endDateTemp = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm:ss');  --}}
+    var startDateTemp = moment($('#start_time').val(), 'YYYY-MM-DD HH:mm:ss');
+    var endDateTemp = moment($('#end_time').val(), 'YYYY-MM-DD HH:mm:ss');
+
     $('input[name="daterange"]').daterangepicker({
+        startDate: startDateTemp,
+        endDate: endDateTemp,
         opens: 'right', // Cửa sổ mở sang bên phải
+        showDropdowns: true,
+        timePicker: true,
+        timePicker24Hour: true,
+        timePickerSeconds: true,
         locale: {
-            format: 'DD/MM/YYYY', // Định dạng ngày tháng
+            format: 'DD/MM/YYYY HH:mm:ss', // Định dạng ngày tháng
             separator: ' - ', // Dấu phân cách giữa 2 ngày
             applyLabel: 'Áp dụng',
             cancelLabel: 'Hủy',
@@ -149,8 +170,13 @@ $(document).ready(function () {
             ],
             firstDay: 1
         },
-        startDate: moment().startOf('month'), // Ngày bắt đầu mặc định
-        endDate: moment().endOf('month'), // Ngày kết thúc mặc định
+    });
+
+    //Gán năm tháng ngày giờ phút vào các thẻ hidden sau sự kiện chọn thời gian tại ô daterangepicker
+    $('#daterange').on('apply.daterangepicker', function (ev, picker) {
+        // Cập nhật giá trị startTime và endTime vào hidden inputs
+        $('#start_time').val(picker.startDate.format('YYYY-MM-DD HH:mm:ss')); // Ngày bắt đầu
+        $('#end_time').val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));   // Ngày kết thúc
     });
 
     $('#btn-genarate-coupon-code').click(function() {
@@ -166,7 +192,8 @@ $(document).ready(function () {
 
         // Gán chuỗi ngẫu nhiên vào input với ID code
         $('#code').val(generateRandomString(6));
-    })
+    });
+
 });
 
 </script>

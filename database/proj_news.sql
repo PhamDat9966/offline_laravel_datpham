@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 07, 2024 lúc 06:44 AM
+-- Thời gian đã tạo: Th12 12, 2024 lúc 07:48 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -424,7 +424,8 @@ CREATE TABLE `coupon` (
 --
 
 INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `start_price`, `end_price`, `total`, `total_use`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, '5KOyp5', 'percent', 10, '2024-12-05 08:20:01', '2024-12-18 08:20:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', NULL, NULL);
+(1, '5KOyp5', 'percent', 10, '2024-12-06 16:12:01', '2024-12-23 08:12:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', '2024-12-12 00:00:00', 'admin'),
+(2, 'tg2CJM', NULL, 30, '2024-12-02 15:00:00', '2024-12-31 23:59:59', 30000, 50000, 10, 0, 'active', '2024-12-12 00:00:00', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1129,7 +1130,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT cho bảng `coupon`
 --
 ALTER TABLE `coupon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `media`

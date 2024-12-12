@@ -31,8 +31,8 @@
                             $code               = Hightlight::show($val['code'], $params['search'] , 'code');
                             $value              = Hightlight::show($val['value'], $params['search'] , 'value');
 
-                            $start_time         = date("d/m/Y h:i:s", strtotime($val['start_time']));
-                            $end_time           = date("d/m/Y h:i:s", strtotime($val['end_time']));
+                            $start_time         = date("d/m/Y h:i:s a", strtotime($val['start_time']));
+                            $end_time           = date("d/m/Y h:i:s a", strtotime($val['end_time']));
 
                             $start_price        = $val['start_price'] . 'đ';
                             $end_price          = $val['end_price'] . 'đ';

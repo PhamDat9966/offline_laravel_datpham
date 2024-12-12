@@ -13,8 +13,8 @@ class CouponModel extends AdminModel
     public function __construct(){
         $this->table                = 'coupon as c';
         $this->folderUpload         = 'coupon';
-        $this->fieldSearchAccepted  = ['name','content','slug'];
-        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
+        $this->fieldSearchAccepted  = ['code','type','value'];
+        $this->crudNotActived       = ['_token','daterange','taskAdd','taskEditInfo','taskChangeCategory'];
     }
 
     public function listItems($params = null,$options = null){
@@ -145,7 +145,7 @@ class CouponModel extends AdminModel
         }
 
         if($options['task'] == 'add-item'){
-
+            //dd($params);
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
 
@@ -164,8 +164,8 @@ class CouponModel extends AdminModel
             $this->end_time     = $params['end_time'];
             $this->start_price  = $params['start_price'];
             $this->end_price    = $params['end_price'];
-            $this->total        = $params['total'];
-            $this->total_use    = $params['total_use'];
+            $this->total        = 10;
+            $this->total_use    = 0;
             $this->status       = $params['status'];
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
@@ -173,19 +173,6 @@ class CouponModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
-
-            if(!empty($params["thumb"])){
-                /*Xóa ảnh cũ*/
-                $item   =  $this->getItem($params,['task' => 'get-thumb']);
-                //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $params['thumb_current']);
-                $this->deleteThumb($params['thumb_current']);
-                /* Thêm ảnh mới */
-                // $thumb                  = $params['thumb'];
-                // $params['thumb']        = Str::random(10) . '.' . $thumb->clientExtension();
-                // $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image');
-                $params['thumb']        = $this->uploadThumb($params['thumb']);
-                /* end Thêm ảnh mới */
-            }
 
             $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');

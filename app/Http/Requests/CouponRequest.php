@@ -26,44 +26,31 @@ class CouponRequest extends FormRequest
      */
     public function rules()
     {
-        $task = 'add';
         //dd($this->toArray());
-        if(isset($this->taskEditInfo)) $task = 'edit';
-        if(isset($this->taskChangeCategory)) $task = 'change-category';
+        $id             = $this->id;
+        $type           = implode(',',array_keys(config('zvn.template.type_coupon_discount')));
 
-        $id         = $this->id;
-        $condName       = "";
-        $condCategory   = "";
-        $condStatus     = "";
-        $condThumb      = "";
+        $condCode       = "bail|required|min:6|max:6|unique:$this->table,code";
+        $condType       = "bail|in:$type";
+        $condValue      = "bail|numeric|min:1";
+        $condEndTime    = "after_or_equal:" . date("Y-m-d");
+        $condStartPrice = "bail|numeric|min:1";
+        $condEndPrice   = "bail|numeric|min:1|gt:start_price";
+        $condTotal      = "bail|numeric|min:1";
+        $condStatus     = "bail|in:active,inactive";
 
-        switch ($task) {
-            case 'add':
-                $condThumb          = 'bail|required|mimes:jpeg,jpg,png,gif|max:10000';
-                $condName           = "bail|required|between:5,100|unique:$this->table,name";
-                $condStatus         = "bail|in:active,inactive";
-                $condCategory       = "bail|required|numeric";
-                break;
-            case 'edit':
-                $condThumb          = 'bail|mimes:jpeg,jpg,png,gif|max:10000';
-                $condName           = "bail|required|between:5,100|unique:$this->table,name,$id";
-                $condStatus         = "bail|in:active,inactive";
-                break;
-            case 'change-category':
-                $condCategory       = "bail|required|numeric";
-                break;
-        }
-
-        // $condName   = "bail|required|between:5,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
-        // if(!empty($id)) {
-        //     $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
-        // }
+        if($this->type == 'percent') $condValue = "|max:100";
+        if(!empty($id)) $condCode = "";
 
         return [
-            'name'          => $condName,
+            'code'          => $condCode,
+            'type'          => $condType,
+            'value'         => $condValue,
+            'end_time'      => $condEndTime,
+            'start_price'   => $condStartPrice,
+            'end_price'     => $condEndPrice,
+            'total'         => $condTotal,
             'status'        => $condStatus,
-            'thumb'         => $condThumb,
-            'category_id'   => $condCategory
         ];
     }
 
