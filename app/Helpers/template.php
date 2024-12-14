@@ -417,8 +417,8 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showItemTypeFilter($controllerName , $typeFilterValue){
-        $tmplDisplay    = Config::get('zvn.template.type_filter');
+    public static function showItemTypeCouponFilter($controllerName , $typeFilterValue){
+        $tmplDisplay    = Config::get('zvn.template.type_coupon_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);

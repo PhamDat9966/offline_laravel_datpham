@@ -27,7 +27,7 @@
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                 = $val['id'];
-                            $type               = $val['type'];
+                            $type               = ($val['type'] === 'percent') ? 'Giảm giá theo phần trăm' : 'Giảm giá trực tiếp';
                             $code               = Hightlight::show($val['code'], $params['search'] , 'code');
                             $value              = Hightlight::show($val['value'], $params['search'] , 'value');
 

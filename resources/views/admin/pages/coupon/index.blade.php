@@ -2,9 +2,9 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-
+    $xhtmlButtonFilter      = Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
+    $xhtmlAreaSearch        = Template::showAreaSearch($controllerName, $params['search']);
+    $xhtmlItemTypeFilter    = Template::showItemTypeCouponFilter($controllerName, $params['filter']['type']);
 @endphp
 
 @section('content')
@@ -19,10 +19,13 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         {!!$xhtmlButtonFilter!!}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        {!!$xhtmlItemTypeFilter!!}
+                    </div>
+                    <div class="col-md-5">
                         {!!$xhtmlAreaSearch!!}
                     </div>
                 </div>

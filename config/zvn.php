@@ -70,6 +70,11 @@ return [
             'feature'       =>  ['name'=>'Nổi bật'],
             'normal'        =>  ['name'=>'Bình thường'],
         ],
+        'type_coupon_filter'=>[
+            'all'           =>  ['name'=>'Tất cả'],
+            'percent'       =>  ['name'=>'Lọc theo %'],
+            'price'         =>  ['name'=>'Lọc theo giảm giá trực tiếp'],
+        ],
         'type_sex'=>[
             'all'           =>  ['name'=>'Giới tính'],
             'nam'           =>  ['name'=>'Nam'],
