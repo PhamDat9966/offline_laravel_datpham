@@ -13,8 +13,8 @@
     $code           = (isset($item['code']))? $item->code : '';
     $type           = (isset($item['type']))? $item->type : '';
     $value          = (isset($item['value']))? $item->value : '';
-    $start_time     = (isset($item['start_time']))? $item->start_time : '';
-    $end_time       = (isset($item['end_time']))? $item->end_time : '';
+    $start_time     = (isset($item['start_time']))? date("Y/m/d H:m:s", strtotime($item->start_time)): '';
+    $end_time       = (isset($item['end_time']))? date("Y/m/d H:m:s", strtotime($item->end_time)) : '';
     $start_price    = (isset($item['start_price']))? $item->start_price : '';
     $end_price      = (isset($item['end_price']))? $item->end_price : '';
     $total          = (isset($item['total']))? $item->total : '';
@@ -48,12 +48,13 @@
                                  name="daterange"
                                  type="text"
                                  id="daterange"
-                                 value="'.old('daterange', date("d/m/Y H:m:s", strtotime($start_time)).' - '.date("d/m/Y H:m:s", strtotime($end_time))).'"
+                                 value=""
 
                         >';
 
-    $hiddenInputStartEndDATE = '<input type="hidden" id="start_time" name="start_time" value="'.old('startTime', date("Y/m/d H:m:s", strtotime($start_time))).'"/>
-                                <input type="hidden" id="end_time" name="end_time" value="'.old('endTime', date("Y/m/d H:m:s", strtotime($end_time))).'" />';
+    $hiddenInputStartEndDATE = '<input type="hidden" id="start_time" name="start_time" value="'.$start_time.'"/>
+                                <input type="hidden" id="end_time" name="end_time" value="'.$end_time.'" />';
+
 
     $submitButton      = '<input name="id" type="hidden" value="'.$id.'">
                           <input class="btn btn-success" name="taskEditInfo" type="submit" value="Save">';
@@ -62,8 +63,7 @@
     $elements   = [
         [
             'label'     =>  Form::label('code', 'Code', $formlabelAttr),
-            'element'   =>  $inputCode                            // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'element'   =>  $inputCode
         ],
         [
             'label'     =>  Form::label('type', 'Loại giảm giá', $formlabelAttr),
@@ -82,6 +82,10 @@
         [
             'label'     =>  Form::label('daterange', 'Thời gian áp dụng', $formlabelAttr),
             'element'   =>  $daterange . $hiddenInputStartEndDATE
+        ],
+        [
+            'label'     =>  Form::label('total', 'Số lượng', $formlabelAttr),
+            'element'   =>  Form::number('total', $total,   $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
@@ -142,15 +146,17 @@
 
 <script>
 $(document).ready(function () {
-    // Lấy giá trị mặc định từ input
-    {{--  var startDateTemp = moment($('#startTime').val(), 'YYYY-MM-DD HH:mm:ss');
-    var endDateTemp = moment($('#endTime').val(), 'YYYY-MM-DD HH:mm:ss');  --}}
-    var startDateTemp = moment($('#start_time').val(), 'YYYY-MM-DD HH:mm:ss');
-    var endDateTemp = moment($('#end_time').val(), 'YYYY-MM-DD HH:mm:ss');
-
+    // Lấy giá trị mặc định từ input:
+    // -moment().startOf('month') là ngày đầu tiên của tháng.
+    // -moment().endOf('month') là ngày cuối cùng của tháng
+    var startDateTemp   = ($('#start_time').val() != '') ? moment($('#start_time').val(), 'YYYY-MM-DD HH:mm:ss') : moment().startOf('month');
+    var endDateTemp     = ($('#end_time').val() != '') ?  moment($('#end_time').val(), 'YYYY-MM-DD HH:mm:ss') : moment().endOf('month');
+    console.log(startDateTemp);
     $('input[name="daterange"]').daterangepicker({
         startDate: startDateTemp,
         endDate: endDateTemp,
+        //startDate: moment().startOf('month'), // Ngày bắt đầu mặc định
+        //endDate: moment().endOf('month'), // Ngày kết thúc mặc định
         opens: 'right', // Cửa sổ mở sang bên phải
         showDropdowns: true,
         timePicker: true,

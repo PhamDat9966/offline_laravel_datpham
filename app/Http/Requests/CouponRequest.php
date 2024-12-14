@@ -33,13 +33,13 @@ class CouponRequest extends FormRequest
         $condCode       = "bail|required|min:6|max:6|unique:$this->table,code";
         $condType       = "bail|in:$type";
         $condValue      = "bail|numeric|min:1";
-        $condEndTime    = "after_or_equal:" . date("Y-m-d");
+        $condEndTime    = "after_or_equal:" . date("Y-m-d H:i:s");
         $condStartPrice = "bail|numeric|min:1";
         $condEndPrice   = "bail|numeric|min:1|gt:start_price";
         $condTotal      = "bail|numeric|min:1";
         $condStatus     = "bail|in:active,inactive";
 
-        if($this->type == 'percent') $condValue = "|max:100";
+        if($this->type == 'percent') $condValue = "bail|numeric|min:1|max:100";
         if(!empty($id)) $condCode = "";
 
         return [
@@ -56,15 +56,24 @@ class CouponRequest extends FormRequest
 
     public function messages()  // Định nghĩa lại url
     {
+        $today = date("d-m-Y H:i:s");
         return [
-            'name.required'         => 'Tên bài viết không được rỗng',
-            'name.between'          => 'Tên bài viết có độ dài từ 5 đển 100 ký tự',
-            'name.unique'           => 'Tên bài viết không được trùng với những bài viết sẵn có',
-            'status.in'             => 'Status nên chọn active hoặc inactive',
-            'thumb.required'        => 'Ảnh không được rỗng',
-            'thumb.mimes'           => 'Hãy chọn ảnh có đuôi là : jpeg,jpg,png,gif',
-            'thumb.max'             => 'Hãy chọn ảnh có độ lớn nhỏ hơn 10000kb',
-            'category_id.numeric'   => 'Hãy chọn một category'
+            'code.required'             => 'Code không được rỗng, hãy click vào ô "Tạo lại mã"',
+            'code.min'                  => 'Code phải nhập ít nhất 6 ký tự',
+            'code.max'                  => 'Code phải nhập không quá 6 ký tự',
+            'type.in'                   => 'Loại giảm giá hãy chọn "Giảm theo %" hoặc "Giảm trực tiếp"',
+            'value.numeric'             => 'Hãy nhập Giá trị giảm giá, giá trị là số',
+            'value.min'                 => 'Giá trị giảm giá phải lớn hơn 0',
+            'end_time.after_or_equal'   => 'Hãy chọn khoảng thời gian áp dụng mã giảm giá, ngày kết thúc giảm giá phải khác thời điểm hiện tại: '. $today,
+            'value.max'                 => 'Giá trị giảm giá không quá 100%',
+            'status.in'                 => 'Status hãy chọn active hoặc inactive',
+            'start_price.numeric'       => 'Hãy nhập Giá trị đầu trong khoảng áp dụng giảm giá',
+            'end_price.numeric'         => 'Hãy nhập Giá trị cuối trong khoảng áp dụng giảm giá',
+            'start_price.min'           => 'Giá trị đầu trong khoảng áp dụng giảm giá không được nhỏ hơn 1',
+            'end_price.min'             => 'Giá trị cuối trong khoảng áp dụng giảm giá không được nhỏ hơn 1',
+            'end_price.gt'              => 'Giá trị cuối trong khoảng áp dụng giảm giá phải khác giá trị đầu',
+            'total.numeric'             => 'Hãy nhập một số cho Số lượng áp dụng giảm giá',
+            'total.min'                 => 'Đảm bảo Số lượng áp dụng giảm giá phải lớn hơn 0'
         ];
     }
 
