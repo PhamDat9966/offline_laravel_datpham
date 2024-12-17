@@ -195,5 +195,6 @@ return [
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3]
         ]
-    ]
+        ],
+    'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
 ];

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 12, 2024 lúc 07:48 AM
+-- Thời gian đã tạo: Th12 17, 2024 lúc 07:30 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -425,7 +425,8 @@ CREATE TABLE `coupon` (
 
 INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `start_price`, `end_price`, `total`, `total_use`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
 (1, '5KOyp5', 'percent', 10, '2024-12-06 16:12:01', '2024-12-23 08:12:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', '2024-12-12 00:00:00', 'admin'),
-(2, 'tg2CJM', NULL, 30, '2024-12-02 15:00:00', '2024-12-31 23:59:59', 30000, 50000, 10, 0, 'active', '2024-12-12 00:00:00', 'admin', NULL, NULL);
+(2, 'tg2CJM', 'percent', 30, '2024-12-02 15:12:00', '2024-12-31 23:12:59', 30000, 50000, 10, 0, 'active', '2024-12-12 00:00:00', 'admin', '2024-12-13 00:00:00', 'admin'),
+(3, '2ywu0e', 'price', 10000, '2024-12-03 06:12:00', '2025-01-02 16:01:59', 10000, 50000, 10, 0, 'active', '2024-12-14 00:00:00', 'admin', '2024-12-14 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -713,7 +714,8 @@ CREATE TABLE `setting` (
 INSERT INTO `setting` (`id`, `key_value`, `value`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
 (1, 'setting-general', '{\"logo\":\"\\/images\\/logo\\/logo-topmargin.JPG\",\"hotline\":\"123456789123\",\"timeword\":\"124\\/124\",\"copyright\":\"@2020 - B\\u1ea3n quy\\u1ec1n c\\u00f4ng ty l\\u1eadp tr\\u00ecnh Zendvn\",\"address\":\"S\\u1ed1 01, Kh\\u1ed1i A1, To\\u00e0 nh\\u00e0 \\u0110\\u1ea1t Gia, 43 \\u0110\\u01b0\\u1eddng C\\u00e2y Keo, Tam Ph\\u00fa, Th\\u1ee7 \\u0110\\u1ee9c, H\\u1ed3 Ch\\u00ed Minh\",\"introduction\":\"<p>C&ocirc;ng Ty C\\u1ed5 Ph\\u1ea7n L\\u1eadp Tr&igrave;nh Zend Vi\\u1ec7t Nam - M&atilde; s\\u1ed1 thu\\u1ebf: 0314390745. Gi\\u1ea5y ph&eacute;p \\u0111\\u0103ng k&yacute; kinh doanh s\\u1ed1 0314390745 do S\\u1edf K\\u1ebf ho\\u1ea1ch v&agrave; \\u0110\\u1ea7u t\\u01b0 Th&agrave;nh ph\\u1ed1 H\\u1ed3 Ch&iacute; Minh c\\u1ea5p ng&agrave;y 09\\/05\\/2017<\\/p>\",\"googlemap\":\"<iframe src=\\\"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m18!1m12!1m3!1d3918.3604198520575!2d106.73612927408858!3d10.86016745764545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d5640014e7%3A0x3bb323b29d50dca9!2zWmVuZFZOIC0gxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6pu!5e0!3m2!1svi!2s!4v1721455847550!5m2!1svi!2s\\\" width=\\\"600\\\" height=\\\"450\\\" style=\\\"border:0;\\\" allowfullscreen=\\\"\\\" loading=\\\"lazy\\\" referrerpolicy=\\\"no-referrer-when-downgrade\\\"><\\/iframe>\",\"taskGeneral\":\"Save\"}', 'active', '2024-07-20 14:33:27', 'Admin', '2024-07-23 00:00:00', 'admin'),
 (2, 'setting-email', '{\"username\":\"phamdat999666@gmail.com\",\"password\":\"phnfqmrkrrcawnhq\",\"bcc\":\"phamdat9966@gmail.com,phamdinh01011945@gmail.com\",\"taskEmailAccount\":\"Save\"}', 'active', '2024-07-20 14:33:27', 'Admin', '2024-07-23 00:00:00', 'admin'),
-(3, 'setting-social', '{\"facebook\":\"https:\\/\\/www.facebook.com\\/zendvngroup12345\",\"youtube\":\"https:\\/\\/www.youtube.com\\/user\\/zendvn\",\"google\":\"https:\\/\\/www.youtube.com\\/user\\/zendvn\"}', 'active', '2024-07-20 14:33:27', 'Admin', '2024-07-23 00:00:00', 'admin');
+(3, 'setting-social', '{\"facebook\":\"https:\\/\\/www.facebook.com\\/zendvngroup12345\",\"youtube\":\"https:\\/\\/www.youtube.com\\/user\\/zendvn\",\"google\":\"https:\\/\\/www.youtube.com\\/user\\/zendvn\"}', 'active', '2024-07-20 14:33:27', 'Admin', '2024-07-23 00:00:00', 'admin'),
+(4, 'setting-video', 'https://www.youtube.com/watch?v=vo1XjuLVaZo&list=PLv6GftO355AsZFXlWLKob6tMsWZa4VCY1', 'active', '2024-07-20 14:33:27', 'Admin', '2024-07-23 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -1130,7 +1132,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT cho bảng `coupon`
 --
 ALTER TABLE `coupon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `media`
@@ -1178,7 +1180,7 @@ ALTER TABLE `rssnews`
 -- AUTO_INCREMENT cho bảng `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`

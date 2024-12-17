@@ -102,6 +102,13 @@ class SettingModel extends AdminModel
             self::where('key_value', $setting['key_value'])->update(['value'=>$setting['value']]);
 
         }
+
+        if($options['task'] == 'edit-list-play-youtube'){
+            $params                     = $this->prepareParams($params);
+            $setting['key_value']       = 'setting-video';
+            $setting['value']           = $params['link_play_list_youtube'];
+            self::where('key_value', $setting['key_value'])->update(['value'=>$setting['value']]);
+        }
     }
 
 }
