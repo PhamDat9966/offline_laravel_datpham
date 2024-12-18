@@ -45,14 +45,21 @@
                     <li><a href="{{ route('attributevalue')}}"> Giá trị thuộc tính</a></li>
                 </ul>
             </li>
-            <li id='manager-sales'>
+            <li><a href="{{ route('coupon')}}"><i class="fa fa-money"></i> Mã khuyến mãi</a></li>
+            {{--  <li id='manager-sales'>
                 <a><i class="fa fa-money"></i></i> Quản lý bán hàng<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ route('coupon')}}"> Mã khuyến mãi</a></li>
                 </ul>
-            </li>
+            </li>  --}}
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li>
-            <li><a href="{{ route('gallery')}}"><i class="fa fa-file-image-o"></i> Gallery</a></li>
+            <li id='media'>
+                <a><i class="fa fa-file-image-o"></i></i> Quản lý media<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('gallery')}}"> Gallery</a></li>
+                    <li><a href="{{ route('video')}}"> Playlist Youtube</a></li>
+                </ul>
+            </li>
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
             <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
             <li><a href="{{ route('admin.contact')}}"><i class="fa fa-paper-plane"></i>Liên hệ</a></li>

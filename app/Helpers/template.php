@@ -417,6 +417,22 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemTypeFilter($controllerName , $typeFilterValue){
+        $tmplDisplay    = Config::get('zvn.template.type_filter');
+
+        // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_type_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($key) == strval($typeFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
     public static function showItemTypeCouponFilter($controllerName , $typeFilterValue){
         $tmplDisplay    = Config::get('zvn.template.type_coupon_filter');
 
