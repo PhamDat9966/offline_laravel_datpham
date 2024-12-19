@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 17, 2024 lúc 07:30 AM
+-- Thời gian đã tạo: Th12 19, 2024 lúc 07:58 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -720,6 +720,32 @@ INSERT INTO `setting` (`id`, `key_value`, `value`, `status`, `created`, `created
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `shipping`
+--
+
+CREATE TABLE `shipping` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `status` varchar(225) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+
+--
+-- Đang đổ dữ liệu cho bảng `shipping`
+--
+
+INSERT INTO `shipping` (`id`, `name`, `cost`, `status`, `ordering`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'Hồ Chí Minh', 30000, 'active', 1, '2024-12-19 13:18:21', 'admin', NULL, NULL),
+(2, 'Cần thơ', 50000, 'active', NULL, '2024-12-19 00:00:00', 'admin', '2024-12-19 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `slider`
 --
 
@@ -1047,6 +1073,12 @@ ALTER TABLE `setting`
   ADD UNIQUE KEY `setting_key` (`key_value`);
 
 --
+-- Chỉ mục cho bảng `shipping`
+--
+ALTER TABLE `shipping`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `slider`
 --
 ALTER TABLE `slider`
@@ -1181,6 +1213,12 @@ ALTER TABLE `rssnews`
 --
 ALTER TABLE `setting`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `shipping`
+--
+ALTER TABLE `shipping`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `slider`

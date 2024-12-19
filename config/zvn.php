@@ -111,6 +111,7 @@ return [
             'slug'          =>  ['name'=>'Search by Slug'],
             'code'          =>  ['name'=>'Search by Code'],
             'value'         =>  ['name'=>'Search by Value'],
+            'cost'          =>  ['name'=>'Search by Cost'],
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -173,6 +174,7 @@ return [
             'attributevalue'    =>  ['all','name'],
             'product'           =>  ['all','name','slug'],
             'coupon'            =>  ['all','code','value'],
+            'shipping'          =>  ['all','name','cost']
         ],
         'button'    =>[
             'default'           =>  ['edit','delete'],
@@ -191,6 +193,7 @@ return [
             'attribute'         =>  ['edit','delete'],
             'attributevalue'    =>  ['delete'],
             'coupon'            =>  ['edit','delete'],
+            'shipping'          =>  ['edit','delete'],
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3]
