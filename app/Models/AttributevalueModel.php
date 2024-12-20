@@ -168,12 +168,11 @@ class AttributevalueModel extends AdminModel
     }
 
     public function deleteItem($params = null,$options = null){
-
-        if($options['task'] == 'delete-items'){
-
+        if($options['task'] == 'delete-item'){
             $this->table = 'attribute_value';
-            $this->where('attribute_id', $params['attribute_id'])
-                 ->whereNotIn('id', $params['attributevalue_ids'])->delete();
+            $this->where('id',$params['id'])->delete();
+            // $this->where('attribute_id', $params['attribute_id'])
+            //      ->whereNotIn('id', $params['attributevalue_ids'])->delete();
         }
     }
 

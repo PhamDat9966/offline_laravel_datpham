@@ -198,12 +198,7 @@ class AttributeModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $item   =  $this->getItem($params,['task' => 'get-thumb']);
-
-            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            $this->deleteThumb($item['thumb']);
-
-            $this->table = 'article';
+            $this->table = 'attribute';
             $this->where('id', $params['id'])->delete();
         }
     }

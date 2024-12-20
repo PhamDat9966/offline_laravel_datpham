@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 19, 2024 lúc 07:58 AM
+-- Thời gian đã tạo: Th12 20, 2024 lúc 08:12 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -195,6 +195,15 @@ INSERT INTO `attribute` (`id`, `name`, `status`, `fieldClass`) VALUES
 (3, 'material', 'active', 'chất liệu'),
 (4, 'storage', 'active', 'Dung lượng');
 
+--
+-- Bẫy `attribute`
+--
+DELIMITER $$
+CREATE TRIGGER `before_attribute_delete` BEFORE DELETE ON `attribute` FOR EACH ROW DELETE FROM attribute_value
+  WHERE attribute_id = OLD.id
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -221,20 +230,25 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `stat
 (1, 1, 'vàng', NULL, 'active', NULL, NULL, NULL, NULL),
 (2, 1, 'đỏ', NULL, 'active', NULL, NULL, NULL, NULL),
 (3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
-(4, 2, 'Học hành khét lẹt, chân thành không giả mạo', NULL, 'active', NULL, NULL, '2024-10-21 00:00:00', 'admin'),
-(5, 2, 'Học im lặng, nhưng tinh thần vẫn sôi động', NULL, 'active', NULL, NULL, NULL, NULL),
-(7, 2, 'Đừng xấu hổ khi không biết, chỉ xấu hổ khi không học', NULL, 'active', NULL, NULL, NULL, NULL),
-(8, 2, 'Sức khỏe mạnh mẽ, cuộc sống tràn đầy năng lượng', NULL, 'active', NULL, NULL, NULL, NULL),
-(9, 2, 'Dù tốt dù xấu, hãy là chính bạn ', NULL, 'active', NULL, NULL, NULL, NULL),
+(4, 2, 'zendvn', NULL, 'active', NULL, NULL, '2024-10-21 00:00:00', 'admin'),
+(5, 2, 'Laravel, PHP', NULL, 'active', NULL, NULL, NULL, NULL),
 (10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
 (11, 3, 'inox', NULL, 'active', NULL, NULL, NULL, NULL),
 (12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
-(46, 1, 'nâu', NULL, 'active', '2024-10-13 00:00:00', 'admin', NULL, NULL),
 (47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', '2024-10-26 00:00:00', 'admin'),
 (48, 4, '128 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
 (49, 4, '256 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
 (50, 4, '512 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
 (51, 4, '1 TB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL);
+
+--
+-- Bẫy `attribute_value`
+--
+DELIMITER $$
+CREATE TRIGGER `before_attribute_value_delete` BEFORE DELETE ON `attribute_value` FOR EACH ROW DELETE FROM product_has_attribute
+  WHERE attribute_value_id = OLD.id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -368,6 +382,15 @@ INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `disp
 (8, 'Iphone', 'cm-iphone-8', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 3, 4),
 (9, 'Samsung', 'cm-samsung-9', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 5, 6),
 (10, 'decktop', 'cm-decktop-10', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 4, 11, 12);
+
+--
+-- Bẫy `category_product`
+--
+DELIMITER $$
+CREATE TRIGGER `before_category_product_delete` BEFORE DELETE ON `category_product` FOR EACH ROW DELETE FROM product
+  WHERE category_product_id = OLD.id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -567,9 +590,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-27 00:00:00'),
+(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00'),
 (3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00'),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-30 00:00:00');
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00');
 
 --
 -- Bẫy `product`
@@ -605,7 +628,6 @@ CREATE TABLE `product_has_attribute` (
 
 INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`) VALUES
 (4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', NULL, NULL, NULL, NULL, NULL),
-(5, 2, 46, 'Samsung Galaxy Z Fold6', 'nâu', NULL, NULL, NULL, NULL, NULL),
 (6, 3, 4, 'abc123', 'Học hành khét lẹt, chân thành không giả mạo', NULL, NULL, NULL, NULL, NULL),
 (10, 5, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL),
 (94, 5, 2, 'iphone 15', 'đỏ', NULL, NULL, NULL, NULL, NULL),
@@ -1128,13 +1150,13 @@ ALTER TABLE `article_views`
 -- AUTO_INCREMENT cho bảng `attribute`
 --
 ALTER TABLE `attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT cho bảng `branch`
@@ -1194,7 +1216,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
