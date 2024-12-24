@@ -343,37 +343,6 @@ class ProductModel extends AdminModel
         $params['modified_by']   = $userInfo['username'];
         $params['modified']      = date('Y-m-d');
 
-        if($options['task'] == 'change-status'){
-            $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
-            $this::where('id', $params['id'])
-                        ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
-            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
-        }
-
-        if($options['task'] == 'change-type'){
-            $type  = ($params['currentType'] == 'feature') ? 'feature' : 'normal';
-            $this::where('id', $params['id'])
-                        ->update(['type' => $type]);
-        }
-
-        if($options['task'] == 'change-category'){
-            $category_id = $params['category_id'];
-            $this::where('id', $params['id'])
-                        ->update(['category_id' => $category_id,'modified' => $params['modified'],'modified_by' =>  $params['modified_by']]);
-        }
-
-        if($options['task'] == 'change-display'){
-            $this::where('id', $params['id'])
-                        ->update(['display' => $params['display']]);
-        }
-
-        if($options['task'] == 'change-is-home'){
-            $isHome  = ($params['currentIsHome'] == true) ? false : true;
-            $this::where('id', $params['id'])
-                        ->update(['is_home' => $isHome]);
-        }
-
         if($options['task'] == 'add-item'){
 
             $params['created_by']   = $userInfo['username'];
@@ -503,8 +472,8 @@ class ProductModel extends AdminModel
                 $tempMediaElement    = json_decode($mediaElement);
                 $currentMediaNames[] = $tempMediaElement->name;
             }
-
-            $thumbNamesInput    = $params['thumb']['name'];
+            $thumbNamesInput    = [];
+            $thumbNamesInput    = (isset($params['thumb']['name'])) ? $params['thumb']['name'] : [];
 
             //Kiểm tra từ $params xem dropzone có thểm ảnh hới hoặc xóa ảnh cũ không, nếu có (true) thì tiến hành cập nhật
             //Khi sử dụng flag để xác định xem user có tao tác trên dropzone không, nếu có mới tiến hành thao tác update để tranh việc thêm, xóa dữ liệu không cần thiết
@@ -553,6 +522,38 @@ class ProductModel extends AdminModel
             $params   = $this->prepareParams($params);
             self::where('id', $params['id'])->update($params);
 
+        }
+
+
+        if($options['task'] == 'change-status'){
+            $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
+            $this::where('id', $params['id'])
+                        ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+        }
+
+        if($options['task'] == 'change-type'){
+            $type  = ($params['currentType'] == 'feature') ? 'feature' : 'normal';
+            $this::where('id', $params['id'])
+                        ->update(['type' => $type]);
+        }
+
+        if($options['task'] == 'change-category'){
+            $category_id = $params['category_id'];
+            $this::where('id', $params['id'])
+                        ->update(['category_id' => $category_id,'modified' => $params['modified'],'modified_by' =>  $params['modified_by']]);
+        }
+
+        if($options['task'] == 'change-display'){
+            $this::where('id', $params['id'])
+                        ->update(['display' => $params['display']]);
+        }
+
+        if($options['task'] == 'change-is-home'){
+            $isHome  = ($params['currentIsHome'] == true) ? false : true;
+            $this::where('id', $params['id'])
+                        ->update(['is_home' => $isHome]);
         }
 
     }

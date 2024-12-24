@@ -1,0 +1,70 @@
+@php
+    use App\Helpers\Template as Template;
+    use App\Helpers\Hightlight as Hightlight;
+    $data = $items->toArray();
+    $data = $data['data'];
+@endphp
+
+<div class="x_content">
+    <div class="table-responsive">
+        <table class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr class="headings">
+                    <th class="column-title">#</th>
+                    <th class="column-title">Tên sản phẩm</th>
+                    <th class="column-title">Thuộc tính</th>
+                    <th class="column-title">Giá</th>
+                    <th class="column-title">Ordering</th>
+                    <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Sản phẩm có liên quan</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (count($items) > 0)
+                    @foreach ($data as $key => $val)
+                        @php
+                            $index              = $key+1;
+                            $class              = ($index % 2 == 0)? 'even' : 'odd';
+
+                            $id                     = $val['id'];
+                            $name                   = Hightlight::show($val['product_name'], $params['search'] , 'product_name');
+                            $attribute_value_name   = Hightlight::show($val['attribute_value_name'], $params['search'] , 'attribute_value_name');
+                            $price                  = Template::showItemPrice( $controllerName,$val['price'],$id );
+                            $ordering               = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
+                            $default                = Template::showItemSelect( $controllerName,$id,$val['default'], 'default');
+                            $product_id_relation    = $val['product_id_relation'];
+                        @endphp
+
+                        <tr class="{{$class}} pointer">
+                            <td>{{ $index }}</td>
+                            <td width="25%">
+                                <p><strong>Name:</strong> {!! $name !!}</p>
+                            </td>
+                            <td width="10%">
+                                {!!$attribute_value_name!!}
+                            </td>
+                            <td width="15%">
+                                {!!$price!!}
+                            </td>
+                            <td>
+                                {!!$ordering!!}
+                            </td>
+                            <td>
+                                {!!$default!!}
+                            </td>
+                            <td class="last">
+                                {!!$product_id_relation!!}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                @else
+                    @include('admin.templates.list_empty',['colspan'=>6])
+                @endif
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

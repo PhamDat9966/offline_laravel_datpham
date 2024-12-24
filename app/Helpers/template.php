@@ -316,6 +316,14 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemPrice($controllerName , $priceValue , $id){
+
+        $link                   = route( $controllerName. '/price',['price'=>'value_new', 'id'=>$id]);
+        $xhtml  = sprintf('
+        <input type="number" class="form-control price-product" id="price-%s" data-url="%s" min="1"  value="%s" style="width: 200px">', $id , $link ,$priceValue);
+        return  $xhtml;
+    }
+
     public static function showItemDisplay($controllerName , $id , $displayValue){
         $tmplDisplay    = Config::get('zvn.template.display');
 

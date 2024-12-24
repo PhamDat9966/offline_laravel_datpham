@@ -28,4 +28,131 @@ class ProductHasAttributeModel extends AdminModel
     {
         return $this->belongsTo(AttributevalueModel::class, 'attribute_value_id', 'id');
     }
+
+    public function listItems($params = null,$options = null){
+
+        $result = null;
+        $this->table    = 'product_has_attribute as p';
+
+        if($options['task'] == 'admin-list-items'){
+            $query = $this->select('p.id',
+                                            'p.product_id',
+                                            'p.attribute_value_id',
+                                            'p.product_name',
+                                            'p.attribute_value_name',
+                                            'p.price',
+                                            'p.product_id_relation',
+                                            'p.ordering',
+                                            'p.default',
+                                            'p.fieldClass',
+                                            'p.status'
+                                            );
+                        //->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
+
+            if($params['filter']['status'] !== "all"){
+               $query->where('a.status','=',$params['filter']['status']);
+
+            }
+
+            if($params['filter']['type'] !== "all"){
+                $query->where("type","=", $params['filter']['type']);
+            }
+
+            if($params['search'] !== ""){
+
+                if($params["search"]["field"] == "all"){
+
+                    $query->where(function ($query) use ($params){
+                        foreach ($this->fieldSearchAccepted as $column) {
+                            {
+                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
+                            }
+                        }
+                    }
+                );
+
+                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                }
+            }
+
+            $result = $query->orderBy('id', 'desc')
+                            ->paginate($params['pagination']['totalItemsPerPage']);
+        }
+
+        return $result;
+    }
+
+    public function countItems($params = null,$options = null){
+
+        $result = null;
+
+        if($options['task'] == 'admin-count-items-group-by-status'){
+
+            $query  = $this->select(DB::raw('COUNT(id) as count,status'))
+                           ->groupBy('status');
+
+                           if($params['filter']['created'] !== null){
+                                $query->where('created',"like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where('modified',"like","%".$params['filter']['modified']."%");
+                            }
+                            if($params['filter']['category'] !== "all"){
+                                $query->where("category_product_id","=", $params['filter']['category']);
+                            }
+
+                            if($params['filter']['type'] !== "all"){
+                                $query->where("type","=", $params['filter']['type']);
+                            }
+
+
+                            if($params['search'] !== ""){
+
+                                if($params["search"]["field"] == "all"){
+
+                                    $query->where(function ($query) use ($params){
+                                        foreach ($this->fieldSearchAccepted as $column) {
+                                            {
+                                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
+                                            }
+                                        }
+                                    }
+                                );
+
+                                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                                }
+                            }
+
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        return $result;
+    }
+
+    public function saveItem($params = null,$options = null){
+
+        if($options['task'] == 'change-ordering'){
+            $this::where('id', $params['id'])
+                        ->update(['ordering' => $params['ordering']]);
+
+        }
+
+        if($options['task'] == 'change-price'){
+            $this::where('id', $params['id'])
+                        ->update(['price' => $params['price']]);
+
+        }
+
+        if($options['task'] == 'change-default'){
+            $this::where('id', $params['id'])
+                        ->update(['default' => $params['default']]);
+
+        }
+    }
 }

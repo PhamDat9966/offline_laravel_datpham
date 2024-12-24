@@ -65,6 +65,11 @@ return [
             'feature'       =>  ['name'=>'Nổi bật'],
             'normal'        =>  ['name'=>'Bình thường'],
         ],
+        'default'=>[
+            'select'            =>  ['name'=>'Hãy chọn mặc định'],
+            'default'           =>  ['name'=>'Mặc định'],
+            'normal'            =>  ['name'=>'Bình thường'],
+        ],
         'type_filter'=>[
             'all'           =>  ['name'=>'Tất cả'],
             'feature'       =>  ['name'=>'Nổi bật'],
@@ -198,6 +203,6 @@ return [
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3]
         ]
-        ],
+    ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
 ];

@@ -1027,5 +1027,52 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
+    // ====================== ARTICLE ======================
+    $prefix         =   'productHasAttribute';
+    $controllerName =   'productHasAttribute';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::get('change-default-{default}/{id}', [
+            'as'    => $controllerName . '/default',
+            'uses'  => $controller . 'default'
+        ]);
+
+        Route::get('change-display-filter-{display}', [
+            'as'    => $controllerName . '/displayFilter',
+            'uses'  => $controller . 'displayFilter'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
+        Route::get('change-price-{price}/{id}', [
+            'as'    => $controllerName . '/price',
+            'uses'  => $controller . 'price'
+        ]);
+    });
+
 });
 
