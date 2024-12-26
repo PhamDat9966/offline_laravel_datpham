@@ -373,7 +373,8 @@ class ProductModel extends AdminModel
                         'product_id'            => $this->id,
                         'attribute_value_id'    => $attributeValueId,
                         'product_name'          => $this->name,
-                        'attribute_value_name'  => $attributeValueName
+                        'attribute_value_name'  => $attributeValueName,
+                        'status'                => 'active'
                     ];
                 }
 
@@ -455,7 +456,8 @@ class ProductModel extends AdminModel
                         'product_id'            => $params['id'],
                         'attribute_value_id'    => $attributeValueID,
                         'product_name'          => $params['name'],
-                        'attribute_value_name'  => $namesAttributevalItemInput[$index]
+                        'attribute_value_name'  => $namesAttributevalItemInput[$index],
+                        'status'                => 'active'
                     ];
                 }
 

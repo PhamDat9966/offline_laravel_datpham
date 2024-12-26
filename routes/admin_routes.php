@@ -310,6 +310,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'form'
         ])->where('id', '[0-9]+');
 
+        Route::get('info/{id?}', [
+            'as'    => $controllerName . '/info',
+            'uses'  => $controller . 'info'
+        ])->where('id', '[0-9]+');
+
         Route::get('delete/{id}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'
@@ -904,6 +909,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('change-status-{status}/{id}', [
             'as'    => $controllerName . '/status',
             'uses'  => $controller . 'status'
+        ]);
+
+        Route::get('change-color', [
+            'as'    => $controllerName . '/color',
+            'uses'  => $controller . 'color'
         ]);
 
         Route::get('change-type-{type}/{id}', [

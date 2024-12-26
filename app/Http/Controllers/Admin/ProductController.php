@@ -55,6 +55,40 @@ class ProductController extends AdminController
         return view($this->pathViewController . 'index', (array)$data);
     }
 
+    public function info(Request $request)
+    {
+
+        $item   = null;
+
+        if($request->id !== null){
+            $params['id']   = $request->id;
+            $item       = $this->model->getItem($params,['task'=>'get-item']);
+        }
+
+        $attributevalueModel    = new AttributevalueModel();
+        $colors                 = $attributevalueModel->getItem($params,['task'=>'get-color']);
+        $attributevalues        = $attributevalueModel->getItem($params,['task'=>'get-all-items']);
+
+        foreach($item['attributes'] as $key=>$attribute){
+            //Gép mã màu vào attributes của item
+            foreach($colors as $color){
+                if($attribute['attribute_value_id'] == $color['id']){
+                    $item['attributes'][$key]['color-picker'] = $color['color'];
+                }
+            }
+            //Gép Id định danh thuộc tính, ví dụ màu vàng có id định danh là attribute_id = 1, là "màu sắc", dung lượng ví dụ 128 GB có id định danh là attribute_id = 2 là chất liệu
+            foreach($attributevalues as $attributevalue){
+                if($attribute['attribute_value_id'] == $attributevalue['id']){
+                    $item['attributes'][$key]['attribute_id'] = $attributevalue['attribute_id'];
+                }
+            }
+        }
+
+        return view($this->pathViewController . 'info', [
+            'item'  =>$item,
+        ]);
+    }
+
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
 

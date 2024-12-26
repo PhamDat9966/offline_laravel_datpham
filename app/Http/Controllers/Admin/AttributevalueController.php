@@ -193,6 +193,16 @@ class AttributevalueController extends Controller
         ]);
     }
 
+    public function color(Request $request)
+    {
+        $params["color"]    = $request->color;
+        $params["id"]       = $request->id;
+        $this->model->saveItem($params, ['task' => 'change-color']);
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
     public function delete(Request $request)
     {
         $params["id"]             = $request->id;

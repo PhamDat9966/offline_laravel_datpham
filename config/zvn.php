@@ -121,12 +121,12 @@ return [
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
             'delete'    =>  ['class'=>'btn-danger btn-delete',  'title'=>'Delete',  'icon'=>'fa-trash',     'route-name'=> '/delete'],
-            'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],
+            'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-info',      'route-name'=> '/info'],
         ],
         'buttonAppointment' =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
             'delete'    =>  ['class'=>'btn-danger btn-delete',  'title'=>'Delete',  'icon'=>'fa-trash',     'route-name'=> '/delete'],
-            'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-pencil',    'route-name'=> '/delete'],
+            'info'      =>  ['class'=>'btn-info',               'title'=>'View',    'icon'=>'fa-info',      'route-name'=> '/info'],
         ],
         'level'=>[
             'admin'         =>  ['name'=>'Quản trị hệ thống'],
@@ -187,7 +187,7 @@ return [
             'categoryArticle'   =>  ['edit','delete'],
             'categoryProduct'   =>  ['edit','delete'],
             'article'           =>  ['edit','delete'],
-            'product'           =>  ['edit','delete'],
+            'product'           =>  ['info','edit','delete'],
             'user'              =>  ['edit','delete'],
             'rss'               =>  ['edit','delete'],
             'rssnews'           =>  ['delete'],

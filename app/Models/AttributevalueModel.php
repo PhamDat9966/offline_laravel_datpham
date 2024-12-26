@@ -20,7 +20,7 @@ class AttributevalueModel extends AdminModel
         $this->table    = 'attribute_value as av';
 
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('av.id','av.attribute_id','av.name','a.name as attribute_name','av.fieldClass','av.status')
+            $query = $this->select('av.id','av.attribute_id','av.name','a.name as attribute_name','av.color','av.fieldClass','av.status')
                            ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id');
             if($params['filter']['status'] !== "all"){
                $query->where('av.status','=',$params['filter']['status']);
@@ -46,7 +46,7 @@ class AttributevalueModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('av.id', 'desc')
+            $result = $query->orderBy('av.id', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -114,27 +114,9 @@ class AttributevalueModel extends AdminModel
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
-        if($options['task'] == 'change-type'){
-            $type  = ($params['currentType'] == 'feature') ? 'feature' : 'normal';
+        if($options['task'] == 'change-color'){
             $this::where('id', $params['id'])
-                        ->update(['type' => $type]);
-        }
-
-        if($options['task'] == 'change-category'){
-            $category_id = $params['category_id'];
-            $this::where('id', $params['id'])
-                        ->update(['category_id' => $category_id,'modified' => $params['modified'],'modified_by' =>  $params['modified_by']]);
-        }
-
-        if($options['task'] == 'change-display'){
-            $this::where('id', $params['id'])
-                        ->update(['display' => $params['display']]);
-        }
-
-        if($options['task'] == 'change-is-home'){
-            $isHome  = ($params['currentIsHome'] == true) ? false : true;
-            $this::where('id', $params['id'])
-                        ->update(['is_home' => $isHome]);
+                        ->update(['color' => $params['color']]);
         }
 
         if($options['task'] == 'add-items'){
@@ -150,8 +132,8 @@ class AttributevalueModel extends AdminModel
                 $attributeValues[] = [
                     'attribute_id'  => $params['attribute_id'],
                     'name'          => $name,
-                    'status'        => 'active', // Ví dụ giá trị status
-                    'created'       => $params['created'], // Ngày giờ hiện tại
+                    'status'        => 'active',
+                    'created'       => $params['created'],
                     'created_by'    => $params['created_by'],
                 ];
             }
@@ -211,6 +193,13 @@ class AttributevalueModel extends AdminModel
                         ->whereIn('attribute_id', $attributeIds)
                         ->groupBy('attribute_id')
                         ->get()->toArray();
+
+        }
+
+        if($options['task'] == 'get-color'){
+            $result = $this::select('av.id','av.name','av.color')
+                    ->where('av.attribute_id',1)
+                    ->get()->toArray();
 
         }
 

@@ -312,3 +312,9 @@ span.highlight{
     height: 30px;
 }
 /*End Dropzone*/
+/*product info*/
+.bg-yellow {
+    background: hsl(55, 100%, 50%) !important;
+    border: 1px solid hsl(55, 100%, 50%) !important;
+    color: #fff;
+}

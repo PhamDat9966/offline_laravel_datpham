@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 20, 2024 lúc 08:12 AM
+-- Thời gian đã tạo: Th12 26, 2024 lúc 06:35 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -191,9 +191,8 @@ CREATE TABLE `attribute` (
 
 INSERT INTO `attribute` (`id`, `name`, `status`, `fieldClass`) VALUES
 (1, 'color', 'active', 'màu sắc'),
-(2, 'slogan', 'active', 'khẩu hiệu'),
-(3, 'material', 'active', 'chất liệu'),
-(4, 'storage', 'active', 'Dung lượng');
+(2, 'material', 'active', 'chất liệu'),
+(3, 'slogan', 'active', 'khẩu hiệu');
 
 --
 -- Bẫy `attribute`
@@ -214,6 +213,7 @@ CREATE TABLE `attribute_value` (
   `id` int(11) NOT NULL,
   `attribute_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
   `fieldClass` varchar(255) DEFAULT NULL,
   `status` varchar(225) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -226,20 +226,15 @@ CREATE TABLE `attribute_value` (
 -- Đang đổ dữ liệu cho bảng `attribute_value`
 --
 
-INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `fieldClass`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 1, 'vàng', NULL, 'active', NULL, NULL, NULL, NULL),
-(2, 1, 'đỏ', NULL, 'active', NULL, NULL, NULL, NULL),
-(3, 1, 'xanh', NULL, 'active', NULL, NULL, NULL, NULL),
-(4, 2, 'zendvn', NULL, 'active', NULL, NULL, '2024-10-21 00:00:00', 'admin'),
-(5, 2, 'Laravel, PHP', NULL, 'active', NULL, NULL, NULL, NULL),
-(10, 3, 'nhựa', NULL, 'active', NULL, NULL, NULL, NULL),
-(11, 3, 'inox', NULL, 'active', NULL, NULL, NULL, NULL),
-(12, 3, 'vải', NULL, 'active', NULL, NULL, NULL, NULL),
-(47, 2, 'Làm việc đoàn kết, chơi cũng hết mình', NULL, 'active', '2024-10-13 00:00:00', 'admin', '2024-10-26 00:00:00', 'admin'),
-(48, 4, '128 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
-(49, 4, '256 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
-(50, 4, '512 GB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL),
-(51, 4, '1 TB', NULL, 'active', '2024-10-29 00:00:00', 'admin', NULL, NULL);
+INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `color`, `fieldClass`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 1, 'vàng', '#d4ff00', NULL, 'active', NULL, NULL, NULL, NULL),
+(2, 1, 'đỏ', '#ff0000', NULL, 'active', NULL, NULL, NULL, NULL),
+(3, 1, 'xanh', '#0011ff', NULL, 'active', NULL, NULL, NULL, NULL),
+(56, 2, '128 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
+(57, 2, '256 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
+(58, 2, '512 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
+(59, 3, 'zenvn', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
+(60, 3, 'Laravel', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL);
 
 --
 -- Bẫy `attribute_value`
@@ -449,7 +444,7 @@ CREATE TABLE `coupon` (
 INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `start_price`, `end_price`, `total`, `total_use`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
 (1, '5KOyp5', 'percent', 10, '2024-12-06 16:12:01', '2024-12-23 08:12:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', '2024-12-12 00:00:00', 'admin'),
 (2, 'tg2CJM', 'percent', 30, '2024-12-02 15:12:00', '2024-12-31 23:12:59', 30000, 50000, 10, 0, 'active', '2024-12-12 00:00:00', 'admin', '2024-12-13 00:00:00', 'admin'),
-(3, '2ywu0e', 'price', 10000, '2024-12-03 06:12:00', '2025-01-02 16:01:59', 10000, 50000, 10, 0, 'active', '2024-12-14 00:00:00', 'admin', '2024-12-14 00:00:00', 'admin');
+(3, '2ywu0e', 'price', 10000, '2024-12-03 06:12:00', '2025-01-02 16:01:59', 10000, 50000, 20, 0, 'active', '2024-12-14 00:00:00', 'admin', '2024-12-21 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -477,9 +472,11 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (64, 2, NULL, '{\"name\":\"a1.jpg\",\"alt\":\"ccc\",\"size\":44383}', 0, '', '0', 'image not for attribute_values', 'default'),
 (65, 2, NULL, '{\"name\":\"a2.jpg\",\"alt\":null,\"size\":20871}', 1, '', '0', 'image not for attribute_values', 'default'),
 (66, 2, NULL, '{\"name\":\"a3.jpg\",\"alt\":null,\"size\":15164}', 2, '', '0', 'image not for attribute_values', 'default'),
-(125, 5, NULL, '{\"name\":\"DDNErtweRi.jpg\",\"alt\":\"aaa\",\"size\":76803}', NULL, '', 'false', '', 'default'),
-(126, 5, NULL, '{\"name\":\"frfM9tZ9G8.jpg\",\"alt\":\"bbb\",\"size\":30922}', NULL, '', 'false', '', 'default'),
-(127, 5, NULL, '{\"name\":\"ijCHDb7I2o.jpg\",\"alt\":\"aaa\",\"size\":40167}', NULL, '', 'false', '', 'default');
+(133, 5, NULL, '{\"name\":\"DDNErtweRi.jpg\",\"alt\":\"aaa\",\"size\":76803}', NULL, '', 'false', '', 'default'),
+(134, 5, NULL, '{\"name\":\"frfM9tZ9G8.jpg\",\"alt\":\"bbb\",\"size\":30922}', NULL, '', 'false', '', 'default'),
+(135, 5, NULL, '{\"name\":\"ijCHDb7I2o.jpg\",\"alt\":\"aaa\",\"size\":40167}', NULL, '', 'false', '', 'default'),
+(136, 5, NULL, '{\"name\":\"6rlijQXnL7.jpg\",\"alt\":null,\"size\":31082}', NULL, '', 'false', '', 'default'),
+(137, 5, NULL, '{\"name\":\"scTJvfDtco.jpg\",\"alt\":null,\"size\":36345}', NULL, '', 'false', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -591,8 +588,8 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
 (2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00'),
-(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-11-26 00:00:00'),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00');
+(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-21 00:00:00'),
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-26 00:00:00');
 
 --
 -- Bẫy `product`
@@ -619,19 +616,22 @@ CREATE TABLE `product_has_attribute` (
   `product_id_relation` int(11) DEFAULT NULL,
   `ordering` int(11) DEFAULT NULL,
   `default` varchar(255) DEFAULT NULL,
-  `fieldClass` varchar(255) DEFAULT NULL
+  `fieldClass` varchar(255) DEFAULT NULL,
+  `status` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product_has_attribute`
 --
 
-INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`) VALUES
-(4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', NULL, NULL, NULL, NULL, NULL),
-(6, 3, 4, 'abc123', 'Học hành khét lẹt, chân thành không giả mạo', NULL, NULL, NULL, NULL, NULL),
-(10, 5, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL),
-(94, 5, 2, 'iphone 15', 'đỏ', NULL, NULL, NULL, NULL, NULL),
-(95, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`, `status`) VALUES
+(4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', 12000, NULL, 4, 'default', NULL, 'active'),
+(10, 5, 1, 'iphone 15', 'vàng', 30000, NULL, 3, 'default', NULL, 'active'),
+(94, 5, 2, 'iphone 15', 'đỏ', 20000, NULL, 2, 'normal', NULL, 'active'),
+(95, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
+(100, 5, 56, 'iphone 15', '128 GB', NULL, NULL, NULL, NULL, NULL, NULL),
+(101, 5, 57, 'iphone 15', '256 GB', NULL, NULL, NULL, NULL, NULL, NULL),
+(102, 5, 58, 'iphone 15', '512 GB', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1156,7 +1156,7 @@ ALTER TABLE `attribute`
 -- AUTO_INCREMENT cho bảng `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT cho bảng `branch`
@@ -1192,7 +1192,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1216,7 +1216,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

@@ -347,6 +347,14 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showProductThumb($controllerName , $thumbName , $thumbAlt){
+        //$linkThumb = asset("images/$controllerName/$thumbName");
+        $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
+        $xhtml  = sprintf('
+            <img id="thumb-preview" src="%s" alt="%s" />', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
     public static function showItemMediaList($controllerName , $mediaList){
         $xhtml  = '';
         foreach($mediaList as $media){
