@@ -45,6 +45,9 @@
 
         $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
 
+        //Biến định danh loại thuộc tính: color_1 màu sắc có id = 1, material-2 nguyên liệu có id = 2, slogan-3 slogan có id =3
+        $attribute_type      = $attribute['attribute_name'] . '-' . $attribute['attribute_id'];
+
         $inputAttributes     = '<div class="col-md-12 col-xs-12">';
 
         foreach($attribute['attribute_values'] as $attributeValues){
@@ -55,7 +58,7 @@
             $inputAttributes .=     '<div class="checkbox checkbox-wrapper-8" style="position: relative;">';
             $inputAttributes .=         '<input name="attribute_value[]" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
                                                 type="checkbox"
-                                                value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'"
+                                                value="'.$attributeValues['value_id'].'$'.$attributeValues['value_name'].'$'.$attribute_type.'"
                                                 id="'.$attributeValues['value_id'].'"
                                                 ' .$flagCheckbox. '
                                         >';

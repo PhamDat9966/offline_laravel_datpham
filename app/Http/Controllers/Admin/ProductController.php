@@ -139,7 +139,7 @@ class ProductController extends AdminController
 
         $attributeModel         = new AttributeModel();
         $attributesWithValue    = $attributeModel->getItem( null , ['task'=>'get-attributes-with-attributevalues']);
-
+        //dd($attributesWithValue);
         $item_has_attribute_ids = [];   // Mảng chưa id của thuộc tính sản phẩm
         $media                  = [];   // Mảng chứa media sản phẩm
 

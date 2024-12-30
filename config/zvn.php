@@ -66,7 +66,7 @@ return [
             'normal'        =>  ['name'=>'Bình thường'],
         ],
         'default'=>[
-            'select'            =>  ['name'=>'Hãy chọn mặc định'],
+            'select'            =>  ['name'=>'Hãy chọn trạng thái'],
             'default'           =>  ['name'=>'Mặc định'],
             'normal'            =>  ['name'=>'Bình thường'],
         ],

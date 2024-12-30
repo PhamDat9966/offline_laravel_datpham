@@ -345,6 +345,8 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'add-item'){
 
+            //dd($params);
+
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
 
@@ -358,6 +360,55 @@ class ProductModel extends AdminModel
             $this->created_by           = $params['created_by'];
             $this->created              = $params['created'];
             $this->save();
+
+            //Kiểm tra và lưu thông tin vào bản product_attribute_price theo từng cặp thuộc tính: color và material
+            // Mỗi một sản phẩm sẽ có một cặp thuộc tính quy định về giá: ví dụ:
+            // Samsung s24 có các cặp thuộc tính: vàng-128GB giá là 150$, đỏ-256GB giá là 200$
+            if ($params['attribute_value']) {
+
+                $attributesPriceData = [];
+
+                $colorProduct      = [];
+                $materialProduct   = [];
+
+                foreach ($params['attribute_value'] as $key=>$attributeValue) {
+                    $arrayAttribute     = explode('$',$attributeValue);
+                    $attributeValueId   = $arrayAttribute[0];
+                    $attributeValueName = $arrayAttribute[1];
+                    $attributeType = $arrayAttribute[2];
+
+                    $attributeTypeName  = explode("-", $attributeType)[0]; // Tên loại thuộc tính
+                    $attributeTypeId    = explode("-", $attributeType)[1]; // Id loại thuộc tính
+
+                    //color
+                    if($attributeTypeId == 1){
+                        $colorProduct[$key]['id']    = $arrayAttribute[0];
+                        $colorProduct[$key]['color'] = $arrayAttribute[1];
+                    }
+                    //material
+                    if($attributeTypeId == 2){
+                        $materialProduct[$key]['id']        = $arrayAttribute[0];
+                        $materialProduct[$key]['material']  = $arrayAttribute[1];
+                    }
+                }
+
+                foreach ($colorProduct as $colorVal) {
+                    foreach($materialProduct as $materialVal){
+
+                        $attributesPriceData[] = [
+                            'product_id'            => $this->id,
+                            'product_name'          => $this->name,
+                            'color_id'              => $colorVal['id'],
+                            'color_name'            => $colorVal['color'],
+                            'material_id'           => $materialVal['id'],
+                            'material_name'         => $materialVal['material'],
+                        ];
+
+                    }
+                }
+
+                DB::table('product_attribute_price')->insert($attributesPriceData);
+            }
 
             //Kiểm tra và lưu các attribute_value vào bảng `product_has_attribute`
             if ($params['attribute_value']) {

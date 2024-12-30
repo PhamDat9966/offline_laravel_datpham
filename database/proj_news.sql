@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 26, 2024 lúc 06:35 AM
+-- Thời gian đã tạo: Th12 30, 2024 lúc 09:31 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -476,7 +476,10 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (134, 5, NULL, '{\"name\":\"frfM9tZ9G8.jpg\",\"alt\":\"bbb\",\"size\":30922}', NULL, '', 'false', '', 'default'),
 (135, 5, NULL, '{\"name\":\"ijCHDb7I2o.jpg\",\"alt\":\"aaa\",\"size\":40167}', NULL, '', 'false', '', 'default'),
 (136, 5, NULL, '{\"name\":\"6rlijQXnL7.jpg\",\"alt\":null,\"size\":31082}', NULL, '', 'false', '', 'default'),
-(137, 5, NULL, '{\"name\":\"scTJvfDtco.jpg\",\"alt\":null,\"size\":36345}', NULL, '', 'false', '', 'default');
+(137, 5, NULL, '{\"name\":\"scTJvfDtco.jpg\",\"alt\":null,\"size\":36345}', NULL, '', 'false', '', 'default'),
+(138, 25, NULL, '{\"name\":\"qWq7wrVEei.jpg\",\"alt\":\"default\",\"size\":92638}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(139, 25, NULL, '{\"name\":\"cqn0SOLGNy.jpg\",\"alt\":\"1\",\"size\":23260}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(140, 25, NULL, '{\"name\":\"Q4EzWCJwPf.png\",\"alt\":\"2\",\"size\":285090}', NULL, '', 'false', 'image not for attribute_values', 'default');
 
 -- --------------------------------------------------------
 
@@ -589,7 +592,8 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
 (2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00'),
 (3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-21 00:00:00'),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-26 00:00:00');
+(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-26 00:00:00'),
+(25, 'samsung s24', 'bv-samsung-s24-39', 9, '<p>SAMSUNG GALAXY S24 ULTRA, The Samsung Galaxy S24 Ultra&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<div id=\"gtx-trans\" style=\"position: absolute; left: 391px; top: -5.5px;\">\r\n<div class=\"gtx-trans-icon\">&nbsp;</div>\r\n</div>', 'active', NULL, '2024-12-30 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Bẫy `product`
@@ -599,6 +603,38 @@ CREATE TRIGGER `after_product_delete` BEFORE DELETE ON `product` FOR EACH ROW DE
     WHERE product_id = OLD.id
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_attribute_price`
+--
+
+CREATE TABLE `product_attribute_price` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
+  `material_id` int(11) NOT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `color_name` varchar(255) DEFAULT NULL,
+  `material_name` varchar(255) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_attribute_price`
+--
+
+INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`) VALUES
+(2, 25, 1, 56, 'samsung s24', 'vàng', '128 GB', NULL),
+(3, 25, 1, 57, 'samsung s24', 'vàng', '256 GB', NULL),
+(4, 25, 1, 58, 'samsung s24', 'vàng', '512 GB', NULL),
+(5, 25, 2, 56, 'samsung s24', 'đỏ', '128 GB', NULL),
+(6, 25, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL),
+(7, 25, 2, 58, 'samsung s24', 'đỏ', '512 GB', NULL),
+(8, 25, 3, 56, 'samsung s24', 'xanh', '128 GB', NULL),
+(9, 25, 3, 57, 'samsung s24', 'xanh', '256 GB', NULL),
+(10, 25, 3, 58, 'samsung s24', 'xanh', '512 GB', NULL);
 
 -- --------------------------------------------------------
 
@@ -627,11 +663,17 @@ CREATE TABLE `product_has_attribute` (
 INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`, `status`) VALUES
 (4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', 12000, NULL, 4, 'default', NULL, 'active'),
 (10, 5, 1, 'iphone 15', 'vàng', 30000, NULL, 3, 'default', NULL, 'active'),
-(94, 5, 2, 'iphone 15', 'đỏ', 20000, NULL, 2, 'normal', NULL, 'active'),
-(95, 5, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
-(100, 5, 56, 'iphone 15', '128 GB', NULL, NULL, NULL, NULL, NULL, NULL),
-(101, 5, 57, 'iphone 15', '256 GB', NULL, NULL, NULL, NULL, NULL, NULL),
-(102, 5, 58, 'iphone 15', '512 GB', NULL, NULL, NULL, NULL, NULL, NULL);
+(94, 5, 2, 'iphone 15', 'đỏ', 30000, NULL, 2, 'normal', NULL, 'active'),
+(95, 5, 3, 'iphone 15', 'xanh', 30000, NULL, NULL, NULL, NULL, 'active'),
+(100, 5, 56, 'iphone 15', '128 GB', 30000, NULL, NULL, NULL, NULL, NULL),
+(101, 5, 57, 'iphone 15', '256 GB', 40000, NULL, NULL, NULL, NULL, NULL),
+(102, 5, 58, 'iphone 15', '512 GB', 50000, NULL, NULL, NULL, NULL, NULL),
+(105, 25, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(106, 25, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
+(107, 25, 3, 'samsung s24', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
+(108, 25, 56, 'samsung s24', '128 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(109, 25, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(110, 25, 58, 'samsung s24', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -1068,6 +1110,15 @@ ALTER TABLE `product`
   ADD KEY `category_id` (`category_product_id`);
 
 --
+-- Chỉ mục cho bảng `product_attribute_price`
+--
+ALTER TABLE `product_attribute_price`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `color_id` (`color_id`),
+  ADD KEY `material_id` (`material_id`);
+
+--
 -- Chỉ mục cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
@@ -1192,7 +1243,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1210,13 +1261,19 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT cho bảng `product_attribute_price`
+--
+ALTER TABLE `product_attribute_price`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
@@ -1282,6 +1339,14 @@ ALTER TABLE `media`
 --
 ALTER TABLE `menu`
   ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`);
+
+--
+-- Các ràng buộc cho bảng `product_attribute_price`
+--
+ALTER TABLE `product_attribute_price`
+  ADD CONSTRAINT `product_attribute_price_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `product_attribute_price_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `attribute_value` (`id`),
+  ADD CONSTRAINT `product_attribute_price_ibfk_3` FOREIGN KEY (`material_id`) REFERENCES `attribute_value` (`id`);
 
 --
 -- Các ràng buộc cho bảng `product_has_attribute`
