@@ -621,4 +621,24 @@ class Template{
 
         return $xhtml;
     }
+    //Hàm lấy màu (color) ngược với mã màu sẵn có.
+    public static function getComplementaryColor($hexColor) {
+        // Loại bỏ ký tự # nếu có
+        $hexColor = ltrim($hexColor, '#');
+
+        // Chuyển mã hex thành giá trị RGB
+        $r = hexdec(substr($hexColor, 0, 2));
+        $g = hexdec(substr($hexColor, 2, 2));
+        $b = hexdec(substr($hexColor, 4, 2));
+
+        // Tính giá trị ngược lại
+        $rComplement = 255 - $r;
+        $gComplement = 255 - $g;
+        $bComplement = 255 - $b;
+
+        // Chuyển lại sang dạng hex
+        $complementaryColor = sprintf("#%02x%02x%02x", $rComplement, $gComplement, $bComplement);
+
+        return $complementaryColor;
+    }
 }

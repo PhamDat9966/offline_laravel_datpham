@@ -345,8 +345,6 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'add-item'){
 
-            //dd($params);
-
             $params['created_by']   = $userInfo['username'];
             $params['created']      = date('Y-m-d');
 
@@ -476,6 +474,24 @@ class ProductModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
+            /* PRODUCT ATTRIBUTE PRICE */
+            //dd($params);
+            $currentAttributeItem           = ProductHasAttributeModel::where('product_id', $params['id'])->pluck('attribute_value_id')->toArray();
+            $idsAttributevalItemInput       = [];
+            $namesAttributevalItemInput     = [];
+            $typeAttributevalItemInput      = [];
+            if($params['attribute_value']){
+                foreach($params['attribute_value'] as $attributeValue){
+                    $tempAttributeValueArr          = explode('$',$attributeValue);
+                    $idsAttributevalItemInput[]     = $tempAttributeValueArr[0];
+                    $namesAttributevalItemInput[]   = $tempAttributeValueArr[1];
+                    $typeAttributevalItemInput[]    = $tempAttributeValueArr[2];
+                }
+            }
+
+            //dd($idsAttributevalItemInput,$namesAttributevalItemInput,$typeAttributevalItemInput);
+            // -----> CONTINUE
+            /* END PRODUCT ATTRIBUTE PRICE */
 
             /* ATTIBUTE */
             // Kiểm tra xem dách sách các `attribute_value` được nhập có giống với và các `attribute_value` của sản phẩm tại table `attribute_value`(current) có khác nhau ko? Nếu khác nhau thì tiến hành cập nhật
