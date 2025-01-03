@@ -474,8 +474,118 @@ class ProductModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
-            /* PRODUCT ATTRIBUTE PRICE */
-            //dd($params);
+            // dd($params);
+            /*PRODUCT ATTRIBUTE PRICE*/
+            if ($params['attribute_value']) {
+
+                $InputAttributesPriceData = [];
+
+                $colorProduct      = [];
+                $materialProduct   = [];
+
+                foreach ($params['attribute_value'] as $key=>$attributeValue) {
+                    $arrayAttribute     = explode('$',$attributeValue);
+                    $attributeValueId   = $arrayAttribute[0];
+                    $attributeValueName = $arrayAttribute[1];
+                    $attributeType      = $arrayAttribute[2];
+
+                    $attributeTypeName  = explode("-", $attributeType)[0]; // Tên loại thuộc tính
+                    $attributeTypeId    = explode("-", $attributeType)[1]; // Id loại thuộc tính
+
+                    //color
+                    if($attributeTypeId == 1){
+                        $colorProduct[$key]['id']    = $arrayAttribute[0];
+                        $colorProduct[$key]['color'] = $arrayAttribute[1];
+                    }
+                    //material
+                    if($attributeTypeId == 2){
+                        $materialProduct[$key]['id']        = $arrayAttribute[0];
+                        $materialProduct[$key]['material']  = $arrayAttribute[1];
+                    }
+                }
+
+                foreach ($colorProduct as $colorVal) {
+                    foreach($materialProduct as $materialVal){
+                        //Tạo danh sách, id sản phẩm với từng cặp thuộc tính được nhập vào ví dụ: iphone 15 có màu vàng, 128GB . iphone 15 có màu xanh, 256GB....
+                        $InputAttributesPriceData[] = [
+                            'product_id'            => $this->id,
+                            'product_name'          => $this->name,
+                            'color_id'              => $colorVal['id'],
+                            'color_name'            => $colorVal['color'],
+                            'material_id'           => $materialVal['id'],
+                            'material_name'         => $materialVal['material'],
+                        ];
+
+                    }
+                }
+
+                //Lấy dữ liệu từ table gồm các cặp thuộc tính tương ứng với product_id đã có
+                $currentAttributePriceItemTable           = ProductAttributePriceModel::where('product_id', $params['id'])
+                                                            ->select('color_id','material_id')
+                                                            ->get()
+                                                            ->toArray();
+
+
+                /*bước 01: Delete. Kiểm tra các cặp attribute của product lấy ra từ table có tồn tại trong các cặp attribute của product được nhập vào không */
+                //Chuẩn hóa dữ liệu từ $InputAttributesPriceData sau đó so sánh mảng rồi loại bỏ các hàng dữ liệu không tồn tại trong InputAttributesPriceData
+                $inputPairs = array_map(function ($item) {
+                    return ['color_id' => (int) $item['color_id'], 'material_id' => (int) $item['material_id']];
+                }, $InputAttributesPriceData);
+
+                // Tìm các phần tử trong $currentPriceItem không nằm trong $inputPairs
+                $missingPairs = array_filter($currentAttributePriceItemTable, function ($current) use ($inputPairs) {
+                    foreach ($inputPairs as $input) {
+                        if ($current['color_id'] === $input['color_id'] && $current['material_id'] === $input['material_id']) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+
+
+                //Tiến hành xóa những hàng này trên table produc_attribute_price
+                foreach($missingPairs as $delVal){
+                    ProductAttributePriceModel::where('product_id', $params['id'])
+                                                    ->where('color_id', $delVal['color_id'])
+                                                    ->where('material_id', $delVal['material_id'])
+                                                    ->delete();
+                }
+
+                /* End bước 01*/
+                /*bước 02: Add. Kiểm tra các cặp attribute của product được nhập vào không có nằm trong các cặp attribute của product lấy ra từ table, nếu không thì ta thêm mới */
+                // Chuyển mảng currentAttributePriceItemTable thành danh sách cặp `color_id` và `material_id`
+                //Chuẩn hóa dữ liệu từ $currentAttributePriceItemTable
+                $currentPairs = array_map(function ($item) {
+                    return ['color_id' => (int) $item['color_id'], 'material_id' => (int) $item['material_id']];
+                }, $currentAttributePriceItemTable);
+
+                // Tìm các phần tử trong $InputAttributesPriceData không nằm trong $currentPairs
+                $missingInputPairs = array_filter($InputAttributesPriceData, function ($input) use ($currentPairs) {
+                    foreach ($currentPairs as $current) {
+                        if ((int)$input['color_id'] === $current['color_id'] && (int)$input['material_id'] === $current['material_id']) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+                // Sau khi đã tìm được danh sách các cặp thuộc tính trong InputAttributesPriceData mà không nằm trong dữ liệu của bản, ta tiến hành thêm mới
+                foreach($missingInputPairs as $addNewPairs){
+                    $attributesPairs[] = [
+                        'product_id'            => $params['id'],
+                        'color_id'              => $addNewPairs['color_id'],
+                        'material_id'           => $addNewPairs['material_id'],
+                        'product_name'          => $params['name'],
+                        'color_name'            => $addNewPairs['color_name'],
+                        'material_name'         => $addNewPairs['material_name'],
+                        'status'                => 'active'
+                    ];
+                    DB::table('product_attribute_price')->insert($attributesPairs);
+                }
+                /*End bước 2*/
+                //dd($params,$InputAttributesPriceData,$currentAttributePriceItemTable,$missingInputPairs);
+            }
+            /*END PRODUCT ATTRIBUTE PRICE*/
+            /* PRODUCT ATTRIBUTE*/
             $currentAttributeItem           = ProductHasAttributeModel::where('product_id', $params['id'])->pluck('attribute_value_id')->toArray();
             $idsAttributevalItemInput       = [];
             $namesAttributevalItemInput     = [];
