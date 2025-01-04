@@ -14,7 +14,7 @@ class ProductAttributePriceModel extends AdminModel
     public function __construct(){
         $this->table                = 'product_attribute_price';
         $this->folderUpload         = 'product_attribute_price';
-        $this->fieldSearchAccepted  = [];
+        $this->fieldSearchAccepted  = ['product_name'];
         $this->crudNotActived       = ['_token'];
     }
 
@@ -51,8 +51,12 @@ class ProductAttributePriceModel extends AdminModel
 
             }
 
-            if($params['filter']['type'] !== "all"){
-                $query->where("type","=", $params['filter']['type']);
+            if($params['filter']['color'] !== "all"){
+                $query->where("color_id","=", $params['filter']['color']);
+            }
+
+            if($params['filter']['material'] !== "all"){
+                $query->where("material_id","=", $params['filter']['material']);
             }
 
             if($params['search'] !== ""){
@@ -62,14 +66,14 @@ class ProductAttributePriceModel extends AdminModel
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('p.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('p.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
@@ -94,9 +98,6 @@ class ProductAttributePriceModel extends AdminModel
                                 $query->where('created',"like","%".$params['filter']['created']."%");
                             }
 
-                            if($params['filter']['modified'] !== null){
-                                $query->where('modified',"like","%".$params['filter']['modified']."%");
-                            }
                             if($params['filter']['category'] !== "all"){
                                 $query->where("category_product_id","=", $params['filter']['category']);
                             }

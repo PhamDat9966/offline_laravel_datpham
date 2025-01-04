@@ -362,7 +362,7 @@ class ProductModel extends AdminModel
             //Kiểm tra và lưu thông tin vào bản product_attribute_price theo từng cặp thuộc tính: color và material
             // Mỗi một sản phẩm sẽ có một cặp thuộc tính quy định về giá: ví dụ:
             // Samsung s24 có các cặp thuộc tính: vàng-128GB giá là 150$, đỏ-256GB giá là 200$
-            if ($params['attribute_value']) {
+            if (!empty($params['attribute_value'])) {
 
                 $attributesPriceData = [];
 
@@ -409,7 +409,7 @@ class ProductModel extends AdminModel
             }
 
             //Kiểm tra và lưu các attribute_value vào bảng `product_has_attribute`
-            if ($params['attribute_value']) {
+            if (!empty($params['attribute_value'])) {
                 // Mảng chứa dữ liệu cho bảng `product_has_attribute`
                 $attributesData = [];
 
@@ -476,7 +476,7 @@ class ProductModel extends AdminModel
         if($options['task'] == 'edit-item'){
             // dd($params);
             /*PRODUCT ATTRIBUTE PRICE*/
-            if ($params['attribute_value']) {
+            if (!empty($params['attribute_value'])) {
 
                 $InputAttributesPriceData = [];
 
@@ -590,7 +590,7 @@ class ProductModel extends AdminModel
             $idsAttributevalItemInput       = [];
             $namesAttributevalItemInput     = [];
             $typeAttributevalItemInput      = [];
-            if($params['attribute_value']){
+            if(!empty($params['attribute_value'])){
                 foreach($params['attribute_value'] as $attributeValue){
                     $tempAttributeValueArr          = explode('$',$attributeValue);
                     $idsAttributevalItemInput[]     = $tempAttributeValueArr[0];
@@ -608,7 +608,7 @@ class ProductModel extends AdminModel
             $currentAttributeItem           = ProductHasAttributeModel::where('product_id', $params['id'])->pluck('attribute_value_id')->toArray();
             $idsAttributevalItemInput       = [];
             $namesAttributevalItemInput     = [];
-            if($params['attribute_value']){
+            if(!empty($params['attribute_value'])){
                 foreach($params['attribute_value'] as $attributeValue){
                     $tempAttributeValueArr = explode('$',$attributeValue);
                     $idsAttributevalItemInput[]   = $tempAttributeValueArr[0];

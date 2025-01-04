@@ -117,6 +117,7 @@ return [
             'code'          =>  ['name'=>'Search by Code'],
             'value'         =>  ['name'=>'Search by Value'],
             'cost'          =>  ['name'=>'Search by Cost'],
+            'product_name'  =>  ['name'=>"Search by Product's name"]
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -164,22 +165,23 @@ return [
     ],
     'config'    =>[
         'search'    =>[
-            'default'           =>  ['all','id','fullname'],
-            'slider'            =>  ['all','id','name','description','link'],
-            'categoryArticle'   =>  ['all','id','name'],
-            'categoryProduct'   =>  ['all','id','name'],
-            'article'           =>  ['all','name','slug','content'],
-            'rss'               =>  ['all','name','link'],
-            'user'              =>  ['all','username','email','fullname'],
-            'phone'             =>  ['all','phonenumber'],
-            'branch'            =>  ['all','name','address'],
-            'appointment'       =>  ['all','name','phonenumber','email'],
-            'contact'           =>  ['all','name','email','phone'],
-            'attribute'         =>  ['all','name'],
-            'attributevalue'    =>  ['all','name'],
-            'product'           =>  ['all','name','slug'],
-            'coupon'            =>  ['all','code','value'],
-            'shipping'          =>  ['all','name','cost']
+            'default'               =>  ['all','id','fullname'],
+            'slider'                =>  ['all','id','name','description','link'],
+            'categoryArticle'       =>  ['all','id','name'],
+            'categoryProduct'       =>  ['all','id','name'],
+            'article'               =>  ['all','name','slug','content'],
+            'rss'                   =>  ['all','name','link'],
+            'user'                  =>  ['all','username','email','fullname'],
+            'phone'                 =>  ['all','phonenumber'],
+            'branch'                =>  ['all','name','address'],
+            'appointment'           =>  ['all','name','phonenumber','email'],
+            'contact'               =>  ['all','name','email','phone'],
+            'attribute'             =>  ['all','name'],
+            'attributevalue'        =>  ['all','name'],
+            'product'               =>  ['all','name','slug'],
+            'coupon'                =>  ['all','code','value'],
+            'shipping'              =>  ['all','name','cost'],
+            'productAttributePrice' =>  ['product_name']
         ],
         'button'    =>[
             'default'           =>  ['edit','delete'],

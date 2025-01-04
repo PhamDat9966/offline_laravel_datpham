@@ -203,6 +203,13 @@ class AttributevalueModel extends AdminModel
 
         }
 
+        if($options['task'] == 'get-material'){
+            $result = $this::select('av.id','av.name')
+                    ->where('av.attribute_id',2)
+                    ->get()->toArray();
+
+        }
+
         return $result;
     }
 

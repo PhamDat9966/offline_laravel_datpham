@@ -36,8 +36,8 @@
                 <ul class="nav child_menu">
                     <li><a href="{{ route('product')}}"> Product</a></li>
                     <li><a href="{{ route('categoryProduct')}}"> Category</a></li>
+                    <li><a href="{{ route('productAttributePrice')}}"> Giá cả của sản phẩm theo thuộc tính</a></li>
                     <li><a href="{{ route('productHasAttribute')}}"> Thuộc tính của sản phẩm</a></li>
-                    <li><a href="{{ route('productAttributePrice')}}"> Giá của sản phẩm</a></li>
                 </ul>
             </li>
             <li id='attribute'>

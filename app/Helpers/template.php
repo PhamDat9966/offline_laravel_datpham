@@ -641,4 +641,43 @@ class Template{
 
         return $complementaryColor;
     }
+
+    public static function showItemColorFilter($controllerName , $typeFilterValue, $colorList){
+        $tmplDisplay    = $colorList;
+        $firstElement   = [
+                            'id'    =>'all',
+                            'name'  =>'Tất cả màu',
+                            'color' =>''
+                          ];
+        array_unshift($tmplDisplay , $firstElement);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_color_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($value['id']) == strval($typeFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
+    public static function showItemMaterialFilter($controllerName , $typeFilterValue, $materialList){
+        $tmplDisplay    = $materialList;
+        $firstElement   = [
+                            'id'    =>'all',
+                            'name'  =>'Tất cả dung lượng',
+                          ];
+        array_unshift($tmplDisplay , $firstElement);
+        $link           = route($controllerName);
+
+        $xhtml   =sprintf('<select name="select_change_material_filter" data-url=%s class="form-control input-sm">',$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if(strval($value['id']) == strval($typeFilterValue)) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
 }

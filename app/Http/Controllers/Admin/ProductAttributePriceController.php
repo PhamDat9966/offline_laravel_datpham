@@ -30,14 +30,13 @@ class  ProductAttributePriceController extends AdminController
         // Gọi method index của AdminController
         $response = parent::index($request);
 
-        $this->params['filter']['category']   = $request->input('filter_category','all');
-        $this->params['filter']['type']       = $request->input('filter_type','all');
-
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData();
         $attributeValueModel = new AttributevalueModel();
-        $color  = $attributeValueModel->getItem(null, ['task'=>'get-color']);
-        $data['colorList'] = $color;
+        $color      = $attributeValueModel->getItem(null, ['task'=>'get-color']);
+        $material   = $attributeValueModel->getItem(null, ['task'=>'get-material']);
+        $data['colorList']      = $color;
+        $data['materialList']   = $material;
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);
     }

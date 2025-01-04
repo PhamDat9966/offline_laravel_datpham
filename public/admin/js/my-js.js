@@ -23,6 +23,8 @@ $(document).ready(function() {
     let $selectChangeCategoryFilter = $("select[name =  select_change_is_category_filter]");
     let $selectChangeTypeFilter     = $("select[name =  select_change_type_filter]");
     let $selectChangeSexFilter      = $("select[name =  select_change_sex_filter]");
+    let $selectChangeColorFilter    = $("select[name =  select_change_color_filter]");
+    let $selectChangeMaterialFilter = $("select[name =  select_change_material_filter]");
 
     let $inputOrdering              = $("input.ordering");
     let $inputPrice                 = $("input.price-product");
@@ -273,6 +275,48 @@ $(document).ready(function() {
 			}
 		});
         window.location.href    = url + '?' + link + 'filter_type=' + select_value;
+
+        // url = url+'?filter_display='+select_value;
+        // console.log(url);
+    });
+
+    $selectChangeColorFilter.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+        //var pathname	= window.location.pathname;
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        params 			= ['filter_material','search_field','search_value'];
+        let link        = '';
+
+        $.each( params, function( key, value ) {
+			if (searchParams.has(value) ) {
+				link += value + "=" + searchParams.get(value) + "&"
+			}
+		});
+        window.location.href    = url + '?' + link + 'filter_color=' + select_value;
+
+        // url = url+'?filter_display='+select_value;
+        // console.log(url);
+    });
+
+    $selectChangeMaterialFilter.on('change',function(){
+        var select_value  = $(this).val();
+        var url           = $(this).attr('data-url');
+        //var pathname	= window.location.pathname;
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        params 			= ['filter_color','search_field','search_value'];
+        let link        = '';
+
+        $.each( params, function( key, value ) {
+			if (searchParams.has(value) ) {
+				link += value + "=" + searchParams.get(value) + "&"
+			}
+		});
+        window.location.href    = url + '?' + link + 'filter_material=' + select_value;
 
         // url = url+'?filter_display='+select_value;
         // console.log(url);
