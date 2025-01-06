@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 30, 2024 lúc 09:31 AM
+-- Thời gian đã tạo: Th1 06, 2025 lúc 06:19 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -227,7 +227,7 @@ CREATE TABLE `attribute_value` (
 --
 
 INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `color`, `fieldClass`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 1, 'vàng', '#d4ff00', NULL, 'active', NULL, NULL, NULL, NULL),
+(1, 1, 'vàng', '#d5ff05', NULL, 'active', NULL, NULL, NULL, NULL),
 (2, 1, 'đỏ', '#ff0000', NULL, 'active', NULL, NULL, NULL, NULL),
 (3, 1, 'xanh', '#0011ff', NULL, 'active', NULL, NULL, NULL, NULL),
 (56, 2, '128 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
@@ -469,17 +469,12 @@ CREATE TABLE `media` (
 --
 
 INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `position`, `url`, `is_video`, `description`, `media_type`) VALUES
-(64, 2, NULL, '{\"name\":\"a1.jpg\",\"alt\":\"ccc\",\"size\":44383}', 0, '', '0', 'image not for attribute_values', 'default'),
-(65, 2, NULL, '{\"name\":\"a2.jpg\",\"alt\":null,\"size\":20871}', 1, '', '0', 'image not for attribute_values', 'default'),
-(66, 2, NULL, '{\"name\":\"a3.jpg\",\"alt\":null,\"size\":15164}', 2, '', '0', 'image not for attribute_values', 'default'),
-(133, 5, NULL, '{\"name\":\"DDNErtweRi.jpg\",\"alt\":\"aaa\",\"size\":76803}', NULL, '', 'false', '', 'default'),
-(134, 5, NULL, '{\"name\":\"frfM9tZ9G8.jpg\",\"alt\":\"bbb\",\"size\":30922}', NULL, '', 'false', '', 'default'),
-(135, 5, NULL, '{\"name\":\"ijCHDb7I2o.jpg\",\"alt\":\"aaa\",\"size\":40167}', NULL, '', 'false', '', 'default'),
-(136, 5, NULL, '{\"name\":\"6rlijQXnL7.jpg\",\"alt\":null,\"size\":31082}', NULL, '', 'false', '', 'default'),
-(137, 5, NULL, '{\"name\":\"scTJvfDtco.jpg\",\"alt\":null,\"size\":36345}', NULL, '', 'false', '', 'default'),
-(138, 25, NULL, '{\"name\":\"qWq7wrVEei.jpg\",\"alt\":\"default\",\"size\":92638}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(139, 25, NULL, '{\"name\":\"cqn0SOLGNy.jpg\",\"alt\":\"1\",\"size\":23260}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(140, 25, NULL, '{\"name\":\"Q4EzWCJwPf.png\",\"alt\":\"2\",\"size\":285090}', NULL, '', 'false', 'image not for attribute_values', 'default');
+(144, 27, NULL, '{\"name\":\"OVJBUaMpMD.jpg\",\"alt\":\"default\",\"size\":92638}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(145, 27, NULL, '{\"name\":\"eIW2UNXs6l.jpg\",\"alt\":\"01\",\"size\":23260}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(146, 27, NULL, '{\"name\":\"rOCb4BTVVV.png\",\"alt\":\"02\",\"size\":285090}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(147, 28, NULL, '{\"name\":\"HNH5dG7sgH.jpg\",\"alt\":\"default\",\"size\":76803}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(148, 28, NULL, '{\"name\":\"flST3ixxW2.jpg\",\"alt\":\"01\",\"size\":36345}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(149, 28, NULL, '{\"name\":\"fYC0oCXJfz.jpg\",\"alt\":\"02\",\"size\":31082}', NULL, '', 'false', 'image not for attribute_values', 'default');
 
 -- --------------------------------------------------------
 
@@ -567,7 +562,7 @@ CREATE TABLE `product` (
   `name` varchar(255) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `category_product_id` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -590,16 +585,24 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(2, 'Samsung Galaxy Z Fold6', 'bv-samsung-galaxy-z-fold6-39', 9, '<p>Samsung Galaxy Z Fold6 content abc</p>', 'active', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-20 00:00:00'),
-(3, 'abc123', 'bv-abc123-39', 8, '<p>abc123 test 112323123</p>', 'inactive', NULL, '2024-11-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-21 00:00:00'),
-(5, 'iphone 15', 'bv-iphone-15-39', 8, '<p>iphone 15 content test 1234567</p>', 'active', NULL, '2024-11-07 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2024-12-26 00:00:00'),
-(25, 'samsung s24', 'bv-samsung-s24-39', 9, '<p>SAMSUNG GALAXY S24 ULTRA, The Samsung Galaxy S24 Ultra&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<div id=\"gtx-trans\" style=\"position: absolute; left: 391px; top: -5.5px;\">\r\n<div class=\"gtx-trans-icon\">&nbsp;</div>\r\n</div>', 'active', NULL, '2024-12-30 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-01-06 00:00:00');
 
 --
 -- Bẫy `product`
 --
 DELIMITER $$
-CREATE TRIGGER `after_product_delete` BEFORE DELETE ON `product` FOR EACH ROW DELETE FROM product_has_attribute 
+CREATE TRIGGER `before_product_media_delete` BEFORE DELETE ON `product` FOR EACH ROW DELETE FROM media
+    WHERE product_id = OLD.id
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_product_product_attribute_price_delete` BEFORE DELETE ON `product` FOR EACH ROW DELETE FROM product_attribute_price
+    WHERE product_id = OLD.id
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_product_product_has_attribute_delete` BEFORE DELETE ON `product` FOR EACH ROW DELETE FROM product_has_attribute 
     WHERE product_id = OLD.id
 $$
 DELIMITER ;
@@ -618,23 +621,21 @@ CREATE TABLE `product_attribute_price` (
   `product_name` varchar(255) DEFAULT NULL,
   `color_name` varchar(255) DEFAULT NULL,
   `material_name` varchar(255) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL
+  `price` int(11) DEFAULT NULL,
+  `status` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product_attribute_price`
 --
 
-INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`) VALUES
-(2, 25, 1, 56, 'samsung s24', 'vàng', '128 GB', NULL),
-(3, 25, 1, 57, 'samsung s24', 'vàng', '256 GB', NULL),
-(4, 25, 1, 58, 'samsung s24', 'vàng', '512 GB', NULL),
-(5, 25, 2, 56, 'samsung s24', 'đỏ', '128 GB', NULL),
-(6, 25, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL),
-(7, 25, 2, 58, 'samsung s24', 'đỏ', '512 GB', NULL),
-(8, 25, 3, 56, 'samsung s24', 'xanh', '128 GB', NULL),
-(9, 25, 3, 57, 'samsung s24', 'xanh', '256 GB', NULL),
-(10, 25, 3, 58, 'samsung s24', 'xanh', '512 GB', NULL);
+INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`, `status`) VALUES
+(49, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', 2500, NULL),
+(50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2200, NULL),
+(51, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', 3500, NULL),
+(52, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', 3000, NULL),
+(53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, NULL),
+(55, 28, 3, 56, 'iphone 15', 'xanh', '128 GB', 1000, 'active');
 
 -- --------------------------------------------------------
 
@@ -661,19 +662,13 @@ CREATE TABLE `product_has_attribute` (
 --
 
 INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`, `status`) VALUES
-(4, 2, 1, 'Samsung Galaxy Z Fold6', 'vàng', 12000, NULL, 4, 'default', NULL, 'active'),
-(10, 5, 1, 'iphone 15', 'vàng', 30000, NULL, 3, 'default', NULL, 'active'),
-(94, 5, 2, 'iphone 15', 'đỏ', 30000, NULL, 2, 'normal', NULL, 'active'),
-(95, 5, 3, 'iphone 15', 'xanh', 30000, NULL, NULL, NULL, NULL, 'active'),
-(100, 5, 56, 'iphone 15', '128 GB', 30000, NULL, NULL, NULL, NULL, NULL),
-(101, 5, 57, 'iphone 15', '256 GB', 40000, NULL, NULL, NULL, NULL, NULL),
-(102, 5, 58, 'iphone 15', '512 GB', 50000, NULL, NULL, NULL, NULL, NULL),
-(105, 25, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
-(106, 25, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
-(107, 25, 3, 'samsung s24', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
-(108, 25, 56, 'samsung s24', '128 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
-(109, 25, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
-(110, 25, 58, 'samsung s24', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active');
+(132, 27, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(133, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
+(134, 27, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(135, 27, 58, 'samsung s24', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(136, 28, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(138, 28, 56, 'iphone 15', '128 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(139, 28, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -1243,7 +1238,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1261,19 +1256,19 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT cho bảng `product_attribute_price`
 --
 ALTER TABLE `product_attribute_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

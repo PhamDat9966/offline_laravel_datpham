@@ -73,5 +73,11 @@ class MediaModel extends AdminModel
             $this->table = 'media';
             $this->where('id', $params['id'])->delete();
         }
+
+        if($options['task'] == 'delete-media-to-item'){
+            $this->table = 'media';
+            $this->where('product_id', $params['id'])->delete();
+        }
     }
+
 }

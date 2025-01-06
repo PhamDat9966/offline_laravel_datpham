@@ -740,9 +740,16 @@ class ProductModel extends AdminModel
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
 
-            // $item   =  $this->getItem($params,['task' => 'get-thumb']);
-            //Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $item['thumb']);
-            // $this->deleteThumb($item['thumb']);
+            $medias   =  $this->getItem($params,['task' => 'get-media']);
+            foreach($medias as $key=>$media){
+                $content = json_decode($media['content']);
+                $thumb = $content->name;
+                //Xóa ảnh được lưu tại public.
+                Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $thumb);
+                //Xóa thông tin ảnh tại csdl.thumb
+                $mediaModel = new MediaModel();
+                $mediaModel->deleteItem($params,['task'=>'delete-media-to-item']);
+            }
 
             $this->table = 'product';
             $this->where('id', $params['id'])->delete();
@@ -775,13 +782,21 @@ class ProductModel extends AdminModel
                                   AND TABLE_NAME = 'article'");
         }
 
+        if($options['task'] == 'get-media'){
+            $mediaModel = new MediaModel();
+            $result = $mediaModel::select('id','content')
+                    ->where('product_id', $params['id'])
+                    ->get()->toArray();
+
+        }
+
         if($options['task'] == 'get-thumb'){
             $result = $this::select('id','thumb')
                     ->where('id', $params['id'])
                     ->first();
 
         }
-        //dd($params);
+
         if($options['task'] == 'news-get-item'){
             $result = $this::select('a.id','a.name','a.slug','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
                     ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
