@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\ProductAttributePriceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\ProductModel as MainModel;
@@ -246,6 +247,24 @@ class ProductController extends AdminController
         }
 
         return response()->json(['success' => 'File tạm đã được dọn dẹp']);
+    }
+
+    public function price(Request $request) // Ajax
+    {
+        $idItem = $request->itemId;
+        $idItem = explode('-',$idItem);
+
+        $params['id']           = $idItem[1];
+        $params['color-id']     = $request->colorId;
+        $params['material-id']  = $request->materialId;
+
+        $productAttributePrice  = new ProductAttributePriceModel();
+        $price =  $productAttributePrice->getItem($params,['task' => 'get-price-item']);
+
+        return response()->json([
+            'id'       => $price['id'],
+            'price'    => $price['price']
+        ]);
     }
 }
 

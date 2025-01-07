@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 06, 2025 lúc 06:19 AM
+-- Thời gian đã tạo: Th1 07, 2025 lúc 06:58 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -635,7 +635,7 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (51, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', 3500, NULL),
 (52, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', 3000, NULL),
 (53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, NULL),
-(55, 28, 3, 56, 'iphone 15', 'xanh', '128 GB', 1000, 'active');
+(55, 28, 3, 56, 'iphone 15', 'xanh', '128 GB', NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -662,11 +662,11 @@ CREATE TABLE `product_has_attribute` (
 --
 
 INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`, `status`) VALUES
-(132, 27, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(132, 27, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, 'true', NULL, 'active'),
 (133, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
 (134, 27, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
 (135, 27, 58, 'samsung s24', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
-(136, 28, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(136, 28, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, 'true', NULL, 'active'),
 (138, 28, 56, 'iphone 15', '128 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
 (139, 28, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active');
 

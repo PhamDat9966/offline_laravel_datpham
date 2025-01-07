@@ -773,3 +773,52 @@ $(document).ready(function() {
 //     });
 // });
 
+/*product input*/
+$(document).ready(function() {
+    // Gắn sự kiện click cho nút button
+    $('.btn-material').on('click', function() {
+        // Lấy giá trị của radio button được chọn
+        var selectedColor = $('input[name="color"]:checked').val();
+
+        // Lấy ID của nút button vừa click
+        var buttonId = $(this).data('id');
+
+        // Lấy Id Item
+        var itemId  = $(this).data('item');
+        // Lấy url
+        let url             = $(this).data('url');
+
+        // Kiểm tra và hiển thị kết quả
+        if (selectedColor !== undefined) {
+            console.log('Radio được chọn có giá trị:', selectedColor);
+        } else {
+            console.log('Không có radio nào được chọn.');
+        }
+
+        console.log('ID của nút button vừa click:', buttonId, itemId, url);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                    colorId: selectedColor,
+                    materialId: buttonId,
+                    itemId: itemId
+                  },
+            success: function (response) {
+                console.log(response)
+                var id    = response.id;
+                var price = response.price;
+                if(price == null){
+                    price = 'Giá chưa cập nhật';
+                }else{
+                    price = response.price+' đồng';
+                }
+
+                // Cập nhật giá Item
+                $(".price").html(price);
+            }
+        });
+
+    });
+});

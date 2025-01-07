@@ -23,17 +23,32 @@
     $xhtmlColors         = '<ul class="list-inline prod_color display-layout">';
     $xhtmlStorage        = '<ul class="list-inline prod_size display-layout">';
     foreach($item['attributes'] as $attkey=>$attribute){
+
         if($attribute['color-picker']){
+            $flagCheckDefault = ($attribute['default'] == true) ? 'checked' : '';
             $xhtmlColors    .=  '<li>
                                     <p>'.$attribute['attribute_value_name'].'</p>
                                     <div class="color" style="background:'.$attribute['color-picker'].';color:#ffffff;"></div>
+                                    <div class="text-center">
+                                        <input  type="radio"
+                                                name="color"
+                                                id="color_'.$attribute['attribute_value_id'].'"
+                                                value="'.$attribute['attribute_value_id'].'"
+                                                '.$flagCheckDefault.'
+                                        >
+                                    </div>
                                 </li>';
         }
 
         //Sử dụng id định danh của dung lượng là 2 'material', để xác định những nội dung nào cần xuất ra ở storage
         if($attribute['attribute_id'] == 2){
+            $url    = route($controllerName. '/price');
             $xhtmlStorage   .=' <li>
-                                    <button type="button" class="btn btn-default btn-xs" data-id="'.$attribute['attribute_value_id'].'">'.$attribute['attribute_value_name'].'</button>
+                                    <button type="button" class="btn btn-default btn-xs btn-material"
+                                            data-id="'.$attribute['attribute_value_id'].'"
+                                            data-item="'.'itemId-'.$id.'"
+                                            data-url="'.$url.'"
+                                            >'.$attribute['attribute_value_name'].'</button>
                                 </li>';
         }
     }
@@ -89,8 +104,8 @@
 
             <div class="">
             <div class="product_price">
-                <h1 class="price">Ksh80.00</h1>
-                <span class="price-tax">Ex Tax: Ksh80.00</span>
+                <h1 class="price">Hãy chọn màu sắc, dung lượng</h1>
+                <span class="price-tax">Ex Tax: Chưa có</span>
                 <br>
             </div>
             </div>

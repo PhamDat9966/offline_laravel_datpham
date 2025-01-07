@@ -153,4 +153,19 @@ class ProductAttributePriceModel extends AdminModel
 
         }
     }
+
+    public function getItem($params = null,$options = null){
+        $result   = null;
+
+        if($options['task'] == 'get-price-item'){
+            $result = $this::select('id','price')
+                    ->where('product_id', $params['id'])
+                    ->where('color_id', $params['color-id'])
+                    ->where('material_id', $params['material-id'])
+                    ->first()->toArray();
+
+        }
+
+        return $result;
+    }
 }

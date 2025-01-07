@@ -370,6 +370,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'cleanupTemporaryFiles'
         ]);
 
+        Route::get('change-price', [
+            'as'    => $controllerName . '/price',
+            'uses'  => $controller . 'price'
+        ]);
+
         //Route::post('/cleanup-temporary-files', [UploadController::class, 'cleanupTemporaryFiles'])->name('cleanup.temporary.files');
 
     });
