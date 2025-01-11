@@ -111,8 +111,7 @@
             </div>
 
             <div class="">
-            <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
-            <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
+                <button type="button" id="order-cart" class="btn btn-default btn-lg">Add to Cart</button>
             </div>
 
         </div>
