@@ -775,6 +775,14 @@ $(document).ready(function() {
 
 /*product input*/
 $(document).ready(function() {
+    // Khi click vào color thì lặp lại quá trình chọn dung lượng
+    $('input[name="color"]').on('click', function() {
+        console.log('click color');
+        $('.btn-material').removeClass('btn-primary');
+        $('.btn-material').removeClass('selected');
+        $(".price").html('Hãy chọn dung lượng');
+    });
+
     // Gắn sự kiện click cho nút button
     $('.btn-material').on('click', function() {
         // Lấy giá trị của radio button được chọn
@@ -828,7 +836,9 @@ $(document).ready(function () {
     // Đánh dấu button 'material' dung lượng được chọn, vì button không phải là một input nên nó không có trạng thái checked để jquery lấy dữ liệu
     $('.btn-material').on('click', function () {
         $('.btn-material').removeClass('selected'); // Bỏ class 'selected' khỏi các button khác
+        $('.btn-material').removeClass('btn-primary');
         $(this).addClass('selected'); // Thêm class 'selected' cho button vừa click, đánh dấu đây là button được chọn
+        $(this).addClass('btn-primary');
     });
 
     // Sự kiện click vào button 'Add to Cart'
@@ -845,11 +855,29 @@ $(document).ready(function () {
             return;
         }
 
+        const itemID = $(this).data('id');
+        var url = $(this).data('url');
+
         // In ra console
+        console.log('Item Id:', itemID);
         console.log('Color Id:', selectedColor);
         console.log('Material ID:', selectedMaterial);
+        console.log('Url:', url);
 
         // Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                    itemID: itemID,
+                    colorID: selectedColor,
+                    materialID: selectedMaterial
+                  },
+            success: function (response) {
+                console.log(response)
+
+            }
+        });
 
     });
 });

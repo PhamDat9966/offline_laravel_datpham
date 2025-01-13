@@ -448,6 +448,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'levelPost'
         ]);
 
+        Route::get('order', [
+            'as'    => $controllerName . '/order',
+            'uses'  => $controller . 'order'
+        ]);
+
     });
 
     // ====================== MENU ======================

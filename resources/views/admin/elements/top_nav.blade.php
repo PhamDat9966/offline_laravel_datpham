@@ -22,6 +22,12 @@
                     <li><a href="{!!route('auth/logout')!!}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                 </ul>
             </li>
+            <li role="presentation" class="nav-item">
+                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="badge bg-green">6</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

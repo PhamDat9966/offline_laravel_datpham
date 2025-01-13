@@ -44,7 +44,7 @@
         if($attribute['attribute_id'] == 2){
             $url    = route($controllerName. '/price');
             $xhtmlStorage   .=' <li>
-                                    <button type="button" class="btn btn-default btn-xs btn-material"
+                                    <button type="button" class="btn btn-default btn-lg btn-material"
                                             data-id="'.$attribute['attribute_value_id'].'"
                                             data-item="'.'itemId-'.$id.'"
                                             data-url="'.$url.'"
@@ -55,6 +55,16 @@
     $xhtmlColors        .= '</ul>';
     $xhtmlStorage       .= '</ul>';
 
+    //$urlUser             = route('user/order');
+    $urlUser             = route('user/order');
+
+    $buttonAddCard  = ' <button type="button"
+                                id="order-cart"
+                                class="btn btn-default btn-lg"
+                                data-id="'.$id.'"
+                                data-url="'.$urlUser.'"
+                                >Add to Cart
+                        </button>';
 
 @endphp
 
@@ -111,7 +121,7 @@
             </div>
 
             <div class="">
-                <button type="button" id="order-cart" class="btn btn-default btn-lg">Add to Cart</button>
+                {!! $buttonAddCard !!}
             </div>
 
         </div>

@@ -79,5 +79,15 @@ class UserController extends AdminController
         }
     }
 
+    public function order(Request $request){
+        $itemID     = $request->itemID;
+        $colorID    = $request->colorID;
+        $materialID = $request->materialID;
+
+        return response()->json([
+            'message'       => 'Đây là order'
+        ]);
+    }
+
 }
 
