@@ -1,6 +1,6 @@
 @php
     use App\Helpers\Template as Template;
-    //dd($item->toArray());
+
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
@@ -63,6 +63,7 @@
                                 class="btn btn-default btn-lg"
                                 data-id="'.$id.'"
                                 data-url="'.$urlUser.'"
+                                data-price=""
                                 >Add to Cart
                         </button>';
 

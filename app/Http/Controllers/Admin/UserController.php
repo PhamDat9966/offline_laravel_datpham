@@ -80,12 +80,73 @@ class UserController extends AdminController
     }
 
     public function order(Request $request){
+        $session = $request->session()->all();
+        $cart = session('cart');
+
         $itemID     = $request->itemID;
         $colorID    = $request->colorID;
         $materialID = $request->materialID;
+        $price      = $request->price;
+
+        if(empty($cart)){
+           $cart[0]['id']       = $itemID;
+           $cart[0]['quantity'] = 1;
+           $cart[0]['price']    = $price;
+           $cart[0]['color']    = $colorID;
+           $cart[0]['material'] = $materialID;
+           $request->session()->push('cart', $cart); //Tạo mới, đẩy mảng mới vào session
+        }else{
+
+            $ids = array_column($cart, 'id');//lấy danh sách các id trong $cart
+
+            if (in_array($itemID, $ids)) {
+                //Xét xem id sản phẩm đã xuất hiện trong cart chưa
+                //Nếu nó đã nằm trong cart thì foreach để định vị nó
+                //Trường hợp nếu màu sắc và dung lượng đúng là của nó thì thêm số lượng và chỉnh đổi giá
+                //Nếu khác màu sắc và dung lượng thì tạo sản phẩm có id giống nhưng khác về màu sắc và dung lượng
+                foreach($cart as $key=>$cartVal){
+                    if($cartVal['id'] == $itemID){
+
+                        if($cartVal['color'] == $colorID && $cartVal['material'] == $materialID){
+                            $cart[$key]['quantity'] +=1;
+                            $cart[$key]['price']     = $price*$cart[$key]['quantity'];
+                        }else{
+                            $cart[] = [
+                                "id"        => $itemID,
+                                "quantity"  => 1,
+                                "price"     => $price,
+                                "color"     => $colorID,
+                                "material"  => $materialID
+                            ];
+                        }
+                    }
+                }
+            } else {
+                $cart[] = [
+                    "id"        => $itemID,
+                    "quantity"  => 1,
+                    "price"     => $price,
+                    "color"     => $colorID,
+                    "material"  => $materialID
+                ];
+            }
+        }
+
+        $request->session()->put('cart', $cart);//Lưu giá trị và Session
+        $totalItems =  count($cart);
 
         return response()->json([
-            'message'       => 'Đây là order'
+            'request'   => $request->all(),
+            'session'   => $session,
+            'totalItem' => $totalItems,
+            'message'   => 'Đây là order'
+        ]);
+    }
+
+    public function removeCart(Request $request){
+        $request->session()->forget('cart');
+        return response()->json([
+            'message'   => 'Đã xóa cart'
         ]);
     }
 

@@ -794,7 +794,7 @@ $(document).ready(function() {
         // Lấy Id Item
         var itemId  = $(this).data('item');
         // Lấy url
-        let url             = $(this).data('url');
+        let url     = $(this).data('url');
 
         // Kiểm tra và hiển thị kết quả
         if (selectedColor !== undefined) {
@@ -825,6 +825,9 @@ $(document).ready(function() {
 
                 // Cập nhật giá Item
                 $(".price").html(price);
+                // Set giá vào thẻ order
+                $('#order-cart').attr('data-price', response.price);
+
             }
         });
 
@@ -855,14 +858,16 @@ $(document).ready(function () {
             return;
         }
 
-        const itemID = $(this).data('id');
-        var url = $(this).data('url');
+        const itemID    = $(this).data('id');
+        var url         = $(this).data('url');
+        var price       = $(this).data('price');
 
         // In ra console
         console.log('Item Id:', itemID);
         console.log('Color Id:', selectedColor);
         console.log('Material ID:', selectedMaterial);
         console.log('Url:', url);
+        console.log('Price:', price);
 
         // Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
         $.ajax({
@@ -871,10 +876,14 @@ $(document).ready(function () {
             data: {
                     itemID: itemID,
                     colorID: selectedColor,
-                    materialID: selectedMaterial
+                    materialID: selectedMaterial,
+                    price:price
                   },
             success: function (response) {
                 console.log(response)
+                console.log('Cart:',response.session.cart);
+                var totalItem = response.totalItem;
+                $('.badge').html(totalItem);
 
             }
         });

@@ -453,6 +453,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'order'
         ]);
 
+        Route::get('remove-cart', [
+            'as'    => $controllerName . '/removeCart',
+            'uses'  => $controller . 'removeCart'
+        ]);
+
     });
 
     // ====================== MENU ======================

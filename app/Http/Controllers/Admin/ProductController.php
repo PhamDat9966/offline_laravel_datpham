@@ -58,6 +58,8 @@ class ProductController extends AdminController
 
     public function info(Request $request)
     {
+        $session = $request->session()->all();
+        //dd($session);
 
         $item   = null;
 
@@ -86,7 +88,8 @@ class ProductController extends AdminController
         }
 
         return view($this->pathViewController . 'info', [
-            'item'  =>$item,
+            'item'      =>$item,
+            'session'   =>$session
         ]);
     }
 

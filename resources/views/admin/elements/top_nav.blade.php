@@ -1,9 +1,15 @@
 @php
     use Illuminate\Support\Facades\Session;
     use App\Helpers\Template as Template;
-    $userInfo = $value = Session::get('userInfo');
-    $nameUser = ucfirst($userInfo['username']);
-    $avatar   = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
+    $userInfo   = $value = Session::get('userInfo');
+    $nameUser   = ucfirst($userInfo['username']);
+    $avatar     = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
+    $totalItem  = '';
+    if(!empty(Session::get('cart'))){
+        $cart       = Session::get('cart');
+        $totalItem  = count($cart);
+    }
+
 @endphp
 <div class="nav_menu">
     <nav>
@@ -25,7 +31,7 @@
             <li role="presentation" class="nav-item">
                 <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class="badge bg-green">{!! $totalItem !!}</span>
                 </a>
             </li>
         </ul>
