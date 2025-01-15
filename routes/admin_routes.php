@@ -377,6 +377,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
         //Route::post('/cleanup-temporary-files', [UploadController::class, 'cleanupTemporaryFiles'])->name('cleanup.temporary.files');
 
+        Route::get('remove-cart', [
+            'as'    => $controllerName . '/removeCart',
+            'uses'  => $controller . 'removeCart'
+        ]);
+
     });
 
     // ====================== SYSTEN ======================
@@ -456,6 +461,12 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('remove-cart', [
             'as'    => $controllerName . '/removeCart',
             'uses'  => $controller . 'removeCart'
+        ]);
+
+
+        Route::get('cart-list', [
+            'as'    => $controllerName . '/cartList',
+            'uses'  => $controller . 'cartList'
         ]);
 
     });

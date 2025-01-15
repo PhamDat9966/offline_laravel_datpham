@@ -269,5 +269,6 @@ class ProductController extends AdminController
             'price'    => $price['price']
         ]);
     }
+
 }
 

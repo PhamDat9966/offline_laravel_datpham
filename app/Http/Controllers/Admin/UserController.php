@@ -84,16 +84,20 @@ class UserController extends AdminController
         $cart = session('cart');
 
         $itemID     = $request->itemID;
+        $itemName   = $request->name;
         $colorID    = $request->colorID;
         $materialID = $request->materialID;
         $price      = $request->price;
+        $thumb      = $request->thumb;
 
         if(empty($cart)){
            $cart[0]['id']       = $itemID;
+           $cart[0]['name']     = $itemName;
            $cart[0]['quantity'] = 1;
            $cart[0]['price']    = $price;
            $cart[0]['color']    = $colorID;
            $cart[0]['material'] = $materialID;
+           $cart[0]['thumb']    = $thumb;
            $request->session()->push('cart', $cart); //Tạo mới, đẩy mảng mới vào session
         }else{
 
@@ -113,10 +117,12 @@ class UserController extends AdminController
                         }else{
                             $cart[] = [
                                 "id"        => $itemID,
+                                "name"      => $itemName,
                                 "quantity"  => 1,
                                 "price"     => $price,
                                 "color"     => $colorID,
-                                "material"  => $materialID
+                                "material"  => $materialID,
+                                "thumb"     => $thumb
                             ];
                         }
                     }
@@ -124,10 +130,12 @@ class UserController extends AdminController
             } else {
                 $cart[] = [
                     "id"        => $itemID,
+                    "name"      => $itemName,
                     "quantity"  => 1,
                     "price"     => $price,
                     "color"     => $colorID,
-                    "material"  => $materialID
+                    "material"  => $materialID,
+                    "thumb"     => $thumb
                 ];
             }
         }
@@ -145,10 +153,34 @@ class UserController extends AdminController
 
     public function removeCart(Request $request){
         $request->session()->forget('cart');
-        return response()->json([
-            'message'   => 'Đã xóa cart'
-        ]);
+        $notify = 'Đã xóa cart thành công!';
+        return redirect()->route('product')->with('zvn_notily', $notify);
     }
 
+    public function cartList(Request $request){
+        $session = $request->session()->all();
+        $cart = session('cart');
+        //dd($cart);
+        $xhtmlCart = '';
+        foreach($cart as $key=>$cartVal){
+            $xhtmlCart .='<li class="nav-item">
+                            <a class="dropdown-item">
+                            <span class="image"><img src="'.$cartVal['thumb'].'" alt="Profile Image" /></span>
+                            <span>
+                                <span>'.$cartVal['name'].'</span>
+                                <span class="time">'.$cartVal['price'].'</span>
+                            </span>
+                            <span class="message">
+                                Đặc điểm: Màu vàng, bộ nhớ 125GB
+                            </span>
+                            </a>
+                        </li>';
+        }
+        return response()->json([
+            'cart'      => $cart,
+            'xhtmlCart' => $xhtmlCart,
+            'message'   => 'Đây là cart list'
+        ]);
+    }
 }
 

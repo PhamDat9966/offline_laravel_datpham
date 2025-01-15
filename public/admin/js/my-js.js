@@ -859,15 +859,24 @@ $(document).ready(function () {
         }
 
         const itemID    = $(this).data('id');
+        var name        = $(this).data('name');
         var url         = $(this).data('url');
         var price       = $(this).data('price');
+        var thumb       = $(this).data('thumb');
 
         // In ra console
         console.log('Item Id:', itemID);
+        console.log('Item Name:', name);
         console.log('Color Id:', selectedColor);
         console.log('Material ID:', selectedMaterial);
         console.log('Url:', url);
         console.log('Price:', price);
+        console.log('Thumb:', thumb);
+
+        if(price == null || price == 0){
+            alert('Hãy cập nhật giá cả của sản phẩm trước khi order!');
+            return;
+        }
 
         // Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
         $.ajax({
@@ -875,9 +884,11 @@ $(document).ready(function () {
             url: url,
             data: {
                     itemID: itemID,
+                    name: name,
                     colorID: selectedColor,
                     materialID: selectedMaterial,
-                    price:price
+                    price:price,
+                    thumb:thumb
                   },
             success: function (response) {
                 console.log(response)
@@ -888,5 +899,25 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    //cart List
+    $('.cart-list').on('click', function () {
+        var url         = $(this).data('url');
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                console.log(response)
+                const xhtmlCart = response.xhtmlCart;
+                $('.msg_list').prepend(xhtmlCart);
+                // Kiểm tra nếu chưa tồn tại các phần tử có class 'item-unique', thì chèn
+                if ($('.dropdown-menu .msg_list').length === 0) {
+                    $('.msg_list').prepend(xhtmlCart);
+                } else {
+                    console.log('Nội dung đã được chèn trước đó!');
+                }
+            }
+        });
     });
 });

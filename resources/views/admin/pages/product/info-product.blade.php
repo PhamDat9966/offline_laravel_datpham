@@ -56,13 +56,15 @@
     $xhtmlStorage       .= '</ul>';
 
     //$urlUser             = route('user/order');
-    $urlUser             = route('user/order');
-
+    $urlUser        = route('user/order');
+    $linkThumb      = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
     $buttonAddCard  = ' <button type="button"
                                 id="order-cart"
                                 class="btn btn-default btn-lg"
                                 data-id="'.$id.'"
+                                data-name="'.$name.'"
                                 data-url="'.$urlUser.'"
+                                data-thumb="'.$linkThumb.'"
                                 data-price=""
                                 >Add to Cart
                         </button>';

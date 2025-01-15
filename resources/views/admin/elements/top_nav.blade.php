@@ -10,6 +10,11 @@
         $totalItem  = count($cart);
     }
 
+    $urlRemoveCart  = Route('user/removeCart');
+    $xhmlRemoveCart = '<li class="nav-item">
+                            <a class="dropdown-item" href="'.$urlRemoveCart.'">Remove cart</a>
+                       </li>';
+    $urlCartList    = Route('user/cartList');
 @endphp
 <div class="nav_menu">
     <nav>
@@ -29,10 +34,13 @@
                 </ul>
             </li>
             <li role="presentation" class="nav-item">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                <a href="javascript:;" class="dropdown-toggle info-number cart-list" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false" data-url="{!! $urlCartList !!}">
                     <i class="fa fa-shopping-cart"></i>
                     <span class="badge bg-green">{!! $totalItem !!}</span>
                 </a>
+                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    {!! $xhmlRemoveCart !!}
+                </ul>
             </li>
         </ul>
     </nav>
