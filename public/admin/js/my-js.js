@@ -910,13 +910,9 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response)
                 const xhtmlCart = response.xhtmlCart;
-                $('.msg_list').prepend(xhtmlCart);
-                // Kiểm tra nếu chưa tồn tại các phần tử có class 'item-unique', thì chèn
-                if ($('.dropdown-menu .msg_list').length === 0) {
-                    $('.msg_list').prepend(xhtmlCart);
-                } else {
-                    console.log('Nội dung đã được chèn trước đó!');
-                }
+                $('.msg_list').find('li.item-cart').remove(); //Xóa danh sách các thẻ item cart trước đó
+                $('.msg_list').prepend(xhtmlCart); // cập nhật lại các thẻ li trong ul
+
             }
         });
     });

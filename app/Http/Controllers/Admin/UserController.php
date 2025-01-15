@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\UserModel as MainModel;
 use App\Http\Requests\UserRequest as MainRequest;
-
+use App\Models\AttributevalueModel as AttributevalueModel;
 class UserController extends AdminController
 {
 
@@ -160,22 +160,32 @@ class UserController extends AdminController
     public function cartList(Request $request){
         $session = $request->session()->all();
         $cart = session('cart');
-        //dd($cart);
+
         $xhtmlCart = '';
         foreach($cart as $key=>$cartVal){
-            $xhtmlCart .='<li class="nav-item">
+            $params             = [];
+            $params['color_id'] = $cartVal['color'];
+            $params['material_id'] = $cartVal['material'];
+            $attributeValueModule = new AttributevalueModel();
+            $colorName = $attributeValueModule->getItem($params,['task'=>'get-color-name']);
+            $materialName = $attributeValueModule->getItem($params,['task'=>'get-material-name']);
+            $colorName = $colorName[0]['name'];
+            $materialName = $materialName[0]['name'];
+
+            $xhtmlCart .='<li class="nav-item item-cart">
                             <a class="dropdown-item">
                             <span class="image"><img src="'.$cartVal['thumb'].'" alt="Profile Image" /></span>
                             <span>
                                 <span>'.$cartVal['name'].'</span>
-                                <span class="time">'.$cartVal['price'].'</span>
+                                <span class="time">Giá: '.$cartVal['price'].'</span>
                             </span>
                             <span class="message">
-                                Đặc điểm: Màu vàng, bộ nhớ 125GB
+                                Đặc điểm: Màu '.$colorName.', bộ nhớ '.$materialName.'
                             </span>
                             </a>
                         </li>';
         }
+
         return response()->json([
             'cart'      => $cart,
             'xhtmlCart' => $xhtmlCart,

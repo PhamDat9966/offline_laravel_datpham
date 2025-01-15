@@ -210,6 +210,22 @@ class AttributevalueModel extends AdminModel
 
         }
 
+        if($options['task'] == 'get-color-name'){
+            $result = $this::select('av.name')
+                    ->where('av.id',$params['color_id'])
+                    ->where('av.attribute_id',1)
+                    ->get()->toArray();
+
+        }
+
+        if($options['task'] == 'get-material-name'){
+            $result = $this::select('av.name')
+                    ->where('av.id',$params['material_id'])
+                    ->where('av.attribute_id',2)
+                    ->get()->toArray();
+
+        }
+
         return $result;
     }
 
