@@ -79,7 +79,7 @@ class UserController extends AdminController
         }
     }
 
-    public function order(Request $request){
+    public function addCart(Request $request){
         $session = $request->session()->all();
         $cart = session('cart');
 
@@ -147,7 +147,7 @@ class UserController extends AdminController
             'request'   => $request->all(),
             'session'   => $session,
             'totalItem' => $totalItems,
-            'message'   => 'Đây là order'
+            'message'   => 'Đây là add Cart'
         ]);
     }
 

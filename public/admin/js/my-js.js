@@ -775,6 +775,8 @@ $(document).ready(function() {
 
 /*product input*/
 $(document).ready(function() {
+    var priceChoose; //Biến toàn cục
+
     // Khi click vào color thì lặp lại quá trình chọn dung lượng
     $('input[name="color"]').on('click', function() {
         console.log('click color');
@@ -785,6 +787,12 @@ $(document).ready(function() {
 
     // Gắn sự kiện click cho nút button
     $('.btn-material').on('click', function() {
+        // Đánh dấu button 'material' dung lượng được chọn, vì button không phải là một input nên nó không có trạng thái checked để jquery lấy dữ liệu
+        $('.btn-material').removeClass('selected'); // Bỏ class 'selected' khỏi các button khác
+        $('.btn-material').removeClass('btn-primary');
+        $(this).addClass('selected'); // Thêm class 'selected' cho button vừa click, đánh dấu đây là button được chọn
+        $(this).addClass('btn-primary');
+
         // Lấy giá trị của radio button được chọn
         var selectedColor = $('input[name="color"]:checked').val();
 
@@ -816,33 +824,22 @@ $(document).ready(function() {
             success: function (response) {
                 console.log(response)
                 var id    = response.id;
-                var price = response.price;
-                if(price == null){
-                    price = 'Giá chưa cập nhật';
-                }else{
-                    price = response.price+' đồng';
-                }
+                var priceReturn = response.price;
 
-                // Cập nhật giá Item
-                $(".price").html(price);
-                // Set giá vào thẻ order
-                $('#order-cart').attr('data-price', response.price);
+                if(priceReturn == null){
+                    priceChoose = 0;
+                    $(".price").html('Giá chưa cập nhật');
+                }else{
+                    // Cập nhật giá Item
+                    $(".price").html(priceReturn+' đồng');
+                    priceChoose = priceReturn;
+                }
 
             }
         });
 
     });
-});
 
-//Order: Giỏ hàng
-$(document).ready(function () {
-    // Đánh dấu button 'material' dung lượng được chọn, vì button không phải là một input nên nó không có trạng thái checked để jquery lấy dữ liệu
-    $('.btn-material').on('click', function () {
-        $('.btn-material').removeClass('selected'); // Bỏ class 'selected' khỏi các button khác
-        $('.btn-material').removeClass('btn-primary');
-        $(this).addClass('selected'); // Thêm class 'selected' cho button vừa click, đánh dấu đây là button được chọn
-        $(this).addClass('btn-primary');
-    });
 
     // Sự kiện click vào button 'Add to Cart'
     $('#order-cart').on('click', function () {
@@ -861,7 +858,7 @@ $(document).ready(function () {
         const itemID    = $(this).data('id');
         var name        = $(this).data('name');
         var url         = $(this).data('url');
-        var price       = $(this).data('price');
+        var price       = priceChoose;
         var thumb       = $(this).data('thumb');
 
         // In ra console
@@ -870,11 +867,11 @@ $(document).ready(function () {
         console.log('Color Id:', selectedColor);
         console.log('Material ID:', selectedMaterial);
         console.log('Url:', url);
-        console.log('Price:', price);
+        console.log('Price Choose:', price);
         console.log('Thumb:', thumb);
 
-        if(price == null || price == 0){
-            alert('Hãy cập nhật giá cả của sản phẩm trước khi order!');
+        if(price == null || price == 0 || price == undefined){
+            alert('Hãy cập nhật giá của sản phẩm trước khi add Cart!');
             return;
         }
 
