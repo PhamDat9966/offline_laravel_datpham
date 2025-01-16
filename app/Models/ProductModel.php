@@ -542,7 +542,6 @@ class ProductModel extends AdminModel
                     return true;
                 });
 
-
                 //Tiến hành xóa những hàng này trên table produc_attribute_price
                 foreach($missingPairs as $delVal){
                     ProductAttributePriceModel::where('product_id', $params['id'])
@@ -550,6 +549,7 @@ class ProductModel extends AdminModel
                                                     ->where('material_id', $delVal['material_id'])
                                                     ->delete();
                 }
+
 
                 /* End bước 01*/
                 /*bước 02: Add. Kiểm tra các cặp attribute của product được nhập vào không có nằm trong các cặp attribute của product lấy ra từ table, nếu không thì ta thêm mới */
@@ -568,19 +568,22 @@ class ProductModel extends AdminModel
                     }
                     return true;
                 });
+
                 // Sau khi đã tìm được danh sách các cặp thuộc tính trong InputAttributesPriceData mà không nằm trong dữ liệu của bản, ta tiến hành thêm mới
+                $attributesPairs = [];
                 foreach($missingInputPairs as $addNewPairs){
                     $attributesPairs[] = [
                         'product_id'            => $params['id'],
+                        'product_name'          => $params['name'],
                         'color_id'              => $addNewPairs['color_id'],
                         'material_id'           => $addNewPairs['material_id'],
-                        'product_name'          => $params['name'],
                         'color_name'            => $addNewPairs['color_name'],
                         'material_name'         => $addNewPairs['material_name'],
                         'status'                => 'active'
                     ];
-                    DB::table('product_attribute_price')->insert($attributesPairs);
                 }
+
+                DB::table('product_attribute_price')->insert($attributesPairs);
                 /*End bước 2*/
                 //dd($params,$InputAttributesPriceData,$currentAttributePriceItemTable,$missingInputPairs);
             }
