@@ -29,6 +29,7 @@
         @include('admin.elements.footer')
         <!-- /footer -->
     </div>
+        @yield('popup')
 </div>
 
     {{-- Các script chung --}}

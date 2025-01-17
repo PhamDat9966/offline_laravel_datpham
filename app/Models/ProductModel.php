@@ -585,7 +585,6 @@ class ProductModel extends AdminModel
 
                 DB::table('product_attribute_price')->insert($attributesPairs);
                 /*End bước 2*/
-                //dd($params,$InputAttributesPriceData,$currentAttributePriceItemTable,$missingInputPairs);
             }
             /*END PRODUCT ATTRIBUTE PRICE*/
             /* PRODUCT ATTRIBUTE*/

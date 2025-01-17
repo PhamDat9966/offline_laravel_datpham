@@ -871,7 +871,9 @@ $(document).ready(function() {
         console.log('Thumb:', thumb);
 
         if(price == null || price == 0 || price == undefined){
-            alert('Hãy cập nhật giá của sản phẩm trước khi add Cart!');
+            //popup
+            $('.modal-body').html('Hãy cập nhật giá của sản phẩm trước khi \"Add to Cart\" !');
+            $('#cartModal').modal('show');
             return;
         }
 
@@ -892,7 +894,9 @@ $(document).ready(function() {
                 console.log('Cart:',response.session.cart);
                 var totalItem = response.totalItem;
                 $('.badge').html(totalItem);
-
+                //popup
+                $('.modal-body').html("Sản phẩm đã được thêm vào giỏ hàng !");
+                $('#cartModal').modal('show');
             }
         });
 

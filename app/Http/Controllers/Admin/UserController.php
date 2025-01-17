@@ -177,7 +177,7 @@ class UserController extends AdminController
                             <span class="image"><img src="'.$cartVal['thumb'].'" alt="Profile Image" /></span>
                             <span>
                                 <span>'.$cartVal['name'].'</span>
-                                <span class="time">Giá: '.$cartVal['price'].'</span>
+                                <span class="time">Sl: '.$cartVal['quantity']. ' Giá: '.$cartVal['price'].'</span>
                             </span>
                             <span class="message">
                                 Đặc điểm: Màu '.$colorName.', bộ nhớ '.$materialName.'
