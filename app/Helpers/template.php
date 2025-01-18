@@ -324,6 +324,14 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemQuantity($controllerName , $quantityValue , $id){
+
+        $link                   = route( $controllerName. '/cartQuantity',['quantity'=>'value_new', 'id'=>$id]);
+        $xhtml  = sprintf('
+        <input type="number" class="form-control quantity-cart" id="quantity-%s" data-url="%s" min="1"  value="%s" style="width: 200px">', $id , $link ,$quantityValue);
+        return  $xhtml;
+    }
+
     public static function showItemDisplay($controllerName , $id , $displayValue){
         $tmplDisplay    = Config::get('zvn.template.display');
 

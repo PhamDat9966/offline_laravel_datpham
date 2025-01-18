@@ -192,5 +192,54 @@ class UserController extends AdminController
             'message'   => 'Đây là cart list'
         ]);
     }
+
+    public function cartView(Request $request){
+        $session = $request->session()->all();
+        $cart = session('cart');
+        foreach($cart as $key=>$cartVal){
+            $params             = [];
+            $params['color_id'] = $cartVal['color'];
+            $params['material_id'] = $cartVal['material'];
+            $attributeValueModule = new AttributevalueModel();
+            $colorName = $attributeValueModule->getItem($params,['task'=>'get-color-name']);
+            $materialName = $attributeValueModule->getItem($params,['task'=>'get-material-name']);
+            $colorName = $colorName[0]['name'];
+            $materialName = $materialName[0]['name'];
+
+            $cart[$key]['color_name'] = $colorName;
+            $cart[$key]['material_name'] = $materialName;
+        }
+
+        //dd($cart);
+        return view($this->pathViewController .  'index-cart', [
+            'cart'         => $cart
+        ]);
+    }
+
+    public function cartQuantity(Request $request){
+        $session = $request->session()->all();
+        $cart = session('cart');
+        $params = $request->all();
+        $price  = 0;
+        foreach($cart as $key=>$valCart){
+            if($valCart['id'] == $params['id']){
+                $priceOneProduct        = $valCart['price']/$valCart['quantity']; //Giá của 1 sản phẩm
+                $newPrice               = $priceOneProduct*$params['quantity'];   //Giá mới
+
+                $cart[$key]['quantity'] = $params['quantity'];
+                $cart[$key]['price']    = $newPrice;
+                $price                  = $newPrice;
+            }
+        }
+
+        $request->session()->put('cart', $cart);
+
+        return response()->json([
+            'message'   => 'Đây là cart Quantity',
+            'params'    => $params,
+            'cart'      => $cart,
+            'price'     => $price
+        ]);
+    }
 }
 

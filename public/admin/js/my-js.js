@@ -28,6 +28,7 @@ $(document).ready(function() {
 
     let $inputOrdering              = $("input.ordering");
     let $inputPrice                 = $("input.price-product");
+    let $inputQuanity               = $("input.quantity-cart");
     let $btnStatus                  = $('.status-ajax');
     let $btnIsHome                  = $('.is-home-ajax');
 
@@ -447,6 +448,39 @@ $(document).ready(function() {
                     element.notify("Cập nhật thành công!",
                         { className: "success", position: "top" }
                     );
+                } catch (error) {
+                    // Cho trường hợp không gắn modified và modified_by
+                    element.notify(response,
+                        { className: "success", position: "top" }
+                    );
+                }
+            }
+        });
+
+    });
+
+    $inputQuanity.on('change',function(){
+        let element      = $(this);
+        var selectValue  = $(this).val();
+        var url          = $(this).data('url');
+        var orderingId   = $(this).attr("id");
+        var inputId      = orderingId.charAt(orderingId.length - 1);
+        url              = url.replace("value_new",selectValue);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                try {
+                    console.log(response);
+                    console.log(response.params.id);
+                    // Hiển thị thông báo thành công
+                    element.notify("Cập nhật thành công!",
+                        { className: "success", position: "top" }
+                    );
+                    let price = response.price;
+
+                    $('#price-'+response.params.id).html(price);
                 } catch (error) {
                     // Cho trường hợp không gắn modified và modified_by
                     element.notify(response,

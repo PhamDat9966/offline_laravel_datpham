@@ -1,20 +1,34 @@
 @php
     use Illuminate\Support\Facades\Session;
     use App\Helpers\Template as Template;
-    $userInfo   = $value = Session::get('userInfo');
-    $nameUser   = ucfirst($userInfo['username']);
-    $avatar     = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
-    $totalItem  = '';
+    $userInfo       = $value = Session::get('userInfo');
+    $nameUser       = ucfirst($userInfo['username']);
+    $avatar         = Template::showAvatar($userInfo['avatar'],$userInfo['username']);
+    $totalItem      = '';
+    $xhmlRemoveCart = '';
+    $xhmlSeeAllCart = '';
+
+    $urlRemoveCart  = Route('user/removeCart');
+    $urlCartList    = Route('user/cartList');
+    $urlCartView    = Route('user/cartView');
     if(!empty(Session::get('cart'))){
         $cart       = Session::get('cart');
         $totalItem  = count($cart);
-    }
 
-    $urlRemoveCart  = Route('user/removeCart');
-    $xhmlRemoveCart = '<li class="nav-item">
-                            <a class="dropdown-item" href="'.$urlRemoveCart.'">Remove cart</a>
-                       </li>';
-    $urlCartList    = Route('user/cartList');
+        //Ở đây list Item sẽ được ghi lại bằng jquery $('.cart-list')
+        $xhmlRemoveCart = '<li class="nav-item">
+                                <a class="dropdown-item" href="'.$urlRemoveCart.'">Remove cart</a>
+                        </li>';
+
+        $xhmlSeeAllCart = '<li class="nav-item">
+                                <div class="text-center">
+                                <a href="'.$urlCartView.'" class="dropdown-item">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                </div>
+                            </li>';
+    }
 @endphp
 <div class="nav_menu">
     <nav>
@@ -39,6 +53,7 @@
                     <span class="badge bg-green">{!! $totalItem !!}</span>
                 </a>
                 <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    {!! $xhmlSeeAllCart !!}
                     {!! $xhmlRemoveCart !!}
                 </ul>
             </li>

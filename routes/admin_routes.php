@@ -469,6 +469,21 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'cartList'
         ]);
 
+        Route::get('cart-view', [
+            'as'    => $controllerName . '/cartView',
+            'uses'  => $controller . 'cartView'
+        ]);
+
+        Route::get('cart-delete', [
+            'as'    => $controllerName . '/cartDelete',
+            'uses'  => $controller . 'cartDelete'
+        ]);
+
+        Route::get('cart-quantity', [
+            'as'    => $controllerName . '/cartQuantity',
+            'uses'  => $controller . 'cartQuantity'
+        ]);
+
     });
 
     // ====================== MENU ======================
