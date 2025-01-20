@@ -21,6 +21,8 @@
 <link href="{{asset('admin/asset/bootstrap-tagsinput/src/bootstrap-tagsinput.css')}}" rel="stylesheet">
 <!--Dropzone-->
 <link rel="stylesheet" href="{{asset('admin/asset/dropzone/dist/min/dropzone.min.css')}}" type="text/css" />
+<!--Jquery IU Sortable-->
+<link rel="stylesheet" href="{{asset('admin/asset/jquery-ui/jquery-ui.css')}}" type="text/css" />
 <!-- Custom Theme Style -->
 <link href="{{asset('admin/css/custom.min.css')}}" rel="stylesheet">
 <!-- Custom Theme Style -->

@@ -20,9 +20,11 @@
             <tbody>
 
                 @if (count($items) > 0)
+                <ul id="sortable">
                     @foreach ($data as $key => $val)
                         @php
                             $index              = $key+1;
+                            $dataId           = $key;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                     = $val['id'];
@@ -43,24 +45,30 @@
 
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
                         @endphp
-
-                        <tr class="{{$class}} pointer">
-                            <td>{{ $index }}</td>
-                            <td width="30%">
-                                <p><strong>Name:</strong> {!! $name !!}</p>
-                            </td>
-                            <td width="20%">
-                                {!!$color!!}
-                            </td>
-                            <td width="20%">
-                                {!!$material!!}
-                            </td>
-                            <td class="last">
-                                {!!$price!!}
-                            </td>
-                        </tr>
+                        <li data-id="{{ $dataId  }}">
+                            {{ $index }}
+                            <p><strong>Name:</strong> {!! $name !!}</p>
+                            {!!$color!!}
+                            {!!$material!!}
+                            {!!$price!!}
+                            {{--  <tr class="{{$class}} pointer">
+                                <td>{{ $index }}</td>
+                                <td width="30%">
+                                    <p><strong>Name:</strong> {!! $name !!}</p>
+                                </td>
+                                <td width="20%">
+                                    {!!$color!!}
+                                </td>
+                                <td width="20%">
+                                    {!!$material!!}
+                                </td>
+                                <td class="last">
+                                    {!!$price!!}
+                                </td>
+                            </tr>  --}}
+                        </li>
                     @endforeach
-
+                </ul>
                 @else
                     @include('admin.templates.list_empty',['colspan'=>6])
                 @endif

@@ -952,3 +952,10 @@ $(document).ready(function() {
         });
     });
 });
+
+//sortable: tính năng kéo thả vị trí cho danh sách product_attribute_price
+$(document).ready(function() {
+    $(function () {
+        $("#sortable").sortable();
+    });
+});
