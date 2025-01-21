@@ -4,16 +4,25 @@
     $data = $items->toArray();
     $data = $data['data'];
     //dd($data,$colorList);
+
+    $stt_col        = 'col-xs-1';
+    $name_col       = 'col-xs-3';
+    $color_col      = 'col-xs-2';
+    $material_col   = 'col-xs-2';
+    $price_col      = 'col-xs-3';
+    $action_col     = 'col-xs-1';
+
 @endphp
 <div class="x_content">
             <thead>
-                <tr class="headings">
-                    <th class="column-title">#</th>
-                    <th class="column-title">Tên sản phẩm</th>
-                    <th class="column-title">Màu sắc</th>
-                    <th class="column-title">Dung lượng</th>
-                    <th class="column-title">Giá</th>
-                </tr>
+                <ul class="row headings">
+                    <li class="column-title {{$stt_col}}">#</th>
+                    <li class="column-title {{$name_col}}">Tên sản phẩm</th>
+                    <li class="column-title {{$color_col}}">Màu sắc</th>
+                    <li class="column-title {{$material_col}}">Dung lượng</th>
+                    <li class="column-title {{$price_col}}">Giá</th>
+                    <li class="column-title {{$action_col}}">Hành động</th>
+                </ul>
             </thead>
             <tbody>
 
@@ -38,37 +47,21 @@
                                 }
                             }
 
-
                             $material               = Hightlight::show($val['material_name'], $params['search'] , 'material_name');
-
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
                             $action                 = 'action list';
+
                         @endphp
                         <li data-id="{{ $dataId  }}">
                             <ul class="row double" style="list-style: none; padding: 0;">
-                                <li class="col-xs-1">{{ $index }}</li>
-                                <li class="col-xs-3"><p><strong>Name:</strong> {!! $name !!}</p></li>
-                                <li class="col-xs-2">{!!$color!!}</p></li>
-                                <li class="col-xs-2">{!!$material!!}</li>
-                                <li class="col-xs-3">{!!$price!!}</li>
-                                <li class="col-xs-1">{!!$action!!}</li>
+                                <li class="{{$stt_col}}">{{ $index }}</li>
+                                <li class="{{$name_col}}">{!! $name !!}</li>
+                                <li class="{{$color_col}}">{!!$color!!}</p></li>
+                                <li class="{{$material_col}}">{!!$material!!}</li>
+                                <li class="{{$price_col}}">{!!$price!!}</li>
+                                <li class="{{$action_col}}">{!!$action!!}</li>
                             </ul>
                         </li>
-                        {{--  <tr class="{{$class}} pointer">
-                                <td>{{ $index }}</td>
-                                <td width="30%">
-                                    <p><strong>Name:</strong> {!! $name !!}</p>
-                                </td>
-                                <td width="20%">
-                                    {!!$color!!}
-                                </td>
-                                <td width="20%">
-                                    {!!$material!!}
-                                </td>
-                                <td class="last">
-                                    {!!$price!!}
-                                </td>
-                            </tr>  --}}
                     @endforeach
                 </ul>
                 @else
