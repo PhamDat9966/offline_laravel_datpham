@@ -6,8 +6,6 @@
     //dd($data,$colorList);
 @endphp
 <div class="x_content">
-    <div class="table-responsive">
-        <table class="table table-striped jambo_table bulk_action">
             <thead>
                 <tr class="headings">
                     <th class="column-title">#</th>
@@ -20,7 +18,7 @@
             <tbody>
 
                 @if (count($items) > 0)
-                <ul id="sortable">
+                <ul id="sortable" style="list-style: none; padding: 0;">
                     @foreach ($data as $key => $val)
                         @php
                             $index              = $key+1;
@@ -36,7 +34,7 @@
                                 if($colorVal['id'] == $color_id){
                                     //Lấy màu ngược lại với màu của thẻ thuộc lính color, sau đó gắn vào text để nhìn rõ ký tự trong thành màu hơn
                                     $color_opposite = Template::getComplementaryColor($colorVal['color']);
-                                    $color   = '<div class="color-box text-center" style="background: '.$colorVal['color'].';"><span style="color: '.$color_opposite.';">'.$colorVal['name'].'</span></div>';
+                                    $color   = '<div class="color-box text-center padding-color" style="background: '.$colorVal['color'].';"><span style="color: '.$color_opposite.';">'.$colorVal['name'].'</span></div>';
                                 }
                             }
 
@@ -44,14 +42,19 @@
                             $material               = Hightlight::show($val['material_name'], $params['search'] , 'material_name');
 
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
+                            $action                 = 'action list';
                         @endphp
                         <li data-id="{{ $dataId  }}">
-                            {{ $index }}
-                            <p><strong>Name:</strong> {!! $name !!}</p>
-                            {!!$color!!}
-                            {!!$material!!}
-                            {!!$price!!}
-                            {{--  <tr class="{{$class}} pointer">
+                            <ul class="row double" style="list-style: none; padding: 0;">
+                                <li class="col-xs-1">{{ $index }}</li>
+                                <li class="col-xs-3"><p><strong>Name:</strong> {!! $name !!}</p></li>
+                                <li class="col-xs-2">{!!$color!!}</p></li>
+                                <li class="col-xs-2">{!!$material!!}</li>
+                                <li class="col-xs-3">{!!$price!!}</li>
+                                <li class="col-xs-1">{!!$action!!}</li>
+                            </ul>
+                        </li>
+                        {{--  <tr class="{{$class}} pointer">
                                 <td>{{ $index }}</td>
                                 <td width="30%">
                                     <p><strong>Name:</strong> {!! $name !!}</p>
@@ -66,7 +69,6 @@
                                     {!!$price!!}
                                 </td>
                             </tr>  --}}
-                        </li>
                     @endforeach
                 </ul>
                 @else
@@ -74,7 +76,5 @@
                 @endif
 
             </tbody>
-        </table>
-    </div>
 </div>
 

@@ -318,3 +318,24 @@ span.highlight{
     border: 1px solid hsl(55, 100%, 50%) !important;
     color: #fff;
 }
+
+/*product attribute price*/
+ul.double {
+    border-style: double;
+    list-style: none; /* Xóa dấu chấm đầu dòng */
+    padding: 0;
+    margin: 0;
+}
+
+ul.double li{
+    text-align: center; /* Căn giữa nội dung theo chiều ngang */
+    border: 1px solid #ccc; /* Thêm viền để dễ quan sát */
+    padding: 10px; /* Khoảng cách bên trong khung */
+    height: 50px; /* Đặt chiều cao cố định cho thẻ li */
+    display: flex; /* Kích hoạt Flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+.padding-color{
+    padding: 0px 20px 0px 20px;
+}
