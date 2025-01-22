@@ -109,5 +109,14 @@ class  ProductAttributePriceController extends AdminController
         echo "Cập nhật menu thành công";
     }
 
+    public function updateOrdering(Request $request){
+
+        $params['ids']          = $request->ids;
+        $params['orderings']    = $request->orderings;
+
+       $this->model->saveItem($params,['task' => 'update-ordering']);
+       echo "update ordering comlete";
+    }
+
 }
 

@@ -956,6 +956,35 @@ $(document).ready(function() {
 //sortable: tính năng kéo thả vị trí cho danh sách product_attribute_price
 $(document).ready(function() {
     $(function () {
-        $("#sortable").sortable();
+        $("#sortable").sortable({
+
+            update: function(event, ui) {
+                // Lấy danh sách các id theo thứ tự sau khi kéo thả
+                var ids         = $("#sortable").sortable("toArray",{attribute: 'data-id'}); //Danh sách vị trí id
+                var orderings   = $(this).sortable('toArray', {attribute: 'value'});   //Danh sách vị trí ordering
+                var url         = $(this).data('url');  //Lấy url từ views
+                console.log(ids,orderings,url);
+
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    data: {
+                        ids: ids,
+                        orderings: orderings,
+                        _token: $('meta[name="csrf-token"]').attr("content") // CSRF token
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        alert("Thứ tự đã được lưu lại!");
+                    },
+                    error: function(xhr) {
+                        alert("Có lỗi xảy ra: " + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#sortable").disableSelection();
+
     });
 });

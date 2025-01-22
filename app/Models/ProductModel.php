@@ -400,6 +400,7 @@ class ProductModel extends AdminModel
                             'color_name'            => $colorVal['color'],
                             'material_id'           => $materialVal['id'],
                             'material_name'         => $materialVal['material'],
+                            'status'                => 'active'
                         ];
 
                     }

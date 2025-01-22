@@ -43,6 +43,7 @@ class ProductAttributePriceModel extends AdminModel
                                             'p.color_name',
                                             'p.material_name',
                                             'p.price',
+                                            'p.ordering'
                                             );
                         //->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
 
@@ -78,7 +79,7 @@ class ProductAttributePriceModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('id', 'desc')
+            $result = $query->orderBy('ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -150,6 +151,21 @@ class ProductAttributePriceModel extends AdminModel
         if($options['task'] == 'change-default'){
             $this::where('id', $params['id'])
                         ->update(['default' => $params['default']]);
+
+        }
+
+        if($options['task'] == 'update-ordering'){
+            $ids = $params['ids'];
+            //$orderings = $params['orderings'];
+            // Duyệt qua từng cặp id và ordering
+            $ordering = 1;
+            foreach ($ids as $key => $id) {
+                // Lấy giá trị ordering tương ứng
+                //$ordering = $orderings[$key];
+
+                // Cập nhật vào cơ sở dữ liệu  lần lượt từng phần tử theo vòng lặp
+                $this::where('id', $id)->update(['ordering' => $key+1]);
+            }
 
         }
     }

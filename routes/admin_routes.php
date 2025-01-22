@@ -1171,6 +1171,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'as'    => $controllerName . '/price',
             'uses'  => $controller . 'price'
         ]);
+
+        Route::get('update-ordering', [
+            'as'    => $controllerName . '/updateOrdering',
+            'uses'  => $controller . 'updateOrdering'
+        ]);
     });
 });
 

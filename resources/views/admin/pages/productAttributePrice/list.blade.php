@@ -12,6 +12,8 @@
     $price_col      = 'col-xs-3';
     $action_col     = 'col-xs-1';
 
+    $urlUpdateOrdering = Route($controllerName.'/updateOrdering');
+
 @endphp
 <div class="x_content">
             <thead>
@@ -27,11 +29,11 @@
             <tbody>
 
                 @if (count($items) > 0)
-                <ul id="sortable" style="list-style: none; padding: 0;">
+                <ul id="sortable" style="list-style: none; padding: 0;" data-url="{{$urlUpdateOrdering}}">
                     @foreach ($data as $key => $val)
                         @php
-                            $index              = $key+1;
-                            $dataId           = $key;
+                            $index              = $val['ordering'];
+                            $dataId             = $val['ordering'];
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                     = $val['id'];
@@ -52,7 +54,7 @@
                             $action                 = 'action list';
 
                         @endphp
-                        <li data-id="{{ $dataId  }}">
+                        <li data-id="{{ $id  }}" value={{ $dataId }}>
                             <ul class="row double" style="list-style: none; padding: 0;">
                                 <li class="{{$stt_col}}">{{ $index }}</li>
                                 <li class="{{$name_col}}">{!! $name !!}</li>
