@@ -17,6 +17,7 @@ class  ProductAttributePriceController extends AdminController
 {
     public function __construct()
     {
+        $this->params['pagination']['totalItemsPerPage']  = 99999;
         $this->pathViewController   = 'admin.pages.productAttributePrice.';
         $this->controllerName       = 'productAttributePrice';
         //$this->srcMedia             = asset("images/$this->controllerName");
@@ -32,11 +33,16 @@ class  ProductAttributePriceController extends AdminController
 
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData();
+
         $attributeValueModel = new AttributevalueModel();
         $color      = $attributeValueModel->getItem(null, ['task'=>'get-color']);
         $material   = $attributeValueModel->getItem(null, ['task'=>'get-material']);
+
         $data['colorList']      = $color;
         $data['materialList']   = $material;
+
+        //dd($data);
+
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);
     }
@@ -114,8 +120,23 @@ class  ProductAttributePriceController extends AdminController
         $params['ids']          = $request->ids;
         $params['orderings']    = $request->orderings;
 
-       $this->model->saveItem($params,['task' => 'update-ordering']);
-       echo "update ordering comlete";
+        // $params['filter']['color']        = $request->input('filter_color','all');
+        // $params['filter']['material']     = $request->input('filter_material','all');
+        // $params['search']['field']    = $request->input('search_field','product_name');
+        // $params['search']['value']    = $request->input('search_value','all');
+
+        $params['filter']['color']        = $request->filter_color;
+        $params['filter']['material']     = $request->filter_material;
+
+        $params['search']['value']    = $request->search_value;
+        $params['search']['field']    = $request->search_field;
+
+        $this->model->saveItem($params,['task' => 'update-ordering']);
+
+        return response()->json([
+            'params'    => $params,
+            'messege'   => 'update ordering comlete'
+        ]);
     }
 
 }

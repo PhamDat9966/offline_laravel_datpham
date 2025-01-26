@@ -4,6 +4,7 @@
     $data = $items->toArray();
     $data = $data['data'];
     //dd($data,$colorList);
+    //dd($params);
 
     $stt_col        = 'col-xs-1';
     $name_col       = 'col-xs-3';
@@ -12,7 +13,13 @@
     $price_col      = 'col-xs-3';
     $action_col     = 'col-xs-1';
 
-    $urlUpdateOrdering = Route($controllerName.'/updateOrdering');
+    $urlUpdateOrdering = Route($controllerName.'/updateOrdering',
+                                [
+                                                'filter_color'=>($params['filter']['color']) ? ($params['filter']['color']) : 'all',
+                                                'filter_material'=>($params['filter']['material']) ? $params['filter']['material'] : 'all',
+                                                'search_value'=>($params['search']['value']) ? ($params['search']['value']) : 'all',
+                                                'search_field'=>($params['search']['field']) ? $params['search']['field'] : 'product_name',
+                                             ]);
 
 @endphp
 <div class="x_content">

@@ -963,19 +963,18 @@ $(document).ready(function() {
                 var ids         = $("#sortable").sortable("toArray",{attribute: 'data-id'}); //Danh sách vị trí id
                 var orderings   = $(this).sortable('toArray', {attribute: 'value'});   //Danh sách vị trí ordering
                 var url         = $(this).data('url');  //Lấy url từ views
-                console.log(ids,orderings,url);
-
+                //console.log(ids,orderings,url);
+                console.log(url);
                 $.ajax({
                     url: url,
                     method: "GET",
                     data: {
                         ids: ids,
                         orderings: orderings,
-                        _token: $('meta[name="csrf-token"]').attr("content") // CSRF token
                     },
                     success: function(response) {
                         console.log(response);
-                        alert("Thứ tự đã được lưu lại!");
+                        // alert("Thứ tự đã được lưu lại!");
                     },
                     error: function(xhr) {
                         alert("Có lỗi xảy ra: " + xhr.responseText);

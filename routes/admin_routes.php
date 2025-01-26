@@ -1172,7 +1172,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'price'
         ]);
 
-        Route::get('update-ordering', [
+        Route::get('update-ordering-{filter_color?}-{filter_material?}-{search_value?}-{search_field?}', [
             'as'    => $controllerName . '/updateOrdering',
             'uses'  => $controller . 'updateOrdering'
         ]);

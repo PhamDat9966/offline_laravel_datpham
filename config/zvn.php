@@ -185,7 +185,7 @@ return [
         ],
         'button'    =>[
             'default'           =>  ['edit','delete'],
-            'slider'            =>  ['edit','delete','info'],
+            'slider'            =>  ['edit','delete'],
             'categoryArticle'   =>  ['edit','delete'],
             'categoryProduct'   =>  ['edit','delete'],
             'article'           =>  ['edit','delete'],

@@ -155,16 +155,22 @@ class ProductAttributePriceModel extends AdminModel
         }
 
         if($options['task'] == 'update-ordering'){
-            $ids = $params['ids'];
-            //$orderings = $params['orderings'];
-            // Duyệt qua từng cặp id và ordering
-            $ordering = 1;
-            foreach ($ids as $key => $id) {
-                // Lấy giá trị ordering tương ứng
-                //$ordering = $orderings[$key];
+            $ids            = $params['ids'];
+            $orderings      = $params['orderings'];
+            $colorID        = $params['filter']['color'];
+            $materialID     = $params['filter']['material'];
+            $searchFied     = $params['search']['field'];
+            $searchValue    = $params['search']['value'];
 
-                // Cập nhật vào cơ sở dữ liệu  lần lượt từng phần tử theo vòng lặp
-                $this::where('id', $id)->update(['ordering' => $key+1]);
+            // Duyệt qua từng cặp id và ordering
+            // Trường hợp 1:Mặc định, không sử dụng bộ lọc:
+            if($colorID == 'all' && $materialID == 'all' && $searchValue == 'all'){
+               //echo "first";
+                $ordering = 1;
+                foreach ($ids as $key => $id) {
+                    // Cập nhật vào cơ sở dữ liệu  lần lượt từng phần tử theo vòng lặp
+                    $this::where('id', $id)->update(['ordering' => $key+1]);
+                }
             }
 
         }
