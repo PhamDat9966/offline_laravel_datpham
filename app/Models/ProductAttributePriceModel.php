@@ -155,22 +155,11 @@ class ProductAttributePriceModel extends AdminModel
         }
 
         if($options['task'] == 'update-ordering'){
-            $ids            = $params['ids'];
-            $orderings      = $params['orderings'];
-            $colorID        = $params['filter']['color'];
-            $materialID     = $params['filter']['material'];
-            $searchFied     = $params['search']['field'];
-            $searchValue    = $params['search']['value'];
 
-            // Duyệt qua từng cặp id và ordering
-            // Trường hợp 1:Mặc định, không sử dụng bộ lọc:
-            if($colorID == 'all' && $materialID == 'all' && $searchValue == 'all'){
-               //echo "first";
-                $ordering = 1;
-                foreach ($ids as $key => $id) {
-                    // Cập nhật vào cơ sở dữ liệu  lần lượt từng phần tử theo vòng lặp
-                    $this::where('id', $id)->update(['ordering' => $key+1]);
-                }
+            $idsOrdering    = $params['ids_ordering'];
+
+            foreach($idsOrdering as $id=>$ordering){
+                $this::where('id', $id)->update(['ordering' => $ordering]);
             }
 
         }
@@ -185,6 +174,15 @@ class ProductAttributePriceModel extends AdminModel
                     ->where('color_id', $params['color-id'])
                     ->where('material_id', $params['material-id'])
                     ->first()->toArray();
+
+        }
+
+        if($options['task'] == 'get-orderings-item'){
+            $ids = $params['ids'];
+            $result = $this::whereIn('id', $ids)
+                            ->orderByRaw("FIELD(id, " . implode(",", $ids) . ")")
+                            ->pluck('ordering', 'id') // Lấy mảng dạng [id => ordering]
+                            ->toArray();
 
         }
 

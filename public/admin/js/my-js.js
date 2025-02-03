@@ -961,10 +961,10 @@ $(document).ready(function() {
             update: function(event, ui) {
                 // Lấy danh sách các id theo thứ tự sau khi kéo thả
                 var ids         = $("#sortable").sortable("toArray",{attribute: 'data-id'}); //Danh sách vị trí id
-                var orderings   = $(this).sortable('toArray', {attribute: 'value'});   //Danh sách vị trí ordering
+                var orderings   = $(this).sortable('toArray', {attribute: 'value'});         //Danh sách vị trí ordering
                 var url         = $(this).data('url');  //Lấy url từ views
-                //console.log(ids,orderings,url);
-                console.log(url);
+                console.log(ids,orderings,url);
+                //console.log(url);
                 $.ajax({
                     url: url,
                     method: "GET",
@@ -975,6 +975,16 @@ $(document).ready(function() {
                     success: function(response) {
                         console.log(response);
                         // alert("Thứ tự đã được lưu lại!");
+                        var orderingPosition = response.orderingsPosition;
+
+                        $.each(orderingPosition, function(id, ordering) {
+                            console.log("ID: " + id + " - Ordering: " + ordering);
+                            // Tìm <li> cha có data-id. Đây là Target đối tượng
+                            var parentLi = $('li[data-id="' + id + '"]');
+
+                            // Tìm <ul> bên trong và cập nhật <li> con đầu tiên
+                            parentLi.find('ul.row.double li:first').text(ordering);
+                        });
                     },
                     error: function(xhr) {
                         alert("Có lỗi xảy ra: " + xhr.responseText);
