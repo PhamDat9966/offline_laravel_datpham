@@ -188,6 +188,15 @@ class ProductAttributePriceModel extends AdminModel
 
         }
 
+        if($options['task'] == 'get-orderings-item'){
+            $ids = $params['ids'];
+            $result = $this::whereIn('id', $ids)
+                            ->orderByRaw("FIELD(id, " . implode(",", $ids) . ")")
+                            ->pluck('ordering', 'id') // Lấy mảng dạng [id => ordering]
+                            ->toArray();
+
+        }
+
         return $result;
     }
 }

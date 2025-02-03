@@ -131,11 +131,15 @@ class  ProductAttributePriceController extends AdminController
         $params['search']['value']    = $request->search_value;
         $params['search']['field']    = $request->search_field;
 
+
         $this->model->saveItem($params,['task' => 'update-ordering']);
+        //Lấy ds các ordering của dữ liệu mới cập nhật
+        $orderingsPosition = $this->model->getItem($params,['task' => 'get-orderings-item']);
 
         return response()->json([
-            'params'    => $params,
-            'messege'   => 'update ordering comlete'
+            'params'            => $params,
+            'orderingsPosition' => $orderingsPosition,
+            'messege'           => 'update ordering comlete'
         ]);
     }
 

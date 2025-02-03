@@ -975,6 +975,16 @@ $(document).ready(function() {
                     success: function(response) {
                         console.log(response);
                         // alert("Thứ tự đã được lưu lại!");
+                        var orderingPosition = response.orderingsPosition;
+
+                        $.each(orderingPosition, function(id, ordering) {
+                            console.log("ID: " + id + " - Ordering: " + ordering);
+                            // Tìm <li> cha có data-id. Đây là Target đối tượng
+                            var parentLi = $('li[data-id="' + id + '"]');
+
+                            // Tìm <ul> bên trong và cập nhật <li> con đầu tiên
+                            parentLi.find('ul.row.double li:first').text(ordering);
+                        });
                     },
                     error: function(xhr) {
                         alert("Có lỗi xảy ra: " + xhr.responseText);
