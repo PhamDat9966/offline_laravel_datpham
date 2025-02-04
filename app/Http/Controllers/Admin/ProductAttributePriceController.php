@@ -131,7 +131,6 @@ class  ProductAttributePriceController extends AdminController
         $params['search']['value']    = $request->search_value;
         $params['search']['field']    = $request->search_field;
 
-<<<<<<< HEAD
         $params['ids_ordering']        = array_combine($params['ids']  , $params['orderings']);
 
         // Sắp xếp lại mảng $idsOrdering theo value tăng dần nhưng vẫn giữ lại thứ tự key:
@@ -144,22 +143,13 @@ class  ProductAttributePriceController extends AdminController
         foreach ($params['ids_ordering'] as $key => &$value) {
             $value = $values[$i++];
         }
-=======
->>>>>>> origin/main
 
         $this->model->saveItem($params,['task' => 'update-ordering']);
-        //Lấy ds các ordering của dữ liệu mới cập nhật
-        $orderingsPosition = $this->model->getItem($params,['task' => 'get-orderings-item']);
 
         return response()->json([
             'params'            => $params,
-<<<<<<< HEAD
             'orderingsPosition' => $params['ids_ordering'],
             'messege'           => 'update ordering comlete',
-=======
-            'orderingsPosition' => $orderingsPosition,
-            'messege'           => 'update ordering comlete'
->>>>>>> origin/main
         ]);
     }
 
