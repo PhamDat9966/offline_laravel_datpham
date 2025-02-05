@@ -25,5 +25,7 @@
 <link rel="stylesheet" href="{{asset('admin/asset/jquery-ui/jquery-ui.css')}}" type="text/css" />
 <!-- Custom Theme Style -->
 <link href="{{asset('admin/css/custom.min.css')}}" rel="stylesheet">
+<!-- Select2 CSS-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Custom Theme Style -->
 <link href="{{asset('admin/css/mycss.css')}}" rel="stylesheet">

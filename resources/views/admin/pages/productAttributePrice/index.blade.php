@@ -6,6 +6,9 @@
     $xhtmlAreaSearch            = Template::showAreaSearch($controllerName, $params['search']);
     $xhtmlItemColorFilter       = Template::showItemColorFilter($controllerName, $params['filter']['color'],$colorList);
     $xhtmlItemMaterialFilter    = Template::showItemMaterialFilter($controllerName, $params['filter']['material'],$materialList);
+    $xhtmlAddPrice              = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupForm">
+                                        Thêm Thẻ Giá Cho Sản Phẩm
+                                    </button>';
 @endphp
 
 @section('content')
@@ -21,7 +24,7 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-md-3">
-
+                        {!! $xhtmlAddPrice !!}
                     </div>
                     <div class="col-md-2">
                         {!!$xhtmlItemColorFilter!!}

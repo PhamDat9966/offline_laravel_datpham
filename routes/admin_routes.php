@@ -382,6 +382,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'removeCart'
         ]);
 
+        Route::get('/product-search', [
+            'as'    => $controllerName . '/productSearch',
+            'uses'  => $controller . 'productSearch'
+        ]);
+
     });
 
     // ====================== SYSTEN ======================
@@ -1176,6 +1181,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'as'    => $controllerName . '/updateOrdering',
             'uses'  => $controller . 'updateOrdering'
         ]);
+
     });
 });
 

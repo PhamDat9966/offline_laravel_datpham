@@ -270,5 +270,15 @@ class ProductController extends AdminController
         ]);
     }
 
+    public function productSearch(Request $request) // Ajax
+    {
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = MainModel::where('name', 'LIKE', "%{$search}%")
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'name']);
+
+        return response()->json($data);
+    }
+
 }
 

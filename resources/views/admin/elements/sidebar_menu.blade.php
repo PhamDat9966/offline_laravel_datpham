@@ -24,13 +24,6 @@
         <ul class="nav side-menu">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
             <li><a href="{{ route('user') }}"><i class="fa fa-user"></i> User</a></li>
-            <li id='article-manage'>
-                <a><i class="fa fa-newspaper-o"></i> Quản lý bài viết<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="{{ route('article')}}"> Article</a></li>
-                    <li><a href="{{ route('categoryArticle')}}"> Category</a></li>
-                </ul>
-            </li>
             <li id='product'>
                 <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
@@ -54,6 +47,13 @@
                     <li><a href="{{ route('coupon')}}"> Mã khuyến mãi</a></li>
                 </ul>
             </li>  --}}
+            <li id='article-manage'>
+                <a><i class="fa fa-newspaper-o"></i> Quản lý bài viết<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('article')}}"> Article</a></li>
+                    <li><a href="{{ route('categoryArticle')}}"> Category</a></li>
+                </ul>
+            </li>
             <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li>
             <li id='media'>
                 <a><i class="fa fa-file-image-o"></i></i> Quản lý media<span class="fa fa-chevron-down"></span></a>

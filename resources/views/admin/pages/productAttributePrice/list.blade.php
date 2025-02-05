@@ -20,6 +20,8 @@
                                                 'search_value'=>($params['search']['value']) ? ($params['search']['value']) : 'all',
                                                 'search_field'=>($params['search']['field']) ? $params['search']['field'] : 'product_name',
                                              ]);
+    $urlProductSearch = Route('product/productSearch');
+    //dd($urlProductSearch);
 
 @endphp
 <div class="x_content">
@@ -79,4 +81,48 @@
 
             </tbody>
 </div>
+
+@section('popup')
+<!-- Modal -->
+<div class="modal fade" id="popupForm" tabindex="-1" aria-labelledby="popupFormLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popupFormLabel">Thêm Thẻ Giá Cho Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label for="product-price">Chọn sản phẩm:</label>
+                    <select id="product-price" class="form-control" style="width: 100%">
+                        <option value="">Nhập hoặc chọn sản phẩm...</option>
+                    </select>
+
+                    <label for="color">Màu sắc:</label>
+                    <select id="color" class="form-control">
+                        <option value="red">Đỏ</option>
+                        <option value="blue">Xanh</option>
+                    </select>
+
+                    <label for="material">Dung lượng:</label>
+                    <select id="material" class="form-control">
+                        <option value="64GB">64GB</option>
+                        <option value="128GB">128GB</option>
+                    </select>
+
+                    <label for="price">Giá:</label>
+                    <input type="number" id="price" class="form-control" placeholder="Nhập giá">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 

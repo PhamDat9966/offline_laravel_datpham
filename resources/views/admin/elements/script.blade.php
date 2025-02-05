@@ -40,6 +40,9 @@
 <!--Jquery IU Sortable-->
 <script src="{{asset('admin/asset/jquery-ui/jquery-ui.js')}}"></script>
 
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 <script src="{{asset('admin/js/my-js.js')}}"></script>
 
 <!--Cách ly tạm thời giải thuật tích hợp CKEditor để tránh gây lỗi load DOM cho các giải thuật khác-->

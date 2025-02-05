@@ -996,4 +996,35 @@ $(document).ready(function() {
         $("#sortable").disableSelection();
 
     });
+
+
+    // Sự kiện click vào button 'show popup price'
+    $('#productModal').on('click', function () {
+            $('#productModal').modal('show');
+    });
+});
+
+$(document).ready(function() {
+    $("#popupForm").on("shown.bs.modal", function () {
+        $("#product-price").select2({
+            dropdownParent: $("#popupForm"),  // Giúp dropdown hiển thị đúng trong modal
+            placeholder: "Nhập hoặc chọn sản phẩm...",
+            allowClear: true,
+            ajax: {
+                url: "http://proj_news.xyz/admin96/product/product-search",  // API lấy danh sách sản phẩm từ Laravel
+                dataType: "json",
+                delay: 250,
+                processResults: function (data) {
+                    console.log(data);
+                    return {
+                        results: data.map(function (item) {
+                            return { id: item.id, text: item.name };
+                        })
+                    };
+                }
+            }
+
+        });
+    });
+
 });
