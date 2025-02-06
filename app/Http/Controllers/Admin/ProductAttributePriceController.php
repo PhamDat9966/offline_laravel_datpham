@@ -17,13 +17,14 @@ class  ProductAttributePriceController extends AdminController
 {
     public function __construct()
     {
-        $this->params['pagination']['totalItemsPerPage']  = 99999;
+        parent::__construct();
+        $this->params['pagination']['totalItemsPerPage']  = 999;
         $this->pathViewController   = 'admin.pages.productAttributePrice.';
         $this->controllerName       = 'productAttributePrice';
         //$this->srcMedia             = asset("images/$this->controllerName");
         $this->model  = new MainModel();
         View::share('controllerName',$this->controllerName);
-        parent::__construct();
+        //parent::__construct();
     }
 
     public function index(Request $request) //index trèn thêm dữ liệu
@@ -151,6 +152,23 @@ class  ProductAttributePriceController extends AdminController
             'orderingsPosition' => $params['ids_ordering'],
             'messege'           => 'update ordering comlete',
         ]);
+    }
+
+    public function arrangeOrdering(Request $request){
+        //Sắp xếp lại ordering thành 1,2,3... Theo trình tự tăng dần và theo nhóm id. Ví dụ: samsung là 1,2,3,4 iphone 5,6,7,8...
+        $globalOrdering  = 1;
+
+        $products = $this->model::orderBy('product_id')->orderBy('ordering')->get();
+
+        foreach ($products->groupBy('product_id') as $group) {
+            foreach ($group as $record) {
+                $record->ordering = $globalOrdering;
+                $record->save();
+                $globalOrdering++;
+            }
+        }
+
+        return redirect()->route($this->controllerName);
     }
 
 }

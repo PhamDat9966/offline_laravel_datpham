@@ -9,6 +9,8 @@
     $xhtmlAddPrice              = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupForm">
                                         Thêm Thẻ Giá Cho Sản Phẩm
                                     </button>';
+    $arrangeOrdering            = 'arrange-ordering';
+    $xhtmlArrangeOrdering       = '<button id="btn-arrange-ordering" type="button" class="btn btn-primary" data-arrange="'.$arrangeOrdering.'">Sắp xếp Ordering</button>';
 @endphp
 
 @section('content')
@@ -25,6 +27,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         {!! $xhtmlAddPrice !!}
+                        {!! $xhtmlArrangeOrdering !!}
                     </div>
                     <div class="col-md-2">
                         {!!$xhtmlItemColorFilter!!}

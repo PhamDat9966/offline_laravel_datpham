@@ -390,9 +390,10 @@ class ProductModel extends AdminModel
                     }
                 }
 
+                $maxOrdering = ProductAttributePriceModel::max('ordering');
                 foreach ($colorProduct as $colorVal) {
                     foreach($materialProduct as $materialVal){
-
+                        $maxOrdering++;
                         $attributesPriceData[] = [
                             'product_id'            => $this->id,
                             'product_name'          => $this->name,
@@ -400,7 +401,8 @@ class ProductModel extends AdminModel
                             'color_name'            => $colorVal['color'],
                             'material_id'           => $materialVal['id'],
                             'material_name'         => $materialVal['material'],
-                            'status'                => 'active'
+                            'status'                => 'active',
+                            'ordering'              => $maxOrdering
                         ];
 
                     }
@@ -475,8 +477,16 @@ class ProductModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
-            // dd($params);
+
             /*PRODUCT ATTRIBUTE PRICE*/
+            /*
+                - Xử lý dữ liệu đầu vào, từ $params tạo mảng danh sách, id sản phẩm với từng cặp thuộc tính được nhập lưu vào $InputAttributesPriceData.
+                - Lấy dữ liệu từ table `product_attribute_price` gồm các cặp thuộc tính tương ứng với product_id đã có và lưu vào $currentAttributePriceItemTable
+                - Tiến hành so sánh giữa dữ liệu đầu vào và dữ liệu từ bản:
+                    + Bước 01: Kiểm tra nếu các phần tử trong $currentAttributePriceItemTable không tồn tại trong $InputAttributesPriceData thì tiến hành xóa phần tử đó
+                    + Bước 02: Kiểm tra nếu các phần tử trong $InputAttributesPriceData không nằm trong $currentAttributePriceItemTable thì thêm mới
+            */
+            // dd($params);
             if (!empty($params['attribute_value'])) {
 
                 $InputAttributesPriceData = [];
@@ -572,7 +582,9 @@ class ProductModel extends AdminModel
 
                 // Sau khi đã tìm được danh sách các cặp thuộc tính trong InputAttributesPriceData mà không nằm trong dữ liệu của bản, ta tiến hành thêm mới
                 $attributesPairs = [];
+                $maxOrdering = ProductAttributePriceModel::max('ordering');
                 foreach($missingInputPairs as $addNewPairs){
+                    $maxOrdering++;
                     $attributesPairs[] = [
                         'product_id'            => $params['id'],
                         'product_name'          => $params['name'],
@@ -580,7 +592,8 @@ class ProductModel extends AdminModel
                         'material_id'           => $addNewPairs['material_id'],
                         'color_name'            => $addNewPairs['color_name'],
                         'material_name'         => $addNewPairs['material_name'],
-                        'status'                => 'active'
+                        'status'                => 'active',
+                        'ordering'              => $maxOrdering
                     ];
                 }
 

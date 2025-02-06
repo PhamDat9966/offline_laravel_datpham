@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 22, 2025 lúc 09:53 AM
+-- Thời gian đã tạo: Th2 06, 2025 lúc 08:39 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -368,15 +368,16 @@ CREATE TABLE `category_product` (
 --
 
 INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 18),
-(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, 'list', '2024-10-22 00:00:00', 'dat123', '2024-10-26 00:00:00', 'admin', 1, 2, 7),
-(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 4, 9, 10),
-(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, 'grid', '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 1, 8, 13),
-(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 14, 15),
-(7, 'Tivi', 'cm-tivi-7', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 1, 16, 17),
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 20),
+(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', NULL, 'list', '2024-10-22 00:00:00', 'dat123', '2024-10-26 00:00:00', 'admin', 1, 2, 9),
+(3, 'Laptop', 'cm-laptop-3', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 4, 11, 12),
+(4, 'Máy tính', 'cm-may-tinh--4', 'active', NULL, 'grid', '2024-10-22 00:00:00', 'dat123', '2024-10-24 00:00:00', 'admin', 1, 10, 15),
+(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2024-10-22 00:00:00', 'dat123', 1, 16, 17),
+(7, 'Tivi', 'cm-tivi-7', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 1, 18, 19),
 (8, 'Iphone', 'cm-iphone-8', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 3, 4),
 (9, 'Samsung', 'cm-samsung-9', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 6, 5, 6),
-(10, 'decktop', 'cm-decktop-10', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 4, 11, 12);
+(10, 'decktop', 'cm-decktop-10', 'active', NULL, NULL, '2024-10-29 00:00:00', 'admin', '2024-10-29 00:00:00', 'admin', 4, 13, 14),
+(11, 'oppo', 'cm-oppo-11', 'active', NULL, NULL, '2025-02-06 00:00:00', 'admin', '2025-02-06 00:00:00', 'admin', 6, 7, 8);
 
 --
 -- Bẫy `category_product`
@@ -474,7 +475,10 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (146, 27, NULL, '{\"name\":\"rOCb4BTVVV.png\",\"alt\":\"02\",\"size\":285090}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (147, 28, NULL, '{\"name\":\"HNH5dG7sgH.jpg\",\"alt\":\"default\",\"size\":76803}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (148, 28, NULL, '{\"name\":\"flST3ixxW2.jpg\",\"alt\":\"01\",\"size\":36345}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(149, 28, NULL, '{\"name\":\"fYC0oCXJfz.jpg\",\"alt\":\"02\",\"size\":31082}', NULL, '', 'false', 'image not for attribute_values', 'default');
+(149, 28, NULL, '{\"name\":\"fYC0oCXJfz.jpg\",\"alt\":\"02\",\"size\":31082}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(150, 29, NULL, '{\"name\":\"fucrsJPeVY.png\",\"alt\":\"oppo-01\",\"size\":139815}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(151, 29, NULL, '{\"name\":\"jcIKlXjftY.jpg\",\"alt\":\"oppo-02\",\"size\":44541}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(152, 29, NULL, '{\"name\":\"QvL0eruDDp.jpg\",\"alt\":\"oppo-03\",\"size\":36885}', NULL, '', 'false', 'image not for attribute_values', 'default');
 
 -- --------------------------------------------------------
 
@@ -615,8 +619,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-01-22 00:00:00'),
-(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-01-16 00:00:00');
+(27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-06 00:00:00'),
+(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-06 00:00:00'),
+(29, 'OPPO Reno10 Pro', 'bv-oppo-reno10-pro-39', 11, '<p style=\"font-style: normal;\">B&ecirc;n cạnh đ&oacute;, với bộ nhớ RAM 12 GB, OPPO Reno10 Pro&nbsp;Plus c&oacute; thể đối ph&oacute; với t&aacute;c vụ đa nhiệm, cho ph&eacute;p bạn mở nhiều ứng dụng c&ugrave;ng một l&uacute;c m&agrave; kh&ocirc;ng gặp bất kỳ kh&oacute; khăn n&agrave;o về hiệu suất. Kết hợp với dung lượng bộ nhớ trong l&ecirc;n tới 256 GB v&agrave; khe cắm thẻ nhớ microSD, chiếc smartphone n&agrave;y kh&ocirc;ng chỉ đảm bảo hiệu suất mượt m&agrave;, m&agrave; c&ograve;n cung cấp kh&ocirc;ng gian lưu trữ rộng lớn để lưu trữ v&agrave; truy cập dữ liệu nhanh ch&oacute;ng, tiện lợi.</p>\r\n\r\n<p>Chiếc smartphone mới từ nh&agrave; OPPO kh&ocirc;ng chỉ nổi bật với m&agrave;n h&igrave;nh lớn m&agrave; c&ograve;n c&oacute; khả năng hiển thị vượt trội. Cụ thể, m&aacute;y sở hữu m&agrave;n h&igrave;nh 6,74 inch với tấm nền 3D AOLED, mang đến một kh&ocirc;ng gian xem rộng lớn để thoải m&aacute;i xem video, chơi game hoặc thực hiện c&aacute;c t&aacute;c vụ h&agrave;ng ng&agrave;y. Độ ph&acirc;n giải 2772 &times; 1240 pixel cũng cho ph&eacute;p h&igrave;nh ảnh hiển thị với độ sắc n&eacute;t tuyệt vời, l&agrave;m cho mọi chi tiết trở n&ecirc;n sống động v&agrave; r&otilde; r&agrave;ng.</p>', 'active', NULL, '2025-02-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-06 00:00:00');
 
 --
 -- Bẫy `product`
@@ -662,13 +667,17 @@ CREATE TABLE `product_attribute_price` (
 
 INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`, `status`, `ordering`) VALUES
 (50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2200, 'active', 4),
-(52, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', 3000, 'active', 3),
-(53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, 'active', 5),
-(60, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 6),
-(71, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', NULL, 'active', 7),
-(72, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', NULL, 'active', 8),
-(73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', NULL, 'active', 2),
-(74, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL, 'active', 1);
+(53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, 'active', 9),
+(60, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 7),
+(71, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', NULL, 'active', 8),
+(72, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', NULL, 'active', 6),
+(73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', NULL, 'active', 1),
+(77, 27, 3, 57, 'samsung s24', 'xanh', '256 GB', NULL, 'active', 11),
+(78, 27, 3, 58, 'samsung s24', 'xanh', '512 GB', NULL, 'active', 2),
+(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', NULL, 'active', 10),
+(80, 29, 3, 58, 'OPPO Reno10 Pro', 'xanh', '512 GB', NULL, 'active', 12),
+(81, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL, 'active', 3),
+(82, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', NULL, 'active', 5);
 
 -- --------------------------------------------------------
 
@@ -696,13 +705,18 @@ CREATE TABLE `product_has_attribute` (
 
 INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `product_name`, `attribute_value_name`, `price`, `product_id_relation`, `ordering`, `default`, `fieldClass`, `status`) VALUES
 (132, 27, 1, 'samsung s24', 'vàng', NULL, NULL, NULL, 'true', NULL, 'active'),
-(133, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
 (135, 27, 58, 'samsung s24', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
 (136, 28, 1, 'iphone 15', 'vàng', NULL, NULL, NULL, 'true', NULL, 'active'),
 (138, 28, 56, 'iphone 15', '128 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
 (141, 28, 57, 'iphone 15', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
 (145, 28, 2, 'iphone 15', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
-(146, 27, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active');
+(146, 27, 57, 'samsung s24', '256 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(147, 28, 3, 'iphone 15', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
+(148, 27, 3, 'samsung s24', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
+(149, 29, 1, 'OPPO Reno10 Pro', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
+(150, 29, 3, 'OPPO Reno10 Pro', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
+(151, 29, 58, 'OPPO Reno10 Pro', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
+(152, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -1271,7 +1285,7 @@ ALTER TABLE `category_article`
 -- AUTO_INCREMENT cho bảng `category_product`
 --
 ALTER TABLE `category_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `contact`
@@ -1289,7 +1303,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -1319,19 +1333,19 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `product_attribute_price`
 --
 ALTER TABLE `product_attribute_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

@@ -78,7 +78,7 @@ class ProductAttributePriceModel extends AdminModel
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
-
+           // $result = $query->orderBy('ordering', 'asc');
             $result = $query->orderBy('ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }

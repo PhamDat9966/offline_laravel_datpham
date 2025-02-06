@@ -1028,3 +1028,14 @@ $(document).ready(function() {
     });
 
 });
+
+$(document).ready(function() {
+    $("button#btn-arrange-ordering").click(function(){
+        var pathname = window.location.pathname; //path hien tai không bao gồm param, tức là chỉ lấy đến hết dấu hỏi
+        var getRoute      = $(this).data('arrange');
+
+        window.location.href    = pathname + '/' + getRoute;
+
+    });
+
+});
