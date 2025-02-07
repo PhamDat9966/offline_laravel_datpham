@@ -168,18 +168,7 @@ class  ProductAttributePriceController extends AdminController
         $ordering = 1;
         $sortedData = []; //Mảng lưu lại kết quả sắp xếp.
         foreach ($groupedData as $group) {
-            /* Sắp xếp nhóm theo ordering cũ
-                Hàm ẩn danh (function ($a, $b) {...}): Là hàm so sánh dùng để xác định thứ tự sắp xếp.
-                Dùng $groupA['ordering'] <=> $groupB['ordering'] để sắp xếp tăng dần.
-                Dùng $groupB['ordering'] <=> $groupA['ordering'] để sắp xếp giảm dần.
-                Với bước usort này có thể bỏ qua nếu không quan tâm đến thứ tự ban đầu của ordering
-            */
-            usort($group, function ($groupA, $groupB) {
-                return $groupA['ordering'] <=> $groupB['ordering'];
-            });
-
-            // Sau khi đã sắp xếp thứ tự tăng dần theo ordering của từng nhóm id.
-            // tiếp theo là cập nhật lại ordering mới có tính liên tục: samsung s24: 1,2,3,4 .iphone 15: 5,6,7...
+            // Cập nhật lại ordering mới có tính liên tục: samsung s24: 1,2,3,4 .iphone 15: 5,6,7...
             foreach ($group as $key => $item) {
                 $item['ordering'] = $ordering++;
                 $sortedData[] = $item;
