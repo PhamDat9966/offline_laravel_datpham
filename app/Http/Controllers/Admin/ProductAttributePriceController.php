@@ -156,20 +156,58 @@ class  ProductAttributePriceController extends AdminController
 
     public function arrangeOrdering(Request $request){
         //Sắp xếp lại ordering thành 1,2,3... Theo trình tự tăng dần và theo nhóm id. Ví dụ: samsung là 1,2,3,4 iphone 5,6,7,8...
-        $globalOrdering  = 1;
+        $data = $this->model->getItem(null,['task'=>'get-all-item-array']);
 
-        $products = $this->model::orderBy('product_id')->orderBy('ordering')->get();
+        // Bước 1: Nhóm dữ liệu theo product_id. Ví dụ: samsung s24 id=27 là một nhóm, iphone 15 id=28 là một nhóm
+        $groupedData = [];
+        foreach ($data as $row) {
+            $groupedData[$row['product_id']][] = $row;
+        }
 
-        foreach ($products->groupBy('product_id') as $group) {
-            foreach ($group as $record) {
-                $record->ordering = $globalOrdering;
-                $record->save();
-                $globalOrdering++;
+        // Bước 2: Sắp xếp lại từng nhóm và cập nhật ordering mới
+        $ordering = 1;
+        $sortedData = []; //Mảng lưu lại kết quả sắp xếp.
+        foreach ($groupedData as $group) {
+            /* Sắp xếp nhóm theo ordering cũ
+                Hàm ẩn danh (function ($a, $b) {...}): Là hàm so sánh dùng để xác định thứ tự sắp xếp.
+                Dùng $groupA['ordering'] <=> $groupB['ordering'] để sắp xếp tăng dần.
+                Dùng $groupB['ordering'] <=> $groupA['ordering'] để sắp xếp giảm dần.
+                Với bước usort này có thể bỏ qua nếu không quan tâm đến thứ tự ban đầu của ordering
+            */
+            usort($group, function ($groupA, $groupB) {
+                return $groupA['ordering'] <=> $groupB['ordering'];
+            });
+
+            // Sau khi đã sắp xếp thứ tự tăng dần theo ordering của từng nhóm id.
+            // tiếp theo là cập nhật lại ordering mới có tính liên tục: samsung s24: 1,2,3,4 .iphone 15: 5,6,7...
+            foreach ($group as $key => $item) {
+                $item['ordering'] = $ordering++;
+                $sortedData[] = $item;
             }
         }
+
+        //Cập nhật lại ordering tại bản:
+        $params['data'] = $sortedData;
+        $this->model->saveItem($params,['task'=>'update-ordering-to-array']);
 
         return redirect()->route($this->controllerName);
     }
 
+    // public function arrangeOrdering(Request $request){
+    //     //Sắp xếp lại ordering thành 1,2,3... Theo trình tự tăng dần và theo nhóm id. Ví dụ: samsung là 1,2,3,4 iphone 5,6,7,8...
+    //     $globalOrdering  = 1;
+
+    //     $products = $this->model::orderBy('product_id')->orderBy('ordering')->get();
+    //     dd($products);
+    //     foreach ($products->groupBy('product_id') as $group) {
+    //         foreach ($group as $record) {
+    //             $record->ordering = $globalOrdering;
+    //             $record->save();
+    //             $globalOrdering++;
+    //         }
+    //     }
+
+    //     return redirect()->route($this->controllerName);
+    // }
 }
 

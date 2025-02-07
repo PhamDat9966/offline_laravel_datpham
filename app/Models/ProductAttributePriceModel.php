@@ -163,6 +163,14 @@ class ProductAttributePriceModel extends AdminModel
             }
 
         }
+
+        if($options['task'] == 'update-ordering-to-array'){
+
+            foreach($params['data'] as $key=>$data){
+                $this::where('id', $data['id'])->update(['ordering' => $data['ordering']]);
+            }
+
+        }
     }
 
     public function getItem($params = null,$options = null){
@@ -184,6 +192,11 @@ class ProductAttributePriceModel extends AdminModel
                             ->pluck('ordering', 'id') // Lấy mảng dạng [id => ordering]
                             ->toArray();
 
+        }
+
+        if($options['task'] == 'get-all-item-array'){
+            $result = $this::select('id','product_id','ordering')
+                    ->get()->toArray();
         }
 
         return $result;
