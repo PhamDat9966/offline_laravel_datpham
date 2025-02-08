@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\ProductAttributePriceModel as MainModel;
 use App\Http\Requests\ProductAttributePriceRequest as MainRequest;
+use App\Models\ProductModel;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Models\AttributeModel;
@@ -42,46 +43,34 @@ class  ProductAttributePriceController extends AdminController
         $data['colorList']      = $color;
         $data['materialList']   = $material;
 
-        //dd($data);
-
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);
     }
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
         if($request->method() == 'POST'){
 
-            $params = $request->all();  // Lấy param từ request chi dung voi POST
+            $params = $request->all();
+            $allProductPriceTable  = $this->model->getItem(null,['task'=>'get-all-price-item']);
 
-            $task   = 'add-item';
-            $notify = 'Thêm phần tử thành công!';
-
-            /* Sử lý ảnh tại dropzone */
-            $thumbNames     = $request->input('thumb.name');        // Mảng chứa tên file từ form
-            $imagePath      = public_path('images/product');       // Đường dẫn thư mục chứa ảnh
-            $updatedNames   = [];
-            if($thumbNames){                                   // Mảng lưu tên file mới
-                foreach($thumbNames  as $tempName){
-                    // Loại bỏ tiền tố 'temp_'
-                    $newName = str_replace('temp_', '', $tempName);
-
-                    // Đường dẫn file cũ và mới, ở đây khi đổi tên file sử dụng hàm `move`nên ta vẫn phải thiết lập đường dẫn để đổi tên
-                    $oldFilePath = $imagePath . '/' . $tempName;
-                    $newFilePath = $imagePath . '/' . $newName;
-
-                    if (File::exists($oldFilePath)) {
-                        // Đổi tên file
-                        File::move($oldFilePath, $newFilePath);
-                    }
+            $flagExists = false;
+            foreach ($allProductPriceTable as $item) {
+                if (
+                    $item['product_id'] == $params['product-id'] &&
+                    $item['color_id'] == $params['color-id'] &&
+                    $item['material_id'] == $params['material-id']
+                ) {
+                    $flagExists = true;
+                    break;
                 }
             }
-            /* End Sử lý ảnh tại dropzone */
-
-            if($params['id'] !== null){
-                $task = 'edit-item';
-                $notify   = 'Cập nhật thành công!';
+            if($flagExists == true){
+                $task   = 'edit-item';
+                $notify = 'Cập nhật thẻ giá thành công!';
+            }else{
+                $task   = 'add-item';
+                $notify = 'Thêm thẻ giá thành công!';
             }
 
             $this->model->saveItem($params,['task'=>$task]);
@@ -198,5 +187,15 @@ class  ProductAttributePriceController extends AdminController
 
     //     return redirect()->route($this->controllerName);
     // }
+
+    public function productSearch(Request $request) // Ajax
+    {
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = ProductModel::where('name', 'LIKE', "%{$search}%")
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'name']);
+
+        return response()->json($data);
+    }
 }
 

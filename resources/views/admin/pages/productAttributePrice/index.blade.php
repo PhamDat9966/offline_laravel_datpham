@@ -10,7 +10,7 @@
                                         Thêm Thẻ Giá Cho Sản Phẩm
                                     </button>';
     $arrangeOrdering            = 'arrange-ordering';
-    $xhtmlArrangeOrdering       = '<button id="btn-arrange-ordering" type="button" class="btn btn-primary" data-arrange="'.$arrangeOrdering.'">Sắp xếp Ordering</button>';
+    $xhtmlArrangeOrdering       = '<button id="btn-arrange-ordering" type="button" class="btn btn-primary" data-arrange="'.$arrangeOrdering.'">Sắp xếp nhóm sản phẩm</button>';
 @endphp
 
 @section('content')

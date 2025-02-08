@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\AdminModel;
 use App\Models\ProductModel;
 use App\Models\AttributevalueModel;
+use App\Models\ProductHasAttributeModel;
 
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
@@ -171,6 +172,75 @@ class ProductAttributePriceModel extends AdminModel
             }
 
         }
+
+        if($options['task'] == 'edit-item'){
+            $this::where('product_id', $params['product-id'])
+                ->where('color_id', $params['color-id'])
+                ->where('material_id', $params['material-id'])
+                ->update(['price' => $params['price']]);
+        }
+
+        if($options['task'] == 'add-item'){
+            $productName = $this::select('product_name')->where('product_id',$params['product-id'])->first()->toArray();
+            $productName = $productName['product_name'];
+            $nameColor      = AttributevalueModel::select('name')->where('id',$params['color-id'])->first()->toArray();
+            $nameColor      =  $nameColor['name'];
+            $nameMateria    = AttributevalueModel::select('name')->where('id',$params['material-id'])->first()->toArray();
+            $nameMateria    = $nameMateria['name'];
+            $maxOrdering    = $this::max('ordering');
+            //dd($productName);
+            $dataInsert     = [
+                'product_id'    =>$params['product-id'],
+                'product_name'  =>$productName,
+                'color_id'      =>$params['color-id'],
+                'material_id'   =>$params['material-id'],
+                'color_name'    =>$nameColor,
+                'material_name' =>$nameMateria,
+                'price'         =>$params['price'],
+                'status'        =>'active',
+                'ordering'      =>$maxOrdering
+            ];
+            $this->insert($dataInsert);
+
+            /*
+              Table product_has_attribute:
+                -Kiểm tra product_id và color_id đã tồn tại trong bản product_has_attribute chưa.
+                -Nếu chưa thì thêm thẻ mới.
+            */
+            $colorProductExists = ProductHasAttributeModel::firstOrNew([
+                'product_id'            =>$params['product-id'],
+                'attribute_value_id'    =>$params['color-id']
+            ]);
+            $existcolor = $colorProductExists->exists;
+
+            if (!$existcolor) {
+                $colorProductHasAttribute = [
+                    'product_id'            =>$params['product-id'],
+                    'product_name'          =>$productName,
+                    'attribute_value_id'    =>$params['color-id'],
+                    'attribute_value_name'  =>$nameColor,
+                    'status'                =>'active'
+                ];
+                ProductHasAttributeModel::insert($colorProductHasAttribute);
+            }
+
+            $materialProductExists = ProductHasAttributeModel::firstOrNew([
+                'product_id'           =>$params['product-id'],
+                'attribute_value_id'   =>$params['material-id'],
+            ]);
+            $existMarterial = $materialProductExists->exists;
+            if (!$existMarterial) {
+                $materialProductHasAttribute = [
+                    'product_id'           => $params['product-id'],
+                    'product_name'          =>$productName,
+                    'attribute_value_id'    =>$params['material-id'],
+                    'attribute_value_name'  =>$nameMateria,
+                    'status'                =>'active'
+                ];
+                ProductHasAttributeModel::insert($materialProductHasAttribute);
+            }
+
+        }
     }
 
     public function getItem($params = null,$options = null){
@@ -182,6 +252,12 @@ class ProductAttributePriceModel extends AdminModel
                     ->where('color_id', $params['color-id'])
                     ->where('material_id', $params['material-id'])
                     ->first()->toArray();
+
+        }
+
+        if($options['task'] == 'get-all-price-item'){
+            $result = $this::select('id','product_id','color_id','material_id','price')
+                    ->get()->toArray();
 
         }
 

@@ -1142,11 +1142,6 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
-        Route::get('form/{id?}', [
-            'as'    => $controllerName . '/form',
-            'uses'  => $controller . 'form'
-        ])->where('id', '[0-9]+');
-
         Route::get('change-status-{status}/{id}', [
             'as'    => $controllerName . '/status',
             'uses'  => $controller . 'status'
@@ -1162,7 +1157,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'displayFilter'
         ]);
 
-        Route::post('save/{id?}', [
+        Route::post('save', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
         ]);
@@ -1185,6 +1180,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('arrange-ordering', [
             'as'    => $controllerName . '/arrangeOrdering',
             'uses'  => $controller . 'arrangeOrdering'
+        ]);
+
+        Route::get('/product-search', [
+            'as'    => $controllerName . '/productSearch',
+            'uses'  => $controller . 'productSearch'
         ]);
 
     });

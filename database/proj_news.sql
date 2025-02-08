@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 06, 2025 lúc 08:39 AM
+-- Thời gian đã tạo: Th2 08, 2025 lúc 08:49 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -666,18 +666,19 @@ CREATE TABLE `product_attribute_price` (
 --
 
 INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`, `status`, `ordering`) VALUES
-(50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2200, 'active', 4),
-(53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, 'active', 9),
-(60, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 7),
-(71, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', NULL, 'active', 8),
-(72, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', NULL, 'active', 6),
-(73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', NULL, 'active', 1),
-(77, 27, 3, 57, 'samsung s24', 'xanh', '256 GB', NULL, 'active', 11),
-(78, 27, 3, 58, 'samsung s24', 'xanh', '512 GB', NULL, 'active', 2),
-(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', NULL, 'active', 10),
+(50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2200, 'active', 1),
+(53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, 'active', 7),
+(60, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 8),
+(71, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', NULL, 'active', 9),
+(72, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', NULL, 'active', 10),
+(73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', 2000, 'active', 2),
+(77, 27, 3, 57, 'samsung s24', 'xanh', '256 GB', NULL, 'active', 3),
+(78, 27, 3, 58, 'samsung s24', 'xanh', '512 GB', NULL, 'active', 4),
+(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', NULL, 'active', 11),
 (80, 29, 3, 58, 'OPPO Reno10 Pro', 'xanh', '512 GB', NULL, 'active', 12),
-(81, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL, 'active', 3),
-(82, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', NULL, 'active', 5);
+(81, 27, 2, 57, 'samsung s24', 'đỏ', '256 GB', NULL, 'active', 5),
+(82, 27, 2, 58, 'samsung s24', 'đỏ', '512 GB', NULL, 'active', 6),
+(87, 29, 2, 58, 'OPPO Reno10 Pro', 'đỏ', '512 GB', 4000, 'active', 12);
 
 -- --------------------------------------------------------
 
@@ -716,7 +717,8 @@ INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `
 (149, 29, 1, 'OPPO Reno10 Pro', 'vàng', NULL, NULL, NULL, NULL, NULL, 'active'),
 (150, 29, 3, 'OPPO Reno10 Pro', 'xanh', NULL, NULL, NULL, NULL, NULL, 'active'),
 (151, 29, 58, 'OPPO Reno10 Pro', '512 GB', NULL, NULL, NULL, NULL, NULL, 'active'),
-(152, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active');
+(152, 27, 2, 'samsung s24', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active'),
+(153, 29, 2, 'OPPO Reno10 Pro', 'đỏ', NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -1339,13 +1341,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `product_attribute_price`
 --
 ALTER TABLE `product_attribute_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`

@@ -12,7 +12,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Giá trị thuộc tính</th>
                     <th class="column-title">Loại thuộc tính</th>
-                    <th class="column-title">Chọn màu sắc nếu có</th>
+                    <th class="column-title">Hãy chọn màu sắc</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">fieldClass</th>
                     <th class="column-title">Hành động</th>

@@ -1006,12 +1006,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $("#popupForm").on("shown.bs.modal", function () {
+        var url         = $("#product-price").data('url');
         $("#product-price").select2({
             dropdownParent: $("#popupForm"),  // Giúp dropdown hiển thị đúng trong modal
             placeholder: "Nhập hoặc chọn sản phẩm...",
             allowClear: true,
             ajax: {
-                url: "http://proj_news.xyz/admin96/product/product-search",  // API lấy danh sách sản phẩm từ Laravel
+                url: url,  // API lấy danh sách sản phẩm từ Laravel
                 dataType: "json",
                 delay: 250,
                 processResults: function (data) {
@@ -1033,9 +1034,7 @@ $(document).ready(function() {
     $("button#btn-arrange-ordering").click(function(){
         var pathname = window.location.pathname; //path hien tai không bao gồm param, tức là chỉ lấy đến hết dấu hỏi
         var getRoute      = $(this).data('arrange');
-
         window.location.href    = pathname + '/' + getRoute;
-
     });
 
 });

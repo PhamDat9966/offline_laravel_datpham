@@ -20,8 +20,8 @@
                                                 'search_value'=>($params['search']['value']) ? ($params['search']['value']) : 'all',
                                                 'search_field'=>($params['search']['field']) ? $params['search']['field'] : 'product_name',
                                              ]);
-    $urlProductSearch = Route('product/productSearch');
-    //dd($urlProductSearch);
+    $urlProductSearch = Route($controllerName) . '/product-search';
+    //dd($materialList);
 
 @endphp
 <div class="x_content">
@@ -94,31 +94,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{route($controllerName.'/save')}}" method="POST">
+                    @csrf
                     <label for="product-price">Chọn sản phẩm:</label>
-                    <select id="product-price" class="form-control" style="width: 100%">
+                    <select name="product-id" id="product-price" class="form-control" style="width: 100%" data-url="{{$urlProductSearch}}">
                         <option value="">Nhập hoặc chọn sản phẩm...</option>
                     </select>
 
-                    <label for="color">Màu sắc:</label>
-                    <select id="color" class="form-control">
-                        <option value="red">Đỏ</option>
-                        <option value="blue">Xanh</option>
+                    <label for="color">Chọn màu sắc:</label>
+                    <select name="color-id" id="color" class="form-control">
+                        @foreach ($colorList as $keyC=>$color)
+                            <option value="{{$color['id']}}">{{$color['name']}}</option>
+                        @endforeach
                     </select>
 
-                    <label for="material">Dung lượng:</label>
-                    <select id="material" class="form-control">
-                        <option value="64GB">64GB</option>
-                        <option value="128GB">128GB</option>
+                    <label for="material">Chọn dung lượng:</label>
+                    <select name="material-id" id="material" class="form-control">
+                        @foreach ($materialList as $keyM=>$material)
+                            <option value="{{$material['id']}}">{{$material['name']}}</option>
+                        @endforeach
                     </select>
 
-                    <label for="price">Giá:</label>
-                    <input type="number" id="price" class="form-control" placeholder="Nhập giá">
+                    <label for="price">Đặt giá:</label>
+                    <input name="price" type="number" id="price" class="form-control" placeholder="Nhập giá">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
