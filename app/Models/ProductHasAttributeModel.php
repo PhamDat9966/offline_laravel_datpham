@@ -40,7 +40,6 @@ class ProductHasAttributeModel extends AdminModel
                                             'p.attribute_value_id',
                                             'p.product_name',
                                             'p.attribute_value_name',
-                                            'p.price',
                                             'p.product_id_relation',
                                             'p.ordering',
                                             'p.default',
@@ -140,12 +139,6 @@ class ProductHasAttributeModel extends AdminModel
         if($options['task'] == 'change-ordering'){
             $this::where('id', $params['id'])
                         ->update(['ordering' => $params['ordering']]);
-
-        }
-
-        if($options['task'] == 'change-price'){
-            $this::where('id', $params['id'])
-                        ->update(['price' => $params['price']]);
 
         }
 

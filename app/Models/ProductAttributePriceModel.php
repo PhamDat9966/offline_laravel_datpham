@@ -44,7 +44,8 @@ class ProductAttributePriceModel extends AdminModel
                                             'p.color_name',
                                             'p.material_name',
                                             'p.price',
-                                            'p.ordering'
+                                            'p.ordering',
+                                            'p.default'
                                             );
                         //->leftJoin('category_article as c', 'a.category_id', '=', 'c.id');
 

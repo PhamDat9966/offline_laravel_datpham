@@ -1,7 +1,7 @@
 @php
 
 @endphp
-@foreach ($itemsCategory as $key=>$item)
+@foreach ($itemsCategoryPage as $key=>$item)
     @if ($item['display'] == 'list')
         @include('news.pages.home.child-index.category_list',['item'=>$item,'lenghtContent'=> 500])
     @elseif ($item['display'] == 'grid')

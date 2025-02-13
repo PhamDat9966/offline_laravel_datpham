@@ -7,7 +7,7 @@
     $host = 'http://'.$host;
 
     $nameBreadcrumb     = $item['name'];
-    $linkCategory       = URL::linkCategory($item['category_id'],$item['category_name']);
+    $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
 
     $xhtmlBreadcrumbs   = '<ul class="d-flex flex-row align-items-start justify-content-start">';
     $xhtmlBreadcrumbs  .=       '<li><a href="'.route('home').'">Trang chủ</a></li>';

@@ -52,13 +52,17 @@ class HomeController extends Controller
             $itemsUsually = $this->usuallyItem($userInfo); // Bài viết đề xuất theo session
         }
 
+        $itemsCategoryPage = $itemsCategory;
+        shuffle($itemsCategoryPage); //Xáo chộn các phần tử trước khi đưa ra home
+
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
              'itemsCategory'        => $itemsCategory,
              'itemsFeature'         => $itemsFeature,
              'itemsLatest'          => $itemsLatest,
-             'itemsUsually'         => $itemsUsually
+             'itemsUsually'         => $itemsUsually,
+             'itemsCategoryPage'    => $itemsCategoryPage
         ]);
     }
 

@@ -22,7 +22,6 @@ class  ProductAttributePriceController extends AdminController
         $this->params['pagination']['totalItemsPerPage']  = 999;
         $this->pathViewController   = 'admin.pages.productAttributePrice.';
         $this->controllerName       = 'productAttributePrice';
-        //$this->srcMedia             = asset("images/$this->controllerName");
         $this->model  = new MainModel();
         View::share('controllerName',$this->controllerName);
         //parent::__construct();
@@ -99,10 +98,16 @@ class  ProductAttributePriceController extends AdminController
     public function default(Request $request){
 
         $params['id']       = $request->id;
-        $params['default']    = $request->default;
+        $params['default']  = $request->defaultAttr;
+        $params['default']  = ($params['default'] == "1") ? "0" : "1";
 
         $this->model->saveItem($params,['task' => 'change-default']);
-        echo "Cập nhật menu thành công";
+
+        //echo "Cập nhật menu thành công";
+        return response()->json([
+            'params'            => $params,
+            'messege'           => 'Cập nhật menu thành công',
+        ]);
     }
 
     public function updateOrdering(Request $request){
@@ -197,5 +202,6 @@ class  ProductAttributePriceController extends AdminController
 
         return response()->json($data);
     }
+
 }
 

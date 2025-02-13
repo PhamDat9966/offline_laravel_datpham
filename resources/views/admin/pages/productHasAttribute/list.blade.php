@@ -3,6 +3,7 @@
     use App\Helpers\Hightlight as Hightlight;
     $data = $items->toArray();
     $data = $data['data'];
+    //dd($data);
 @endphp
 
 <div class="x_content">
@@ -13,7 +14,6 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Tên sản phẩm</th>
                     <th class="column-title">Thuộc tính</th>
-                    <th class="column-title">Giá</th>
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Sản phẩm có liên quan</th>
@@ -29,8 +29,8 @@
 
                             $id                     = $val['id'];
                             $name                   = Hightlight::show($val['product_name'], $params['search'] , 'product_name');
-                            $attribute_value_name   = Hightlight::show($val['attribute_value_name'], $params['search'] , 'attribute_value_name');
-                            $price                  = Template::showItemPrice( $controllerName,$val['price'],$id );
+                            //$attribute_value_name   = Hightlight::show($val['attribute_value_name'], $params['search'] , 'attribute_value_name');
+                            $attribute_value_name   = Hightlight::showWithColor($val['attribute_value_name'], $params['search'] , 'attribute_value_name', $val['attribute_value_id']);
                             $ordering               = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $default                = Template::showItemSelect( $controllerName,$id,$val['default'], 'default');
                             $product_id_relation    = $val['product_id_relation'];
@@ -43,9 +43,6 @@
                             </td>
                             <td width="10%">
                                 {!!$attribute_value_name!!}
-                            </td>
-                            <td width="15%">
-                                {!!$price!!}
                             </td>
                             <td>
                                 {!!$ordering!!}

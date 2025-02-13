@@ -7,7 +7,7 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-use Config;
+use Config as Config;
 
 use Kalnoy\Nestedset\NodeTrait;
 

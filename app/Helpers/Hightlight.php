@@ -18,4 +18,12 @@ class Hightlight{
         }
         return $input;
     }
+
+    public static function showWithColor($input , $paramsSearch , $field, $attrID){
+        if($paramsSearch['value'] == null) return $input;
+        if($paramsSearch['field'] == 'all' || $paramsSearch['field'] == $field ){
+            return preg_replace("/" . preg_quote($paramsSearch['value'],"/") . "/i",'<span class="highlight" style="background: #d5ff05;">$0</span>', $input);
+        }
+        return $input;
+    }
 }

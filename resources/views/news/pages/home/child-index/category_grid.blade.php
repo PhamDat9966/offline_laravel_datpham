@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    $urlCategory = Route($controllerName) .'/'.$item['slug'].'.php';
 @endphp
 <div class="world">
     <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
@@ -25,7 +26,7 @@
 
             </div>
             <div class="row">
-                <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
+                <div class="home_button mx-auto text-center"><a href="{{$urlCategory}}">Xem
                     thêm</a></div>
             </div>
         </div>

@@ -1187,6 +1187,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'productSearch'
         ]);
 
+        Route::get('/default', [
+            'as'    => $controllerName . '/default',
+            'uses'  => $controller . 'default'
+        ]);
+
     });
 });
 

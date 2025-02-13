@@ -7,7 +7,7 @@
     $showCategory       = (isset($showCategory)) ? $showCategory : 'false';
     $categoryName       = (isset($itemArticle['category_name'])) ? $itemArticle['category_name']:"";
 
-    $linkCategory       = URL::linkCategory($itemArticle['category_id'],$itemArticle['category_name']);
+    $linkCategory       = URL::linkCategoryArticle($itemArticle['category_id'],$itemArticle['category_name']);
     $linkArticle        = URL::linkArticle($itemArticle['id'],$itemArticle['name']);
     $created            = Template::showDataFrontEnd($itemArticle['created']);
     if($lenghtContent == 'full'){

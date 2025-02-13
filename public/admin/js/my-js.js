@@ -952,7 +952,7 @@ $(document).ready(function() {
         });
     });
 });
-
+/*PRODUCT ATTRIBUTE PRICE*/
 //sortable: tính năng kéo thả vị trí cho danh sách product_attribute_price
 $(document).ready(function() {
     $(function () {
@@ -1038,3 +1038,36 @@ $(document).ready(function() {
     });
 
 });
+//default
+$(document).ready(function () {
+    $('.product-attribute-price-default input[type="checkbox"]').change(function () {
+        var defaultAttr     = $(this).val();
+        var url             = $(this).data('url');
+        var id              = $(this).data('id');
+        console.log(defaultAttr,id,url);
+        if ($(this).is(':checked')) {
+            console.log('Checkbox đã bật (ON)');
+        } else {
+            console.log('Checkbox đã tắt (OFF)');
+        }
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: {
+                id: id,
+                defaultAttr: defaultAttr,
+            },
+            success: function(response) {
+                console.log(response);
+                // alert("Thứ tự đã được lưu lại!");
+            },
+            error: function(xhr) {
+                alert("Có lỗi xảy ra: " + xhr.responseText);
+            }
+        });
+
+    });
+});
+
+/* END PRODUCT ATTRIBUTE PRICE*/

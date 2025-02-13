@@ -9,8 +9,9 @@
     $stt_col        = 'col-xs-1';
     $name_col       = 'col-xs-3';
     $color_col      = 'col-xs-2';
-    $material_col   = 'col-xs-2';
+    $material_col   = 'col-xs-1';
     $price_col      = 'col-xs-3';
+    $default_col    = 'col-xs-1';
     $action_col     = 'col-xs-1';
 
     $urlUpdateOrdering = Route($controllerName.'/updateOrdering',
@@ -32,6 +33,7 @@
                     <li class="column-title {{$color_col}}">Màu sắc</th>
                     <li class="column-title {{$material_col}}">Dung lượng</th>
                     <li class="column-title {{$price_col}}">Giá</th>
+                    <li class="column-title {{$default_col}}">default</th>
                     <li class="column-title {{$action_col}}">Hành động</th>
                 </ul>
             </thead>
@@ -61,6 +63,28 @@
                             $material               = Hightlight::show($val['material_name'], $params['search'] , 'material_name');
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
                             $action                 = 'action list';
+                            $flagDefault            = '';
+                            if($val['default'] == null || $val['default'] == 0){
+                                $val['default'] = 0; //Đặt lại giá trị cho tình huống null
+                            }else{
+                                $flagDefault    = 'checked';
+                            }
+
+                            $urlDefault = route($controllerName) . '/default';
+                            $default  = '';
+                            $default .= '<div style="position: relative;margin:5px;">';
+                            $default .=     '<div class="checkbox checkbox-wrapper-8 product-attribute-price-default" style="position: relative;">';
+                            $default .=         '<input name="default" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
+                                                                type="checkbox"
+                                                                value="'.$val['default'].'"
+                                                                id="'.$val['default'].'"
+                                                                data-id="'.$id.'"
+                                                                data-url="'.$urlDefault.'"
+                                                                '.$flagDefault.'
+                                                >';
+                            $default .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$val['default'].'"></label>';
+                            $default .=     '</div>';
+                            $default .='</div>';
 
                         @endphp
                         <li data-id="{{ $id  }}" value={{ $dataId }}>
@@ -70,6 +94,7 @@
                                 <li class="{{$color_col}}">{!!$color!!}</p></li>
                                 <li class="{{$material_col}}">{!!$material!!}</li>
                                 <li class="{{$price_col}}">{!!$price!!}</li>
+                                <li class="{{$default_col}}">{!!$default!!}</li>
                                 <li class="{{$action_col}}">{!!$action!!}</li>
                             </ul>
                         </li>

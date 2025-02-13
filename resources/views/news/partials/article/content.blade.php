@@ -11,6 +11,7 @@
     $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";
 
     $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
+
     $linkArticle        = '';
     if(!empty($item['slug'])){
         $linkArticle    = $item['slug'] . '.php';
