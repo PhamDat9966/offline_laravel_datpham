@@ -995,6 +995,17 @@ $(document).ready(function() {
 
         $("#sortable").disableSelection();
 
+        // Khi click vào checkbox, ngăn chặn kéo thả
+        $(document).on("mousedown", ".tgl", function(event) {
+            $("#sortable").sortable("disable");  // Tắt sortable khi bắt đầu click vào checkbox
+        });
+
+        $(document).on("mouseup", ".tgl", function(event) {
+            setTimeout(function() {
+                $("#sortable").sortable("enable");  // Bật lại sortable sau khi click checkbox
+            }, 100); // Chờ 100ms để tránh lỗi
+        });
+
     });
 
 

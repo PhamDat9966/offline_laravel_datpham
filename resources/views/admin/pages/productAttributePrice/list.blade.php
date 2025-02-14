@@ -71,18 +71,22 @@
                             }
 
                             $urlDefault = route($controllerName) . '/default';
+                            /*
+                                checkbox-wrapper-8
+                                -Thẻ <label....> chính là "khung nhìn của button on off": với for="$id" nó sẽ target đến input có id bằng với giá trị for là $id để thay đổi checked
+                            */
                             $default  = '';
                             $default .= '<div style="position: relative;margin:5px;">';
                             $default .=     '<div class="checkbox checkbox-wrapper-8 product-attribute-price-default" style="position: relative;">';
                             $default .=         '<input name="default" style="margin-left:0px;margin:0px" class="tgl tgl-skewed"
                                                                 type="checkbox"
                                                                 value="'.$val['default'].'"
-                                                                id="'.$val['default'].'"
+                                                                id="'.$id.'"
                                                                 data-id="'.$id.'"
                                                                 data-url="'.$urlDefault.'"
                                                                 '.$flagDefault.'
                                                 >';
-                            $default .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$val['default'].'"></label>';
+                            $default .=         '<label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="'.$id.'"></label>';
                             $default .=     '</div>';
                             $default .='</div>';
 
