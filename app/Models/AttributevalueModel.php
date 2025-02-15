@@ -14,6 +14,18 @@ class AttributevalueModel extends AdminModel
         $this->crudNotActived       = ['_token'];
     }
 
+    public function productAttributePricesAsColor()
+    {
+        return $this->hasMany(ProductAttributePriceModel::class, 'color_id', 'id')
+                    ->where('attribute_id', 1);
+    }
+
+    public function productAttributePricesAsMaterial()
+    {
+        return $this->hasMany(ProductAttributePriceModel::class, 'material_id', 'id')
+                    ->where('attribute_id', 2);
+    }
+
     public function listItems($params = null,$options = null){
 
         $result         = null;

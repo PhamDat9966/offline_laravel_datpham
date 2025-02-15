@@ -1,5 +1,9 @@
 @php
     use App\Helpers\Template as Template;
+    /*
+        Nếu có default thì mặc định sẽ chon phần tử đầu tiên tức là $itemPriceDefault[0]
+        khi nhiều hơn 1 phần tử trong $itemPriceDefault
+    */
 
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
@@ -25,7 +29,13 @@
     foreach($item['attributes'] as $attkey=>$attribute){
 
         if($attribute['color-picker']){
-            $flagCheckDefault = ($attribute['default'] == true) ? 'checked' : '';
+            $flagCheckColorDefault = '';
+            if(!empty($itemPriceDefault)){
+                if($attribute['attribute_value_id'] == $itemPriceDefault[0]['color_id']){
+                    $flagCheckColorDefault = 'checked';
+                }
+            }
+
             $xhtmlColors    .=  '<li>
                                     <p>'.$attribute['attribute_value_name'].'</p>
                                     <div class="color" style="background:'.$attribute['color-picker'].';color:#ffffff;"></div>
@@ -34,7 +44,7 @@
                                                 name="color"
                                                 id="color_'.$attribute['attribute_value_id'].'"
                                                 value="'.$attribute['attribute_value_id'].'"
-                                                '.$flagCheckDefault.'
+                                                '.$flagCheckColorDefault.'
                                         >
                                     </div>
                                 </li>';
@@ -42,9 +52,16 @@
 
         //Sử dụng id định danh của dung lượng là 2 'material', để xác định những nội dung nào cần xuất ra ở storage
         if($attribute['attribute_id'] == 2){
+            $flagCheckMaterialDefault = '';
+            if(!empty($itemPriceDefault)){
+                if($attribute['attribute_value_id'] == $itemPriceDefault[0]['material_id']){
+                    $flagCheckMaterialDefault = 'selected btn-primary';
+                }
+            }
+
             $url    = route($controllerName. '/price');
             $xhtmlStorage   .=' <li>
-                                    <button type="button" class="btn btn-default btn-lg btn-material"
+                                    <button type="button" class="btn btn-default btn-lg btn-material '.$flagCheckMaterialDefault.'"
                                             data-id="'.$attribute['attribute_value_id'].'"
                                             data-item="'.'itemId-'.$id.'"
                                             data-url="'.$url.'"
@@ -67,6 +84,9 @@
                                 data-thumb="'.$linkThumb.'"
                                 >Add to Cart
                         </button>';
+
+    //Price
+    $price = (!empty($itemPriceDefault)) ? $itemPriceDefault[0]['price']:'Hãy chọn màu sắc, dung lượng';
 
 @endphp
 
@@ -116,7 +136,7 @@
 
             <div class="">
             <div class="product_price">
-                <h1 class="price">Hãy chọn màu sắc, dung lượng</h1>
+                <h1 class="price">{{ $price }}</h1>
                 <span class="price-tax">Ex Tax: Chưa có</span>
                 <br>
             </div>

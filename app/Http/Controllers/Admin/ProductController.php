@@ -59,7 +59,6 @@ class ProductController extends AdminController
     public function info(Request $request)
     {
         $session = $request->session()->all();
-        //dd($session);
 
         $item   = null;
 
@@ -72,6 +71,9 @@ class ProductController extends AdminController
         $colors                 = $attributevalueModel->getItem($params,['task'=>'get-color']);
         $attributevalues        = $attributevalueModel->getItem($params,['task'=>'get-all-items']);
 
+        $productAttrPriceModel  = new ProductAttributePriceModel();
+        $itemPriceDefault           = $productAttrPriceModel->getItem($params,['task'=>'get-all-item-array-default']);
+        //dd($itemPriceDefault);
         foreach($item['attributes'] as $key=>$attribute){
             //Gép mã màu vào attributes của item
             foreach($colors as $color){
@@ -88,8 +90,9 @@ class ProductController extends AdminController
         }
 
         return view($this->pathViewController . 'info', [
-            'item'      =>$item,
-            'session'   =>$session
+            'item'              =>$item,
+            'session'           =>$session,
+            'itemPriceDefault'  =>$itemPriceDefault
         ]);
     }
 

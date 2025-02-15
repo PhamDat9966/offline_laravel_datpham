@@ -21,12 +21,19 @@ class ProductModel extends AdminModel
         $this->fieldSearchAccepted  = ['name','slug'];
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','attribute_value','thumb'];
     }
-
+    /*--Replaytionship--*/
     // Quan hệ với bảng product_has_attribute
     public function attributes()
     {
         $this->table  = 'product';
         return $this->hasMany(ProductHasAttributeModel::class, 'product_id', 'id');
+    }
+
+    // Quan hệ với bảng product_attribute_price
+    public function attributePrices()
+    {
+        $this->table  = 'product';
+        return $this->hasMany(ProductAttributePriceModel::class, 'product_id', 'id');
     }
 
     // Quan hệ với bảng media
@@ -35,7 +42,7 @@ class ProductModel extends AdminModel
         $this->table  = 'product';
         return $this->hasMany(MediaModel::class, 'product_id', 'id');
     }
-
+    /*--End Replaytionship--*/
     public function listItems($params = null,$options = null){
         $result = null;
         $this->table    = 'product as p';
@@ -782,6 +789,22 @@ class ProductModel extends AdminModel
             // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
 
             $product = self::with(['attributes','media'])->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null; // Trả về null nếu không tìm thấy sản phẩm
+            }
+        }
+
+        if($options['task'] == 'get-item-with-price'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            // Gọi relationship  từ các liên kết hàm. attributePrices của ProductModel, attributeValue của ProductAttributePriceModel và media
+            // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
+
+            $product = self::with(['attributePrices','media'])->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
 
             if ($product) {
                 $result = $product;

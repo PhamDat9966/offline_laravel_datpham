@@ -18,17 +18,26 @@ class ProductAttributePriceModel extends AdminModel
         $this->fieldSearchAccepted  = ['product_name'];
         $this->crudNotActived       = ['_token'];
     }
-
+    /*replaytionship*/
     public function product()
     {
-        $this->table  = 'product_attribute_price';
         return $this->belongsTo(ProductModel::class, 'product_id', 'id');
     }
 
-    public function attributeValue()
+    public function color()
     {
-        return $this->belongsTo(AttributevalueModel::class, 'attribute_value_id', 'id');
+        return $this->belongsTo(AttributeValueModel::class, 'color_id', 'id')
+                    ->where('attribute_id', 1);
     }
+
+    public function material()
+    {
+        $this->table  = 'product_attribute_price';
+        return $this->belongsTo(AttributeValueModel::class, 'material_id', 'id')
+                    ->where('attribute_id', 2);
+    }
+
+    /*end replaytionship*/
 
     public function listItems($params = null,$options = null){
 
@@ -273,6 +282,13 @@ class ProductAttributePriceModel extends AdminModel
 
         if($options['task'] == 'get-all-item-array'){
             $result = $this::select('id','product_id','ordering')
+                    ->get()->toArray();
+        }
+
+        if($options['task'] == 'get-all-item-array-default'){
+            $result = $this::select('id','product_id','color_id','material_id','product_name','color_name','material_name','price')
+                    ->where('product_id',$params['id'])
+                    ->where('default',1)
                     ->get()->toArray();
         }
 
