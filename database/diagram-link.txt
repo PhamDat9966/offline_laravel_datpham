@@ -1,0 +1,2 @@
+Mô hình dbdiagram cho mối liên hệ các bản `attribute`,`attribute_value`,`product_attribute_price`,`product_has_attribute`,`media`
+https://dbdiagram.io/d/proj_news-67b2b233263d6cf9a05daa1e
