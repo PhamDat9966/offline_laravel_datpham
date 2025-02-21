@@ -11,7 +11,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Tên hàng</th>
                     <th class="column-title">Màu sắc</th>
-                    <th class="column-title">Dung lượng bộ nhớ</th>
+                    <th class="column-title">Dung lượng</th>
                     <th class="column-title">Số lượng</th>
                     <th class="column-title">Đơn giá</th>
                     <th class="column-title">Hành động</th>
@@ -28,10 +28,16 @@
                             $id                 = $val['id'];
                             $name               = $val['name'];
                             $color_name         = $val['color_name'];
+                            $color_id           = $val['color'];
+
+                            $colorDiv           = Template::colorDiv($color_id,$color_name);
+
                             $material_name      = $val['material_name'];
                             $quantity           = Template::showItemQuantity($controllerName,$val['quantity'],$id);
+                            $urlDeleteOneCart   = route($controllerName . '/deleteOneCart',['id' => $id,'color'=>$val['color'],'material'=>$val['material']]);
+
                             $price              = '<span class="price" id="price-'.$id.'">'.$val['price'].'</span>';
-                            $listButtonAction   = '<a href="http://proj_news.xyz/admin96/user/delete-one-cart/27"
+                            $listButtonAction   = '<a href="'.$urlDeleteOneCart.'"
                                                       type="button" class="btn btn-icon btn-danger btn-delete"
                                                       data-toggle="tooltip" data-placement="top"
                                                       data-original-title="Delete">
@@ -45,7 +51,7 @@
                                 <p><strong>name:</strong> {!! $name !!}</p>
                             </td>
                             <td width="10%">
-                                {!! $color_name !!}
+                                {!! $colorDiv !!}
                             </td>
                             <td width="10%">
                                 {!! $material_name !!}

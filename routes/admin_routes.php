@@ -489,6 +489,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'cartQuantity'
         ]);
 
+        Route::get('/delete-one-cart/{id}-{color}-{material}', [
+            'as'    => $controllerName . '/deleteOneCart',
+            'uses'  => $controller . 'deleteOneCart'
+        ])->where('id', '[0-9]+');
+
     });
 
     // ====================== MENU ======================

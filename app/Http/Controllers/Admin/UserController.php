@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\UserModel as MainModel;
 use App\Http\Requests\UserRequest as MainRequest;
 use App\Models\AttributevalueModel as AttributevalueModel;
+use App\Helpers\Template as Template;
 class UserController extends AdminController
 {
 
@@ -172,6 +173,13 @@ class UserController extends AdminController
             $colorName = $colorName[0]['name'];
             $materialName = $materialName[0]['name'];
 
+
+            $urlRemoveCart  = Route('user/removeCart');
+            $xhmlRemoveCart = '<li class="nav-item">
+                                    <a class="dropdown-item" href="'.$urlRemoveCart.'">Remove cart</a>
+                                </li>';
+            $xhmlSeeAllCart = Template::showCartItem();
+
             $xhtmlCart .='<li class="nav-item item-cart">
                             <a class="dropdown-item">
                             <span class="image"><img src="'.$cartVal['thumb'].'" alt="Profile Image" /></span>
@@ -183,6 +191,10 @@ class UserController extends AdminController
                                 Đặc điểm: Màu '.$colorName.', bộ nhớ '.$materialName.'
                             </span>
                             </a>
+                            <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                                '.$xhmlSeeAllCart.'
+                                '.$xhmlRemoveCart.'
+                            </ul>
                         </li>';
         }
 
@@ -239,6 +251,39 @@ class UserController extends AdminController
             'params'    => $params,
             'cart'      => $cart,
             'price'     => $price
+        ]);
+    }
+
+    public function deleteOneCart(Request $request){
+        $params['id']       = $request->id;
+        $params['color']    = $request->color;
+        $params['material'] = $request->material;
+        $cart = session('cart');
+
+        foreach($cart as $key=>$valElement){
+            if($valElement['id'] == $params['id'] && $valElement['color'] == $params['color'] && $valElement['material'] == $params['material']){
+                unset($cart[$key]);
+                break;
+            }
+        }
+
+        $request->session()->put('cart', $cart);
+        foreach($cart as $key=>$cartVal){
+            $params             = [];
+            $params['color_id'] = $cartVal['color'];
+            $params['material_id'] = $cartVal['material'];
+            $attributeValueModule = new AttributevalueModel();
+            $colorName = $attributeValueModule->getItem($params,['task'=>'get-color-name']);
+            $materialName = $attributeValueModule->getItem($params,['task'=>'get-material-name']);
+            $colorName = $colorName[0]['name'];
+            $materialName = $materialName[0]['name'];
+
+            $cart[$key]['color_name'] = $colorName;
+            $cart[$key]['material_name'] = $materialName;
+        }
+
+        return view($this->pathViewController .  'index-cart', [
+            'cart'         => $cart
         ]);
     }
 }

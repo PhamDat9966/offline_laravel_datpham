@@ -1,8 +1,10 @@
 <?php
 namespace App\Helpers;
+
+use Attribute;
 use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
-
+use App\Models\AttributevalueModel;
 class Template{
 
     public static function showItemHistory($by, $time, $filterValue = null){
@@ -629,26 +631,6 @@ class Template{
 
         return $xhtml;
     }
-    //Hàm lấy màu (color) ngược với mã màu sẵn có.
-    public static function getComplementaryColor($hexColor) {
-        // Loại bỏ ký tự # nếu có
-        $hexColor = ltrim($hexColor, '#');
-
-        // Chuyển mã hex thành giá trị RGB
-        $r = hexdec(substr($hexColor, 0, 2));
-        $g = hexdec(substr($hexColor, 2, 2));
-        $b = hexdec(substr($hexColor, 4, 2));
-
-        // Tính giá trị ngược lại
-        $rComplement = 255 - $r;
-        $gComplement = 255 - $g;
-        $bComplement = 255 - $b;
-
-        // Chuyển lại sang dạng hex
-        $complementaryColor = sprintf("#%02x%02x%02x", $rComplement, $gComplement, $bComplement);
-
-        return $complementaryColor;
-    }
 
     public static function showItemColorFilter($controllerName , $typeFilterValue, $colorList){
         $tmplDisplay    = $colorList;
@@ -718,5 +700,57 @@ class Template{
         $xhtml .=     '</div>';
         $xhtml .='</div>';
         return $xhtml;
+    }
+
+    public static function showCartItem(){
+        $urlCartView    = Route('user/cartView');
+        $xtml = '<li class="nav-item">
+                                <div class="text-center">
+                                <a href="'.$urlCartView.'" class="dropdown-item">
+                                    <strong>Xem danh sách</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                </div>
+                            </li>';
+        return $xtml;
+    }
+
+    public static function getColorHex($color_id){
+        $attributeValue = new AttributevalueModel();
+        $params['color_id'] = $color_id;
+        $color_Hex      = $attributeValue->getItem($params,['task'=>'get-color-hex']);
+        return $color_Hex;
+    }
+
+    //Hàm lấy màu (color) ngược với mã màu sẵn có.
+    public static function getComplementaryColor($hexColor) {
+            // Loại bỏ ký tự # nếu có
+            $hexColor = ltrim($hexColor, '#');
+
+            // Chuyển mã hex thành giá trị RGB
+            $r = hexdec(substr($hexColor, 0, 2));
+            $g = hexdec(substr($hexColor, 2, 2));
+            $b = hexdec(substr($hexColor, 4, 2));
+
+            // Tính giá trị ngược lại
+            $rComplement = 255 - $r;
+            $gComplement = 255 - $g;
+            $bComplement = 255 - $b;
+
+            // Chuyển lại sang dạng hex
+            $complementaryColor = sprintf("#%02x%02x%02x", $rComplement, $gComplement, $bComplement);
+
+            return $complementaryColor;
+        }
+
+    public static function colorDiv($color_id,$color_name){
+        $color_Hex          = Template::getColorHex($color_id);
+        $color_opposite     = Template::getComplementaryColor($color_Hex['color']);
+
+        $colorDiv           = '<div class="color-box text-center padding-color"
+                                    style="background: '.$color_Hex['color'].';display: flex; justify-content: center;">
+                                        <span style="color: '.$color_opposite.';display: block; width: fit-content; margin: 0 auto;line-height: 20px;">'.$color_name.'</span>
+                               </div>';
+        return $colorDiv;
     }
 }

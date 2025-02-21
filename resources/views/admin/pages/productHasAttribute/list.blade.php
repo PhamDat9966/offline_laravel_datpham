@@ -14,6 +14,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Tên sản phẩm</th>
                     <th class="column-title">Thuộc tính</th>
+                    <th class="column-title">Hiện màu nếu có</th>
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Sản phẩm có liên quan</th>
@@ -34,6 +35,10 @@
                             $ordering               = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $default                = Template::showItemSelect( $controllerName,$id,$val['default'], 'default');
                             $product_id_relation    = $val['product_id_relation'];
+
+                            $color_id               = $val['attribute_value_id'];
+                            $color_name             = $val['attribute_value_name'];
+                            $colorDiv               = Template::colorDiv($color_id,$color_name);
                         @endphp
 
                         <tr class="{{$class}} pointer">
@@ -43,6 +48,9 @@
                             </td>
                             <td width="10%">
                                 {!!$attribute_value_name!!}
+                            </td>
+                            <td width="10%">
+                                {!!$colorDiv!!}
                             </td>
                             <td>
                                 {!!$ordering!!}

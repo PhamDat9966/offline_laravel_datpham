@@ -4,7 +4,6 @@
         Nếu có default thì mặc định sẽ chon phần tử đầu tiên tức là $itemPriceDefault[0]
         khi nhiều hơn 1 phần tử trong $itemPriceDefault
     */
-
     $id             = (isset($item['id']))? $item['id'] : '';
     $name           = (isset($item['name']))? $item->name : '';
     $slug           = (isset($item['slug']))? $item->slug : '';
