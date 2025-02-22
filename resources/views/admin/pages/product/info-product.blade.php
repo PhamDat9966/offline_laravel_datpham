@@ -85,7 +85,7 @@
                         </button>';
 
     //Price
-    $price = (!empty($itemPriceDefault)) ? $itemPriceDefault[0]['price']:'Hãy chọn màu sắc, dung lượng';
+    $price = (!empty($itemPriceDefault[0]['price'])) ? $itemPriceDefault[0]['price'] . " đồng":'Hãy chọn màu sắc, dung lượng';
 
 @endphp
 

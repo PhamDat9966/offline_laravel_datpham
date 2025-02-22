@@ -811,6 +811,16 @@ $(document).ready(function() {
 $(document).ready(function() {
     var priceChoose; //Biến toàn cục
 
+    // Xác định price cho trường hợp default của product. Sau đó gán cho priceChoose.
+    // Set price default cho product tại productAttributePrice module.
+    var priceText   = $(".price").text().trim(); // Lấy nội dung và loại bỏ khoảng trắng
+    var matchResult = priceText.match(/\d+/); // Tìm số trong chuỗi
+    var priceNumber = matchResult ? matchResult[0] : null; // Kiểm tra nếu có số thì lấy, nếu không thì gán null
+
+    if (priceNumber !== null) {
+        priceChoose = priceNumber;
+    }
+
     // Khi click vào color thì lặp lại quá trình chọn dung lượng
     $('input[name="color"]').on('click', function() {
         console.log('click color');
