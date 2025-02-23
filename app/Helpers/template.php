@@ -193,24 +193,23 @@ class Template{
         return $xhtml;
     }
 
-    public static function showItemStatus($controllerName , $id , $status){
-        // status       class           name
-        // active       btn-success     Kich hoat
-        // inactive     btn-info        Chua duoc kich hoat
-
-        $tmplStatus     =   Config::get('zvn.template.status');
-
-        // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
-        // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
+    public static function showItemStatus($controllerName , $id , $status,$fieldName){
+        $tmplStatus     = Config::get('zvn.template.status');
+        $primeUser      = Config::get('zvn.config.lock.prime');
+        $lockFlag       = ($fieldName == $primeUser) ? true : false;
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
         $currentStatus  = $tmplStatus[$statusValue];
         $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
-
-        $xhtml  = sprintf('
-            <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',$id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']);
-        // $xhtml  = sprintf('
-        //     <a href="%s" type="button" class="btn btn-round %s">%s</a>', $link , $currentStatus['class'], $currentStatus['name']);
+        $xhtml          = '';
+        if($lockFlag == false){
+            $xhtml  = sprintf('
+                <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',
+                            $id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']
+            );
+        }else{
+            $xhtml  = '<strong style="color:red">Locked</strong>';
+        }
         return  $xhtml;
     }
 
@@ -258,14 +257,22 @@ class Template{
 
         $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
-
-        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
-        foreach($tmplDisplay as $key => $value){
-            $xhtmlSelect = '';
-            if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
-            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        $primeUser       = Config::get('zvn.config.lock.prime');
+        $lockFlag     = ($displayValue == $primeUser) ? true : false;
+        $xhtml = '';
+        if($lockFlag == false){
+            $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+            foreach($tmplDisplay as $key => $value){
+                $xhtmlSelect = '';
+                if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
+                $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+            }
+            $xhtml  .='</select>';
+        }else{
+            $primeUser = ucfirst($primeUser);
+            $xhtml = '<strong style="color:red">'.$primeUser.'</strong>';
         }
-        $xhtml  .='</select>';
+
         return  $xhtml;
     }
 
@@ -312,7 +319,7 @@ class Template{
 
     public static function showItemOrdering($controllerName , $orderingValue , $id){
 
-        $link                   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);
+        $link   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);
         $xhtml  = sprintf('
         <input type="number" class="form-control ordering" id="ordering-%s" data-url="%s" min="1" max="999"  value="%s" style="width: 60px">', $id , $link ,$orderingValue);
         return  $xhtml;
@@ -320,7 +327,7 @@ class Template{
 
     public static function showItemPrice($controllerName , $priceValue , $id){
 
-        $link                   = route( $controllerName. '/price',['price'=>'value_new', 'id'=>$id]);
+        $link   = route( $controllerName. '/price',['price'=>'value_new', 'id'=>$id]);
         $xhtml  = sprintf('
         <input type="number" class="form-control price-product" id="price-%s" data-url="%s" min="1"  value="%s" style="width: 200px">', $id , $link ,$priceValue);
         return  $xhtml;
@@ -328,7 +335,7 @@ class Template{
 
     public static function showItemQuantity($controllerName , $quantityValue , $id){
 
-        $link                   = route( $controllerName. '/cartQuantity',['quantity'=>'value_new', 'id'=>$id]);
+        $link   = route( $controllerName. '/cartQuantity',['quantity'=>'value_new', 'id'=>$id]);
         $xhtml  = sprintf('
         <input type="number" class="form-control quantity-cart" id="quantity-%s" data-url="%s" min="1"  value="%s" style="width: 200px">', $id , $link ,$quantityValue);
         return  $xhtml;

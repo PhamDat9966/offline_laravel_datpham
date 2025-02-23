@@ -203,7 +203,9 @@ return [
             'shipping'          =>  ['edit','delete'],
         ],
         'lock'   =>[
-            'attribute_main_id'     =>  [1,2,3]
+            'attribute_main_id'     =>  [1,2,3],
+            'prime'                 =>  'founder',
+            'founder'               =>  'Người sáng lập'
         ]
     ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
