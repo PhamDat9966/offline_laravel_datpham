@@ -16,7 +16,7 @@ class PermissionAdmin
     {
         if($request->session()->has('userInfo')){
             $userInfo = $request->session()->get('userInfo');
-            if($userInfo['level'] == 'admin') return $next($request);
+            if($userInfo['level'] == 'admin' || $userInfo['level'] == 'founder') return $next($request);
             return redirect()->route('notify/noPermission');
         }
 

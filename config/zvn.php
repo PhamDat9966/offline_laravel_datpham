@@ -191,6 +191,7 @@ return [
             'article'           =>  ['edit','delete'],
             'product'           =>  ['info','edit','delete'],
             'user'              =>  ['edit','delete'],
+            'group'             =>  ['edit','delete'],
             'rss'               =>  ['edit','delete'],
             'rssnews'           =>  ['delete'],
             'menu'              =>  ['edit','delete'],
