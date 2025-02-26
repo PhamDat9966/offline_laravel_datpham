@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 26, 2025 lúc 06:48 PM
+-- Thời gian đã tạo: Th2 26, 2025 lúc 10:22 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -450,50 +450,6 @@ INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `group`
---
-
-CREATE TABLE `group` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `permission_ids` varchar(225) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `group`
---
-
-INSERT INTO `group` (`id`, `name`, `permission_ids`) VALUES
-(1, 'founder', '1,2,3,4'),
-(2, 'admin', '1,2,3,4'),
-(3, 'member', '3,4');
-
---
--- Bẫy `group`
---
-DELIMITER $$
-CREATE TRIGGER `before_group_delete` BEFORE DELETE ON `group` FOR EACH ROW BEGIN
-    -- Cập nhật các user có group_id tương ứng với group sắp bị xóa
-    UPDATE `user`
-    SET `group_id` = 3
-    WHERE `group_id` = OLD.id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `before_group_delete_protect` BEFORE DELETE ON `group` FOR EACH ROW BEGIN
-    -- Nếu ID bị xóa là 1, 2 hoặc 3 là nhím id mặc định (founder, admin, member) thì báo lỗi và chặn xóa
-    IF OLD.id IN (1, 2, 3) THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Không thể xóa nhóm mặc định (founder, admin, member)';
-    END IF;
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `media`
 --
 
@@ -662,6 +618,16 @@ CREATE TABLE `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'create articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(2, 'edit articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(3, 'delete articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(4, 'publish articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30');
 
 -- --------------------------------------------------------
 
@@ -834,6 +800,15 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'founder', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(2, 'admin', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(4, 'member', 'web', '2025-02-26 13:36:08', '2025-02-26 13:36:08');
+
 -- --------------------------------------------------------
 
 --
@@ -844,6 +819,18 @@ CREATE TABLE `role_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 2),
+(1, 4),
+(2, 2),
+(2, 4),
+(3, 2),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -1081,14 +1068,14 @@ CREATE TABLE `user` (
   `modified_by` varchar(45) DEFAULT NULL,
   `status` varchar(10) DEFAULT '0',
   `usually_category` varchar(255) DEFAULT NULL,
-  `group_id` int(11) DEFAULT NULL
+  `roles_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=COMPACT;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `level`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `group_id`) VALUES
+INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `level`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
 (1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', 'founder', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '6,6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,6,2,7,6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,6', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', 'founder', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-09-20 00:00:00', 'dat123', 'active', NULL, 3),
@@ -1097,7 +1084,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`,
 (6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', NULL, 'pL1DxiUtai.jpg', 'admin', '2023-11-28 00:00:00', 'phamdat', '2024-03-22 00:00:00', 'admin', 'active', NULL, 2),
 (8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', '123456', '9k04uy61T5.jpg', 'admin', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 2),
 (9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', 'member', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 3),
-(15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', 'member', '2024-01-22 00:00:00', 'admin', NULL, NULL, 'active', NULL, NULL);
+(15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', 'member', '2024-01-22 00:00:00', 'admin', NULL, NULL, 'active', NULL, 3);
 
 --
 -- Bẫy `user`
@@ -1258,12 +1245,6 @@ ALTER TABLE `coupon`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `group`
---
-ALTER TABLE `group`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `media`
 --
 ALTER TABLE `media`
@@ -1407,8 +1388,7 @@ ALTER TABLE `totalelements`
 -- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `user_ibfk_1` (`group_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `user_agents`
@@ -1481,12 +1461,6 @@ ALTER TABLE `coupon`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `group`
---
-ALTER TABLE `group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
@@ -1520,7 +1494,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecontact`
@@ -1550,7 +1524,7 @@ ALTER TABLE `product_has_attribute`
 -- AUTO_INCREMENT cho bảng `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
@@ -1665,12 +1639,6 @@ ALTER TABLE `product_has_attribute`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -354,6 +354,7 @@ return array(
     'Cron\\MinutesField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
     'Cron\\MonthField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'Database\\Seeders\\RolePermissionSeeder' => $baseDir . '/database/seeds/RolePermissionSeeder.php',
     'DebugBar\\Bridge\\CacheCacheCollector' => $vendorDir . '/maximebf/debugbar/src/DebugBar/Bridge/CacheCacheCollector.php',
     'DebugBar\\Bridge\\DoctrineCollector' => $vendorDir . '/maximebf/debugbar/src/DebugBar/Bridge/DoctrineCollector.php',
     'DebugBar\\Bridge\\MonologCollector' => $vendorDir . '/maximebf/debugbar/src/DebugBar/Bridge/MonologCollector.php',

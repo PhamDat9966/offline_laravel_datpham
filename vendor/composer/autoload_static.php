@@ -859,6 +859,7 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'Database\\Seeders\\RolePermissionSeeder' => __DIR__ . '/../..' . '/database/seeds/RolePermissionSeeder.php',
         'DebugBar\\Bridge\\CacheCacheCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/CacheCacheCollector.php',
         'DebugBar\\Bridge\\DoctrineCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/DoctrineCollector.php',
         'DebugBar\\Bridge\\MonologCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/MonologCollector.php',

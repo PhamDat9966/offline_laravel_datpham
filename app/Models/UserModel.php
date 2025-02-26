@@ -9,13 +9,25 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Config;
 
+//Permission:
+use App\Models\Role;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable; // Kế thừa User để hỗ trợ Auth
+use Illuminate\Notifications\Notifiable;
+
 class UserModel extends AdminModel
 {
+    use HasFactory, Notifiable;
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
         $this->fieldSearchAccepted  = ['username','email','fullname'];
         $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task','taskAdd','taskEditInfo','taskChangeLevel','taskChangePassword'];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'roles_id');
     }
 
     public function listItems($params = null,$options = null){
