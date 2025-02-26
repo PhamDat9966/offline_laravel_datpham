@@ -193,7 +193,21 @@ class Template{
         return $xhtml;
     }
 
-    public static function showItemStatus($controllerName , $id , $status,$fieldName){
+    public static function showItemStatus($controllerName , $id , $status){
+        $tmplStatus     = Config::get('zvn.template.status');
+
+        $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
+        $currentStatus  = $tmplStatus[$statusValue];
+        $link           = route($controllerName. '/status',['status'=>$status, 'id'=>$id]);
+        $xhtml          = '';
+        $xhtml  = sprintf('
+            <button id="status-%s" data-url="%s" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',
+                        $id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']
+        );
+        return  $xhtml;
+    }
+
+    public static function showUserStatus($controllerName , $id , $status,$fieldName){
         $tmplStatus     = Config::get('zvn.template.status');
         $primeUser      = Config::get('zvn.config.lock.prime');
         $lockFlag       = ($fieldName == $primeUser) ? true : false;

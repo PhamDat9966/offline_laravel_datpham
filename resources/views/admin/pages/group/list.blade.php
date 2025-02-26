@@ -33,7 +33,7 @@
                             <td width="30%">
                                 <p><strong>{!! $name !!}</strong> </p>
                             </td>
-                            <td width="50%">
+                            <td width="40%">
                                  {!! $permission !!}</p>
                             </td>
                             <td class="last">

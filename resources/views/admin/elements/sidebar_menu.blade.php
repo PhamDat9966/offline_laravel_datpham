@@ -23,7 +23,13 @@
         <h3>Menu</h3>
         <ul class="nav side-menu">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a href="{{ route('user') }}"><i class="fa fa-user"></i> User</a></li>
+            <li id='user'>
+                <a><i class="fa fa-user"></i> User<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('user')}}"> User</a></li>
+                    <li><a href="{{ route('group')}}"> Group</a></li>
+                </ul>
+            </li>
             <li id='product'>
                 <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">

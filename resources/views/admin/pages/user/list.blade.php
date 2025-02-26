@@ -33,7 +33,7 @@
                             $email              = Hightlight::show($val['email'], $params['search'] , 'email');
                             $fullname           = Hightlight::show($val['fullname'], $params['search'] , 'fullname');
                             $level              = Template::showItemSelect( $controllerName,$id,$val['level'], 'level');
-                            $status             = Template::showItemStatus( $controllerName,$id,$val['status'],$val['level']); // $controllerName đã được share tại SliderController.php
+                            $status             = Template::showUserStatus( $controllerName,$id,$val['status'],$val['level']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
                             $avatar             = Template::showItemThumb($controllerName,$val['avatar'],$val['username']);
