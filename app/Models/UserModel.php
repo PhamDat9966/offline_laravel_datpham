@@ -33,7 +33,7 @@ class UserModel extends AdminModel
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','username','email','fullname','password','avatar','level','created','created_by','modified','modified_by','status');
+            $query = $this->select('id','username','email','fullname','password','avatar','level','created','created_by','modified','modified_by','status','roles_id');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -155,6 +155,13 @@ class UserModel extends AdminModel
         if($options['task'] == 'change-level'){
             $this::where('id', $params['id'])
                 ->update(['level' => $params['level'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+        }
+
+        if($options['task'] == 'change-role'){
+            $this::where('id', $params['id'])
+                ->update(['roles_id' => $params['roles_id'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
             $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }

@@ -8,6 +8,7 @@ use App\Models\UserModel as MainModel;
 use App\Http\Requests\UserRequest as MainRequest;
 use App\Models\AttributevalueModel as AttributevalueModel;
 use App\Helpers\Template as Template;
+use App\Models\RoleModel;
 class UserController extends AdminController
 {
 
@@ -20,11 +21,47 @@ class UserController extends AdminController
         parent::__construct();
     }
 
+    public function index(Request $request) //index trèn thêm dữ liệu
+    {
+        // Gọi method index của AdminController
+        $response = parent::index($request);
+        $roleModel      = new RoleModel();
+        $roleList       = $roleModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
+
+        // Lấy dữ liệu từ response của AdminController
+        $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
+
+        // Thêm dữ liệu mới vào dữ liệu từ AdminController
+        $data['roleList'] = $roleList;
+
+        // Trả về response mới
+        return view($this->pathViewController . 'index', (array)$data);
+    }
+
     public function level(Request $request)
     {
         $params['id']       = $request->id;
         $params['level']    = $request->level;
         $returnModified     = $this->model->saveItem($params,['task' => 'change-level']);
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //echo json_encode($returnModified);
+        return response()->json([
+            'modified'      =>$returnModified['modified'],
+            'modified_by'   =>$returnModified['modified_by'],
+        ]);
+
+    }
+
+    public function role(Request $request)
+    {
+        $params['id']           = $request->id;
+        $params['roles_id']     = $request->role;
+        $returnModified     = $this->model->saveItem($params,['task' => 'change-role']);
         $userIcon   = config('zvn.template.font_awesome.user');
         $clockIcon  = config('zvn.template.font_awesome.clock');
 

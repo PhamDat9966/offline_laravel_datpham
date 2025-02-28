@@ -192,6 +192,8 @@ return [
             'product'           =>  ['info','edit','delete'],
             'user'              =>  ['edit','delete'],
             'group'             =>  ['edit','delete'],
+            'role'              =>  ['edit','delete'],
+            'permission'        =>  ['edit','delete'],
             'rss'               =>  ['edit','delete'],
             'rssnews'           =>  ['delete'],
             'menu'              =>  ['edit','delete'],
@@ -205,8 +207,9 @@ return [
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3],
-            'prime'                 =>  'founder',
-            'founder'               =>  'Người sáng lập'
+            'prime_id'              =>  1,
+            'prime_name'            => 'founder',
+            'prime_name_trans'      => 'Người sáng lập'
         ]
     ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',

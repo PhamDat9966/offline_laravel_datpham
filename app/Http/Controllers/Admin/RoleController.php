@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\GroupModel as MainModel;
+use App\Models\RoleModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\GroupRequest as MainRequest;
 
-class GroupController extends Controller
+class RoleController extends Controller
 {
-    private $pathViewController = 'admin.pages.group.';  // slider
-    private $controllerName     = 'group';
+    private $pathViewController = 'admin.pages.role.';
+    private $controllerName     = 'role';
     private $params             = [];
     private $model;
 

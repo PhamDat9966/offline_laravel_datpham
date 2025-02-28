@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 26, 2025 lúc 10:22 PM
+-- Thời gian đã tạo: Th2 28, 2025 lúc 09:16 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -817,20 +817,44 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 
 CREATE TABLE `role_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `permission_name` varchar(255) DEFAULT NULL,
+  `role_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `role_has_permissions`
 --
 
-INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-(1, 2),
-(1, 4),
-(2, 2),
-(2, 4),
-(3, 2),
-(4, 2);
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`, `permission_name`, `role_name`) VALUES
+(1, 1, 'create articles', 'founder'),
+(1, 4, 'create articles', 'member'),
+(2, 2, 'edit articles', 'admin'),
+(2, 4, 'edit articles', 'member'),
+(3, 2, 'delete articles', 'admin'),
+(3, 4, 'delete articles', 'member'),
+(4, 2, 'publish articles', 'admin');
+
+--
+-- Bẫy `role_has_permissions`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_role_has_permissions` BEFORE INSERT ON `role_has_permissions` FOR EACH ROW BEGIN
+    DECLARE perm_name VARCHAR(255);
+    DECLARE role_name VARCHAR(255);
+
+    -- Lấy tên quyền từ bảng permissions
+    SELECT name INTO perm_name FROM permissions WHERE id = NEW.permission_id;
+
+    -- Lấy tên vai trò từ bảng roles
+    SELECT name INTO role_name FROM roles WHERE id = NEW.role_id;
+
+    -- Gán giá trị vào NEW trước khi INSERT
+    SET NEW.permission_name = perm_name;
+    SET NEW.role_name = role_name;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1078,9 +1102,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `level`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
 (1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', 'founder', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '6,6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,6,2,7,6,6,6,6,6,6,6,6,6,6,7,7,7,6,6,6', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', 'founder', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
-(3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-09-20 00:00:00', 'dat123', 'active', NULL, 3),
-(4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', 'member', '2019-05-04 00:00:00', 'admin', '2024-03-23 00:00:00', 'admin', 'active', NULL, 3),
-(5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', 'admin', '2023-11-28 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'inactive', ',6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,3,3,3,2,2,2,3,3,3,2,2,2', 2),
+(3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', 'member', '2019-05-04 00:00:00', 'admin', '2025-02-27 00:00:00', 'admin', 'active', NULL, 2),
+(4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', 'member', '2019-05-04 00:00:00', 'admin', '2025-02-27 00:00:00', 'admin', 'active', NULL, 4),
+(5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', 'admin', '2023-11-28 00:00:00', 'phamdat', '2025-02-27 00:00:00', 'admin', 'active', ',6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,3,3,3,2,2,2,3,3,3,2,2,2', 2),
 (6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', NULL, 'pL1DxiUtai.jpg', 'admin', '2023-11-28 00:00:00', 'phamdat', '2024-03-22 00:00:00', 'admin', 'active', NULL, 2),
 (8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', '123456', '9k04uy61T5.jpg', 'admin', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 2),
 (9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', 'member', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 3),

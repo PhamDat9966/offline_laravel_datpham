@@ -209,7 +209,7 @@ class Template{
 
     public static function showUserStatus($controllerName , $id , $status,$fieldName){
         $tmplStatus     = Config::get('zvn.template.status');
-        $primeUser      = Config::get('zvn.config.lock.prime');
+        $primeUser      = Config::get('zvn.config.lock.prime_name');
         $lockFlag       = ($fieldName == $primeUser) ? true : false;
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
@@ -289,6 +289,33 @@ class Template{
 
         return  $xhtml;
     }
+
+    public static function showRoleSelect($controllerName , $id ,$fieldName ,$rolesID, $tmpRoleList){
+
+        // $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
+        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+
+        $primeID         = Config::get('zvn.config.lock.prime_id');
+        $primeUser       = Config::get('zvn.config.lock.prime_name');
+        $lockFlag        = ($rolesID == $primeID) ? true : false;
+        $xhtml = '';
+        if($lockFlag == false){
+            //$xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+            $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+            foreach($tmpRoleList as $key => $value){
+                $xhtmlSelect = '';
+                if($value['id'] == $rolesID) $xhtmlSelect = 'selected="selected"';
+                $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
+            }
+            $xhtml  .='</select>';
+        }else{
+            $primeUser = ucfirst($primeUser);
+            $xhtml = '<strong style="color:red">'.$primeUser.'</strong>';
+        }
+
+        return  $xhtml;
+    }
+
 
     public static function select($fieldName , $idItem ,  $arraySelectList , $idCategory , $field ){
         // $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);

@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
+    //dd($roleList,$items->toArray());
 @endphp
 
 <div class="x_content">
@@ -25,6 +26,7 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
+                            //dd($val->toArray());
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
@@ -32,7 +34,7 @@
                             $username           = Hightlight::show($val['username'], $params['search'] , 'username');
                             $email              = Hightlight::show($val['email'], $params['search'] , 'email');
                             $fullname           = Hightlight::show($val['fullname'], $params['search'] , 'fullname');
-                            $level              = Template::showItemSelect( $controllerName,$id,$val['level'], 'level');
+                            $role              = Template::showRoleSelect( $controllerName,$id,'role',$val['roles_id'],$roleList);
                             $status             = Template::showUserStatus( $controllerName,$id,$val['status'],$val['level']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
@@ -55,7 +57,7 @@
                                 {!!$avatar!!}
                             </td>
                             <td>
-                                {!!$level!!}
+                                {!!$role!!}
                             </td>
                             <td>
                                 {!!$status!!}

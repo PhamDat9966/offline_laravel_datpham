@@ -23,11 +23,13 @@
         <h3>Menu</h3>
         <ul class="nav side-menu">
             <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li id='user'>
-                <a><i class="fa fa-user"></i> User<span class="fa fa-chevron-down"></span></a>
+            <li><a href="{{ route('user')}}"><i class="fa fa-user"></i> User</a></li>
+            <li id='permission'>
+                <a><i class="fa fa-institution"></i> Phân quyền<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ route('user')}}"> User</a></li>
-                    <li><a href="{{ route('group')}}"> Group</a></li>
+                    <li><a href="{{ route('role')}}"> Role - Vai trò</a></li>
+                    <li><a href="{{ route('permission')}}"> Permission - Phân quyền</a></li>
+                     <li><a href="{{ route('roleHasPermission')}}">Vai trò và Phân quyền</a></li>
                 </ul>
             </li>
             <li id='product'>

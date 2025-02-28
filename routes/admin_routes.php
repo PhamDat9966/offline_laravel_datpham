@@ -443,6 +443,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'level'
         ]);
 
+        Route::get('change-role-{role}/{id}', [
+            'as'    => $controllerName . '/role',
+            'uses'  => $controller . 'role'
+        ]);
+
         Route::post('save/{id?}', [
             'as'    => $controllerName . '/save',
             'uses'  => $controller . 'save'
@@ -496,9 +501,9 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
 
     });
 
-     // ====================== GROUP ======================
-     $prefix         =   'group';
-     $controllerName =   'group';
+     // ====================== ROLE ======================
+     $prefix         =   'role';
+     $controllerName =   'role';
      Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
          $controller =   ucfirst($controllerName) . 'Controller@';
@@ -517,6 +522,63 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
              'uses'  => $controller . 'delete'
          ])->where('id', '[0-9]+');
      });
+
+    // ====================== PERMISSION ======================
+    $prefix         =   'permission';
+    $controllerName =   'permission';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
+    // ====================== ROLE HAS PERMISSION ======================
+    $prefix         =   'roleHasPermission';
+    $controllerName =   'roleHasPermission';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
 
     // ====================== MENU ======================
     $prefix         =   'menu';
