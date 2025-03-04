@@ -14,7 +14,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('/', [
             'as'    => $controllerName,
             'uses'  => $controller . 'index'
-        ])->middleware('role.permission:dashboard-access'); // $requiredPermission = "dashboard-access"
+        ])->middleware('role.permission:access-dashboard'); // $requiredPermission = "dashboard-access"
 
         Route::get('updateDoashboard', [
             'as'    => $controllerName . '/updateDoashboard',
@@ -250,12 +250,12 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('form/{id?}', [
             'as'    => $controllerName . '/form',
             'uses'  => $controller . 'form'
-        ])->where('id', '[0-9]+');
+        ])->where('id', '[0-9]+')->middleware('check.article.permission');;
 
         Route::get('delete/{id}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'
-        ])->where('id', '[0-9]+');
+        ])->where('id', '[0-9]+')->middleware('check.article.permission');;
 
         Route::get('change-status-{status}/{id}', [
             'as'    => $controllerName . '/status',

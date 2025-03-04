@@ -31,18 +31,22 @@ class RolePermissionMiddleware
 
         // Kiểm tra xem trong các quyền của user có quyền đi vào module (từ $requiredPermission) này không.
         // Nếu không có quyền truy cập vào module này thì đưa user về trang có thông báo "Bạn Không Có Quyền Truy Cập Vào Chức Năng Này!"
-        $flagPermission = false;
-        foreach($allRoleHasPermission as $permission){
-            if($requiredPermission == $permission['permission_name']){
-                $flagPermission = true;
-                break;
+        // roles_id = 1 là Founder sẽ có quyền cao nhất, không cần phải đi qua phần lọc role
+
+        $founderRolesID = config('zvn.config.lock.prime_id');
+        if($userInfo['roles_id'] != $founderRolesID){
+            $flagPermission = false;
+            foreach($allRoleHasPermission as $permission){
+                if($requiredPermission == $permission['permission_name']){
+                    $flagPermission = true;
+                    break;
+                }
+            }
+
+            if($flagPermission == false){
+                return redirect()->route('notify/noPermission');
             }
         }
-
-        if($flagPermission == false){
-            return redirect()->route('notify/noPermission');
-        }
-
         return $next($request);
     }
 }

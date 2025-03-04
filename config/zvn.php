@@ -210,7 +210,8 @@ return [
             'prime_id'              =>  1,
             'prime_name'            => 'founder',
             'prime_name_trans'      => 'Người sáng lập'
-        ]
+        ],
+        'roles_admin_controller_access' => [1,2,3] //Đây là các roles_id lần lượt là 1,2,3 tương ứng với founder, admin, member được phép hoạt động trong admin controller
     ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
 ];

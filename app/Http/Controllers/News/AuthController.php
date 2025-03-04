@@ -45,6 +45,8 @@ class AuthController extends Controller
             $params = $request->all();
             $userModel  = new UserModel();
             $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
+            $hasPermission  = $userModel->getItem($userInfo,['task'=>'has-permission']);
+            $userInfo['has_permission'] = $hasPermission;
 
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
 
