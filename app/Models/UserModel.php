@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminModel;
+use App\Models\RoleModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Session;
@@ -15,9 +16,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Kế thừa User để hỗ trợ Auth
 use Illuminate\Notifications\Notifiable;
 
-class UserModel extends AdminModel
+// class UserModel extends AdminModel
+class UserModel extends Authenticatable
 {
     use HasFactory, Notifiable;
+    protected $table = 'user';
+    protected $primaryKey = 'id';
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
@@ -27,7 +31,7 @@ class UserModel extends AdminModel
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'roles_id');
+        return $this->belongsTo(RoleModel::class, 'roles_id');
     }
 
     public function listItems($params = null,$options = null){

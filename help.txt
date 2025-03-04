@@ -1,0 +1,5 @@
+roles: Chứa danh sách các vai trò.
+permissions: Chứa danh sách quyền.
+role_has_permissions: Liên kết vai trò với quyền.
+model_has_roles: Gán vai trò cho user.
+model_has_permissions: Gán quyền trực tiếp cho user.

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\UserModel;
 use App\Http\Requests\AuthRequest as MainRequest;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 
 class AuthController extends Controller
@@ -44,8 +45,12 @@ class AuthController extends Controller
             $params = $request->all();
             $userModel  = new UserModel();
             $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
+
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
+
             $request->session()->put('userInfo', $userInfo);
+            $user   = $userModel::find($userInfo['id']);
+            Auth::login($user); //Bổ xung thêm đăng nhập vào Auth
 
             //Kiểm tra "URL trước đó" trong session
             if (Session::get('url')['intended']) {
@@ -59,7 +64,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+
         $request->session()->pull('userInfo');
+        Auth::logout(); //Đăng xuất user khỏi Auth
         return redirect()->route('home');
     }
 

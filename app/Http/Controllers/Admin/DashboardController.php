@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\DashboardModel as MainModel;
 use App\Http\Controllers\Admin\AdminController;
-
 class DashboardController extends Controller
 {
     private $pathViewController  = 'admin.pages.dashboard.';
@@ -29,12 +28,11 @@ class DashboardController extends Controller
     public function index()
     {
         $items = $this->model->listItems(null,['task' => "admin-list-items"]);
-        //dd($items);
         // Hoán đổi vị trí phần tử
         $temp = $items[0];
         $items[0] = $items[1];
         $items[1] = $temp;
-        //dd($items);
+
         return view($this->pathViewController . 'index',[
             'items' => $items
         ]);
