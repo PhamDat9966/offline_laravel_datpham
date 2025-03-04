@@ -3,3 +3,7 @@ permissions: Chứa danh sách quyền.
 role_has_permissions: Liên kết vai trò với quyền.
 model_has_roles: Gán vai trò cho user.
 model_has_permissions: Gán quyền trực tiếp cho user.
+
+hướng quan hệ:
+user.role_id - role.id - role_has_permissions.role_id
+role_has_permissions.permission_id - permission.id

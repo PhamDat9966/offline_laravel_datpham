@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 28, 2025 lúc 09:16 AM
+-- Thời gian đã tạo: Th3 04, 2025 lúc 10:07 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -627,7 +627,8 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (1, 'create articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
 (2, 'edit articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
 (3, 'delete articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(4, 'publish articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30');
+(4, 'publish articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(5, 'dashboard-access', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30');
 
 -- --------------------------------------------------------
 
@@ -833,7 +834,9 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`, `permission_name
 (2, 4, 'edit articles', 'member'),
 (3, 2, 'delete articles', 'admin'),
 (3, 4, 'delete articles', 'member'),
-(4, 2, 'publish articles', 'admin');
+(4, 2, 'publish articles', 'admin'),
+(5, 1, 'dashboard-access', 'founder'),
+(5, 2, 'dashboard-access', 'admin');
 
 --
 -- Bẫy `role_has_permissions`
@@ -1518,7 +1521,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecontact`

@@ -297,7 +297,7 @@ class UserModel extends Authenticatable
 
         if($options['task'] == 'auth-login'){
 
-            $result = $this->select('id','username','email','fullname','level','avatar','usually_category')
+            $result = $this->select('id','username','email','fullname','level','avatar','usually_category','roles_id')
                             ->where('status','=','active')
                             ->where('email','=',$params['email'])
                             ->where('password','=',md5($params['password']))->first();

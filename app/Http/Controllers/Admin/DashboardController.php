@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\DashboardModel as MainModel;
 use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Contracts\Session\Session;
+
 class DashboardController extends Controller
 {
     private $pathViewController  = 'admin.pages.dashboard.';
