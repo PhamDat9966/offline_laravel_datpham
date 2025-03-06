@@ -22,6 +22,8 @@ class UserModel extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'user';
     protected $primaryKey = 'id';
+    public $timestamps = false;
+
     public function __construct(){
         $this->table                = 'user';
         $this->folderUpload         = 'user';
@@ -37,7 +39,7 @@ class UserModel extends Authenticatable
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('id','username','email','fullname','password','avatar','level','created','created_by','modified','modified_by','status','roles_id');
+            $query = $this->select('id','username','email','fullname','password','avatar','created','created_by','modified','modified_by','status','roles_id');
 
             if($params['filter']['status'] !== "all"){
                 $query->where('status','=',$params['filter']['status']);
@@ -164,8 +166,12 @@ class UserModel extends Authenticatable
         }
 
         if($options['task'] == 'change-role'){
+            //dd($params);
             $this::where('id', $params['id'])
-                ->update(['roles_id' => $params['roles_id'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+                ->update(['roles_id' => $params['roles_id'],
+                                     'modified'=>$params['modified'],
+                                     'modified_by'=>$params['modified_by']]);
+
             $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
@@ -237,10 +243,10 @@ class UserModel extends Authenticatable
 
         }
 
-        if($options['task'] == 'change-level-post'){
+        if($options['task'] == 'change-role-post'){
 
             $this::where('id', $params['id'])
-                ->update(['level' => $params['level']]);
+                ->update(['roles_id' => $params['roles_id']]);
 
         }
 
@@ -267,7 +273,7 @@ class UserModel extends Authenticatable
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','username','fullname','email','level','status','level','avatar','usually_category')
+            $result = $this::select('id','username','fullname','email','roles_id','status','avatar','usually_category')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();

@@ -10,11 +10,13 @@
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
-    $levelValue        = [
-                                'default'    => 'Select level',
-                                'admin'      => Config::get('zvn.template.level.admin.name'),
-                                'member'     => Config::get('zvn.template.level.member.name')
+    $roleValue        = [
+                            'default'   => 'Select Role'
                         ];
+
+    foreach($roleList as $role){
+        $roleValue[$role['id']] = Config::get('zvn.template.role.'.$role['name'].'.name');
+    }
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -39,8 +41,8 @@
             'element'   =>  Form::password('password_confirmation', $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('level', 'Level', $formlabelAttr),
-            'element'   =>  Form::select('level', $levelValue , 'default' , $formInputAttr)
+            'label'     =>  Form::label('role', 'Role', $formlabelAttr),
+            'element'   =>  Form::select('roles_id', $roleValue, 'default', $formInputAttr)
         ],
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),

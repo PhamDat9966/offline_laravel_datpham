@@ -363,7 +363,7 @@ $(document).ready(function() {
         var selectChangeID  = $(this).attr("id");
         var inputId         = selectChangeID.charAt(selectChangeID.length - 1);
         url                 = url.replace("value_new",selectValue)
-
+        console.log(url);
         callAjax(element,url,inputId,'select-box');
         // $.ajax({
         //     type: "GET",

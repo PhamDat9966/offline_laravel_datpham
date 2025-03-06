@@ -458,9 +458,9 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'changePassword'
         ]);
 
-        Route::post('change-level-post', [
-            'as'    => $controllerName . '/change-level-post',
-            'uses'  => $controller . 'levelPost'
+        Route::post('change-role-post', [
+            'as'    => $controllerName . '/change-role-post',
+            'uses'  => $controller . 'rolePost'
         ]);
 
         Route::get('add-cart', [

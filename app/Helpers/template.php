@@ -207,10 +207,10 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showUserStatus($controllerName , $id , $status,$fieldName){
+    public static function showUserStatus($controllerName , $id , $status,$fieldID){
         $tmplStatus     = Config::get('zvn.template.status');
-        $primeUser      = Config::get('zvn.config.lock.prime_name');
-        $lockFlag       = ($fieldName == $primeUser) ? true : false;
+        $primeID        = Config::get('zvn.config.lock.prime_id');
+        $lockFlag       = ($fieldID == $primeID) ? true : false;
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
         $currentStatus  = $tmplStatus[$statusValue];
@@ -222,7 +222,7 @@ class Template{
                             $id ,$link ,$currentStatus['class'] ,$currentStatus['class'], $currentStatus['name']
             );
         }else{
-            $xhtml  = '<strong style="color:red">Locked</strong>';
+            $xhtml  = '<strong style="color:blue">Locked</strong>';
         }
         return  $xhtml;
     }
@@ -305,12 +305,13 @@ class Template{
             foreach($tmpRoleList as $key => $value){
                 $xhtmlSelect = '';
                 if($value['id'] == $rolesID) $xhtmlSelect = 'selected="selected"';
-                $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$value['name']);
+                $roleName = Config::get('zvn.template.role.'.$value['name'].'.name');
+                $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$roleName);
             }
             $xhtml  .='</select>';
         }else{
             $primeUser = ucfirst($primeUser);
-            $xhtml = '<strong style="color:red">'.$primeUser.'</strong>';
+            $xhtml = '<strong style="color:blue">'.$primeUser.'</strong>';
         }
 
         return  $xhtml;

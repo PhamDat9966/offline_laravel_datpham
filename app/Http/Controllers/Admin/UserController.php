@@ -17,7 +17,11 @@ class UserController extends AdminController
         $this->pathViewController   = 'admin.pages.user.';
         $this->controllerName       = 'user';
         $this->model  = new MainModel();
+        $roleModel      = new RoleModel();
+        $roleList       = $roleModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
+
         View::share('controllerName',$this->controllerName);
+        View::share('roleList',$roleList);
         parent::__construct();
     }
 
@@ -25,14 +29,11 @@ class UserController extends AdminController
     {
         // Gọi method index của AdminController
         $response = parent::index($request);
-        $roleModel      = new RoleModel();
-        $roleList       = $roleModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
 
         // Lấy dữ liệu từ response của AdminController
         $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
         // Thêm dữ liệu mới vào dữ liệu từ AdminController
-        $data['roleList'] = $roleList;
 
         // Trả về response mới
         return view($this->pathViewController . 'index', (array)$data);
@@ -106,13 +107,13 @@ class UserController extends AdminController
         }
     }
 
-    public function levelPost(MainRequest $request) // MainRequest là đối tượng $request có validate
+    public function rolePost(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request
-            $task   = 'change-level-post';
+            $task   = 'change-role-post';
             $this->model->saveItem($params,['task'=>$task]);
-            $notify = 'Thay đổi level thành công!';
+            $notify = 'Thay đổi role thành công!';
             return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
         }
     }

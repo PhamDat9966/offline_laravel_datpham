@@ -133,6 +133,11 @@ return [
             'admin'         =>  ['name'=>'Quản trị hệ thống'],
             'member'        =>  ['name'=>'Người dùng thông thường'],
         ],
+        'role'=>[
+            'admin'         =>  ['name'=>'Quản trị hệ thống'],
+            'member'        =>  ['name'=>'Thành viên'],
+            'guest'         =>  ['name'=>'Khách hàng'],
+        ],
         'type_open'=>[
             'current'    => ['name'=>'Mở tại cửa sổ hiện hành'],
             '_new'       => ['name'=>'Mở cửa sổ mới'],

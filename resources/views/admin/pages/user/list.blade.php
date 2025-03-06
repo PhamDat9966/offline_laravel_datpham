@@ -34,8 +34,8 @@
                             $username           = Hightlight::show($val['username'], $params['search'] , 'username');
                             $email              = Hightlight::show($val['email'], $params['search'] , 'email');
                             $fullname           = Hightlight::show($val['fullname'], $params['search'] , 'fullname');
-                            $role              = Template::showRoleSelect( $controllerName,$id,'role',$val['roles_id'],$roleList);
-                            $status             = Template::showUserStatus( $controllerName,$id,$val['status'],$val['level']); // $controllerName đã được share tại SliderController.php
+                            $role               = Template::showRoleSelect( $controllerName,$id,'role',$val['roles_id'],$roleList);
+                            $status             = Template::showUserStatus( $controllerName,$id,$val['status'],$val['roles_id']); // $controllerName đã được share tại SliderController.php
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
                             $avatar             = Template::showItemThumb($controllerName,$val['avatar'],$val['username']);

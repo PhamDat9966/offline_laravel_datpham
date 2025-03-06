@@ -1,12 +1,12 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
-
+    //dd($item->toArray());
     $id             = (isset($item['id']))? $item['id'] : '';
     $username       = (isset($item['username']))? $item->username : '';
     $fullname       = (isset($item['fullname']))? $item->fullname : '';
     $email          = (isset($item['email']))? $item->email : '';
-    $level          = (isset($item['level']))? $item->level : '';
+    $roles_id       = (isset($item['roles_id']))? $item->roles_id : '';
     $status         = (isset($item['status']))? $item->status : '';
     $avatar         = (isset($item['avatar']))? $item->avatar : '';
 
@@ -20,11 +20,7 @@
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
-    $levelValue        = [
-                                'default'    => 'Select level',
-                                'admin'      => Config::get('zvn.template.level.admin.name'),
-                                'member'     => Config::get('zvn.template.level.member.name')
-                        ];
+    $primeID        = Config::get('zvn.config.lock.prime_id');
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
@@ -41,12 +37,8 @@
             'element'   =>  Form::text('email', $email , $formInputAttr)
         ],
         [
-            'label'     =>  Form::label('level', 'Level', $formlabelAttr),
-            'element'   =>  Form::select('level', $levelValue, $level, $formInputAttr)
-        ],
-        [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            'element'   => ($roles_id != $primeID) ? Form::select('status', $statusValue, $status, $formInputAttr) : '<label class="control-label" style="color:blue">Locked</label>'
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
