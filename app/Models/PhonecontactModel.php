@@ -67,7 +67,7 @@ class PhonecontactModel extends AdminModel
     }
 
     public function countItems($params = null,$options = null){
-        //dd($params);
+
         $result = null;
 
         if($options['task'] == 'admin-count-items-group-by-status'){
@@ -106,7 +106,7 @@ class PhonecontactModel extends AdminModel
     }
 
     public function saveItem($params = null,$options = null){
-        //dd('this is asdasdsadas');
+
         if (Session::has('userInfo')) {
             $userInfo = Session::get('userInfo');
         } else {

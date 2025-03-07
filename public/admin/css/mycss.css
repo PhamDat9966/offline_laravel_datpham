@@ -359,3 +359,11 @@ ul.headings li{
     align-items: center;
 }
 /* end product attribute price*/
+
+/* Permission */
+input[readonly] {
+    background-color: #cfd3ea !important;
+    color: #666;
+    cursor: not-allowed;
+}
+/* End Permission */

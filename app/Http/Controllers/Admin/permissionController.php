@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PermissionModel as MainModel;
-use App\Models\CategoryModel;
-use App\Http\Requests\ArticleRequest as MainRequest;
+use App\Http\Requests\PermissionRequest as MainRequest;
 
 class PermissionController extends Controller
 {
@@ -18,7 +17,7 @@ class PermissionController extends Controller
     public function __construct()
     {
         $this->model = new MainModel();
-        $this->params["pagination"]["totalItemsPerPage"] = 5;
+        $this->params["pagination"]["totalItemsPerPage"] = 20;
         view()->share('controllerName', $this->controllerName);
     }
 
@@ -44,7 +43,7 @@ class PermissionController extends Controller
             $params["id"] = $request->id;
             $item = $this->model->getItem($params, ['task' => 'get-item']);
         }
-
+        //dd($this->pathViewController);
         return view($this->pathViewController .  'form', [
             'item'        => $item,
         ]);

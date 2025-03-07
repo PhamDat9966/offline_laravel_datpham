@@ -3,7 +3,6 @@
 @php
     use App\Helpers\template as Template;
     $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-
 @endphp
 
 @section('content')

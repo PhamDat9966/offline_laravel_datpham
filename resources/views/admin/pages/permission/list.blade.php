@@ -24,7 +24,6 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-                           //dd($val);
 
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';

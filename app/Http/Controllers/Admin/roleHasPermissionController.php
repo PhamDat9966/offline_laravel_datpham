@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RoleHasPermissionModel as MainModel;
-use App\Models\CategoryModel;
-use App\Http\Requests\ArticleRequest as MainRequest;
+use App\Http\Requests\RoleHasPermissionRequest as MainRequest;
+
+use App\Models\RoleModel;
+use App\Models\PermissionModel;
 
 class RoleHasPermissionController extends Controller
 {
@@ -18,8 +20,17 @@ class RoleHasPermissionController extends Controller
     public function __construct()
     {
         $this->model = new MainModel();
-        $this->params["pagination"]["totalItemsPerPage"] = 5;
+        $this->params["pagination"]["totalItemsPerPage"] = 20;
+
+        $roleModel          = new RoleModel();
+        $permissionModel    = new PermissionModel();
+
+        $roleList           = $roleModel->getItem(null,['task'=>'get-item-name-and-id']);
+        $permissionList     = $permissionModel->getItem(null,['task'=>'get-item-name-and-id']);
+
         view()->share('controllerName', $this->controllerName);
+        view()->share('roleList', $roleList);
+        view()->share('permissionList', $permissionList);
     }
 
     public function index(Request $request)

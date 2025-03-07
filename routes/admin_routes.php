@@ -521,6 +521,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
              'as'    => $controllerName . '/delete',
              'uses'  => $controller . 'delete'
          ])->where('id', '[0-9]+');
+
+         Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
      });
 
     // ====================== PERMISSION ======================

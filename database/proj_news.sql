@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 06, 2025 lúc 08:56 AM
+-- Thời gian đã tạo: Th3 07, 2025 lúc 09:14 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -628,7 +628,8 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (2, 'create-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
 (3, 'edit-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
 (4, 'delete-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(5, 'access-dashboard', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30');
+(5, 'access-dashboard', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
+(7, 'access-slider', 'web', '2025-03-06 17:00:00', '2025-03-06 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -1518,7 +1519,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecontact`
@@ -1548,7 +1549,7 @@ ALTER TABLE `product_has_attribute`
 -- AUTO_INCREMENT cho bảng `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `rss`
