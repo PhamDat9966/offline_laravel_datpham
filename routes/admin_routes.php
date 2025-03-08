@@ -567,11 +567,6 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
-        Route::get('form/{id?}', [
-            'as'    => $controllerName . '/form',
-            'uses'  => $controller . 'form'
-        ])->where('id', '[0-9]+');
-
         Route::get('delete/{id}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'

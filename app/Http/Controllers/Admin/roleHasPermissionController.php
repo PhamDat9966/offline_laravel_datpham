@@ -48,19 +48,6 @@ class RoleHasPermissionController extends Controller
         ]);
     }
 
-    public function form(Request $request)
-    {
-        $item = null;
-        if ($request->id !== null) {
-            $params["id"] = $request->id;
-            $item = $this->model->getItem($params, ['task' => 'get-item']);
-        }
-
-        return view($this->pathViewController .  'form', [
-            'item'        => $item,
-        ]);
-    }
-
     public function save(MainRequest $request)
     {
         if ($request->method() == 'POST') {
