@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\RoleModel as MainModel;
 use App\Http\Requests\RoleRequest as MainRequest;
 
+use App\Models\RoleModel;
+use App\Models\PermissionModel;
+
 class RoleController extends Controller
 {
     private $pathViewController = 'admin.pages.role.';
@@ -18,13 +21,24 @@ class RoleController extends Controller
     {
         $this->model = new MainModel();
         $this->params["pagination"]["totalItemsPerPage"] = 5;
+
+        $roleModel          = new RoleModel();
+        $permissionModel    = new PermissionModel();
+
+        $roleList           = $roleModel->getItem(null,['task'=>'get-item-name-and-id']);
+
         view()->share('controllerName', $this->controllerName);
+        view()->share('roleList', $roleList);
     }
 
     public function index(Request $request)
     {
+        $this->params['search']['field']  = $request->input('search_field', ''); // all id description
+        $this->params['search']['value']  = $request->input('search_value', '');
+
         $items              = $this->model->listItems($this->params, ['task'  => 'admin-list-items']);
         return view($this->pathViewController .  'index', [
+            'params'        => $this->params,
             'items'         => $items,
         ]);
     }

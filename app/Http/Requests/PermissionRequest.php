@@ -42,7 +42,7 @@ class PermissionRequest extends FormRequest
             'name.required'         => 'Name không được rỗng',
             'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
             'name.between'          => 'Name chiều dài phải từ 5 đế 100 ký tự.',
-            'name.unique'          =>  'Name không được trùng với name đã có sẵn',
+            'name.unique'          =>  'Quyền có tên là "'.$this->name.'"  đã có sẵn, hãy chọn tên khác.',
         ];
     }
 

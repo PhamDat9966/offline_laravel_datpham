@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 07, 2025 lúc 09:14 AM
+-- Thời gian đã tạo: Th3 10, 2025 lúc 08:27 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -736,7 +736,7 @@ CREATE TABLE `product_attribute_price` (
 --
 
 INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`, `status`, `ordering`, `default`) VALUES
-(50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2200, 'active', 1, 1),
+(50, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', NULL, 'active', 1, 1),
 (53, 28, 1, 56, 'iphone 15', 'vàng', '128 GB', 1200, 'active', 5, 1),
 (60, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 6, 0),
 (71, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', 1800, 'active', 7, 0),
