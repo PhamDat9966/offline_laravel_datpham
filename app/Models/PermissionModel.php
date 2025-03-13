@@ -42,7 +42,7 @@ class  PermissionModel extends AdminModel
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('p.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }

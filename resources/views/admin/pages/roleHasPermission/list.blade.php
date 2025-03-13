@@ -13,10 +13,7 @@
                     <th class="column-title">Permission Id</th>
                     <th class="column-title">Role Name</th>
                     <th class="column-title">Permission Name</th>
-                    {{--  <th class="column-title">Trạng thái</th>  --}}
-                    {{-- <th class="column-title">Tạo mới</th>
-                    <th class="column-title">Chỉnh sửa</th> --}}
-                    {{--  <th class="column-title">Hành động</th>  --}}
+                    <th class="column-title">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,11 +25,11 @@
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
-                            $permissionId      = $val['permission_id'];
-                            $roleId            = $val['role_id'];
-                            $permissionName    = Hightlight::show($val['permission_name'], $params['search'] , 'name');
-                            $roleName    = Hightlight::show($val['role_name'], $params['search'] , 'name');
-                            //$listButtonAction   = Template::showButtonAction($controllerName, $id);
+                            $permissionId       = $val['permission_id'];
+                            $roleId             = $val['role_id'];
+                            $permissionName     = Hightlight::show($val['permission_name'], $params['search'] , 'name');
+                            $roleName           = Hightlight::show($val['role_name'], $params['search'] , 'name');
+                            $listButtonAction   = Template::showButtonActionRoleHasPermission($controllerName, $roleId,$permissionId);
 
                         @endphp
 
@@ -49,6 +46,9 @@
                             </td>
                             <td>
                                  {!! $permissionName !!}</p>
+                            </td>
+                            <td class="last">
+                                {!!$listButtonAction!!}
                             </td>
                         </tr>
                     @endforeach

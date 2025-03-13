@@ -280,6 +280,13 @@ class UserModel extends Authenticatable
 
         }
 
+        if($options['task'] == 'get-all-item'){
+            $result = $this::select('id','username','fullname','email','roles_id','status','avatar','usually_category')
+                    ->where('id', $params['id'])
+                    ->get()->toArray();
+
+        }
+
         if($options['task'] == 'get-thumb'){
             $result = $this::select('id','thumb')
                     ->where('id', $params['id'])

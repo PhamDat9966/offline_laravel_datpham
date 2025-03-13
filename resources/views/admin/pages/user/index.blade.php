@@ -2,10 +2,10 @@
 
 @php
     use App\Helpers\template as Template;
-    $xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search']);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-    $xhtmlCreated               = Template::showCreatedFilter($params['filter']['created']);
-    $xhtmlModified              = Template::showModifiedFilter($params['filter']['modified']);
+    $xhtmlButtonFilter  = Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search']);
+    $xhtmlAreaSearch    = Template::showAreaSearch($controllerName, $params['search']);
+    $xhtmlCreated       = Template::showCreatedFilter($params['filter']['created']);
+    $xhtmlModified      = Template::showModifiedFilter($params['filter']['modified']);
 @endphp
 
 @section('content')

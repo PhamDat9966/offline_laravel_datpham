@@ -1,0 +1,11 @@
+Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin']], function(){\
+        $prefix         =   'user';
+    $controllerName =   'user';
+    Route::group(['prefix'=>$prefix,'middleware'=>['user.permission']],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+        ......

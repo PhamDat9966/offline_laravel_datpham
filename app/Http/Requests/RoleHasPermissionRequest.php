@@ -38,7 +38,6 @@ class RoleHasPermissionRequest extends FormRequest
                                             ->where('role_id', $role_id)
                                             ->first();
         $flag = ($this->returnRoleHasPermission) ? "required|integer|unique:$this->table,permission_id" : 'required|integer';
-
         return [
             'permission_id' => $flag,
             'role_id'       => 'required|integer'
@@ -47,8 +46,12 @@ class RoleHasPermissionRequest extends FormRequest
 
     public function messages()  // Định nghĩa lại url
     {
-        $roleName       = $this->returnRoleHasPermission->role_name;
-        $permissionName = $this->returnRoleHasPermission->permission_name;
+        $roleName       = 'roleName';
+        $permissionName = 'permissionName';
+        if($this->returnRoleHasPermission){
+            $roleName       = $this->returnRoleHasPermission->role_name;
+            $permissionName = $this->returnRoleHasPermission->permission_name;
+        }
         return [
             'permission_id.unique' => 'Quyền "'.$permissionName.'" này đã được gán cho vai trò là "'.$roleName.'" rồi!',
         ];

@@ -13,9 +13,6 @@
                     <th class="column-title">Guard Name</th>
                     <th class="column-title">Category Name</th>
                     <th class="column-title">Kiểu bài viết</th>
-                    <th class="column-title">Trạng thái</th>
-                    {{-- <th class="column-title">Tạo mới</th>
-                    <th class="column-title">Chỉnh sửa</th> --}}
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>

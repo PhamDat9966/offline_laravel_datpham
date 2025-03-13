@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config;
-class RoleHasPermissionModel extends AdminModel
+class ModelHasPermissionModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'role_has_permissions as rhp';
-        $this->folderUpload         = 'role_has_permissions';
+        $this->table                = 'model_has_permissions as mhp';
+        $this->folderUpload         = 'model_has_permissions';
         $this->fieldSearchAccepted  = ['name'];
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
     }
@@ -21,10 +21,9 @@ class RoleHasPermissionModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('rhp.permission_id',
-                                            'rhp.role_id',
-                                            'rhp.permission_name',
-                                            'rhp.role_name');
+            $query = $this->select('mhp.permission_id',
+                                            'mhp.model_type',
+                                            'mhp.model_id');
 
             if($params['search'] !== ""){
 

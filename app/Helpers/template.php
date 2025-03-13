@@ -5,6 +5,7 @@ use Attribute;
 use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
 use App\Models\AttributevalueModel;
+use DB;
 class Template{
 
     public static function showItemHistory($by, $time, $filterValue = null){
@@ -292,7 +293,6 @@ class Template{
 
     public static function showRoleSelect($controllerName , $id ,$fieldName ,$rolesID, $tmpRoleList){
 
-        // $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
 
         $primeID         = Config::get('zvn.config.lock.prime_id');
@@ -300,18 +300,23 @@ class Template{
         $lockFlag        = ($rolesID == $primeID) ? true : false;
         $xhtml = '';
         if($lockFlag == false){
-            //$xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
             $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
             foreach($tmpRoleList as $key => $value){
                 $xhtmlSelect = '';
                 if($value['id'] == $rolesID) $xhtmlSelect = 'selected="selected"';
                 $roleName = Config::get('zvn.template.role.'.$value['name'].'.name');
-                $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$roleName);
+
+                if($roleName == ''){
+                    $query      = DB::table('roles')->select('name')->where('id','=',$rolesID)->first();
+                    if(!empty($query)) $roleName = $query->name;
+                }
+
+                $xhtml   .= sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$roleName);
             }
             $xhtml  .='</select>';
         }else{
             $primeUser = ucfirst($primeUser);
-            $xhtml = '<strong style="color:blue">'.$primeUser.'</strong>';
+            $xhtml     = Template::blueLockText($primeUser);
         }
 
         return  $xhtml;
@@ -450,6 +455,26 @@ class Template{
         foreach($listButtons as $btn){
             $currentButton  = $tmplButton[$btn];
             $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
+
+            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+                                        <i class="fa %s"></i>
+                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        }
+        $xhtml  .='</div>';
+        return  $xhtml;
+    }
+
+    public static function showButtonActionRoleHasPermission($controllerName, $roleID, $permissionID){
+        $tmplButton     = Config::get('zvn.template.button');
+        $buttonInArea   = Config::get('zvn.config.button');
+
+        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
+        $listButtons    = $buttonInArea[$controllerName];
+
+        $xhtml   ='<div class="zvn-box-btn-filter">';
+        foreach($listButtons as $btn){
+            $currentButton  = $tmplButton[$btn];
+            $link           = route($controllerName . $currentButton['route-name'], ['roleID'=>$roleID,'permissionID'=>$permissionID]);
 
             $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
                                         <i class="fa %s"></i>
@@ -801,5 +826,11 @@ class Template{
                                         <span style="color: '.$color_opposite.';display: block; width: fit-content; margin: 0 auto;line-height: 20px;">'.$color_name.'</span>
                                </div>';
         return $colorDiv;
+    }
+
+    public static function blueLockText($name){
+        $name = ($name != null) ? $name : 'Locked';
+        $xhtml = '<strong style="color:blue">'.$name.'</strong>';
+        return $xhtml;
     }
 }

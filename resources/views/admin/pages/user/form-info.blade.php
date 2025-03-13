@@ -1,7 +1,7 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
-    //dd($item->toArray());
+
     $id             = (isset($item['id']))? $item['id'] : '';
     $username       = (isset($item['username']))? $item->username : '';
     $fullname       = (isset($item['fullname']))? $item->fullname : '';

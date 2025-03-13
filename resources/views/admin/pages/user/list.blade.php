@@ -1,7 +1,6 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
-    //dd($roleList,$items->toArray());
 @endphp
 
 <div class="x_content">
@@ -26,7 +25,6 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-                            //dd($val->toArray());
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 

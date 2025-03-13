@@ -2,7 +2,6 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
-    //dd($roleList);
     $id             = (isset($item['id']))? $item['id'] : '';
     $roles_id       = (isset($item['roles_id']))? $item->roles_id : '';
 

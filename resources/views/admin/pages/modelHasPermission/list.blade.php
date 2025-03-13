@@ -9,10 +9,10 @@
             <thead>
                 <tr class="headings">
                     <th class="column-title">#</th>
+                    <th class="column-title">Role Id</th>
+                    <th class="column-title">Permission Id</th>
                     <th class="column-title">Role Name</th>
-                    <th class="column-title">guard Name</th>
-                    <th class="column-title">Tạo mới</th>
-                    <th class="column-title">Chỉnh sửa</th>
+                    <th class="column-title">Permission Name</th>
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -21,40 +21,44 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-                            $primeID            = config('zvn.config.lock.prime_id');
+
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
-                            $id                 = $val['id'];
-                            $name               = $val['name'];
-                            $guardName          = $val['guard_name'];
-                            $createdHistory     = Template::showItemHistory('',$val['created_at'], null);
-                            $modifiedHistory    = Template::showItemHistoryModified('',$val['updated_at'],$id,null);
-                            $listButtonAction   = ($id == $primeID)? Template::blueLockText(null) :Template::showButtonAction($controllerName, $id);
+                            $permissionId       = $val['permission_id'];
+
+                            $permissionName     = Hightlight::show($val['permission_name'], $params['search'] , 'name');
+                            $roleName           = Hightlight::show($val['role_name'], $params['search'] , 'name');
+                           // $listButtonAction   = Template::showButtonActionRoleHasPermission($controllerName, $roleId,$permissionId);
+
                         @endphp
 
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
-                            <td width="30%">
-                                <p><strong>{!! $name !!}</strong> </p>
+                            <td width="20%">
+
                             </td>
-                            <td width="30%">
-                                 {!! $guardName !!}</p>
-                            </td>
-                            <td>
-                                 {!! $createdHistory !!}</p>
+                            <td width="20%">
+                                <p>{!! $permissionId !!}</p>
                             </td>
                             <td>
-                                 {!! $modifiedHistory !!}</p>
+                                 {!! $roleName !!}</p>
+                            </td>
+                            <td>
+                                 {!! $permissionName !!}</p>
                             </td>
                             <td class="last">
-                                {!!$listButtonAction!!}
+                                {!!!!}
                             </td>
                         </tr>
                     @endforeach
+
+                @else
+                    @include('admin.templates.list_empty',['colspan'=>6])
                 @endif
 
             </tbody>
         </table>
     </div>
 </div>
+

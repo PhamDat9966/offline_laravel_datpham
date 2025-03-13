@@ -2,8 +2,8 @@
 use Illuminate\Support\Facades\Route;
 
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
-
-Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin']], function(){
+// /http://proj_news.xyz/admin96/user
+Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin','user.permission']], function(){
 
     // ====================== DASHBOARD ======================
     $prefix         =   '';
@@ -14,7 +14,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('/', [
             'as'    => $controllerName,
             'uses'  => $controller . 'index'
-        ])->middleware('role.permission:access-dashboard'); // $requiredPermission = "dashboard-access"
+        ]); // $requiredPermission = "dashboard-access"
 
         Route::get('updateDoashboard', [
             'as'    => $controllerName . '/updateDoashboard',
@@ -250,12 +250,12 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('form/{id?}', [
             'as'    => $controllerName . '/form',
             'uses'  => $controller . 'form'
-        ])->where('id', '[0-9]+')->middleware('check.article.permission');;
+        ])->where('id', '[0-9]+');
 
         Route::get('delete/{id}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'
-        ])->where('id', '[0-9]+')->middleware('check.article.permission');;
+        ])->where('id', '[0-9]+');
 
         Route::get('change-status-{status}/{id}', [
             'as'    => $controllerName . '/status',
@@ -567,7 +567,30 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'index'
         ]);
 
-        Route::get('delete/{id}', [
+        Route::get('delete/{roleID}-{permissionID}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
+    // ====================== MODEL HAS PERMISSION ======================
+    $prefix         =   'modelHasPermission';
+    $controllerName =   'modelHasPermission';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('delete/{modelID}-{permissionID}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'
         ])->where('id', '[0-9]+');

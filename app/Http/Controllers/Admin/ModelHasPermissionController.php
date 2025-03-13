@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PermissionModel as MainModel;
-use App\Http\Requests\PermissionRequest as MainRequest;
+use App\Models\RoleHasPermissionModel as MainModel;
+use App\Http\Requests\RoleHasPermissionRequest as MainRequest;
 
-class PermissionController extends Controller
+use App\Models\UserModel;
+use App\Models\PermissionModel;
+
+class ModelHasPermissionController extends Controller
 {
-    private $pathViewController = 'admin.pages.permission.';
-    private $controllerName     = 'permission';
+    private $pathViewController = 'admin.pages.modelHasPermission.';
+    private $controllerName     = 'modelHasPermission';
     private $params             = [];
     private $model;
 
@@ -18,7 +21,16 @@ class PermissionController extends Controller
     {
         $this->model = new MainModel();
         $this->params["pagination"]["totalItemsPerPage"] = 20;
+
+        $userModel         = new UserModel();
+        $permissionModel    = new PermissionModel();
+
+        $userModel          = $userModel->getItem(null,['task'=>'get-item-name-and-id']);
+        $permissionList     = $permissionModel->getItem(null,['task'=>'get-item-name-and-id']);
+
         view()->share('controllerName', $this->controllerName);
+        view()->share('modelList', $userModel);
+        view()->share('permissionList', $permissionList);
     }
 
     public function index(Request $request)
@@ -28,7 +40,7 @@ class PermissionController extends Controller
 
         $items              = $this->model->listItems($this->params, ['task'  => 'admin-list-items']);
         $itemsNameCount     = $this->model->countItems($this->params, ['task' => 'admin-count-items-group-by-name']);
-
+        //dd($items);
         return view($this->pathViewController .  'index', [
             'params'        => $this->params,
             'items'         => $items,
@@ -36,35 +48,25 @@ class PermissionController extends Controller
         ]);
     }
 
-    public function form(Request $request)
-    {
-        $item = null;
-        if ($request->id !== null) {
-            $params["id"] = $request->id;
-            $item = $this->model->getItem($params, ['task' => 'get-item']);
-        }
-
-        return view($this->pathViewController .  'form', [
-            'item'        => $item,
-        ]);
-    }
-
     public function save(MainRequest $request)
     {
         if ($request->method() == 'POST') {
             $params = $request->all();
-
             $task   = "add-item";
             $notify = "Thêm phần tử thành công!";
 
-            $this->model->saveItem($params, ['task' => $task]);
+            if ($params['role_id'] !== null || $params['permission_id'] !== null) {
+                $this->model->saveItem($params, ['task' => $task]);
+            }
+
             return redirect()->route($this->controllerName)->with("zvn_notily", $notify);
         }
     }
 
     public function delete(Request $request)
     {
-        $params["id"]             = $request->id;
+        $params["role_id"]           = $request->roleID;
+        $params["permission_id"]     = $request->permissionID;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');
     }
