@@ -40,7 +40,7 @@ class ModelHasPermissionController extends Controller
 
         $items              = $this->model->listItems($this->params, ['task'  => 'admin-list-items']);
         $itemsNameCount     = $this->model->countItems($this->params, ['task' => 'admin-count-items-group-by-name']);
-        //dd($items);
+
         return view($this->pathViewController .  'index', [
             'params'        => $this->params,
             'items'         => $items,
@@ -54,10 +54,7 @@ class ModelHasPermissionController extends Controller
             $params = $request->all();
             $task   = "add-item";
             $notify = "Thêm phần tử thành công!";
-
-            if ($params['role_id'] !== null || $params['permission_id'] !== null) {
-                $this->model->saveItem($params, ['task' => $task]);
-            }
+            $this->model->saveItem($params, ['task' => $task]);
 
             return redirect()->route($this->controllerName)->with("zvn_notily", $notify);
         }

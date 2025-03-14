@@ -90,11 +90,11 @@ class ModelHasPermissionModel extends AdminModel
     public function saveItem($params = null,$options = null){
 
         if($options['task'] == 'add-item'){
-
             /* Save dữ liệu theo eloquent */
-            $this->table         = 'role_has_permissions';
-            $this->permission_id = $params['permission_id'];
-            $this->role_id       = $params['role_id'];
+            $this->table            = 'model_has_permissions';
+            $this->permission_id    = $params['permission_id'];
+            $this->model_id         = $params['user_id'];
+            $this->model_type       = 'App\Models\UserModel';
             $this->save();
         }
 

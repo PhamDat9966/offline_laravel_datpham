@@ -80,12 +80,12 @@
                 <form action="{{route($controllerName.'/save')}}" method="POST">
                     @csrf
                     <label for="model">Người dùng trong Model:</label>
-                    <select name="user-id" id="user-search" class="form-control" style="width: 100%" data-url="{{$urlUserSearch}}">
+                    <select name="user_id" id="user_search" class="form-control" style="width: 100%" data-url="{{$urlUserSearch}}">
                         <option value="">Nhập hoặc chọn tên user...</option>
                     </select>
 
                     <label for="model">Quyền - Permission:</label>
-                    <select name="permission-id" id="permission-search" class="form-control" style="width: 100%" data-url="{{$urlPermissionSearch}}">
+                    <select name="permission_id" id="permission_search" class="form-control" style="width: 100%" data-url="{{$urlPermissionSearch}}">
                         <option value="">Nhập hoặc chọn permission...</option>
                     </select>
 

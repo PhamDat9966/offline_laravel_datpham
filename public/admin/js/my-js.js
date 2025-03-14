@@ -1098,12 +1098,12 @@ $(document).ready(function () {
 $(document).ready(function() {
     $("#popupForm").on("shown.bs.modal", function () {
         // Khởi tạo Select2 cho user-search
-        $("#user-search").select2({
+        $("#user_search").select2({
             dropdownParent: $("#popupForm"),
             placeholder: "Nhập hoặc chọn tên User...",
             allowClear: true,
             ajax: {
-                url: $("#user-search").data('url'), // Lấy đúng URL của input này
+                url: $("#user_search").data('url'),
                 dataType: "json",
                 delay: 250,
                 processResults: function (data) {
@@ -1119,12 +1119,12 @@ $(document).ready(function() {
         // Khởi tạo Select2 cho permission-search
         $url = $("#permission-search").data('url');
         console.log($url);
-        $("#permission-search").select2({
+        $("#permission_search").select2({
             dropdownParent: $("#popupForm"),
             placeholder: "Nhập hoặc chọn quyền được gán...",
             allowClear: true,
             ajax: {
-                url: $("#permission-search").data('url'), // Lấy đúng URL của input này
+                url: $("#permission_search").data('url'),
                 dataType: "json",
                 delay: 250,
                 processResults: function (data) {

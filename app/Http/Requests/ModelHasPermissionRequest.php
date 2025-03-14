@@ -10,7 +10,7 @@ use DB;
 class ModelHasPermissionRequest extends FormRequest
 {
     protected $table = "model_has_permissions";
-    public $returnRoleHasPermission; // Biến public để lưu dữ liệu
+    public $returnModelHasPermission; // Biến public để lưu dữ liệu
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,32 +28,41 @@ class ModelHasPermissionRequest extends FormRequest
      */
     public function rules()
     {
-
-        $thisArray      = $this->toArray();
-        $role_id         = $thisArray['role_id'];
+        $thisArray       = $this->toArray();
+        $user_id         = $thisArray['user_id'];
         $permission_id   = $thisArray['permission_id'];
 
-        $this->returnRoleHasPermission  = DB::table('role_has_permissions')
-                                            ->where('permission_id', $permission_id)
-                                            ->where('role_id', $role_id)
-                                            ->first();
-        $flag = ($this->returnRoleHasPermission) ? "required|integer|unique:$this->table,permission_id" : 'required|integer';
+        // $this->returnModelHasPermission  = DB::table('model_has_permissions')
+        //                                     ->where('permission_id', $permission_id)
+        //                                     ->where('model_id', $user_id)
+        //                                     ->first();
+        $this->returnModelHasPermission  = DB::table('model_has_permissions as mhp')
+                                                ->select('mhp.permission_id', 'p.name as permission_name',
+                                                                'mhp.model_id','mhp.model_type','u.username','u.email'
+                                                        )
+                                                ->leftJoin('permissions as p', 'mhp.permission_id', '=', 'p.id')
+                                                ->leftJoin('user as u', 'mhp.model_id', '=', 'u.id')
+                                                ->where('mhp.permission_id', $permission_id)
+                                                ->where('mhp.model_id', $user_id)
+                                                ->first();
+
+        $flag = ($this->returnModelHasPermission) ? "required|integer|unique:$this->table,permission_id" : 'required|integer';
         return [
             'permission_id' => $flag,
-            'role_id'       => 'required|integer'
+            'user_id'       => 'required|integer'
         ];
     }
 
     public function messages()  // Định nghĩa lại url
     {
-        $roleName       = 'roleName';
+        $userName       = 'userName';
         $permissionName = 'permissionName';
-        if($this->returnRoleHasPermission){
-            $roleName       = $this->returnRoleHasPermission->role_name;
-            $permissionName = $this->returnRoleHasPermission->permission_name;
+        if($this->returnModelHasPermission){
+            $userName       = $this->returnModelHasPermission->username;
+            $permissionName = $this->returnModelHasPermission->permission_name;
         }
         return [
-            'permission_id.unique' => 'Quyền "'.$permissionName.'" này đã được gán cho vai trò là "'.$roleName.'" rồi!',
+            'permission_id.unique' => 'Quyền "'.$permissionName.'" này đã được gán cho tài khoảng có tên là "'.$userName.'" rồi!',
         ];
     }
 
