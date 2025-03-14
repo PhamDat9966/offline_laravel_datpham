@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\RoleHasPermissionModel as MainModel;
-use App\Http\Requests\RoleHasPermissionRequest as MainRequest;
+use App\Models\ModelHasPermissionModel as MainModel;
+use App\Http\Requests\ModelHasPermissionRequest as MainRequest;
 
 use App\Models\UserModel;
 use App\Models\PermissionModel;
@@ -69,5 +69,27 @@ class ModelHasPermissionController extends Controller
         $params["permission_id"]     = $request->permissionID;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');
+    }
+
+    public function userSearch(Request $request) // Ajax
+    {
+        $primeId = config('zvn.config.lock.prime_id');
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = UserModel::where('username', 'LIKE', "%{$search}%")
+                      ->where('roles_id','!=',$primeId)
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'username']);
+
+        return response()->json($data);
+    }
+
+    public function permissionSearch(Request $request) // Ajax
+    {
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = PermissionModel::where('name', 'LIKE', "%{$search}%")
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'name']);
+
+        return response()->json($data);
     }
 }

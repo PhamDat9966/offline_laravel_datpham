@@ -21,10 +21,11 @@ class ModelHasPermissionModel extends AdminModel
 
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('mhp.permission_id',
-                                            'mhp.model_type',
-                                            'mhp.model_id');
-
+            $query = $this->select('mhp.permission_id', 'p.name as permission_name',
+                                            'mhp.model_id','mhp.model_type','u.username','u.email'
+                                  )
+                            ->leftJoin('permissions as p', 'mhp.permission_id', '=', 'p.id')
+                            ->leftJoin('user as u', 'mhp.model_id', '=', 'u.id');
             if($params['search'] !== ""){
 
                 if($params["search"]["field"] == "all"){
@@ -32,19 +33,19 @@ class ModelHasPermissionModel extends AdminModel
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere('rhp.'.$column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('mhp.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('mhp.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
 
-            $result = $query->orderBy('role_id', 'desc')
+            $result = $query->orderBy('model_id', 'desc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -103,8 +104,9 @@ class ModelHasPermissionModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-all-permission'){
-            $result = $this::select('rhp.permission_id',
-                                             'rhp.permission_name'
+            $result = $this::select('mhp.permission_id',
+                                             'mhp.model_type',
+                                             'mhp.model_id'
                                     )
                     ->where('role_id', $params['roles_id'])
                     ->get()->toArray();

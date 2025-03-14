@@ -4,7 +4,7 @@
     use App\Helpers\template as Template;
     $xhtmlAreaSearch            =   Template::showAreaSearch($controllerName, $params['search']);
     $xhtmlRoleHasPermission     = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupForm">
-                                        Gán quyền có sẵn cho một vai trò
+                                        Gán quyền trực tiếp vào tài khoảng
                                    </button>';
 @endphp
 
@@ -60,41 +60,4 @@
 @endif
 <!--end-box-pagination-->
 <!-- /page content -->
-@endsection
-
-@section('popup')
-<!-- Modal -->
-<div class="modal fade" id="popupForm" tabindex="-1" aria-labelledby="popupFormLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="popupFormLabel">Gán quyền có sẵn cho một vai trò</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{route($controllerName.'/save')}}" method="POST">
-                    @csrf
-                    <label for="model">Người dùng - Model:</label>
-                    <select name="model_id" id="model" class="form-control">
-
-                    </select>
-
-                    <label for="permission">Quyền - Permission:</label>
-                    <select name="permission_id" id="permission" class="form-control">
-                        @foreach ($permissionList as $keyP=>$permission)
-                            <option value="{{$permission['id']}}">{{$permission['name']}}</option>
-                        @endforeach
-                    </select>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

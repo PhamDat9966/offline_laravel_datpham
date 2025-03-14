@@ -15,11 +15,11 @@ use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Kế thừa User để hỗ trợ Auth
 use Illuminate\Notifications\Notifiable;
-
+use App\Traits\TraitsModel;
 // class UserModel extends AdminModel
 class UserModel extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, TraitsModel;
     protected $table = 'user';
     protected $primaryKey = 'id';
     public $timestamps = false;

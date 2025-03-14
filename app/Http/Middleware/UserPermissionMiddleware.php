@@ -23,9 +23,7 @@ class UserPermissionMiddleware
         $session = session()->all();
         $userInfo = $session['userInfo'];
 
-        // Lấy role_id của user
-        $params['roles_id'] = $userInfo['roles_id'];
-
+        // Lấy role_id của user, kiểm tra nó có phải ở Founder level không?
         $founderRolesID = config('zvn.config.lock.prime_id');
         if($userInfo['roles_id'] != $founderRolesID){
 
@@ -34,22 +32,28 @@ class UserPermissionMiddleware
             $action = request()->segment(3) ?? 'index'; // Nếu không có thì mặc định là 'index'
             $id = $request->route('id') ?? null;
 
-            //Bước 1: Xác định permission hiện tại ở API
+            //Bước 1: Xác định quyền (permission) được sinh ra ở API
             $permissionInAction = "access-$module";
-            if($action == 'form'){
-                $permissionInAction = "create-$module";
-                if($id != null){
-                    $permissionInAction = "edit-$module";
-                }
+
+            switch ($action) {
+                case 'form':
+                    $permissionInAction = "create-$module";
+                    if($id != null){
+                        $permissionInAction = "edit-$module";
+                    }
+                    break;
+                case 'delete':
+                    $permissionInAction = "delete-$module";
+                    break;
             }
 
-            //Bước 2: Kiểm tra xem quyền này có tồn tại không? Nếu không tồn tại thì không kiểm tra tiếp.
+            //Bước 2: Kiểm tra xem quyền (permission) được sinh ra ở API đã được thiết lập trong persision model chưa?
             $permissionModule = new PermissionModel();
             $permissionExist  = PermissionModel::where('name', $permissionInAction)->exists();
 
             if($permissionExist){
 
-                //Bước 3: Nếu quyền này có tồn tại, thì kiểm tra xem userInfo có quyền này không? Nếu có thì đi tiếp, nếu ko thì trả về trang "Bạn không có quyền truy cập"
+                //Bước 3: Nếu quyền này đã được thiết lập, thì kiểm tra xem userInfo có quyền này không? Nếu có thì đi tiếp, nếu ko thì trả về trang "Bạn không có quyền truy cập"
                 $userInfoHasPermission = in_array($permissionInAction, array_column($userInfo['has_permission'], 'permission_name'));
 
                 //Debug:

@@ -29,7 +29,8 @@
                 <ul class="nav child_menu">
                     <li><a href="{{ route('role')}}"> Role - Vai trò</a></li>
                     <li><a href="{{ route('permission')}}"> Permission - Phân quyền</a></li>
-                     <li><a href="{{ route('roleHasPermission')}}">Vai trò và Phân quyền</a></li>
+                    <li><a href="{{ route('roleHasPermission')}}">Vai trò và Phân quyền</a></li>
+                    <li><a href="{{ route('modelHasPermission')}}">Gán quyền trực tiếp cho User</a></li>
                 </ul>
             </li>
             <li id='product'>
