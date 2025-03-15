@@ -317,11 +317,20 @@ class UserModel extends Authenticatable
             if($result) $result = $result->toArray();
         }
 
-        if($options['task'] == 'has-permission'){
+        if($options['task'] == 'role-has-permission'){
             $this->table    = 'user as u';
             $result = $this->select('rhp.permission_id','rhp.permission_name')
                            ->leftJoin('role_has_permissions as rhp', 'u.roles_id', '=', 'rhp.role_id')
                            ->where('rhp.role_id','=',$params['roles_id'])
+                           ->distinct()
+                           ->get()->toArray();
+        }
+
+        if($options['task'] == 'model-has-permission'){
+            $this->table    = 'user as u';
+            $result = $this->select('p.id as permission_id','p.name as permission_name')
+                           ->leftJoin('model_has_permissions as mhp', 'u.id', '=', 'mhp.model_id')
+                           ->leftJoin('permissions as p', 'p.id', '=', 'mhp.permission_id')
                            ->distinct()
                            ->get()->toArray();
         }

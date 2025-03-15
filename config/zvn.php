@@ -217,7 +217,13 @@ return [
             'prime_name'            => 'founder',
             'prime_name_trans'      => 'Người sáng lập'
         ],
-        'roles_admin_controller_access' => [1,2,3] //Đây là các roles_id lần lượt là 1,2,3 tương ứng với founder, admin, member được phép hoạt động trong admin controller
+        'roles_admin_controller_access' => [1,2,3], //Đây là các roles_id lần lượt là 1,2,3 tương ứng với founder, admin, member được phép hoạt động trong admin controller
+        'permission_action' =>[
+            'access'    => 'Truy cập vào index (access)',
+            'create'    => 'Tạo bài nội dung mới (create)',
+            'edit'      => 'Chỉnh sửa nội dung (edit)',
+            'delete'    => 'Xóa nội dung (delete)'
+        ]
     ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
 ];

@@ -32,10 +32,6 @@ class ModelHasPermissionRequest extends FormRequest
         $user_id         = $thisArray['user_id'];
         $permission_id   = $thisArray['permission_id'];
 
-        // $this->returnModelHasPermission  = DB::table('model_has_permissions')
-        //                                     ->where('permission_id', $permission_id)
-        //                                     ->where('model_id', $user_id)
-        //                                     ->first();
         $this->returnModelHasPermission  = DB::table('model_has_permissions as mhp')
                                                 ->select('mhp.permission_id', 'p.name as permission_name',
                                                                 'mhp.model_id','mhp.model_type','u.username','u.email'

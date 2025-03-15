@@ -3,12 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 /**
  * SliderRequest lớp có nhiều nhiệm vụ, một trong số đó là Validate dữ liệu
  */
 class PermissionRequest extends FormRequest
 {
     protected $table = "permissions";
+    protected $name  = '';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,25 +26,43 @@ class PermissionRequest extends FormRequest
      *
      * @return array
      */
+
+     /* Chuẩn bị dữ liệu trước khi validate*/
+    protected function prepareForValidation()
+    {
+        // Thiết lập thêm trường 'name'
+        $controllerName = Str::replaceLast('Controller', '', $this->controllerSelect);
+        $permission = $this->permissionAction . '-' . strtolower($controllerName);
+
+        // Ghi đè lại request data của Laravel
+        $this->merge([
+            'name' => $permission
+        ]);
+    }
     public function rules()
     {
         $id         = $this->id;
-        $condName   = "bail|required|between:3,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
-        if(!empty($id)) {
-            $condName   = "bail|required|between:3,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
-        }
+        $controllerName     = Str::replaceLast('Controller', '', $this->controllerSelect);
+        $permissionAction   = $this->permissionAction;
+        $permission         = $permissionAction . '-' . $controllerName;
+        $this->name         = $permission;
+        $condPermission     = "bail|unique:$this->table,name" .($id ? ",$id" : "");
+
+        $condController         = "bail|required";
+        $condPermissionAction   = "bail|required";
         return [
-            'name'          => $condName,           //'title' => 'required|unique:posts|max:255',
+            'controllerSelect'  => $condController,
+            'permissionAction'  => $condPermissionAction,
+            'name'              => $condPermission  // Đây là trường 'name' đã được bổ xung khi ghi đè lên request
         ];
     }
 
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'name.required'         => 'Name không được rỗng',
-            'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
-            'name.between'          => 'Name chiều dài phải từ 5 đế 100 ký tự.',
-            'name.unique'          =>  'Quyền có tên là "'.$this->name.'"  đã có sẵn, hãy chọn tên khác.',
+            'controllerSelect.required'         => 'Hãy chọn một controller',
+            'permissionAction.required'         => 'Hãy chọn một hành động phân quyền',
+            'name.unique'                       => '"'.$this->controllerSelect.'" này đã được thiết lập quyền hành động "'.$this->permissionAction.'" rồi'
         ];
     }
 

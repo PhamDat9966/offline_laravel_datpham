@@ -66,7 +66,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="popupFormLabel">Thêm Quyền</h3>
+                <h3 class="modal-title" id="popupFormLabel">Thêm Permission</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -74,14 +74,28 @@
             <div class="modal-body">
                 <form action="{{route($controllerName.'/save')}}" method="POST">
                     @csrf
-
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label text-right pt-3"  style="line-height: 32px;">Permission:</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right pt-3"  style="line-height: 32px;">Chọn controller:</label>
                         <div class="col-sm-9">
-                            <input name="name" type="text" id="name" class="form-control">
+                            <select name="controllerSelect" id="controllerSelect" class="form-control" style="width: 100%" >
+                                <option value="">-- Chọn Controller --</option>
+                                @foreach ($controllerList as $controller)
+                                    <option value="{{ $controller }}">{{ $controller }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 col-form-label text-right pt-3"  style="line-height: 32px;">Chọn hành động:</label>
+                        <div class="col-sm-9">
+                            <select name="permissionAction" id="permissionAction" class="form-control" style="width: 100%" >
+                                <option value="">-- Chọn Permission Action --</option>
+                                @foreach ($permissionActions as $keyPerAction=>$permissionAction)
+                                    <option value="{{ $keyPerAction }}">{{ $permissionAction }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label text-right pt-3"  style="line-height: 32px;">Guard Name:</label>
                         <div class="col-sm-9">

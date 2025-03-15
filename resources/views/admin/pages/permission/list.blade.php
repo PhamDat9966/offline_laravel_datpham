@@ -10,9 +10,10 @@
                 <tr class="headings">
                     <th class="column-title">#</th>
                     <th class="column-title">Name</th>
+                    <th class="column-title">Controller</th>
+                    <th class="column-title">Permission Action</th>
                     <th class="column-title">Guard Name</th>
-                    <th class="column-title">Category Name</th>
-                    <th class="column-title">Kiểu bài viết</th>
+                    <th class="column-title">Ngày tạo</th>
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -27,9 +28,10 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
-                            $guardName         = $val['guard_name'];
+                            $controllerSelect   = $val['controller_select'];
+                            $permissionAction   = $val['permission_action'];
+                            $guardName          = $val['guard_name'];
                             $createdHistory     = Template::showItemHistory('',$val['created_at'], null);
-                            $modifiedHistory    = Template::showItemHistoryModified('',$val['updated_at'],$id,null);
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
 
                         @endphp
@@ -39,14 +41,17 @@
                             <td width="30%">
                                 <p>{!! $name !!}</p>
                             </td>
-                            <td width="30%">
+                            <td>
+                                 {!! $controllerSelect !!}</p>
+                            </td>
+                            <td>
+                                 {!! $permissionAction !!}</p>
+                            </td>
+                            <td>
                                  {!! $guardName !!}</p>
                             </td>
                             <td>
                                  {!! $createdHistory !!}</p>
-                            </td>
-                            <td>
-                                 {!! $modifiedHistory !!}</p>
                             </td>
                             <td class="last">
                                 {!!$listButtonAction!!}

@@ -25,6 +25,8 @@ class  PermissionModel extends AdminModel
             $query = $this->select('p.id',
                                             'p.name',
                                             'p.guard_name',
+                                            'p.controller_select',
+                                            'p.permission_action',
                                             'p.created_at',
                                             'p.updated_at');
 
@@ -95,10 +97,12 @@ class  PermissionModel extends AdminModel
 
             $params['created'] = date('Y-m-d');
             /* Save dữ liệu theo eloquent */
-            $this->table         = 'permissions';
-            $this->name          = $params['name'];
-            $this->guard_name    = $params['guard_name'];
-            $this->created_at    = $params['created'];
+            $this->table                = 'permissions';
+            $this->name                 = $params['name'];
+            $this->controller_select    = $params['controllerSelect'];
+            $this->permission_action    = $params['permissionAction'];
+            $this->guard_name           = $params['guard_name'];
+            $this->created_at           = $params['created'];
             $this->save();
         }
 
@@ -114,6 +118,7 @@ class  PermissionModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
+            $this->table = 'permissions';
             $this->where('id', $params['id'])->delete();
         }
     }

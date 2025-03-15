@@ -37,7 +37,7 @@
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
                             $avatar             = Template::showItemThumb($controllerName,$val['avatar'],$val['username']);
-                            $listButtonAction   = Template::showButtonAction($controllerName, $id);
+                            $listButtonAction   = Template::showButtonUserAction($controllerName, $id,$val['roles_id']);
                         @endphp
 
                         <tr class="{{$class}} pointer">

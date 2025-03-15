@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 14, 2025 lúc 09:23 PM
+-- Thời gian đã tạo: Th3 15, 2025 lúc 09:10 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -568,8 +568,8 @@ CREATE TABLE `model_has_permissions` (
 --
 
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\UserModel', 5),
-(8, 'App\\Models\\UserModel', 5);
+(12, 'App\\Models\\UserModel', 3),
+(16, 'App\\Models\\UserModel', 3);
 
 -- --------------------------------------------------------
 
@@ -624,23 +624,24 @@ CREATE TABLE `permissions` (
   `name` varchar(255) NOT NULL,
   `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `controller_select` varchar(255) DEFAULT NULL,
+  `permission_action` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'access-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(2, 'create-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(3, 'edit-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(4, 'delete-articles', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(5, 'access-dashboard', 'web', '2025-02-26 13:01:30', '2025-02-26 13:01:30'),
-(7, 'access-slider', 'web', '2025-03-06 17:00:00', '2025-03-06 17:00:00'),
-(8, 'access-user', 'web', '2025-03-12 17:00:00', NULL),
-(9, 'edit-user', 'web', '2025-03-12 17:00:00', NULL),
-(10, 'create-user', 'web', '2025-03-12 17:00:00', NULL);
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `controller_select`, `permission_action`) VALUES
+(11, 'delete-user', 'web', '2025-03-14 17:00:00', NULL, 'UserController', 'delete'),
+(12, 'access-article', 'web', '2025-03-14 17:00:00', NULL, 'ArticleController', 'access'),
+(13, 'create-article', 'web', '2025-03-14 17:00:00', NULL, 'ArticleController', 'create'),
+(14, 'edit-article', 'web', '2025-03-14 17:00:00', NULL, 'ArticleController', 'edit'),
+(15, 'delete-article', 'web', '2025-03-14 17:00:00', NULL, 'ArticleController', 'delete'),
+(16, 'access-user', 'web', '2025-03-14 17:00:00', NULL, 'UserController', 'access'),
+(17, 'create-user', 'web', '2025-03-14 17:00:00', NULL, 'UserController', 'create'),
+(18, 'edit-user', 'web', '2025-03-14 17:00:00', NULL, 'UserController', 'edit');
 
 -- --------------------------------------------------------
 
@@ -842,13 +843,7 @@ CREATE TABLE `role_has_permissions` (
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`, `permission_name`, `role_name`) VALUES
-(1, 2, 'access-articles', 'admin'),
-(2, 2, 'create-articles', 'admin'),
-(3, 2, 'edit-articles', 'admin'),
-(4, 2, 'delete-articles', 'admin'),
-(5, 1, 'access-dashboard', 'founder'),
-(5, 2, 'access-dashboard', 'admin'),
-(9, 2, 'edit-user', 'admin');
+(16, 2, 'access-user', 'admin');
 
 --
 -- Bẫy `role_has_permissions`
@@ -1532,7 +1527,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT cho bảng `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `phonecontact`

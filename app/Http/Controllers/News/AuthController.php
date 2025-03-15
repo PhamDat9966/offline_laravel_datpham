@@ -45,8 +45,18 @@ class AuthController extends Controller
             $params = $request->all();
             $userModel  = new UserModel();
             $userInfo   = $userModel->getItem($params,['task'=>'auth-login']);
-            $hasPermission  = $userModel->getItem($userInfo,['task'=>'has-permission']);
-            $userInfo['has_permission'] = $hasPermission;
+            //User Lấy quyền từ Role
+            $roleHasPermission  = $userModel->getItem($userInfo,['task'=>'role-has-permission']);
+            $userInfo['has_permission'] = $roleHasPermission;
+            //User lấy quyền từ gán trực tiếp
+            $modelHasPermission  = $userModel->getItem($userInfo,['task'=>'model-has-permission']);
+            $userInfo['has_permission'] = $userInfo['has_permission'] + $modelHasPermission;
+
+            // Dùng Collection để loại bỏ phần tử trùng giữa RoleHasPermission và ModelHasPermission
+            $userInfo['has_permission'] = collect($userInfo['has_permission'])->unique(function ($item) {
+                return $item['permission_id'] . '-' . $item['permission_name'];
+            })->values()->toArray();
+            //end Collection
 
             if(!$userInfo) return redirect()->route($this->controllerName . '/login')->with('news_notily','Tài khoảng hoặc mật khẩu không chính xác!');
 

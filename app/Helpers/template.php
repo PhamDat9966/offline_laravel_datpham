@@ -442,7 +442,6 @@ class Template{
                 <img src="%s" alt="%s" class="zvn-thumb" />', asset("images/user/$thumbName"), $thumbAlt);
         return  $xhtml;
     }
-
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = Config::get('zvn.template.button');
         //dd($tmplButton);
@@ -461,6 +460,32 @@ class Template{
                                 </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
         }
         $xhtml  .='</div>';
+        return  $xhtml;
+    }
+    public static function showButtonUserAction($controllerName, $id, $rolesID){
+        $tmplButton     = Config::get('zvn.template.button');
+        $buttonInArea   = Config::get('zvn.config.button');
+
+        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
+        $listButtons    = $buttonInArea[$controllerName];
+
+        $primeID = config('zvn.config.lock.prime_id');
+        $xhtml   = '<div class="zvn-box-btn-filter">';
+        if($rolesID != $primeID){
+            foreach($listButtons as $btn){
+                $currentButton  = $tmplButton[$btn];
+                $link           = route($controllerName . $currentButton['route-name'], ['id'=>$id]);
+
+                $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+                                            <i class="fa %s"></i>
+                                    </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+            }
+
+        }else{
+            $xhtml .= Template::blueLockText('Locked');
+        }
+        $xhtml  .='</div>';
+
         return  $xhtml;
     }
 

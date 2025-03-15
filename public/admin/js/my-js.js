@@ -1094,7 +1094,6 @@ $(document).ready(function () {
 /* END PRODUCT ATTRIBUTE PRICE*/
 
 /*MODUL HAS PERMISSION*/
-
 $(document).ready(function() {
     $("#popupForm").on("shown.bs.modal", function () {
         // Khởi tạo Select2 cho user-search
@@ -1139,6 +1138,15 @@ $(document).ready(function() {
         });
     });
 });
-
-
 /*END MODUL HAS PERMISSION*/
+
+/*PERMISSION CONTROLLER*/
+$(document).ready(function() {
+    $('#controllerSelect').select2({
+        placeholder: "Chọn một Controller",
+        allowClear: true,
+        width: '100%',
+        dropdownParent: $('#popupForm')
+    });
+});
+/*END PERMISSION CONTROLLER*/
