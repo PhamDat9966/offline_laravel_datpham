@@ -218,6 +218,7 @@ return [
             'prime_name_trans'      => 'Người sáng lập'
         ],
         'roles_admin_controller_access' => [1,2,3], //Đây là các roles_id lần lượt là 1,2,3 tương ứng với founder, admin, member được phép hoạt động trong admin controller
+        'roles_name_admin_controller_access' => ['founder','admin','member'],
         'permission_action' =>[
             'access'    => 'Truy cập vào index (access)',
             'create'    => 'Tạo bài nội dung mới (create)',

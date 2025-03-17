@@ -14,7 +14,7 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('/', [
             'as'    => $controllerName,
             'uses'  => $controller . 'index'
-        ]); // $requiredPermission = "dashboard-access"
+        ]);
 
         Route::get('updateDoashboard', [
             'as'    => $controllerName . '/updateDoashboard',

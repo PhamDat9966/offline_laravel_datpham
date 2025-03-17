@@ -22,15 +22,18 @@ class UserPermissionMiddleware
     {
         $session = session()->all();
         $userInfo = $session['userInfo'];
-
+        //dd($userInfo);
         // Lấy role_id của user, kiểm tra nó có phải ở Founder level không?
         $founderRolesID = config('zvn.config.lock.prime_id');
         if($userInfo['roles_id'] != $founderRolesID){
 
             $prefix = request()->segment(1); // admin96
-            $module = request()->segment(2); // user
+            $module = request()->segment(2) ?? 'dashboard'; // user
             $action = request()->segment(3) ?? 'index'; // Nếu không có thì mặc định là 'index'
             $id = $request->route('id') ?? null;
+
+            //Không xét permission ở `dashboard`
+            if($module == 'dashboard') return $next($request);
 
             //Bước 1: Xác định quyền (permission) được sinh ra ở API
             $permissionInAction = "access-$module";
@@ -48,6 +51,7 @@ class UserPermissionMiddleware
             }
 
             //Bước 2: Kiểm tra xem quyền (permission) được sinh ra ở API đã được thiết lập trong persision model chưa?
+            // Nếu quyền chưa được thiết lập thì đẩy về trang trang "Bạn không có quyền truy cập"
             $permissionModule = new PermissionModel();
             $permissionExist  = PermissionModel::where('name', $permissionInAction)->exists();
 
@@ -67,7 +71,7 @@ class UserPermissionMiddleware
 
             }else{
                 //Nếu quyền ở module action này không tồn tại thì kết thúc kiểm tra tại đây.
-                return $next($request);
+                return redirect()->route('notify/noPermission');
             }
 
         }

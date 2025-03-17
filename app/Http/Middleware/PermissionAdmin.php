@@ -16,9 +16,9 @@ class PermissionAdmin
     {
         if($request->session()->has('userInfo')){
             $userInfo = $request->session()->get('userInfo');
-
             // Bây giờ các roles_id lần lượt là 1,2,3 tương ứng với founder, admin, member sẽ được truy cập vào admin controller
             $roleAdminControllerAccess = config('zvn.config.roles_admin_controller_access');
+            $roleNameAdminControllerAccess = config('zvn.config.roles_name_admin_controller_access');
             foreach($roleAdminControllerAccess as $roleID){
                 if($userInfo['roles_id'] == $roleID){
                     return $next($request);
