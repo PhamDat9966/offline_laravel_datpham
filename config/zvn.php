@@ -200,6 +200,7 @@ return [
             'role'              =>  ['delete'],
             'permission'        =>  ['delete'],
             'roleHasPermission' =>  ['delete'],
+            'modelHasPermission'=>  ['delete'],
             'rss'               =>  ['edit','delete'],
             'rssnews'           =>  ['delete'],
             'menu'              =>  ['edit','delete'],

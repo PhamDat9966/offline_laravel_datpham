@@ -70,4 +70,14 @@ class RoleHasPermissionController extends Controller
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');
     }
+
+    public function permissionSearch(Request $request) // Ajax
+    {
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = PermissionModel::where('name', 'LIKE', "%{$search}%")
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'name']);
+
+        return response()->json($data);
+    }
 }

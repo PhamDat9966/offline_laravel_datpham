@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use App\Helpers\Hightlight as Hightlight;
+    $urlPermissionSearch    = Route($controllerName) . '/permission-search';
 @endphp
 
 <div class="x_content">
@@ -62,3 +63,39 @@
     </div>
 </div>
 
+@section('popup')
+<!-- Modal -->
+<div class="modal fade" id="popupForm" tabindex="-1" aria-labelledby="popupFormLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="popupFormLabel">Gán quyền có sẵn cho một vai trò</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route($controllerName.'/save')}}" method="POST">
+                    @csrf
+                    <label for="role">Vai trò - Role:</label>
+                    <select name="role_id" id="role" class="form-control">
+                        @foreach ($roleList as $keyR=>$role)
+                            <option value="{{$role['id']}}">{{$role['name']}}</option>
+                        @endforeach
+                    </select>
+
+                    <label for="model">Quyền - Permission:</label>
+                    <select name="permission_id" id="permission_search" class="form-control" style="width: 100%" data-url="{{$urlPermissionSearch}}">
+                        <option value="">Nhập hoặc chọn permission...</option>
+                    </select>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

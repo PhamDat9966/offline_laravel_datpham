@@ -84,8 +84,8 @@ class RoleModel extends AdminModel
             $primeID = config('zvn.config.lock.prime_id');
             $result = $this::select('id','name')
                     ->where('id','!=',$primeID)
+                    ->orderBy('id', 'asc')
                     ->get()->toArray();
-
         }
 
         return $result;

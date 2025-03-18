@@ -2,7 +2,6 @@
 namespace App\Helpers;
 
 use Attribute;
-use Config; // Ở đây nó là một đối tượng
 use Carbon\Carbon;
 use App\Models\AttributevalueModel;
 use DB;
@@ -12,7 +11,7 @@ class Template{
         $pubDate = Carbon::parse($time);
         $pubDate = $pubDate->toDateString();
 
-        $stringtime = date(Config::get('zvn.format.short_time'),strtotime($time));
+        $stringtime = date(config('zvn.format.short_time'),strtotime($time));
         if($filterValue == $pubDate ){
             $stringtime = '<span class="highlight">'. $stringtime .'</span>';
         }
@@ -27,7 +26,7 @@ class Template{
         $pubDate = Carbon::parse($time);
         $pubDate = $pubDate->toDateString();
 
-        $stringtime = date(Config::get('zvn.format.short_time'),strtotime($time));
+        $stringtime = date(config('zvn.format.short_time'),strtotime($time));
 
         if($filterValue == $pubDate ){
             $stringtime = '<span class="highlight">'. $stringtime .'</span>';
@@ -42,7 +41,7 @@ class Template{
     public static function showButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentParams = null){
 
         $xhtml          = '';
-        $tmplStatus     = Config::get('zvn.template.status');
+        $tmplStatus     = config('zvn.template.status');
 
         if(count($itemsStatusCount) > 0){
 
@@ -118,7 +117,7 @@ class Template{
     public static function showAppointmentButtonFilter($controllerName,$itemsStatusCount,$currentFilterStatus,$paramsSearch,$currentParams = null){
 
         $xhtml          = '';
-        $tmplStatus     = Config::get('zvn.template.statusAppointment');
+        $tmplStatus     = config('zvn.template.statusAppointment');
 
         if(count($itemsStatusCount) > 0){
 
@@ -158,8 +157,8 @@ class Template{
     public static function showAreaSearch($controllerName, $paramsSearch){
 
         $xhtml              = null;
-        $tmplField          = Config::get('zvn.template.search');
-        $fieldInController  = Config::get('zvn.config.search');
+        $tmplField          = config('zvn.template.search');
+        $fieldInController  = config('zvn.config.search');
         $controllerName     = (array_key_exists($controllerName,$fieldInController)) ? $controllerName : 'default';
         $xhtmlField         = null;
 
@@ -195,7 +194,7 @@ class Template{
     }
 
     public static function showItemStatus($controllerName , $id , $status){
-        $tmplStatus     = Config::get('zvn.template.status');
+        $tmplStatus     = config('zvn.template.status');
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
         $currentStatus  = $tmplStatus[$statusValue];
@@ -209,8 +208,8 @@ class Template{
     }
 
     public static function showUserStatus($controllerName , $id , $status,$fieldID){
-        $tmplStatus     = Config::get('zvn.template.status');
-        $primeID        = Config::get('zvn.config.lock.prime_id');
+        $tmplStatus     = config('zvn.template.status');
+        $primeID        = config('zvn.config.lock.prime_id');
         $lockFlag       = ($fieldID == $primeID) ? true : false;
 
         $statusValue    =  array_key_exists($status,$tmplStatus) ? $status:'default';
@@ -233,7 +232,7 @@ class Template{
         // active       btn-success     Kich hoat
         // inactive     btn-info        Chua duoc kich hoat
 
-        $tmplStatus     =   Config::get('zvn.template.statusAppointment');
+        $tmplStatus     =   config('zvn.template.statusAppointment');
 
         // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
         // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
@@ -254,7 +253,7 @@ class Template{
         // active       btn-success     Kich hoat
         // inactive     btn-info        Chua duoc kich hoat
 
-        $tmplStatus     =   Config::get('zvn.template.contact');
+        $tmplStatus     =   config('zvn.template.contact');
 
         // $statusValue    =  array_key_exists($statusValue,$tmplStatus) ? $statusValue:'default';
         // $currentTemplateStatus  = $tmplStatus[$statusValue];    //$value['status'] active inactive block
@@ -270,9 +269,9 @@ class Template{
 
     public static function showItemSelect($controllerName , $id , $displayValue , $fieldName){
 
-        $tmplDisplay     = Config::get('zvn.template.' . $fieldName);
+        $tmplDisplay     = config('zvn.template.' . $fieldName);
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
-        $primeUser       = Config::get('zvn.config.lock.prime');
+        $primeUser       = config('zvn.config.lock.prime');
         $lockFlag     = ($displayValue == $primeUser) ? true : false;
         $xhtml = '';
         if($lockFlag == false){
@@ -295,8 +294,8 @@ class Template{
 
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
 
-        $primeID         = Config::get('zvn.config.lock.prime_id');
-        $primeUser       = Config::get('zvn.config.lock.prime_name');
+        $primeID         = config('zvn.config.lock.prime_id');
+        $primeUser       = config('zvn.config.lock.prime_name');
         $lockFlag        = ($rolesID == $primeID) ? true : false;
         $xhtml = '';
         if($lockFlag == false){
@@ -304,12 +303,7 @@ class Template{
             foreach($tmpRoleList as $key => $value){
                 $xhtmlSelect = '';
                 if($value['id'] == $rolesID) $xhtmlSelect = 'selected="selected"';
-                $roleName = Config::get('zvn.template.role.'.$value['name'].'.name');
-
-                if($roleName == ''){
-                    $query      = DB::table('roles')->select('name')->where('id','=',$rolesID)->first();
-                    if(!empty($query)) $roleName = $query->name;
-                }
+                $roleName = (config('zvn.template.role.'.$value['name'].'.name')) ?  (config('zvn.template.role.'.$value['name'].'.name')): $value['name'];
 
                 $xhtml   .= sprintf('<option value="%s" %s>%s</option>', $value['id'] , $xhtmlSelect,$roleName);
             }
@@ -354,7 +348,7 @@ class Template{
     }
 
     public static function showItemIsHome($controllerName , $id , $isHomeValue){
-        $tmplIsHome             = Config::get('zvn.template.is_home');
+        $tmplIsHome             = config('zvn.template.is_home');
 
         $isHomeValue            = array_key_exists($isHomeValue,$tmplIsHome) ? $isHomeValue:true;
         $currentTemplateIsHome  = $tmplIsHome[$isHomeValue];
@@ -389,7 +383,7 @@ class Template{
     }
 
     public static function showItemDisplay($controllerName , $id , $displayValue){
-        $tmplDisplay    = Config::get('zvn.template.display');
+        $tmplDisplay    = config('zvn.template.display');
 
         $link           = route($controllerName. '/display',['display'=>'value_new', 'id'=>$id]);
 
@@ -443,9 +437,8 @@ class Template{
         return  $xhtml;
     }
     public static function showButtonAction($controllerName, $id){
-        $tmplButton     = Config::get('zvn.template.button');
-        //dd($tmplButton);
-        $buttonInArea   = Config::get('zvn.config.button');
+        $tmplButton     = config('zvn.template.button');
+        $buttonInArea   = config('zvn.config.button');
 
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
         $listButtons    = $buttonInArea[$controllerName];
@@ -463,8 +456,8 @@ class Template{
         return  $xhtml;
     }
     public static function showButtonUserAction($controllerName, $id, $rolesID){
-        $tmplButton     = Config::get('zvn.template.button');
-        $buttonInArea   = Config::get('zvn.config.button');
+        $tmplButton     = config('zvn.template.button');
+        $buttonInArea   = config('zvn.config.button');
 
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
         $listButtons    = $buttonInArea[$controllerName];
@@ -490,8 +483,8 @@ class Template{
     }
 
     public static function showButtonActionRoleHasPermission($controllerName, $roleID, $permissionID){
-        $tmplButton     = Config::get('zvn.template.button');
-        $buttonInArea   = Config::get('zvn.config.button');
+        $tmplButton     = config('zvn.template.button');
+        $buttonInArea   = config('zvn.config.button');
 
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
         $listButtons    = $buttonInArea[$controllerName];
@@ -509,9 +502,27 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showButtonActionModelHasPermission($controllerName, $modelID, $permissionID){
+        $tmplButton     = config('zvn.template.button');
+        $buttonInArea   = config('zvn.config.button');
+        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
+        $listButtons    = $buttonInArea[$controllerName];
+
+        $xhtml   ='<div class="zvn-box-btn-filter">';
+        foreach($listButtons as $btn){
+            $currentButton  = $tmplButton[$btn];
+            $link           = route($controllerName . $currentButton['route-name'], ['modelID'=>$modelID,'permissionID'=>$permissionID]);
+
+            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+                                        <i class="fa %s"></i>
+                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        }
+        $xhtml  .='</div>';
+        return  $xhtml;
+    }
     /* Filter Selectbox */
     public static function showItemDisplayFilter($controllerName , $displayFilterValue = null){
-        $tmplDisplay    = Config::get('zvn.template.display_filter');
+        $tmplDisplay    = config('zvn.template.display_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
@@ -527,7 +538,7 @@ class Template{
     }
 
     public static function showItemIsHomeFilter($controllerName , $isHomeFilterValue){
-        $tmplDisplay    = Config::get('zvn.template.is_home_filter');
+        $tmplDisplay    = config('zvn.template.is_home_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
@@ -543,7 +554,7 @@ class Template{
     }
 
     public static function showItemTypeFilter($controllerName , $typeFilterValue){
-        $tmplDisplay    = Config::get('zvn.template.type_filter');
+        $tmplDisplay    = config('zvn.template.type_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
@@ -559,7 +570,7 @@ class Template{
     }
 
     public static function showItemTypeCouponFilter($controllerName , $typeFilterValue){
-        $tmplDisplay    = Config::get('zvn.template.type_coupon_filter');
+        $tmplDisplay    = config('zvn.template.type_coupon_filter');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
@@ -602,7 +613,7 @@ class Template{
     }
 
     public static function showItemSexFilter($controllerName , $typeFilterValue){
-        $tmplDisplay    = Config::get('zvn.template.type_sex');
+        $tmplDisplay    = config('zvn.template.type_sex');
 
         // $link           = route($controllerName. '/displayFilter',['display'=>$isHomeFilterValue]);
         $link           = route($controllerName);
@@ -658,7 +669,7 @@ class Template{
     }
 
     public static function showDataFrontEnd($datatime){
-        return date_format(date_create($datatime), Config::get('zvn.format.short_time'));
+        return date_format(date_create($datatime), config('zvn.format.short_time'));
     }
 
     public static function showContent($content,$lenght,$prefix = '...'){

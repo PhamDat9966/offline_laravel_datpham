@@ -577,6 +577,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
+        Route::get('/permission-search', [
+            'as'    => $controllerName . '/permissionSearch',
+            'uses'  => $controller . 'permissionSearch'
+        ]);
+
     });
 
     // ====================== MODEL HAS PERMISSION ======================

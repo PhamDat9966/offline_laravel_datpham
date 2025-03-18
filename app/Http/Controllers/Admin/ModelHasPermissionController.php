@@ -62,7 +62,7 @@ class ModelHasPermissionController extends Controller
 
     public function delete(Request $request)
     {
-        $params["role_id"]           = $request->roleID;
+        $params["model_id"]           = $request->modelID;
         $params["permission_id"]     = $request->permissionID;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');

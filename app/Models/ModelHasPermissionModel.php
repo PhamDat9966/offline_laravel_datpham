@@ -117,8 +117,8 @@ class ModelHasPermissionModel extends AdminModel
 
     public function deleteItem($params = null,$options = null){
         if($options['task'] == 'delete-item'){
-            $this->table = 'role_has_permissions';
-            $this->where('role_id', $params['role_id'])
+            $this->table = 'model_has_permissions';
+            $this->where('model_id', $params['model_id'])
                  ->where('permission_id', $params['permission_id'])
                  ->delete();
         }

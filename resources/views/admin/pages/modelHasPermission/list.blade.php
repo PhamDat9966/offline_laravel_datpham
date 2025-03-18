@@ -12,8 +12,10 @@
             <thead>
                 <tr class="headings">
                     <th class="column-title">#</th>
-                    <th class="column-title">Model Info</th>
-                    <th class="column-title">Permission Name</th>
+                    <th class="column-title">Username</th>
+                    <th class="column-title">Permission</th>
+                    <th class="column-title">Email</th>
+                    <th class="column-title">Model Type</th>
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -33,24 +35,26 @@
                             $permissionId       = $val['permission_id'];
 
                             $permissionName     = Hightlight::show($val['permission_name'], $params['search'] , 'name');
-                           // $listButtonAction   = Template::showButtonActionRoleHasPermission($controllerName, $roleId,$permissionId);
+                            $listButtonAction   = Template::showButtonActionModelHasPermission($controllerName, $modelId,$permissionId);
 
                         @endphp
 
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
-                            <td width="40%">
-                                <p><strong>Id User:</strong> {!! $modelId !!}</p>
-                                <p><strong>Username:</strong> {!! $username !!}</p>
-                                <p><strong>Email:</strong> {!! $email !!}</p>
-                                <p><strong>Model Type:</strong> {!! $modelType !!}</p>
+                            <td width="20%">
+                                <p><strong>{!! $username !!}</strong></p>
                             </td>
-                            <td width="40%">
-                                <p><strong>Permission Id:{!! $permissionId !!}</strong></p>
-                                <p><strong>Permission Name:{!! $permissionName !!}</strong></p>
+                            <td>
+                                <p>{!! $permissionName !!}</p>
+                            </td>
+                            <td>
+                                <p>{!! $email !!}</p>
+                            </td>
+                            <td>
+                                <p>{!! $modelType !!}</p>
                             </td>
                             <td class="last">
-                                {!!!!}
+                                {!!$listButtonAction!!}
                             </td>
                         </tr>
                     @endforeach
@@ -88,13 +92,6 @@
                     <select name="permission_id" id="permission_search" class="form-control" style="width: 100%" data-url="{{$urlPermissionSearch}}">
                         <option value="">Nhập hoặc chọn permission...</option>
                     </select>
-
-                    {{--  <label for="permission">Quyền - Permission:</label>
-                    <select name="permission_id" id="permission" class="form-control">
-                        @foreach ($permissionList as $keyP=>$permission)
-                            <option value="{{$permission['id']}}">{{$permission['name']}}</option>
-                        @endforeach
-                    </select>  --}}
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
