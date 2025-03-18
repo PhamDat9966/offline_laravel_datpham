@@ -18,6 +18,7 @@
                     <th class="column-title">Ordering</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Sản phẩm có liên quan</th>
+                    <th class="column-title">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +30,10 @@
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                     = $val['id'];
+                            $product_id             = $val['product_id'];
+                            $attribute_value_id     = $val['attribute_value_id'];
                             $name                   = Hightlight::show($val['product_name'], $params['search'] , 'product_name');
-                            //$attribute_value_name   = Hightlight::show($val['attribute_value_name'], $params['search'] , 'attribute_value_name');
+
                             $attribute_value_name   = Hightlight::showWithColor($val['attribute_value_name'], $params['search'] , 'attribute_value_name', $val['attribute_value_id']);
                             $ordering               = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
                             $default                = Template::showItemSelect( $controllerName,$id,$val['default'], 'default');
@@ -39,6 +42,7 @@
                             $color_id               = $val['attribute_value_id'];
                             $color_name             = $val['attribute_value_name'];
                             $colorDiv               = Template::colorDiv($color_id,$color_name);
+                            $action                 = Template::showButtonActionProductHasAttribute($controllerName,$product_id ,$attribute_value_id);
                         @endphp
 
                         <tr class="{{$class}} pointer">
@@ -58,8 +62,11 @@
                             <td>
                                 {!!$default!!}
                             </td>
-                            <td class="last">
+                            <td>
                                 {!!$product_id_relation!!}
+                            </td>
+                            <td class="last">
+                                {!!$action!!}
                             </td>
                         </tr>
                     @endforeach

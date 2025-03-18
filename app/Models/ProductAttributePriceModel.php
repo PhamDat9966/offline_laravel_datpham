@@ -294,4 +294,14 @@ class ProductAttributePriceModel extends AdminModel
 
         return $result;
     }
+
+    public function deleteItem($params = null,$options = null){
+        if($options['task'] == 'delete-item'){
+            $this->table = 'product_attribute_price';
+            $this->where('product_id', $params['product_id'])
+                 ->where('color_id', $params['color_id'])
+                 ->where('material_id', $params['material_id'])
+                 ->delete();
+        }
+    }
 }

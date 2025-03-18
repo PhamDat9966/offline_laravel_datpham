@@ -108,5 +108,15 @@ class ProductHasAttributeController extends AdminController
         echo "Cập nhật menu thành công";
     }
 
+    public function delete(Request $request)
+    {
+        $params['product_id']           = $request->product_id;
+        $params['attribute_value_id']   = $request->attribute_value_id;
+
+        $this->model->deleteItem($params,['task' => 'delete-item']);
+
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử đã được xóa!');
+    }
+
 }
 

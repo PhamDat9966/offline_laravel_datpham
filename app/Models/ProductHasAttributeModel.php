@@ -148,4 +148,13 @@ class ProductHasAttributeModel extends AdminModel
 
         }
     }
+
+    public function deleteItem($params = null,$options = null){
+        if($options['task'] == 'delete-item'){
+            $this->table = 'product_has_attribute';
+            $this->where('product_id', $params['product_id'])
+                 ->where('attribute_value_id', $params['attribute_value_id'])
+                 ->delete();
+        }
+    }
 }
