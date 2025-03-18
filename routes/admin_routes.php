@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
-// /http://proj_news.xyz/admin96/user
+
 Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin','user.permission']], function(){
 
     // ====================== DASHBOARD ======================
@@ -1255,6 +1255,14 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'as'    => $controllerName . '/price',
             'uses'  => $controller . 'price'
         ]);
+
+        Route::get('delete/{product_id}-{attribute_value_id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where([
+            'product_id'            => '[0-9]+',
+            'attribute_value_id'    => '[0-9]+',
+        ]);
     });
 
 
@@ -1317,6 +1325,15 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
         Route::get('/default', [
             'as'    => $controllerName . '/default',
             'uses'  => $controller . 'default'
+        ]);
+
+        Route::get('delete/{product_id}-{color_id}-{material_id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where([
+            'product_id'    => '[0-9]+',
+            'color_id'      => '[0-9]+',
+            'material_id'   => '[0-9]+'
         ]);
 
     });

@@ -1,9 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-$prefixNews     = config('zvn.url.prefix_news'); //news69
+$prefixNews     = config('zvn.url.prefix_news');
 
-Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
+Route::group(['prefix'=>$prefixNews,'namespace'=>'News'], function(){
 
     // ====================== HOME ======================
     $prefix         =   '';

@@ -148,7 +148,7 @@ class  ProductAttributePriceController extends AdminController
         ]);
     }
 
-    public function arrangeOrdering(Request $request){
+    public function arrangeOrdering(){
         //Sắp xếp lại ordering thành 1,2,3... Theo trình tự tăng dần và theo nhóm id. Ví dụ: samsung là 1,2,3,4 iphone 5,6,7,8...
         $data = $this->model->getItem(null,['task'=>'get-all-item-array']);
 
@@ -201,6 +201,18 @@ class  ProductAttributePriceController extends AdminController
                       ->get(['id', 'name']);
 
         return response()->json($data);
+    }
+
+    public function delete(Request $request)
+    {
+        $params['product_id']   = $request->product_id;
+        $params['color_id']     = $request->color_id;
+        $params['material_id']  = $request->material_id;
+
+        $this->model->deleteItem($params,['task' => 'delete-item']);
+        $this->arrangeOrdering(); //Sắp xếp lại theo nhóm sản phẩm
+
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử đã được xóa!');
     }
 
 }

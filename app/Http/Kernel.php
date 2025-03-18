@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'redirect.category.url' => \App\Http\Middleware\RedirectCategoryURL::class,
         'role.permission' => \App\Http\Middleware\RolePermissionMiddleware::class,
         'user.permission' => \App\Http\Middleware\UserPermissionMiddleware::class,
-        'check.article.permission' => \App\Http\Middleware\CheckArticlePermission::class,
+        'setLanguage' => \App\Http\Middleware\LanguageMiddleware::class,
     ];
 
     /**

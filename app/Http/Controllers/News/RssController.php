@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
 class RssController extends Controller
 {
-    private $pathViewController  = 'news.pages.rss.';
+    private $pathViewController  = 'news.vi.pages.rss.';
     private $controllerName      = 'rss';
     private $params              = [];
     private $model;

@@ -10,7 +10,7 @@ use App\Models\ArticleModel;
 
 class NotifyController extends Controller
 {
-    private $pathViewController  = 'news.pages.notify.';
+    private $pathViewController  = 'news.vi.pages.notify.';
     private $controllerName      = 'notify';
     private $params              = [];
     private $model;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderModel;
@@ -14,19 +15,20 @@ use Illuminate\Session\Store;
 
 class HomeController extends Controller
 {
-    private $pathViewController  = 'news.pages.home.';
+    private $pathViewController  = "news.vi.pages.home.";
     private $controllerName      = 'home';
     private $params              = [];
     private $model;
 
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        View::share('controllerName',$this->controllerName);
     }
 
     public function index(Request $request)
     {
+        $locale = App::getLocale(); // Bây giờ Middleware đã chạy xong
+        $this->pathViewController = "news.$locale.pages.home.";
 
         $sliderModel    = new SliderModel();
         $categoryModel  = new CategoryArticleModel();
@@ -55,7 +57,7 @@ class HomeController extends Controller
         $itemsCategoryPage = $itemsCategory;
         shuffle($itemsCategoryPage); //Xáo chộn các phần tử trước khi đưa ra home
 
-        return view($this->pathViewController . 'index',[
+        return view( $this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
              'itemsCategory'        => $itemsCategory,

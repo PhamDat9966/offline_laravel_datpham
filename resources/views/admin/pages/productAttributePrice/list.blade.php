@@ -3,8 +3,6 @@
     use App\Helpers\Hightlight as Hightlight;
     $data = $items->toArray();
     $data = $data['data'];
-    //dd($data,$colorList);
-    //dd($params);
 
     $stt_col        = 'col-xs-1';
     $name_col       = 'col-xs-3';
@@ -43,34 +41,32 @@
                 <ul id="sortable" style="list-style: none; padding: 0;" data-url="{{$urlUpdateOrdering}}">
                     @foreach ($data as $key => $val)
                         @php
+                            //dd($val);
                             $index              = $val['ordering'];
                             $dataId             = $val['ordering'];
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
                             $id                     = $val['id'];
                             $name                   = Hightlight::show($val['product_name'], $params['search'] , 'product_name');
-
+                            $product_id             = $val['product_id'];
                             $color_id               = $val['color_id'];
                             $color_name             = $val['color_name'];
-                            foreach($colorList as $key=>$colorVal){
-                                if($colorVal['id'] == $color_id){
-                                    //Lấy màu ngược lại với màu của thẻ thuộc lính color, sau đó gắn vào text để nhìn rõ ký tự trong thành màu hơn
-                                    $color_opposite = Template::getComplementaryColor($colorVal['color']);
-                                    $color   = '<div class="color-box text-center padding-color" style="background: '.$colorVal['color'].';"><span style="color: '.$color_opposite.';">'.$colorVal['name'].'</span></div>';
-                                }
-                            }
+                            $material_id            = $val['material_id'];
+                            $material_name          = $val['material_name'];
 
-                            $material               = Hightlight::show($val['material_name'], $params['search'] , 'material_name');
+                            $colorDiv               = Template::colorDiv($color_id,$color_name);
+
+                            $material               = Hightlight::show($material_name, $params['search'] , 'material_name');
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
                             $default                = Template::showCheckBoxWrapper8($controllerName,$val,$id);
-                            $action                 = '<i class="fa fa-arrows"></i>';
+                            $action                 = Template::showButtonActionProductAttributePrice($controllerName,$product_id ,$color_id,$material_id) . '<i class="fa fa-arrows"></i>';
 
                         @endphp
                         <li data-id="{{ $id  }}" value={{ $dataId }}>
                             <ul class="row double" style="list-style: none; padding: 0;">
                                 <li class="{{$stt_col}}">{{ $index }}</li>
                                 <li class="{{$name_col}}">{!! $name !!}</li>
-                                <li class="{{$color_col}}">{!!$color!!}</p></li>
+                                <li class="{{$color_col}}">{!!$colorDiv!!}</p></li>
                                 <li class="{{$material_col}}">{!!$material!!}</li>
                                 <li class="{{$price_col}}">{!!$price!!}</li>
                                 <li class="{{$default_col}}">{!!$default!!}</li>

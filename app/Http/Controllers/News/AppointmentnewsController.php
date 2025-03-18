@@ -12,7 +12,7 @@ use App\Models\AppointmentModel as MainModel;
 
 class AppointmentnewsController extends Controller
 {
-    private $pathViewController  = 'news.pages.appointmentnews.';
+    private $pathViewController  = 'news.vi.pages.appointmentnews.';
     private $controllerName      = 'appointmentnews';
     private $params              = [];
     private $model;

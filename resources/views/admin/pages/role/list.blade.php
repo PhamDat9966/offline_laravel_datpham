@@ -22,6 +22,7 @@
                     @foreach ($items as $key => $val)
                         @php
                             $primeID            = config('zvn.config.lock.prime_id');
+                            $userImpID          = config('zvn.config.lock.permission_id');
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
@@ -30,7 +31,7 @@
                             $guardName          = $val['guard_name'];
                             $createdHistory     = Template::showItemHistory('',$val['created_at'], null);
                             $modifiedHistory    = Template::showItemHistoryModified('',$val['updated_at'],$id,null);
-                            $listButtonAction   = ($id == $primeID)? Template::blueLockText(null) :Template::showButtonAction($controllerName, $id);
+                            $listButtonAction   = ($id == $primeID || in_array($id,$userImpID))? Template::blueLockText(null) :Template::showButtonAction($controllerName, $id);
                         @endphp
 
                         <tr class="{{$class}} pointer">

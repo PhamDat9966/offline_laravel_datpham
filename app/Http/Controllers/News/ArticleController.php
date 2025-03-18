@@ -16,7 +16,7 @@ use Illuminate\Session\Store;
 
 class ArticleController extends Controller
 {
-    private $pathViewController  = 'news.pages.article.';
+    private $pathViewController  = 'news.vi.pages.article.';
     private $controllerName      = 'article';
     private $params              = [];
     private $model;
