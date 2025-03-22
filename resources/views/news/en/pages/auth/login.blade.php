@@ -26,7 +26,11 @@
         </div>
     </div>
     <div class="footer">
+<<<<<<< HEAD:resources/views/news/en/pages/auth/login.blade.php
         <p>E-Mail: admin@gmail.com
+=======
+        <p>account: admin@gmail.com
+>>>>>>> origin/main:resources/views/news/pages/auth/login.blade.php
         password: 123456</p>
         Copyright &copy; Your Company 2017
     </div>
