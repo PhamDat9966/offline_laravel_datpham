@@ -1,5 +1,5 @@
 <div class="most_viewed">
-    <div class="sidebar_title">Xem nhiều nhẩt</div>
+    <div class="sidebar_title">Most viewed</div>
     <div class="most_viewed_items">
         <!-- Most Viewed Item -->
         <div class="most_viewed_item d-flex flex-row align-items-start justify-content-start">

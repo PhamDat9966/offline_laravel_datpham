@@ -20,15 +20,28 @@ class HomeController extends Controller
     private $params              = [];
     private $model;
 
+    protected $locale;
+
     public function __construct()
     {
         View::share('controllerName',$this->controllerName);
+
+        /*
+            -middleware (LanguageMiddleware) luôn chạy trước khi controller xử lý request.
+            1. Khi Laravel khởi tạo controller, Middleware nội bộ ($this->middleware()) sẽ chạy sau Middleware setLanguage,
+            nghĩa là App::getLocale() trong  Middleware setLanguage lúc này đã được cập nhật (xem LanguageMiddleware).
+            2. Biến $this->locale sẽ có giá trị chính xác sau Middleware và có thể dùng trong tất cả phương thức (index(), show(), v.v.).
+            3. Không cần gọi App::getLocale() trong từng phương thức, tránh code lặp lại.
+        */
+        $this->middleware(function ($request, $next) {
+            $this->locale = App::getLocale(); // Middleware đã chạy, có giá trị chính xác
+            $this->pathViewController = "news.$this->locale.pages.home."; //Gán luôn vào đường dẫn đến views
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
     {
-        $locale = App::getLocale(); // Bây giờ Middleware đã chạy xong
-        $this->pathViewController = "news.$locale.pages.home.";
 
         $sliderModel    = new SliderModel();
         $categoryModel  = new CategoryArticleModel();

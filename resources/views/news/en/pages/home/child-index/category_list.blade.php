@@ -27,8 +27,7 @@
 
 
         <div class="row">
-            <div class="home_button mx-auto text-center"><a href="{{$urlCategory}}">Xem
-                thêm</a></div>
+            <div class="home_button mx-auto text-center"><a href="{{$urlCategory}}">Read More</a></div>
         </div>
     </div>
 </div>

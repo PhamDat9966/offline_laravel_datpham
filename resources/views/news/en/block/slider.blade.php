@@ -23,7 +23,7 @@
                                 <div class="home_text">
                                     {{ $description }}
                                 </div>
-                                <div class="home_button trans_200"><a href="{!!$link!!}">Xem chi tiết</a></div>
+                                <div class="home_button trans_200"><a href="{!!$link!!}">Read More</a></div>
                             </div>
                         </div>
                     </div>

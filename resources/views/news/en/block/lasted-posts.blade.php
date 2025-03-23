@@ -4,7 +4,7 @@
     use App\Helpers\URL;
 @endphp
 <div class="sidebar_latest">
-    <div class="sidebar_title">Bài viết gần đây</div>
+    <div class="sidebar_title">Recent Articles</div>
     <div class="latest_posts">
         @foreach ($items as $item)
             @php

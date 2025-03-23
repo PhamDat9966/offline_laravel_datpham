@@ -382,7 +382,7 @@
                                     style="background-image:url({!!asset('news/images/zendvn-online.png')!!});background-size: contain"></div>
                         </a>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            <i class="fa fa-phone" aria-hidden="true"></i>  Contact phone
                         </button>
                     </div>
                 </div>
@@ -390,10 +390,10 @@
                     <div class="flex-row align-items-center mt-3">
                         <!-- Phone liên hệ -->
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            <i class="fa fa-phone" aria-hidden="true"></i>  Contact phone
                         </button>
                         <a class="btn btn-danger btn-block" href="{!! route('appointmentnews') !!}"" role="button">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>  Đặt lịch hẹn
+                            <i class="fa fa-calendar" aria-hidden="true"></i> Make an appointment
                         </a>
                     </div>
                 </div>
