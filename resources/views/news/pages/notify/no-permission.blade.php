@@ -1,5 +1,5 @@
-@extends('news.en.main')               {{-- @extends sẽ load nội dung của template() sau cùng, cụ thể ở đây ta sẽ thực hiện khối lệnh php trước --}}
-{{-- @include('news.en.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
+@extends('news.main')               {{-- @extends sẽ load nội dung của template() sau cùng, cụ thể ở đây ta sẽ thực hiện khối lệnh php trước --}}
+{{-- @include('news.main') --}}     {{-- @include sẽ load nội dung của template() theo trình tự, cụ thể ở đây ta sẽ thực hiện load template
                                                 trước sau đó mới thực hiện khối lệnh php--}}
 @section('content')
     <!-- Content Container -->
@@ -20,13 +20,13 @@
                     <div class="col-lg-3">
                         <div class="sidebar">
                             <!-- Latest Posts -->
-                            @include('news.en.block.lasted-posts',['items'=>$itemsLatest])
+                            @include('news.block.lasted-posts',['items'=>$itemsLatest])
                             <!-- Advertisement -->
-                            @include('news.en.block.advertisement',['itemsAdvertisement'=>[]])
+                            @include('news.block.advertisement',['itemsAdvertisement'=>[]])
                             <!-- Most Viewed -->
-                            @include('news.en.block.most-viewed',['itemsMostViewed'=>[]])
+                            @include('news.block.most-viewed',['itemsMostViewed'=>[]])
                             <!-- Tags -->
-                            @include('news.en.block.tags',['itemsTags'=>[]])
+                            @include('news.block.tags',['itemsTags'=>[]])
                         </div>
                     </div>
                  </div>

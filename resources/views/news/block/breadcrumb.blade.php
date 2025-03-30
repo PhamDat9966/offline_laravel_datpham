@@ -7,11 +7,9 @@
     $nameBreadcrumb = $item['name'];
     $xhtmlBreadcrumbs   = '<ul class="d-flex flex-row align-items-start justify-content-start">';
     $xhtmlBreadcrumbs  .=       '<li><a href="'.route('home').'">Trang chủ</a></li>';
-    if(!empty($breadcrumbs)){
-        foreach ($breadcrumbs as $valueBreadcrumb) {
-            $linkBreadcrumbs   =    $host . '/' . $valueBreadcrumb['slug'] . '.php';
-            $xhtmlBreadcrumbs .=    '<li><a href="'.$linkBreadcrumbs.'">'. $valueBreadcrumb['name'] .'</a></li>';
-        }
+    foreach ($breadcrumbs as $valueBreadcrumb) {
+        $linkBreadcrumbs   =    $host . '/' . $valueBreadcrumb['slug'] . '.php';
+        $xhtmlBreadcrumbs .=    '<li><a href="'.$linkBreadcrumbs.'">'. $valueBreadcrumb['name'] .'</a></li>';
     }
     $xhtmlBreadcrumbs  .= '</ul>';
 @endphp

@@ -5,6 +5,7 @@
     global $host;
     $host = $request->getHost();
     $host = 'http://'.$host;
+
     $nameBreadcrumb   = '';
     $xhtmlBreadcrumbs = '';
     $linkCategory     = '';

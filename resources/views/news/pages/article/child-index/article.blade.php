@@ -1,2 +1,2 @@
-@include('news.en.partials.article.image',['item'=>$itemArticle])
-@include('news.en.pages.article.child-index.content',['lenghtContent'=>'full'])
+@include('news.partials.article.image',['item'=>$itemArticle])
+@include('news.pages.article.child-index.content',['lenghtContent'=>'full'])

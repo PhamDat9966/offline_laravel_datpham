@@ -7,8 +7,8 @@
     </div>
 
     @if ($item['display'] == 'list')
-        @include('news.en.pages.article.child-index.category_list')
+        @include('news.pages.article.child-index.category_list')
     @elseif ($item['display'] == 'grid')
-        @include('news.en.pages.article.child-index.category_grid')
+        @include('news.pages.article.child-index.category_grid')
     @endif
 @endif

@@ -10,8 +10,8 @@
 
                 <div class="col-lg-6">
                     <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
-                        @include('news.en.partials.article.image',['item'=>$article])
-                        @include('news.en.partials.article.content',['item'=>$article,'lenghtContent'=> 200,'showCategory'=>false])
+                        @include('news.partials.article.image',['item'=>$article])
+                        @include('news.partials.article.content',['item'=>$article,'lenghtContent'=> 200,'showCategory'=>false])
                     </div>
                 </div>
 

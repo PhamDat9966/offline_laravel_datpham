@@ -2,7 +2,6 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
-    dd($itemArticle);
     if($itemArticle['translations']){
         foreach($itemArticle['translations'] as $key=>$translation){
             $name               = $translation['name'];

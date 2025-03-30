@@ -8,10 +8,10 @@
         <div class="post_item post_h_large">
             <div class="row">
                 <div class="col-lg-5">
-                    @include('news.en.partials.article.image',['item'=>$article])
+                    @include('news.partials.article.image',['item'=>$article])
                 </div>
                 <div class="col-lg-7">
-                    @include('news.en.partials.article.content',['item'=>$article,'lenghtContent'=> 200, 'showCategory'=>false])
+                    @include('news.partials.article.content',['item'=>$article,'lenghtContent'=> 200, 'showCategory'=>false])
                 </div>
             </div>
         </div>
@@ -27,10 +27,10 @@
         <div class="post_item post_h_large">
             <div class="row">
                 <div class="col-lg-5">
-                    @include('news.en.partials.article.image',['item'=>$article_child])
+                    @include('news.partials.article.image',['item'=>$article_child])
                 </div>
                 <div class="col-lg-7">
-                    @include('news.en.partials.article.content',['item'=>$article_child,'lenghtContent'=> 200, 'showCategory'=>false])
+                    @include('news.partials.article.content',['item'=>$article_child,'lenghtContent'=> 200, 'showCategory'=>false])
                 </div>
             </div>
         </div>

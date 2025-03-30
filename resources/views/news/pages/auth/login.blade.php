@@ -1,10 +1,10 @@
-@extends('news.en.login')
+@extends('news.login')
 @section('content')
     <div class="card fat">
         <div class="card-body">
             <h4 class="card-title">Đăng Nhập</h4>
-            @include('news.en.templates.error')
-            @include('news.en.templates.alert')
+            @include('news.templates.error')
+            @include('news.templates.alert')
             {!! Form::open([
                 'url'               =>  Route($controllerName.'/postLogin'),
                 'method'            =>  'POST',
