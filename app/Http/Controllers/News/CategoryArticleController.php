@@ -11,7 +11,7 @@ use App\Models\ArticleModel;
 
 class CategoryArticleController extends Controller
 {
-    private $pathViewController  = 'news.pages.category_article.';
+    private $pathViewController  = 'news.vi.pages.category_article.';
     private $controllerName      = 'categoryArticle';
     private $params              = [];
     private $model;

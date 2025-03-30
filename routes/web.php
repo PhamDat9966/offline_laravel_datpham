@@ -21,7 +21,11 @@ Route::get('/about', function () {
 
 require __DIR__ . '/admin_routes.php';
 require __DIR__ . '/news_routes.php';
+<<<<<<< HEAD
 require __DIR__ . '/news_routes_auth.php';
+=======
+require __DIR__ . '/news_routes_en.php';
+>>>>>>> origin/main
 
 //Daily TaskSchedulerController
 use App\Http\Controllers\TaskSchedulerController;

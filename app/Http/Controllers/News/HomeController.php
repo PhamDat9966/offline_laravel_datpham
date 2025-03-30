@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderModel;
@@ -14,15 +15,29 @@ use Illuminate\Session\Store;
 
 class HomeController extends Controller
 {
-    private $pathViewController  = 'news.pages.home.';
+    private $pathViewController  = "news.vi.pages.home.";
     private $controllerName      = 'home';
     private $params              = [];
     private $model;
 
+    protected $locale;
+
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        View::share('controllerName',$this->controllerName);
+
+        /*
+            -middleware (LanguageMiddleware) luôn chạy trước khi controller xử lý request.
+            1. Khi Laravel khởi tạo controller, Middleware nội bộ ($this->middleware()) sẽ chạy sau Middleware setLanguage,
+            nghĩa là App::getLocale() trong  Middleware setLanguage lúc này đã được cập nhật (xem LanguageMiddleware).
+            2. Biến $this->locale sẽ có giá trị chính xác sau Middleware và có thể dùng trong tất cả phương thức (index(), show(), v.v.).
+            3. Không cần gọi App::getLocale() trong từng phương thức, tránh code lặp lại.
+        */
+        $this->middleware(function ($request, $next) {
+            $this->locale = App::getLocale(); // Middleware đã chạy, có giá trị chính xác
+            $this->pathViewController = "news.$this->locale.pages.home."; //Gán luôn vào đường dẫn đến views
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
@@ -55,7 +70,7 @@ class HomeController extends Controller
         $itemsCategoryPage = $itemsCategory;
         shuffle($itemsCategoryPage); //Xáo chộn các phần tử trước khi đưa ra home
 
-        return view($this->pathViewController . 'index',[
+        return view( $this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsSlider'          => $itemsSlider,
              'itemsCategory'        => $itemsCategory,

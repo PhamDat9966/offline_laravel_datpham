@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
-// /http://proj_news.xyz/admin96/user
+
 Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permission.admin','user.permission']], function(){
 
     // ====================== DASHBOARD ======================

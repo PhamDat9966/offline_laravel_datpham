@@ -3,7 +3,11 @@ use Illuminate\Support\Facades\Route;
 
 $prefixNews     = config('zvn.url.prefix_news');
 
+<<<<<<< HEAD
 Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace'=>'News'], function(){
+=======
+Route::group(['prefix'=>$prefixNews,'namespace'=>'News'], function(){
+>>>>>>> origin/main
 
     // ====================== HOME ======================
     $prefix         =   '';
