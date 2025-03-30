@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    private $pathViewController  = 'news.vi.pages.auth.';
+    private $pathViewController  = 'news.pages.auth.';
     private $controllerName      = 'auth';
     private $params              = [];
     private $model;

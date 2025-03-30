@@ -16,7 +16,7 @@ use Illuminate\Session\Store;
 
 class PhonecontactController extends Controller
 {
-    private $pathViewController  = 'news.vi.pages.phonecontact.';
+    private $pathViewController  = 'news.pages.phonecontact.';
     private $controllerName      = 'phonecontact';
     private $params              = [];
     private $model;

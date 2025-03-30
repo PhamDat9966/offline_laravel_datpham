@@ -15,7 +15,7 @@ use Illuminate\Session\Store;
 
 class HomeController extends Controller
 {
-    private $pathViewController  = "news.vi.pages.home.";
+    private $pathViewController  = "news.pages.home.";
     private $controllerName      = 'home';
     private $params              = [];
     private $model;
@@ -35,7 +35,7 @@ class HomeController extends Controller
         */
         $this->middleware(function ($request, $next) {
             $this->locale = App::getLocale(); // Middleware đã chạy, có giá trị chính xác
-            $this->pathViewController = "news.$this->locale.pages.home."; //Gán luôn vào đường dẫn đến views
+           // $this->pathViewController = "news.$this->locale.pages.home."; //Gán luôn vào đường dẫn đến views
             return $next($request);
         });
     }

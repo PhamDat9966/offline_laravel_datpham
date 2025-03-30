@@ -13,7 +13,7 @@ use App\Mail\MailService;
 
 class ContactController extends Controller
 {
-    private $pathViewController  = 'news.vi.pages.contact.';
+    private $pathViewController  = 'news.pages.contact.';
     private $controllerName      = 'contact';
     private $params              = [];
     private $model;

@@ -179,7 +179,6 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         ),
         'A' => 
         array (
-            'Astrotomic\\Translatable\\' => 24,
             'Arcanedev\\Support\\' => 18,
             'Arcanedev\\LogViewer\\' => 20,
             'App\\' => 4,
@@ -497,10 +496,6 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
         ),
-        'Astrotomic\\Translatable\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable',
-        ),
         'Arcanedev\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/arcanedev/support/src',
@@ -580,6 +575,8 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\CheckLogin' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckLogin.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\LanguageMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/LanguageMiddleware.php',
+        'App\\Http\\Middleware\\LocaleLanguageMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/LocaleLanguageMiddleware.php',
         'App\\Http\\Middleware\\PermissionAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/PermissionAdmin.php',
         'App\\Http\\Middleware\\RedirectCategoryURL' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectCategoryURL.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -619,6 +616,7 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'App\\Models\\AdminModel' => __DIR__ . '/../..' . '/app/Models/AdminModel.php',
         'App\\Models\\AppointmentModel' => __DIR__ . '/../..' . '/app/Models/AppointmentModel.php',
         'App\\Models\\ArticleModel' => __DIR__ . '/../..' . '/app/Models/ArticleModel.php',
+        'App\\Models\\ArticleTranslationModel' => __DIR__ . '/../..' . '/app/Models/ArticleTranslationModel.php',
         'App\\Models\\AttributeModel' => __DIR__ . '/../..' . '/app/Models/AttributeModel.php',
         'App\\Models\\AttributevalueModel' => __DIR__ . '/../..' . '/app/Models/AttributevalueModel.php',
         'App\\Models\\BranchModel' => __DIR__ . '/../..' . '/app/Models/BranchModel.php',
@@ -713,14 +711,6 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'Arcanedev\\Support\\Routing\\RouteRegistrar' => __DIR__ . '/..' . '/arcanedev/support/src/Routing/RouteRegistrar.php',
         'Arcanedev\\Support\\Stub' => __DIR__ . '/..' . '/arcanedev/support/src/Stub.php',
         'Arcanedev\\Support\\Validation\\Rule' => __DIR__ . '/..' . '/arcanedev/support/src/Validation/Rule.php',
-        'Astrotomic\\Translatable\\Contracts\\Translatable' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Contracts/Translatable.php',
-        'Astrotomic\\Translatable\\Exception\\LocalesNotDefinedException' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Exception/LocalesNotDefinedException.php',
-        'Astrotomic\\Translatable\\Locales' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Locales.php',
-        'Astrotomic\\Translatable\\Traits\\Relationship' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Traits/Relationship.php',
-        'Astrotomic\\Translatable\\Traits\\Scopes' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Traits/Scopes.php',
-        'Astrotomic\\Translatable\\Translatable' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Translatable.php',
-        'Astrotomic\\Translatable\\TranslatableServiceProvider' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/TranslatableServiceProvider.php',
-        'Astrotomic\\Translatable\\Validation\\RuleFactory' => __DIR__ . '/..' . '/astrotomic/laravel-translatable/src/Translatable/Validation/RuleFactory.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Controllers\\AssetController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File; // Import thư viện File
 
 class GalleryshowController extends Controller
 {
-    private $pathViewController  = 'news.vi.pages.gallery.';
+    private $pathViewController  = 'news.pages.gallery.';
     private $controllerName      = 'gallery';
     private $params              = [];
     private $model;
