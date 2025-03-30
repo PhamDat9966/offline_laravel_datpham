@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -20,21 +21,22 @@ class ArticleController extends Controller
     private $controllerName      = 'article';
     private $params              = [];
     private $model;
+    protected $locale;
 
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        View::share('controllerName',$this->controllerName);
     }
 
-    public function index(Request $request)// Ở Laravel, request sẽ lấy parameter từ url, ở đây tiêu biểu là lấy $_GET và $_POST
+    public function index(Request $request)
     {
-        $this->params['article_id'] = $request->article_id;
-        $this->params['article_name'] = $request->article_name;
+        $this->params['article_id']     = $request->article_id;
+        $this->params['article_name']   = $request->article_name;
+        $this->params['locale']         = ($request->locale) ? ($request->locale) : 'vi'; //Ngôn ngữ mặc định là 'vi'
 
         $articleModel       = new ArticleModel();
         $categoryModel      = new CategoryArticleModel();
-       // dd($this->params);
+
         $itemArticle    = $articleModel->getItem($this->params,['task'=>'news-get-item']);
 
         $this->params['category_id']  = $itemArticle['category_id'];

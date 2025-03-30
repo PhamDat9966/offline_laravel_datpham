@@ -1,9 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-$prefixNews     = config('zvn.url.prefix_news'); //news69
+$prefixNews     = config('zvn.url.prefix_news');
 
-Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
+Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace'=>'News'], function(){
 
     // ====================== HOME ======================
     $prefix         =   '';
@@ -16,6 +16,10 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
             'uses'  => $controller . 'index'
         ]);
 
+        Route::get('{locale?}/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ])->defaults('locale', 'vi');
     });
 
     // ====================== CATEGORY ======================
@@ -38,7 +42,7 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
     Route::group([], function () use ($prefixAlias, $controllerName) {
         $controller = ucfirst($controllerName) . 'Controller@';
 
-        Route::get("$prefixAlias-{category_name}-{category_id}.php", [
+        Route::get('{locale?}/'."$prefixAlias-{category_name}-{category_id}.php", [
             'as'    => $controllerName . '/alias',
             'uses'  => $controller . 'index'
         ])->where('category_name', '[a-zA-Z0-9-_]+')
@@ -51,25 +55,42 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
     // Tại đây middleware sẽ ghi lại user-Agent vào csdl để dùng làm dữ liệu để so sánh
     Route::group(['prefix'=>$prefix,'middleware'=>['userAgent.middleware']],function () use($controllerName) {
         $controller =   ucfirst($controllerName) . 'Controller@';
-        Route::get('/{article_name}-{article_id}.php', [
+        Route::get('{locale?}/{article_name}-{article_id}.php', [
             'as'    => $controllerName . '/index',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'index'            // Đây là đường dẫn đến controller
         ])->where('article_name', '[a-zA-Z0-9-_]+')
-            ->where('article_id', '[0-9]+');
+          ->where('locale', 'en|vi')
+          ->where('article_id', '[0-9]+');
 
     });
 
     // ====================== ARTICLE PLUS ======================
     $prefixAlias = 'bv';
     $controllerName = 'article';
+    //default
+    // Route::group(['middleware'=>['userAgent.middleware']], function () use($controllerName, $prefixAlias) {
+    //     $controller = ucfirst($controllerName) . 'Controller@';
+    //     Route::get($prefixAlias . '-{article_name}-{article_id}.php', [
+    //         'as'    => $controllerName . '/alias',
+    //         'uses'  => $controller . 'index'
+    //     ])->where([
+    //         'article_name' => '[a-zA-Z0-9-_]+',
+    //         'article_id'   => '[0-9]+'
+    //     ])->defaults('locale', 'vi');
+    // });
+    //en,vi
     Route::group(['middleware'=>['userAgent.middleware']], function () use($controllerName, $prefixAlias) {
         $controller = ucfirst($controllerName) . 'Controller@';
-        Route::get($prefixAlias . '-{article_name}-{article_id}.php', [
+        Route::get('{locale?}/'.$prefixAlias . '-{article_name}-{article_id}.php', [
             'as'    => $controllerName . '/alias',
             'uses'  => $controller . 'index'
-        ])->where('article_name', '[a-zA-Z0-9-_]+')
-            ->where('article_id', '[0-9]+');
+        ])->where([
+            'locale'        => 'en|vi|',
+            'article_name'  => '[a-zA-Z0-9-_]+',
+            'article_id'    => '[0-9]+'
+          ])->defaults('locale', 'vi');;
     });
+
 
     // ====================== NOTIFY ======================
     $prefix         =   '';
@@ -79,26 +100,6 @@ Route::group(['prefix'=>$prefixNews, 'namespace'=>'News'], function(){
         Route::get('/no-permission', [
             'as'    => $controllerName . '/noPermission',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
             'uses'  => $controller . 'noPermission'            // Đây là đường dẫn đến controller
-        ]);
-    });
-
-    // ====================== LOGIN ======================
-    $prefix         =   '';
-    $controllerName =   'auth';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
-        $controller =   ucfirst($controllerName) . 'Controller@';
-        Route::get('/login', [
-            'as'    => $controllerName . '/login',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
-            'uses'  => $controller . 'login'            // Đây là đường dẫn đến controller
-        ])->middleware('check.login');
-
-        Route::post('/postLogin', [
-            'as'    => $controllerName . '/postLogin',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
-            'uses'  => $controller . 'postLogin'            // Đây là đường dẫn đến controller
-        ]);
-        Route::get('/logout', [
-            'as'    => $controllerName . '/logout',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
-            'uses'  => $controller . 'logout'            // Đây là đường dẫn đến controller
         ]);
     });
 

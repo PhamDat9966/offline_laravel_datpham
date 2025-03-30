@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="footer">
-        <p>account: admin@gmail.com
+        <p>E-Mail: admin@gmail.com
         password: 123456</p>
         Copyright &copy; Your Company 2017
     </div>

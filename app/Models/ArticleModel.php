@@ -8,9 +8,10 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-use Config;
+use App\Models\ArticleTranslationModel;
 class ArticleModel extends AdminModel
 {
+
     public function __construct(){
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
@@ -18,6 +19,11 @@ class ArticleModel extends AdminModel
         $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
     }
 
+    public function translations()
+    {
+        $this->table  = 'article';
+        return $this->hasMany( ArticleTranslationModel::class, 'article_id', 'id');
+    }
     public function listItems($params = null,$options = null){
 
         $result = null;
@@ -272,7 +278,7 @@ class ArticleModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
@@ -392,11 +398,51 @@ class ArticleModel extends AdminModel
         }
         //dd($params);
         if($options['task'] == 'news-get-item'){
-            $result = $this::select('a.id','a.name','a.slug','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
-                    ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
-                    ->where('a.id', $params['article_id'])
-                    ->first()->toArray();
+            // $result = $this::select('a.id','a.name','a.slug','a.category_id','a.created','a.content','a.status','a.thumb','c.name as category_name','c.display')
+            //         ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
+            //         ->where('a.id', $params['article_id'])
+            //         ->first()->toArray();
+           //dd($params);
 
+            // $translationQuery = DB::table('article_translations')
+            //         ->select('article_id', 'name as trans_name', 'slug as trans_slug', 'content as trans_content')
+            //         ->where('locale', $params['locale']);
+            // $query = $this->select(
+            //         'a.id',
+            //         'a.name',
+            //         'a.content',
+            //         'a.slug',
+            //         'a.created',
+            //         'a.category_id',
+            //         'c.name as category_name',
+            //         'c.display',
+            //         'a.thumb',
+            //         'a.status',
+            //         't.trans_name',
+            //         't.trans_slug',
+            //         't.trans_content'
+            //     )
+            //     ->from('article as a') // Bổ sung bảng chính để tránh lỗi
+            //     ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
+            //     ->leftJoinSub($translationQuery, 't', function ($join) {
+            //         $join->on('a.id', '=', 't.article_id');
+            //     })
+            //     ->where('a.id', $params['article_id']);
+
+            // $result = $query->first()->toArray();
+            //dd($params);
+            // $result = $this::with(['translations' => function ($query) {
+            //     $query->where('locale','vi');
+            // }])->find($params['article_id']);
+
+            $result = $this::with(['translations' => function ($query) use ($params) {
+                        $query->where('locale', $params['locale']); // Lọc bản dịch theo locale để chọn bản dịch
+                    }]) // Lấy dữ liệu từ relationship
+                    ->from('article as a')
+                    ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id') // Join với bảng category_article
+                    ->select('a.*', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+                    ->where('a.id', $params['article_id']) // Điều kiện cho bài viết
+                    ->first()->toArray();
         }
 
 

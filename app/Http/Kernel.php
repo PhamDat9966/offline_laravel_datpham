@@ -51,7 +51,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'locale.language' => \App\Http\Middleware\LocaleLanguageMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -66,7 +66,6 @@ class Kernel extends HttpKernel
         'redirect.category.url' => \App\Http\Middleware\RedirectCategoryURL::class,
         'role.permission' => \App\Http\Middleware\RolePermissionMiddleware::class,
         'user.permission' => \App\Http\Middleware\UserPermissionMiddleware::class,
-        'check.article.permission' => \App\Http\Middleware\CheckArticlePermission::class,
     ];
 
     /**
