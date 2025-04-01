@@ -9,8 +9,9 @@ use App\Models\SliderModel;
 use App\Models\CategoryArticleModel;
 use App\Models\ArticleModel;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -18,11 +19,29 @@ class HomeController extends Controller
     private $controllerName      = 'home';
     private $params              = [];
     private $model;
+    protected $locale;
 
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        View::share('controllerName',$this->controllerName);
+         /*
+            Middleware (LocaleLanguageMiddleware) luôn chạy trước khi controller xử lý request, nhưng hàm __construct() đã hoàn thành xong trước khi
+            LocaleLanguageMiddleware chạy xong nên nếu gọi App::getLocale thì nó sẽ trả về giá trị không dúng.
+            Giải pháp: Gọi middleware ngay  trong hàm nội bộ _construct. Để lấy $locale = AppL:getLocale một cách chính xác.
+
+                1. Khi Laravel khởi tạo controller, Middleware nội bộ ($this->middleware()) sẽ chạy sau LocaleLanguageMiddleware,
+                nghĩa là App::getLocale() trong  LocaleLanguageMiddleware lúc này đã được cập nhật (xem LocaleLanguageMiddleware).
+                2. Biến $this->locale sẽ có giá trị chính xác sau Middleware và có thể dùng trong tất cả phương thức (index(), show(), v.v.).
+                3. Không cần gọi App::getLocale() trong từng phương thức, tránh code lặp lại.
+        */
+        $this->middleware(function ($request, $next) {
+            $locale                 = App::getLocale();
+            $this->locale           = $locale;
+            $this->params['locale'] = $locale;
+
+            View::share('locale',$this->locale);
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
@@ -32,15 +51,20 @@ class HomeController extends Controller
         $categoryModel  = new CategoryArticleModel();
         $articleModel   = new ArticleModel();
 
-        $itemsSlider    = $sliderModel->listItems(null, ['task'=>'news-list-items']);
-        $itemsCategory  = $categoryModel->listItems(null, ['task'=> 'news-list-items-is-home']);
-        $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-feature']);
+        $itemsSlider    = $sliderModel->listItems($this->params, ['task'=>'news-list-items']);
+        $itemsCategory  = $categoryModel->listItems($this->params, ['task'=> 'news-list-items-is-home']);
+        $itemsFeature   = $articleModel->listItems($this->params, ['task'=> 'news-list-items-feature']);
+
         // Trường hợp số bài viết nổi bật thấp hơn 3
         if(count($itemsFeature) < 3){
-            $itemsFeature   = $articleModel->listItems(null, ['task'=> 'news-list-items-many-conditions']); // Lấy dữ liệu bao gồm cả nổi bật và không nổi bật
+            $itemsFeatureAdd   = $articleModel->listItems($this->params, ['task'=> 'news-list-items-many-conditions']); // Lấy dữ liệu bao gồm cả nổi bật và không nổi bật
+            shuffle($itemsFeatureAdd);
+            $itemsFeature      = array_merge($itemsFeature,$itemsFeatureAdd);
+            $itemsFeature = array_slice($itemsFeature, 0, 3);
+
         }
 
-        $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
+        $itemsLatest    = $articleModel->listItems($this->params, ['task'=> 'news-list-items-latest']);
         foreach($itemsCategory as $key=>$value){
             $params = ['category_id'=>$value['id']];
             $itemsCategory[$key]['article'] = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category']);

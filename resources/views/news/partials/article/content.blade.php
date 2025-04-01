@@ -2,28 +2,36 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
-
-    $name               = $item['name'];
-    $thumb              = asset('images/article/' . $item['thumb']);
-
+    //dd($item);
     $showCategory           = (isset($showCategory)) ? $showCategory : 'false';
     $categoryName           = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
     $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";
 
     $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
-
-    $linkArticle        = '';
-    if(!empty($item['slug'])){
-        $linkArticle    = $item['slug'] . '.php';
-    }else{
-        $linkArticle    = URL::linkArticle($item['id'],$item['name']);
-    }
-
-    $created            = Template::showDataFrontEnd($item['created']);
-    $content            = html_entity_decode(Template::showContent($item['content'], $lenghtContent));
     $created_by         = 'Lưu Trường Hải Lân';
     $classPost          = Str::slug($categoryName);
+    $created            = Template::showDataFrontEnd($item['created']);
 
+    $name               = 'Content has no translation yet';
+    $thumb              = asset('images/article/' . $item['thumb']);
+    $linkArticle        = '';
+    $content            = 'Content has no translation yet';
+
+    if(!empty($item['translations'])){
+        foreach($item['translations'] as $translation){
+            //dd($translation);
+            if($locale == $translation['locale']){
+                $name               = $translation['name'];
+                if(!empty($item['slug'])){
+                    $linkArticle    = $translation['slug'] . '.php';
+                }else{
+                    $linkArticle    = URL::linkArticle($translation['id'],$translation['name']);
+                }
+                $content            = html_entity_decode(Template::showContent($translation['content'], $lenghtContent));
+                break;
+            }
+        }
+    }
 @endphp
 <div class="post_content">
     @if($showCategory == true)
