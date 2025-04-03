@@ -26,13 +26,21 @@ class ArticleController extends Controller
     public function __construct()
     {
         View::share('controllerName',$this->controllerName);
+
+        $this->middleware(function ($request, $next) {
+            $locale                 = App::getLocale();
+            $this->locale           = $locale;
+            $this->params['locale'] = $locale;
+
+            View::share('locale',$this->locale);
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
     {
         $this->params['article_id']     = $request->article_id;
         $this->params['article_name']   = $request->article_name;
-        $this->params['locale']         = ($request->locale) ? ($request->locale) : 'vi'; //Ngôn ngữ mặc định là 'vi'
 
         $articleModel       = new ArticleModel();
         $categoryModel      = new CategoryArticleModel();
@@ -67,7 +75,7 @@ class ArticleController extends Controller
         //Set id vào bản user_agents
         DB::table('user_agents')->where('id', '>', 0)->limit(1)->orderBy('id', 'desc')->update(['article_id' => $nowAritcleID]);
 
-        $itemsLatest    = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
+        $itemsLatest    = $articleModel->listItems($this->params, ['task'=> 'news-list-items-latest']);
         $itemArticle['related_article']  = $articleModel->listItems($this->params, ['task'=> 'new-list-items-related-in-category']);
 
         $breadcrumbs = $categoryModel->listItems($this->params,['task' => 'category-family-ancestors']);

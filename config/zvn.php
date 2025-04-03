@@ -4,7 +4,7 @@ return [
     'url'       =>[
         'prefix_admin'      =>'admin96',
         'prefix_news'       =>'',
-        'prefix_bookstore'  =>'bookstore'
+        'prefix_bookstore'  =>'bookstore',
     ],
     'format'    =>[
         'short_time'        =>'d/m/Y',

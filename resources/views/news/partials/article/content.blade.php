@@ -11,19 +11,22 @@
     $created_by         = 'Lưu Trường Hải Lân';
     $classPost          = Str::slug($categoryName);
     $created            = Template::showDataFrontEnd($item['created']);
-
-    $name               = 'Content has no translation yet';
+    $name               = 'Nội dung chưa có bản ngôn ngữ "' .$locale.'"';
+    if($locale != 'vi'){
+        $name               = 'Content is not available in "' .$locale. '"yet.';
+    }
     $thumb              = asset('images/article/' . $item['thumb']);
     $linkArticle        = '';
     $content            = 'Content has no translation yet';
 
     if(!empty($item['translations'])){
+
         foreach($item['translations'] as $translation){
-            //dd($translation);
+
             if($locale == $translation['locale']){
                 $name               = $translation['name'];
                 if(!empty($item['slug'])){
-                    $linkArticle    = $translation['slug'] . '.php';
+                    $linkArticle    = $locale.'/'.$translation['slug'] . '.php';
                 }else{
                     $linkArticle    = URL::linkArticle($translation['id'],$translation['name']);
                 }

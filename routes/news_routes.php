@@ -104,7 +104,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     });
 
     // ====================== RSS ======================
-    $prefix         =   '';
+    $prefix         =   'rss';
     $controllerName =   'rss';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
