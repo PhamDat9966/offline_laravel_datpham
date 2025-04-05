@@ -11,6 +11,8 @@ use App\Helpers\Pagination;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
+
+use Illuminate\Support\Facades\App;
 class RssController extends Controller
 {
     private $pathViewController  = 'news.pages.rss.';
@@ -22,11 +24,19 @@ class RssController extends Controller
                                   'pageRange'         => 3,
                                   'currentPage'       => 1,
                                 );
-
+    protected $locale;
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        // share bien $controllerName cho all view
+        View::share('controllerName',$this->controllerName);
+        $this->middleware(function ($request, $next) {
+            $locale                 = App::getLocale();
+            $this->locale           = $locale;
+            $this->params['locale'] = $locale;
+
+            View::share('locale',$this->locale);
+            return $next($request);
+        });
     }
 
     public function index(Request $request)

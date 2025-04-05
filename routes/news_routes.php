@@ -106,7 +106,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== RSS ======================
     $prefix         =   'rss';
     $controllerName =   'rss';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>'{locale?}/'. $prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/tin-tuc-tong-hop', [
@@ -130,13 +130,13 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== GALLERY ======================
     $prefix         =   'thu-vien-hinh-anh';
     $controllerName =   'galleryshow';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>'{locale?}/'. $prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [
             'as'    => $controllerName,
             'uses'  => $controller . 'index'
-        ]);
+        ])->defaults('locale', 'vi');
 
     });
 

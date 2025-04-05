@@ -59,7 +59,6 @@
     $categoryIdArticle          = (isset($categoryId)) ? $categoryId : '';
     $ancestorCategoryIdsArticle = (isset($ancestorCategoryIds)) ? $ancestorCategoryIds :'';
     // End Cấu hình cho article Category
-
     // Hàm đệ quy để tạo menu
     function buildMenu($items, $parentId = null, $navLinkClass = null, $locale)
     {
@@ -95,7 +94,7 @@
 
                 if($hasChildren != 1 && $item['container'] == ''){
 
-                    $routeString        = "/$locale/". $item['url'];
+                    $routeString        = "/$locale". $item['url'];
 
                     $typeOpen           = $item['type_open'];
                     $first_character    = substr($item['url'] , 0, 1);

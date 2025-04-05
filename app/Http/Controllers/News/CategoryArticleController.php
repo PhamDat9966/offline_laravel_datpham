@@ -24,9 +24,9 @@ class CategoryArticleController extends Controller
         // share bien $controllerName cho all view
         View::share('controllerName',$this->controllerName);
         $this->middleware(function ($request, $next) {
-        $locale                 = App::getLocale();
-        $this->locale           = $locale;
-        $this->params['locale'] = $locale;
+            $locale                 = App::getLocale();
+            $this->locale           = $locale;
+            $this->params['locale'] = $locale;
 
         View::share('locale',$this->locale);
             return $next($request);
