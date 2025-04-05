@@ -42,7 +42,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     Route::group([], function () use ($prefixAlias, $controllerName) {
         $controller = ucfirst($controllerName) . 'Controller@';
 
-        Route::get('{locale?}/'."$prefixAlias-{category_name}-{category_id}.php", [
+        Route::get('{locale?}/'.'cm-{category_name}-{category_id}.php', [
             'as'    => $controllerName . '/alias',
             'uses'  => $controller . 'index'
         ])->where('category_name', '[a-zA-Z0-9-_]+')

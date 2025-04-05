@@ -13,7 +13,7 @@
     $created            = Template::showDataFrontEnd($item['created']);
     $name               = 'Nội dung chưa có bản ngôn ngữ "' .$locale.'"';
     if($locale != 'vi'){
-        $name               = 'Content is not available in "' .$locale. '"yet.';
+        $name               = 'Content is not available in "' .$locale. '" language yet.';
     }
     $thumb              = asset('images/article/' . $item['thumb']);
     $linkArticle        = '';

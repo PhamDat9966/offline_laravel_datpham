@@ -7,8 +7,6 @@
 
     use App\Models\SettingModel as SettingModel;
 
-    //dd($ancestorCategoryIds);
-
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
@@ -63,7 +61,7 @@
     // End Cấu hình cho article Category
 
     // Hàm đệ quy để tạo menu
-    function buildMenu($items, $parentId = null, $navLinkClass = null)
+    function buildMenu($items, $parentId = null, $navLinkClass = null, $locale)
     {
 
         // Sử dụng global để tham chiếu đến biến toàn cục
@@ -84,8 +82,12 @@
                 $hasChildren     = hasChildren($items, $item['id']);
 
                 $menuUrl = $host . $item['url'];
+                $homeUrlLocale = '';
+                if($item['id'] == 1){
+                    $homeUrlLocale = $host . "/$locale";
+                }
                 // Kiểm tra trạng thái "active"
-                $classActive = ($currentUrl == $menuUrl || hasActiveChild($items, $item['id'], $currentUrl)) ? 'active' : '';
+                $classActive = ($currentUrl == $menuUrl || $currentUrl == $homeUrlLocale || hasActiveChild($items, $item['id'], $currentUrl, $locale)) ? 'active' : '';
 
                 $typeOpen        = '';
                 $tmpTypeOpen     = Config::get('zvn.template.type_open');
@@ -93,14 +95,17 @@
 
                 if($hasChildren != 1 && $item['container'] == ''){
 
-                    $routeString        = $item['url'];
+                    $routeString        = "/$locale/". $item['url'];
+
                     $typeOpen           = $item['type_open'];
                     $first_character    = substr($item['url'] , 0, 1);
+
                     if($first_character == '/'){
                         $xhtmlMenu     .= sprintf('<li class=""><a class="%s %s" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     } else {
                         $xhtmlMenu     .= sprintf('<li %s><a class="%s" href="%s" target="%s">%s</a></li>',$classActive,$navLinkClass,$routeString,$typeOpen,$item['name']);
                     }
+
                 }else
                 // Nếu có con, gọi đệ quy để xử lý menu con
                 if ($hasChildren == 1) {
@@ -112,7 +117,7 @@
                                             </a>';
 
                     $xhtmlMenu      .=      '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                                            buildMenu($items, $item['id'], $navChildLinkClass);
+                                            buildMenu($items, $item['id'], $navChildLinkClass,$locale);
                     $xhtmlMenu      .=      '</ul>';
 
                     $xhtmlMenu      .= '</li>';
@@ -123,7 +128,7 @@
 
                         /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
                           Nếu con có class active, thì cha sẽ được gắng class active */
-                       $classActiveCategoryFather = buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle, $categoryIdArticle);
+                       $classActiveCategoryFather = buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle, $categoryIdArticle,$locale);
                         if (strpos($classActiveCategoryFather, 'active') !== false) {
                             $classActiveCategoryFather = 'active';
                         }else{
@@ -145,7 +150,7 @@
                         /*End Nhóm lệnh kiểm tra*/
                         if($item['container'] == 'category'){
                             //Đây là danh mục, category.
-                            $xhtmlMenu .= buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle , $categoryIdArticle);
+                            $xhtmlMenu .= buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle , $categoryIdArticle, $locale);
                         }
 
                         if($item['container'] == 'article'){
@@ -182,13 +187,18 @@
     }
 
     // Hàm kiểm tra xem có con active hay không
-    function hasActiveChild($items, $parentId, $currentUrl)
+    function hasActiveChild($items, $parentId, $currentUrl, $locale)
     {
+        //dd($items);
         global $host;
         foreach ($items as $item) {
             if ($item['parent_id'] == $parentId) {
-                $menuUrl = $host . $item['url'];
-                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl)) {
+                $menuUrl = $host ."/$locale/". $item['url'];
+                if($item['id'] == 1){
+                    $menuUrl = $host . "/$locale";
+                }
+
+                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl, $locale)) {
                     return true;
                 }
             }
@@ -212,14 +222,14 @@
     }
 
     // Hàm đệ quy build Category ra menu
-    function buildMenuCategory($itemsCategory,$ancestorCategoryIds, $categoryId)
+    function buildMenuCategory($itemsCategory,$ancestorCategoryIds, $categoryId, $locale)
     {
         global $host;
         global $currentUrl;
         $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
 
-            $menuUrl = $host . '/' . $valueCategory['slug'] . '.php';
+            $menuUrl = $host . "/$locale/" . $valueCategory['slug'] . '.php';
 
             // Kiểm tra URL của phần tử cha có khớp không
             $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
@@ -231,7 +241,7 @@
 
             // Kiểm tra nếu bất kỳ phần tử con nào có class active
             if ($valueCategory['children'] != null) {
-                $childActive = buildMenuCategory($valueCategory['children'], $ancestorCategoryIds, $categoryId);
+                $childActive = buildMenuCategory($valueCategory['children'], $ancestorCategoryIds, $categoryId, $locale);
 
                 //Hàm strpos sẽ tìm xem, trong phép đệ quy menu con được return dưới dạng xhtml có chuỗi 'active' không
                 // Nếu trong xhtml của phần tử con có class active, thì cha sẽ được gán class active
@@ -251,81 +261,8 @@
         return $xhtmlCategory;
     }
 
-    /*cách dùng tham chiếu nhưng phương thức chưa hoàn chỉnh*/
-    // function buildMenuCategory($itemsCategory, &$isParentActive = false)
-    // {
-    //     global $host;
-    //     global $currentUrl;
-    //     $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-    //     foreach ($itemsCategory as $keyCategory => $valueCategory) {
-
-    //         $menuUrl = $host . '/' . $valueCategory['slug'] . '.html';
-
-    //         // Kiểm tra xem URL hiện tại có khớp với URL của phần tử không
-    //         $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
-
-    //         // Nếu phần tử con có class active thì phần tử cha cũng phải có
-    //         $isChildActive = false;
-
-    //         if ($valueCategory['children'] != null) {
-    //             // Đệ quy tạo menu con và kiểm tra xem có active không
-    //             $childMenu = buildMenuCategory($valueCategory['children'], $isChildActive);
-    //         }
-
-    //         // Nếu menu con hoặc chính nó active thì đánh dấu là active
-    //         if ($isChildActive || $classActive == 'active') {
-    //             $classActive = 'active';
-    //             $isParentActive = true;  // Đánh dấu cha là active
-    //         }
-
-    //         // Xây dựng HTML cho menu
-    //         if ($valueCategory['children'] == null) {
-    //             $xhtmlCategory .= '<li><a class="nav-link ' . $classActive . '" href="' . $menuUrl . '">' . $valueCategory['name'] . '</a></li>';
-    //         } else {
-    //             $xhtmlCategory .= '<li class="dropdown">';
-    //             $xhtmlCategory .= '<a class="nav-link dropdown-toggle ' . $classActive . '" href="' . $menuUrl . '">' . $valueCategory['name'] . '</a>';
-    //             $xhtmlCategory .= $childMenu;  // Thêm menu con vào
-    //             $xhtmlCategory .= '</li>';
-    //         }
-    //     }
-    //     $xhtmlCategory .= '</ul>';
-    //     return $xhtmlCategory;
-    // }
-    /*end*/
-
-    /* buildmenu có class="active" tại article đây là mẫu test*/
-    // function buildMenuCategory($itemsCategory, $ancestorCategoryIds, $categoryId)
-    // {
-    //     global $host;
-    //     $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-
-    //     foreach ($itemsCategory as $valueCategory) {
-    //         // URL của menu
-    //         $menuUrl = $host . '/' . $valueCategory['slug'] . '.html';
-
-    //         // Kiểm tra xem danh mục hiện tại có nằm trong danh sách cha của category_id hay không
-    //         $classActive = (in_array($valueCategory['id'], $ancestorCategoryIds) || $valueCategory['id'] == $categoryId) ? 'active' : '';
-
-    //         // Link của danh mục
-    //         $categoryLink = $host . '/' . $valueCategory['slug'] . '.html';
-
-    //         if ($valueCategory['children'] == null) {
-    //             $xhtmlCategory .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a></li>';
-    //         } else {
-    //             $xhtmlCategory .= '<li><a class="nav-link '.$classActive.'" href="'.$categoryLink.'">'.$valueCategory['name'].'</a>';
-    //             $xhtmlCategory .= buildMenuCategory($valueCategory['children'], $ancestorCategoryIds, $categoryId); // Đệ quy với children
-    //             $xhtmlCategory .= '</li>';
-    //         }
-    //     }
-
-    //     $xhtmlCategory .= '</ul>';
-    //     return $xhtmlCategory;
-    // }
-
-    /*end buildmenu có class="active" tại article*/
-
     // Gọi hàm đệ quy để tạo menu từ mảng
-    buildMenu($itemsMenu, null, null);
+    buildMenu($itemsMenu, null, null,$locale);
 
     // $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
     // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
@@ -392,7 +329,7 @@
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
                         </button>
-                        <a class="btn btn-danger btn-block" href="{!! route('appointmentnews') !!}"" role="button">
+                        <a class="btn btn-danger btn-block" href="{!! route('appointmentnews') !!}" role="button">
                             <i class="fa fa-calendar" aria-hidden="true"></i>  Đặt lịch hẹn
                         </a>
                     </div>

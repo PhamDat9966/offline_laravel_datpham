@@ -9,46 +9,58 @@ use Illuminate\Support\Facades\View;
 use App\Models\CategoryArticleModel;
 use App\Models\ArticleModel;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
 class CategoryArticleController extends Controller
 {
     private $pathViewController  = 'news.pages.category_article.';
     private $controllerName      = 'categoryArticle';
     private $params              = [];
     private $model;
-
+    protected $locale;
     public function __construct()
     {
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        // share bien $controllerName cho all view
+        View::share('controllerName',$this->controllerName);
+        $this->middleware(function ($request, $next) {
+        $locale                 = App::getLocale();
+        $this->locale           = $locale;
+        $this->params['locale'] = $locale;
+
+        View::share('locale',$this->locale);
+            return $next($request);
+        });
     }
 
     public function index(Request $request)
     {
+
         $this->params['category_id'] = $request->category_id;
-        $articleModel   = new ArticleModel();
-        $categoryArticleModel  = new CategoryArticleModel();
-        $itemCategoryArticle  = $categoryArticleModel->getItem($this->params,['task'=>'news-get-item']);
+        $articleModel           = new ArticleModel();
+        $categoryArticleModel   = new CategoryArticleModel();
+        $itemCategoryArticle    = $categoryArticleModel->getItem($this->params,['task'=>'news-get-item']);
 
         if(empty($itemCategoryArticle)) return redirect()->route('home'); // Nếu trường hợp view nhập category_id ko tồn tại thì trả về trang home ngay!
 
-        $itemsLatest             = $articleModel->listItems(null, ['task'=> 'news-list-items-latest']);
+        $itemsLatest                    = $articleModel->listItems($this->params, ['task'=> 'news-list-items-latest']);
         $itemCategoryArticle['article'] = $articleModel->listItems($this->params, ['task'=> 'news-list-items-in-category']);
 
         //Lấy danh sách con
         $categoryChildList       = $categoryArticleModel->listItems($this->params,['task' => 'category-child']);
         //Lấy danh sách bài viết từ danh sách category con
         if($categoryChildList != null){
-           $params = [];
+            $params             = [];
+            $params['locale']   = $this->locale;
             foreach($categoryChildList as $valueCategoryChild ){
                 $params['category_id'][] = $valueCategoryChild['id'];
             }
+
             $articlesInChild            = $articleModel->listItems($params, ['task'=> 'news-list-items-in-category-id-array']);
             //Gán
             $itemCategoryArticle['article_child'] = $articlesInChild;
         }
         $breadcrumbs = $categoryArticleModel->listItems($this->params,['task' => 'category-family-ancestors']);
-
-        // dd($itemCategoryArticle->toArray());
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
