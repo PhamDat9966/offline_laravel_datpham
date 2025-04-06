@@ -17,6 +17,12 @@ class MenuModel extends AdminModel
         $this->crudNotActived       = ['_token','thumb_current'];
     }
 
+    public function translations()
+    {
+        $this->table  = 'menu';
+        return $this->hasMany( MenuTranslationModel::class, 'menu_id', 'id');
+    }
+
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
@@ -50,9 +56,22 @@ class MenuModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-navbar-menu'){
-            $query = $this->select('id','name','url','type_menu','type_open','parent_id','container')
+            $query = $this::with(['translations' => function ($query) use ($params) {
+                                $query->where('locale', $params['locale']); // Lọc bản dịch theo locale để chọn bản dịch
+                            }])
+                          ->select('id','name','url','type_menu','type_open','parent_id','container')
                           ->where('status','=','active')
                           ->orderBy('ordering', 'asc');
+            $result = $query->get()->toArray();
+        }
+
+        if($options['task'] == 'news-list-items-navbar-menu-with-locale'){
+            $query = $this->select('m.id','mt.name as name','m.url','m.type_menu','m.type_open','m.parent_id','m.container')
+                          ->from('menu as m')
+                          ->leftJoin('menu_translations as mt', 'mt.menu_id', '=', 'm.id')
+                          ->where('m.status','=','active')
+                          ->where('mt.locale','=',$params['locale'])
+                          ->orderBy('m.ordering', 'asc');
             $result = $query->get()->toArray();
         }
 
@@ -115,7 +134,7 @@ class MenuModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 

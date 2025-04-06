@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 03, 2025 lúc 07:22 AM
+-- Thời gian đã tạo: Th4 06, 2025 lúc 04:54 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -562,6 +562,71 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 (43, 'Tia cực tím', 'active', '/bv-tia-cuc-tim-tai-ha-noi-o-muc-nguy-hiem-20.php', 10, 'link', NULL, 7, NULL, '<p>article-tia-cuc-tim-tai-ha-noi-20</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (44, 'Blockchain và trí tuệ nhân tạo', 'active', '/bv-blockchain-va-tri-tue-nhan-tao-ai-lam-thay-doi-giao-duc-truc-tuyen-21.php', 10, 'link', NULL, 7, NULL, '<p>article-blockchain-va-tri-tue-nhan-tao-ai-lam-thay-doi-giao-duc-truc-tuyen-21</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin'),
 (45, 'Đại học Anh đưa khóa học hạnh phúc', 'active', '/bv-dai-hoc-anh-dua-khoa-hoc-hanh-phuc-vao-chuong-trinh-giang-day-7.php', 10, 'link', NULL, 7, NULL, '<p>article-dai-hoc-anh-dua-khoa-hoc-hanh-phuc-vao-chuong-trinh-giang-day-7</p>', NULL, NULL, '2024-03-26 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `menu_translations`
+--
+
+CREATE TABLE `menu_translations` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `locale` varchar(225) DEFAULT NULL,
+  `menu_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menu_translations`
+--
+
+INSERT INTO `menu_translations` (`id`, `name`, `locale`, `menu_id`) VALUES
+(1, 'Home', 'en', '1'),
+(2, 'Trang chủ', 'vi', '1'),
+(3, 'Product', 'en', '2'),
+(4, 'Sản phẩm', 'vi', '2'),
+(5, 'Blog', 'en', '3'),
+(6, 'Blog', 'vi', '3'),
+(7, 'Brain-Training Riddles', 'en', '4'),
+(8, 'câu đố trí não', 'vi', '4'),
+(9, 'Test-02', 'en', '5'),
+(10, 'Test-02', 'vi', '5'),
+(11, 'Category', 'en', '6'),
+(12, 'Category', 'vi', '6'),
+(13, 'Article', 'en', '7'),
+(14, 'Article', 'vi', '7'),
+(15, 'news summary', 'en', '8'),
+(16, 'Tin tức tổng hợp', 'vi', '8'),
+(17, 'Gallery', 'en', '9'),
+(18, 'Hình ảnh', 'vi', '9'),
+(19, 'Contact', 'en', '10'),
+(20, 'Liên hệ', 'vi', '10'),
+(21, 'Directory', 'en', '20'),
+(22, 'Danh mục', 'vi', '20'),
+(23, 'Article-container', 'en', '21'),
+(24, 'Article-container', 'vi', '21'),
+(25, 'Education', 'en', '23'),
+(26, 'Giáo dục', 'vi', '23'),
+(27, 'Ultraviolet rays', 'en', '24'),
+(28, 'Tia cực tím', 'vi', '24'),
+(29, 'Zendvn', 'en', '30'),
+(30, 'Zendvn', 'vi', '30'),
+(31, 'Sport', 'en', '37'),
+(32, 'Thể thao', 'vi', '37'),
+(33, 'Health', 'en', '38'),
+(34, 'Sức khỏe', 'vi', '38'),
+(35, 'Science', 'en', '39'),
+(36, 'Khoa học', 'vi', '39'),
+(37, 'Digitalization', 'en', '40'),
+(38, 'Số hóa', 'vi', '40'),
+(39, 'Business', 'en', '41'),
+(40, 'Kinh doanh', 'vi', '41'),
+(41, 'Ultraviolet rays', 'en', '43'),
+(42, 'Tia cực tím', 'vi', '43'),
+(43, 'Blockchain and AI', 'en', '44'),
+(44, 'Blockchain và trí tuệ nhân tạou', 'vi', '44'),
+(45, 'UK university launches happiness course', 'en', '45'),
+(46, 'Trường đại học Anh ra mắt khóa học hạnh phúc', 'vi', '45');
 
 -- --------------------------------------------------------
 
@@ -1143,7 +1208,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '6,2,2,3,3,3,6,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,6,2,2,2,2,2,2,2', 1),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '2,2,2,2,2,2,2,2,2,6,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', '2019-05-04 00:00:00', 'admin', '2025-03-19 00:00:00', 'admin', 'active', NULL, 2),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
@@ -1879,7 +1944,17 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (674, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 11:39:08', 6),
 (675, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 11:39:09', 6),
 (676, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 11:39:10', 6),
-(677, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 11:42:51', 6);
+(677, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 11:42:51', 6),
+(678, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:29:15', 4),
+(679, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:29:15', 4),
+(680, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:29:16', 4);
+INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
+(681, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:33:43', 6),
+(682, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:33:44', 6),
+(683, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-03 12:33:44', 6),
+(684, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-05 11:06:46', 6),
+(685, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-05 11:06:47', 6),
+(686, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', '2025-04-05 11:06:47', 6);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -1967,6 +2042,12 @@ ALTER TABLE `media`
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parent_menu_id` (`parent_id`);
+
+--
+-- Chỉ mục cho bảng `menu_translations`
+--
+ALTER TABLE `menu_translations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `migrations`
@@ -2188,6 +2269,12 @@ ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
+-- AUTO_INCREMENT cho bảng `menu_translations`
+--
+ALTER TABLE `menu_translations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
@@ -2281,7 +2368,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=678;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=687;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

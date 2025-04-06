@@ -16,8 +16,11 @@
         $host = $host.'/'.$prefixNews;
     }
 
+    $params = [];
+    $params['locale']   = $locale;
     $MenuModel      = new MenuModel();
-    $itemsMenu      = $MenuModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+    //$itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu']);
+    $itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu-with-locale']);
 
     global $categoryMenu;
     $categoryModel  = new CategoryModel();
@@ -268,10 +271,15 @@
 
     // $xhtmlMenu          .= sprintf('<li><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
     // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
-
-    $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),'Đăng Nhập');
+    $loginChar  = 'Đăng nhập';
+    $logoutChar = 'Thoát';
+    if($locale == 'en'){
+        $loginChar  = 'Login';
+        $logoutChar = 'Logout';
+    }
+    $xhtmlMenuUser      = sprintf('<li><a href="%s">%s</a></li>',route('auth/login'),$loginChar);
     if(session('userInfo')){
-        $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),'Thoát');
+        $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),$logoutChar);
     }
 
     $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
