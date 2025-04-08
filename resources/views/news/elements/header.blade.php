@@ -24,7 +24,7 @@
 
     global $categoryMenu;
     $categoryModel  = new CategoryModel();
-    $categoryMenu   = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu']);
+    $categoryMenu   = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu-with-locale']);
     //Test command
     // $categoryTest   = $categoryModel->listItems(null,['task'=>'test-command-toTree']);
     // dd($categoryTest);

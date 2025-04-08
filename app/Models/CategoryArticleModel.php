@@ -60,6 +60,32 @@ class CategoryArticleModel extends AdminModel
                     ->toArray();
         }
 
+        if($options['task'] == 'news-list-items-navbar-menu-with-locale'){
+            $locale = app()->getLocale();
+            /*  withDepth() không tương thích khi đặt alias cho bảng gốc (ca) thông qua from('category_article as ca')
+                nên ở đây không đặt alias cho category_article*/
+            $result = self::select(
+                                'category_article.id',
+                                'category_article.parent_id',
+                                'category_article._lft',
+                                'category_article._rgt',
+                                'category_article.status',
+                                'category_article.slug',
+                                'cat.name'
+                            )
+                            ->leftJoin('category_article_translations as cat', function ($join) use ($locale) {
+                                $join->on('category_article.id', '=', 'cat.category_article_id')
+                                    ->where('cat.locale', '=', $locale);
+                            })
+                            ->withDepth()
+                            ->having('depth', '>', 0)
+                            ->defaultOrder()
+                            ->where('category_article.status', 'active')
+                            ->get()
+                            ->toTree()
+                            ->toArray();
+        }
+
         /* những phương thức liên quan đến mô hình Nested Set Model*/
         if($options['task'] == 'test-command-withDepth'){
             //withDepth() là phương thức lấy danh sách các node xong thêm một cột tính cột độ sâu của node

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 06, 2025 lúc 04:54 AM
+-- Thời gian đã tạo: Th4 08, 2025 lúc 07:19 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -371,6 +371,42 @@ CREATE TRIGGER `updateTotalElementsAfterUpdate` AFTER UPDATE ON `category_articl
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `category_article_translations`
+--
+
+CREATE TABLE `category_article_translations` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `category_article_id` int(11) DEFAULT NULL,
+  `locale` varchar(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_article_translations`
+--
+
+INSERT INTO `category_article_translations` (`id`, `name`, `category_article_id`, `locale`) VALUES
+(1, 'Thể Thao', 2, 'vi'),
+(3, 'Giáo dục', 3, 'vi'),
+(5, 'Sức khỏe', 4, 'vi'),
+(8, 'Tourism', 5, 'en'),
+(9, 'Khoa học', 6, 'vi'),
+(11, 'Số hóa', 7, 'vi'),
+(13, 'Xe - Ô tô', 8, 'vi'),
+(15, 'Kinh doanh', 9, 'vi'),
+(17, 'Thể thao child001', 10, 'vi'),
+(10, 'Science', 6, 'en'),
+(2, 'Sport', 2, 'en'),
+(4, 'Education', 3, 'en'),
+(6, 'Health', 4, 'en'),
+(12, 'Digitalization', 7, 'en'),
+(14, 'Cars', 8, 'en '),
+(16, 'Business', 9, 'en'),
+(18, 'Sport child001', 10, 'en');
 
 -- --------------------------------------------------------
 
@@ -2011,6 +2047,12 @@ ALTER TABLE `category_article`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Chỉ mục cho bảng `category_article_translations`
+--
+ALTER TABLE `category_article_translations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `category_product`
 --
 ALTER TABLE `category_product`
@@ -2237,6 +2279,12 @@ ALTER TABLE `branch`
 --
 ALTER TABLE `category_article`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `category_article_translations`
+--
+ALTER TABLE `category_article_translations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `category_product`
