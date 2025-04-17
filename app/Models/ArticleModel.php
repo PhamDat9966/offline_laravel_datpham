@@ -15,7 +15,7 @@ class ArticleModel extends AdminModel
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content','slug'];
-        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory'];
+        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','name-vi','name-en','slug-vi','slug-en','content-vi','content-en'];
     }
 
     public function translations()
@@ -434,8 +434,29 @@ class ArticleModel extends AdminModel
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            $params   = $this->prepareParams($params);
-            self::where('id', $params['id'])->update($params);
+            //dd($params);
+            $paramsPrepare   = $this->prepareParams($params);
+            self::where('id', $params['id'])->update($paramsPrepare);
+
+            //Translation update
+            $articleVi = [
+                            'name'          => $params['name-vi'],
+                            'slug'          => $params['slug-vi'],
+                            'content'       => $params['content-vi']
+                        ];
+            DB::table('article_translations')->where('article_id', $params['id'])
+                                                    ->where('locale', 'vi')
+                                                    ->update($articleVi);
+
+            $articleEn = [
+                            'name'          => $params['name-en'],
+                            'slug'          => $params['slug-en'],
+                            'content'       => $params['content-en']
+                        ];
+            DB::table('article_translations')->where('article_id', $params['id'])
+                                                    ->where('locale', 'en')
+                                                    ->update($articleEn);
+
 
         }
 
@@ -458,11 +479,11 @@ class ArticleModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','slug','category_id','content','status','thumb')
-                    ->where('id', $params['id'])
-                    ->first();
-                    //->get();
-
+            $result = $this::with(['translations' => function ($query) use ($params) {
+                        }])
+                        ->select('id','name','content','slug','category_id','thumb','status')
+                        ->where('id', $params['id'])
+                        ->first();
         }
 
         if($options['task'] == 'get-auto-increment'){

@@ -26,7 +26,7 @@
             if($locale == $translation['locale']){
                 $name               = $translation['name'];
                 if(!empty($item['slug'])){
-                    $linkArticle    = $translation['slug'] . '.php';
+                    $linkArticle    = "$locale/". $translation['slug'] . '.php';
                 }else{
                     $linkArticle    = URL::linkArticle($translation['id'],$translation['name']);
                 }

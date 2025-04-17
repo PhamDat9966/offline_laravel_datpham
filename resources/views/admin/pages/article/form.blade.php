@@ -5,7 +5,15 @@
     @include('admin.templates.page_header', ['pageIndex' => false])
 
     @include('admin.templates.error')
-
+    @php
+        $itemEn = [];
+        foreach($item['translations'] as $itemTrans){
+            if($itemTrans['locale'] == 'en'){
+                $itemEn = $itemTrans;
+                break;
+            }
+        }
+    @endphp
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_content">
@@ -22,7 +30,7 @@
                         @include('admin.pages.article.form-add-vi')
                     </div>
                     <div class="tab-pane fade" id="formen" role="tabpanel" aria-labelledby="formen-tab">
-                        @include('admin.pages.article.form-add-en')
+                        @include('admin.pages.article.form-add-en',['itemEn'=>$itemEn])
                     </div>
                 </div>
                 @include('admin.pages.article.form-add-merged')

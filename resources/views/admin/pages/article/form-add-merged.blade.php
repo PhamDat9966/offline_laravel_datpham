@@ -10,8 +10,10 @@
     $host = 'http://'.$host;
 
     $id             = (isset($item['id']))? $item['id'] : '';
+    $task           = (isset($item['id']))? '<input name="taskEditInfo" type="hidden" value="taskEditInfo">'
+                                            : '<input name="taskAdd" type="hidden" value="taskAdd">';
+
     $name           = (isset($item['name']))? $item->name : '';
-    $slug           = (isset($item['slug']))? $item->slug : '';
     $status         = (isset($item['status']))? $item->status : '';
     $category       = (isset($item['category_id']))? $item->category_id : '';
     $content        = (isset($item['content']))? $item->content : '';
@@ -30,15 +32,8 @@
                           ];
     $categoryValue     = $itemsCategory;
 
-    $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
-                                 name="name"
-                                 type="text"
-                                 value="'.$name.'"
-                                 id="name_article"
-                                 data-auto-increment="'.$autoIncrement.'"
-                          >';
     //$submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-article']);
-    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save all!</a>';
+    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save All</a>';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
@@ -57,7 +52,7 @@
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
         ],
         [
-            'element'   =>  $inputHiddenID . $inputHiddenThumb . $submitButton,
+            'element'   =>  $inputHiddenID . $inputHiddenThumb . $submitButton . $task,
             'type'      =>  'btn-submit'
         ]
 

@@ -3,37 +3,25 @@
 @php
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
+    //dd($itemEn->toArray());
 
     $request = Request::capture();
     global $host;
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-    $id             = (isset($item['id']))? $item['id'] : '';
-    $name           = (isset($item['name']))? $item->name : '';
-    $slug           = (isset($item['slug']))? $item->slug : '';
-    $status         = (isset($item['status']))? $item->status : '';
-    $category       = (isset($item['category_id']))? $item->category_id : '';
-    $content        = (isset($item['content']))? $item->content : '';
-    $thumb          = (isset($item['thumb']))? $item->thumb : '';
+    $nameEn           = (isset($itemEn['name']))? $itemEn->name : '';
+    $slugEn           = (isset($itemEn['slug']))? $itemEn->slug : '';
+    $contentEn        = (isset($itemEn['content']))? $itemEn->content : '';
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
-    $inputHiddenID     = Form::hidden('id' , $id);
-    $inputHiddenThumb  = Form::hidden('thumb_current', $thumb );
 
-    $statusValue       = [
-                                'default'    => Config::get('zvn.template.status.all.name'),
-                                'active'     => Config::get('zvn.template.status.active.name'),
-                                'inactive'   => Config::get('zvn.template.status.inactive.name')
-                          ];
-    $categoryValue  = $itemsCategory;
-
-    $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12 name_article"
+    $inputNameArticleEn  = '<input class="form-control col-md-6 col-xs-12 name_article"
                                  name="name-en"
                                  type="text"
-                                 value="'.$name.'"
+                                 value="'.$nameEn.'"
                                  id="name_article-en"
                                  data-auto-increment="'.$autoIncrement.'"
                           >';
@@ -41,14 +29,14 @@
                                     name="slug-en"
                                     type="text"
                                     id="slug-en"
-                                    value=""
+                                    value="'.$slugEn.'"
                         >';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  $inputNameArticle
+            'element'   =>  $inputNameArticleEn
         ],
         [
             'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
@@ -56,7 +44,7 @@
         ],
         [
             'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content-en', $content, $formInputAttr + ['id' => 'ckeditor-en'])
+            'element'   =>  Form::textarea('content-en', $contentEn, $formInputAttr + ['id' => 'ckeditor-en'])
         ]
     ];
 
