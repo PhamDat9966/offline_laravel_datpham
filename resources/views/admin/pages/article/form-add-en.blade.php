@@ -56,7 +56,7 @@
         ],
         [
             'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content', $content, $formInputAttr + ['id' => 'ckeditor-en'])
+            'element'   =>  Form::textarea('content-en', $content, $formInputAttr + ['id' => 'ckeditor-en'])
         ]
     ];
 

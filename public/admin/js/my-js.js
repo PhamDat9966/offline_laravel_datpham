@@ -1181,13 +1181,10 @@ $(document).ready(function() {
         }
 
         const $mergedForm = $('#merged-form');
-        $mergedForm.empty(); // Xóa input cũ trong form ẩn
-
 
         // Copy CSRF token từ form gốc nếu cần
         const csrf = $('input[name="_token"]').first().clone();
         $mergedForm.append(csrf);
-        //$mergedFormArray.append(csrf);
 
         // Duyệt qua tất cả input trong #form-vi rồi tích hợp các input đó vào #merged-form
         $('#form-vi').find('input, textarea, select').each(function () {

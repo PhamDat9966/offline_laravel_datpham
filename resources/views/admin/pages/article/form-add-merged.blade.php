@@ -37,8 +37,8 @@
                                  id="name_article"
                                  data-auto-increment="'.$autoIncrement.'"
                           >';
-    $submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-article']);
-    //$buttonSubmit      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save all!</a>';
+    //$submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-article']);
+    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save all!</a>';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [

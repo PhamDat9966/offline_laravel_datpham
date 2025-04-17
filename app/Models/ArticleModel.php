@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Session;
 use App\Models\ArticleTranslationModel;
 class ArticleModel extends AdminModel
 {
-
     public function __construct(){
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
@@ -395,6 +394,25 @@ class ArticleModel extends AdminModel
             $this->created      = $params['created'];
             $this->thumb        = $params['thumb'];
             $this->save();
+
+            //Lưu thông tin tại `article_translations`
+            $articleVi = [
+                'article_id'    => $this->id,
+                'locale'        => 'vi',
+                'name'          => $params['name-vi'],
+                'slug'          => $params['slug-vi'],
+                'content'       => $params['content-vi']
+            ];
+            DB::table('article_translations')->insert($articleVi);
+
+            $articleEn = [
+                'article_id'    => $this->id,
+                'locale'        => 'en',
+                'name'          => $params['name-en'],
+                'slug'          => $params['slug-en'],
+                'content'       => $params['content-en']
+            ];
+            DB::table('article_translations')->insert($articleEn);
         }
 
         if($options['task'] == 'edit-item'){
@@ -432,6 +450,8 @@ class ArticleModel extends AdminModel
 
             $this->table = 'article';
             $this->where('id', $params['id'])->delete();
+
+            DB::table('article_translations')->where('article_id', $params['id'])->delete();
         }
     }
 

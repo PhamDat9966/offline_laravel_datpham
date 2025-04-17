@@ -54,6 +54,7 @@ class ArticleController extends AdminController
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
+
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 

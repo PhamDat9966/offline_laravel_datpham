@@ -24,10 +24,20 @@ class ArticleRequest extends FormRequest
      *
      * @return array
      */
+    protected function prepareForValidation()
+    {
+        /* Tiền sử lý */
+        $this->merge([
+            'name' => $this->input('name-vi'),
+            'slug' => $this->input('slug-vi'),
+            'content' => $this->input('content-vi'),
+        ]);
+    }
     public function rules()
     {
         $task = 'add';
-        dd($this->toArray());
+        //dd($this->toArray());
+
         if(isset($this->taskEditInfo)) $task = 'edit';
         if(isset($this->taskChangeCategory)) $task = 'change-category';
 
