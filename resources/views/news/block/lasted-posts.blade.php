@@ -14,7 +14,7 @@
                 $linkCategory       = URL::linkCategoryArticle($item['category_id'],$item['category_name']);
                 $linkArticle        = '';
                 if(!empty($item['slug'])){
-                    $linkArticle    = $item['slug'].'.php';
+                    $linkArticle    = "/$locale/". $item['slug'].'.php';
                 }else{
                     $linkArticle    = URL::linkArticle($item['id'],$item['name']);
                 }

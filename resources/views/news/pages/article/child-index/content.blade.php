@@ -26,7 +26,7 @@
             $categoryName       = (isset($itemArticle['category_name'])) ? $itemArticle['category_name']:"";
 
             $linkCategory       = URL::linkCategoryArticle($itemArticle['category_id'],$itemArticle['category_name']);
-            $linkArticle        = $locale. '/'. URL::linkArticle($itemArticle['id'],$itemArticle['name']);
+            $linkArticle        = "/$locale/". URL::linkArticle($itemArticle['id'],$itemArticle['name']);
             $created            = Template::showDataFrontEnd($itemArticle['created']);
             if($lenghtContent == 'full'){
                 $content            = $itemArticle['content'];

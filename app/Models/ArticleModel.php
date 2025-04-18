@@ -434,29 +434,60 @@ class ArticleModel extends AdminModel
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            //dd($params);
             $paramsPrepare   = $this->prepareParams($params);
             self::where('id', $params['id'])->update($paramsPrepare);
 
-            //Translation update
+            // Translation update
+            // Kiểm tra sự tồn tại bản dịch 'vi'
+            $existsVi = DB::table('article_translations')
+                            ->where('article_id', $params['id'])
+                            ->where('locale', 'vi')
+                            ->exists();
+
             $articleVi = [
-                            'name'          => $params['name-vi'],
-                            'slug'          => $params['slug-vi'],
-                            'content'       => $params['content-vi']
-                        ];
-            DB::table('article_translations')->where('article_id', $params['id'])
-                                                    ->where('locale', 'vi')
-                                                    ->update($articleVi);
+                'name'    => $params['name-vi'],
+                'slug'    => $params['slug-vi'],
+                'content' => $params['content-vi']
+            ];
+
+            if ($existsVi) {
+                // Nếu có, thì update (dù có thể không thay đổi gì)
+                DB::table('article_translations')
+                    ->where('article_id', $params['id'])
+                    ->where('locale', 'vi')
+                    ->update($articleVi);
+            } else {
+                // Nếu chưa có thì insert mới
+                $articleVi['article_id'] = $params['id'];
+                $articleVi['locale']     = 'vi';
+                DB::table('article_translations')->insert($articleVi);
+            }
+
+
+            // Kiểm tra tồn tại bản dịch 'en'
+            $existsEn = DB::table('article_translations')
+                            ->where('article_id', $params['id'])
+                            ->where('locale', 'en')
+                            ->exists();
 
             $articleEn = [
-                            'name'          => $params['name-en'],
-                            'slug'          => $params['slug-en'],
-                            'content'       => $params['content-en']
-                        ];
-            DB::table('article_translations')->where('article_id', $params['id'])
-                                                    ->where('locale', 'en')
-                                                    ->update($articleEn);
+                'name'    => $params['name-vi'],
+                'slug'    => $params['slug-vi'],
+                'content' => $params['content-vi']
+            ];
 
+            if ($existsEn) {
+                // Nếu có, thì update (dù có thể không thay đổi gì)
+                DB::table('article_translations')
+                    ->where('article_id', $params['id'])
+                    ->where('locale', 'vi')
+                    ->update($articleEn);
+            } else {
+                // Nếu chưa có thì insert mới
+                $articleEn['article_id'] = $params['id'];
+                $articleEn['locale']     = 'vi';
+                DB::table('article_translations')->insert($articleEn);
+            }
 
         }
 

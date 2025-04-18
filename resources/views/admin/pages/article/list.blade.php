@@ -31,7 +31,7 @@
 
                             $id                 = $val['id'];
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
-                            $content            = Hightlight::show($val['content'], $params['search'] , 'content');
+                            $content            = Hightlight::showContent($val['content'], $params['search'] , 'content');
                             $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
                             // $categoryName       = $val['category_name'];
                             $categoryName       = Template::select('category_id', $id , $categoryList , $val['category_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_id'=>'value_new'])]);

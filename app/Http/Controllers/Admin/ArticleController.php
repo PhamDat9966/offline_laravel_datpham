@@ -81,7 +81,7 @@ class ArticleController extends AdminController
              // tránh lỗi khi lấy dữ liệu $this->model->getItem($params,['task'=>'get-item']); trong trường hợp copy paste để sửa lại slug
             $item = $this->model->getItem($params,['task'=>'get-item']);
         }
-        //dd($item->toArray());
+
         $categoryModel      = new CategoryArticleModel();
         $itemsCategory      = $categoryModel->listItems(null,["task"=>'admin-list-items-in-select-box']);
         unset($itemsCategory[1]); // Xóa phần tử root
