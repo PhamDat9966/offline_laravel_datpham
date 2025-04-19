@@ -2,7 +2,7 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
-    //dd($item);
+
     $showCategory           = (isset($showCategory)) ? $showCategory : 'false';
     $categoryName           = $item['category_name']  = (isset($item['category_name'])) ? $item['category_name']:"";
     $item['category_id']    = (isset($item['category_id'])) ? $item['category_id']:"";

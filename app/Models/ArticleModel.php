@@ -104,11 +104,13 @@ class ArticleModel extends AdminModel
             $result = $this::with(['translations' => function ($query) use ($params) {
                 $query->where('locale', $params['locale']); // Lọc bản dịch theo locale để chọn bản dịch
             }]) // Lấy dữ liệu từ relationship
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','cat.name as category_name','a.thumb', 'c.display') // Chọn các cột cần thiết
             ->from('article as a')
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
             ->where('a.status', 'active')
             ->where('a.type','feature')
+            ->where('cat.locale',$params['locale'])
             ->orderBy('a.id', 'desc')
             ->take(3)
             ->get()->toArray();
@@ -133,8 +135,10 @@ class ArticleModel extends AdminModel
             }]) // Lấy dữ liệu từ relationship
             ->from('article as a')
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id') // Join với bảng category_article
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','a.thumb', 'cat.name as category_name', 'c.display') // Chọn các cột cần thiết
             ->where('a.type','!=','feature')
+            ->where('cat.locale',$params['locale'])
             ->get()->toArray();
         }
 
@@ -145,8 +149,10 @@ class ArticleModel extends AdminModel
             }]) // Lấy dữ liệu từ relationship
             ->from('article as a')
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id') // Join với bảng category_article
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','cat.name as category_name','a.thumb','c.display') // Chọn các cột cần thiết
             ->where('a.type','!=','feature')
+            ->where('cat.locale',$params['locale'])
             ->orderBy('a.id', 'desc')
             ->take(4)
             ->get()->toArray();
@@ -157,10 +163,12 @@ class ArticleModel extends AdminModel
             $result = $this::with(['translations' => function ($query) use ($params) {
                 $query->where('locale', $params['locale']);
             }]) // Lấy dữ liệu từ relationship
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','cat.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id') // Join với bảng category_article
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
             ->from('article as a')
             ->where('a.status','=','active')
+            ->where('cat.locale',$params['locale'])
             ->where('a.category_id','=',$params['category_id'])
             ->orderBy('a.id', 'desc')
             ->take(4)
@@ -217,11 +225,13 @@ class ArticleModel extends AdminModel
             $result = $this::with(['translations' => function ($query) use ($params) {
                 $query->where('locale', $params['locale']);
             }])
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','cat.name as category_name','a.thumb','c.display') // Chọn các cột cần thiết
             ->from('article as a')
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
             ->where('a.category_id','=',$params['usually_key_max'])
             ->where('a.status','=','active')
+            ->where('cat.locale',$params['locale'])
             ->latest('a.id')
             ->take(6)
             ->get()->toArray();
@@ -238,11 +248,13 @@ class ArticleModel extends AdminModel
             $query = $this::with(['translations' => function ($query) use ($params) {
                 $query->where('locale', $params['locale']);
             }])
-            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','c.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','a.thumb', 'cat.name as category_name', 'c.display') // Chọn các cột cần thiết
             ->from('article as a')
             ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
             ->where('a.category_id','=',$params['usually_key_second_highest'])
             ->where('a.status','=','active')
+            ->where('cat.locale',$params['locale'])
             ->inRandomOrder()
             ->first();
 

@@ -44,9 +44,13 @@ class CategoryArticleModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items-is-home'){
-            $query = $this->select('id','name','slug','display')
-                          ->where('status','=','active')
-                          ->where('is_home','=','1');
+
+            $query = $this->select('ca.id','cat.name','ca.slug','ca.display')
+                          ->from('category_article as ca')
+                          ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'ca.id')
+                          ->where('ca.status','=','active')
+                          ->where('ca.is_home','=','1')
+                          ->where('locale','=',$params['locale']);
             $result = $query->get()->toArray();
         }
 
