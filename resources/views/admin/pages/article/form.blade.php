@@ -7,10 +7,12 @@
     @include('admin.templates.error')
     @php
         $itemEn = [];
-        foreach($item['translations'] as $itemTrans){
-            if($itemTrans['locale'] == 'en'){
-                $itemEn = $itemTrans;
-                break;
+        if(isset($item)){
+            foreach($item['translations'] as $itemTrans){
+                if($itemTrans['locale'] == 'en'){
+                    $itemEn = $itemTrans;
+                    break;
+                }
             }
         }
     @endphp
@@ -27,13 +29,13 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active in" id="formvn" role="tabpanel" aria-labelledby="formvn-tab">
-                        @include('admin.pages.article.form-add-vi')
+                        @include('admin.pages.article.form-vi')
                     </div>
                     <div class="tab-pane fade" id="formen" role="tabpanel" aria-labelledby="formen-tab">
-                        @include('admin.pages.article.form-add-en',['itemEn'=>$itemEn])
+                        @include('admin.pages.article.form-en',['itemEn'=>$itemEn])
                     </div>
                 </div>
-                @include('admin.pages.article.form-add-merged')
+                @include('admin.pages.article.form-merged')
             </div>
         </div>
     </div>
