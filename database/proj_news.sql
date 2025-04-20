@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 18, 2025 lúc 03:54 AM
+-- Thời gian đã tạo: Th4 20, 2025 lúc 05:50 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -387,31 +387,32 @@ CREATE TABLE `category_article_translations` (
   `id` int(11) NOT NULL,
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `category_article_id` int(11) DEFAULT NULL,
-  `locale` varchar(11) DEFAULT NULL
+  `locale` varchar(11) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `category_article_translations`
 --
 
-INSERT INTO `category_article_translations` (`id`, `name`, `category_article_id`, `locale`) VALUES
-(1, 'Thể Thao', 2, 'vi'),
-(3, 'Giáo dục', 3, 'vi'),
-(5, 'Sức khỏe', 4, 'vi'),
-(8, 'Tourism', 5, 'en'),
-(9, 'Khoa học', 6, 'vi'),
-(11, 'Số hóa', 7, 'vi'),
-(13, 'Xe - Ô tô', 8, 'vi'),
-(15, 'Kinh doanh', 9, 'vi'),
-(17, 'Thể thao child001', 10, 'vi'),
-(10, 'Science', 6, 'en'),
-(2, 'Sport', 2, 'en'),
-(4, 'Education', 3, 'en'),
-(6, 'Health', 4, 'en'),
-(12, 'Digitalization', 7, 'en'),
-(14, 'Cars', 8, 'en '),
-(16, 'Business', 9, 'en'),
-(18, 'Sport child001', 10, 'en');
+INSERT INTO `category_article_translations` (`id`, `name`, `category_article_id`, `locale`, `slug`) VALUES
+(1, 'Thể Thao', 2, 'vi', NULL),
+(3, 'Giáo dục', 3, 'vi', NULL),
+(5, 'Sức khỏe', 4, 'vi', NULL),
+(8, 'Tourism', 5, 'en', NULL),
+(9, 'Khoa học', 6, 'vi', NULL),
+(11, 'Số hóa', 7, 'vi', NULL),
+(13, 'Xe - Ô tô', 8, 'vi', NULL),
+(15, 'Kinh doanh', 9, 'vi', NULL),
+(17, 'Thể thao child001', 10, 'vi', NULL),
+(10, 'Science', 6, 'en', NULL),
+(2, 'Sport', 2, 'en', NULL),
+(4, 'Education', 3, 'en', NULL),
+(6, 'Health', 4, 'en', NULL),
+(12, 'Digitalization', 7, 'en', NULL),
+(14, 'Cars', 8, 'en ', NULL),
+(16, 'Business', 9, 'en', NULL),
+(18, 'Sport child001', 10, 'en', NULL);
 
 -- --------------------------------------------------------
 
@@ -1249,7 +1250,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '2,2,4,4,4,7,7,7,2,2,2,7,7,7,4,4,4,4,4,4,4,4,4,4,4,4', 1),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '2,2,4,4,4,7,7,7,2,2,2,7,7,7,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', '2019-05-04 00:00:00', 'admin', '2025-03-19 00:00:00', 'admin', 'active', NULL, 2),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
@@ -2145,7 +2146,13 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (833, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-18 08:49:31', 42),
 (834, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-18 08:54:11', 42),
 (835, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-18 08:54:12', 42),
-(836, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-18 08:54:12', 42);
+(836, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-18 08:54:12', 42),
+(837, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:11:03', 42),
+(838, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:11:04', 42),
+(839, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:11:05', 42),
+(840, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:27', 42),
+(841, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42),
+(842, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2571,7 +2578,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=837;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=843;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

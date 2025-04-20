@@ -49,6 +49,20 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
         ->where('category_id', '[0-9]+');
     });
 
+    $prefixAlias    = 'ca';  // Thay đổi từ 'category' sang 'ca'
+    $controllerName = 'categoryArticle';
+
+    Route::group([], function () use ($prefixAlias, $controllerName) {
+        $controller = ucfirst($controllerName) . 'Controller@';
+
+        Route::get('{locale?}/'.'ca-{category_name}-{category_id}.php', [
+            'as'    => $controllerName . '/alias',
+            'uses'  => $controller . 'index'
+        ])->where('category_name', '[a-zA-Z0-9-_]+')
+          ->where('category_id', '[0-9]+')
+          ->defaults('locale', 'en');
+    });
+
     // ====================== ARTICLE ======================
     $prefix         =   'bai-viet';
     $controllerName =   'article';

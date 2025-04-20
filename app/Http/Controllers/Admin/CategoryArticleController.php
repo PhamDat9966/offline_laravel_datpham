@@ -8,7 +8,6 @@ use App\Models\CategoryArticleModel as MainModel;
 use App\Http\Requests\CategoryArticleRequest as MainRequest;
 use Config;
 use Illuminate\Support\Facades\DB;
-
 class CategoryArticleController extends AdminController
 {
     public function __construct()

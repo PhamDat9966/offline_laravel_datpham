@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
 use Config as Config;
+use App\Models\CategoryArticleTranslationModel;
 
 use Kalnoy\Nestedset\NodeTrait;
 
@@ -23,6 +24,12 @@ class CategoryArticleModel extends AdminModel
     use NodeTrait;
     protected $table    = 'category_article';
     protected $guarded  = [];
+
+    public function translations()
+    {
+        $this->table  = 'article';
+        return $this->hasMany(CategoryArticleTranslationModel::class, 'category_article_id', 'id');
+    }
 
     public function listItems($params = null,$options = null){
 
@@ -329,7 +336,9 @@ class CategoryArticleModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','slug','parent_id','status')
+           $result = $this::with(['translations' => function ($query) use ($params) {
+                    }])
+                    ->select('id','name','slug','parent_id','status')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
