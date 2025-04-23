@@ -325,6 +325,8 @@ class CategoryArticleModel extends AdminModel
 
         if($options['task'] == 'edit-item'){
 
+            $coreParams = array_diff_key($params,array_flip($this->crudNotActived));
+
             $params['modified_by']   = $userInfo['username'];
             $params['modified']      = date('Y-m-d');
 
@@ -333,6 +335,55 @@ class CategoryArticleModel extends AdminModel
             $query = $current = self::find($params['id']);
             $query->update($this->prepareParams($params));
             if($current->parent_id != $params['parent_id']) $query->prependToNode($parent)->save();
+
+            // Translation update
+            // Kiểm tra sự tồn tại bản dịch 'vi'
+            $existsVi = DB::table('category_article_translations')
+                            ->where('category_article_id', $params['id'])
+                            ->where('locale', 'vi')
+                            ->exists();
+
+            $categoryArticleVi = [
+                'name'    => $params['name-vi'],
+                'slug'    => $params['slug-vi']
+            ];
+
+            if ($existsVi) {
+                // Nếu có, thì update (dù có thể không thay đổi gì)
+                DB::table('category_article_translations')
+                    ->where('category_article_id', $params['id'])
+                    ->where('locale', 'vi')
+                    ->update($categoryArticleVi);
+            } else {
+                // Nếu chưa có thì insert mới
+                $categoryArticleVi['category_article_id'] = $params['id'];
+                $categoryArticleVi['locale']     = 'vi';
+                DB::table('category_article_translations')->insert($categoryArticleVi);
+            }
+
+            // Kiểm tra sự tồn tại bản dịch 'en'
+            $existsEn = DB::table('category_article_translations')
+                            ->where('category_article_id', $params['id'])
+                            ->where('locale', 'en')
+                            ->exists();
+
+            $categoryArticleEn = [
+                'name'    => $params['name-en'],
+                'slug'    => $params['slug-en']
+            ];
+
+            if ($existsEn) {
+            // Nếu có, thì update (dù có thể không thay đổi gì)
+            DB::table('category_article_translations')
+                ->where('category_article_id', $params['id'])
+                ->where('locale', 'en')
+                ->update($categoryArticleEn);
+            } else {
+                // Nếu chưa có thì insert mới
+                $categoryArticleEn['category_article_id'] = $params['id'];
+                $categoryArticleEn['locale']     = 'vi';
+                DB::table('category_article_translations')->insert($categoryArticleEn);
+            }
 
         }
 
