@@ -34,8 +34,7 @@
     $elements   = [
         [
             'label'     =>  Form::label('name', 'Tên', $formlabelAttr),
-            'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'element'   =>  $inputNameArticle
         ],
         [
             'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),

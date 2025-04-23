@@ -14,6 +14,7 @@ use Kalnoy\Nestedset\NodeTrait;
 
 class CategoryArticleModel extends AdminModel
 {
+
     // public function __construct(){
     //     $this->table                = 'category';
     //     $this->folderUpload         = 'category';
@@ -23,6 +24,7 @@ class CategoryArticleModel extends AdminModel
 
     use NodeTrait;
     protected $table    = 'category_article';
+    protected $crudNotActived = ['name-vi','slug-vi','name-en','slug-en'];
     protected $guarded  = [];
 
     public function translations()
@@ -290,24 +292,35 @@ class CategoryArticleModel extends AdminModel
             $params['created']      = date('Y-m-d');
             $parent                 = self::find($params['parent_id']); // Tạo parent Oject theo Nestedset
 
-            /* Save dữ liệu theo DB oject */
-            // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-
-            // self::insert($params);
-            //// OR use
-            //// DB::table('category')->insert($params);
-
-            /* Save dữ liệu theo eloquent */
-            // $this->table        = 'category';
-            // $this->name         = $params['name'];
-            // $this->slug         = $params['slug'];
-            // $this->status       = $params['status'];
-            // $this->created_by   = $params['created_by'];
-            // $this->created      = $params['created'];
-            // $this->save();
-
             /* Save dữ liệu với Nestedset có parent*/
-            self::create($this->prepareParams($params),$parent);
+            // Tạo coreParams bằng cách loại bỏ các trường translation
+            $coreParams = array_diff_key($params,array_flip($this->crudNotActived));
+
+            //Tạo node, tạo liên liên kết node cha, lây id.
+            $node = self::create($coreParams);
+            $node->appendToNode($parent)->save();
+
+            //self::create($this->prepareParams($coreParams),$parent);
+
+            //Lấy ID
+            $createdId = $node->id;
+
+            //Lưu thông tin tại `category_article_translations`
+            $categoryArticleVi = [
+                'category_article_id'   => $createdId,
+                'locale'                => 'vi',
+                'name'                  => $params['name-vi'],
+                'slug'                  => $params['slug-vi']
+            ];
+            DB::table('category_article_translations')->insert($categoryArticleVi);
+
+            $categoryArticleEn = [
+                'category_article_id'   => $createdId,
+                'locale'                => 'en',
+                'name'                  => $params['name-en'],
+                'slug'                  => $params['slug-en']
+            ];
+            DB::table('category_article_translations')->insert($categoryArticleEn);
         }
 
         if($options['task'] == 'edit-item'){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 20, 2025 lúc 05:50 AM
+-- Thời gian đã tạo: Th4 23, 2025 lúc 04:39 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -335,16 +335,17 @@ CREATE TABLE `category_article` (
 --
 
 INSERT INTO `category_article` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 20),
-(2, 'Thể Thao', 'cm-the-thao-2', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 3, 11, 14),
-(3, 'Giáo dục', 'cm-giao-duc-3', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 10, 15),
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 28),
+(2, 'Thể Thao', 'cm-the-thao-2', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 3, 11, 22),
+(3, 'Giáo dục', 'cm-giao-duc-3', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 10, 23),
 (4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 2, 9),
 (5, 'Du lịch', 'cm-du-lich-5', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 4, 3, 6),
 (6, 'Khoa học', 'cm-khoa-hoc-6', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 4, 7, 8),
 (7, 'Số hóa', 'cm-so-hoa-7', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 5, 4, 5),
-(8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 16, 17),
-(9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', 0, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-02-10 00:00:00', 'admin', 1, 18, 19),
-(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 2, 12, 13);
+(8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 24, 25),
+(9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', 0, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-02-10 00:00:00', 'admin', 1, 26, 27),
+(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 2, 12, 13),
+(18, 'Thể thao child002', 'cm-the-thao-child002-17', 'active', NULL, NULL, '2025-04-23 00:00:00', 'admin', '2025-04-23 00:00:00', 'admin', 2, 20, 21);
 
 --
 -- Bẫy `category_article`
@@ -412,7 +413,9 @@ INSERT INTO `category_article_translations` (`id`, `name`, `category_article_id`
 (12, 'Digitalization', 7, 'en', NULL),
 (14, 'Cars', 8, 'en ', NULL),
 (16, 'Business', 9, 'en', NULL),
-(18, 'Sport child001', 10, 'en', NULL);
+(18, 'Sport child001', 10, 'en', NULL),
+(19, 'Thể thao child002', 18, 'vi', 'cm-the-thao-child002-17'),
+(20, 'sport child002', 18, 'en', 'ca-sport-child002-17');
 
 -- --------------------------------------------------------
 
@@ -1219,7 +1222,7 @@ CREATE TABLE `totalelements` (
 
 INSERT INTO `totalelements` (`TableName`, `ElementCount`, `icon`) VALUES
 ('article', 23, '<i class=\"fa fa-newspaper-o\"></i>'),
-('category_article', 19, '<i class=\"fa fa-tasks\"></i>'),
+('category_article', 20, '<i class=\"fa fa-tasks\"></i>'),
 ('slider', 6, '<i class=\"fa fa-sliders\"></i>'),
 ('user', 9, '<i class=\"fa fa-users\"></i>');
 
@@ -2440,13 +2443,13 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT cho bảng `category_article`
 --
 ALTER TABLE `category_article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `category_article_translations`
 --
 ALTER TABLE `category_article_translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `category_product`

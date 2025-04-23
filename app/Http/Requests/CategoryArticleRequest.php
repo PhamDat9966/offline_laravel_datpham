@@ -19,6 +19,15 @@ class CategoryArticleRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        /* Tiền sử lý */
+        $this->merge([
+            'name' => $this->input('name-vi'),
+            'slug' => $this->input('slug-vi')
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,6 +35,8 @@ class CategoryArticleRequest extends FormRequest
      */
     public function rules()
     {
+        $task = 'add';
+
         $id         = $this->id;
         $condName   = "bail|required|between:3,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
         if(!empty($id)) {
