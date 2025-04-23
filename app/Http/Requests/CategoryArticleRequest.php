@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class CategoryArticleRequest extends FormRequest
 {
-    protected $table = "category_product";
+    protected $table = "category_article";
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -36,16 +36,20 @@ class CategoryArticleRequest extends FormRequest
     public function rules()
     {
         $task = 'add';
-
         $id         = $this->id;
-        $condName   = "bail|required|between:3,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"
+        $condName   = "bail|required|between:3,100|unique:$this->table,name";
         if(!empty($id)) {
-            $condName   = "bail|required|between:3,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
+            $condName   = "bail|required|between:3,100|unique:$this->table,name,$id";
         }
         $condSlug   = "bail|required";
+
+        $condNameEn   = "bail|required|between:3,100|unique:category_article_translations,name";
+        $condSlugEn   = "bail|required";
         return [
-            'name'          => $condName,
-            'slug'          => $condSlug,
+            'name-vi'       => $condName,
+            'slug-vi'       => $condSlug,
+            'name-en'       => $condNameEn,
+            'slug-en'       => $condSlugEn,
             'status'        => 'bail|in:active,inactive'
         ];
     }
@@ -53,9 +57,15 @@ class CategoryArticleRequest extends FormRequest
     public function messages()  // Định nghĩa lại url
     {
         return [
-            'name.required'         => 'Name không được rỗng',
-            'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
-            'slug.required'         => 'Link không được rỗng, hãy điền vào ô name để slug tự nhập',
+            'name-vi.required'      => 'Name tiếng việt không được rỗng',
+            'name-vi.min'           => 'Name tiếng việt :input chiều dài phải có ít nhất phải có :min ký tự',
+            'name-vi.unique'        => 'Name tiếng việt này đã tồn tại',
+            'slug-vi.required'      => 'Link tiếng việt không được rỗng, hãy điền vào ô name để slug tự nhập',
+            'name-en.required'      => 'Name tiếng anh không được rỗng',
+            'name-en.min'           => 'Name tiếng anh :input chiều dài phải có ít nhất phải có :min ký tự',
+            'name-en.unique'        => 'Name Tiếng anh này đã tồn tại',
+            'slug-en.required'      => 'Link tiếng anh không được rỗng, hãy điền vào ô name để slug tự nhập',
+            'status.in'             => 'Hãy chon status có giá trị là active hoặc inactive'
         ];
     }
 
