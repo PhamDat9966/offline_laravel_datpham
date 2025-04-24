@@ -24,7 +24,7 @@ class CategoryArticleModel extends AdminModel
 
     use NodeTrait;
     protected $table    = 'category_article';
-    protected $crudNotActived = ['name-vi','slug-vi','name-en','slug-en'];
+    protected $crudNotActived = ['name-vi','slug-vi','name-en','slug-en','category_article_id'];
     protected $guarded  = [];
 
     public function translations()
@@ -333,7 +333,7 @@ class CategoryArticleModel extends AdminModel
             $parent = self::find($params['parent_id']);
 
             $query = $current = self::find($params['id']);
-            $query->update($this->prepareParams($params));
+            $query->update($this->prepareParams($coreParams));
             if($current->parent_id != $params['parent_id']) $query->prependToNode($parent)->save();
 
             // Translation update

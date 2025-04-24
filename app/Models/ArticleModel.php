@@ -15,7 +15,7 @@ class ArticleModel extends AdminModel
         $this->table                = 'article as a';
         $this->folderUpload         = 'article';
         $this->fieldSearchAccepted  = ['name','content','slug'];
-        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','name-vi','name-en','slug-vi','slug-en','content-vi','content-en'];
+        $this->crudNotActived       = ['_token','thumb_current','taskAdd','taskEditInfo','taskChangeCategory','name-vi','name-en','slug-vi','slug-en','content-vi','content-en','article_id'];
     }
 
     public function translations()
