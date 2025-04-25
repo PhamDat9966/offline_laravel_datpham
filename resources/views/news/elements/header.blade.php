@@ -285,8 +285,22 @@
         $xhtmlMenuUser  = sprintf('<li><a href="%s">%s</a></li>',route('auth/logout'),$logoutChar);
     }
 
-    $xhtmlMenu          .= $xhtmlMenuUser.'</ul></nav>';
-    $xhtmlMenuMobile    .= $xhtmlMenuUser.'</ul></nav>';
+    $viFlag     = '/images/flags/vn.png';
+    $enFlag     = '/images/flags/us.png';
+
+    $langVI  = sprintf('<a href="%s" class="lang-btn" title="Tiếng Việt">
+                                    <img src="%s" alt="VI">
+                                </a>',route('home').'/vi',$viFlag);
+    $langEn  = sprintf('<a href="%s" class="lang-btn" title="Tiếng Anh">
+                                    <img src="%s" alt="En">
+                                </a>',route('home').'/en',$enFlag);
+
+
+    $multiLang           = '<li>'.$langVI.$langEn.'</li>';
+
+
+    $xhtmlMenu          .= $xhtmlMenuUser.$multiLang.'</ul></nav>';
+    $xhtmlMenuMobile    .= $xhtmlMenuUser.$multiLang.'</ul></nav>';
 
     //--end navbar--//
 
