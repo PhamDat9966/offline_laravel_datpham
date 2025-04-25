@@ -1,5 +1,5 @@
 @php
-    use App\Models\CategoryArticleModel as CategoryModel;
+    use App\Models\CategoryArticleModel as CategoryArticleModel;
     use App\Models\ArticleModel as ArticleModel;
     use App\Models\MenuModel as MenuModel;
     use App\Helpers\URL;
@@ -22,9 +22,11 @@
     //$itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu']);
     $itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu-with-locale']);
 
-    global $categoryMenu;
-    $categoryModel  = new CategoryModel();
-    $categoryMenu   = $categoryModel->listItems(null,['task'=>'news-list-items-navbar-menu-with-locale']);
+    global $categoryArticleModel;
+    $categoryArticleModel  = new CategoryArticleModel();
+    $categoryArticleModel   = $categoryArticleModel->listItems(null,['task'=>'news-list-items-navbar-menu-with-locale']);
+    //dd($categoryArticleModel);
+
     //Test command
     // $categoryTest   = $categoryModel->listItems(null,['task'=>'test-command-toTree']);
     // dd($categoryTest);
@@ -68,7 +70,7 @@
 
         // Sử dụng global để tham chiếu đến biến toàn cục
         global $xhtmlMenu;
-        global $categoryMenu;
+        global $categoryArticleModel;
         global $articleMenu;
         global $host;
         global $currentUrl;
@@ -130,7 +132,7 @@
 
                         /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
                           Nếu con có class active, thì cha sẽ được gắng class active */
-                       $classActiveCategoryFather = buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle, $categoryIdArticle,$locale);
+                       $classActiveCategoryFather = buildMenuCategory($categoryArticleModel, $ancestorCategoryIdsArticle, $categoryIdArticle,$locale);
                         if (strpos($classActiveCategoryFather, 'active') !== false) {
                             $classActiveCategoryFather = 'active';
                         }else{
@@ -144,7 +146,7 @@
 
 
                         /*Nhóm lệnh để kiểm tra $item['container'] == 'category' vì $classActiveCategoryFather và  if($item['container'] == 'category') sử dụng phương thức trùng nhau
-                         phải tắt $classActiveCategoryFather = buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
+                         phải tắt $classActiveCategoryFather = buildMenuCategory($categoryArticleModel, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
                             // $xhtmlMenu  .= '<li class="dropdown">
                             //                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
                             //                         '.$item['name'].'
@@ -152,7 +154,7 @@
                         /*End Nhóm lệnh kiểm tra*/
                         if($item['container'] == 'category'){
                             //Đây là danh mục, category.
-                            $xhtmlMenu .= buildMenuCategory($categoryMenu, $ancestorCategoryIdsArticle , $categoryIdArticle, $locale);
+                            $xhtmlMenu .= buildMenuCategory($categoryArticleModel, $ancestorCategoryIdsArticle , $categoryIdArticle, $locale);
                         }
 
                         if($item['container'] == 'article'){
@@ -230,9 +232,10 @@
         global $currentUrl;
         $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
-
-            $menuUrl = $host . "/$locale/" . $valueCategory['slug'] . '.php';
-
+            $menuUrl = $host."/$locale/";
+            if(!empty($valueCategory['slug'])){
+                $menuUrl = $host . "/$locale/" . $valueCategory['slug'] . '.php';
+            }
             // Kiểm tra URL của phần tử cha có khớp không
             $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
             // Class active cho trường hợp truy vấn đến article

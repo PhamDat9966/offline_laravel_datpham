@@ -83,7 +83,7 @@ class CategoryArticleModel extends AdminModel
                                 'category_article._lft',
                                 'category_article._rgt',
                                 'category_article.status',
-                                'category_article.slug',
+                                'cat.slug',
                                 'cat.name'
                             )
                             ->leftJoin('category_article_translations as cat', function ($join) use ($locale) {
@@ -155,12 +155,33 @@ class CategoryArticleModel extends AdminModel
 
         if($options['task'] == 'category-family-ancestors'){
             /* cách 01 */
-            $category = $this::find($params['category_id']); // Lấy phần tử con
+            $locale     = app()->getLocale();
+            $category   = $this::find($params['category_id']); // Lấy phần tử con
 
-            $result = $this::where('id', '>', 1) // Loại bỏ phần tử root
-                            ->where('_lft', '<=', $category->_lft) // Lấy các phần tử có _lft nhỏ hơn (tổ tiên), ở đây sử dụng dấu <= để lấy ds có chính nó
-                            ->where('_rgt', '>=', $category->_rgt) // Lấy các phần tử có _rgt lớn hơn
-                            ->orderBy('_lft') // Sắp xếp theo thứ tự phân cấp
+            // $result = $this::where('id', '>', 1) // Loại bỏ phần tử root
+            //                 ->where('_lft', '<=', $category->_lft) // Lấy các phần tử có _lft nhỏ hơn (tổ tiên), ở đây sử dụng dấu <= để lấy ds có chính nó
+            //                 ->where('_rgt', '>=', $category->_rgt) // Lấy các phần tử có _rgt lớn hơn
+            //                 ->orderBy('_lft') // Sắp xếp theo thứ tự phân cấp
+            //                 ->get()->toArray(); // Lấy các phần tử tổ tiên
+
+            $result = $this::select(
+                                'category_article.id',
+                                'category_article.parent_id',
+                                'category_article._lft',
+                                'category_article._rgt',
+                                'category_article.status',
+                                'cat.slug',
+                                'cat.name',
+                                'category_article.display'
+                            )
+                            ->leftJoin('category_article_translations as cat', function ($join) use ($locale) {
+                                $join->on('category_article.id', '=', 'cat.category_article_id')
+                                    ->where('cat.locale', '=', $locale);
+                            })
+                            ->where('category_article.id', '>', 1) // Loại bỏ phần tử root
+                            ->where('category_article._lft', '<=', $category->_lft) // Lấy các phần tử có _lft nhỏ hơn (tổ tiên), ở đây sử dụng dấu <= để lấy ds có chính nó
+                            ->where('category_article._rgt', '>=', $category->_rgt) // Lấy các phần tử có _rgt lớn hơn
+                            ->orderBy('category_article._lft') // Sắp xếp theo thứ tự phân cấp
                             ->get()->toArray(); // Lấy các phần tử tổ tiên
 
             /* cách 02: Dùng các phương thúc của nested set model */
@@ -398,12 +419,16 @@ class CategoryArticleModel extends AdminModel
     }
 
     public function getItem($params = null,$options = null){
+        $locale     = app()->getLocale();
         $result   = null;
         if($options['task'] == 'get-item'){
            $result = $this::with(['translations' => function ($query) use ($params) {
                     }])
-                    ->select('id','name','slug','parent_id','status')
-                    ->where('id', $params['id'])
+                    ->select('ca.id','cat.name','cat.slug','ca.parent_id','ca.status')
+                    ->from('category_article as ca')
+                    ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'ca.id')
+                    ->where('cat.locale',$locale)
+                    ->where('ca.id', $params['id'])
                     ->first();
                     //->get();
 
@@ -417,8 +442,11 @@ class CategoryArticleModel extends AdminModel
         }
 
         if($options['task'] == 'news-get-item'){
-            $result = $this::select('id','name','display')
-                    ->where('id', $params['category_id'])
+            $result = $this::select('ca.id','cat.name','ca.display')
+                    ->from('category_article as ca')
+                    ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'ca.id')
+                    ->where('ca.id', $params['category_id'])
+                    ->where('cat.locale',$locale)
                     ->first();
                     if($result != null) $result->toArray();
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 23, 2025 lúc 04:39 AM
+-- Thời gian đã tạo: Th4 25, 2025 lúc 05:08 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -103,7 +103,7 @@ INSERT INTO `article` (`id`, `category_id`, `name`, `slug`, `content`, `status`,
 (22, 6, 'Huawei nói lệnh cấm sẽ khiến Mỹ tụt hậu về 5G', 'bv-huawei-noi-lenh-cam-se-khien-my-tut-hau-ve-5g-22', '<p>Huawei khẳng định sắc lệnh mới của Mỹ sẽ chỉ c&agrave;ng khiến qu&aacute; tr&igrave;nh triển khai c&ocirc;ng nghệ 5G ở nước n&agrave;y th&ecirc;m chậm chạp v&agrave; đắt đỏ.</p>\r\n\r\n<p>H&atilde;ng c&ocirc;ng nghệ Trung Quốc tự nhận l&agrave; &quot;người dẫn đầu kh&ocirc;ng ai s&aacute;nh kịp về c&ocirc;ng nghệ 5G&quot;, n&ecirc;n việc bị hạn chế kinh doanh ở Mỹ chỉ dẫn đến kết cục l&agrave; Mỹ sẽ bị &quot;tụt lại ph&iacute;a sau&quot; trong việc triển khai c&ocirc;ng nghệ kết nối di động thế hệ mới</p>', 'active', 'nt1QxhKUXM.jpeg', '2019-05-17 00:00:00', 'hailan', '2024-08-29 00:00:00', 'admin', '2019-05-16', 'normal'),
 (23, 7, 'Asus ra mắt Zenfone 6 với camera lật tự động', 'bv-asus-ra-mat-zenfone-6-voi-camera-lat-tu-dong-23', '<p>Với thiết kế m&agrave;n h&igrave;nh tr&agrave;n viền ho&agrave;n to&agrave;n kh&ocirc;ng tai thỏ, camera ch&iacute;nh 48 megapixel tr&ecirc;n Zenfone 6 c&oacute; thể lật từ sau ra trước biến th&agrave;nh camera selfie.</p>\r\n\r\n<p>Zenfone 6 l&agrave; một trong những smartphone c&oacute; viền m&agrave;n h&igrave;nh mỏng nhất tr&ecirc;n thị trường với tỷ lệ m&agrave;n h&igrave;nh hiển thị chiếm tới 92% diện t&iacute;ch mặt trước. M&aacute;y c&oacute; m&agrave;n h&igrave;nh 6,4 inch tr&agrave;n viền ra cả bốn cạnh, kh&ocirc;ng tai thỏ như một số mẫu Zenfone trước v&agrave; cũng kh&ocirc;ng d&ugrave;ng thiết kế đục lỗ như Galaxy S10, S10+...</p>', 'active', 'aiC6j6fWZY.png', '2019-05-17 00:00:00', 'hailan', '2024-10-26 00:00:00', 'admin', '2019-05-16', 'normal'),
 (34, 7, 'trí tuệ nhân tạo AI', 'bv-tri-tue-nhan-tao-ai-34', '<p>Trong thời đại m&agrave; tiến bộ c&ocirc;ng nghệ kh&ocirc;ng chỉ l&agrave; một lựa chọn m&agrave; c&ograve;n l&agrave; điều cần thiết, c&aacute;c doanh nghiệp đang ng&agrave;y c&agrave;ng chuyển sang sử dụng Tr&iacute; tuệ nh&acirc;n tạo (AI) để hợp l&yacute; h&oacute;a hoạt động, n&acirc;ng cao hiệu quả v&agrave; đạt được hiệu quả hoạt động xuất sắc. Việc t&iacute;ch hợp AI trong khu&ocirc;n khổ Vận h&agrave;nh xuất sắc (Operational Excellence) hay Lean Six Sigma kh&ocirc;ng chỉ c&oacute; thể tối ưu h&oacute;a hoạt động, quy tr&igrave;nh v&agrave; hệ thống của c&ocirc;ng ty m&agrave; c&ograve;n đ&oacute;ng g&oacute;p đ&aacute;ng kể v&agrave;o văn h&oacute;a cải tiến li&ecirc;n tục v&agrave; tạo ra gi&aacute; trị.&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"http://proj_news.xyz/images/article/tri-tue-nhan-tao-ai-la-gi-ung-dung-nhu-the-nao-trong-cuoc-song--6.jpg\" style=\"height:354px; width:630px\" /></p>\r\n\r\n<p>B&agrave;i viết n&agrave;y t&igrave;m hiểu c&aacute;c c&acirc;u hỏi &#39;tại sao&#39;, &#39;c&aacute;i g&igrave;&#39;, &#39;như thế n&agrave;o&#39; v&agrave; &#39;điều g&igrave; sẽ xảy ra tiếp theo&#39; khi &aacute;p dụng AI trong kinh doanh, n&ecirc;u bật cả những cơ hội v&agrave; th&aacute;ch thức m&agrave; n&oacute; mang lại.</p>', 'active', 'cC2FlDJ7S3.jpg', '2024-08-23 00:00:00', 'admin', '2025-04-18 00:00:00', 'admin', NULL, 'normal'),
-(42, 4, 'Lợi ích của việc làm \"con Sen\"', 'bv-loi-ich-cua-viec-lam-con-sen-42', '<p>M&egrave;o ch&iacute;nh l&agrave; người bạn l&yacute; tưởng để gi&uacute;p họ kh&ocirc;ng c&ograve;n cảm gi&aacute;c c&ocirc; đơn. Sự hiện diện của m&egrave;o trong cuộc sống hằng ng&agrave;y khiến bạn giảm cảm gi&aacute;c bị c&ocirc; lập, tăng cảm gi&aacute;c hạnh ph&uacute;c. Đặc biệt khi &acirc;u yếm con m&egrave;o, chơi c&ugrave;ng ch&uacute;ng th&igrave; c&oacute; thể&nbsp;<strong>điều chỉnh nhịp tim, giảm mức cholesterol từ đ&oacute; gi&uacute;p giảm khả năng mắc bệnh tim</strong>.</p>\r\n\r\n<p><img alt=\"\" src=\"http://proj_news.xyz/images/cho be choi voi meo cung.jpg\" style=\"height:342px; width:512px\" /></p>\r\n\r\n<h3>Người bạn của người sống độc th&acirc;n</h3>\r\n\r\n<p>Phần lớn cuộc sống hiện nay c&oacute; nhiều người chọn sống độc th&acirc;n. M&egrave;o ch&iacute;nh l&agrave; người bạn l&yacute; tưởng để gi&uacute;p họ kh&ocirc;ng c&ograve;n cảm gi&aacute;c c&ocirc; đơn. Sự hiện diện của m&egrave;o trong cuộc sống hằng ng&agrave;y khiến bạn giảm cảm gi&aacute;c bị c&ocirc; lập, tăng cảm gi&aacute;c hạnh ph&uacute;c. Đặc biệt khi &acirc;u yếm con m&egrave;o, chơi c&ugrave;ng ch&uacute;ng th&igrave; c&oacute; thể điều chỉnh nhịp tim, giảm mức cholesterol từ đ&oacute; gi&uacute;p giảm khả năng mắc&nbsp;bệnh tim.</p>\r\n\r\n<h3>Chữa bệnh, l&agrave;m dịu t&acirc;m hồn</h3>\r\n\r\n<p>Tiếng k&ecirc;u gừ gừ của m&egrave;o l&uacute;c ch&uacute;ng thoải m&aacute;i c&oacute; thể gi&uacute;p giảm căng thẳng cho người nu&ocirc;i m&egrave;o. Đặc biệt tiếng k&ecirc;u đặc trưng n&agrave;y gi&uacute;p l&agrave;m dịu thần kinh, l&agrave;m giảm c&aacute;c hormone g&acirc;y căng thẳng như&nbsp;cortisol, hạ huyết &aacute;p. Chưa kể tiếng k&ecirc;u n&agrave;y của m&egrave;o c&oacute; thể t&aacute;c động t&iacute;ch cực đến tr&iacute; nhớ, tần số k&ecirc;u của m&egrave;o tương ứng với tần số rung của điện c&oacute; thể đưa v&agrave;o điều trị bệnh về xương.</p>\r\n\r\n<h3>Cải thiện chất lượng giấc ngủ, tăng cường hệ miễn dịch</h3>\r\n\r\n<p>M&egrave;o mang lại năng lượng rất l&agrave;nh t&iacute;nh, bản chất của ch&uacute;ng l&agrave; lo&agrave;i vật dịu d&agrave;ng, độc lập. Thường xuy&ecirc;n tiếp x&uacute;c với m&egrave;o c&oacute; thể giảm bớt c&aacute;c triệu chứng g&acirc;y rối loạn giấc ngủ. Chưa kể m&egrave;o rất th&iacute;ch ngủ với người, &ocirc;m ch&uacute;ng ngủ c&ugrave;ng tiếng k&ecirc;u gừ gừ đặc trưng khi m&egrave;o chui r&uacute;c v&agrave;o ngực của bạn sẽ th&uacute;c đẩy bạn ch&igrave;m nhanh v&agrave;o giấc ngủ. B&ecirc;n cạnh đ&oacute;&nbsp;<a href=\"https://nhathuoclongchau.com.vn/bai-viet/long-meo-co-hai-khong-mot-so-cach-giup-lam-giam-tac-hai-cua-long-meo.html\">l&ocirc;ng m&egrave;o</a>, nước bọt, vi tr&ugrave;ng kh&aacute;c gi&uacute;p r&egrave;n luyện cho hệ thống miễn dịch của con người, l&agrave;m cho ch&uacute;ng ta x&acirc;y dựng được hệ thống ph&ograve;ng mầm bệnh c&ugrave;ng c&aacute;c chất g&acirc;y dị ứng.</p>', 'active', 'JieTnUD6Un.jpg', '2025-04-17 00:00:00', 'admin', '2025-04-18 00:00:00', 'admin', NULL, NULL);
+(42, 4, 'Lợi ích của việc làm \"con Sen\"', 'bv-loi-ich-cua-viec-lam-con-sen-42', '<p>M&egrave;o ch&iacute;nh l&agrave; người bạn l&yacute; tưởng để gi&uacute;p họ kh&ocirc;ng c&ograve;n cảm gi&aacute;c c&ocirc; đơn. Sự hiện diện của m&egrave;o trong cuộc sống hằng ng&agrave;y khiến bạn giảm cảm gi&aacute;c bị c&ocirc; lập, tăng cảm gi&aacute;c hạnh ph&uacute;c. Đặc biệt khi &acirc;u yếm con m&egrave;o, chơi c&ugrave;ng ch&uacute;ng th&igrave; c&oacute; thể&nbsp;<strong>điều chỉnh nhịp tim, giảm mức cholesterol từ đ&oacute; gi&uacute;p giảm khả năng mắc bệnh tim</strong>.</p>\r\n\r\n<p><img alt=\"\" src=\"http://proj_news.xyz/images/cho be choi voi meo cung.jpg\" style=\"height:342px; width:512px\" /></p>\r\n\r\n<h3>Người bạn của người sống độc th&acirc;n</h3>\r\n\r\n<p>Phần lớn cuộc sống hiện nay c&oacute; nhiều người chọn sống độc th&acirc;n. M&egrave;o ch&iacute;nh l&agrave; người bạn l&yacute; tưởng để gi&uacute;p họ kh&ocirc;ng c&ograve;n cảm gi&aacute;c c&ocirc; đơn. Sự hiện diện của m&egrave;o trong cuộc sống hằng ng&agrave;y khiến bạn giảm cảm gi&aacute;c bị c&ocirc; lập, tăng cảm gi&aacute;c hạnh ph&uacute;c. Đặc biệt khi &acirc;u yếm con m&egrave;o, chơi c&ugrave;ng ch&uacute;ng th&igrave; c&oacute; thể điều chỉnh nhịp tim, giảm mức cholesterol từ đ&oacute; gi&uacute;p giảm khả năng mắc&nbsp;bệnh tim.</p>\r\n\r\n<h3>Chữa bệnh, l&agrave;m dịu t&acirc;m hồn</h3>\r\n\r\n<p>Tiếng k&ecirc;u gừ gừ của m&egrave;o l&uacute;c ch&uacute;ng thoải m&aacute;i c&oacute; thể gi&uacute;p giảm căng thẳng cho người nu&ocirc;i m&egrave;o. Đặc biệt tiếng k&ecirc;u đặc trưng n&agrave;y gi&uacute;p l&agrave;m dịu thần kinh, l&agrave;m giảm c&aacute;c hormone g&acirc;y căng thẳng như&nbsp;cortisol, hạ huyết &aacute;p. Chưa kể tiếng k&ecirc;u n&agrave;y của m&egrave;o c&oacute; thể t&aacute;c động t&iacute;ch cực đến tr&iacute; nhớ, tần số k&ecirc;u của m&egrave;o tương ứng với tần số rung của điện c&oacute; thể đưa v&agrave;o điều trị bệnh về xương.</p>\r\n\r\n<h3>Cải thiện chất lượng giấc ngủ, tăng cường hệ miễn dịch</h3>\r\n\r\n<p>M&egrave;o mang lại năng lượng rất l&agrave;nh t&iacute;nh, bản chất của ch&uacute;ng l&agrave; lo&agrave;i vật dịu d&agrave;ng, độc lập. Thường xuy&ecirc;n tiếp x&uacute;c với m&egrave;o c&oacute; thể giảm bớt c&aacute;c triệu chứng g&acirc;y rối loạn giấc ngủ. Chưa kể m&egrave;o rất th&iacute;ch ngủ với người, &ocirc;m ch&uacute;ng ngủ c&ugrave;ng tiếng k&ecirc;u gừ gừ đặc trưng khi m&egrave;o chui r&uacute;c v&agrave;o ngực của bạn sẽ th&uacute;c đẩy bạn ch&igrave;m nhanh v&agrave;o giấc ngủ. B&ecirc;n cạnh đ&oacute;&nbsp;<a href=\"https://nhathuoclongchau.com.vn/bai-viet/long-meo-co-hai-khong-mot-so-cach-giup-lam-giam-tac-hai-cua-long-meo.html\">l&ocirc;ng m&egrave;o</a>, nước bọt, vi tr&ugrave;ng kh&aacute;c gi&uacute;p r&egrave;n luyện cho hệ thống miễn dịch của con người, l&agrave;m cho ch&uacute;ng ta x&acirc;y dựng được hệ thống ph&ograve;ng mầm bệnh c&ugrave;ng c&aacute;c chất g&acirc;y dị ứng.</p>', 'active', 'JieTnUD6Un.jpg', '2025-04-17 00:00:00', 'admin', '2025-04-24 00:00:00', 'admin', NULL, NULL);
 
 --
 -- Bẫy `article`
@@ -335,17 +335,17 @@ CREATE TABLE `category_article` (
 --
 
 INSERT INTO `category_article` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 28),
-(2, 'Thể Thao', 'cm-the-thao-2', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 3, 11, 22),
-(3, 'Giáo dục', 'cm-giao-duc-3', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 10, 23),
-(4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-10-21 00:00:00', 'admin', 1, 2, 9),
-(5, 'Du lịch', 'cm-du-lich-5', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 4, 3, 6),
-(6, 'Khoa học', 'cm-khoa-hoc-6', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 4, 7, 8),
-(7, 'Số hóa', 'cm-so-hoa-7', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 5, 4, 5),
-(8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2024-09-20 00:00:00', 'dat123', 1, 24, 25),
-(9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', 0, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-02-10 00:00:00', 'admin', 1, 26, 27),
-(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-02-11 00:00:00', 'admin', 2, 12, 13),
-(18, 'Thể thao child002', 'cm-the-thao-child002-17', 'active', NULL, NULL, '2025-04-23 00:00:00', 'admin', '2025-04-23 00:00:00', 'admin', 2, 20, 21);
+(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 32),
+(2, 'Thể Thao', 'cm-the-thao-2', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 3, 13, 26),
+(3, 'Giáo dục', 'cm-giao-duc-3', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 1, 12, 27),
+(4, 'Sức khỏe', 'cm-suc-khoe-4', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 1, 2, 11),
+(5, 'Du lịch', 'cm-du-lich-5', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 4, 3, 6),
+(6, 'Khoa học', 'cm-khoa-hoc-6', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 4, 7, 8),
+(7, 'Số hóa', 'cm-so-hoa-7', 'active', 1, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 5, 4, 5),
+(8, 'Xe - Ô tô', 'cm-xe-o-to-8', 'active', 1, 'list', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 1, 28, 29),
+(9, 'Kinh doanh', 'cm-kinh-doanh-9', 'active', 0, 'grid', '2024-09-10 00:00:00', 'dat123', '2025-04-25 00:00:00', 'admin', 1, 30, 31),
+(10, 'Thể thao child001', 'cm-the-thao-child001-10', 'active', 0, 'list', '2024-09-10 00:00:00', 'dat123', '2025-04-24 00:00:00', 'admin', 2, 14, 15),
+(18, 'Thể thao child003', 'cm-the-thao-child003-18', 'active', NULL, NULL, '2025-04-23 00:00:00', 'admin', '2025-04-24 00:00:00', 'admin', 2, 22, 23);
 
 --
 -- Bẫy `category_article`
@@ -397,25 +397,26 @@ CREATE TABLE `category_article_translations` (
 --
 
 INSERT INTO `category_article_translations` (`id`, `name`, `category_article_id`, `locale`, `slug`) VALUES
-(1, 'Thể Thao', 2, 'vi', NULL),
-(3, 'Giáo dục', 3, 'vi', NULL),
-(5, 'Sức khỏe', 4, 'vi', NULL),
-(8, 'Tourism', 5, 'en', NULL),
-(9, 'Khoa học', 6, 'vi', NULL),
-(11, 'Số hóa', 7, 'vi', NULL),
-(13, 'Xe - Ô tô', 8, 'vi', NULL),
-(15, 'Kinh doanh', 9, 'vi', NULL),
-(17, 'Thể thao child001', 10, 'vi', NULL),
-(10, 'Science', 6, 'en', NULL),
-(2, 'Sport', 2, 'en', NULL),
-(4, 'Education', 3, 'en', NULL),
-(6, 'Health', 4, 'en', NULL),
-(12, 'Digitalization', 7, 'en', NULL),
-(14, 'Cars', 8, 'en ', NULL),
-(16, 'Business', 9, 'en', NULL),
-(18, 'Sport child001', 10, 'en', NULL),
-(19, 'Thể thao child002', 18, 'vi', 'cm-the-thao-child002-17'),
-(20, 'sport child002', 18, 'en', 'ca-sport-child002-17');
+(1, 'Thể Thao', 2, 'vi', 'cm-the-thao-2'),
+(3, 'Giáo dục', 3, 'vi', 'cm-giao-duc-3'),
+(5, 'Sức khỏe', 4, 'vi', 'cm-suc-khoe-4'),
+(8, 'Tourism', 5, 'en', 'ca-tourism-5'),
+(9, 'Khoa học', 6, 'vi', 'cm-khoa-hoc-6'),
+(11, 'Số hóa', 7, 'vi', 'cm-so-hoa-7'),
+(13, 'Xe - Ô tô', 8, 'vi', 'cm-xe-o-to-8'),
+(15, 'Kinh doanh', 9, 'vi', 'cm-kinh-doanh-9'),
+(17, 'Thể thao child001', 10, 'vi', 'cm-the-thao-child001-10'),
+(10, 'Science', 6, 'en', 'ca-science-6'),
+(2, 'Sport', 2, 'en', 'ca-sport-2'),
+(4, 'Education', 3, 'en', 'ca-education-3'),
+(6, 'Health', 4, 'en', 'ca-health-4'),
+(12, 'Digitalization', 7, 'en', 'ca-digitalization-7'),
+(14, 'car', 8, 'en ', 'ca-car-8'),
+(16, 'Business', 9, 'en', 'ca-business-9'),
+(18, 'Sport child001', 10, 'en', 'ca-sport-child001-10'),
+(19, 'Thể thao child003', 18, 'vi', 'cm-the-thao-child003-18'),
+(20, 'sport child003', 18, 'en', 'ca-sport-child003-18'),
+(23, 'Du lịch', 5, 'vi', 'cm-du-lich-5');
 
 -- --------------------------------------------------------
 
@@ -2443,13 +2444,13 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT cho bảng `category_article`
 --
 ALTER TABLE `category_article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `category_article_translations`
 --
 ALTER TABLE `category_article_translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `category_product`
