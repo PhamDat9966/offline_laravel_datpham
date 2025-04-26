@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 25, 2025 lúc 05:08 AM
+-- Thời gian đã tạo: Th4 26, 2025 lúc 07:49 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -1150,7 +1150,7 @@ INSERT INTO `shipping` (`id`, `name`, `cost`, `status`, `ordering`, `created`, `
 --
 
 CREATE TABLE `slider` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
   `link` varchar(200) NOT NULL,
@@ -1167,12 +1167,13 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `name`, `description`, `link`, `thumb`, `created`, `created_by`, `modified`, `modified_by`, `status`) VALUES
-(1, 'Khóa học lập trình Frontend Master', 'Khóa học sẽ giúp bạn trở thành một chuyên gia Frontend với đầy đủ các kiến thức về HTML, CSS, JavaScript, Bootstrap, jQuery, chuyển PSD thành HTML ...', 'https://zendvn.com/khoa-hoc-lap-trinh-frontend-master/', 'rEpDUQCxe4.jpeg', '2024-04-01 00:00:00', 'hailan', '2024-04-12 13:28:03', 'hailan', 'active'),
-(2, 'Học lập trình trực tuyến', 'Học trực tuyến giúp bạn tiết kiệm chi phí, thời gian, cập nhật được nhiều kiến thức mới nhanh nhất và hiệu quả nhất', 'https://zendvn.com/', 'K6B1O6UNCb.jpeg', '2019-04-18 00:00:00', 'hailan', '2019-04-24 13:28:06', 'hailan', 'inactive'),
-(3, 'Ưu đãi học phí', 'Tổng hợp các trương trình ưu đãi học phí hàng tuần, hàng tháng đến tất các các bạn với các mức giảm đặc biệt 50%, 70%,..', 'https://zendvn.com/uu-dai-hoc-phi-tai-zendvn/', 'LWi6hINpXz.jpeg', '2019-04-24 00:00:00', 'hailan', '2024-07-02 00:00:00', 'admin', 'active'),
-(4, 'Lập trình PHP', 'Khóa học được xây dựng dựa trên kinh nghiệm làm dự án thực tế của ZendVN, ngoài ra khóa học còn sử dụng các tài liệu từ trang Google, stackoverflow.com và các trang web khác.', 'https://zendvn.com/khoa-hoc-lap-trinh-php-chuyen-sau', 'UIFAVEbuoa.jpeg', '2019-04-24 00:00:00', 'hailan', '2024-03-25 00:00:00', 'admin', 'active'),
-(5, 'Lập trình Laravel', 'Đây là khóa học nâng cao, ZendVN chỉ nhận các bạn học viên đã học xong khóa học Lập trình PHP Offline tại ZendVN; hoặc các bạn đã có làm các project về PHP, MVC, OOP, jQuery Ajax\r\nKhóa học Lập trình Laravel sẽ hướng dẫn học viên sử dụng Laravel để xây dựng nhiều loại website khác nhau trong thực tế: doanh nghiệp, tin tức, bán hàng, đa ngôn ngữ. ', 'https://zendvn.com/lap-trinh-laravel-offline-off', 'DZeaWRlkPA.png', '2019-04-24 00:00:00', 'hailan', '2024-03-18 00:00:00', 'dat123', 'active'),
-(6, 'Nền tảng & Tư duy lập trình', 'Khóa học Nền tảng & Tư duy lập trình giúp bạn trang bị nền tảng lập trình vững chắc để có thể theo được nghề lập trình và duy trì đam mê với nghề. Các kỹ năng phân tích giải quyết vấn đề, tìm kiếm Google, xử lý lỗi cũng sẽ được hướng dẫn trong khóa học.', 'https://zendvn.com/nen-tang-va-tu-duy-lap-trinh-off', 'ofcAvQCCIQ.png', '2024-07-01 00:00:00', 'hailan', '2024-07-12 00:00:00', 'dat123', 'active');
+(1, 'Khóa học lập trình Frontend Master', 'Khóa học sẽ giúp bạn trở thành một chuyên gia Frontend với đầy đủ các kiến thức về HTML, CSS, JavaScript, Bootstrap, jQuery, chuyển PSD thành HTML ...', 'https://zendvn.com/khoa-hoc-lap-trinh-frontend-master/', 'rEpDUQCxe4.jpeg', '2024-04-01 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'active'),
+(2, 'Học lập trình trực tuyến', 'Học trực tuyến giúp bạn tiết kiệm chi phí, thời gian, cập nhật được nhiều kiến thức mới nhanh nhất và hiệu quả nhất', 'https://zendvn.com/', 'K6B1O6UNCb.jpeg', '2019-04-18 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'inactive'),
+(3, 'Ưu đãi học phí', 'Tổng hợp các trương trình ưu đãi học phí hàng tuần, hàng tháng đến tất các các bạn với các mức giảm đặc biệt 50%, 70%,..', 'https://zendvn.com/uu-dai-hoc-phi-tai-zendvn/', 'LWi6hINpXz.jpeg', '2019-04-24 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'active'),
+(4, 'Lập trình PHP', 'Khóa học được xây dựng dựa trên kinh nghiệm làm dự án thực tế của ZendVN, ngoài ra khóa học còn sử dụng các tài liệu từ trang Google, stackoverflow.com và các trang web khác.', 'https://zendvn.com/khoa-hoc-lap-trinh-php-chuyen-sau', 'UIFAVEbuoa.jpeg', '2019-04-24 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'active'),
+(5, 'Lập trình Laravel', 'Đây là khóa học nâng cao, ZendVN chỉ nhận các bạn học viên đã học xong khóa học Lập trình PHP Offline tại ZendVN; hoặc các bạn đã có làm các project về PHP, MVC, OOP, jQuery AjaxKhóa học Lập trình Laravel sẽ hướng dẫn học viên sử dụng Laravel để xây dựng nhiều loại website khác nhau trong thực tế: doanh nghiệp, tin tức, bán hàng, đa ngôn ngữ.', 'https://zendvn.com/lap-trinh-laravel-offline-off', 'DZeaWRlkPA.png', '2019-04-24 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'active'),
+(6, 'Nền tảng & Tư duy lập trình', 'Khóa học Nền tảng & Tư duy lập trình giúp bạn trang bị nền tảng lập trình vững chắc để có thể theo được nghề lập trình và duy trì đam mê với nghề. Các kỹ năng phân tích giải quyết vấn đề, tìm kiếm Google, xử lý lỗi cũng sẽ được hướng dẫn trong khóa học.', 'https://zendvn.com/nen-tang-va-tu-duy-lap-trinh-off', 'ofcAvQCCIQ.png', '2024-07-01 00:00:00', 'hailan', '2025-04-26 00:00:00', 'admin', 'active'),
+(13, 'Racoon là loài động vật dễ thương cute for my que', 'Gấu mèo (danh pháp hai phần: Procyon lotor) hay raccoon là một loài động vật có vú bản địa Bắc Mỹ. Đây là loài lớn nhất trong họ Gấu mèo (Procyonidae).', 'https://vi.wikipedia.org/wiki/G%E1%BA%A5u_m%C3%A8o', 'vUPIxiOyxW.jpg', '2025-04-26 00:00:00', 'admin', '2025-04-26 00:00:00', 'admin', 'active');
 
 --
 -- Bẫy `slider`
@@ -1208,6 +1209,40 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `slider_translations`
+--
+
+CREATE TABLE `slider_translations` (
+  `id` int(20) UNSIGNED NOT NULL,
+  `slider_id` int(11) UNSIGNED NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `slider_translations`
+--
+
+INSERT INTO `slider_translations` (`id`, `slider_id`, `locale`, `name`, `description`) VALUES
+(1, 13, 'vi', 'Racoon là loài động vật dễ thương cute for my que', 'Gấu mèo (danh pháp hai phần: Procyon lotor) hay raccoon là một loài động vật có vú bản địa Bắc Mỹ. Đây là loài lớn nhất trong họ Gấu mèo (Procyonidae).'),
+(2, 13, 'en', 'Racoon is cute for my que', 'The raccoon (Procyon lotor) is a mammal native to North America. It is the largest species in the family Procyonidae.'),
+(3, 6, 'vi', 'Nền tảng & Tư duy lập trình', 'Khóa học Nền tảng & Tư duy lập trình giúp bạn trang bị nền tảng lập trình vững chắc để có thể theo được nghề lập trình và duy trì đam mê với nghề. Các kỹ năng phân tích giải quyết vấn đề, tìm kiếm Google, xử lý lỗi cũng sẽ được hướng dẫn trong khóa học.'),
+(4, 6, 'en', 'Programming Foundations and Mindset', 'The Programming Foundation & Thinking course helps you equip yourself with a solid programming foundation so you can pursue a programming career and maintain your passion for the profession. Problem-solving analysis skills, Google searches, and error handling will also be taught in the course.'),
+(5, 5, 'vi', 'Lập trình Laravel', 'Đây là khóa học nâng cao, ZendVN chỉ nhận các bạn học viên đã học xong khóa học Lập trình PHP Offline tại ZendVN; hoặc các bạn đã có làm các project về PHP, MVC, OOP, jQuery AjaxKhóa học Lập trình Laravel sẽ hướng dẫn học viên sử dụng Laravel để xây dựng nhiều loại website khác nhau trong thực tế: doanh nghiệp, tin tức, bán hàng, đa ngôn ngữ.'),
+(6, 5, 'en', 'Laravel Programming', 'This is an advanced course, ZendVN only accepts students who have completed the Offline PHP Programming course at ZendVN; or students who have done projects on PHP, MVC, OOP, jQuery Ajax. The Laravel Programming course will guide students to use Laravel to build many different types of websites in reality: business, news, sales, multilingual.'),
+(7, 4, 'vi', 'Lập trình PHP', 'Khóa học được xây dựng dựa trên kinh nghiệm làm dự án thực tế của ZendVN, ngoài ra khóa học còn sử dụng các tài liệu từ trang Google, stackoverflow.com và các trang web khác.'),
+(8, 4, 'en', 'PHP Programming', 'The course is built on ZendVN\'s real project experience, and also uses materials from Google, stackoverflow.com and other websites.'),
+(9, 3, 'vi', 'Ưu đãi học phí', 'Tổng hợp các trương trình ưu đãi học phí hàng tuần, hàng tháng đến tất các các bạn với các mức giảm đặc biệt 50%, 70%,..'),
+(10, 3, 'en', 'Tuition discount', 'Summary of weekly and monthly tuition discount programs for all of you with special discounts of 50%, 70%,..'),
+(11, 2, 'vi', 'Học lập trình trực tuyến', 'Học trực tuyến giúp bạn tiết kiệm chi phí, thời gian, cập nhật được nhiều kiến thức mới nhanh nhất và hiệu quả nhất'),
+(12, 2, 'en', 'Learn programming online', 'Online learning helps you save money, time, and update new knowledge quickly and effectively.'),
+(13, 1, 'vi', 'Khóa học lập trình Frontend Master', 'Khóa học sẽ giúp bạn trở thành một chuyên gia Frontend với đầy đủ các kiến thức về HTML, CSS, JavaScript, Bootstrap, jQuery, chuyển PSD thành HTML ...'),
+(14, 1, 'en', 'Frontend Master Programming Course', 'The course will help you become a Frontend expert with full knowledge of HTML, CSS, JavaScript, Bootstrap, jQuery, converting PSD to HTML ...');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `totalelements`
 --
 
@@ -1224,7 +1259,7 @@ CREATE TABLE `totalelements` (
 INSERT INTO `totalelements` (`TableName`, `ElementCount`, `icon`) VALUES
 ('article', 23, '<i class=\"fa fa-newspaper-o\"></i>'),
 ('category_article', 20, '<i class=\"fa fa-tasks\"></i>'),
-('slider', 6, '<i class=\"fa fa-sliders\"></i>'),
+('slider', 7, '<i class=\"fa fa-sliders\"></i>'),
 ('user', 9, '<i class=\"fa fa-users\"></i>');
 
 -- --------------------------------------------------------
@@ -2156,7 +2191,10 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (839, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:11:05', 42),
 (840, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:27', 42),
 (841, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42),
-(842, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42);
+(842, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42),
+(843, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:19', 42),
+(844, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:20', 42),
+(845, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:21', 42);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2377,6 +2415,13 @@ ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Chỉ mục cho bảng `slider_translations`
+--
+ALTER TABLE `slider_translations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_slider_translations_slider` (`slider_id`);
+
+--
 -- Chỉ mục cho bảng `totalelements`
 --
 ALTER TABLE `totalelements`
@@ -2570,7 +2615,13 @@ ALTER TABLE `shipping`
 -- AUTO_INCREMENT cho bảng `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT cho bảng `slider_translations`
+--
+ALTER TABLE `slider_translations`
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
@@ -2582,7 +2633,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=843;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=846;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -2655,6 +2706,12 @@ ALTER TABLE `product_has_attribute`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `slider_translations`
+--
+ALTER TABLE `slider_translations`
+  ADD CONSTRAINT `fk_slider_translations_slider` FOREIGN KEY (`slider_id`) REFERENCES `slider` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

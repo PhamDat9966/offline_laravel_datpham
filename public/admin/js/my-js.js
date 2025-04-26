@@ -1273,5 +1273,44 @@ $(document).ready(function() {
         // Submit form
         $mergedForm.submit();
     });
+
+    $('.btn-merged-slider').on('click', function () {
+        //e.preventDefault(); // Chặn submit mặc định để xem log
+
+        const $mergedForm = $('#merged-form');
+
+        // Copy CSRF token từ form gốc nếu cần
+        const csrf = $('input[name="_token"]').first().clone();
+        $mergedForm.append(csrf);
+
+        // Duyệt qua tất cả input trong #form-vi rồi tích hợp các input đó vào #merged-form
+        $('#form-vi').find('input, textarea, select').each(function () {
+            const name = $(this).attr('name');
+            const value = $(this).val();
+
+            console.log(`VI: ${name} = ${value}`);
+
+            const $input = $('<input>', {
+                type: 'hidden',
+                name: $(this).attr('name'),
+                value: $(this).val()
+            });
+            $mergedForm.append($input);
+        });
+
+        // Duyệt qua tất cả input trong #form-en rồi tích hợp các input đó vào #merged-form
+        $('#form-en').find('input, textarea, select').each(function () {
+            const $input = $('<input>', {
+                type: 'hidden',
+                name: $(this).attr('name'),
+                value: $(this).val()
+            });
+            $mergedForm.append($input);
+
+        });
+
+        // Submit form
+        $mergedForm.submit();
+    });
 });
 /* end multy langue */

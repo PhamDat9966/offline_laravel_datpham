@@ -15,7 +15,13 @@ class SliderModel extends AdminModel
         $this->table                = 'slider';
         $this->folderUpload         = 'slider';
         $this->fieldSearchAccepted  = ['id','name','description','link'];
-        $this->crudNotActived       = ['_token','thumb_current'];
+        $this->crudNotActived       = ['_token','thumb_current','name-vi','description-vi','name-en','description-en'];
+    }
+
+    public function translations()
+    {
+        $this->table  = 'slider';
+        return $this->hasMany( SliderTranslationModel::class, 'slider_id', 'id');
     }
 
     public function listItems($params = null,$options = null){
@@ -64,9 +70,12 @@ class SliderModel extends AdminModel
         }
 
         if($options['task'] == 'news-list-items'){
-            $query = $this->select('id','name','description','link','thumb')
-                          ->where('status','=','active')
-                          ->limit('5');
+            $query = $this->select('s.id','st.name','st.description','s.link','s.thumb')
+                          ->from('slider as s')
+                          ->leftJoin('slider_translations as st','s.id','=','st.slider_id')
+                          ->where('s.status','=','active')
+                          ->where('st.locale',$params['locale'])
+                          ->limit('8');
             $result = $query->get()->toArray();
         }
 
@@ -169,6 +178,24 @@ class SliderModel extends AdminModel
             $this->created      = $params['created'];
             $this->thumb        = $params['thumb'];
             $this->save();
+
+            //Lưu thông tin tại `slider_translations`
+            $articleVi = [
+                'slider_id'    => $this->id,
+                'locale'        => 'vi',
+                'name'          => $params['name-vi'],
+                'description'   => $params['description-vi'],
+            ];
+            DB::table('slider_translations')->insert($articleVi);
+
+            $articleEn = [
+                'slider_id'    => $this->id,
+                'locale'        => 'en',
+                'name'          => $params['name-en'],
+                'description'   => $params['description-en'],
+            ];
+            DB::table('slider_translations')->insert($articleEn);
+
         }
 
         if($options['task'] == 'edit-item'){
@@ -190,8 +217,58 @@ class SliderModel extends AdminModel
             $params['modified']      = date('Y-m-d');
 
             //$params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2
-            $params   = $this->prepareParams($params);
-            self::where('id', $params['id'])->update($params);
+            $coreParams   = $this->prepareParams($params);
+            self::where('id', $coreParams['id'])->update($coreParams);
+
+            // Translation update
+            // Kiểm tra sự tồn tại bản dịch 'vi'
+            $existsVi = DB::table('slider_translations')
+                            ->where('slider_id', $params['id'])
+                            ->where('locale', 'vi')
+                            ->exists();
+
+            $sliderVi = [
+                'name'          => $params['name-vi'],
+                'description'   => $params['description-vi'],
+            ];
+
+            if ($existsVi) {
+                // Nếu có, thì update (dù có thể không thay đổi gì)
+                DB::table('slider_translations')
+                    ->where('slider_id', $params['id'])
+                    ->where('locale', 'vi')
+                    ->update($sliderVi);
+            } else {
+                // Nếu chưa có thì insert mới
+                $sliderVi['slider_id'] = $params['id'];
+                $sliderVi['locale']     = 'vi';
+                DB::table('slider_translations')->insert($sliderVi);
+            }
+
+
+            // Kiểm tra tồn tại bản dịch 'en'
+            $existsEn = DB::table('slider_translations')
+                            ->where('slider_id', $params['id'])
+                            ->where('locale', 'en')
+                            ->exists();
+
+            $sliderEn = [
+                'name'              => $params['name-en'],
+                'description'       => $params['description-en'],
+            ];
+
+            if ($existsEn) {
+                // Nếu có, thì update (dù có thể không thay đổi gì)
+                DB::table('slider_translations')
+                    ->where('slider_id', $params['id'])
+                    ->where('locale', 'en')
+                    ->update($sliderEn);
+            } else {
+                // Nếu chưa có thì insert mới
+                $sliderEn['slider_id'] = $params['id'];
+                $sliderEn['locale']     = 'en';
+                DB::table('slider_translations')->insert($sliderEn);
+            }
 
         }
 

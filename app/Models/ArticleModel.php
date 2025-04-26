@@ -483,21 +483,21 @@ class ArticleModel extends AdminModel
                             ->exists();
 
             $articleEn = [
-                'name'    => $params['name-vi'],
-                'slug'    => $params['slug-vi'],
-                'content' => $params['content-vi']
+                'name'    => $params['name-en'],
+                'slug'    => $params['slug-en'],
+                'content' => $params['content-en']
             ];
 
             if ($existsEn) {
                 // Nếu có, thì update (dù có thể không thay đổi gì)
                 DB::table('article_translations')
                     ->where('article_id', $params['id'])
-                    ->where('locale', 'vi')
+                    ->where('locale', 'en')
                     ->update($articleEn);
             } else {
                 // Nếu chưa có thì insert mới
                 $articleEn['article_id'] = $params['id'];
-                $articleEn['locale']     = 'vi';
+                $articleEn['locale']     = 'en';
                 DB::table('article_translations')->insert($articleEn);
             }
 
