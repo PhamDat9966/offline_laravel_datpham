@@ -415,6 +415,8 @@ class CategoryArticleModel extends AdminModel
             // $this->where('id', $params['id'])->delete();
             $node = self::find($params['id']);
             $node->delete();
+
+            DB::table('category_article_translations')->where('category_article_id', $params['id'])->delete();
         }
     }
 

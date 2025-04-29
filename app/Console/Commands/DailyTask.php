@@ -101,6 +101,7 @@ class DailyTask extends Command
         // Lưu thông báo vào cache.
         //Cache::put('dataNew', $dataNew);
         Cache::put('daily_task_message', 'Daily task executed successfully.', now()->addMinutes(5));
-
+        $this->info('Đã hoàn tất. Tổng cộng ' . count($dataNews) . ' tin đã được lưu.');
     }
 }
+

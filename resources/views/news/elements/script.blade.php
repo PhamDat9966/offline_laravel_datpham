@@ -19,6 +19,9 @@
 {{-- Chỉ khởi động DailyTask khi controller là Rss --}}
 @isset($controllerName)
     @if($controllerName == 'rss')
+        <script>
+            var dailyTaskUrl = "{{ route('dailyScheduler', ['locale' => app()->getLocale()]) }}";
+        </script>
         <script src="{{asset('news/js/rundailytask-js.js')}}"></script>
     @endif
 @endisset

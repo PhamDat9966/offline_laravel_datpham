@@ -138,23 +138,43 @@ class Feed{
 
     }
 
+    // public static function getGold(){
+    //     $link = 'https://sjc.com.vn/xml/tygiavang.xml';
+    //     $context = stream_context_create([
+    //         'http' => [
+    //             'protocol_version' => '1.1',
+    //             'header' => 'Upgrade: HTTP/1.1'
+    //         ]
+    //     ]);
+
+    //     $xmlString = file_get_contents($link, false, $context);
+
+    //     $data = simplexml_load_string($xmlString, 'SimpleXMLElement', LIBXML_NOCDATA);
+    //     $data = json_encode($data);
+    //     $data = json_decode($data, TRUE);
+    //     $data = $data['ratelist']['city'][0]['item']; // Chỉ lấy giá vàng tại tpHCM
+    //     $data = array_column($data,'@attributes');
+    //     return $data;
+    // }
+
     public static function getGold(){
-        $link = 'https://sjc.com.vn/xml/tygiavang.xml';
-        $context = stream_context_create([
-            'http' => [
-                'protocol_version' => '1.1',
-                'header' => 'Upgrade: HTTP/1.1'
-            ]
-        ]);
+        $html = file_get_contents('https://sjc.com.vn/');
 
-        $xmlString = file_get_contents($link, false, $context);
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        libxml_clear_errors();
 
-        $data = simplexml_load_string($xmlString, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $data = json_encode($data);
-        $data = json_decode($data, TRUE);
-        $data = $data['ratelist']['city'][0]['item']; // Chỉ lấy giá vàng tại tpHCM
-        $data = array_column($data,'@attributes');
-        return $data;
+        // Tạo DOMXPath để tìm kiếm
+        $xpath = new \DOMXPath($dom);
+
+        // Tìm table
+        $rows = $xpath->query("//table[contains(@class, 'sjc-table-show-price')]");
+
+        $data = [];
+        $currentArea = '';
+
+        dd($rows);
     }
 
     public static function getCoin(){

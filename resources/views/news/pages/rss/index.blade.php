@@ -15,12 +15,12 @@
                     </div>
                     <div class="col-lg-4">
                         <h3>Giá Vàng</h3>
-                        <div id="box-gold" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-gold')}}">
+                        <div id="box-gold" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-gold', ['locale' => $locale])}}">
                             <img src="{{ asset('images/loading.gif') }}" alt="">
                         </div>
                         {{-- @include('news.pages.rss.child-index.box-gold',['itemsGold'=>$itemsGold]) --}}
                         <h3>Giá Coin</h3>
-                        <div id="box-coin" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-coin')}}">
+                        <div id="box-coin" class="d-flex align-items-center justify-content-center" data-url="{{route('rss/get-coin' , ['locale' => $locale])}}">
                             <img src="{{ asset('images/loading.gif') }}" alt="">
                         </div>
                         {{-- @include('news.pages.rss.child-index.box-coin',['itemsCoin'=>$itemsCoin]) --}}

@@ -50,7 +50,7 @@ $(document).ready(function() {
 		window.location.href	= $path + "?" +link.slice(0,-1);
 
 	});
-
+    console.log($('#box-gold').data('url'));
     //ajax box-gold
     $.ajax({
 		url		: $('#box-gold').data('url'),
@@ -61,6 +61,7 @@ $(document).ready(function() {
 	})
 
     //ajax box-coin
+    console.log($('#box-coin').data('url'));
     $.ajax({
         url		: $('#box-coin').data('url'),
         type	: 'GET',

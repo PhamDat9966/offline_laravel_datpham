@@ -41,17 +41,17 @@ class RssController extends Controller
 
     public function index(Request $request)
     {
-
         $this->params['page']               = $request->input('page');
         $this->params['search_value_rss']   = $request->input('search_value_rss');
 
         View::share('title','Tin tức tổng hợp');
         $rssnewsModel   = new RssnewsModel();
         $itemsRssnews   = $rssnewsModel->listItems(null, ['task'=>'news-list-items']);
-        //dd($itemsRssnews);
+
         $itemsCoin  = Feed::getCoin();
 
         return view($this->pathViewController . 'index',[
+            'locale'    =>$this->locale,
             'params'    =>$this->params,
             'items'     =>$itemsRssnews,
             'itemsCoin' =>$itemsCoin

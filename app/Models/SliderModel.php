@@ -283,6 +283,16 @@ class SliderModel extends AdminModel
 
             $this->where('id', $params['id'])->delete();
         }
+        /*
+            Do Foreign Key ở bản slider đã được đặt thủ công "Named Foreign Key Constraint" nên khi xóa phần tử tại bản slider nó
+            nó sẽ tự động xóa các phần tử ở slider_translations tương ứng.
+            Cú pháp mysql:
+                ALTER TABLE slider_translations
+                ADD CONSTRAINT fk_slider_id
+                FOREIGN KEY (slider_id)
+                REFERENCES slider(id)
+                ON DELETE CASCADE;
+        */
     }
 
     public function getItem($params = null,$options = null){
