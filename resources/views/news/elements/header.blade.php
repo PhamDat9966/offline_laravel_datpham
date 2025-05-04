@@ -17,7 +17,7 @@
     }
 
     $params = [];
-    $params['locale']   = $locale;
+    $params['locale']   = (isset($locale)) ? $locale : 'vi';
     $MenuModel      = new MenuModel();
     //$itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu']);
     $itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu-with-locale']);
@@ -267,7 +267,7 @@
     }
 
     // Gọi hàm đệ quy để tạo menu từ mảng
-    buildMenu($itemsMenu, null, null,$locale);
+    buildMenu($itemsMenu, null, null, $params['locale']);
 
     // $xhtmlMenu          .= sprintf('<li><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
     // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Tin Tức Tổng Hợp</a></li>',route('rss/index'));
@@ -276,7 +276,7 @@
     // $xhtmlMenuMobile    .= sprintf('<li class="menu_mm"><a href="%s">Hình Ảnh</a></li>',route('galleryshow'));
     $loginChar  = 'Đăng nhập';
     $logoutChar = 'Thoát';
-    if($locale == 'en'){
+    if($params['locale'] == 'en'){
         $loginChar  = 'Login';
         $logoutChar = 'Logout';
     }

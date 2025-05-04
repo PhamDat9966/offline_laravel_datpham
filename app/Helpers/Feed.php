@@ -157,25 +157,123 @@ class Feed{
     //     return $data;
     // }
 
-    public static function getGold(){
-        $html = file_get_contents('https://sjc.com.vn/');
+    // public static function getGold()
+    // {
+    //     $html = file_get_contents('https://sjc.com.vn/');
 
-        $dom = new \DOMDocument();
+    //     libxml_use_internal_errors(true);
+    //     $dom = new \DOMDocument();
+    //     $dom->loadHTML($html);
+    //     $xpath = new \DOMXPath($dom);
+
+    //     $rows = $xpath->query("//table[contains(@class, 'sjc-table-show-price')]/tbody/tr");
+
+    //     $location = '';
+    //     $data = [];
+
+    //     foreach ($rows as $row) {
+    //         $cols = $row->getElementsByTagName('td');
+    //         if ($cols->length === 1) {
+    //             // Đây là dòng tiêu đề khu vực (colspan="3")
+    //             $location = trim($cols[0]->textContent);
+    //             $data[$location] = [];
+    //         } elseif ($cols->length === 3) {
+    //             // Đây là dòng có loại vàng và giá
+    //             $type = trim($cols[0]->textContent);
+    //             $buy = trim($cols[1]->textContent);
+    //             $sell = trim($cols[2]->textContent);
+    //             $data[$location][] = [
+    //                 'loai_vang' => $type,
+    //                 'mua_vao' => $buy,
+    //                 'ban_ra' => $sell
+    //             ];
+    //         }
+    //     }
+    // }
+
+    public static function getGold()
+    {
+        /* Lấy giá vàng tại webgia.com với DOMDocument */
+        $html = file_get_contents('https://webgia.com/gia-vang/sjc/');
         libxml_use_internal_errors(true);
+        $dom = new \DOMDocument();
         $dom->loadHTML($html);
-        libxml_clear_errors();
-
-        // Tạo DOMXPath để tìm kiếm
         $xpath = new \DOMXPath($dom);
+        $rows = $xpath->query('//table[contains(@class, "table")]/tbody/tr');
 
-        // Tìm table
-        $rows = $xpath->query("//table[contains(@class, 'sjc-table-show-price')]");
+        // foreach ($rows as $node) {
+        //     echo $dom->saveHTML($node) . "</br>";
+        // }
 
         $data = [];
-        $currentArea = '';
 
-        dd($rows);
+        foreach ($rows as $key=>$row) {
+            $cells = $row->getElementsByTagName('td');
+            $values = [];
+
+            foreach ($cells as $cell) {
+                $values[] = trim($cell->textContent);
+            }
+
+            if (count($values) == 1) {
+                $data[] = "Khu vực: " . $values[0] . "\n";
+            } elseif (count($values) == 3) {
+                //echo "Loại vàng: $values[0], Mua vào: $values[1], Bán ra: $values[2]\n";
+                $data[$key]['type']    = $values[0];
+                $data[$key]['buy']     = $values[1];
+                $data[$key]['sell']    = $values[2];
+
+            }
+        }
+
+        $data = array_slice($data, 0, 5);
+
+        /* Lấy giá vàng theo API getGoldFromSJC */
+        /* Lấy giá vàng theo API getGoldFromPNJ */
+
+        return $data;
     }
+
+    public static function getGoldFromSJC()
+    {
+
+        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc2MjU5ODQsImlhdCI6MTc0NjMyOTk4NCwic2NvcGUiOiJnb2xkIiwicGVybWlzc2lvbiI6MH0.ClcNhDUQMyODLtPbEjMvWEkR1ypz1QieuUt5w7vlxr4';
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/sjc');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $apiKey,
+            'Accept: application/json'
+        ]);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        return $data;
+    }
+
+    public static function getGoldFromPNJ()
+    {
+
+        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc2MjU5ODQsImlhdCI6MTc0NjMyOTk4NCwic2NvcGUiOiJnb2xkIiwicGVybWlzc2lvbiI6MH0.ClcNhDUQMyODLtPbEjMvWEkR1ypz1QieuUt5w7vlxr4';
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/pnj');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $apiKey,
+            'Accept: application/json'
+        ]);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        return $data;
+    }
+
 
     public static function getCoin(){
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
@@ -212,6 +310,7 @@ class Feed{
             $resulf[$key]['price']          = $value['quote']['USD']['price'];
             $resulf[$key]['percent_change_24h']     = $value['quote']['USD']['percent_change_24h'];
         }
+
         return $resulf;
     }
 }
