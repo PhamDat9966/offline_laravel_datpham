@@ -227,4 +227,20 @@ return [
         ]
     ],
     'youtube_api_key'   => 'AIzaSyBwv99Jc3ed39eSllnB77cZksyN10oZT2M',
+    'getGold'   => [
+        'keyMap'        => [
+            'pnj'       => [
+                'buy_nhan_24k'  => 'Mua nhẫn 24K',
+                'sell_nhan_24k' => 'Bán nhẫn 24K',
+                'buy_nt_24k'    => 'Mua nữ trang 24K',
+                'sell_nt_24k'   => 'Bán nữ trang 24K',
+                'buy_nt_18k'    => 'Mua nữ trang 18K',
+                'sell_nt_18k'   => 'Bán nữ trang 18K',
+                'buy_nt_14k'    => 'Mua nữ trang 14K',
+                'sell_nt_14k'   => 'Bán nữ trang 14K',
+                'buy_nt_10k'    => 'Mua nữ trang 10K',
+                'sell_nt_10k'   => 'Bán nữ trang 10K'
+            ]
+        ]
+    ]
 ];

@@ -27,6 +27,15 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
+        $schedule->command('api:update-gold-key')
+                 ->daily()
+                 ->when(function () {
+                 // Chỉ chạy nếu hôm nay là ngày chia hết cho 5 (ngày trong tháng)
+                 return now()->day % 5 === 0;
+             });
+
+        //$schedule->command('api:update-gold-key')->everyMinute(); // Chạy lệnh theo phút để kiểm tra
+
     }
 
     /**

@@ -1,6 +1,10 @@
 <?php
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
+
 class Feed{
     public static function read($itemRss){
         $result = [];
@@ -193,71 +197,132 @@ class Feed{
 
     public static function getGold()
     {
-        /* Lấy giá vàng tại webgia.com với DOMDocument */
-        $html = file_get_contents('https://webgia.com/gia-vang/sjc/');
-        libxml_use_internal_errors(true);
-        $dom = new \DOMDocument();
-        $dom->loadHTML($html);
-        $xpath = new \DOMXPath($dom);
-        $rows = $xpath->query('//table[contains(@class, "table")]/tbody/tr');
-
-        // foreach ($rows as $node) {
-        //     echo $dom->saveHTML($node) . "</br>";
-        // }
-
         $data = [];
+        /*
+            Lấy giá vàng tại webgia.com với DOMDocument
+            -Do việc lấy dữ liệu thông qua dom từ trang  `https://webgia.com/gia-vang/sjc/'`
+            Nên cần giải pháp: Thêm giới hạn thời gian bằng microtime(true).
+        */
+        $start = microtime(true);
 
-        foreach ($rows as $key=>$row) {
-            $cells = $row->getElementsByTagName('td');
-            $values = [];
-
-            foreach ($cells as $cell) {
-                $values[] = trim($cell->textContent);
+        try {
+            $html = @file_get_contents('https://webgia.com/gia-vang/sjc/');
+            // Kiểm tra thời gian giữa vòng lặp nếu cần
+            if ((microtime(true) - $start) > 6) {
+                throw new \Exception("Quá thời gian xử lý 6 giây cho việc `file_get_contents` tại địa url.");
             }
 
-            if (count($values) == 1) {
-                $data[] = "Khu vực: " . $values[0] . "\n";
-            } elseif (count($values) == 3) {
-                //echo "Loại vàng: $values[0], Mua vào: $values[1], Bán ra: $values[2]\n";
-                $data[$key]['type']    = $values[0];
-                $data[$key]['buy']     = $values[1];
-                $data[$key]['sell']    = $values[2];
+            libxml_use_internal_errors(true);
+            $dom = new \DOMDocument();
+            $dom->loadHTML($html);
+            $xpath = new \DOMXPath($dom);
+            $rows = $xpath->query('//table[contains(@class, "table")]/tbody/tr');
 
+            $data = [];
+
+            foreach ($rows as $key => $row) {
+                $cells = $row->getElementsByTagName('td');
+                $values = [];
+
+                foreach ($cells as $cell) {
+                    $values[] = trim($cell->textContent);
+                }
+
+                if (count($values) == 1) {
+                    $data[] = "Khu vực: " . $values[0] . "\n";
+                } elseif (count($values) == 3) {
+                    $data[$key]['type'] = $values[0];
+                    $data[$key]['buy'] = $values[1];
+                    $data[$key]['sell'] = $values[2];
+                }
+
+            }
+
+            $data = array_slice($data, 0, 5);
+
+        } catch (\Exception $e) {
+            // Quá thời gian hoặc lỗi xử lý
+            $data = [];
+            // Ghi log nếu cần
+            \Log::warning("Lỗi lấy DOM Webgia: " . $e->getMessage());
+        }
+
+        /* Lấy giá vàng theo API getGoldFromPNJ */
+        // $keyMap = [
+        //     'buy_nhan_24k' => 'Mua nhẫn 24K',
+        //     'sell_nhan_24k' => 'Bán nhẫn 24K',
+        //     'buy_nt_24k' => 'Mua nữ trang 24K',
+        //     'sell_nt_24k' => 'Bán nữ trang 24K',
+        //     'buy_nt_18k' => 'Mua nữ trang 18K',
+        //     'sell_nt_18k' => 'Bán nữ trang 18K',
+        //     'buy_nt_14k' => 'Mua nữ trang 14K',
+        //     'sell_nt_14k' => 'Bán nữ trang 14K',
+        //     'buy_nt_10k' => 'Mua nữ trang 10K',
+        //     'sell_nt_10k' => 'Bán nữ trang 10K'
+        // ];
+
+        $keyMap = config('zvn.getGold.keyMap.pnj');
+
+        $responsePNJ = self::getGoldFromPNJ();
+        $dataPNG  = $responsePNJ['results'][0];
+        unset($dataPNG['datetime']);
+
+        $grouped = [];
+        foreach ($dataPNG as $keyPNJ=>$valuePNG) {
+            $base = Str::after($keyPNJ, '_'); // vidu 'nhan_24k'
+            $deal = Str::before($keyPNJ, '_');
+
+            $grouped[$base]['type'] = $keyPNJ;
+
+            //Kiểm tra keyPNG có trong keyMap không? Nếu có thì gán tên tiếng việt từ keymap vào.
+            if (isset($keyMap[$keyPNJ])) {
+                $grouped[$base]['type'] = $keyMap[$keyPNJ];
+            }
+
+            // Giá cả sẽ bỏ phần thập phân đi, phần nguyên cách 3 chữ số sẽ thêm 1 dâu "."
+            $valuePNG = (int)$valuePNG;
+            $valuePNG = number_format($valuePNG, 0, '', '.');
+
+            switch ($deal) {
+                case 'buy':
+                $grouped[$base]['buy'] = $valuePNG;
+                  break;
+                case 'sell':
+                    $grouped[$base]['sell'] = $valuePNG;
+                  break;
             }
         }
 
-        $data = array_slice($data, 0, 5);
+        $result = array_merge($data, $grouped);
 
-        /* Lấy giá vàng theo API getGoldFromSJC */
-        /* Lấy giá vàng theo API getGoldFromPNJ */
-
-        return $data;
+        //dd('end getgold');
+        return $result;
     }
 
-    public static function getGoldFromSJC()
-    {
+    // public static function getGoldFromSJC()
+    // {
 
-        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc2MjU5ODQsImlhdCI6MTc0NjMyOTk4NCwic2NvcGUiOiJnb2xkIiwicGVybWlzc2lvbiI6MH0.ClcNhDUQMyODLtPbEjMvWEkR1ypz1QieuUt5w7vlxr4';
-        $ch = curl_init();
+    //     $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc2MjU5ODQsImlhdCI6MTc0NjMyOTk4NCwic2NvcGUiOiJnb2xkIiwicGVybWlzc2lvbiI6MH0.ClcNhDUQMyODLtPbEjMvWEkR1ypz1QieuUt5w7vlxr4';
+    //     $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/sjc');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $apiKey,
-            'Accept: application/json'
-        ]);
+    //     curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/sjc');
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    //         'Authorization: Bearer ' . $apiKey,
+    //         'Accept: application/json'
+    //     ]);
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+    //     $response = curl_exec($ch);
+    //     curl_close($ch);
 
-        $data = json_decode($response, true);
-        return $data;
-    }
+    //     $data = json_decode($response, true);
+    //     return $data;
+    // }
+
 
     public static function getGoldFromPNJ()
     {
-
-        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc2MjU5ODQsImlhdCI6MTc0NjMyOTk4NCwic2NvcGUiOiJnb2xkIiwicGVybWlzc2lvbiI6MH0.ClcNhDUQMyODLtPbEjMvWEkR1ypz1QieuUt5w7vlxr4';
+        $apiKey = Storage::get('gold_api_key.txt'); //Lấy API key từ storage
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/pnj');
