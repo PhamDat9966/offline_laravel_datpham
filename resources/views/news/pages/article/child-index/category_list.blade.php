@@ -1,7 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
-
+    $titleButton = ($locale == 'en') ? 'See more' : 'Xem thêm';
 @endphp
 <div class="posts">
     @foreach ($item['related_article'] as $article)
@@ -19,6 +19,5 @@
 </div>
 
 <div class="row">
-    <div class="home_button mx-auto text-center"><a href="the-loai/the-thao-1.html">Xem
-        thêm</a></div>
+    <div class="home_button mx-auto text-center"><a href="the-loai/the-thao-1.html">{{ $titleButton }}</a></div>
 </div>

@@ -2,9 +2,12 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     use App\Helpers\URL;
+
+    $titleRecent = ($locale == 'en') ? "Recent Posts" :"Bài viết gần đây";
+
 @endphp
 <div class="sidebar_latest">
-    <div class="sidebar_title">Bài viết gần đây</div>
+    <div class="sidebar_title">{{ $titleRecent }}</div>
     <div class="latest_posts">
         @foreach ($items as $item)
             @php
@@ -22,6 +25,16 @@
                 $created_by         = 'Lưu Trường Hải Lân';
                 $classPost          = Str::slug($categoryName);
                 $thumb              = asset('images/article/' . $item['thumb']);
+
+                if($locale == 'en'){
+                    $name = 'Content is not available in "en" language yet.';
+                    if($item['translations']){
+                        foreach($item['translations'] as $key=>$translation){
+                            $name               = $translation['name'];
+                            $linkArticle        = "/$locale/". $translation['slug'] .'.php';
+                        }
+                    }
+                }
             @endphp
             <!-- Latest Post -->
             <div class="latest_post d-flex flex-row align-items-start justify-content-start">

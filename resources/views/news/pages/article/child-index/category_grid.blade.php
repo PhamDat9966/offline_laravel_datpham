@@ -1,6 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
+    $titleButton = ($locale == 'en') ? 'See more' : 'Xem thêm';
 @endphp
 
 <div class="posts">
@@ -19,8 +20,11 @@
 
         </div>
         <div class="row">
-            <div class="home_button mx-auto text-center"><a href="the-loai/giao-duc-2.html">Xem
-                thêm</a></div>
+            <div class="home_button mx-auto text-center">
+                <a href="the-loai/giao-duc-2.html">
+                    {{$titleButton}}
+                </a>
+            </div>
         </div>
     </div>
 </div>

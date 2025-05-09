@@ -2,6 +2,7 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     $urlCategory = Route($controllerName) .'/'.$item['slug'].'.php';
+    $titleButton = ($locale == 'en') ? 'See more' : 'Xem thêm';
 @endphp
 <div class="technology">
     <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
@@ -27,8 +28,7 @@
 
 
         <div class="row">
-            <div class="home_button mx-auto text-center"><a href="{{$urlCategory}}">Xem
-                thêm</a></div>
+            <div class="home_button mx-auto text-center"><a href="{{$urlCategory}}">{{ $titleButton }}</a></div>
         </div>
     </div>
 </div>

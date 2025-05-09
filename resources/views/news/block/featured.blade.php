@@ -1,3 +1,6 @@
+@php
+    $section_title = ($locale) ? 'Outstanding' : 'Nổi bậc';
+@endphp
 <div class="featured">
     <div class="featured_title">
         <div class="container">
@@ -5,7 +8,7 @@
                 <div class="col">
                     <div class="section_title_container d-flex flex-row align-items-start justify-content-start">
                         <div>
-                            <div class="section_title">Nổi bậc</div>
+                            <div class="section_title">{{ $section_title }}</div>
                         </div>
                         <div class="section_bar"></div>
                     </div>
