@@ -11,31 +11,23 @@ use App\Models\ArticleModel;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Locale;
 
-class CategoryArticleController extends Controller
+class CategoryArticleController extends LocaleController
 {
     private $pathViewController  = 'news.pages.category_article.';
     private $controllerName      = 'categoryArticle';
     private $params              = [];
     private $model;
-    protected $locale;
     public function __construct()
     {
-        // share bien $controllerName cho all view
+        parent::__construct();
         View::share('controllerName',$this->controllerName);
-        $this->middleware(function ($request, $next) {
-            $locale                 = App::getLocale();
-            $this->locale           = $locale;
-            $this->params['locale'] = $locale;
-
-        View::share('locale',$this->locale);
-            return $next($request);
-        });
     }
 
     public function index(Request $request)
     {
-
+        $this->params['locale']         = $this->getLocale();
         $this->params['category_id'] = $request->category_id;
         $articleModel           = new ArticleModel();
         $categoryArticleModel   = new CategoryArticleModel();

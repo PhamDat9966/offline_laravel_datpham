@@ -183,7 +183,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== GALLERY ======================
     $prefix         =   'dat-lich-hen';
     $controllerName =   'appointmentnews';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>'{locale?}/'.$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [
@@ -202,7 +202,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== CONTACT ======================
     $prefix         =   'lien-he';
     $controllerName =   'contact';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>'{locale?}/'.$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [

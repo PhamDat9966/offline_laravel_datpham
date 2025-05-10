@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
 
 use Illuminate\Support\Facades\App;
-class RssController extends Controller
+class RssController extends LocaleController
 {
     private $pathViewController  = 'news.pages.rss.';
     private $controllerName      = 'rss';
@@ -27,24 +27,19 @@ class RssController extends Controller
     protected $locale;
     public function __construct()
     {
-        // share bien $controllerName cho all view
+        parent::__construct();
         View::share('controllerName',$this->controllerName);
-        $this->middleware(function ($request, $next) {
-            $locale                 = App::getLocale();
-            $this->locale           = $locale;
-            $this->params['locale'] = $locale;
-
-            View::share('locale',$this->locale);
-            return $next($request);
-        });
     }
 
     public function index(Request $request)
     {
+        $this->params['locale']             = $this->getLocale();
         $this->params['page']               = $request->input('page');
         $this->params['search_value_rss']   = $request->input('search_value_rss');
 
-        View::share('title','Tin tức tổng hợp');
+        $title  = ($this->locale == 'en') ? 'General news' : 'Tin tức tổng hợp';
+
+        View::share('title',$title);
         $rssnewsModel   = new RssnewsModel();
         $itemsRssnews   = $rssnewsModel->listItems(null, ['task'=>'news-list-items']);
 

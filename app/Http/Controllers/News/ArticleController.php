@@ -15,30 +15,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
 
-class ArticleController extends Controller
+class ArticleController extends LocaleController
 {
     private $pathViewController  = 'news.pages.article.';
     private $controllerName      = 'article';
     private $params              = [];
     private $model;
-    protected $locale;
 
     public function __construct()
     {
+        parent::__construct();
         View::share('controllerName',$this->controllerName);
-
-        $this->middleware(function ($request, $next) {
-            $locale                 = App::getLocale();
-            $this->locale           = $locale;
-            $this->params['locale'] = $locale;
-
-            View::share('locale',$this->locale);
-            return $next($request);
-        });
     }
 
     public function index(Request $request)
     {
+        $this->params['locale']         = $this->getLocale();
         $this->params['article_id']     = $request->article_id;
         $this->params['article_name']   = $request->article_name;
 

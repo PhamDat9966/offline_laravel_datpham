@@ -11,7 +11,10 @@ use App\Models\BranchModel as BranchModel;
 use App\Models\ContactModel as MainModel;
 use App\Mail\MailService;
 
-class ContactController extends Controller
+use Illuminate\Support\Facades\App;
+use Locale;
+
+class ContactController extends LocaleController
 {
     private $pathViewController  = 'news.pages.contact.';
     private $controllerName      = 'contact';
@@ -20,7 +23,7 @@ class ContactController extends Controller
 
     public function __construct()
     {
-        // share biến $controllerName cho tất cả view
+        parent::__construct();
         View::share('controllerName', $this->controllerName);
         $this->model = new MainModel();
         $this->params["pagination"]["totalItemsPerPage"] = 5;
@@ -28,9 +31,10 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
+        $this->params['locale'] = $this->getLocale();
         view()->share('title', 'Liên hệ');
         $params = $request->all();
-      //  dd($params);
+
         $branch     = new BranchModel();
         $branchList = $branch->getItem(null,['task'=>'get-all-item']);
         $itemGooglemap = [];
