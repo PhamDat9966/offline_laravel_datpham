@@ -10,7 +10,7 @@ $(document).ready(function() {
 	let $btnSearchRss        = $("button#btn-search-rss");
 	let $btnClearSearch	     = $("button#btn-clear-search-rss");
 
-	let $inputSearchValue = $("input[name  = search_value_rss]");
+	let $inputSearchValue           = $("input[name  = search_value_rss]");
     let $selectChangeGoogleMap      = $("select[name =  select_change_is_googlemap_filter]");
 
     $btnSearchRss.click(function(){

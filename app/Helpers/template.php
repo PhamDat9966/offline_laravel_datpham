@@ -690,8 +690,9 @@ class Template{
         return $xhtml;
     }
 
-    public static function showBranchGoogleMapSelect($controllerName,$arrayList, $name, $itemGooglemap){
-        $link         = route($controllerName);
+    public static function showBranchGoogleMapSelect($controllerName,$arrayList, $name, $itemGooglemap,$locale){
+
+        $link         = route($controllerName, ['locale' => $locale]);
         $xhtml        = sprintf('<select name=%s data-url=%s class="form-control">',$name,$link);
 
         foreach ($arrayList as $value) {

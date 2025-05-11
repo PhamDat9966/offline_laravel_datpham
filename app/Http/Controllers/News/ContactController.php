@@ -32,7 +32,8 @@ class ContactController extends LocaleController
     public function index(Request $request)
     {
         $this->params['locale'] = $this->getLocale();
-        view()->share('title', 'Liên hệ');
+        $title  = ($this->params['locale']  == 'en') ? 'Contact us' : 'Liên hệ';
+        view()->share('title', $title);
         $params = $request->all();
 
         $branch     = new BranchModel();
@@ -70,6 +71,7 @@ class ContactController extends LocaleController
     }
 
     public function postContact(MainRequest $request){
+
         $data = [
             'name'      => $request->name,
             'email'     => $request->email,
