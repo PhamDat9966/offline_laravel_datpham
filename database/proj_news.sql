@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 04, 2025 lúc 09:19 AM
+-- Thời gian đã tạo: Th5 14, 2025 lúc 02:40 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -307,6 +307,32 @@ INSERT INTO `branch` (`id`, `name`, `address`, `googlemap`, `status`, `created`,
 (1, 'Chi nhánh 1 ', 'Tầng 5, Tòa nhà Songdo, 62A Phạm Ngọc Thạch, Phường 6, Quận 3, Hồ Chí Minh', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.360420162197!2d106.73409077043847!3d10.860167434007112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527d5640014e7%3A0x3bb323b29d50dca9!2zWmVuZFZOIC0gxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6pu!5e0!3m2!1svi!2s!4v1723180040792!5m2!1svi!2s\" width=\"600\" height=\"500\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:09:49', 'admin', NULL, NULL),
 (2, 'Chi nhánh 2', '757C Kha Vạn Cân, P.Linh Tây, Thủ Đức, Hcm', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.394524423644!2d106.75456067408862!3d10.857567757693781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752790c6385033%3A0xcea70174e60f1df1!2zNzU3QyDEkC4gS2hhIFbhuqFuIEPDom4sIEtodSBQaOG7kSAzLCBUaOG7pyDEkOG7qWMsIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1723180130179!5m2!1svi!2s\" width=\"600\" height=\"500\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:10:01', 'admin', NULL, NULL),
 (3, 'Chi nhánh 3', '523 Đỗ Xuân Hợp, Block C chung cư The Art, KDCQ10', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7837.938494461986!2d106.76874347770996!3d10.81366530000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175270f5c87c7f5%3A0x7523fa4ea7f3c8fa!2sChung%20C%C6%B0%20The%20Art!5e0!3m2!1svi!2s!4v1723180243970!5m2!1svi!2s\" width=\"600\" height=\"500\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'active', '2024-08-03 02:10:09', 'admin', '2024-10-26 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `branch_translations`
+--
+
+CREATE TABLE `branch_translations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` int(11) UNSIGNED NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `branch_translations`
+--
+
+INSERT INTO `branch_translations` (`id`, `branch_id`, `locale`, `name`, `address`) VALUES
+(1, 1, 'vi', 'Chi nhánh 1 ', 'Tầng 5, Tòa nhà Songdo, 62A Phạm Ngọc Thạch, Phường 6, Quận 3, Hồ Chí Minh'),
+(2, 1, 'en', 'Branch 1', '5th Floor, Songdo Building, 62A Pham Ngoc Thach, Ward 6, District 3, Ho Chi Minh City'),
+(3, 2, 'vi', 'Chi nhánh 2', '757C Kha Vạn Cân, P.Linh Tây, Thủ Đức, Hcm'),
+(4, 1, 'en', 'Branch 2', '757C Kha Van Can, Linh Tay Ward, Thu Duc,Ho Chi Minh City'),
+(5, 3, 'vi', 'Chi nhánh 3', '523 Đỗ Xuân Hợp, Block C chung cư The Art, KDCQ10, Hồ Chí Minh'),
+(6, 1, 'en', 'Branch 3', '523 Do Xuan Hop, Block C The Art Apartment, KDCQ10, Ho Chi Minh city');
 
 -- --------------------------------------------------------
 
@@ -1073,16 +1099,22 @@ CREATE TABLE `rssnews` (
 --
 
 INSERT INTO `rssnews` (`id`, `title`, `description`, `pubDate`, `link`, `thumb`, `created_by`, `status`, `domain`) VALUES
-(13612, 'Đại sứ Pakistan kêu gọi \'giữ cái đầu lạnh\' trong căng thẳng với Ấn Độ', 'Đại sứ Pakistan tại LHQ nói các bên cần thể hiện trách nhiệm và không tính đến phương án dùng vũ khí hạt nhân khi căng thẳng giữa nước này với Ấn Độ leo thang.', '2025-05-04 12:07:44', 'https://vnexpress.net/dai-su-pakistan-keu-goi-giu-cai-dau-lanh-trong-cang-thang-voi-an-do-4881369.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/afp-20250429-nazir-notitle2504-4338-1988-1746328675.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=tVjyPH0fuAQTdLmtQaC0OQ', 'VNExpress', 'active', 'vnexpress'),
-(13613, 'Thủ tướng Singapore tuyên bố chiến thắng trong tổng tuyển cử', 'Thủ tướng Lawrence Wong cảm ơn niềm tin của người dân Singapore sau khi đảng Hành động Nhân dân cầm quyền giành chiến thắng áp đảo trong tổng tuyển cử.', '2025-05-04 10:28:47', 'https://vnexpress.net/thu-tuong-singapore-tuyen-bo-chien-thang-trong-tong-tuyen-cu-4881380.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/lawrence-wong-jpeg-1746328521-4912-6378-1746328677.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=zn2EbF2rF1hL1B4tK1Lkqg', 'VNExpress', 'active', 'vnexpress'),
-(13614, 'Người Việt ở Mỹ nghĩ gì về chính sách của ông Trump?', 'Nhiều người Việt ở Mỹ cho hay họ ủng hộ một số chính sách của ông Trump như nhập cư và kinh tế, nhưng không đồng tình với kế hoạch cắt giảm trợ cấp cho nghiên cứu.', '2025-05-04 09:53:24', 'https://vnexpress.net/nguoi-viet-o-my-nghi-gi-ve-chinh-sach-cua-ong-trump-4880875.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/02/ap25097006380210-1-1746157825-2074-1746158083.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=_7WGlC08A08bdsvp-Qywzw', 'VNExpress', 'active', 'vnexpress'),
-(13615, 'Ông Kim Jong-un ca ngợi công nghệ xe tăng Triều Tiên', 'Lãnh đạo Kim Jong-un thị sát một nhà máy xe tăng \"quan trọng\", ca ngợi tiến bộ trong công nghệ lõi của xe tăng Triều Tiên.', '2025-05-04 09:27:28', 'https://vnexpress.net/ong-kim-jong-un-ca-ngoi-cong-nghe-xe-tang-trieu-tien-4881344.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/064d2deb-b874-4524-994c-277333-2067-4314-1746324557.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=k3qiha9Z6wB1PZXv-nWo1Q', 'VNExpress', 'active', 'vnexpress'),
-(13616, 'Khoảnh khắc cảnh sát Hàn chụp tay cô gái nhảy từ tầng 19', 'Cảnh sát đặc nhiệm Hàn Quốc kịp thời chụp được cô gái trên nóc tòa nhà 19 tầng ở Seoul, giải cứu cô trong khoảnh khắc nguy cấp.', '2025-05-04 08:26:37', 'https://vnexpress.net/khoanh-khac-canh-sat-han-chup-tay-co-gai-nhay-tu-tang-19-4881329.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/SnapTwitter-io-0xBREAD-D-b56-e-6746-2946-1746319460.gif?w=1200&h=0&q=100&dpr=1&fit=crop&s=Ji-d3tX3613UuWKHLAsGPA&t=image', 'VNExpress', 'active', 'vnexpress'),
-(13617, 'Sống sót 36 giờ giữa đầm lầy cá sấu sau sự cố máy bay', 'Nhóm 5 người sống sót thần kỳ sau hơn một ngày bám trụ trên chiếc máy bay hạ cánh khẩn giữa đầm lầy đầy cá sấu trong rừng Amazon.', '2025-05-04 08:15:46', 'https://vnexpress.net/song-sot-36-gio-giua-dam-lay-ca-sau-sau-su-co-may-bay-4881326.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/bolivia-large-jpeg-1746319577-9890-4141-1746319855.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=_omwuF59n-TA6hWBkE0mKA', 'VNExpress', 'active', 'vnexpress'),
-(13618, 'Cố vấn An ninh Quốc gia Mỹ mất chức \'vì muốn tấn công Iran\'', 'Tổng thống Trump rút Mike Waltz khỏi vị trí Cố vấn An ninh Quốc gia vì ông này \"bàn bạc với Israel để thúc đẩy Mỹ tấn công Iran\", theo Washington Post.', '2025-05-04 07:10:05', 'https://vnexpress.net/co-van-an-ninh-quoc-gia-my-mat-chuc-vi-muon-tan-cong-iran-4881314.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/2025-02-20t192229z-461856888-r-2002-6244-1746316259.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=HonQ7ULZLx-OsUTQntsi1w', 'VNExpress', 'active', 'vnexpress'),
-(13619, 'Warren Buffett thông báo nghỉ hưu', 'Buffett, tỷ phú Mỹ với biệt danh \"nhà tiên tri\' trong giới đầu tư, quyết định nghỉ hưu từ cuối năm nay ở tuổi 94, sau khi xây dựng cơ nghiệp hơn 1.160 tỷ USD.', '2025-05-04 06:56:57', 'https://vnexpress.net/warren-buffett-thong-bao-nghi-huu-4881315.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/05/04/buffett-jpeg-1746314732-174631-1571-8797-1746314915.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=vVzshIJUvVMa434nK-818w', 'VNExpress', 'active', 'vnexpress'),
-(13620, 'Cố vấn có thể là \'bộ não\' trong chiến lược thuế của ông Trump', 'Chiến lược thuế của ông Trump có thể chịu ảnh hưởng từ lý thuyết về vai trò đồng USD của Stephen Miran, cố vấn kinh tế hàng đầu Nhà Trắng.', '2025-05-04 05:00:00', 'https://vnexpress.net/co-van-co-the-la-bo-nao-trong-chien-luoc-thue-cua-ong-trump-4873822.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/04/15/afp-20250228-2202323466-v3-hig-3461-2680-1744650971.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=-R58rCcIMIEuKeSU9yfOig', 'VNExpress', 'active', 'vnexpress'),
-(13621, 'Động lực thúc đẩy Elon Musk sinh nhiều con', 'Tỷ phú Elon Musk có con với nhiều phụ nữ, gọi các em bé này là \"quân đoàn\" nhằm đối phó nguy cơ giảm dân số và đề phòng ngày tận thế, theo WSJ.', '2025-05-04 00:00:00', 'https://vnexpress.net/dong-luc-thuc-day-elon-musk-sinh-nhieu-con-4875093.html', 'https://vcdn1-vnexpress.vnecdn.net/2025/04/25/2024-12-05t160801z-1240995959-2378-2238-1745552326.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9i0N2R46aWgJ5aknQITD5g', 'VNExpress', 'active', 'vnexpress');
+(14044, 'Thủ tướng Ấn Độ dọa tiếp tục không kích Pakistan', 'Thủ tướng Modi tuyên bố Ấn Độ chỉ tạm ngừng tập kích \"cơ sở khủng bố\" ở Pakistan, cảnh báo sẵn sàng nối lại chiến dịch bất kỳ lúc nào.', '2025-05-13 11:51:57', 'https://vnexpress.net/thu-tuong-an-do-doa-tiep-tuc-khong-kich-pakistan-4885189.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/modi-1747108230-1111-1747108383.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=blEeLXmE9gRCLgrvuI4c7A', 'VNExpress', 'active', 'vnexpress'),
+(14045, '270.000 người cầu nguyện cho Giáo hoàng Leo XIV và hòa bình thế giới', 'Hàng trăm nghìn tín đồ Công giáo tập trung tại đền thánh Fatima, cầu nguyện cho tân Giáo hoàng trong lễ rước nến thường niên.', '2025-05-13 11:24:45', 'https://vnexpress.net/270-000-nguoi-cau-nguyen-cho-giao-hoang-leo-xiv-va-hoa-binh-the-gioi-4885240.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/download-36-1747107891-1747107-1899-1255-1747108118.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=wK3-uHnL7zsr2lzPDExijQ', 'VNExpress', 'active', 'vnexpress'),
+(14046, 'Pakistan có thể đã bắn hạ tên lửa hiện đại do Pháp sản xuất', 'Hình ảnh mới đăng cho thấy xác tên lửa SCALP-EG rơi ở Pakistan, nhiều khả năng là bị đánh chặn sau khi phóng từ tiêm kích Rafale của Ấn Độ.', '2025-05-13 11:17:10', 'https://vnexpress.net/pakistan-co-the-da-ban-ha-ten-lua-hien-dai-do-phap-san-xuat-4885149.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/nh-1747106013-4828-1747106158.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=vI87Vj7CyAxAzAbghayi4A', 'VNExpress', 'active', 'vnexpress'),
+(14047, 'Người sẽ thúc đẩy nỗ lực tinh giản của DOGE khi Elon Musk rời đi', 'Tỷ phú Musk được biết đến như lãnh đạo ban tinh giản chính phủ của ông Trump, nhưng Russ Vought mới được cho là bộ não thực sự của DOGE.', '2025-05-13 10:45:15', 'https://vnexpress.net/nguoi-se-thuc-day-no-luc-tinh-gian-cua-doge-khi-elon-musk-roi-di-4884521.html', 'https://i1-vnexpress.vnecdn.net/2025/05/12/russ-vought-1747041166-1747041-9268-8520-1747042517.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=3TKA3FeMc0ZjNz1UUHV6Ew', 'VNExpress', 'active', 'vnexpress'),
+(14048, 'Mỹ duyệt thương vụ bán vũ khí 1,4 tỷ USD cho UAE', 'Mỹ duyệt hai thương vụ vũ khí 1,4 tỷ USD, trong đó bán cho UAE 6 trực thăng CH-47 Chinook và phụ tùng tiêm kích F-16.', '2025-05-13 10:01:14', 'https://vnexpress.net/my-duyet-thuong-vu-ban-vu-khi-1-4-ty-usd-cho-uae-4885160.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/thiet-ke-chua-co-ten-31-174710-1593-2786-1747103231.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=RCXZH_sPAquMtMRo-X2qNQ', 'VNExpress', 'active', 'vnexpress'),
+(14049, 'Lính Anh thử nghiệm lái drone FPV từ trực thăng', 'Anh đăng video thử nghiệm triển khai và điều khiển drone FPV từ trực thăng, nhấn mạnh vai trò của loại vũ khí này trong chiến tranh hiện đại.', '2025-05-13 09:51:49', 'https://vnexpress.net/linh-anh-thu-nghiem-lai-drone-fpv-tu-truc-thang-4885112.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/dronetructhangJPG-1747104650-1609-1747104659.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=WZ1W8F0LWHFXdz1tlodMEw', 'VNExpress', 'active', 'vnexpress'),
+(14050, 'Anh điều tra vụ cháy nhà riêng của Thủ tướng Starmer', 'Nhà riêng của Thủ tướng Starmer xảy ra hỏa hoạn lúc rạng sáng, buộc cảnh sát chống khủng bố Anh vào cuộc điều tra.', '2025-05-13 09:41:10', 'https://vnexpress.net/anh-dieu-tra-vu-chay-nha-rieng-cua-thu-tuong-starmer-4885136.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/thu-tu-o-ng-anh-1747102667-3828-1747102695.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=a_V8eZ634uvfLzm29zIeJQ', 'VNExpress', 'active', 'vnexpress'),
+(14051, 'Ông Trump nêu điểm mấu chốt thuyết phục Ấn Độ - Pakistan ngừng bắn', 'Ông Trump cho hay sức ép thương mại từ Mỹ là lý do quan trọng khiến Ấn Độ - Pakistan chấp thuận đàm phán lệnh ngừng bắn.', '2025-05-13 09:07:26', 'https://vnexpress.net/ong-trump-neu-diem-mau-chot-thuyet-phuc-an-do-pakistan-ngung-ban-4885108.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/ap25064106874910-1747100368-2147-1747100643.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Ecw-IgLJ3K1fvTq9pefq_g', 'VNExpress', 'active', 'vnexpress'),
+(14052, 'Drone FPV Nga lần đầu tập kích tổ hợp HIMARS Ukraine', 'Nga lần đầu dùng drone FPV tập kích và bắn cháy tổ hợp HIMARS Ukraine, cũng như phá hỏng một pháo tự hành AS-90 trị giá khoảng 3 triệu USD.', '2025-05-13 09:07:11', 'https://vnexpress.net/drone-fpv-nga-lan-dau-tap-kich-to-hop-himars-ukraine-4884864.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/fpv3-1747102859-3099-1747102869.gif?w=1200&h=0&q=100&dpr=1&fit=crop&s=2b0gJDMisEduCmMBw4bo1g&t=image', 'VNExpress', 'active', 'vnexpress'),
+(14053, 'Ông Trump: Chỉ kẻ ngốc mới từ chối nhận máy bay của Qatar', 'Tổng thống Trump bác lo ngại về kế hoạch nhận máy bay Boeing 747-8 từ Qatar để làm chuyên cơ Không lực Một, cho rằng \"kẻ ngốc\" mới từ chối.', '2025-05-13 08:55:40', 'https://vnexpress.net/ong-trump-chi-ke-ngoc-moi-tu-choi-nhan-may-bay-cua-qatar-4885107.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/afp-20250512-46dr27m-v2-highre-2961-3341-1747099926.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=tvJmvNYvB8KtS8S6NhNchg', 'VNExpress', 'active', 'vnexpress'),
+(14054, 'Hamas thả con tin Mỹ', 'Hamas thả con tin mang quốc tịch kép Mỹ - Israel Edan Alexander trong lúc đang đàm phán trực tiếp với Washington về thỏa thuận ngừng bắn ở Dải Gaza.', '2025-05-13 07:59:48', 'https://vnexpress.net/hamas-tha-con-tin-my-4885089.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/afp20250512aa130520252227884v1-8652-7758-1747097011.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=exu5vmPBPw07zKSsBZY4vQ', 'VNExpress', 'active', 'vnexpress'),
+(14055, 'Núi lửa Philippines phun trào, nhả cột khói cao 4.500 m', 'Núi lửa Kanlaon ở miền trung Philippines phun trào sáng sớm nay, nhả cột khói cao tới 4.500 m lên không trung.', '2025-05-13 07:53:21', 'https://vnexpress.net/nui-lua-philippines-phun-trao-nha-cot-khoi-cao-4-500-m-4885086.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/afp-20250416-42gn6cp-v1-highre-1430-6631-1747095616.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=UKNH-tc6cP5eKCb9QF6Yvg', 'VNExpress', 'active', 'vnexpress'),
+(14056, 'Mỹ áp lệnh trừng phạt mới với Iran', 'Mỹ công bố thêm lệnh trừng phạt nhằm vào Iran vì chương trình hạt nhân của nước này, bất chấp hai bên đang đàm phán.', '2025-05-13 07:42:19', 'https://vnexpress.net/my-ap-lenh-trung-phat-moi-voi-iran-4885084.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/afp202505112211995299v6highres-8896-1472-1747094302.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=fH2SEKJaObeRSew6txaIWg', 'VNExpress', 'active', 'vnexpress'),
+(14057, 'Ông Trump nêu ý tưởng đến Thổ Nhĩ Kỳ tham gia đàm phán Nga - Ukraine', 'Tổng thống Mỹ Trump cân nhắc đến Thổ Nhĩ Kỳ tham gia đàm phán Nga - Ukraine, nếu lãnh đạo hai nước gặp nhau ở Istanbul như đề xuất.', '2025-05-13 06:50:50', 'https://vnexpress.net/ong-trump-neu-y-tuong-den-tho-nhi-ky-tham-gia-dam-phan-nga-ukraine-4885079.html', 'https://i1-vnexpress.vnecdn.net/2025/05/13/afp-20250512-46dr27m-v2-highre-1980-9386-1747092873.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=lsXnUDCvIm7lEa1n36lzkw', 'VNExpress', 'active', 'vnexpress'),
+(14058, 'Cách Mỹ ngăn Ấn Độ - Pakistan rơi vào hố chiến tranh', 'Bằng cách gây áp lực và ngoại giao con thoi, Mỹ đã tạo điều kiện để Ấn Độ và Pakistan đối thoại, cùng thoái lui từ bờ vực chiến tranh.', '2025-05-13 06:41:44', 'https://vnexpress.net/cach-my-ngan-an-do-pakistan-roi-vao-ho-chien-tranh-4884558.html', 'https://i1-vnexpress.vnecdn.net/2025/05/12/afp-20250508-44yn7pz-v1-highre-4014-6072-1747024772.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=yX3EBkm899exw19XaL0F-g', 'VNExpress', 'active', 'vnexpress'),
+(14059, 'Lý do ông Trump chọn vùng Vịnh làm nơi đầu tiên công du', 'Tổng thống Trump chọn ba nước vùng Vịnh làm điểm công du đầu tiên, khi khu vực ngày càng quan trọng trong địa chính trị và kinh tế toàn cầu.', '2025-05-13 00:00:00', 'https://vnexpress.net/ly-do-ong-trump-chon-vung-vinh-lam-noi-dau-tien-cong-du-4884551.html', 'https://i1-vnexpress.vnecdn.net/2025/05/12/afp-20250508-2214104428-v1-hig-9514-5625-1747046030.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=d4DiDoHwU9gRZEYJ52OrIQ', 'VNExpress', 'active', 'vnexpress');
 
 -- --------------------------------------------------------
 
@@ -1283,7 +1315,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '2,2,4,4,4,7,7,7,2,2,2,7,7,7,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '4,4,4,4,4,4,4,4,4,4,4,4,2,2,2,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', '2019-05-04 00:00:00', 'admin', '2025-03-19 00:00:00', 'admin', 'active', NULL, 2),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
@@ -2188,7 +2220,113 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (842, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-19 09:34:28', 42),
 (843, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:19', 42),
 (844, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:20', 42),
-(845, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:21', 42);
+(845, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-04-25 14:16:21', 42),
+(846, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:20:13', 6),
+(847, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:20:14', 6),
+(848, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:20:14', 6),
+(849, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:35:31', 6),
+(850, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:35:32', 6),
+(851, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-06 10:35:32', 6),
+(852, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:22:36', 6),
+(853, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:22:37', 6),
+(854, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:22:38', 6),
+(855, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:54:32', 6),
+(856, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:55:52', 6),
+(857, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:55:54', 6),
+(858, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:55:54', 6),
+(859, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:57:30', 6),
+(860, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:57:47', 6),
+(861, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:58:46', 6),
+(862, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:58:47', 6),
+(863, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:58:47', 6),
+(864, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 09:59:59', 6),
+(865, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:04:15', 6),
+(866, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:04:43', 6),
+(867, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:05:04', 6),
+(868, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:05:12', 6),
+(869, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:06:02', 6),
+(870, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:06:33', 6),
+(871, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:07:20', 6),
+(872, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:07:27', 6),
+(873, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:08:03', 6),
+(874, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:08:24', 6),
+(875, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:08:48', 6),
+(876, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:09:18', 6),
+(877, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:09:34', 6),
+(878, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:10:17', 6),
+(879, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:14:55', 6),
+(880, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:10', 6),
+(881, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:11', 6),
+(882, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:11', 6),
+(883, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:49', 6),
+(884, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:49', 6),
+(885, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:50', 6),
+(886, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:51', 6),
+(887, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:52', 6),
+(888, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:15:52', 6),
+(889, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:16:26', 6),
+(890, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:16:43', 6),
+(891, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:16:44', 6),
+(892, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:16:45', 6),
+(893, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:17:22', 6),
+(894, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:17:30', 6),
+(895, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:04', 6),
+(896, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:05', 6),
+(897, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:06', 6),
+(898, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:25', 34),
+(899, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:26', 34),
+(900, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:18:27', 34),
+(901, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:32', 34),
+(902, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:33', 34),
+(903, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:34', 34),
+(904, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:44', 34),
+(905, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:45', 34),
+(906, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:46', 34),
+(907, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:54', 34),
+(908, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:55', 34),
+(909, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:19:56', 34),
+(910, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:20:20', 34),
+(911, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:20:44', 34),
+(912, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:21:59', 34),
+(913, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:22:06', 34),
+(914, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:22:07', 34),
+(915, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:22:07', 34),
+(916, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:11', 34),
+(917, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:12', 34),
+(918, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:12', 34),
+(919, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:16', 21),
+(920, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:17', 21),
+(921, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:23:17', 21),
+(922, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:27:58', 42),
+(923, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:27:59', 42),
+(924, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:27:59', 42),
+(925, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:33:22', 21),
+(926, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:33:23', 21),
+(927, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:33:24', 21),
+(928, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:38:31', 6),
+(929, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:38:32', 6),
+(930, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:38:32', 6),
+(931, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:40:25', 21),
+(932, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:40:26', 21),
+(933, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:40:27', 21),
+(934, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:43:13', 21),
+(935, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:43:14', 21),
+(936, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:43:15', 21),
+(937, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:03', 21),
+(938, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:04', 21),
+(939, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:05', 21),
+(940, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:22', 6),
+(941, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:23', 6),
+(942, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-09 10:44:24', 6),
+(943, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 11:08:33', 42),
+(944, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 11:08:34', 42),
+(945, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 11:08:35', 42),
+(946, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:45:48', 6),
+(947, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:45:49', 6),
+(948, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:45:49', 6),
+(949, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:47:12', 6),
+(950, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:47:13', 6),
+(951, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-10 14:47:13', 6);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2236,6 +2374,12 @@ ALTER TABLE `attribute_value`
 -- Chỉ mục cho bảng `branch`
 --
 ALTER TABLE `branch`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `branch_translations`
+--
+ALTER TABLE `branch_translations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2480,6 +2624,12 @@ ALTER TABLE `branch`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT cho bảng `branch_translations`
+--
+ALTER TABLE `branch_translations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT cho bảng `category_article`
 --
 ALTER TABLE `category_article`
@@ -2591,7 +2741,7 @@ ALTER TABLE `rss`
 -- AUTO_INCREMENT cho bảng `rssnews`
 --
 ALTER TABLE `rssnews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13622;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14060;
 
 --
 -- AUTO_INCREMENT cho bảng `setting`
@@ -2627,7 +2777,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=846;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=952;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

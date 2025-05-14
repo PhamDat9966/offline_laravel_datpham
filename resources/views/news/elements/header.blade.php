@@ -6,6 +6,7 @@
     use Illuminate\Http\Request;
 
     use App\Models\SettingModel as SettingModel;
+    use Illuminate\Support\Facades\App;
 
     $request = Request::capture();
     global $host;
@@ -17,6 +18,7 @@
     }
 
     $params = [];
+    $locale             = App::getLocale();
     $params['locale']   = (isset($locale)) ? $locale : 'vi';
     $MenuModel      = new MenuModel();
     //$itemsMenu      = $MenuModel->listItems($params,['task'=>'news-list-items-navbar-menu']);
@@ -336,6 +338,14 @@
                         </div>
                     </div>
                 </div>
+                @php
+                    $phoneNumber = 'Điện thoại liên hệ';
+                    $appointment = 'Đặt lịch hẹn';
+                    if($locale == 'en'){
+                        $phoneNumber = 'Contact phone';
+                        $appointment = 'Make an appointment';
+                    }
+                @endphp
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-center">
                         <a href="#">
@@ -343,7 +353,7 @@
                                     style="background-image:url({!!asset('news/images/zendvn-online.png')!!});background-size: contain"></div>
                         </a>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            <i class="fa fa-phone" aria-hidden="true"></i>  {{$phoneNumber}}
                         </button>
                     </div>
                 </div>
@@ -351,10 +361,10 @@
                     <div class="flex-row align-items-center mt-3">
                         <!-- Phone liên hệ -->
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-phone" aria-hidden="true"></i>  Điện thoại liên hệ
+                            <i class="fa fa-phone" aria-hidden="true"></i>  {{$phoneNumber}}
                         </button>
-                        <a class="btn btn-danger btn-block" href="{!! route('appointmentnews') !!}" role="button">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>  Đặt lịch hẹn
+                        <a class="btn btn-danger btn-block" href="{!! route('appointmentnews',['locale'=>$locale]) !!}" role="button">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>  {{$appointment}}
                         </a>
                     </div>
                 </div>

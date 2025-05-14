@@ -54,8 +54,9 @@ class ContactController extends LocaleController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-        //dd($request->all());
+
         if($request->method() == 'GET'){
+            $locale = $this->getLocale();
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
             $task   = 'add-item';
@@ -66,7 +67,7 @@ class ContactController extends LocaleController
                 $notify   = 'Cập nhật thành công!';
             }
             $this->model->saveItem($params,['task'=>$task]);
-            return redirect()->route($this->controllerName)->with('zvn_notily', $notify);
+            return redirect()->route($this->controllerName,['locale' => $locale])->with('zvn_notily', $notify);
         }
     }
 

@@ -7,7 +7,6 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
-use Config;
 class BranchModel extends AdminModel
 {
     public function __construct(){
@@ -15,6 +14,12 @@ class BranchModel extends AdminModel
         $this->folderUpload         = 'branch';
         $this->fieldSearchAccepted  = ['name','address'];
         $this->crudNotActived       = ['_token'];
+    }
+
+    public function translations()
+    {
+        $this->table  = 'branch';
+        return $this->hasMany( BranchTranslationModel::class, 'brand_id', 'id');
     }
 
     public function listItems($params = null,$options = null){
@@ -106,7 +111,7 @@ class BranchModel extends AdminModel
             $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
-            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
@@ -195,16 +200,19 @@ class BranchModel extends AdminModel
         }
 
         if($options['task'] == 'get-all-item'){
-            $result = $this::select('b.id','b.name','b.address','b.googlemap')
+
+            $result = $this::select('b.id','bt.name','bt.address','b.googlemap')
+                    ->leftJoin('branch_translations as bt','b.id','=','bt.branch_id')
+                    ->where('bt.locale',$params['locale'])
                     ->get()->toArray();
 
         }
 
         if($options['task'] == 'get-item-with-id'){
+
             $result = $this::select('b.id','b.name','b.address','b.googlemap')
                     ->where('id', $params['id'])
                     ->first()->toArray();
-
         }
 
         if($options['task'] == 'get-item-googlemap-with-id'){

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Session\Store;
 
-class PhonecontactController extends Controller
+class PhonecontactController extends LocaleController
 {
     private $pathViewController  = 'news.pages.phonecontact.';
     private $controllerName      = 'phonecontact';
@@ -23,9 +23,9 @@ class PhonecontactController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->model = new PhonecontactModel();
-      // share bien $controllerName cho all view
-      View::share('controllerName',$this->controllerName);
+        View::share('controllerName',$this->controllerName);
     }
 
     public function contact(Request $request)// Ở Laravel, request sẽ lấy parameter từ url, ở đây tiêu biểu là lấy $_GET và $_POST

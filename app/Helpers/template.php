@@ -5,6 +5,7 @@ use Attribute;
 use Carbon\Carbon;
 use App\Models\AttributevalueModel;
 use DB;
+use Illuminate\Support\Facades\App;
 class Template{
 
     public static function showItemHistory($by, $time, $filterValue = null){
@@ -668,11 +669,11 @@ class Template{
 
     public static function showItemFilterSimpleFrontend($filterValue, $firstElement){
         // $firstElement có value là rỗng trong select box, nó sẽ ko tham gia vào quá trình gửi dữ liệu với $_GET hoặc $_POST
-        $tmpList     = config('zvn.template.'.$filterValue.'');
+        $tmpList = __('zvn.template.'.$filterValue);
         $xhtml       ='<select class="form-control" name="'.$filterValue.'">';
         $xhtml      .=   '<option selected value="">'.$firstElement.'</option>';
         foreach ($tmpList as $key=>$value) {
-            $xhtml  .=    '<option value="'.$key.'">'.$value.'</option>';
+                $xhtml  .=    '<option value="'.$key.'">'.$value.'</option>';
         }
         $xhtml      .= '</select>';
         return $xhtml;
