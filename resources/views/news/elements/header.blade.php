@@ -290,12 +290,12 @@
     $viFlag     = '/images/flags/vn.png';
     $enFlag     = '/images/flags/us.png';
 
-    $langVI  = sprintf('<a href="%s" class="lang-btn" title="Tiếng Việt">
+    $langVI  = sprintf('<a href="#" class="lang-btn" title="Tiếng Việt" id="btn-vi">
                                     <img src="%s" alt="VI">
-                                </a>',route('home').'/vi',$viFlag);
-    $langEn  = sprintf('<a href="%s" class="lang-btn" title="Tiếng Anh">
+                                </a>',$viFlag);
+    $langEn  = sprintf('<a href="#" class="lang-btn" title="Tiếng Anh" id="btn-en">
                                     <img src="%s" alt="En">
-                                </a>',route('home').'/en',$enFlag);
+                                </a>',$enFlag);
 
 
     $multiLang           = '<li>'.$langVI.$langEn.'</li>';

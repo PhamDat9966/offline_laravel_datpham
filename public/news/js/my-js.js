@@ -141,3 +141,37 @@ $(document).ready(function() {
         $('#contact-form [name="phone"]').val(localStorage.getItem("phone"));
     }
 });
+
+//Button chuyển đổi ngôn ngữ
+$(document).ready(function() {
+    function switchLang(lang) {
+        let currentUrl = window.location.href;
+        let origin = window.location.origin;
+        let pathname = window.location.pathname;
+
+        // Loại bỏ dấu "/" ở đầu và cuối để dễ xử lý, tách pathname thành 2 phần tử 'en' hoặc 'vi' và hậu tố
+        let segments = pathname.replace(/^\/|\/$/g, '').split('/');
+
+        // Xác định lang hiện tại (nếu có)
+        let currentLang = ['vi', 'en'].includes(segments[0]) ? segments[0] : null;
+
+        // Nếu có lang hiện tại → thay thế
+        if (currentLang) {
+            segments[0] = lang;
+        } else {
+            // Nếu không có lang hiện tại → thêm vào phần tử đầu 'vi' hoặc 'en'...
+            segments.unshift(lang);
+        }
+
+        let newPath = '/' + segments.join('/'); //segments.join('/') nối các phần tử của mảng thành một chuỗi với dấu '/'
+        let newUrl = origin + newPath;
+
+        // Nếu khác URL hiện tại thì chuyển
+        if (currentUrl !== newUrl) {
+           // window.location.href = newUrl;
+        }
+    }
+
+    $('#btn-vi').click(() => switchLang('vi'));
+    $('#btn-en').click(() => switchLang('en'));
+});
