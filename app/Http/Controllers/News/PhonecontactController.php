@@ -35,7 +35,7 @@ class PhonecontactController extends LocaleController
         $param['phonecontact']  = $input;
         $this->model->saveItem($param,['task' => 'add-item']);
 
-        echo 'Đã thêm dữ liệu thành công';
+        return 'Đã thêm dữ liệu thành công';
     }
 
     public function saveUsuallyCategory(){

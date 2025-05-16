@@ -7,13 +7,16 @@ use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use DB;                                     // DB thao tác trên csdl
 use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo location
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 class BranchModel extends AdminModel
 {
+    protected $locale;
     public function __construct(){
         $this->table                = 'branch as b';
         $this->folderUpload         = 'branch';
         $this->fieldSearchAccepted  = ['name','address'];
         $this->crudNotActived       = ['_token'];
+        $this->locale               = App::getLocale();
     }
 
     public function translations()
@@ -203,7 +206,7 @@ class BranchModel extends AdminModel
 
             $result = $this::select('b.id','bt.name','bt.address','b.googlemap')
                     ->leftJoin('branch_translations as bt','b.id','=','bt.branch_id')
-                    ->where('bt.locale',$params['locale'])
+                    ->where('bt.locale',$this->locale)
                     ->get()->toArray();
 
         }

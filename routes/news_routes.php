@@ -157,7 +157,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== PHONE CONTACT ======================
     $prefix         =   'phonecontact';
     $controllerName =   'phonecontact';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>'{locale?}/'.$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
         Route::get('/', [

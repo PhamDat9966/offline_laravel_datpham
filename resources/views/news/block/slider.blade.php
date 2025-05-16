@@ -11,7 +11,8 @@
                         $description    = $value['description'];
                         $link           = $value['link'];
                         //$thumb             = asset("images/slider/" . $value['thumb'];);
-                        $thumb            = url("/images/slider") . '/' . $value['thumb'];;
+                        $thumb          = url("/images/slider") . '/' . $value['thumb'];
+                        $seeDetails     = ($locale == 'en') ? 'See details' : 'Xem chi tiết';
                     @endphp
                     <div class="owl-item home_slider_item">
                         <div class="background_image"
@@ -23,7 +24,7 @@
                                 <div class="home_text">
                                     {{ $description }}
                                 </div>
-                                <div class="home_button trans_200"><a href="{!!$link!!}">Xem chi tiết</a></div>
+                                <div class="home_button trans_200"><a href="{!!$link!!}">{{$seeDetails}}</a></div>
                             </div>
                         </div>
                     </div>

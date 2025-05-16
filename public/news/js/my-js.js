@@ -96,17 +96,23 @@ $(document).ready(function() {
 // Phone liên hệ
 $(document).ready(function() {
     $('#submitModal').on('click', function() {
-        var input = $('#modal-input').val();
+        var input = $('#modal-phone-input').val();
         // Phải nhập số điện thoại từ 9 đến 12 ký tự và phải nhập số
         var isValid = /^\d{9,12}$/.test(input);
+        var urlPhoneContact = $('#modal-phone-input').data('url');
+        var locale = $('#modal-phone-input').data('locale');
 
         if (!isValid) {
             // alert('Số điện thoại của bạn không hợp lệ, hãy nhập ký tự số và nhập từ 9 đến 12 số');
-            $(".modal-body p").html("Số điện thoại của bạn không hợp lệ! Vui lòng nhập ký tự số và nhập từ 9 đến 12 số</b>");
+            var titleReturn = "Số điện thoại của bạn không hợp lệ! Vui lòng nhập ký tự số và nhập từ 9 đến 12 số</b>";
+            if(locale == 'en'){
+                titleReturn = "Your phone number is invalid! Please enter a numeric character and enter between 9 and 12 digits</b>";
+            }
+            $(".modal-body p").html(titleReturn);
         } else {
             // Thực hiện gửi dữ liệu nếu input hợp lệ
             $.ajax({
-                url: 'http://proj_news.xyz/phonecontact',
+                url: urlPhoneContact,
                 method: 'GET',
                 data: {
                     input: input,
@@ -114,7 +120,11 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     $('#exampleModal').modal('hide');
-                    alert('Your data has been sent!');
+                    if(locale == 'en'){
+                        alert('Your phone number has been saved. We will contact you soon!');
+                    }else{
+                        alert('Số điện thoại của bạn đã được lưu. Chúng tôi sẽ liên hệ sau!');
+                    }
                     console.log(response);
                 },
                 error: function(xhr, status, error) {
@@ -168,7 +178,7 @@ $(document).ready(function() {
 
         // Nếu khác URL hiện tại thì chuyển
         if (currentUrl !== newUrl) {
-           // window.location.href = newUrl;
+           window.location.href = newUrl;
         }
     }
 

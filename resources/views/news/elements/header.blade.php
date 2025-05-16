@@ -408,19 +408,30 @@
 
 <!-- Đây là popup của box Phone liên hệ -->
 <!-- Modal -->
+@php
+    $phoneContactUrl        = route('phonecontact',['locale'=>$locale]);
+    $titlePhoneContact      = 'Liên hệ với chúng tôi';
+    $contentPhoneContact    = 'Để lại số điện thoại của bạn để nhận cuộc gọi từ chúng tôi.';
+
+    if($locale == 'en'){
+        $titlePhoneContact      = 'Contact us';
+        $contentPhoneContact    = 'Leave your phone number to receive a call from us.';
+    }
+
+@endphp
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title font-weight-bold" id="exampleModalLabel">Liên hệ với chúng tôi</h4>
+        <h4 class="modal-title font-weight-bold" id="exampleModalLabel">{{$titlePhoneContact}}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <div class="logo mb-3"><span>ZEND</span>VN</div>
-        <h5 class="font-italic">Để lại số điện thoại của bạn để nhận cuộc gọi từ chúng tôi.</h5>
-        <input type="text" id="modal-input" class="form-control" placeholder="Số điện thoại của bạn">
+        <h5 class="font-italic">{{$contentPhoneContact}}</h5>
+        <input type="text" id="modal-phone-input" class="form-control" placeholder="Số điện thoại của bạn" data-url="{{$phoneContactUrl}}" data-locale="{{$locale}}">
         {{-- Đây là nơi xuất thông báo lỗi --}}
         <p class="text-danger"></p>
     </div>
