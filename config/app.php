@@ -176,7 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Đăng ký cho MailServiceProvider
         App\Providers\MailServiceProvider::class,
-
+        //reCAPTCHA google
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ],
 
     /*

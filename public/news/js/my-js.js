@@ -94,13 +94,55 @@ $(document).ready(function() {
 });
 
 // Phone liên hệ
+// $(document).ready(function() {
+//     $('#submitModal').on('click', function() {
+//         var input = $('#modal-phone-input').val();
+//         // Phải nhập số điện thoại từ 9 đến 12 ký tự và phải nhập số
+//         var isValid = /^\d{9,12}$/.test(input);
+//         var urlPhoneContact = $('#modal-phone-input').data('url');
+//         var locale = $('#modal-phone-input').data('locale');
+
+//         if (!isValid) {
+//             // alert('Số điện thoại của bạn không hợp lệ, hãy nhập ký tự số và nhập từ 9 đến 12 số');
+//             var titleReturn = "Số điện thoại của bạn không hợp lệ! Vui lòng nhập ký tự số và nhập từ 9 đến 12 số</b>";
+//             if(locale == 'en'){
+//                 titleReturn = "Your phone number is invalid! Please enter a numeric character and enter between 9 and 12 digits</b>";
+//             }
+//             $(".modal-body p").html(titleReturn);
+//         } else {
+//             // Thực hiện gửi dữ liệu nếu input hợp lệ
+//             $.ajax({
+//                 url: urlPhoneContact,
+//                 method: 'GET',
+//                 data: {
+//                     input: input,
+//                     _token: '{{ csrf_token() }}'  // Bao gồm CSRF token nếu cần
+//                 },
+//                 success: function(response) {
+//                     $('#exampleModal').modal('hide');
+//                     if(locale == 'en'){
+//                         alert('Your phone number has been saved. We will contact you soon!');
+//                     }else{
+//                         alert('Số điện thoại của bạn đã được lưu. Chúng tôi sẽ liên hệ sau!');
+//                     }
+//                     console.log(response);
+//                 },
+//                 error: function(xhr, status, error) {
+//                     alert('There was an error sending your data.');
+//                 }
+//             });
+//         }
+//     });
+// });
+
 $(document).ready(function() {
     $('#submitModal').on('click', function() {
-        var input = $('#modal-phone-input').val();
+        var phone = $('#modal-phone-input').val();
         // Phải nhập số điện thoại từ 9 đến 12 ký tự và phải nhập số
-        var isValid = /^\d{9,12}$/.test(input);
+        var isValid = /^\d{9,12}$/.test(phone);
         var urlPhoneContact = $('#modal-phone-input').data('url');
         var locale = $('#modal-phone-input').data('locale');
+        var recaptchaResponse = grecaptcha.getResponse();
 
         if (!isValid) {
             // alert('Số điện thoại của bạn không hợp lệ, hãy nhập ký tự số và nhập từ 9 đến 12 số');
@@ -115,20 +157,21 @@ $(document).ready(function() {
                 url: urlPhoneContact,
                 method: 'GET',
                 data: {
-                    input: input,
-                    _token: '{{ csrf_token() }}'  // Bao gồm CSRF token nếu cần
+                    phone: phone,
+                    'g-recaptcha-response': recaptchaResponse,
+                    _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
                     $('#exampleModal').modal('hide');
                     if(locale == 'en'){
-                        alert('Your phone number has been saved. We will contact you soon!');
+                        alert('Your phone number has been saved. We will contact you as soon as possible!');
                     }else{
-                        alert('Số điện thoại của bạn đã được lưu. Chúng tôi sẽ liên hệ sau!');
+                        alert('Số điện thoại của bạn đã được lưu. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhât!');
                     }
                     console.log(response);
                 },
                 error: function(xhr, status, error) {
-                    alert('There was an error sending your data.');
+                    alert(xhr.responseJSON.message || 'Có lỗi xảy ra.');
                 }
             });
         }

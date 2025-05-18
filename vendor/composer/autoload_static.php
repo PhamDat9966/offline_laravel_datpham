@@ -17,11 +17,12 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '5323a5cb5bb1bab9b2f24566beed262a' => __DIR__ . '/..' . '/arcanedev/support/helpers.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -30,7 +31,6 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         '24be6d98d7c305f36699ba4e34b6df3c' => __DIR__ . '/..' . '/arcanedev/log-viewer/helpers.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
@@ -186,6 +186,7 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
             'Arcanedev\\Support\\' => 18,
             'Arcanedev\\LogViewer\\' => 20,
             'App\\' => 4,
+            'Anhskohbo\\NoCaptcha\\' => 20,
         ),
     );
 
@@ -524,9 +525,16 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'Anhskohbo\\NoCaptcha\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/anhskohbo/no-captcha/src',
+        ),
     );
 
     public static $classMap = array (
+        'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
+        'Anhskohbo\\NoCaptcha\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptcha.php',
+        'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
         'App\\Console\\Commands\\DailyTask' => __DIR__ . '/../..' . '/app/Console/Commands/DailyTask.php',
         'App\\Console\\Commands\\UpdateGoldApiKey' => __DIR__ . '/../..' . '/app/Console/Commands/UpdateGoldApiKey.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -584,6 +592,7 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'App\\Http\\Controllers\\News\\DailySchedulerController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/DailySchedulerController.php',
         'App\\Http\\Controllers\\News\\GalleryshowController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/GalleryshowController.php',
         'App\\Http\\Controllers\\News\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/HomeController.php',
+        'App\\Http\\Controllers\\News\\LocaleController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/LocaleController.php',
         'App\\Http\\Controllers\\News\\NotifyController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/NotifyController.php',
         'App\\Http\\Controllers\\News\\PhonecontactController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/PhonecontactController.php',
         'App\\Http\\Controllers\\News\\RssController' => __DIR__ . '/../..' . '/app/Http/Controllers/News/RssController.php',
@@ -637,6 +646,7 @@ class ComposerStaticInitf1819e7c1c3946f46d8daa398db45bc6
         'App\\Models\\AttributeModel' => __DIR__ . '/../..' . '/app/Models/AttributeModel.php',
         'App\\Models\\AttributevalueModel' => __DIR__ . '/../..' . '/app/Models/AttributevalueModel.php',
         'App\\Models\\BranchModel' => __DIR__ . '/../..' . '/app/Models/BranchModel.php',
+        'App\\Models\\BranchTranslationModel' => __DIR__ . '/../..' . '/app/Models/BranchTranslationModel.php',
         'App\\Models\\CategoryArticleModel' => __DIR__ . '/../..' . '/app/Models/CategoryArticleModel.php',
         'App\\Models\\CategoryArticleTranslationModel' => __DIR__ . '/../..' . '/app/Models/CategoryArticleTranslationModel.php',
         'App\\Models\\CategoryProductModel' => __DIR__ . '/../..' . '/app/Models/CategoryProductModel.php',

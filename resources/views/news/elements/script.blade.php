@@ -13,6 +13,18 @@
 <!-- Tạo calendar với Bootstrap Datepicker -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+<!-- reCAPTCHA checkbox -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LeMlT4rAAAAALNAcQzj9Z-cfbq5P-SVxyKWgbTO"></script>
+<script>
+    function getReCaptchaToken(callback) {
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LeMlT4rAAAAALNAcQzj9Z-cfbq5P-SVxyKWgbTO', {action: 'submit'}).then(function(token) {
+                callback(token);
+            });
+        });
+    }
+</script>
+
 <script src="{{asset('news/js/custom.js')}}"></script>
 <script src="{{asset('news/js/my-js.js')}}"></script>
 

@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers\News;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\App;
 
 use App\Models\PhonecontactModel;
-use App\Models\ArticleModel;
-use App\Models\UserModel;
-
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Session\Store;
 
 class PhonecontactController extends LocaleController
 {
@@ -30,12 +25,31 @@ class PhonecontactController extends LocaleController
 
     public function contact(Request $request)// Ở Laravel, request sẽ lấy parameter từ url, ở đây tiêu biểu là lấy $_GET và $_POST
     {
-        $input                  = $request->input('input');
+        $locale    = App::getLocale();
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+
+        $message = 'Nếu bạn không phải là Robot. Vui lòng xác nhận reCAPTCHA';
+        if($locale == 'en'){
+            $message = 'If you are not a Robot. Please confirm reCAPTCHA';
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $message
+            ], 422);
+        }
+        $phone                  = $request->input('phone');
         $param                  = [];
-        $param['phonecontact']  = $input;
+        $param['phonecontact']  = $phone;
         $this->model->saveItem($param,['task' => 'add-item']);
 
-        return 'Đã thêm dữ liệu thành công';
+        $returnMessage = ($locale == 'en') ? 'Data added successfully' : 'Đã thêm dữ liệu thành công';
+
+        return $returnMessage;
     }
 
     public function saveUsuallyCategory(){

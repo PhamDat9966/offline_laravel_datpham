@@ -417,6 +417,7 @@
         $titlePhoneContact      = 'Contact us';
         $contentPhoneContact    = 'Leave your phone number to receive a call from us.';
     }
+    $reCAPTCHAsitekey = '6LfInD4rAAAAAKEX454J3YW6rWL4WhPyDwH5dRBd';
 
 @endphp
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -431,6 +432,7 @@
     <div class="modal-body">
         <div class="logo mb-3"><span>ZEND</span>VN</div>
         <h5 class="font-italic">{{$contentPhoneContact}}</h5>
+        <div class="g-recaptcha" data-sitekey="6LfInD4rAAAAAKEX454J3YW6rWL4WhPyDwH5dRBd"></div>
         <input type="text" id="modal-phone-input" class="form-control" placeholder="Số điện thoại của bạn" data-url="{{$phoneContactUrl}}" data-locale="{{$locale}}">
         {{-- Đây là nơi xuất thông báo lỗi --}}
         <p class="text-danger"></p>

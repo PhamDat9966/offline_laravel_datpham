@@ -6,6 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
+    'Anhskohbo\\NoCaptcha\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptcha.php',
+    'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
     'App\\Console\\Commands\\DailyTask' => $baseDir . '/app/Console/Commands/DailyTask.php',
     'App\\Console\\Commands\\UpdateGoldApiKey' => $baseDir . '/app/Console/Commands/UpdateGoldApiKey.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -63,6 +66,7 @@ return array(
     'App\\Http\\Controllers\\News\\DailySchedulerController' => $baseDir . '/app/Http/Controllers/News/DailySchedulerController.php',
     'App\\Http\\Controllers\\News\\GalleryshowController' => $baseDir . '/app/Http/Controllers/News/GalleryshowController.php',
     'App\\Http\\Controllers\\News\\HomeController' => $baseDir . '/app/Http/Controllers/News/HomeController.php',
+    'App\\Http\\Controllers\\News\\LocaleController' => $baseDir . '/app/Http/Controllers/News/LocaleController.php',
     'App\\Http\\Controllers\\News\\NotifyController' => $baseDir . '/app/Http/Controllers/News/NotifyController.php',
     'App\\Http\\Controllers\\News\\PhonecontactController' => $baseDir . '/app/Http/Controllers/News/PhonecontactController.php',
     'App\\Http\\Controllers\\News\\RssController' => $baseDir . '/app/Http/Controllers/News/RssController.php',
@@ -116,6 +120,7 @@ return array(
     'App\\Models\\AttributeModel' => $baseDir . '/app/Models/AttributeModel.php',
     'App\\Models\\AttributevalueModel' => $baseDir . '/app/Models/AttributevalueModel.php',
     'App\\Models\\BranchModel' => $baseDir . '/app/Models/BranchModel.php',
+    'App\\Models\\BranchTranslationModel' => $baseDir . '/app/Models/BranchTranslationModel.php',
     'App\\Models\\CategoryArticleModel' => $baseDir . '/app/Models/CategoryArticleModel.php',
     'App\\Models\\CategoryArticleTranslationModel' => $baseDir . '/app/Models/CategoryArticleTranslationModel.php',
     'App\\Models\\CategoryProductModel' => $baseDir . '/app/Models/CategoryProductModel.php',
