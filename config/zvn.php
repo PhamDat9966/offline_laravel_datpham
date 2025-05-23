@@ -5,6 +5,7 @@ return [
         'prefix_admin'      =>'admin96',
         'prefix_news'       =>'',
         'prefix_bookstore'  =>'bookstore',
+        'prefix_phone'      =>'phone'
     ],
     'format'    =>[
         'short_time'        =>'d/m/Y',

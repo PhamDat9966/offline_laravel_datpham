@@ -20,6 +20,7 @@ Route::get('/about', function () {
 });
 
 require __DIR__ . '/admin_routes.php';
+require __DIR__ . '/phone_routes.php';
 require __DIR__ . '/news_routes.php';
 require __DIR__ . '/news_routes_auth.php';
 
