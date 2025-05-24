@@ -405,6 +405,7 @@ class ArticleModel extends AdminModel
             $this->created_by   = $params['created_by'];
             $this->created      = $params['created'];
             $this->thumb        = $params['thumb'];
+            $this->type         = 'normal';
             $this->save();
 
             //Lưu thông tin tại `article_translations`

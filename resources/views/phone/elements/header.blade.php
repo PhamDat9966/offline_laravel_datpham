@@ -7,7 +7,7 @@
                         <div class="menu-left">
                             <div class="brand-logo">
                                 <a href="index.html">
-                                    <h2 class="mb-0" style="color: #5fcbc4">BookStore</h2>
+                                    <h2 class="mb-0" style="color: #5fcbc4">Smart Phone</h2>
                                 </a>
                             </div>
                         </div>
