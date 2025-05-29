@@ -4,6 +4,7 @@ namespace App\Helpers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Carbon;
 
 class Feed{
     public static function read($itemRss){
@@ -318,11 +319,37 @@ class Feed{
     //     $data = json_decode($response, true);
     //     return $data;
     // }
+    public static function createStorageApiKeyGold(){
+        $response = Http::get('https://api.vnappmob.com/api/request_api_key?scope=gold');
+        if ($response->successful()) {
+            // Phân tích JSON, lấy API key từ kết quả
+            $dataApiKey = $response->json();
+            $apiKey = $dataApiKey['results']; // Chuỗi key, không phải mảng con
 
+            // Lưu API key vào file trong storage/app
+            Storage::put('gold_api_key.txt', $apiKey);
+            $apiKey = Storage::get('gold_api_key.txt');
+        }
+        return $apiKey;
+    }
 
     public static function getGoldFromPNJ()
     {
-        $apiKey = Storage::get('gold_api_key.txt'); //Lấy API key từ storage
+        $apiKey = ''; //Lấy API key từ storage
+
+        if (Storage::exists('gold_api_key.txt')) {
+            $apiKey = Storage::get('gold_api_key.txt');
+        } else {
+            // File chưa tồn tại, xử lý trường hợp này phải tạo gold_api_key trực tiếp từ storage.
+            $apiKey = self::createStorageApiKeyGold();
+        }
+
+        //Cập nhật key mới thông qua việc tính trên số ngày chia hết cho 5, tức là 5 ngày cập nhật key mới 1 lần.
+        if (Carbon::now()->day % 5 === 0) {
+            Storage::delete('gold_api_key.txt'); //Xóa key cũ
+            $apiKey = self::createStorageApiKeyGold();  //Cập nhật lại key mới
+        }
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, 'https://api.vnappmob.com/api/v2/gold/pnj');

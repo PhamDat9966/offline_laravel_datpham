@@ -12,5 +12,6 @@
     @include('news.elements.footer')
 </div>
     @include('news.elements.script')
+    @yield('after_script')
 </body>
 </html>
