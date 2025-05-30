@@ -85,7 +85,14 @@
                 </li>
             @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-slider', $user_has_permission_names) && in_array('access-slider', $all_permission_names_active))
-                <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li>
+                <!-- <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li> -->
+                <li id='slider'>
+                    <a><i class="fa fa-sliders"></i> Quản lý Slider<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('slider')}}"> Slider News</a></li>
+                        <li><a href="{{ route('sliderPhone')}}"> Slider Phone</a></li>
+                    </ul>
+                </li>
             @endif
             @if($userInfo['roles_id'] == $primeID || (in_array('access-gallery', $user_has_permission_names) && in_array('access-gallery', $all_permission_names_active)) || (in_array('access-video', $user_has_permission_names) && in_array('access-video', $all_permission_names_active)))
                 <li id='media' hidden="hidden">

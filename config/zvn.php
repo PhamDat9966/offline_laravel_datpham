@@ -209,7 +209,8 @@ return [
             'coupon'                =>  ['edit','delete'],
             'shipping'              =>  ['edit','delete'],
             'productHasAttribute'   =>  ['delete'],
-            'productAttributePrice' =>  ['delete']
+            'productAttributePrice' =>  ['delete'],
+            'sliderPhone'           =>  ['edit','delete']
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3],
