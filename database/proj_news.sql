@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 24, 2025 lúc 03:01 PM
+-- Thời gian đã tạo: Th5 30, 2025 lúc 01:18 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.1.25
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1102,25 +1102,15 @@ CREATE TABLE `rssnews` (
 --
 
 INSERT INTO `rssnews` (`id`, `title`, `description`, `pubDate`, `link`, `thumb`, `created_by`, `status`, `domain`) VALUES
-(14098, 'Harvard dàn xếp vụ kiện \'bài Do Thái\' với cựu sinh viên', 'Đại học Harvard đạt thỏa thuận bãi nại với cựu sinh viên Alexander Kestenbaum, sau khi người này kiện trường về cáo buộc bài Do Thái.', '2025-05-16 11:57:50', 'https://vnexpress.net/harvard-dan-xep-vu-kien-bai-do-thai-voi-cuu-sinh-vien-4886746.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/ap25105725010265-1747370325-17-3142-7820-1747370364.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=1kOV6dgbzXj5vLocMyJVCw', 'VNExpress', 'active', 'vnexpress'),
-(14099, 'Những người định đoạt hòa đàm Nga - Ukraine ở Istanbul', 'Phái đoàn được Nga và Ukraine cử đến tiến hành đàm phán tại Istanbul chủ yếu là các quan chức tình báo, quốc phòng, không có các lãnh đạo cấp cao.', '2025-05-16 11:37:11', 'https://vnexpress.net/nhung-nguoi-dinh-doat-hoa-dam-nga-ukraine-o-istanbul-4886659.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/oanamphanngaukraine-1747366434-6127-1646-1747366666.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=tRVWwbGTyRXEEwKMVDjFZw', 'VNExpress', 'active', 'vnexpress'),
-(14100, 'Mỹ - UAE chốt loạt thỏa thuận 200 tỷ USD', 'Các thỏa thuận mới giữa Mỹ và UAE bao gồm hợp đồng mua máy bay, đầu tư vào lĩnh vực năng lượng, hợp tác công nghệ AI, với tổng giá trị 200 tỷ USD.', '2025-05-16 11:28:43', 'https://vnexpress.net/my-uae-chot-loat-thoa-thuan-200-ty-usd-4886765.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/trump-uae-hua-n-chu-o-ng-17473-7500-7366-1747370057.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ay5ocY84ZQ3YhL0xKoT6Zg', 'VNExpress', 'active', 'vnexpress'),
-(14101, 'Trận không chiến thể hiện hiệu quả của vũ khí Trung Quốc', 'Việc Pakistan sử dụng tiêm kích J-10C và tên lửa PL-15E đều do Trung Quốc sản xuất để hạ tiêm kích Rafale Ấn Độ cho thấy hiệu quả của những loại khí tài giá rẻ này.', '2025-05-16 11:14:57', 'https://vnexpress.net/tran-khong-chien-the-hien-hieu-qua-cua-vu-khi-trung-quoc-4886787.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/j-10ce-1746763509-3267-1746764-3410-7776-1747368696.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=CuTHAQ4FRykaMMKy2e7oxA', 'VNExpress', 'active', 'vnexpress'),
-(14102, 'Người Hàn mệt mỏi với \'địa ngục trường luyện thi\'', 'Các gia đình Hàn Quốc phải dành nhiều tiền và thời gian cho con theo học các trung tâm dạy thêm, khiến một số phụ huynh có lúc cảm thấy hối hận vì đã sinh con.', '2025-05-16 11:05:08', 'https://vnexpress.net/nguoi-han-met-moi-voi-dia-nguc-truong-luyen-thi-4886367.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/9-7-1747367754-6541-1747367799-4019-1730-1747368389.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9A_FPNooNDLeOfYzePoA0A', 'VNExpress', 'active', 'vnexpress'),
-(14103, 'Ukraine lắp lưới thép bảo vệ drone', 'Lực lượng Ukraine lắp lưới thép cho drone để bảo vệ thiết bị này khỏi đòn tấn công của drone tự sát Nga.', '2025-05-16 11:04:45', 'https://vnexpress.net/ukraine-lap-luoi-thep-bao-ve-drone-4886642.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/Settop-1747360984-2576-1747361315.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=2kmBedV0QhQ8IQLH-hou9A', 'VNExpress', 'active', 'vnexpress'),
-(14104, 'Cựu giám đốc FBI bị điều tra vì dãy số 8647', 'Cựu giám đốc FBI Comey bị các cơ quan hành pháp Mỹ điều tra, sau khi đăng bức ảnh xếp vỏ sò hình dãy số 8647, bị cho là thông điệp \"dọa ám sát ông Trump\".', '2025-05-16 10:05:03', 'https://vnexpress.net/cuu-giam-doc-fbi-bi-dieu-tra-vi-day-so-8647-4886631.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/afp-20250415-1494698655-v4-hig-4782-8284-1747359332.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=twaO-wWpmLlofrv6zcZaww', 'VNExpress', 'active', 'vnexpress'),
-(14105, 'Nhà khách Nhật yêu cầu khách cam kết \'không phạm tội ác chiến tranh\'', 'Nhà khách Wind Villa ở Kyoto yêu cầu khách phải ký vào cam kết chưa từng phạm tội ác chiến tranh, khiến Đại sứ Israel tại Nhật phản ứng.', '2025-05-16 10:00:00', 'https://vnexpress.net/nha-khach-nhat-yeu-cau-khach-cam-ket-khong-pham-toi-ac-chien-tranh-4886436.html', 'https://i1-vnexpress.vnecdn.net/2025/05/15/afp-20240311-34lb8qn-v1-highre-9236-1810-1747301378.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=DyAwUf0y-BStfp_N_qxLhg', 'VNExpress', 'active', 'vnexpress'),
-(14106, 'Thủ tướng Phạm Minh Chính chủ trì lễ đón Thủ tướng Thái Lan', 'Thủ tướng Phạm Minh Chính chủ trì lễ đón Thủ tướng Paetongtarn Shinawatra đang thăm Việt Nam ngày 15-16/5.', '2025-05-16 09:53:30', 'https://vnexpress.net/thu-tuong-pham-minh-chinh-chu-tri-le-don-thu-tuong-thai-lan-4886636.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/z6606487112121af1ca93facb69cd2-1460-2195-1747363324.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=19JVZlgs5TJxDpHn8xfUjQ', 'VNExpress', 'active', 'vnexpress'),
-(14107, '143 người chết trong một ngày khi Israel không kích Gaza', 'IDF tiếp tục tăng cường không kích Gaza, khiến ít nhất 143 người chết trong ngày, đánh dấu một trong những đợt tấn công đẫm máu nhất nhiều tuần qua.', '2025-05-16 09:42:04', 'https://vnexpress.net/143-nguoi-chet-trong-mot-ngay-khi-israel-khong-kich-gaza-4886625.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/2025-05-15t073849z-1873904466-5671-8191-1747359401.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Baom_ppbQ8aLUq1RarbGvw', 'VNExpress', 'active', 'vnexpress'),
-(14108, 'Màn múa tóc chào đón ông Trump tại UAE', 'UAE trình diễn điệu múa truyền thống Al-Ayyala với những cú hất tóc đặc trưng để chào đón Tổng thống Mỹ.', '2025-05-16 09:41:33', 'https://vnexpress.net/man-mua-toc-chao-don-ong-trump-tai-uae-4886628.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/uae-jpg-1747359738-1473-1747359869.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=m8up8PaBjxPeNvRu8z0POA', 'VNExpress', 'active', 'vnexpress'),
-(14109, 'Người Syria ăn mừng khi ông Trump tuyên bố dỡ trừng phạt', 'Người dân Syria đang ngập tràn hy vọng về một cuộc sống mới, tốt đẹp hơn sau khi Tổng thống Trump thông báo sẽ dỡ bỏ cấm vận đối với họ.', '2025-05-16 09:00:00', 'https://vnexpress.net/nguoi-syria-an-mung-khi-ong-trump-tuyen-bo-do-trung-phat-4886141.html', 'https://i1-vnexpress.vnecdn.net/2025/05/15/AP25134249695378-1747272119-1128-1747275924.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=5MXeIPX74bkbgk6rzXh9Bw', 'VNExpress', 'active', 'vnexpress'),
-(14110, 'Mỹ có thể chi tới 45 triệu USD cho duyệt binh', 'Lục quân Mỹ cho biết lễ duyệt binh tại thủ đô Washington vào tháng sau, với sự tham gia của 6.600 binh sĩ, có thể tiêu tốn 25-45 triệu USD.', '2025-05-16 08:57:21', 'https://vnexpress.net/my-co-the-chi-toi-45-trieu-usd-cho-duyet-binh-4886647.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/55631871781372687424a-my-17473-2378-1978-1747358901.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=sVAV2klUbEQlSera3RF-Og', 'VNExpress', 'active', 'vnexpress'),
-(14111, 'Anh, Đức hợp tác phát triển tên lửa tầm bắn hơn 2.000 km', 'Anh, Đức thông báo hợp tác phát triển tên lửa có tầm bắn trên 2.000 km, giữa lúc châu Âu tìm cách giảm phụ thuộc vào vũ khí Mỹ.', '2025-05-16 08:32:02', 'https://vnexpress.net/anh-duc-hop-tac-phat-trien-ten-lua-tam-ban-hon-2-000-km-4886607.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/afp-20250515-46up7vy-v1-highre-2481-4265-1747356345.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=eP0XbfgWBeB0dS_h5yhrXQ', 'VNExpress', 'active', 'vnexpress'),
-(14112, 'Nga - Ukraine lùi ngày đàm phán tại Thổ Nhĩ Kỳ', 'Đàm phán Nga - Ukraine không diễn ra tại Thổ Nhĩ Kỳ hôm qua mà lùi sang hôm nay, khi các bên đưa ra những tín hiệu không rõ ràng.', '2025-05-16 07:24:55', 'https://vnexpress.net/nga-ukraine-lui-ngay-dam-phan-tai-tho-nhi-ky-4886603.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/AFP-20220307-324N79N-v1-HighRe-6277-9643-1747354001.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Bt-Ae9EQA1jX4oQIUGV5_A', 'VNExpress', 'active', 'vnexpress'),
-(14113, 'Ấn Độ, Pakistan chỉ trích nhau về kho vũ khí hạt nhân', 'Ấn Độ và Pakistan cáo buộc nhau không kiểm soát được kho vũ khí hạt nhân của mỗi nước, kêu gọi cơ quan quốc tế hành động.', '2025-05-16 07:10:40', 'https://vnexpress.net/an-do-pakistan-chi-trich-nhau-ve-kho-vu-khi-hat-nhan-4886600.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/2017-03-23t120000z-1930051622-7988-2835-1747352644.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=7CdYhT1uwit9rVSPSZQSoQ', 'VNExpress', 'active', 'vnexpress'),
-(14114, 'Ông Putin miễn nhiệm tư lệnh lục quân Nga', 'Điện Kremlin thông báo Tổng thống Putin đã miễn nhiệm tư lệnh lục quân Nga Salyukov, nhưng không nêu lý do cụ thể.', '2025-05-16 06:43:54', 'https://vnexpress.net/ong-putin-mien-nhiem-tu-lenh-luc-quan-nga-4886597.html', 'https://i1-vnexpress.vnecdn.net/2025/05/16/2017208217-0032642048-1440x900-5593-7203-1747351565.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=L-gyNhYOPUsFLzMJL8w5-A', 'VNExpress', 'active', 'vnexpress'),
-(14115, 'Được, mất của Ấn Độ - Pakistan sau 4 ngày giao tranh', 'Ấn Độ và Pakistan đều tuyên bố thắng lợi sau 4 ngày đối đầu, nhưng hai bên cũng phải hứng chịu những tổn thất nhất định.', '2025-05-16 05:00:00', 'https://vnexpress.net/duoc-mat-cua-an-do-pakistan-sau-4-ngay-giao-tranh-4886157.html', 'https://i1-vnexpress.vnecdn.net/2025/05/15/afp-20250512-nazir-notitle2505-9115-6856-1747281773.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=bOay9ztZPzbs4YEOo8DoTA', 'VNExpress', 'active', 'vnexpress'),
-(14116, '\'Nỗi lo tổn thất\' thúc đẩy Mỹ ngừng chiến với Houthi', 'Loạt vụ F-35, F-16 suýt trúng tên lửa cùng chi phí chiến dịch ngày càng leo thang dường như là lý do khiến Mỹ sớm đạt thỏa thuận với Houthi.', '2025-05-16 01:00:00', 'https://vnexpress.net/noi-lo-ton-that-thuc-day-my-ngung-chien-voi-houthi-4885513.html', 'https://i1-vnexpress.vnecdn.net/2025/05/15/f-35c-2-1747208382-3428-174728-7405-7928-1747283237.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=RL8gV6i9uPs-PN1YzxdmVg', 'VNExpress', 'active', 'vnexpress');
+(14479, 'Thẩm phán tiếp tục chặn lệnh cấm Harvard tuyển du học sinh', 'Thẩm phán liên bang ở Massachusetts cho phép Harvard tiếp tục tuyển du học sinh trong thời gian chờ xử lý vụ kiện giữa trường với chính quyền ông Trump.', '2025-05-30 08:35:55', 'https://vnexpress.net/tham-phan-tiep-tuc-chan-lenh-cam-harvard-tuyen-du-hoc-sinh-4892262.html', 'https://i1-vnexpress.vnecdn.net/2025/05/30/afp-20250422-aa-22042025-21897-8140-8061-1748566334.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=AikKk7AsXUIgXKKXS2yOpA', 'VNExpress', 'active', 'vnexpress'),
+(14480, 'Mỹ nói Israel chấp nhận đề xuất ngừng bắn ở Gaza', 'Nhà Trắng thông báo đã gửi cho Hamas đề xuất ngừng bắn được Israel chấp thuận, nhóm vũ trang cho biết đang nghiên cứu cách phản hồi.', '2025-05-30 07:51:00', 'https://vnexpress.net/my-noi-israel-chap-nhan-de-xuat-ngung-ban-o-gaza-4892264.html', 'https://i1-vnexpress.vnecdn.net/2025/05/30/Israel-1748564483-2719-1748564675.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=uOwi2BD9hwshPEC0rbmVWQ', 'VNExpress', 'active', 'vnexpress'),
+(14481, 'Ukraine yêu cầu Nga cung cấp dự thảo điều kiện ngừng bắn', 'Ukraine nói sẵn sàng tiếp tục hòa đàm ở Istanbul như Nga đề nghị, song nhấn mạnh Moskva phải cung cấp tài liệu nêu rõ các điều kiện hòa bình.', '2025-05-30 06:57:56', 'https://vnexpress.net/ukraine-yeu-cau-nga-cung-cap-du-thao-dieu-kien-ngung-ban-4892255.html', 'https://i1-vnexpress.vnecdn.net/2025/05/30/Ukraine1-1748561823-3618-1748561869.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=IU9Dc4DPCBXI1Ht_jJIeAw', 'VNExpress', 'active', 'vnexpress'),
+(14482, 'Anh công bố danh tính nghi phạm lao xe vào đám đông CĐV Liverpool', 'Nghi phạm trong vụ lao xe vào đám đông CĐV Liverpool được xác định là Paul Doyle, cựu đặc nhiệm thủy quân lục chiến Anh.', '2025-05-30 06:36:42', 'https://vnexpress.net/anh-cong-bo-danh-tinh-nghi-pham-lao-xe-vao-dam-dong-cdv-liverpool-4892242.html', 'https://i1-vnexpress.vnecdn.net/2025/05/30/telemmglpict000426476559-17485-8050-2629-1748538860.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=S2wSjVDys1TYao7QOch6bQ', 'VNExpress', 'active', 'vnexpress'),
+(14483, 'Nhà Trắng cảm ơn Elon Musk', 'Nhà Trắng nói sẽ duy trì nỗ lực tinh giản chính quyền liên bang sau khi Elon Musk rời đi và cảm ơn tỷ phú Mỹ vì sự phục vụ.', '2025-05-30 06:20:52', 'https://vnexpress.net/nha-trang-cam-on-elon-musk-4892248.html', 'https://i1-vnexpress.vnecdn.net/2025/05/30/ap25149626824492-1748559973-4422-1748560151.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=fIlIv0fKU0coHI1gpQp7Ww', 'VNExpress', 'active', 'vnexpress'),
+(14484, 'Cú đấm thúc đẩy ông Trump tung đòn với các đại học Mỹ', 'Sau khi nhà hoạt động bảo thủ Hayden William bị đấm tím mắt trước trường UC Berkeley, ông Trump quyết định sẽ tiến hành cuộc chiến chống lại các đại học Mỹ.', '2025-05-30 05:00:00', 'https://vnexpress.net/cu-dam-thuc-day-ong-trump-tung-don-voi-cac-dai-hoc-my-4891786.html', 'https://i1-vnexpress.vnecdn.net/2025/05/29/2019-03-02t000000z-922553217-m-3295-3345-1748496055.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=3hUAKkjLUEjvi_Uno2XbNw', 'VNExpress', 'active', 'vnexpress'),
+(14485, 'Những phụ nữ nuôi búp bê \'tái sinh\'', 'Gabi Matos thay tã và âu yếm Ravi như một bà mẹ yêu con, nhưng Ravi không phải là người thật mà là búp bê giống y như trẻ sơ sinh.', '2025-05-30 03:00:00', 'https://vnexpress.net/nhung-phu-nu-nuoi-bup-be-tai-sinh-4892062.html', 'https://i1-vnexpress.vnecdn.net/2025/05/29/download-17-1748510052-2051-17-3563-4948-1748533243.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=xHhglmQcAIuAbWulf6uINA', 'VNExpress', 'active', 'vnexpress'),
+(14486, 'Tính năng mẫu ICBM được Mỹ biên chế hơn 50 năm', 'Tên lửa đạn đạo xuyên lục địa Minuteman III, được biên chế từ năm 1970, có thể mang đầu đạn hạt nhân mạnh 475 kiloton và đạt tầm bắn 14.000km.', '2025-05-30 01:00:00', 'https://vnexpress.net/tinh-nang-mau-icbm-duoc-my-bien-che-hon-50-nam-4891931.html', 'https://i1-vnexpress.vnecdn.net/2025/05/29/55631871781372687448a-17484896-3451-9553-1748489671.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ClGi7qG1aiFV-wWGTjriEw', 'VNExpress', 'active', 'vnexpress'),
+(14487, 'Cuộc vượt ngục như \'giữa chốn không người\' làm chấn động nước Mỹ', '10 tù nhân đã vượt ngục thành công khỏi trại giam ở New Orleans và con đường đào thoát của họ bắt đầu ngay phía sau khu vệ sinh.', '2025-05-30 00:00:00', 'https://vnexpress.net/cuoc-vuot-nguc-nhu-giua-chon-khong-nguoi-lam-chan-dong-nuoc-my-4891058.html', 'https://i1-vnexpress.vnecdn.net/2025/05/27/edited-8b12ddd5-fca5-42e3-94bd-8888-1555-1748345109.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=-2plCCUbHUOe5lrbxJvaZw', 'VNExpress', 'active', 'vnexpress');
 
 -- --------------------------------------------------------
 
@@ -1237,6 +1227,32 @@ CREATE TRIGGER `updateTotalElementsSlider` AFTER INSERT ON `slider` FOR EACH ROW
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `slider_phone`
+--
+
+CREATE TABLE `slider_phone` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `link` varchar(200) NOT NULL,
+  `thumb` text DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL,
+  `status` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=COMPACT;
+
+--
+-- Đang đổ dữ liệu cho bảng `slider_phone`
+--
+
+INSERT INTO `slider_phone` (`id`, `name`, `description`, `link`, `thumb`, `created`, `created_by`, `modified`, `modified_by`, `status`) VALUES
+(2, 'slider phone 01', 'slider phone 01 Description', 'https://zendvn.com/', 'j1Y2hJSzMU.jpg', '2025-05-30 00:00:00', 'admin', NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -2678,6 +2694,12 @@ ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Chỉ mục cho bảng `slider_phone`
+--
+ALTER TABLE `slider_phone`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
 -- Chỉ mục cho bảng `slider_translations`
 --
 ALTER TABLE `slider_translations`
@@ -2866,7 +2888,7 @@ ALTER TABLE `rss`
 -- AUTO_INCREMENT cho bảng `rssnews`
 --
 ALTER TABLE `rssnews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14488;
 
 --
 -- AUTO_INCREMENT cho bảng `setting`
@@ -2885,6 +2907,12 @@ ALTER TABLE `shipping`
 --
 ALTER TABLE `slider`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `slider_phone`
+--
+ALTER TABLE `slider_phone`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `slider_translations`
