@@ -25,7 +25,7 @@ $nameSpace       = 'App\Http\Controllers\Phone';
 Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
 
     $prefix         =   '';
-    $controllerName =   'phone';
+    $controllerName =   'phoneHome';
 
     Route::prefix($prefix)->group(function () use($controllerName,$nameSpace) {
 

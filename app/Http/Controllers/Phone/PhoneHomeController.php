@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Phone;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use App\Models\SliderPhoneModel;
 
-class PhoneController extends Controller
+class PhoneHomeController extends Controller
 {
     private $pathViewController  = 'phone.pages.home.';
     private $controllerName      = 'phone';
@@ -22,9 +23,14 @@ class PhoneController extends Controller
     {
         $title  = 'Phone';
         $params = [];
+
+        $sliderPhoneModel       = new SliderPhoneModel();
+        $sliders                = $sliderPhoneModel->getItem(null,['task'=>'get-item-take-three']);
+
         return view($this->pathViewController . 'index',[
-            'title'     => $title,
-            'params'    => $params
+            'title'         => $title,
+            'params'        => $params,
+            'sliders'       => $sliders
         ]);
     }
 

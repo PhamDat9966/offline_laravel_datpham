@@ -31,7 +31,7 @@ class SliderPhoneRequest extends FormRequest
         $condNameEn         = "bail|required|between:5,100|unique:slider_translations,name";
 
         if(!empty($id)) {
-            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:1000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
+            $condThumb  = 'bail|mimes:jpeg,jpg,png,gif|max:2000'; // required validate ở đây là không được rỗng, nếu tồn tại id thì loại điều kiện này ra
             $condName   = "bail|required|between:5,100|unique:$this->table,name,$id"; // unique nhưng ngoại trừ id hiện tại
         }
         return [

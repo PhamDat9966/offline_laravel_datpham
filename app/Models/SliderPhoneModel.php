@@ -15,7 +15,7 @@ class SliderPhoneModel extends AdminModel
         $this->table                = 'slider_phone';
         $this->folderUpload         = 'sliderPhone';
         $this->fieldSearchAccepted  = ['id','name','description','link'];
-        $this->crudNotActived       = ['_token','thumb_current','name-vi','description-vi','name-en','description-en'];
+        $this->crudNotActived       = ['_token','thumb_current'];
     }
 
     public function listItems($params = null,$options = null){
@@ -212,6 +212,12 @@ class SliderPhoneModel extends AdminModel
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
+
+        }
+
+        if($options['task'] == 'get-item-take-three'){
+            $result = $this::select('id','name','description','status','link','thumb')
+                    ->take(3)->get()->toArray();
 
         }
 

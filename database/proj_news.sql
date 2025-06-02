@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 30, 2025 lúc 01:18 PM
+-- Thời gian đã tạo: Th6 02, 2025 lúc 09:24 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -1252,7 +1252,9 @@ CREATE TABLE `slider_phone` (
 --
 
 INSERT INTO `slider_phone` (`id`, `name`, `description`, `link`, `thumb`, `created`, `created_by`, `modified`, `modified_by`, `status`) VALUES
-(2, 'slider phone 01', 'slider phone 01 Description', 'https://zendvn.com/', 'j1Y2hJSzMU.jpg', '2025-05-30 00:00:00', 'admin', NULL, NULL, 'active');
+(2, 'slider phone 01', 'slider phone 01 Description', 'https://zendvn.com/', 'S6XBhPvz6x.png', '2025-05-30 00:00:00', 'admin', '2025-06-02 00:00:00', 'admin', 'active'),
+(3, 'slider phone 02', 'slider phone 02 Description', 'https://zendvn.com/', 'PC5AdOR16k.png', '2025-06-02 00:00:00', 'admin', '2025-06-02 00:00:00', 'admin', 'active'),
+(4, 'slider phone 03', 'slider phone 03 Description', 'https://zendvn.com/', 'oSzdEBVLqa.png', '2025-06-02 00:00:00', 'admin', '2025-06-02 00:00:00', 'admin', 'active');
 
 -- --------------------------------------------------------
 
@@ -2912,7 +2914,7 @@ ALTER TABLE `slider`
 -- AUTO_INCREMENT cho bảng `slider_phone`
 --
 ALTER TABLE `slider_phone`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `slider_translations`
