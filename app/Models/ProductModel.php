@@ -48,7 +48,7 @@ class ProductModel extends AdminModel
         $this->table    = 'product as p';
 
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id')
+            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id','p.type')
                           ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id');
                         //   ->leftJoin('media as m', 'p.id', '=', 'm.product_id');
 
@@ -364,6 +364,7 @@ class ProductModel extends AdminModel
             $this->category_product_id  = $params['category_product_id'];
             $this->created_by           = $params['created_by'];
             $this->created              = $params['created'];
+            $this->type                 = 'normal';
             $this->save();
 
             //Kiểm tra và lưu thông tin vào bản product_attribute_price theo từng cặp thuộc tính: color và material
@@ -812,6 +813,23 @@ class ProductModel extends AdminModel
                 $result = null; // Trả về null nếu không tìm thấy sản phẩm
             }
         }
+
+        if($options['task'] == 'get-many-items-with-price-attribute'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            $product = self::with(['attributePrices','media'])
+                            ->where('type', 'feature')
+                            ->take(6)
+                            ->get()->toArray();
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null;
+            }
+        }
+
 
         if($options['task'] == 'get-auto-increment'){
             $dataBaseName = DB::connection()->getDatabaseName();

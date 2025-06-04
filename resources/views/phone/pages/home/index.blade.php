@@ -6,7 +6,7 @@
     <!-- Home slider end -->
 
     <!-- Top Collection -->
-    @include('phone.pages.home.child-index.top-collection')
+    @include('phone.pages.home.child-index.feature-collection',['items'=>$itemsFeature])
     <!-- Top Collection end-->
 
     <!-- service layout -->

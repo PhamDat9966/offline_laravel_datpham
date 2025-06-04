@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 02, 2025 lúc 09:24 AM
+-- Thời gian đã tạo: Th6 04, 2025 lúc 07:14 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -581,7 +581,17 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (149, 28, NULL, '{\"name\":\"fYC0oCXJfz.jpg\",\"alt\":\"02\",\"size\":31082}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (150, 29, NULL, '{\"name\":\"fucrsJPeVY.png\",\"alt\":\"oppo-01\",\"size\":139815}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (151, 29, NULL, '{\"name\":\"jcIKlXjftY.jpg\",\"alt\":\"oppo-02\",\"size\":44541}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(152, 29, NULL, '{\"name\":\"QvL0eruDDp.jpg\",\"alt\":\"oppo-03\",\"size\":36885}', NULL, '', 'false', 'image not for attribute_values', 'default');
+(152, 29, NULL, '{\"name\":\"QvL0eruDDp.jpg\",\"alt\":\"oppo-03\",\"size\":36885}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(153, 30, NULL, '{\"name\":\"Sbo2hxP4I9.png\",\"alt\":\"sasungs25-01\",\"size\":248519}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(154, 30, NULL, '{\"name\":\"goBRLyQ1hC.png\",\"alt\":\"sasungs25-02\",\"size\":295584}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(155, 31, NULL, '{\"name\":\"ZrvSDRuiaK.jpg\",\"alt\":\"s22-utra-01\",\"size\":53837}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(156, 31, NULL, '{\"name\":\"0k7Z4anaGg.png\",\"alt\":\"s22-utra-02\",\"size\":332600}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(157, 32, NULL, '{\"name\":\"MMJurrpyXF.png\",\"alt\":\"iphone-16-pro-01\",\"size\":1567757}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(158, 32, NULL, '{\"name\":\"WFS3XkFcUl.png\",\"alt\":\"iphone-16-pro-02\",\"size\":65864}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(159, 32, NULL, '{\"name\":\"ifULhW1ZXd.png\",\"alt\":\"iphone-16-pro-03\",\"size\":190896}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(160, 33, NULL, '{\"name\":\"QIeazc6uih.png\",\"alt\":\"iPhone-15-01\",\"size\":164235}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(161, 33, NULL, '{\"name\":\"h2REYOV04T.jpg\",\"alt\":\"iPhone-15-02\",\"size\":5894}', NULL, '', 'false', 'image not for attribute_values', 'default'),
+(162, 33, NULL, '{\"name\":\"8Ln56BY8ej.jpg\",\"alt\":\"iPhone-15-03\",\"size\":3727}', NULL, '', 'false', 'image not for attribute_values', 'default');
 
 -- --------------------------------------------------------
 
@@ -862,17 +872,22 @@ CREATE TABLE `product` (
   `fieldClass` varchar(255) DEFAULT NULL,
   `fieldWeb` varchar(255) DEFAULT NULL,
   `modified_by` varchar(255) DEFAULT NULL,
-  `modified` datetime DEFAULT NULL
+  `modified` datetime DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`) VALUES
-(27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-12 00:00:00'),
-(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-06 00:00:00'),
-(29, 'OPPO Reno10 Pro', 'bv-oppo-reno10-pro-39', 11, '<p>B&ecirc;n cạnh đ&oacute;, với bộ nhớ RAM 12 GB, OPPO Reno10 Pro&nbsp;Plus c&oacute; thể đối ph&oacute; với t&aacute;c vụ đa nhiệm, cho ph&eacute;p bạn mở nhiều ứng dụng c&ugrave;ng một l&uacute;c m&agrave; kh&ocirc;ng gặp bất kỳ kh&oacute; khăn n&agrave;o về hiệu suất. Kết hợp với dung lượng bộ nhớ trong l&ecirc;n tới 256 GB v&agrave; khe cắm thẻ nhớ microSD, chiếc smartphone n&agrave;y kh&ocirc;ng chỉ đảm bảo hiệu suất mượt m&agrave;, m&agrave; c&ograve;n cung cấp kh&ocirc;ng gian lưu trữ rộng lớn để lưu trữ v&agrave; truy cập dữ liệu nhanh ch&oacute;ng, tiện lợi.</p>', 'active', NULL, '2025-02-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-03-18 00:00:00');
+INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`, `type`) VALUES
+(27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-12 00:00:00', 'feature'),
+(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-02-06 00:00:00', 'feature'),
+(29, 'OPPO Reno10 Pro', 'bv-oppo-reno10-pro-39', 11, '<p>B&ecirc;n cạnh đ&oacute;, với bộ nhớ RAM 12 GB, OPPO Reno10 Pro&nbsp;Plus c&oacute; thể đối ph&oacute; với t&aacute;c vụ đa nhiệm, cho ph&eacute;p bạn mở nhiều ứng dụng c&ugrave;ng một l&uacute;c m&agrave; kh&ocirc;ng gặp bất kỳ kh&oacute; khăn n&agrave;o về hiệu suất. Kết hợp với dung lượng bộ nhớ trong l&ecirc;n tới 256 GB v&agrave; khe cắm thẻ nhớ microSD, chiếc smartphone n&agrave;y kh&ocirc;ng chỉ đảm bảo hiệu suất mượt m&agrave;, m&agrave; c&ograve;n cung cấp kh&ocirc;ng gian lưu trữ rộng lớn để lưu trữ v&agrave; truy cập dữ liệu nhanh ch&oacute;ng, tiện lợi.</p>', 'active', NULL, '2025-02-06 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-03-18 00:00:00', 'feature'),
+(30, 'samsung s25', 'bv-samsung-s25-40', 9, '<h2><strong>Điện thoại Samsung S25 AI mới c&oacute; g&igrave; hấp dẫn?</strong></h2>\r\n\r\n<p>Samsung Galaxy S25 được t&iacute;ch hợp t&iacute;nh năng AI - c&ocirc;ng nghệ xu hướng để đem đến cho người d&ugrave;ng những trải nghiệm vượt trội v&agrave; th&ocirc;ng minh hơn. Cụ thể:</p>\r\n\r\n<p><strong>T&igrave;m kiếm th&ocirc;ng tin nhanh gấp 3 lần</strong></p>\r\n\r\n<p>T&iacute;nh năng AI tr&ecirc;n S25 đ&atilde; tăng tốc độ t&igrave;m kiếm c&aacute;c th&ocirc;ng tin một c&aacute;ch nhanh ch&oacute;ng v&agrave; vượt trội hơn gấp 3 lần với AI Agent. Kết hợp với Circle to Search, bạn c&oacute; thể t&igrave;m kiếm một c&aacute;ch trực quan, tăng t&iacute;nh hiệu quả bằng c&aacute;ch khoanh tr&ograve;n v&agrave;o mục cần t&igrave;m.</p>\r\n\r\n<p>Ngo&agrave;i ra, bạn c&oacute; thể kh&aacute;m ph&aacute; th&ecirc;m ngay mẫu phi&ecirc;n bản&nbsp;<strong>S25 512GB</strong>&nbsp;đặc biệt với n&acirc;ng cấp về bộ nhớ gi&uacute;p c&aacute;c thao t&aacute;c quay chụp trở n&ecirc;n mượt m&agrave; v&agrave; chơi game, xem film lướt web mượt m&agrave; hơn. C&ugrave;ng kh&aacute;m ph&aacute; ngay nh&eacute;!</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-03 00:00:00', 'feature'),
+(31, 'Samsung Galaxy S22 Ultra', 'bv-samsung-s22-ultra-41', 9, '<h2><strong>Đặc điểm nổi bật của Samsung Galaxy S22 Ultra 8GB 128GB</strong></h2>\r\n\r\n<p>Đ&uacute;ng như c&aacute;c th&ocirc;ng tin được đồn đo&aacute;n trước đ&oacute;, mẫu flagship mới của gả khổng lồ H&agrave;n Quốc được ra mắt với t&ecirc;n gọi l&agrave; Samsung Galaxy S22 Ultra với nhiều cải tiến đ&aacute;ng gi&aacute;. Mẫu điện thoại cao cấp đến từ Samsung n&agrave;y c&oacute; nhiều thay đổi từ thiết kế, cấu h&igrave;nh cho đến camera. Vậy si&ecirc;u phẩm n&agrave;y c&oacute; g&igrave; mới, gi&aacute; bao nhi&ecirc;u v&agrave; c&oacute; n&ecirc;n mua kh&ocirc;ng? H&atilde;y c&ugrave;ng t&igrave;m hiểu chi tiết ngay b&ecirc;n dưới nh&eacute;!</p>\r\n\r\n<p>Dự kiến v&agrave;o th&aacute;ng 2, Samsung sẽ cho ra mắt si&ecirc;u phẩm&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s23-ultra.html\" target=\"_blank\"><strong>S23 Ultra</strong></a>&nbsp;m&agrave; c&oacute; thể qu&yacute; kh&aacute;ch sẽ quan t&acirc;m! Click v&agrave;o link để t&igrave;m hiểu th&ecirc;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-03 00:00:00', 'feature'),
+(32, 'iPhone 16 Pro', 'iPhone 16 Pro', 8, '<h2><strong>Đặc điểm nổi bật của iPhone 16 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</strong></h2>\r\n\r\n<p><strong>iPhone 16 Pro Max</strong>&nbsp;sở hữu&nbsp;<strong>m&agrave;n h&igrave;nh Super Retina XDR OLED 6.9 inch</strong>&nbsp;với&nbsp;<strong>c&ocirc;ng nghệ ProMotion</strong>, mang lại trải nghiệm hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t, l&yacute; tưởng cho giải tr&iacute; v&agrave; l&agrave;m việc. Với chipset&nbsp;<strong>A18 Pro</strong>&nbsp;mạnh mẽ, mẫu iPhone đời mới n&agrave;y cung cấp hiệu suất vượt trội, gi&uacute;p xử l&yacute; mượt m&agrave; c&aacute;c t&aacute;c vụ nặng như chơi game hay edit video.&nbsp;Chiếc điện thoại&nbsp;<strong>iPhone 16</strong>&nbsp;mới&nbsp;n&agrave;y c&ograve;n sở hữu&nbsp;hệ thống&nbsp;<strong>camera Ultra Wide 48MP</strong>&nbsp;cho khả năng chụp ảnh cực kỳ chi tiết, mang đến chất lượng h&igrave;nh ảnh ấn tượng trong mọi t&igrave;nh huống.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'feature'),
+(33, 'iPhone 15 Pro', 'iPhone 15 Pro', 8, '<h2><strong>V&igrave; sao n&ecirc;n chọn mua điện thoại&nbsp;iPhone 15 256GB</strong></h2>\r\n\r\n<p><strong>iPhone 15 128GB</strong>&nbsp;l&agrave; phi&ecirc;n bản&nbsp;<strong>ti&ecirc;u chuẩn (thường)</strong>&nbsp;trong&nbsp;<strong>iPhone 15 series</strong>&nbsp;vừa được ch&iacute;nh thức ra mắt. Chiếc điện thoại n&agrave;y c&ograve;n c&oacute; 2 dung lượng bộ nhớ lớn hơn l&agrave; 256Gb v&agrave; 512GB. C&ugrave;ng t&igrave;m hiểu chi tiết hơn về&nbsp;<strong>iPhone 15 256GB</strong>&nbsp;nh&eacute;:</p>\r\n\r\n<ul>\r\n	<li>D&ograve;ng iPhone 15 phi&ecirc;n bản 256GB l&agrave; một biểu tượng của sự cao cấp v&agrave; mạnh mẽ. Sản phẩm được trang bị m&agrave;n h&igrave;nh&nbsp;<strong>OLED Dynamic Island</strong>&nbsp;k&iacute;ch thước&nbsp;<strong>6.1 inch</strong>&nbsp;mang lại sự sống động v&agrave; ch&acirc;n thực cho mọi h&igrave;nh ảnh v&agrave; video.</li>\r\n	<li>B&ecirc;n trong, chiếc điện thoại n&agrave;y được cung cấp sức mạnh bởi con&nbsp;<strong>chip Apple A16 Bionic</strong>, với CPU 6 l&otilde;i v&agrave; GPU 5 l&otilde;i, đảm bảo khả năng xử l&yacute; tốt v&agrave; mượt m&agrave; trong tất cả c&aacute;c t&aacute;c vụ. Kể cả chơi c&aacute;c tựa game nặng cũng kh&ocirc;ng bị giật, lag g&acirc;y cảm gi&aacute;c kh&oacute; chịu.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'normal');
 
 --
 -- Bẫy `product`
@@ -929,7 +944,16 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (91, 28, 1, 58, 'iphone 15', 'vàng', '512 GB', NULL, 'active', 3, NULL),
 (92, 29, 1, 57, 'OPPO Reno10 Pro', 'vàng', '256 GB', NULL, 'active', 10, NULL),
 (93, 29, 2, 57, 'OPPO Reno10 Pro', 'đỏ', '256 GB', NULL, 'active', 11, NULL),
-(94, 29, 3, 57, 'OPPO Reno10 Pro', 'xanh', '256 GB', NULL, 'active', 12, NULL);
+(94, 29, 3, 57, 'OPPO Reno10 Pro', 'xanh', '256 GB', NULL, 'active', 12, NULL),
+(95, 30, 1, 57, 'samsung s25', 'vàng', '256 GB', NULL, 'active', 13, NULL),
+(96, 30, 1, 58, 'samsung s25', 'vàng', '512 GB', NULL, 'active', 14, NULL),
+(97, 30, 2, 57, 'samsung s25', 'đỏ', '256 GB', NULL, 'active', 15, NULL),
+(98, 30, 2, 58, 'samsung s25', 'đỏ', '512 GB', NULL, 'active', 16, NULL),
+(99, 31, 1, 58, 'Samsung Galaxy S22 Ultra', 'vàng', '512 GB', NULL, 'active', 17, NULL),
+(100, 32, 1, 58, 'iPhone 16 Pro', 'vàng', '512 GB', NULL, 'active', 18, NULL),
+(101, 32, 2, 58, 'iPhone 16 Pro', 'đỏ', '512 GB', NULL, 'active', 19, NULL),
+(102, 33, 2, 58, 'iPhone 15 Pro', 'đỏ', '512 GB', NULL, 'active', 20, NULL),
+(103, 33, 3, 58, 'iPhone 15 Pro', 'xanh', '512 GB', NULL, 'active', 21, NULL);
 
 -- --------------------------------------------------------
 
@@ -969,7 +993,22 @@ INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `
 (151, 29, 58, 'OPPO Reno10 Pro', '512 GB', NULL, NULL, NULL, NULL, 'active'),
 (153, 29, 2, 'OPPO Reno10 Pro', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
 (156, 28, 58, 'iphone 15', '512 GB', NULL, NULL, NULL, NULL, 'active'),
-(157, 29, 57, 'OPPO Reno10 Pro', '256 GB', NULL, NULL, NULL, NULL, 'active');
+(157, 29, 57, 'OPPO Reno10 Pro', '256 GB', NULL, NULL, NULL, NULL, 'active'),
+(158, 30, 1, 'samsung s25', 'vàng', NULL, NULL, NULL, NULL, 'active'),
+(159, 30, 2, 'samsung s25', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
+(160, 30, 57, 'samsung s25', '256 GB', NULL, NULL, NULL, NULL, 'active'),
+(161, 30, 58, 'samsung s25', '512 GB', NULL, NULL, NULL, NULL, 'active'),
+(162, 30, 59, 'samsung s25', 'zenvn', NULL, NULL, NULL, NULL, 'active'),
+(163, 31, 1, 'Samsung Galaxy S22 Ultra', 'vàng', NULL, NULL, NULL, NULL, 'active'),
+(164, 31, 58, 'Samsung Galaxy S22 Ultra', '512 GB', NULL, NULL, NULL, NULL, 'active'),
+(165, 32, 1, 'iPhone 16 Pro', 'vàng', NULL, NULL, NULL, NULL, 'active'),
+(166, 32, 2, 'iPhone 16 Pro', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
+(167, 32, 58, 'iPhone 16 Pro', '512 GB', NULL, NULL, NULL, NULL, 'active'),
+(168, 32, 59, 'iPhone 16 Pro', 'zenvn', NULL, NULL, NULL, NULL, 'active'),
+(169, 33, 2, 'iPhone 15 Pro', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
+(170, 33, 3, 'iPhone 15 Pro', 'xanh', NULL, NULL, NULL, NULL, 'active'),
+(171, 33, 58, 'iPhone 15 Pro', '512 GB', NULL, NULL, NULL, NULL, 'active'),
+(172, 33, 59, 'iPhone 15 Pro', 'zenvn', NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -2812,7 +2851,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -2860,19 +2899,19 @@ ALTER TABLE `phonecontact`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `product_attribute_price`
 --
 ALTER TABLE `product_attribute_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`

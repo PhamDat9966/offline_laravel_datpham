@@ -12,6 +12,7 @@
                     <th class="column-title">Product Info</th>
                     <th class="column-title">Media</th>
                     <th class="column-title">Category Name</th>
+                    <th class="column-title">Kiểu sản phẩm</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Hành động</th>
                 </tr>
@@ -21,7 +22,6 @@
                 @if (count($items) > 0)
                     @foreach ($items as $key => $val)
                         @php
-
                             $index              = $key+1;
                             $class              = ($index % 2 == 0)? 'even' : 'odd';
 
@@ -51,6 +51,9 @@
                             </td>
                             <td width="15%">
                                 {!!$categoryName!!}
+                            </td>
+                            <td>
+                                {!!$type!!}
                             </td>
                             <td>
                                 {!!$status!!}
