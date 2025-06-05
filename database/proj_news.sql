@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 05, 2025 lúc 06:27 AM
+-- Thời gian đã tạo: Th6 05, 2025 lúc 08:59 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -945,32 +945,32 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', 2000, 'active', 4, 0),
 (77, 27, 3, 57, 'samsung s24', 'xanh', '256 GB', 1500, 'active', 5, 0),
 (78, 27, 3, 58, 'samsung s24', 'xanh', '512 GB', 3000, 'active', 6, 0),
-(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', NULL, 'active', 7, 1),
-(80, 29, 3, 58, 'OPPO Reno10 Pro', 'xanh', '512 GB', NULL, 'active', 8, 0),
+(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', 2000, 'active', 7, 1),
+(80, 29, 3, 58, 'OPPO Reno10 Pro', 'xanh', '512 GB', 3000, 'active', 8, 0),
 (87, 29, 2, 58, 'OPPO Reno10 Pro', 'đỏ', '512 GB', 4000, 'active', 9, NULL),
-(90, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', NULL, 'active', 2, 0),
-(91, 28, 1, 58, 'iphone 15', 'vàng', '512 GB', NULL, 'active', 3, NULL),
-(92, 29, 1, 57, 'OPPO Reno10 Pro', 'vàng', '256 GB', NULL, 'active', 10, NULL),
-(93, 29, 2, 57, 'OPPO Reno10 Pro', 'đỏ', '256 GB', NULL, 'active', 11, NULL),
-(94, 29, 3, 57, 'OPPO Reno10 Pro', 'xanh', '256 GB', NULL, 'active', 12, NULL),
-(95, 30, 1, 57, 'samsung s25', 'vàng', '256 GB', NULL, 'active', 13, NULL),
-(96, 30, 1, 58, 'samsung s25', 'vàng', '512 GB', NULL, 'active', 14, NULL),
-(97, 30, 2, 57, 'samsung s25', 'đỏ', '256 GB', NULL, 'active', 15, NULL),
-(98, 30, 2, 58, 'samsung s25', 'đỏ', '512 GB', NULL, 'active', 16, NULL),
-(99, 31, 1, 58, 'Samsung Galaxy S22 Ultra', 'vàng', '512 GB', NULL, 'active', 17, NULL),
-(100, 32, 1, 58, 'iPhone 16 Pro', 'vàng', '512 GB', NULL, 'active', 18, NULL),
-(101, 32, 2, 58, 'iPhone 16 Pro', 'đỏ', '512 GB', NULL, 'active', 19, NULL),
-(102, 33, 2, 58, 'iPhone 15 Pro', 'đỏ', '512 GB', NULL, 'active', 20, NULL),
-(103, 33, 3, 58, 'iPhone 15 Pro', 'xanh', '512 GB', NULL, 'active', 21, NULL),
-(104, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', NULL, 'active', 22, NULL),
-(105, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', NULL, 'active', 23, NULL),
-(106, 28, 2, 58, 'iphone 15', 'đỏ', '512 GB', NULL, 'active', 24, NULL),
-(107, 28, 3, 56, 'iphone 15', 'xanh', '128 GB', NULL, 'active', 25, NULL),
-(108, 28, 3, 57, 'iphone 15', 'xanh', '256 GB', NULL, 'active', 26, NULL),
-(109, 28, 3, 58, 'iphone 15', 'xanh', '512 GB', NULL, 'active', 27, NULL),
-(110, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', NULL, 'active', 28, NULL),
-(111, 34, 1, 58, 'iphone 14', 'vàng', '512 GB', NULL, 'active', 29, NULL),
-(112, 34, 2, 58, 'iphone 14', 'đỏ', '512 GB', NULL, 'active', 30, NULL);
+(90, 28, 2, 56, 'iphone 15', 'đỏ', '128 GB', 1500, 'active', 2, 0),
+(91, 28, 1, 58, 'iphone 15', 'vàng', '512 GB', 1200, 'active', 3, NULL),
+(92, 29, 1, 57, 'OPPO Reno10 Pro', 'vàng', '256 GB', 2000, 'active', 10, NULL),
+(93, 29, 2, 57, 'OPPO Reno10 Pro', 'đỏ', '256 GB', 3000, 'active', 11, NULL),
+(94, 29, 3, 57, 'OPPO Reno10 Pro', 'xanh', '256 GB', 2500, 'active', 12, NULL),
+(95, 30, 1, 57, 'samsung s25', 'vàng', '256 GB', 5000, 'active', 13, NULL),
+(96, 30, 1, 58, 'samsung s25', 'vàng', '512 GB', 6000, 'active', 14, NULL),
+(97, 30, 2, 57, 'samsung s25', 'đỏ', '256 GB', 6500, 'active', 15, NULL),
+(98, 30, 2, 58, 'samsung s25', 'đỏ', '512 GB', 6200, 'active', 16, NULL),
+(99, 31, 1, 58, 'Samsung Galaxy S22 Ultra', 'vàng', '512 GB', 12000, 'active', 17, NULL),
+(100, 32, 1, 58, 'iPhone 16 Pro', 'vàng', '512 GB', 7000, 'active', 18, NULL),
+(101, 32, 2, 58, 'iPhone 16 Pro', 'đỏ', '512 GB', 8000, 'active', 19, NULL),
+(102, 33, 2, 58, 'iPhone 15 Pro', 'đỏ', '512 GB', 2500, 'active', 20, NULL),
+(103, 33, 3, 58, 'iPhone 15 Pro', 'xanh', '512 GB', 2500, 'active', 21, NULL),
+(104, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', 800, 'active', 22, NULL),
+(105, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', 900, 'active', 23, NULL),
+(106, 28, 2, 58, 'iphone 15', 'đỏ', '512 GB', 800, 'active', 24, NULL),
+(107, 28, 3, 56, 'iphone 15', 'xanh', '128 GB', 700, 'active', 25, NULL),
+(108, 28, 3, 57, 'iphone 15', 'xanh', '256 GB', 800, 'active', 26, NULL),
+(109, 28, 3, 58, 'iphone 15', 'xanh', '512 GB', 600, 'active', 27, NULL),
+(110, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2500, 'active', 28, NULL),
+(111, 34, 1, 58, 'iphone 14', 'vàng', '512 GB', 500, 'active', 29, NULL),
+(112, 34, 2, 58, 'iphone 14', 'đỏ', '512 GB', 560, 'active', 30, NULL);
 
 -- --------------------------------------------------------
 

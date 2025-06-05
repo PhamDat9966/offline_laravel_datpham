@@ -4,23 +4,40 @@
 
     $xhtmlFeature = '';
     foreach($items as $item){
-        dd($item);
+
         $descriptionMini = Str::words($item['description'], 20, '...');
         // 1. Loại bỏ các thẻ HTML
         $descriptionMini = strip_tags($descriptionMini);
         // 2. Chuyển HTML entities về ký tự thuần
-        $descriptionMini = html_entity_decode($descriptionMini);
+        $descriptionMini = "<strong style='color:red;'>".ucfirst($item['name']).': </strong> '.html_entity_decode($descriptionMini);
         //media
         $imgArray        = json_decode($item['media'][0]['content'],true);
         $imgName         = $imgArray['name'];
         $imgAlt          = $imgArray['alt'];
 
-        $image           = Template::showProductThumbFeatureInPhone('product',$imgName,$imgAlt);
+        $image           = Template::showProductThumbInPhone('product',$imgName,$imgAlt);
+
+        $saveTitle       = 0;
+        //price - Giá
+        //Chọn giá từ phần tử đầu tiên của attribute_prices làm giá niên yết
+        $originalPriceDefault   = $item['attribute_prices'][0]['price'];
+        $salePrice              = 0;
+
+        switch ($item['price_discount_type']) {
+            case 'percent':
+                $saveTitle = '-'.$item['price_discount_percent'].'%';
+                $salePrice = $originalPriceDefault - ($originalPriceDefault * $item['price_discount_percent']/100);
+                break;
+            case 'value':
+                $saveTitle = '-'.$item['price_discount_value'].'$';;
+                $salePrice = $originalPriceDefault - $item['price_discount_value'];
+                break;
+        }
 
         $xhtmlFeature .='<div class="product-box">
                             <div class="img-wrapper">
                                 <div class="lable-block">
-                                    <span class="lable4 badge badge-danger"> -35%</span>
+                                    <span class="lable4 badge badge-danger"> '.$saveTitle.'</span>
                                 </div>
                                 <div class="front">
                                     <a href="item.html">
@@ -44,7 +61,7 @@
                                     title="'.$item['name'].'">
                                     <h6>'.$descriptionMini.'</h6>
                                 </a>
-                                <h4 class="text-lowercase">48,020 đ <del>98,000 đ</del></h4>
+                                <h4 class="text-lowercase">'.$salePrice.'$ <del>'.$originalPriceDefault.'$</del></h4>
                             </div>
                         </div>';
     }

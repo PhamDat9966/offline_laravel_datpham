@@ -165,8 +165,8 @@ return [
             'price'         => ['name'=>'Giảm trực tiếp']
         ],
         'type_price_discount'=>[
-            'percent'       => ['name'=>'Giảm giá theo %'],
-            'value'         => ['name'=>'Giảm giá trực tiếp']
+            'percent'       => ['name'=>'Price_discount_percent - Giảm giá theo %'],
+            'value'         => ['name'=>'Price_discount_value - Giảm giá trực tiếp']
         ],
     ],
     'config'    =>[

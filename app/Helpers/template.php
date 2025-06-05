@@ -414,7 +414,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showProductThumbFeatureInPhone($controllerName = 'product' , $thumbName , $thumbAlt){
+    public static function showProductThumbInPhone($controllerName = 'product' , $thumbName , $thumbAlt){
         //$linkThumb = asset("images/$controllerName/$thumbName");
         $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
         $xhtml  = sprintf('
