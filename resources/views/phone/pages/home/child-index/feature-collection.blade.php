@@ -4,6 +4,7 @@
 
     $xhtmlFeature = '';
     foreach($items as $item){
+        dd($item);
         $descriptionMini = Str::words($item['description'], 20, '...');
         // 1. Loại bỏ các thẻ HTML
         $descriptionMini = strip_tags($descriptionMini);
@@ -15,7 +16,7 @@
         $imgAlt          = $imgArray['alt'];
 
         $image           = Template::showProductThumbFeatureInPhone('product',$imgName,$imgAlt);
-        //dd($image);
+
         $xhtmlFeature .='<div class="product-box">
                             <div class="img-wrapper">
                                 <div class="lable-block">

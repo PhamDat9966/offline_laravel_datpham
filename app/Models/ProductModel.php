@@ -365,6 +365,11 @@ class ProductModel extends AdminModel
             $this->created_by           = $params['created_by'];
             $this->created              = $params['created'];
             $this->type                 = 'normal';
+
+            $this->price_discount_percent   = $params['price_discount_percent'];
+            $this->price_discount_value     = $params['price_discount_value'];
+            $this->price_discount_type      = $params['price_discount_type'];
+
             $this->save();
 
             //Kiểm tra và lưu thông tin vào bản product_attribute_price theo từng cặp thuộc tính: color và material

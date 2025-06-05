@@ -17,16 +17,25 @@
     $category       = (isset($item['category_product_id']))? $item->category_product_id : '';
     $description    = (isset($item['description']))? $item->description : '';
 
+    $priceDiscountValue         =  (isset($item['price_discount_value']))? $item->price_discount_value : 0;
+    $priceDiscountPercent       =  (isset($item['price_discount_percent']))? $item->price_discount_percent : 0;
+    $priceDiscountType          =  (isset($item['price_discount_type']))? $item->price_discount_type : 'percent';
+
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
     $inputHiddenID     = Form::hidden('id' , $id);
 
-    $statusValue       = [
+    $statusValue       =    [
                                 'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
-                          ];
+                            ];
+    $priceDiscountChoise =  [
+                                'percent'    => Config::get('zvn.template.type_price_discount.percent.name'),
+                                'value'     => Config::get('zvn.template.type_price_discount.value.name'),
+                            ];
+
     $categoryValue  = $itemsCategory;
 
     $inputNameArticle  = '<input class="form-control col-md-6 col-xs-12"
@@ -107,6 +116,21 @@
         [
             'label'     =>  Form::label('category', 'Category', $formlabelAttr),
             'element'   =>  Form::select('category_product_id', $categoryValue, $category, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('price_discount_percent ', 'Price discount percent', $formlabelAttr),
+            'element'   =>  Form::text('price_discount_percent', $priceDiscountPercent,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('price_discount_value', 'Price discount value', $formlabelAttr),
+            'element'   =>  Form::text('price_discount_value', $priceDiscountValue,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
+        ],
+        [
+            'label'     =>  Form::label('price_discount_type ', 'Price discount type', $formlabelAttr),
+            'element'   =>  Form::select('price_discount_type', $priceDiscountChoise, $priceDiscountType, $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
