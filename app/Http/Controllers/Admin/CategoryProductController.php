@@ -86,6 +86,39 @@ class CategoryProductController extends AdminController
 
     }
 
+    public function isPhoneCategory(Request $request)
+    {
+
+        $params['currentIsPhoneCategory']   = $request->isPhoneCategory;
+        $params['id']                       = $request->id;
+
+        $params['currentIsPhoneCategory']    = ($params['currentIsPhoneCategory'] == true) ? false : true;
+        $returnModified = $this->model->saveItem($params,['task' => 'change-is-phone-category']);
+
+
+
+        $userIcon   = config('zvn.template.font_awesome.user');
+        $clockIcon  = config('zvn.template.font_awesome.clock');
+
+        $returnModified['modified_by']  = $userIcon.' '.$returnModified['modified_by'];
+        $returnModified['modified']     = $clockIcon.' '.$returnModified['modified'];
+
+        //Class của bootstrap và class khi isHome thay đổi trạng thái sẽ quyết định tại đây
+        $isPhoneCategory = ($params['currentIsPhoneCategory'] == true) ? 1 : 0;
+        $infomationIsPhoneCategory           =   Config::get('zvn.template.is_phone_category_feature')[$isPhoneCategory];
+        $infomationIsPhoneCategory['class']  =   'btn btn-round is-home-ajax '. $infomationIsPhoneCategory['class'];
+
+        $link = route($this->controllerName . '/isPhoneCategory',['isPhoneCategory'=>$isPhoneCategory, 'id'=>$request->id]);
+
+        return response()->json([
+            'isPhoneCategory'   =>  $infomationIsPhoneCategory,
+            'link'              =>  $link,
+            'modified'          =>  $returnModified['modified'],
+            'modified_by'       =>  $returnModified['modified_by'],
+        ]);
+
+    }
+
     public function form(Request $request)
     {
         $item   = null;

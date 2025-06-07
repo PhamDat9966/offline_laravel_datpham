@@ -14,6 +14,7 @@
                     <th class="column-title">Sắp xếp</th>
                     <th class="column-title">Hiển thị Home</th>
                     <th class="column-title">Kiểu hiển thị</th>
+                    <th class="column-title">Danh mục nổi bật tại Phone Site</th>
                     <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th>
                     <th class="column-title">Hành động</th>
@@ -33,6 +34,7 @@
                             $move               = Template::showNestedSetUpDown($controllerName, $id);
                             $isHome             = Template::showItemIsHome( $controllerName,$id,$val['is_home']);
                             $display            = Template::showItemDisplay( $controllerName,$id,$val['display']);
+                            $isPhoneCategory    = Template::showItemIsPhoneCategoryFeature( $controllerName,$id,$val['is_phone_category']);
                             $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'],'');
                             $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id,'');
                             $listButtonAction   = Template::showButtonAction($controllerName, $id);
@@ -55,6 +57,9 @@
                             </td>
                             <td>
                                 {!!$display!!}
+                            </td>
+                            <td>
+                                {!!$isPhoneCategory!!}
                             </td>
                             <td>
                                 {!!$createdHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}

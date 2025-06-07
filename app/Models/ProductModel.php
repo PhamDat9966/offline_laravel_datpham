@@ -370,6 +370,8 @@ class ProductModel extends AdminModel
             $this->price_discount_value     = $params['price_discount_value'];
             $this->price_discount_type      = $params['price_discount_type'];
 
+            $this->is_phone                 = $params['is_phone'];
+
             $this->save();
 
             //Kiểm tra và lưu thông tin vào bản product_attribute_price theo từng cặp thuộc tính: color và material
@@ -490,7 +492,6 @@ class ProductModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
-
             /*PRODUCT ATTRIBUTE PRICE*/
             /*
                 - Xử lý dữ liệu đầu vào, từ $params tạo mảng danh sách, id sản phẩm với từng cặp thuộc tính được nhập lưu vào $InputAttributesPriceData.

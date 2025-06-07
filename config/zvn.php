@@ -62,6 +62,14 @@ return [
             1               =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             0               =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
         ],
+        'is_phone_category'=>[
+            1               =>  ['name'=>'Đây là danh mục điện thoại', 'class'=>'btn-primary'],
+            0               =>  ['name'=>'Đây không phải là danh mục điện thoại', 'class'=>'btn-warning'],
+        ],
+        'is_phone_category_feature'=>[
+            1               =>  ['name'=>'Hiển thị danh mục', 'class'=>'btn-primary'],
+            0               =>  ['name'=>'Không hiển thị danh mục', 'class'=>'btn-warning'],
+        ],
         'type'=>[
             'feature'       =>  ['name'=>'Nổi bật'],
             'normal'        =>  ['name'=>'Bình thường'],

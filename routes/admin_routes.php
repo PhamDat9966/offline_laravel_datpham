@@ -147,6 +147,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'isHome'
         ]);
 
+        Route::get('change-is-phone-category-{isPhoneCategory}/{id}', [
+            'as'    => $controllerName . '/isPhoneCategory',
+            'uses'  => $controller . 'isPhoneCategory'
+        ]);
+
         Route::get('change-display-{display}/{id}', [
             'as'    => $controllerName . '/display',
             'uses'  => $controller . 'display'

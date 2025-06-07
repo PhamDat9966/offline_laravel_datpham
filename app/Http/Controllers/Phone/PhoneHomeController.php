@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\SliderPhoneModel;
 use App\Models\ProductModel;
+use App\Models\CategoryProductModel;
 
 class PhoneHomeController extends Controller
 {
@@ -29,6 +30,9 @@ class PhoneHomeController extends Controller
         $sliders                = $sliderPhoneModel->getItem(null,['task'=>'get-item-take-three']);
         $productModel           = new ProductModel();
         $itemsFeature           = $productModel->getItem(null,['task'=> 'get-many-items-with-price-attribute']);
+        $categoryProductModel   = new CategoryProductModel();
+        $categoryIsHome         = $categoryProductModel->getItem(null,['task'=>'get-items-home']);
+        //dd($categoryIsHome);
 
         return view($this->pathViewController . 'index',[
             'title'         => $title,

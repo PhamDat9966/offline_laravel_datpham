@@ -359,6 +359,17 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemIsPhoneCategoryFeature($controllerName , $id , $isPhoneCategoryValue){
+        $tmpIsPhoneCategory    = config('zvn.template.is_phone_category_feature');
+        //dd($tmpIsPhoneCategory,$isPhoneCategoryValue);
+        $isPhoneCategoryValue            = array_key_exists($isPhoneCategoryValue,$tmpIsPhoneCategory) ? $isPhoneCategoryValue:0;
+        $currentTemplateIsPhoneCategory  = $tmpIsPhoneCategory[$isPhoneCategoryValue];
+        $link                   = route( $controllerName. '/isPhoneCategory',['isPhoneCategory'=>$isPhoneCategoryValue, 'id'=>$id]);
+        $xhtml  = sprintf('
+            <button id="isPhoneCategory-%s" data-url="%s" data-class=%s class="btn btn-round %s is-phone-category-ajax">%s</button>',$id ,$link , $currentTemplateIsPhoneCategory['class'] ,$currentTemplateIsPhoneCategory['class'], $currentTemplateIsPhoneCategory['name']);
+        return  $xhtml;
+    }
+
     public static function showItemOrdering($controllerName , $orderingValue , $id){
 
         $link   = route( $controllerName. '/ordering',['ordering'=>'value_new', 'id'=>$id]);

@@ -4,22 +4,32 @@
     use App\Helpers\template as Template;
     use App\Helpers\Form as FormTemplate;
 
-    $id             = (isset($item['id']))? $item['id'] : '';
-    $name           = (isset($item['name']))? $item->name : '';
-    $slug           = (isset($item['slug']))? $item->slug : '';
-    $status         = (isset($item['status']))? $item->status : '';
-    $parent_id      = (isset($item['parent_id']))? $item->parent_id : '';
+    $id                     = (isset($item['id']))? $item['id'] : '';
+    $name                   = (isset($item['name']))? $item->name : '';
+    $slug                   = (isset($item['slug']))? $item->slug : '';
+    $status                 = (isset($item['status']))? $item->status : '';
+    $isHome                 = (isset($item['is_home']))? $item->is_home : 0;
+    $parent_id              = (isset($item['parent_id']))? $item->parent_id : '';
+    $isPhoneCategory        = (isset($item['is_phone_category']))? $item->is_phone_category : 0;
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $inputHiddenID      = Form::hidden('id' , $id);
+
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
                                 'active'     => Config::get('zvn.template.status.active.name'),
                                 'inactive'   => Config::get('zvn.template.status.inactive.name')
                           ];
-    //dd($nodes);
+    $isHomeValue        = [
+                                1    => Config::get('zvn.template.is_home.1.name'),
+                                0    => Config::get('zvn.template.is_home.0.name')
+                          ];
+    $isPhoneCategoryValue  = [
+                                1    => Config::get('zvn.template.is_phone_category.1.name'),
+                                0    => Config::get('zvn.template.is_phone_category.0.name')
+                             ];
 
     $inputNameCategory = '<input class="form-control col-md-6 col-xs-12"
                                  name="name"
@@ -48,6 +58,15 @@
         [
             'label'     =>  Form::label('status', 'Status', $formlabelAttr),
             'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('isHome', 'Is Home', $formlabelAttr),
+            'element'   =>  Form::select('is_home', $isHomeValue, $isHome, $formInputAttr)
+        ],
+        [
+            'label'     =>  Form::label('is_phone_category', 'Is Phone Category', $formlabelAttr),
+            'element'   =>  Form::select('is_phone_category', $isPhoneCategoryValue, $isPhoneCategory, $formInputAttr)
+            //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
             'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),

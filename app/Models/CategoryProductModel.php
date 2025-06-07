@@ -238,6 +238,13 @@ class CategoryProductModel extends AdminModel
             return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
+        if($options['task'] == 'change-is-phone-category'){
+            $this::where('id', $params['id'])
+                        ->update(['is_phone_category' => $params['currentIsPhoneCategory'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+        }
+
         if($options['task'] == 'change-ordering'){
             $this::where('id', $params['id'])
                         ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
@@ -299,7 +306,7 @@ class CategoryProductModel extends AdminModel
     public function getItem($params = null,$options = null){
         $result   = null;
         if($options['task'] == 'get-item'){
-            $result = $this::select('id','name','slug','parent_id','status')
+            $result = $this::select('id','name','slug','parent_id','status','is_home','is_phone_category')
                     ->where('id', $params['id'])
                     ->first();
                     //->get();
@@ -326,6 +333,13 @@ class CategoryProductModel extends AdminModel
                                   FROM INFORMATION_SCHEMA.TABLES
                                   WHERE TABLE_SCHEMA = '".$dataBaseName."'
                                   AND TABLE_NAME = '".$this->table."'");
+        }
+
+        if($options['task'] == 'get-items-home'){
+            $result = $this::select('id','name','slug','parent_id','status')
+                    ->where('is_home', 1)
+                    ->get()->toArray();
+
         }
 
         return $result;

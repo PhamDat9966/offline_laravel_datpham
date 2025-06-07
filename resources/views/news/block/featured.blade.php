@@ -1,5 +1,5 @@
 @php
-    $section_title = ($locale == 'en') ? 'Outstanding' : 'Nổi bậc';
+    $section_title = ($locale == 'en') ? 'Feature' : 'Nổi bậc';
 @endphp
 <div class="featured">
     <div class="featured_title">
