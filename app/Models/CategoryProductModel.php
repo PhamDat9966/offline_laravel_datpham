@@ -335,9 +335,9 @@ class CategoryProductModel extends AdminModel
                                   AND TABLE_NAME = '".$this->table."'");
         }
 
-        if($options['task'] == 'get-items-home'){
+        if($options['task'] == 'get-items-in-feature'){
             $result = $this::select('id','name','slug','parent_id','status')
-                    ->where('is_home', 1)
+                    ->where('is_phone_category', 1)
                     ->get()->toArray();
 
         }

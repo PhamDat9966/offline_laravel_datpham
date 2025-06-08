@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 07, 2025 lúc 07:57 AM
+-- Thời gian đã tạo: Th6 08, 2025 lúc 07:16 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -457,31 +457,31 @@ CREATE TABLE `category_product` (
   `status` text NOT NULL,
   `is_home` tinyint(1) DEFAULT NULL,
   `display` varchar(255) DEFAULT NULL,
+  `is_phone_category` varchar(250) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `created_by` varchar(45) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modified_by` varchar(45) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `_lft` int(11) DEFAULT NULL,
-  `_rgt` int(11) DEFAULT NULL,
-  `is_phone_category` varchar(250) DEFAULT NULL
+  `_rgt` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `category_product`
 --
 
-INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`, `is_phone_category`) VALUES
-(1, 'Root', '', 'active', 0, '', NULL, '', NULL, '', NULL, 1, 20, NULL),
-(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', 1, 'list', '2024-10-22 00:00:00', 'dat123', '2025-06-07 00:00:00', 'admin', 1, 2, 9, '0'),
-(3, 'Laptop', 'cm-laptop-3', 'active', 0, NULL, '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 4, 11, 12, NULL),
-(4, 'Máy tính', 'cm-may-tinh--4', 'active', 0, 'grid', '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 1, 10, 15, NULL),
-(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', 0, NULL, '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 1, 16, 17, NULL),
-(7, 'Tivi', 'cm-tivi-7', 'active', 0, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-06 00:00:00', 'admin', 1, 18, 19, NULL),
-(8, 'Iphone', 'cm-iphone-8', 'active', 1, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 3, 4, '1'),
-(9, 'Samsung', 'cm-samsung-9', 'active', 1, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 5, 6, '1'),
-(10, 'decktop', 'cm-decktop-10', 'active', 0, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-06 00:00:00', 'admin', 4, 13, 14, NULL),
-(11, 'oppo', 'cm-oppo-11', 'active', 1, NULL, '2025-02-06 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 7, 8, '1');
+INSERT INTO `category_product` (`id`, `name`, `slug`, `status`, `is_home`, `display`, `is_phone_category`, `created`, `created_by`, `modified`, `modified_by`, `parent_id`, `_lft`, `_rgt`) VALUES
+(1, 'Root', '', 'active', 0, '', NULL, NULL, '', NULL, '', NULL, 1, 20),
+(6, 'Điện thoại', 'cm-dien-thoai-6', 'active', 1, 'list', '0', '2024-10-22 00:00:00', 'dat123', '2025-06-07 00:00:00', 'admin', 1, 2, 9),
+(3, 'Laptop', 'cm-laptop-3', 'active', 0, NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 4, 11, 12),
+(4, 'Máy tính', 'cm-may-tinh--4', 'active', 0, 'grid', NULL, '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 1, 10, 15),
+(5, 'Đồng hồ', 'cm-dong-ho-5', 'active', 0, NULL, NULL, '2024-10-22 00:00:00', 'dat123', '2025-06-06 00:00:00', 'admin', 1, 16, 17),
+(7, 'Tivi', 'cm-tivi-7', 'active', 0, NULL, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-06 00:00:00', 'admin', 1, 18, 19),
+(8, 'Iphone', 'cm-iphone-8', 'active', 1, NULL, '1', '2024-10-29 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 3, 4),
+(9, 'Samsung', 'cm-samsung-9', 'active', 1, NULL, '1', '2024-10-29 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 5, 6),
+(10, 'decktop', 'cm-decktop-10', 'active', 0, NULL, NULL, '2024-10-29 00:00:00', 'admin', '2025-06-06 00:00:00', 'admin', 4, 13, 14),
+(11, 'oppo', 'cm-oppo-11', 'active', 1, NULL, '1', '2025-02-06 00:00:00', 'admin', '2025-06-07 00:00:00', 'admin', 6, 7, 8);
 
 --
 -- Bẫy `category_product`

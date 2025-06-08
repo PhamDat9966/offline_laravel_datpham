@@ -31,14 +31,23 @@ class PhoneHomeController extends Controller
         $productModel           = new ProductModel();
         $itemsFeature           = $productModel->getItem(null,['task'=> 'get-many-items-with-price-attribute']);
         $categoryProductModel   = new CategoryProductModel();
-        $categoryIsHome         = $categoryProductModel->getItem(null,['task'=>'get-items-home']);
-        //dd($categoryIsHome);
+        $categoryIsFeatures     = $categoryProductModel->getItem(null,['task'=>'get-items-in-feature']);
+
+        foreach ($categoryIsFeatures as $key=>$categoryIsFeature) {
+            $params['category_product_id']          = $categoryIsFeature['id'];
+            $productsIncategoryFeature              = $productModel->getItem($params,['task'=>'get-many-items-with-category-feature']);
+            $categoryIsFeatures[$key]['items']      = $productsIncategoryFeature;
+            //dd($productsIncategoryFeature);
+        }
+        // dd($categoryIsFeatures);
+
 
         return view($this->pathViewController . 'index',[
-            'title'         => $title,
-            'params'        => $params,
-            'sliders'       => $sliders,
-            'itemsFeature'  => $itemsFeature
+            'title'                 => $title,
+            'params'                => $params,
+            'sliders'               => $sliders,
+            'itemsFeature'          => $itemsFeature,
+            'categoryIsFeatures'    => $categoryIsFeatures
         ]);
     }
 

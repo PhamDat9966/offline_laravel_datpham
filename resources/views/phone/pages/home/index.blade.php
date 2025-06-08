@@ -14,7 +14,7 @@
     <!-- service layout  end -->
 
     <!-- Tab product -->
-    @include('phone.pages.home.child-index.product')
+    @include('phone.pages.home.child-index.category-feature',['categoryIsFeatures'=>$categoryIsFeatures])
     <!-- Tab product end -->
 
     <!-- Quick-view modal popup start-->
