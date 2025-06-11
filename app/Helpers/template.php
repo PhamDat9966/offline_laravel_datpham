@@ -425,14 +425,6 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showProductThumbInPhone($controllerName = 'product' , $thumbName , $thumbAlt){
-        //$linkThumb = asset("images/$controllerName/$thumbName");
-        $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
-        $xhtml  = sprintf('
-            <img src="%s" class="img-fluid blur-up lazyload bg-img" alt="%s">', $linkThumb , $thumbAlt);
-        return  $xhtml;
-    }
-
     public static function showItemMediaList($controllerName , $mediaList){
         $xhtml  = '';
         foreach($mediaList as $media){
@@ -447,6 +439,21 @@ class Template{
             $xhtml  .= sprintf('
                             <img id="thumb-preview" src="%s" alt="%s" class="zvn-media" style="margin:auto" />', $linkMedia , $mediaAlt);
         }
+        return  $xhtml;
+    }
+
+    public static function showItemMedia($controllerName , $media){
+        $xhtml  = '';
+        $mediaContent   = json_decode($media['content']);
+
+        $linkMedia      = (!empty($mediaContent->name))
+                                ? asset("images/$controllerName/" . $mediaContent->name)
+                                : '';
+        $mediaAlt       = (!empty($content['alt']))
+                                ? asset("images/$controllerName/" . $mediaContent->alt)
+                                : '';
+        $xhtml  .= sprintf('
+                        <img id="thumb-preview" src="%s" alt="%s" class="zvn-media-100" style="margin:auto" />', $linkMedia , $mediaAlt);
         return  $xhtml;
     }
 
@@ -928,4 +935,14 @@ class Template{
         $xhtml = '<strong style="color:blue">'.$name.'</strong>';
         return $xhtml;
     }
+
+    //Smart Phone Site:
+    public static function showProductThumbInPhone($controllerName = 'product' , $thumbName , $thumbAlt){
+        //$linkThumb = asset("images/$controllerName/$thumbName");
+        $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
+        $xhtml  = sprintf('
+            <img src="%s" class="img-fluid blur-up lazyload bg-img" alt="%s">', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
 }

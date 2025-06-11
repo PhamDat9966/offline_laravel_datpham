@@ -852,6 +852,21 @@ class ProductModel extends AdminModel
             }
         }
 
+        if($options['task'] == 'get-attribute-items-list'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            $product = self::with(['attributes'])
+                            ->where('id', $params['product_id'])
+                            ->get()->toArray();
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null;
+            }
+        }
+
 
         if($options['task'] == 'get-auto-increment'){
             $dataBaseName = DB::connection()->getDatabaseName();

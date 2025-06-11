@@ -4,7 +4,6 @@
 
     $xhtmlFeature = '';
     foreach($items as $item){
-
         $descriptionMini = Str::words($item['description'], 20, '...');
         // 1. Loại bỏ các thẻ HTML
         $descriptionMini = strip_tags($descriptionMini);
@@ -46,7 +45,7 @@
                                 </div>
                                 <div class="cart-info cart-wrap">
                                     <a href="#" title="Add to cart"><i class="ti-shopping-cart"></i></a>
-                                    <a href="#" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view"></i></a>
+                                    <a href="#" title="Quick View"><i class="ti-search quick-view-btn" data-toggle="modal" data-target="#quick-view"></i></a>
                                 </div>
                             </div>
                             <div class="product-detail">
