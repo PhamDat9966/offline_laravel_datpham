@@ -56,3 +56,13 @@
 <!-- /page content -->
 @endsection
 
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img src="" id="modal-image" class="img-responsive center-block" alt="Ảnh sản phẩm">
+      </div>
+    </div>
+  </div>
+</div>

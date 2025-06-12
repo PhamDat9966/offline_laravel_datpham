@@ -371,3 +371,16 @@ input[readonly] {
     cursor: not-allowed;
 }
 /* End Permission */
+
+/* Product Media */
+.product-thumb {
+  border: 5px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.product-thumb:hover {
+  border-color: #007bff; /* xanh dương (Bootstrap primary) */
+}
+
+/* End Product Media */

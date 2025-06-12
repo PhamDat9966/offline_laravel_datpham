@@ -703,9 +703,12 @@ $(document).ready(function() {
                             var modifiedBy  = response.modified_by;
 
                             // Cập nhật html các phần tử của p gồm modified và modified_by
-                            $("p.modified-"+inputId).html(modified);
-                            $("p.modified-by-"+inputId).html(modifiedBy);
-
+                            if ($("p.modified-" + inputId).length > 0) {
+                                $("p.modified-"+inputId).html(modified);
+                            }
+                            if ($("p.modified-by-" + inputId).length > 0) {
+                                $("p.modified-by-"+inputId).html(modifiedBy);
+                            }
                             // Hiển thị thông báo thành công
                             element.notify("Cập nhật thành công!",
                                 { className: "success", position: "top" }
@@ -1351,3 +1354,13 @@ $(document).ready(function() {
     });
 });
 /* end multy langue */
+
+/* Product Media */
+$(document).ready(function() {
+  $('.product-thumb').on('click', function() {
+    var fullImg = $(this).data('full');
+    $('#modal-image').attr('src', fullImg);
+    $('#imageModal').modal('show');
+  });
+});
+/* End Product Media */

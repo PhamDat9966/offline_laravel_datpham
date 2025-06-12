@@ -123,25 +123,12 @@ class ProductHasMediaModel extends AdminModel
 
     public function saveItem($params = null,$options = null){
 
-        if($options['task'] == 'change-ordering'){
+        if($options['task'] == 'change-attribute-value-id'){
+            $params['attribute_value_id'] = ($params['attribute_value_id'] == 0) ? Null : $params['attribute_value_id'];
             $this::where('id', $params['id'])
-                        ->update(['ordering' => $params['ordering']]);
-
-        }
-
-        if($options['task'] == 'change-default'){
-            $this::where('id', $params['id'])
-                        ->update(['default' => $params['default']]);
+                        ->update(['attribute_value_id' => $params['attribute_value_id']]);
 
         }
     }
 
-    public function deleteItem($params = null,$options = null){
-        if($options['task'] == 'delete-item'){
-            $this->table = 'product_has_attribute';
-            $this->where('product_id', $params['product_id'])
-                 ->where('attribute_value_id', $params['attribute_value_id'])
-                 ->delete();
-        }
-    }
 }

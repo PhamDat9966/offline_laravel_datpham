@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;     // Dùng để delete image theo loc
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 
+use App\Models\AttributevalueModel;
+
 class ProductModel extends AdminModel
 {
     public function __construct(){
@@ -854,9 +856,18 @@ class ProductModel extends AdminModel
 
         if($options['task'] == 'get-attribute-items-list'){
 
-            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
-
-            $product = self::with(['attributes'])
+            $this->table            = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+            $attributeValueModel    = new AttributevalueModel();
+            $colors                 = $attributeValueModel->getItem(null,['task'=>'get-color']);
+            $colorIDs               = [];
+            foreach($colors as $color){
+                $colorIDs[] = $color['id'];
+            }
+            //Ở đây media của sản phẩm chúng ta chỉ gắn với thuộc `color` và không gắn với thuộc tính `storage`
+            //Nên khi lấy dữ liệu từ attributes chúng ta cần phải lọc qua whereIn
+            $product = self::with(['attributes' => function($query) use ($colorIDs) {
+                                $query->whereIn('attribute_value_id', $colorIDs);
+                            }])
                             ->where('id', $params['product_id'])
                             ->get()->toArray();
 

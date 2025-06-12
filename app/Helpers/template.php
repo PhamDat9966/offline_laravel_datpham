@@ -348,6 +348,23 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showMediaSelectAttributeWithArray($controllerName , $id , $displayValue , $fieldName, $array){
+
+        $tmplDisplay     = $array;
+        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+        $xhtml  .=  sprintf('<option value="%s">%s</option>', 0,'Chưa gắn hiển thị vào thuộc tính');
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($value['attribute_value_id']  == $displayValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $value['attribute_value_id'] , $xhtmlSelect,$value['attribute_value_name']);
+        }
+        $xhtml  .='</select>';
+        return  $xhtml;
+    }
+
+
     public static function showItemIsHome($controllerName , $id , $isHomeValue){
         $tmplIsHome             = config('zvn.template.is_home');
 
@@ -442,7 +459,7 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showItemMedia($controllerName , $media){
+    public static function showItemMediaModal($controllerName , $media){
         $xhtml  = '';
         $mediaContent   = json_decode($media['content']);
 
@@ -453,7 +470,7 @@ class Template{
                                 ? asset("images/$controllerName/" . $mediaContent->alt)
                                 : '';
         $xhtml  .= sprintf('
-                        <img id="thumb-preview" src="%s" alt="%s" class="zvn-media-100" style="margin:auto" />', $linkMedia , $mediaAlt);
+                        <img id="thumb-preview" src="%s" alt="%s" data-full="%s" class="zvn-media-100 product-thumb" style="margin:auto" />', $linkMedia , $mediaAlt, $linkMedia);
         return  $xhtml;
     }
 
