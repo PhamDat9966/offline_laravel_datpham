@@ -67,5 +67,24 @@ class ProductHasMediaController extends AdminController
 
     }
 
+
+    public function delete(Request $request)
+    {
+        $params['id']               = $request->id;
+        $params['file']             = $request->file_name;
+        $this->model->deleteItem($params,['task' => 'delete-item']);
+        return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
+    }
+
+    public function phoneSearch(Request $request) // Ajax
+    {
+        $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
+        $data = ProductModel::where('name', 'LIKE', "%{$search}%")
+                      ->limit(10) // Giới hạn 10 sản phẩm
+                      ->get(['id', 'name']);
+
+        return response()->json($data);
+    }
+
 }
 

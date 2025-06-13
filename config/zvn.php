@@ -126,7 +126,9 @@ return [
             'code'          =>  ['name'=>'Search by Code'],
             'value'         =>  ['name'=>'Search by Value'],
             'cost'          =>  ['name'=>'Search by Cost'],
-            'product_name'  =>  ['name'=>"Search by Product's name"]
+            'product_name'  =>  ['name'=>"Search by Product's name"],
+            'namePhone'     =>  ['name'=>"Search by Phone name"],
+            'nameMedia'     =>  ['name'=>"Search by Media name"],
         ],
         'button'            =>[
             'edit'      =>  ['class'=>'btn-success',            'title'=>'Edit',    'icon'=>'fa-pencil',    'route-name'=> '/form'],
@@ -195,7 +197,8 @@ return [
             'product'               =>  ['all','name','slug'],
             'coupon'                =>  ['all','code','value'],
             'shipping'              =>  ['all','name','cost'],
-            'productAttributePrice' =>  ['product_name']
+            'productAttributePrice' =>  ['product_name'],
+            'productHasMedia'       =>  ['namePhone','nameMedia'],
         ],
         'button'    =>[
             'default'               =>  ['edit','delete'],
@@ -222,7 +225,8 @@ return [
             'shipping'              =>  ['edit','delete'],
             'productHasAttribute'   =>  ['delete'],
             'productAttributePrice' =>  ['delete'],
-            'sliderPhone'           =>  ['edit','delete']
+            'sliderPhone'           =>  ['edit','delete'],
+            'productHasMedia'       =>  ['delete'],
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3],

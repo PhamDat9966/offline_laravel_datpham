@@ -3,7 +3,13 @@
 @php
     use App\Helpers\template as Template;
     //$xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
-    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+    //$xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
+    $urlPhoneSearch     = route($controllerName . '/phoneSearch');
+    $xhtmlAreaSearch    =   '<select name="searchPhone" id="searchPhone" class="form-control" style="width: 100%" data-url="'.$urlPhoneSearch.'">
+                                <option value="">Tìm kiếm thông tin smart phone...</option>
+                            </select>
+                            <button id="btn-clear-search" type="button" class="btn btn-success"
+                                    style="margin-right: 0px">Xóa tìm kiếm</button>';
 @endphp
 
 @section('content')

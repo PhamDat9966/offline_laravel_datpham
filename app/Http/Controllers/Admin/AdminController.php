@@ -46,6 +46,8 @@ class AdminController extends Controller
         $this->params['filter']['color']      = $request->input('filter_color','all');
         $this->params['filter']['material']   = $request->input('filter_material','all');
 
+        $this->params['filter']['product_id']   = $request->input('filter_product_id','all');
+
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 

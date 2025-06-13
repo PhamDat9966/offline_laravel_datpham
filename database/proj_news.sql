@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 11, 2025 lúc 08:15 AM
+-- Thời gian đã tạo: Th6 13, 2025 lúc 10:24 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -265,7 +265,10 @@ CREATE TABLE `attribute_value` (
 INSERT INTO `attribute_value` (`id`, `attribute_id`, `name`, `color`, `fieldClass`, `status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
 (1, 1, 'vàng', '#d5ff05', NULL, 'active', NULL, NULL, NULL, NULL),
 (2, 1, 'đỏ', '#ff0000', NULL, 'active', NULL, NULL, NULL, NULL),
-(3, 1, 'xanh', '#0011ff', NULL, 'active', NULL, NULL, NULL, NULL),
+(3, 1, 'xanh dương', '#0011ff', NULL, 'active', NULL, NULL, NULL, NULL),
+(4, 1, 'đen', '#0d0c0c', NULL, 'active', '2025-06-13 00:00:00', 'admin', NULL, NULL),
+(5, 1, 'trắng/bạc', '#ffffff', NULL, 'active', '2025-06-13 00:00:00', 'admin', NULL, NULL),
+(6, 1, 'xám', '#b6b4b4', NULL, 'active', '2025-06-13 00:00:00', 'admin', NULL, NULL),
 (56, 2, '128 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
 (57, 2, '256 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
 (58, 2, '512 GB', NULL, NULL, 'active', '2024-12-23 00:00:00', 'admin', NULL, NULL),
@@ -587,16 +590,19 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (174, 28, NULL, '{\"name\":\"flST3ixxW2.jpg\",\"alt\":\"01\",\"size\":36345}', NULL, '', 'false', '', 'default'),
 (175, 28, NULL, '{\"name\":\"HNH5dG7sgH.jpg\",\"alt\":\"default\",\"size\":76803}', NULL, '', 'false', '', 'default'),
 (176, 28, NULL, '{\"name\":\"fYC0oCXJfz.jpg\",\"alt\":\"02\",\"size\":31082}', NULL, '', 'false', '', 'default'),
-(177, 27, NULL, '{\"name\":\"eIW2UNXs6l.jpg\",\"alt\":\"01\",\"size\":23260}', NULL, '', 'false', '', 'default'),
+(177, 27, 1, '{\"name\":\"eIW2UNXs6l.jpg\",\"alt\":\"01\",\"size\":23260}', NULL, '', 'false', '', 'default'),
 (178, 27, NULL, '{\"name\":\"OVJBUaMpMD.jpg\",\"alt\":\"default\",\"size\":92638}', NULL, '', 'false', '', 'default'),
 (179, 27, NULL, '{\"name\":\"rOCb4BTVVV.png\",\"alt\":\"02\",\"size\":285090}', NULL, '', 'false', '', 'default'),
-(180, 33, NULL, '{\"name\":\"8aL9fzRST1.jpg\",\"alt\":null,\"size\":17225}', NULL, '', 'false', '', 'default'),
-(181, 33, NULL, '{\"name\":\"8Ln56BY8ej.jpg\",\"alt\":\"iPhone-15-03\",\"size\":3727}', NULL, '', 'false', '', 'default'),
-(182, 33, NULL, '{\"name\":\"QIeazc6uih.png\",\"alt\":\"iPhone-15-01\",\"size\":164235}', NULL, '', 'false', '', 'default'),
-(183, 33, NULL, '{\"name\":\"h2REYOV04T.jpg\",\"alt\":\"iPhone-15-02\",\"size\":5894}', NULL, '', 'false', '', 'default'),
-(184, 34, NULL, '{\"name\":\"hIjiwe4qF3.jpg\",\"alt\":\"default\",\"size\":43041}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(185, 34, NULL, '{\"name\":\"dCKdqzTqeI.jpg\",\"alt\":\"iPhone-14-01\",\"size\":52621}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(186, 34, NULL, '{\"name\":\"KRANjzqDfO.png\",\"alt\":\"iPhone-14-02\",\"size\":573294}', NULL, '', 'false', 'image not for attribute_values', 'default');
+(190, 34, NULL, '{\"name\":\"dm3oqUJISm.png\",\"alt\":\"default\",\"size\":573294}', NULL, '', 'false', '', 'default'),
+(191, 34, 4, '{\"name\":\"ialFmsLHSe.png\",\"alt\":\"\\u0111en\",\"size\":154402}', NULL, '', 'false', '', 'default'),
+(192, 34, 5, '{\"name\":\"AJaKNwaWlz.png\",\"alt\":null,\"size\":363678}', NULL, '', 'false', '', 'default'),
+(193, 34, 3, '{\"name\":\"hIjiwe4qF3.jpg\",\"alt\":\"xanh d\\u01b0\\u01a1ng\",\"size\":43041}', NULL, '', 'false', '', 'default'),
+(194, 34, NULL, '{\"name\":\"dCKdqzTqeI.jpg\",\"alt\":\"iPhone-14-01\",\"size\":52621}', NULL, '', 'false', '', 'default'),
+(195, 33, 4, '{\"name\":\"8aL9fzRST1.jpg\",\"alt\":\"\\u0110en\",\"size\":17225}', NULL, '', 'false', '', 'default'),
+(196, 33, 5, '{\"name\":\"XMPQjNX2As.jpg\",\"alt\":\"Tr\\u1eafng\",\"size\":40303}', NULL, '', 'false', '', 'default'),
+(197, 33, NULL, '{\"name\":\"8Ln56BY8ej.jpg\",\"alt\":\"iPhone-15-03\",\"size\":3727}', NULL, '', 'false', '', 'default'),
+(198, 33, NULL, '{\"name\":\"QIeazc6uih.png\",\"alt\":\"iPhone-15-01\",\"size\":164235}', NULL, '', 'false', '', 'default'),
+(199, 33, NULL, '{\"name\":\"h2REYOV04T.jpg\",\"alt\":\"iPhone-15-02\",\"size\":5894}', NULL, '', 'false', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -895,8 +901,8 @@ INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description
 (30, 'samsung s25', 'bv-samsung-s25-40', 9, '<h2><strong>Điện thoại Samsung S25 AI mới c&oacute; g&igrave; hấp dẫn?</strong></h2>\r\n\r\n<p>Samsung Galaxy S25 được t&iacute;ch hợp t&iacute;nh năng AI - c&ocirc;ng nghệ xu hướng để đem đến cho người d&ugrave;ng những trải nghiệm vượt trội v&agrave; th&ocirc;ng minh hơn. Cụ thể:</p>\r\n\r\n<p><strong>T&igrave;m kiếm th&ocirc;ng tin nhanh gấp 3 lần</strong></p>\r\n\r\n<p>T&iacute;nh năng AI tr&ecirc;n S25 đ&atilde; tăng tốc độ t&igrave;m kiếm c&aacute;c th&ocirc;ng tin một c&aacute;ch nhanh ch&oacute;ng v&agrave; vượt trội hơn gấp 3 lần với AI Agent. Kết hợp với Circle to Search, bạn c&oacute; thể t&igrave;m kiếm một c&aacute;ch trực quan, tăng t&iacute;nh hiệu quả bằng c&aacute;ch khoanh tr&ograve;n v&agrave;o mục cần t&igrave;m.</p>\r\n\r\n<p>Ngo&agrave;i ra, bạn c&oacute; thể kh&aacute;m ph&aacute; th&ecirc;m ngay mẫu phi&ecirc;n bản&nbsp;<strong>S25 512GB</strong>&nbsp;đặc biệt với n&acirc;ng cấp về bộ nhớ gi&uacute;p c&aacute;c thao t&aacute;c quay chụp trở n&ecirc;n mượt m&agrave; v&agrave; chơi game, xem film lướt web mượt m&agrave; hơn. C&ugrave;ng kh&aacute;m ph&aacute; ngay nh&eacute;!</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-05 00:00:00', 'feature', 1000, 30, 'percent'),
 (31, 'Samsung Galaxy S22 Ultra', 'bv-samsung-s22-ultra-41', 9, '<h2><strong>Đặc điểm nổi bật của Samsung Galaxy S22 Ultra 8GB 128GB</strong></h2>\r\n\r\n<p>Đ&uacute;ng như c&aacute;c th&ocirc;ng tin được đồn đo&aacute;n trước đ&oacute;, mẫu flagship mới của gả khổng lồ H&agrave;n Quốc được ra mắt với t&ecirc;n gọi l&agrave; Samsung Galaxy S22 Ultra với nhiều cải tiến đ&aacute;ng gi&aacute;. Mẫu điện thoại cao cấp đến từ Samsung n&agrave;y c&oacute; nhiều thay đổi từ thiết kế, cấu h&igrave;nh cho đến camera. Vậy si&ecirc;u phẩm n&agrave;y c&oacute; g&igrave; mới, gi&aacute; bao nhi&ecirc;u v&agrave; c&oacute; n&ecirc;n mua kh&ocirc;ng? H&atilde;y c&ugrave;ng t&igrave;m hiểu chi tiết ngay b&ecirc;n dưới nh&eacute;!</p>\r\n\r\n<p>Dự kiến v&agrave;o th&aacute;ng 2, Samsung sẽ cho ra mắt si&ecirc;u phẩm&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s23-ultra.html\" target=\"_blank\"><strong>S23 Ultra</strong></a>&nbsp;m&agrave; c&oacute; thể qu&yacute; kh&aacute;ch sẽ quan t&acirc;m! Click v&agrave;o link để t&igrave;m hiểu th&ecirc;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-05 00:00:00', 'feature', 0, 25, 'percent'),
 (32, 'iPhone 16 Pro', 'iPhone 16 Pro', 8, '<h2><strong>Đặc điểm nổi bật của iPhone 16 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</strong></h2>\r\n\r\n<p><strong>iPhone 16 Pro Max</strong>&nbsp;sở hữu&nbsp;<strong>m&agrave;n h&igrave;nh Super Retina XDR OLED 6.9 inch</strong>&nbsp;với&nbsp;<strong>c&ocirc;ng nghệ ProMotion</strong>, mang lại trải nghiệm hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t, l&yacute; tưởng cho giải tr&iacute; v&agrave; l&agrave;m việc. Với chipset&nbsp;<strong>A18 Pro</strong>&nbsp;mạnh mẽ, mẫu iPhone đời mới n&agrave;y cung cấp hiệu suất vượt trội, gi&uacute;p xử l&yacute; mượt m&agrave; c&aacute;c t&aacute;c vụ nặng như chơi game hay edit video.&nbsp;Chiếc điện thoại&nbsp;<strong>iPhone 16</strong>&nbsp;mới&nbsp;n&agrave;y c&ograve;n sở hữu&nbsp;hệ thống&nbsp;<strong>camera Ultra Wide 48MP</strong>&nbsp;cho khả năng chụp ảnh cực kỳ chi tiết, mang đến chất lượng h&igrave;nh ảnh ấn tượng trong mọi t&igrave;nh huống.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-05 00:00:00', 'feature', 220, 20, 'percent'),
-(33, 'iPhone 15 Pro', 'iPhone 15 Pro', 8, '<h2><strong>V&igrave; sao n&ecirc;n chọn mua điện thoại&nbsp;iPhone 15 256GB</strong></h2>\r\n\r\n<p><strong>iPhone 15 128GB</strong>&nbsp;l&agrave; phi&ecirc;n bản&nbsp;<strong>ti&ecirc;u chuẩn (thường)</strong>&nbsp;trong&nbsp;<strong>iPhone 15 series</strong>&nbsp;vừa được ch&iacute;nh thức ra mắt. Chiếc điện thoại n&agrave;y c&ograve;n c&oacute; 2 dung lượng bộ nhớ lớn hơn l&agrave; 256Gb v&agrave; 512GB. C&ugrave;ng t&igrave;m hiểu chi tiết hơn về&nbsp;<strong>iPhone 15 256GB</strong>&nbsp;nh&eacute;:</p>\r\n\r\n<ul>\r\n	<li>D&ograve;ng iPhone 15 phi&ecirc;n bản 256GB l&agrave; một biểu tượng của sự cao cấp v&agrave; mạnh mẽ. Sản phẩm được trang bị m&agrave;n h&igrave;nh&nbsp;<strong>OLED Dynamic Island</strong>&nbsp;k&iacute;ch thước&nbsp;<strong>6.1 inch</strong>&nbsp;mang lại sự sống động v&agrave; ch&acirc;n thực cho mọi h&igrave;nh ảnh v&agrave; video.</li>\r\n	<li>B&ecirc;n trong, chiếc điện thoại n&agrave;y được cung cấp sức mạnh bởi con&nbsp;<strong>chip Apple A16 Bionic</strong>, với CPU 6 l&otilde;i v&agrave; GPU 5 l&otilde;i, đảm bảo khả năng xử l&yacute; tốt v&agrave; mượt m&agrave; trong tất cả c&aacute;c t&aacute;c vụ. Kể cả chơi c&aacute;c tựa game nặng cũng kh&ocirc;ng bị giật, lag g&acirc;y cảm gi&aacute;c kh&oacute; chịu.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-05 00:00:00', 'normal', 500, 10, 'percent'),
-(34, 'iphone 14', 'iphone 14', 8, '<p>Mới đ&acirc;y, Apple đ&atilde; tổ chức sự kiện Far Out ra mắt c&aacute;c sản phẩm mới của năm 2022. C&ocirc;ng ty đ&atilde; giới thiệu d&ograve;ng&nbsp;iPhone 14 Series&nbsp;được rất nhiều người d&ugrave;ng chờ đợi kể từ khi những tin đồn đầu ti&ecirc;n xuất hiện v&agrave;o hồi đầu năm. Sản phẩm năm nay kh&ocirc;ng chỉ cải tiến về thiết kế m&agrave; c&ograve;n được cung cấp sức mạnh vượt trội từ con chip A15 Bionic. H&atilde;y c&ugrave;ng Ho&agrave;ng H&agrave; Mobile kh&aacute;m ph&aacute; những ưu điểm của chiếc iPhone 14 ch&iacute;nh h&atilde;ng VN/A nh&eacute;.</p>', 'active', NULL, '2025-06-05 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'normal', 1000, 30, 'percent');
+(33, 'iPhone 15 Pro', 'iPhone 15 Pro', 8, '<h2><strong>V&igrave; sao n&ecirc;n chọn mua điện thoại&nbsp;iPhone 15 256GB</strong></h2>\r\n\r\n<p><strong>iPhone 15 128GB</strong>&nbsp;l&agrave; phi&ecirc;n bản&nbsp;<strong>ti&ecirc;u chuẩn (thường)</strong>&nbsp;trong&nbsp;<strong>iPhone 15 series</strong>&nbsp;vừa được ch&iacute;nh thức ra mắt. Chiếc điện thoại n&agrave;y c&ograve;n c&oacute; 2 dung lượng bộ nhớ lớn hơn l&agrave; 256Gb v&agrave; 512GB. C&ugrave;ng t&igrave;m hiểu chi tiết hơn về&nbsp;<strong>iPhone 15 256GB</strong>&nbsp;nh&eacute;:</p>\r\n\r\n<ul>\r\n	<li>D&ograve;ng iPhone 15 phi&ecirc;n bản 256GB l&agrave; một biểu tượng của sự cao cấp v&agrave; mạnh mẽ. Sản phẩm được trang bị m&agrave;n h&igrave;nh&nbsp;<strong>OLED Dynamic Island</strong>&nbsp;k&iacute;ch thước&nbsp;<strong>6.1 inch</strong>&nbsp;mang lại sự sống động v&agrave; ch&acirc;n thực cho mọi h&igrave;nh ảnh v&agrave; video.</li>\r\n	<li>B&ecirc;n trong, chiếc điện thoại n&agrave;y được cung cấp sức mạnh bởi con&nbsp;<strong>chip Apple A16 Bionic</strong>, với CPU 6 l&otilde;i v&agrave; GPU 5 l&otilde;i, đảm bảo khả năng xử l&yacute; tốt v&agrave; mượt m&agrave; trong tất cả c&aacute;c t&aacute;c vụ. Kể cả chơi c&aacute;c tựa game nặng cũng kh&ocirc;ng bị giật, lag g&acirc;y cảm gi&aacute;c kh&oacute; chịu.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-13 00:00:00', 'normal', 500, 10, 'percent'),
+(34, 'iphone 14', 'iphone 14', 8, '<p>Mới đ&acirc;y, Apple đ&atilde; tổ chức sự kiện Far Out ra mắt c&aacute;c sản phẩm mới của năm 2022. C&ocirc;ng ty đ&atilde; giới thiệu d&ograve;ng&nbsp;iPhone 14 Series&nbsp;được rất nhiều người d&ugrave;ng chờ đợi kể từ khi những tin đồn đầu ti&ecirc;n xuất hiện v&agrave;o hồi đầu năm. Sản phẩm năm nay kh&ocirc;ng chỉ cải tiến về thiết kế m&agrave; c&ograve;n được cung cấp sức mạnh vượt trội từ con chip A15 Bionic. H&atilde;y c&ugrave;ng Ho&agrave;ng H&agrave; Mobile kh&aacute;m ph&aacute; những ưu điểm của chiếc iPhone 14 ch&iacute;nh h&atilde;ng VN/A nh&eacute;.</p>', 'active', NULL, '2025-06-05 00:00:00', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-06-13 00:00:00', 'normal', 1000, 30, 'percent');
 
 --
 -- Bẫy `product`
@@ -961,8 +967,6 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (99, 31, 1, 58, 'Samsung Galaxy S22 Ultra', 'vàng', '512 GB', 12000, 'active', 24, NULL),
 (100, 32, 1, 58, 'iPhone 16 Pro', 'vàng', '512 GB', 7000, 'active', 25, NULL),
 (101, 32, 2, 58, 'iPhone 16 Pro', 'đỏ', '512 GB', 8000, 'active', 26, NULL),
-(102, 33, 2, 58, 'iPhone 15 Pro', 'đỏ', '512 GB', 2500, 'active', 27, NULL),
-(103, 33, 3, 58, 'iPhone 15 Pro', 'xanh', '512 GB', 2500, 'active', 28, NULL),
 (104, 28, 1, 57, 'iphone 15', 'vàng', '256 GB', 800, 'active', 4, NULL),
 (105, 28, 2, 57, 'iphone 15', 'đỏ', '256 GB', 900, 'active', 5, NULL),
 (106, 28, 2, 58, 'iphone 15', 'đỏ', '512 GB', 800, 'active', 6, NULL),
@@ -970,8 +974,11 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (108, 28, 3, 57, 'iphone 15', 'xanh', '256 GB', 800, 'active', 8, NULL),
 (109, 28, 3, 58, 'iphone 15', 'xanh', '512 GB', 600, 'active', 9, NULL),
 (110, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2500, 'active', 13, NULL),
-(111, 34, 1, 58, 'iphone 14', 'vàng', '512 GB', 500, 'active', 29, NULL),
-(112, 34, 2, 58, 'iphone 14', 'đỏ', '512 GB', 560, 'active', 30, NULL);
+(113, 34, 3, 58, 'iphone 14', 'xanh dương', '512 GB', NULL, 'active', 29, NULL),
+(114, 34, 4, 58, 'iphone 14', 'đen', '512 GB', NULL, 'active', 30, NULL),
+(115, 34, 5, 58, 'iphone 14', 'trắng/bạc', '512 GB', NULL, 'active', 31, NULL),
+(116, 33, 4, 58, 'iPhone 15 Pro', 'đen', '512 GB', NULL, 'active', 32, NULL),
+(117, 33, 5, 58, 'iPhone 15 Pro', 'trắng/bạc', '512 GB', NULL, 'active', 33, NULL);
 
 -- --------------------------------------------------------
 
@@ -1023,13 +1030,14 @@ INSERT INTO `product_has_attribute` (`id`, `product_id`, `attribute_value_id`, `
 (166, 32, 2, 'iPhone 16 Pro', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
 (167, 32, 58, 'iPhone 16 Pro', '512 GB', NULL, NULL, NULL, NULL, 'active'),
 (168, 32, 59, 'iPhone 16 Pro', 'zenvn', NULL, NULL, NULL, NULL, 'active'),
-(169, 33, 2, 'iPhone 15 Pro', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
-(170, 33, 3, 'iPhone 15 Pro', 'xanh', NULL, NULL, NULL, NULL, 'active'),
 (171, 33, 58, 'iPhone 15 Pro', '512 GB', NULL, NULL, NULL, NULL, 'active'),
 (172, 33, 59, 'iPhone 15 Pro', 'zenvn', NULL, NULL, NULL, NULL, 'active'),
-(173, 34, 1, 'iphone 14', 'vàng', NULL, NULL, NULL, NULL, 'active'),
-(174, 34, 2, 'iphone 14', 'đỏ', NULL, NULL, NULL, NULL, 'active'),
-(175, 34, 58, 'iphone 14', '512 GB', NULL, NULL, NULL, NULL, 'active');
+(175, 34, 58, 'iphone 14', '512 GB', NULL, NULL, NULL, NULL, 'active'),
+(176, 34, 3, 'iphone 14', 'xanh dương', NULL, NULL, NULL, NULL, 'active'),
+(177, 34, 4, 'iphone 14', 'đen', NULL, NULL, NULL, NULL, 'active'),
+(178, 34, 5, 'iphone 14', 'trắng/bạc', NULL, NULL, NULL, NULL, 'active'),
+(179, 33, 4, 'iPhone 15 Pro', 'đen', NULL, NULL, NULL, NULL, 'active'),
+(180, 33, 5, 'iPhone 15 Pro', 'trắng/bạc', NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -1399,7 +1407,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '3,3,3,3,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '3,3,3,3,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', '2019-05-04 00:00:00', 'admin', '2025-03-19 00:00:00', 'admin', 'active', NULL, 2),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
@@ -2532,7 +2540,10 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (1069, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-05-16 14:22:06', 42),
 (1070, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-07 12:23:39', 42),
 (1071, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-07 12:23:40', 42),
-(1072, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-07 12:23:41', 42);
+(1072, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-07 12:23:41', 42),
+(1073, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-13 09:33:48', 42),
+(1074, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-13 09:33:49', 42),
+(1075, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-06-13 09:33:49', 42);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2827,7 +2838,7 @@ ALTER TABLE `attribute`
 -- AUTO_INCREMENT cho bảng `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT cho bảng `branch`
@@ -2875,7 +2886,7 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
 -- AUTO_INCREMENT cho bảng `menu`
@@ -2929,13 +2940,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `product_attribute_price`
 --
 ALTER TABLE `product_attribute_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT cho bảng `product_has_attribute`
 --
 ALTER TABLE `product_has_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`
@@ -2995,7 +3006,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1073;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1076;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

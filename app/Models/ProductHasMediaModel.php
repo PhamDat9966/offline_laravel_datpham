@@ -9,6 +9,7 @@ use App\Models\AttributevalueModel;
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 class ProductHasMediaModel extends AdminModel
 {
     public function __construct(){
@@ -51,8 +52,8 @@ class ProductHasMediaModel extends AdminModel
                     ->leftJoin('attribute_value as av', 'av.id', '=', 'm.attribute_value_id');
 
 
-            if($params['filter']['type'] !== "all"){
-                $query->where("type","=", $params['filter']['type']);
+            if($params['filter']['product_id'] !== "all"){
+                $query->where("product_id","=", $params['filter']['product_id']);
             }
 
             if($params['search'] !== ""){
@@ -128,6 +129,14 @@ class ProductHasMediaModel extends AdminModel
             $this::where('id', $params['id'])
                         ->update(['attribute_value_id' => $params['attribute_value_id']]);
 
+        }
+    }
+
+    public function deleteItem($params = null,$options = null){
+        if($options['task'] == 'delete-item'){
+            $thumb = $params['file'];
+            Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $thumb);
+            $this->where('id', $params['id'])->delete();
         }
     }
 

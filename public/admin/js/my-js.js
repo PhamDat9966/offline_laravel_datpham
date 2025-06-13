@@ -1357,10 +1357,39 @@ $(document).ready(function() {
 
 /* Product Media */
 $(document).ready(function() {
-  $('.product-thumb').on('click', function() {
-    var fullImg = $(this).data('full');
-    $('#modal-image').attr('src', fullImg);
-    $('#imageModal').modal('show');
-  });
+    $('.product-thumb').on('click', function() {
+        var fullImg = $(this).data('full');
+        $('#modal-image').attr('src', fullImg);
+        $('#imageModal').modal('show');
+    });
+
+    $("#searchPhone").select2({
+        width:'75%',
+        placeholder: "Nhập để lọc smart phone ...",
+        allowClear: true,
+        ajax: {
+            url: $("#searchPhone").data('url'),
+            dataType: "json",
+            delay: 250,
+            processResults: function (data) {
+                console.log(data);
+                return {
+                    results: data.map(function (item) {
+                        return { id: item.id, text: item.name };
+                    })
+                };
+            }
+        }
+    });
+
+    $('#searchPhone').on('select2:select', function (e) {
+        var data = e.params.data;
+        var phoneID = data.id;
+        var pathname = window.location.pathname;
+
+        // data.id → giá trị id
+        // data.text → nội dung hiển thị (ví dụ: tên sản phẩm)
+        window.location.href    = pathname + '?' + 'filter_product_id=' + phoneID;
+    });
 });
 /* End Product Media */

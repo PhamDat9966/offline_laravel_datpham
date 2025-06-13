@@ -1369,12 +1369,14 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'save'
         ]);
 
-        Route::get('delete/{product_id}-{attribute_value_id}', [
+        Route::get('delete/{id?}/{file_name?}', [
             'as'    => $controllerName . '/delete',
             'uses'  => $controller . 'delete'
-        ])->where([
-            'product_id'            => '[0-9]+',
-            'attribute_value_id'    => '[0-9]+',
+        ]);
+
+        Route::get('/phone-search', [
+            'as'    => $controllerName . '/phoneSearch',
+            'uses'  => $controller . 'phoneSearch'
         ]);
     });
 

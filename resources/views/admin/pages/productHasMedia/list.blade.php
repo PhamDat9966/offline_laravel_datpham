@@ -13,7 +13,7 @@
                     <th class="column-title">Media thu nhỏ</th>
                     <th class="column-title">Gán hiển thị media vào thuộc tính màu sắc của sản phẩm</th>
                     <th class="column-title">Miêu tả</th>
-                    <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Video</th>
                     <th class="column-title">Hành động</th>
                 </tr>
             </thead>
@@ -34,19 +34,21 @@
                             $mediaName                      = $mediaContent->name;
                             $mediaAlt                       = $mediaContent->alt;
                             $mediaSize                      = $mediaContent->size;
-                            $mediaShow                      = Template::showItemMediaModal('product',$val);
-                            $selectAttributeValueForMedia   = Template::showMediaSelectAttributeWithArray($controllerName,
-                                                                                                            $id,
-                                                                                                  $attribute_value_id,
-                                                                                                     'attribute',
-                                                                                                         $val['productHasAttributes']);
 
-                            //$action                 = Template::showButtonActionProductHasAttribute($controllerName,$product_id ,$attribute_value_id);
+                            $nameProduct                      = (request()->has('filter_product_id')) ? '<strong style="color: red;">'.$nameProduct.'</strong>': $nameProduct;
+
+                            $isVideo                        = $val['is_video'];
+                            $description                    = $val['description'];
+
+                            $mediaShow                      = Template::showItemMediaModal('product',$val);
+                            $selectAttributeValueForMedia   = Template::showMediaSelectAttributeWithArray($controllerName,$id,$attribute_value_id,'attribute',$val['productHasAttributes']);
+
+                            $action                         = Template::showButtonActionMedia($controllerName,$id,$mediaName);
                         @endphp
 
                         <tr class="{{$class}} pointer">
                             <td>{{ $index }}</td>
-                            <td width="15%">
+                            <td width="25%">
                                 <p><strong>Tên Media: </strong> {!! $mediaName !!}</p>
                                 <p><strong>Thuộc sản phẩm: </strong> {!! $nameProduct !!}</p>
                                 <p>Alt: {!! $mediaAlt !!}</p>
@@ -55,11 +57,17 @@
                             <td width="10%">
                                 {!!$mediaShow!!}
                             </td>
-                            <td width="35%">
+                            <td width="30%">
                                 {!!$selectAttributeValueForMedia!!}
                             </td>
+                            <td>
+                                {!!$description!!}
+                            </td>
+                            <td>
+                                {!!$isVideo!!}
+                            </td>
                             <td class="last">
-
+                                {!!$action!!}
                             </td>
                         </tr>
                     @endforeach

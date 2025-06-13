@@ -354,7 +354,7 @@ class Template{
         $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
 
         $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
-        $xhtml  .=  sprintf('<option value="%s">%s</option>', 0,'Chưa gắn hiển thị vào thuộc tính');
+        $xhtml  .=  sprintf('<option value="%s">%s</option>', 0,'Ảnh phụ - Không gán thuộc tính màu sắc');
         foreach($tmplDisplay as $key => $value){
             $xhtmlSelect = '';
             if($value['attribute_value_id']  == $displayValue) $xhtmlSelect = 'selected="selected"';
@@ -594,6 +594,26 @@ class Template{
         foreach($listButtons as $btn){
             $currentButton  = $tmplButton[$btn];
             $link           = route($controllerName . $currentButton['route-name'], ['product_id'=>$product_id,'attribute_value_id'=>$attribute_value_id]);
+
+            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+                                        <i class="fa %s"></i>
+                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        }
+        $xhtml  .='</div>';
+        return  $xhtml;
+    }
+
+    public static function showButtonActionMedia($controllerName, $id,$fileName){
+        $tmplButton     = config('zvn.template.button');
+        $buttonInArea   = config('zvn.config.button');
+
+        $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
+        $listButtons    = $buttonInArea[$controllerName];
+
+        $xhtml   ='<div class="zvn-box-btn-filter">';
+        foreach($listButtons as $btn){
+            $currentButton  = $tmplButton[$btn];
+            $link           = route($controllerName . $currentButton['route-name'], ['file_name'=>$fileName,'id'=>$id]);
 
             $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
                                         <i class="fa %s"></i>
