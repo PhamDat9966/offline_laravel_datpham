@@ -283,5 +283,13 @@ class ProductController extends AdminController
         return response()->json($data);
     }
 
+    // public function productModalView(Request $request) // Ajax
+    // {
+    //     $params     = $request->all();
+    //     $product    = $this->model->getItem($params,['task'=> 'get-item-modal-view']);
+
+    //     return response()->json($product);
+    //     //echo "this is modal view";
+    // }
 }
 

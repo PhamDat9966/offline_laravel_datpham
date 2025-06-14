@@ -37,10 +37,7 @@ class PhoneHomeController extends Controller
             $params['category_product_id']          = $categoryIsFeature['id'];
             $productsIncategoryFeature              = $productModel->getItem($params,['task'=>'get-many-items-with-category-feature']);
             $categoryIsFeatures[$key]['items']      = $productsIncategoryFeature;
-            //dd($productsIncategoryFeature);
         }
-        // dd($categoryIsFeatures);
-
 
         return view($this->pathViewController . 'index',[
             'title'                 => $title,

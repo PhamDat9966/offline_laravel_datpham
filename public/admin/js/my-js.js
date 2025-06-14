@@ -1384,12 +1384,12 @@ $(document).ready(function() {
 
     $('#searchPhone').on('select2:select', function (e) {
         var data = e.params.data;
-        var phoneID = data.id;
+        var productID = data.id;
         var pathname = window.location.pathname;
 
         // data.id → giá trị id
         // data.text → nội dung hiển thị (ví dụ: tên sản phẩm)
-        window.location.href    = pathname + '?' + 'filter_product_id=' + phoneID;
+        window.location.href    = pathname + '?' + 'filter_product_id=' + productID;
     });
 });
 /* End Product Media */

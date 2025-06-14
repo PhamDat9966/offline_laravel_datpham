@@ -392,6 +392,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'productSearch'
         ]);
 
+        Route::get('/product-modal-view', [
+            'as'    => $controllerName . '/productModalView',
+            'uses'  => $controller . 'productModalView'
+        ]);
+
     });
 
     // ====================== SYSTEN ======================

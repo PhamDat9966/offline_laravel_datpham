@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 13, 2025 lúc 10:24 AM
+-- Thời gian đã tạo: Th6 14, 2025 lúc 07:08 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -974,11 +974,11 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (108, 28, 3, 57, 'iphone 15', 'xanh', '256 GB', 800, 'active', 8, NULL),
 (109, 28, 3, 58, 'iphone 15', 'xanh', '512 GB', 600, 'active', 9, NULL),
 (110, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2500, 'active', 13, NULL),
-(113, 34, 3, 58, 'iphone 14', 'xanh dương', '512 GB', NULL, 'active', 29, NULL),
-(114, 34, 4, 58, 'iphone 14', 'đen', '512 GB', NULL, 'active', 30, NULL),
-(115, 34, 5, 58, 'iphone 14', 'trắng/bạc', '512 GB', NULL, 'active', 31, NULL),
-(116, 33, 4, 58, 'iPhone 15 Pro', 'đen', '512 GB', NULL, 'active', 32, NULL),
-(117, 33, 5, 58, 'iPhone 15 Pro', 'trắng/bạc', '512 GB', NULL, 'active', 33, NULL);
+(113, 34, 3, 58, 'iphone 14', 'xanh dương', '512 GB', 500, 'active', 29, NULL),
+(114, 34, 4, 58, 'iphone 14', 'đen', '512 GB', 500, 'active', 30, NULL),
+(115, 34, 5, 58, 'iphone 14', 'trắng/bạc', '512 GB', 500, 'active', 31, NULL),
+(116, 33, 4, 58, 'iPhone 15 Pro', 'đen', '512 GB', 1000, 'active', 32, NULL),
+(117, 33, 5, 58, 'iPhone 15 Pro', 'trắng/bạc', '512 GB', 1000, 'active', 33, NULL);
 
 -- --------------------------------------------------------
 
