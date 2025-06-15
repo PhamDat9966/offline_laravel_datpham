@@ -1,3 +1,6 @@
+@php
+    $homePhone = route('phoneHome');
+@endphp
 <header class="my-header sticky">
         <div class="mobile-fix-option"></div>
         <div class="container">
@@ -20,7 +23,7 @@
                                             <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
-                                        <li><a href="index.html" class="my-menu-link active">Trang chủ</a></li>
+                                        <li><a href="{{$homePhone}}" class="my-menu-link active">Trang chủ</a></li>
                                         <li><a href="list.html">Sách</a></li>
                                         <li>
                                             <a href="category.html">Danh mục</a>

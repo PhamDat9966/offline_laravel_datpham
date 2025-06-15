@@ -806,6 +806,19 @@ class ProductModel extends AdminModel
             }
         }
 
+        if($options['task'] == 'get-item-all-relationship'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            $product = self::with(['attributes','attributePrices','media'])->find($params['id']);
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null; // Trả về null nếu không tìm thấy sản phẩm
+            }
+        }
+
         // if($options['task'] == 'get-item-modal-view'){
 
         //     $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)

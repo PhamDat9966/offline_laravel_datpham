@@ -21,6 +21,7 @@
         foreach($categoryIsFeature['items'] as $keyItem=>$item){
 
             $id              = $item['id'];
+            $urlItem         = route('phoneItem',['id'=>$id]);
             $name            = $item['name'];
             $urlProduct      = route('product/productModalView');
             $description     = $item['description'];
@@ -52,7 +53,7 @@
                     $salePrice = $originalPriceDefault - ($originalPriceDefault * $item['price_discount_percent']/100);
                     break;
                 case 'value':
-                    $saveTitle = '-'.$item['price_discount_value'].'$';;
+                    $saveTitle = '-'.$item['price_discount_value'].'$';
                     $salePrice = $originalPriceDefault - $item['price_discount_value'];
                     break;
             }
@@ -65,7 +66,7 @@
                                                 <span class="lable4 badge badge-danger"> '.$saveTitle.'</span>
                                             </div>
                                             <div class="front">
-                                                <a href="item.html">
+                                                <a href="'.$urlItem.'">
                                                     '.$image.'
                                                 </a>
                                             </div>
@@ -125,9 +126,7 @@
                        $xhtmlTabTitle
                     !!}
 
-                    {!!
-                        $xhtmlTabContent
-                    !!}
+                    {!!$xhtmlTabContent!!}
                 </div>
             </div>
         </div>

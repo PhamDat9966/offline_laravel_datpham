@@ -982,4 +982,12 @@ class Template{
         return  $xhtml;
     }
 
+        public static function showProductThumbInPhoneItem($controllerName = 'product' , $thumbName , $thumbAlt){
+        //$linkThumb = asset("images/$controllerName/$thumbName");
+        $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
+        $xhtml  = sprintf('
+            <img src="%s" class="img-fluid w-100 blur-up lazyload image_zoom_cls-0" alt="%s">', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
 }
