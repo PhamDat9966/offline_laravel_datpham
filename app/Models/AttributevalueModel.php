@@ -183,7 +183,7 @@ class AttributevalueModel extends AdminModel
         }
 
         if($options['task'] == 'get-all-items'){
-            $result = $this::select('av.id','av.name','av.attribute_id','av.fieldClass','av.status')
+            $result = $this::select('av.id','av.name','av.color','av.attribute_id','av.fieldClass','av.status')
                     ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id')
                     ->where('av.status','=','active')
                     ->get()->toArray();

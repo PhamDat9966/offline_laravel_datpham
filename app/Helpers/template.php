@@ -967,6 +967,18 @@ class Template{
         return $colorDiv;
     }
 
+    public static function colorDivSmartPhone($color_id,$color_name){
+        $color_Hex          = Template::getColorHex($color_id);
+        $color_opposite     = Template::getComplementaryColor($color_Hex['color']);
+
+        $colorDiv           = '<div class="color-box text-center padding-color border border-dark mb-1"
+                                    style="background: '.$color_Hex['color'].';display: flex; justify-content: center;width:100px;">
+                                        <span class="" style="color: '.$color_opposite.';display: block; margin: 0 auto;line-height: 20px;">'.$color_name.'</span>
+                               </div>';
+        return $colorDiv;
+    }
+
+
     public static function blueLockText($name){
         $name = ($name != null) ? $name : 'Locked';
         $xhtml = '<strong style="color:blue">'.$name.'</strong>';

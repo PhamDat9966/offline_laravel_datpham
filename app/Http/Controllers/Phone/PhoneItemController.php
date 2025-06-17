@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\SliderPhoneModel;
 use App\Models\ProductModel;
 use App\Models\CategoryProductModel;
+use App\Models\AttributevalueModel;
 
 class PhoneItemController extends Controller
 {
@@ -27,10 +28,39 @@ class PhoneItemController extends Controller
 
         $productModel   = new ProductModel();
         $item           = $productModel->getItem($this->params,['task'=>'get-item-all-relationship']);
-        //dd($item->toArray());
+        $item           = $item->toArray();
+
+        $attributeValueModel    = new AttributevalueModel();
+        $attributeValues        = $attributeValueModel->getItem(null,['task'=> 'get-all-items']);
+
+        //Gáng type của thuộc tính sản phẩm
+        foreach ($attributeValues as $attributeValue) {
+            foreach ($item['attributes'] as $key => $itemAttribute) {
+                //Trường hợp thuộc tính là màu sắc
+                if ($itemAttribute['attribute_value_id'] == $attributeValue['id'] && $attributeValue['attribute_id'] == 1) {
+                    $item['attributes'][$key]['attribute_id'] = 1;
+                    $item['attributes'][$key]['type']         = 'color';
+                    $item['attributes'][$key]['color']        = $attributeValue['color'];
+                }
+
+                //Trường hợp thuộc tính là dung lượng
+                if ($itemAttribute['attribute_value_id'] == $attributeValue['id'] && $attributeValue['attribute_id'] == 2) {
+                    $item['attributes'][$key]['attribute_id'] = 2;
+                    $item['attributes'][$key]['type']         = 'material';
+                }
+
+                //Trường hợp thuộc tính là slogan
+                if ($itemAttribute['attribute_value_id'] == $attributeValue['id'] && $attributeValue['attribute_id'] == 3) {
+                    $item['attributes'][$key]['attribute_id'] = 3;
+                    $item['attributes'][$key]['type']         = 'slogan';
+                }
+            }
+        }
+
+        //dd($item,$attributeValues);
 
         return view($this->pathViewController . 'index',[
-            'item'  => $item->toArray()
+            'item'  => $item
         ]);
     }
 

@@ -14,4 +14,5 @@
     <link rel="stylesheet" type="text/css" href="{{asset('phone_theme/css/color16.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('phone_theme/css/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('phone_theme/css/phone-ring.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('phone_theme/css/my-css.css')}}">
 

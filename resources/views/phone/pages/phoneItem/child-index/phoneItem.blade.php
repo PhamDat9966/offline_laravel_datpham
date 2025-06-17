@@ -3,6 +3,7 @@
     use App\Helpers\Template;
     use Illuminate\Support\Str;
 
+    $id   = $item['id'];
     $name = $item['name'];
     $description     = $item['description'];
 
@@ -12,7 +13,7 @@
 
     switch ($item['price_discount_type']) {
         case 'percent':
-            $saveTitle = '-'.$item['price_discount_percent'].'%';
+            $saveTitle = $item['price_discount_percent'];
             $salePrice = $originalPriceDefault - ($originalPriceDefault * $item['price_discount_percent']/100);
             break;
         case 'value':
@@ -29,6 +30,32 @@
     $image           = Template::showProductThumbInPhoneItem('product',$imgName,$imgAlt);
     $imageURL        = ($imgName)? asset("images/product/$imgName") : '';
 
+    $xhtmlColors     = '<div>';
+    $xhtmlStorage    = '<ul class="list-inline prod_size display-layout">';
+    foreach($item['attributes'] as $key=>$attributeItem){
+        //Nhóm các thuộc tính màu sắc thành một nhóm checkbox riêng
+        $checked = ($key == 0) ? 'checked':'';
+        if($attributeItem['attribute_id'] == 1 || $attributeItem['type'] == 'color'){
+            $colorDiv               = Template::colorDivSmartPhone($attributeItem['attribute_value_id'],$attributeItem['attribute_value_name']);
+            $xhtmlColors .='<div class="form-check">
+                                <input class="form-check-input" type="radio" name="item-attribute-value-id" id="exampleRadios1" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
+                                <label class="form-check-label mr-1" for="exampleRadios1">
+                                    '.$colorDiv.'
+                                </label>
+
+                            </div>';
+        }
+
+        if($attributeItem['attribute_id'] == 2 || $attributeItem['type'] == 'material'){
+            $xhtmlStorage .='<li>
+                                <button type="button" class="btn btn-default btn-lg btn-material selected border border-secondary" data-item-id="'.$id.'" data-material-id="'.$attributeItem['attribute_value_id'].'" data-url="http://proj_news.xyz/admin96/product/change-price" >'.$attributeItem['attribute_value_name'].'</button>
+                            </li>';
+        }
+
+    }
+    $xhtmlColors     .= '</div>';
+    $xhtmlStorage    .= '</ul>';
+
 @endphp
 <div class="col-lg-9 col-sm-12 col-xs-12">
     <div class="container-fluid">
@@ -37,6 +64,7 @@
                 <div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter" aria-hidden="true"></i> filter</span></div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-4 col-xl-4">
                 <div class="product-slick">
@@ -48,7 +76,16 @@
             <div class="col-lg-8 col-xl-8 rtl-text">
                 <div class="product-right">
                     <h2 class="mb-2">{{$name}}</h2>
-                    <h4><del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
+                    <h4 class="mb-2">Chọn màu sắc:</h4>
+                    <div>
+                        {!! $xhtmlColors !!}
+                    </div>
+                    <h4 class="my-2">Dung lượng:</h4>
+                    <div class="mb-4">
+                        {!! $xhtmlStorage !!}
+                    </div>
+
+                    <h4 class="my-2 border-product">Giá:<del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
                     <h3>{{$salePrice}} $</h3>
                     <div class="product-description border-product">
                         <h6 class="product-title">Số lượng</h6>

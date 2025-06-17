@@ -25,6 +25,7 @@
     /*Màu sắc và dung lượng*/
     $xhtmlColors         = '<ul class="list-inline prod_color display-layout">';
     $xhtmlStorage        = '<ul class="list-inline prod_size display-layout">';
+    $colorTextList       = '';
     foreach($item['attributes'] as $attkey=>$attribute){
 
         if($attribute['color-picker']){
@@ -34,17 +35,21 @@
                     $flagCheckColorDefault = 'checked';
                 }
             }
-
-            $xhtmlColors    .=  '<li>
-                                    <p>'.$attribute['attribute_value_name'].'</p>
-                                    <div class="color" style="background:'.$attribute['color-picker'].';color:#ffffff;"></div>
-                                    <div class="text-center">
-                                        <input  type="radio"
-                                                name="color"
-                                                id="color_'.$attribute['attribute_value_id'].'"
-                                                value="'.$attribute['attribute_value_id'].'"
-                                                '.$flagCheckColorDefault.'
-                                        >
+            $xhtmlColors    .=  '<li style="width:100px;">
+                                    <p style="display: inline;">'.$attribute['attribute_value_name'].'</p>
+                                    <div>
+                                        <div class="text-center">
+                                            <p class="color" style="background:'.$attribute['color-picker'].';color:#ffffff;">
+                                            </p>
+                                        </div>
+                                        <div style="padding-left:7px;">
+                                            <input  type="radio"
+                                                    name="color"
+                                                    id="color_'.$attribute['attribute_value_id'].'"
+                                                    value="'.$attribute['attribute_value_id'].'"
+                                                    '.$flagCheckColorDefault.'
+                                            >
+                                        </div>
                                     </div>
                                 </li>';
         }
@@ -70,6 +75,7 @@
     }
     $xhtmlColors        .= '</ul>';
     $xhtmlStorage       .= '</ul>';
+
 
     //$urlUser             = route('user/order');
     $urlUser        = route('user/addCart');
@@ -122,6 +128,7 @@
 
             <div class="">
                 <h2>Màu sắc</h2>
+                {!!$colorTextList!!}
                 {!! $xhtmlColors !!}
 
             </div>
