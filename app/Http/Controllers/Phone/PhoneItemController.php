@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Phone;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Models\SliderPhoneModel;
+
 use App\Models\ProductModel;
 use App\Models\CategoryProductModel;
 use App\Models\AttributevalueModel;
+use App\Models\ProductAttributePriceModel;
 
 class PhoneItemController extends Controller
 {
@@ -61,6 +62,22 @@ class PhoneItemController extends Controller
 
         return view($this->pathViewController . 'index',[
             'item'  => $item
+        ]);
+    }
+
+    public function price(Request $request) // Ajax
+    {
+
+        $params['id']           = $request->itemId;
+        $params['color-id']     = $request->colorId;
+        $params['material-id']  = $request->materialId;
+
+        $productAttributePrice  = new ProductAttributePriceModel();
+        $price =  $productAttributePrice->getItem($params,['task' => 'get-price-item']);
+
+        return response()->json([
+            'id'       => $price['id'],
+            'price'    => $price['price']
         ]);
     }
 

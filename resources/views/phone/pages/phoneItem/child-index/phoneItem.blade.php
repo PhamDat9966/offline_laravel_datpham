@@ -32,13 +32,14 @@
 
     $xhtmlColors     = '<div>';
     $xhtmlStorage    = '<ul class="list-inline prod_size display-layout">';
+    $urlPrice        = route($controllerName.'/price');
     foreach($item['attributes'] as $key=>$attributeItem){
         //Nhóm các thuộc tính màu sắc thành một nhóm checkbox riêng
         $checked = ($key == 0) ? 'checked':'';
         if($attributeItem['attribute_id'] == 1 || $attributeItem['type'] == 'color'){
             $colorDiv               = Template::colorDivSmartPhone($attributeItem['attribute_value_id'],$attributeItem['attribute_value_name']);
             $xhtmlColors .='<div class="form-check">
-                                <input class="form-check-input" type="radio" name="item-attribute-value-id" id="exampleRadios1" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
+                                <input class="form-check-input" type="radio" name="color" id="color-'.$attributeItem['attribute_value_id'].'" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
                                 <label class="form-check-label mr-1" for="exampleRadios1">
                                     '.$colorDiv.'
                                 </label>
@@ -48,7 +49,16 @@
 
         if($attributeItem['attribute_id'] == 2 || $attributeItem['type'] == 'material'){
             $xhtmlStorage .='<li>
-                                <button type="button" class="btn btn-default btn-lg btn-material selected border border-secondary" data-item-id="'.$id.'" data-material-id="'.$attributeItem['attribute_value_id'].'" data-url="http://proj_news.xyz/admin96/product/change-price" >'.$attributeItem['attribute_value_name'].'</button>
+                                <button type="button" class="btn btn-default btn-lg btn-material selected border border-secondary"
+                                                      data-item-id="'.$id.'"
+                                                      data-material-id="'.$attributeItem['attribute_value_id'].'"
+                                                      data-url="'.$urlPrice.'"
+                                                      data-sale-type="'.$item['price_discount_type'].'"
+                                                      data-sale-percent="'.$item['price_discount_percent'].'"
+                                                      data-sale-value="'.$item['price_discount_value'].'"
+                                                      >'
+                                                      .$attributeItem['attribute_value_name'].'
+                                </button>
                             </li>';
         }
 
@@ -85,8 +95,8 @@
                         {!! $xhtmlStorage !!}
                     </div>
 
-                    <h4 class="my-2 border-product">Giá:<del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
-                    <h3>{{$salePrice}} $</h3>
+                    <h4 class="my-2 border-product price-original">Giá:<del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
+                    <h3 class="price">{{$salePrice}} $</h3>
                     <div class="product-description border-product">
                         <h6 class="product-title">Số lượng</h6>
                         <div class="qty-box">

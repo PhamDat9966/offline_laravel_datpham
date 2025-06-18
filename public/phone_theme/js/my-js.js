@@ -68,14 +68,18 @@ $(document).ready(function() {
 
         // Lấy giá trị của radio button được chọn
         var selectedColor = $('input[name="color"]:checked').val();
-
+        //console.log(selectedColor);
         // Lấy ID của nút button vừa click
-        var buttonId = $(this).data('id');
+        var buttonId    = $(this).data('material-id');
 
         // Lấy Id Item
-        var itemId  = $(this).data('item');
+        var itemId      = $(this).data('item-id');
         // Lấy url
-        let url     = $(this).data('url');
+        let url         = $(this).data('url');
+
+        var saleType    = $(this).data('sale-type');
+        var salePercent = $(this).data('sale-percent');
+        var saleValue   = $(this).data('sale-value');
 
         // Kiểm tra và hiển thị kết quả
         if (selectedColor !== undefined) {
@@ -84,7 +88,7 @@ $(document).ready(function() {
             console.log('Không có radio nào được chọn.');
         }
 
-        console.log('ID của nút button vừa click:', buttonId, itemId, url);
+        console.log('ID của nút button vừa click:', buttonId,selectedColor, itemId, url);
 
         $.ajax({
             type: "GET",
@@ -104,7 +108,16 @@ $(document).ready(function() {
                     $(".price").html('Giá chưa cập nhật');
                 }else{
                     // Cập nhật giá Item
-                    $(".price").html(priceReturn+' đồng');
+                    var priceOriginal = priceReturn;
+                    var price         = 'Giá chưa cập nhật';
+                    if (saleType == 'percent') {
+                        price   = priceOriginal - (priceOriginal*salePercent/100);
+                    } else {
+                        price   = priceOriginal - saleValue;
+                    }
+                    const priceOriginalHtml = 'Giá:<del>'+priceOriginal+' $</del><span> -'+salePercent+'%</span>';
+                    $(".price-original").html(priceOriginalHtml);
+                    $(".price").html(price+' $');
                     priceChoose = priceReturn;
                 }
 
