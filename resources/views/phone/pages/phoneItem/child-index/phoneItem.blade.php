@@ -30,6 +30,37 @@
     $image           = Template::showProductThumbInPhoneItem('product',$imgName,$imgAlt);
     $imageURL        = ($imgName)? asset("images/product/$imgName") : '';
 
+    // Swiper
+    $mediaSwiper     = '<div class="swiper mySwiper2">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+
+                            <div class="swiper-wrapper">';
+
+    $thumbsSlider    = '<div thumbsSlider="" class="swiper mySwiper mt-2">
+                            <div class="swiper-wrapper">';
+    foreach($item['media'] as $media){
+        $content      = json_decode($media['content']);
+        $nameImg      = $content->name;
+
+        $imageUrl     =  asset("images/product/$nameImg");
+
+        $mediaSwiper .=             '<div class="swiper-slide">
+                                        <img src="'.$imageUrl.'" class="img-fluid" />
+                                    </div>';
+
+        $thumbsSlider .=            '<div class="swiper-slide">
+                                        <img src="'.$imageUrl.'" class="img-thumbnail" />
+                                    </div>';
+    }
+
+    $mediaSwiper     .=     '</div>
+                        </div>';
+    $thumbsSlider     .=     '</div>
+                        </div>';
+    //dd($mediaGallery);
+    //end Swiper
+
     $xhtmlColors     = '<div>';
     $xhtmlStorage    = '<ul class="list-inline prod_size display-layout">';
     $urlPrice        = route($controllerName.'/price');
@@ -76,14 +107,12 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-xl-4">
-                <div class="product-slick">
-                    <div>
-                        {!! $image !!}
-                    </div>
-                </div>
+            <div class="col-lg-7 col-xl-7">
+                    {{-- {!! $image !!} --}}
+                    {!! $mediaSwiper !!}
+                    {!! $thumbsSlider !!}
             </div>
-            <div class="col-lg-8 col-xl-8 rtl-text">
+            <div class="col-lg-5 col-xl-5 rtl-text">
                 <div class="product-right">
                     <h2 class="mb-2">{{$name}}</h2>
                     <h4 class="mb-2">Chọn màu sắc:</h4>

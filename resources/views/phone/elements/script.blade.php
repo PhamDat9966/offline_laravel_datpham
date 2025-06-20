@@ -1,6 +1,10 @@
 <script src="{{asset('phone_theme/js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('phone_theme/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('phone_theme/js/jquery.exitintent.js')}}"></script>
+<!-- Swiper JS -->
+{{-- <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script> --}}
+<script src="{{asset('phone_theme/libs/swiperJS/swiper-bundle.min.js')}}"></script>
+
 <script src="{{asset('phone_theme/js/notifyjs/notify.min.js')}}"></script>
 <script src="{{asset('phone_theme/js/exit.js')}}"></script>
 <script src="{{asset('phone_theme/js/menu.js')}}"></script>

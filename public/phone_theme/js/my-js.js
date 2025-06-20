@@ -204,3 +204,44 @@ $(document).ready(function() {
         });
     });
 });
+
+//Media Gallery
+$(document).ready(function() {
+
+    var swiperThumbs = new Swiper(".mySwiper", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+
+    // Khởi tạo Swiper chính có autoplay và điều hướng mũi tên
+    var swiperMain = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        loop: true,
+
+        // Điều hướng bằng phím mũi tên trái/phải
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true,
+        },
+
+        // Tự động chuyển ảnh mỗi 5 giây
+        autoplay: {
+            delay: 5000,        // thời gian giữa các ảnh (miligiây)
+            disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
+        },
+
+        //  Các nút điều hướng (nếu có)
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+
+        thumbs: {
+            swiper: swiperThumbs,
+        },
+    });
+
+
+});
