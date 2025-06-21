@@ -227,10 +227,10 @@ $(document).ready(function() {
         },
 
         // Tự động chuyển ảnh mỗi 5 giây
-        autoplay: {
-            delay: 5000,        // thời gian giữa các ảnh (miligiây)
-            disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
-        },
+        // autoplay: {
+        //     delay: 5000,        // thời gian giữa các ảnh (miligiây)
+        //     disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
+        // },
 
         //  Các nút điều hướng (nếu có)
         navigation: {
@@ -243,5 +243,42 @@ $(document).ready(function() {
         },
     });
 
+    //Check color image
+    //Khi click nào thuộc tính màu sắc của ảnh, ví dụ đỏ hoặc đen. Khung ảnh  chính (phía trên danh sách Swiper) sẽ di chuyển đến ảnh đã được gán thuộc tính
+    //Hệ thống chỉ thực hiện hành động trên khi ảnh của sản phẩm đã được gán vào thuộc tính sản phẩm ở admin controller
+    $('input[name="color"]').on('click', function() {
+        var idColor = $(this).data('id-color');
+        var idProduct = $(this).data('id-product');
+        var url     = $(this).data('url');
+        console.log(idColor,url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                    colorID: idColor,
+                    productID:idProduct
+                  },
+            success: function (response) {
+                var imageName  = response.imageName;
+                console.log(imageName)
+                // Tìm tất cả slide của Swiper chính
+                let slides = document.querySelectorAll('.mySwiper2 .swiper-slide');
+
+                // Lặp để tìm vị trí của ảnh
+                let targetIndex = -1;
+                slides.forEach((slide, index) => {
+                    let img = slide.querySelector('img');
+                    if (img && img.src.includes(imageName)) {
+                        targetIndex = index;
+                    }
+                });
+
+                // Nếu tìm thấy thì chuyển Swiper đến ảnh đó
+                if (targetIndex !== -1) {
+                    swiperMain.slideToLoop(targetIndex); // slideToLoop nếu bạn đang dùng loop:true
+                }
+            }
+        });
+    });
 
 });

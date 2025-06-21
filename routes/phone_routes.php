@@ -46,10 +46,14 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
                   ->where('id', '[0-9]+')
                   ->name($controllerName);
 
-            $controllerName = $controllerName .'/price';
+            $controllerPrice = $controllerName .'/price';
             Route::get('/change-price', [$controller, 'price'])
                   ->where('id', '[0-9]+')
-                  ->name($controllerName);
+                  ->name($controllerPrice);
+
+            $controllerCheckImage = $controllerName .'/checkImage';
+            Route::get('/check-image', [$controller, 'checkImage'])
+                  ->name($controllerCheckImage);
     });
 
 });

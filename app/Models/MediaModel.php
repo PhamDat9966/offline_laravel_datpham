@@ -38,6 +38,13 @@ class MediaModel extends AdminModel
                         ->get();
         }
 
+        if($options['task'] == 'check-color-with-attribute-id'){
+            $result = $this::select('id','content')
+                        ->where('product_id', $params['product_id'])
+                        ->where('attribute_value_id', $params['color_id'])
+                        ->first();
+        }
+
         return $result;
     }
 

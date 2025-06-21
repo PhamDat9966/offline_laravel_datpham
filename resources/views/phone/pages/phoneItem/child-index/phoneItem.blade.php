@@ -68,9 +68,10 @@
         //Nhóm các thuộc tính màu sắc thành một nhóm checkbox riêng
         $checked = ($key == 0) ? 'checked':'';
         if($attributeItem['attribute_id'] == 1 || $attributeItem['type'] == 'color'){
-            $colorDiv               = Template::colorDivSmartPhone($attributeItem['attribute_value_id'],$attributeItem['attribute_value_name']);
+            $colorDiv     = Template::colorDivSmartPhone($attributeItem['attribute_value_id'],$attributeItem['attribute_value_name']);
+            $urlCheckColor = route($controllerName.'/checkImage');
             $xhtmlColors .='<div class="form-check">
-                                <input class="form-check-input" type="radio" name="color" id="color-'.$attributeItem['attribute_value_id'].'" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
+                                <input class="form-check-input" type="radio" data-id-product="'.$id.'" data-url="'.$urlCheckColor.'" data-id-color="'.$attributeItem['attribute_value_id'].'" name="color" id="color-'.$attributeItem['attribute_value_id'].'" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
                                 <label class="form-check-label mr-1" for="exampleRadios1">
                                     '.$colorDiv.'
                                 </label>

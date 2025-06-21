@@ -10,6 +10,7 @@ use App\Models\ProductModel;
 use App\Models\CategoryProductModel;
 use App\Models\AttributevalueModel;
 use App\Models\ProductAttributePriceModel;
+use App\Models\MediaModel;
 
 class PhoneItemController extends Controller
 {
@@ -78,6 +79,22 @@ class PhoneItemController extends Controller
         return response()->json([
             'id'       => $price['id'],
             'price'    => $price['price']
+        ]);
+    }
+
+    public function checkImage(Request $request) // Ajax
+    {
+        $params['color_id']     = $request->colorID;
+        $params['product_id']   = $request->productID;
+
+        $MediaModel     = new MediaModel();
+        $contentMedia   =  $MediaModel->getItem($params,['task' => 'check-color-with-attribute-id']);
+        $contentMedia   = $contentMedia->toArray();
+        $contentMedia   = json_decode($contentMedia['content']);
+        $imageName      = $contentMedia->name;
+
+        return response()->json([
+            'imageName' =>$imageName
         ]);
     }
 
