@@ -1129,6 +1129,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'changeCategory'
         ]);
 
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
     });
 
      // ====================== COUPON ======================

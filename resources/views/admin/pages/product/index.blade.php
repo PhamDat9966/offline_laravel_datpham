@@ -24,11 +24,9 @@
                         {!!$xhtmlButtonFilter!!}
                     </div>
                     <div class="col-md-2">
-                    </div>
-                    <div class="col-md-2">
                         {!!$xhtmlCategoryFilter!!}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         {!!$xhtmlAreaSearch!!}
                     </div>
                 </div>

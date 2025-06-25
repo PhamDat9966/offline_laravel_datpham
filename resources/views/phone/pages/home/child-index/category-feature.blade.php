@@ -93,7 +93,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <a href="item.html"
+                                            <a href="'.$urlItem.'"
                                                 title="'.$item['name'].'">
                                                 <h6>'.$descriptionMini.'</h6>
                                             </a>

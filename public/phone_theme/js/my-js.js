@@ -227,10 +227,10 @@ $(document).ready(function() {
         },
 
         // Tự động chuyển ảnh mỗi 5 giây
-        // autoplay: {
-        //     delay: 5000,        // thời gian giữa các ảnh (miligiây)
-        //     disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
-        // },
+        autoplay: {
+            delay: 8000,        // thời gian giữa các ảnh (miligiây)
+            disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
+        },
 
         //  Các nút điều hướng (nếu có)
         navigation: {

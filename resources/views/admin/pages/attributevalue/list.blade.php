@@ -12,7 +12,8 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Giá trị thuộc tính</th>
                     <th class="column-title">Loại thuộc tính</th>
-                    <th class="column-title">Hãy chọn màu sắc</th>
+                    <th class="column-title">Mã nhận diện màu sắc - click để chọn</th>
+                    <th class="column-title">Ordering</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">fieldClass</th>
                     <th class="column-title">Hành động</th>
@@ -35,7 +36,8 @@
                             $color              = $val['color'];
                             $attribute_id       = $val['attribute_id'];
                             $color_input        = '';
-                            $url               = route($controllerName). '/change-color';
+                            $url                = route($controllerName). '/change-color';
+                            $ordering           = Template::showItemOrdering( $controllerName,$val['ordering'],$id );
 
                             if($attribute_id == 1){
                                 $color          = $color ?? '#000000';
@@ -65,6 +67,9 @@
                             </td>
                             <td>
                                 {!!$color_input!!}
+                            </td>
+                            <td>
+                                {!!$ordering!!}
                             </td>
                             <td>
                                 {!!$status!!}

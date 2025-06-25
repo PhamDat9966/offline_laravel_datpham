@@ -32,7 +32,15 @@ class AttributevalueModel extends AdminModel
         $this->table    = 'attribute_value as av';
 
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('av.id','av.attribute_id','av.name','a.name as attribute_name','av.color','av.fieldClass','av.status')
+            $query = $this->select('av.id',
+                                            'av.attribute_id',
+                                            'av.name',
+                                            'a.name as attribute_name',
+                                            'av.color',
+                                            'av.fieldClass',
+                                            'av.status',
+                                            'av.ordering'
+                                    )
                            ->leftJoin('attribute as a', 'av.attribute_id', '=', 'a.id');
             if($params['filter']['status'] !== "all"){
                $query->where('av.status','=',$params['filter']['status']);
@@ -58,7 +66,7 @@ class AttributevalueModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('av.id', 'asc')
+            $result = $query->orderBy('av.ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
@@ -129,6 +137,15 @@ class AttributevalueModel extends AdminModel
         if($options['task'] == 'change-color'){
             $this::where('id', $params['id'])
                         ->update(['color' => $params['color']]);
+        }
+
+        if($options['task'] == 'change-ordering'){
+            $this::where('id', $params['id'])
+                        ->update(['ordering' => $params['ordering'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+
+            // $params['modified-return']      = date(Config::get('zvn.format.short_time'),strtotime($params['modified']));
+            // return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
+
         }
 
         if($options['task'] == 'add-items'){

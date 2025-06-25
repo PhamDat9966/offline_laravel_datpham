@@ -209,4 +209,13 @@ class AttributevalueController extends Controller
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notify', 'Xóa phần tử thành công!');
     }
+
+    public function ordering(Request $request){
+
+        $params['id']       = $request->id;
+        $params['ordering']    = $request->ordering;
+
+        $this->model->saveItem($params,['task' => 'change-ordering']);
+        echo "Cập nhật menu thành công";
+    }
 }
