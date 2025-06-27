@@ -480,6 +480,13 @@ class Template{
                 <img src="%s" alt="%s" class="zvn-thumb" />', asset("images/user/$thumbName"), $thumbAlt);
         return  $xhtml;
     }
+    public static function showAvatarSmartPhone($thumbName , $thumbAlt){
+
+        $xhtml  = sprintf('
+                <img src="%s" alt="%s" class="zvn-thumb" width="35" height="35" />', asset("images/user/$thumbName"), $thumbAlt);
+        return  $xhtml;
+    }
+
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = config('zvn.template.button');
         $buttonInArea   = config('zvn.config.button');

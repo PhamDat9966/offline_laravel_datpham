@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 25, 2025 lúc 06:57 AM
+-- Thời gian đã tạo: Th6 27, 2025 lúc 04:39 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -558,6 +558,41 @@ INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `
 (1, '5KOyp5', 'percent', 10, '2024-12-06 16:12:01', '2024-12-23 08:12:01', 50000, 100000, 10, 0, 'active', '2024-12-07 08:20:01', 'admin', '2024-12-12 00:00:00', 'admin'),
 (2, 'tg2CJM', 'percent', 30, '2024-12-02 15:12:00', '2024-12-31 23:12:59', 30000, 50000, 10, 0, 'active', '2024-12-12 00:00:00', 'admin', '2024-12-13 00:00:00', 'admin'),
 (3, '2ywu0e', 'price', 10000, '2024-12-03 06:12:00', '2025-01-02 16:01:59', 10000, 50000, 20, 0, 'active', '2024-12-14 00:00:00', 'admin', '2024-12-21 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT current_timestamp(),
+  `total` decimal(12,2) DEFAULT 0.00,
+  `price` int(11) DEFAULT NULL,
+  `status` enum('processing','packing','shipping','complete') DEFAULT 'processing'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `invoice_product`
+--
+
+CREATE TABLE `invoice_product` (
+  `id` int(11) NOT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL,
+  `material_id` int(11) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `color_name` varchar(255) DEFAULT NULL,
+  `material_name` varchar(255) DEFAULT NULL,
+  `quantity` int(11) DEFAULT 1,
+  `price` int(11) DEFAULT NULL,
+  `total_price` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2654,6 +2689,13 @@ ALTER TABLE `coupon`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Chỉ mục cho bảng `media`
 --
 ALTER TABLE `media`
@@ -2907,6 +2949,12 @@ ALTER TABLE `coupon`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT cho bảng `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `media`
 --
 ALTER TABLE `media`
@@ -3041,6 +3089,12 @@ ALTER TABLE `user_agents`
 --
 ALTER TABLE `attribute_value`
   ADD CONSTRAINT `attribute_value_ibfk_1` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`id`);
+
+--
+-- Các ràng buộc cho bảng `invoice`
+--
+ALTER TABLE `invoice`
+  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Các ràng buộc cho bảng `media`

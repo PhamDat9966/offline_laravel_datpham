@@ -1,5 +1,40 @@
 @php
-    $homePhone = route('phoneHome');
+    use Illuminate\Support\Facades\Session;
+    use App\Helpers\Template as Template;
+
+    $userInfo = [];
+
+    $homePhone      = route('phoneHome');
+    $xhtmlUserInfo  = '';
+    if(session()->has('userInfo')){
+        $userInfo       = session('userInfo');
+        $nameUser       = ucfirst($userInfo['username']);
+        $avatar         = Template::showAvatarSmartPhone($userInfo['avatar'],$userInfo['username']);
+
+        $xhtmlUserInfo  = ' <div class="top-header">
+                                <ul class="header-dropdown">
+                                    <li class="onhover-dropdown mobile-account">
+                                        '.$avatar.'
+                                        <ul class="onhover-show-div">
+                                            <li><a href="logout.html">Đăng xuất</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>';
+    }else{
+        $xhtmlUserInfo  = ' <div class="top-header">
+                        <ul class="header-dropdown">
+                            <li class="onhover-dropdown mobile-account">
+                                <img src="images/avatar.png" alt="avatar">
+                                <ul class="onhover-show-div">
+                                    <li><a href="login.html">Đăng nhập</a></li>
+                                    <li><a href="register.html">Đăng ký</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>';
+    }
+
 @endphp
 <header class="my-header sticky">
         <div class="mobile-fix-option"></div>
@@ -38,17 +73,7 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <div class="top-header">
-                                <ul class="header-dropdown">
-                                    <li class="onhover-dropdown mobile-account">
-                                        <img src="images/avatar.png" alt="avatar">
-                                        <ul class="onhover-show-div">
-                                            <li><a href="login.html">Đăng nhập</a></li>
-                                            <li><a href="register.html">Đăng ký</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+                            {!! $xhtmlUserInfo !!}
                             <div>
                                 <div class="icon-nav">
                                     <ul>
