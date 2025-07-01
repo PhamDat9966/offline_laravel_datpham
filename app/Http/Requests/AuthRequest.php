@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
+use App\Models\UserModel;
 /**
  * SliderRequest lớp có nhiều nhiệm vụ, một trong số đó là Validate dữ liệu
  */
@@ -26,21 +29,36 @@ class AuthRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'email'          => "bail|required|email",
-            'password'       => "bail|required|between:5,100"
+            'email'    => 'required|email|exists:user,email',
+            'password' => 'required',
         ];
     }
 
     public function messages()  // Định nghĩa lại url
     {
         return [
-            // 'name.required'         => 'Name không được rỗng',
-            // 'name.min'              => 'Name :input chiều dài phải có ít nhất phải có :min ký tự',
-            // 'link.required'         => 'Link không được rỗng',
-            // 'link.min'              => 'Link chiều dài phải có ít nhất phải có :min ký tự',
-            // 'link.url'              => 'Link phải là một url',
+            'email.required'    => 'Email không được để trống',
+            'email.email'       => 'Email không đúng định dạng',
+            'email.exists'      => 'Email hoặc mật khẩu không chính xác',
+            'password.required' => 'Mật khẩu không được để trống',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $email    = $this->input('email');
+            $password = $this->input('password');
+
+            $user = UserModel::where('email', $email)->first();
+            $password = md5($password);
+
+            if ($user && ($password !== $user->password)) {
+                $validator->errors()->add('password', 'Email hoặc mật khẩu không chính xác');
+            }
+        });
     }
 
     public function attributes()

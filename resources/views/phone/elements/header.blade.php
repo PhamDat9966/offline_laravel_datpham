@@ -11,23 +11,26 @@
         $nameUser       = ucfirst($userInfo['username']);
         $avatar         = Template::showAvatarSmartPhone($userInfo['avatar'],$userInfo['username']);
 
+        $urlLogout      = route('authsphone/logout');
         $xhtmlUserInfo  = ' <div class="top-header">
                                 <ul class="header-dropdown">
                                     <li class="onhover-dropdown mobile-account">
                                         '.$avatar.'
                                         <ul class="onhover-show-div">
-                                            <li><a href="logout.html">Đăng xuất</a></li>
+                                            <li><a href="'.$urlLogout.'">Đăng xuất</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>';
     }else{
+        $urlLogin       = route('authsphone/login');
+
         $xhtmlUserInfo  = ' <div class="top-header">
                         <ul class="header-dropdown">
                             <li class="onhover-dropdown mobile-account">
                                 <img src="images/avatar.png" alt="avatar">
                                 <ul class="onhover-show-div">
-                                    <li><a href="login.html">Đăng nhập</a></li>
+                                    <li><a href="'.$urlLogin.'">Đăng nhập</a></li>
                                     <li><a href="register.html">Đăng ký</a></li>
                                 </ul>
                             </li>
