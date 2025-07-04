@@ -23,6 +23,8 @@ class PhoneHomeController extends Controller
 
     public function index(Request $request)
     {
+        //dd(session()->all());
+
         $title  = 'Phone';
         $params = [];
 

@@ -10,6 +10,9 @@ use App\Http\Requests\AuthRequest as MainRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\ProductAttributePriceModel as ProductAttributePriceMode;
+use App\Models\MediaModel as MediaModel;
+
 
 class AuthsphoneController extends Controller
 {
@@ -77,11 +80,58 @@ class AuthsphoneController extends Controller
 
     public function logout(Request $request)
     {
-
         $request->session()->pull('userInfo');
         Auth::logout(); //Đăng xuất user khỏi Auth
         return redirect()->route('phoneHome');
     }
 
+    public function addToCart(Request $request)
+    {
+        $params         = [];
+        $productId      = $params['id']             = $request->itemID;
+        $colorId        = $params['color-id']       = $request->colorID;
+        $materialId     = $params['material-id']    = $request->materialID;
+        $productName    = $request->name;
+
+        //Lấy giá sản phẩm.
+        $productAttributePriceMode = new ProductAttributePriceMode();
+        $price = $productAttributePriceMode->getItem($params,['task' => 'get-price-item']);
+        $price = $price['price'];
+
+        //Lấy ảnh
+        $mediaModel     = new MediaModel();
+        $contentMedia   = $mediaModel->getItem($params,['task' => 'get-image-with-color-id']);
+        $contentMedia   = ($contentMedia) ? json_decode($contentMedia->content) : '';
+        $thumb          = ($contentMedia) ? ($contentMedia->name) : '';
+
+        $cart = session()->get('cart', []);
+        $uniqueKey = $productId . '-' . $colorId . '-' . $materialId;
+
+        //dd(isset($cart[$uniqueKey]));
+
+        if (isset($cart[$uniqueKey])) {
+            // Nếu sản phẩm đã tồn tại thì cộng số lượng
+            $cart[$uniqueKey]['quantity']    = $cart[$uniqueKey]['quantity'] + 1;
+            $cart[$uniqueKey]['totalPrice']  = $cart[$uniqueKey]['price'] * $cart[$uniqueKey]['quantity'];
+        } else {
+            // Nếu chưa có thì thêm mới
+            $cart[$uniqueKey] = [
+                'product_id'   => $productId,
+                'color_id'     => $colorId,
+                'material_id'  => $materialId,
+                'price'        => $price,
+                'totalPrice'   => $price,
+                'quantity'     => 1,
+                'name'         => $productName,
+                'thumb'        => $thumb,
+            ];
+        }
+
+        session(['cart' => $cart]);
+    }
+
+    public function removeCart(){
+        session()->forget('cart');
+    }
 }
 

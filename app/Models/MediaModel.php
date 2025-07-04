@@ -45,6 +45,20 @@ class MediaModel extends AdminModel
                         ->first();
         }
 
+        if($options['task'] == 'get-color-item'){
+            $result = $this::select('id','content')
+                        ->where('product_id', $params['product_id'])
+                        ->where('attribute_value_id', $params['color_id'])
+                        ->first();
+        }
+
+        if($options['task'] == 'get-image-with-color-id'){
+            $result = $this::select('id','content')
+                        ->where('product_id', $params['id'])
+                        ->where('attribute_value_id', $params['color-id'])
+                        ->first();
+        }
+
         return $result;
     }
 

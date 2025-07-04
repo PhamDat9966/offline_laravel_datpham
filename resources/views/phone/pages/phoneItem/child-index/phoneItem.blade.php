@@ -11,6 +11,11 @@
     $originalPriceDefault   = $item['attribute_prices'][0]['price'];
     $salePrice              = 0;
 
+    //Data add to card button
+    $dataColorIdDefault     = $item['attribute_prices'][0]['color_id'];
+    $dataMaterialIdDefault  = $item['attribute_prices'][0]['material_id'];;
+    $dataPriceDefault       = '';
+
     switch ($item['price_discount_type']) {
         case 'percent':
             $saveTitle = $item['price_discount_percent'];
@@ -21,7 +26,20 @@
             $salePrice = $originalPriceDefault - $item['price_discount_value'];
             break;
     }
+    $dataPriceDefault = $salePrice;
 
+    //Add to Cart button.
+    $urlAddToCart     = route('authsphone/addToCart');
+    $buttonAddCard    = '<a href="#" class="btn btn-solid ml-0 add-to-cart"
+                                    data-id="'.$id.'"
+                                    data-name="'.$name.'"
+                                    data-color-id="'.$dataColorIdDefault.'"
+                                    data-material-id="'.$dataMaterialIdDefault.'"
+                                    data-url="'.$urlAddToCart.'"
+
+                                    ><i class="fa fa-cart-plus"></i> Chọn mua
+                        </a>';
+    //End Add to Cart button.
     //media
     $imgArray        = json_decode($item['media'][0]['content'],true);
     $imgName         = $imgArray['name'];
@@ -61,6 +79,7 @@
     //dd($mediaGallery);
     //end Swiper
 
+
     $xhtmlColors     = '<div>';
     $xhtmlStorage    = '<ul class="list-inline prod_size display-layout">';
     $urlPrice        = route($controllerName.'/price');
@@ -71,11 +90,17 @@
             $colorDiv     = Template::colorDivSmartPhone($attributeItem['attribute_value_id'],$attributeItem['attribute_value_name']);
             $urlCheckColor = route($controllerName.'/checkImage');
             $xhtmlColors .='<div class="form-check">
-                                <input class="form-check-input" type="radio" data-id-product="'.$id.'" data-url="'.$urlCheckColor.'" data-id-color="'.$attributeItem['attribute_value_id'].'" name="color" id="color-'.$attributeItem['attribute_value_id'].'" value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
+                                <input class="form-check-input" type="radio"
+                                        data-id-product="'.$id.'"
+                                        data-url="'.$urlCheckColor.'"
+                                        data-id-color="'.$attributeItem['attribute_value_id'].'"
+                                        name="color"
+                                        id="color-'.$attributeItem['attribute_value_id'].'"
+                                        value="'.$attributeItem['attribute_value_id'].'" '.$checked.'>
+
                                 <label class="form-check-label mr-1" for="exampleRadios1">
                                     '.$colorDiv.'
                                 </label>
-
                             </div>';
         }
 
@@ -127,27 +152,11 @@
 
                     <h4 class="my-2 border-product price-original">Giá:<del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
                     <h3 class="price">{{$salePrice}} $</h3>
-                    <div class="product-description border-product">
-                        <h6 class="product-title">Số lượng</h6>
-                        <div class="qty-box">
-                            <div class="input-group">
-                                <span class="input-group-prepend">
-                                    <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="">
-                                        <i class="ti-angle-left"></i>
-                                    </button>
-                                </span>
-                                <input type="text" name="quantity" class="form-control input-number" value="1">
-                                <span class="input-group-prepend">
-                                    <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="">
-                                        <i class="ti-angle-right"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="product-buttons">
-                        <a href="#" class="btn btn-solid ml-0"><i class="fa fa-cart-plus"></i> Chọn mua</a>
+                        {!! $buttonAddCard !!}
                     </div>
+
                 </div>
             </div>
         </div>

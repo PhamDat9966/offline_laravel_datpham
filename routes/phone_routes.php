@@ -76,6 +76,14 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
             Route::get('/logout', [$controller, 'logout'])
                   ->name($controllerLogout);
 
+            $controllerAddToCart = $controllerName .'/addToCart';
+            Route::get('/addToCart', [$controller, 'addToCart'])
+                  ->name($controllerAddToCart);
+
+            $controllerRemoveCart = $controllerName .'/removeCart';
+            Route::get('/removeCart', [$controller, 'removeCart'])
+                  ->name($controllerRemoveCart);
+
     });
 
 });

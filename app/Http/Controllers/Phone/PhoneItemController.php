@@ -26,6 +26,7 @@ class PhoneItemController extends Controller
 
     public function index(Request $request)
     {
+        //dd(session()->all());
         $this->params['id'] = $request->id;
 
         $productModel   = new ProductModel();

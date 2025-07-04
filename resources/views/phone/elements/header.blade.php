@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Facades\Session;
     use App\Helpers\Template as Template;
-
+    //dd(session()->all());
     $userInfo = [];
 
     $homePhone      = route('phoneHome');

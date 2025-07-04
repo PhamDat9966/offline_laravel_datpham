@@ -56,6 +56,11 @@ $(document).ready(function() {
         $('.btn-material').removeClass('btn-primary');
         $('.btn-material').removeClass('selected');
         $(".price").html('Hãy chọn dung lượng');
+
+        //Gán color-id cho button add cart
+        var selectedColor = $('input[name="color"]:checked').val();
+        $('.add-to-cart').data('color-id', selectedColor);
+        $('.add-to-cart').attr('data-color-id', selectedColor);
     });
 
     // Gắn sự kiện click cho nút button
@@ -70,7 +75,7 @@ $(document).ready(function() {
         var selectedColor = $('input[name="color"]:checked').val();
         //console.log(selectedColor);
         // Lấy ID của nút button vừa click
-        var buttonId    = $(this).data('material-id');
+        var materialId    = $(this).data('material-id');
 
         // Lấy Id Item
         var itemId      = $(this).data('item-id');
@@ -88,14 +93,20 @@ $(document).ready(function() {
             console.log('Không có radio nào được chọn.');
         }
 
-        console.log('ID của nút button vừa click:', buttonId,selectedColor, itemId, url);
+        console.log('ID của nút button vừa click:', materialId,selectedColor, itemId, url);
+
+        //Gán material-id cho button add cart
+        $('.add-to-cart').data('material-id', materialId);
+        $('.add-to-cart').attr('data-material-id', materialId);
+        console.log('Add to cart button: color:', $('.add-to-cart').data('color-id'));
+        console.log('Add to cart button: material:', $('.add-to-cart').data('material-id'));
 
         $.ajax({
             type: "GET",
             url: url,
             data: {
                     colorId: selectedColor,
-                    materialId: buttonId,
+                    materialId: materialId,
                     itemId: itemId
                   },
             success: function (response) {
@@ -126,67 +137,104 @@ $(document).ready(function() {
 
     });
 
-
     // Sự kiện click vào button 'Add to Cart'
-    $('#order-cart').on('click', function () {
-        // Lấy giá trị của radio color đã chọn
-        const selectedColor = $('input[name="color"]:checked').val();
+    // $('.add-to-cart').on('click', function (e) {
+    //      e.preventDefault(); // Ngăn click <a> gây reload/trùng lặp
 
-        // Lấy ID của button material được chọn
-        const selectedMaterial = $('.btn-material.selected').data('id');
+    //     const itemID            = $(this).data('id');
+    //     var name                = $(this).data('name');
+    //     var url                 = $(this).data('url');
+    //     var thumb               = $(this).data('thumb');
+    //     var selectedColor       = $(this).data('color-id');
+    //     var selectedMaterial    = $(this).data('material-id');
 
-        // Kiểm tra nếu người dùng chưa chọn màu sắc hoặc material
-        if (!selectedColor || !selectedMaterial) {
-            alert('Vui lòng chọn màu sắc và dung lượng trước khi thêm vào giỏ hàng!');
-            return;
-        }
+    //     // In ra console
+    //     console.log('Item Id:', itemID);
+    //     console.log('Item Name:', name);
+    //     console.log('Color Id:', selectedColor);
+    //     console.log('Material ID:', selectedMaterial);
+    //     console.log('Url:', url);
 
-        const itemID    = $(this).data('id');
-        var name        = $(this).data('name');
-        var url         = $(this).data('url');
-        var price       = priceChoose;
-        var thumb       = $(this).data('thumb');
+    //     //Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
+    //     $.ajax({
+    //         type: "GET",
+    //         url: url,
+    //         data: {
+    //                 itemID: itemID,
+    //                 name: name,
+    //                 colorID: selectedColor,
+    //                 materialID: selectedMaterial,
+    //               },
+    //         success: function (response) {
+    //             alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    //         },
+    //         error: function(xhr) {
+    //             alert('Lỗi thêm sản phẩm: ' + xhr.status);
+    //         }
+    //     });
 
-        // In ra console
-        console.log('Item Id:', itemID);
-        console.log('Item Name:', name);
-        console.log('Color Id:', selectedColor);
-        console.log('Material ID:', selectedMaterial);
-        console.log('Url:', url);
-        console.log('Price Choose:', price);
-        console.log('Thumb:', thumb);
+    // });
 
-        if(price == null || price == 0 || price == undefined){
-            //popup
-            $('.modal-body').html('Hãy cập nhật giá của sản phẩm trước khi \"Add to Cart\" !');
-            $('#cartModal').modal('show');
-            return;
-        }
+    // // Sự kiện click vào button 'Add to Cart'
+    // $('#order-cart').on('click', function () {
+    //     // Lấy giá trị của radio color đã chọn
+    //     const selectedColor = $('input[name="color"]:checked').val();
 
-        // Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: {
-                    itemID: itemID,
-                    name: name,
-                    colorID: selectedColor,
-                    materialID: selectedMaterial,
-                    price:price,
-                    thumb:thumb
-                  },
-            success: function (response) {
-                console.log(response)
-                console.log('Cart:',response.session.cart);
-                var totalItem = response.totalItem;
-                $('.badge').html(totalItem);
-                //popup
-                $('.modal-body').html("Sản phẩm đã được thêm vào giỏ hàng !");
-                $('#cartModal').modal('show');
-            }
-        });
+    //     // Lấy ID của button material được chọn
+    //     const selectedMaterial = $('.btn-material.selected').data('id');
 
-    });
+    //     // Kiểm tra nếu người dùng chưa chọn màu sắc hoặc material
+    //     if (!selectedColor || !selectedMaterial) {
+    //         alert('Vui lòng chọn màu sắc và dung lượng trước khi thêm vào giỏ hàng!');
+    //         return;
+    //     }
+
+    //     const itemID    = $(this).data('id');
+    //     var name        = $(this).data('name');
+    //     var url         = $(this).data('url');
+    //     var price       = priceChoose;
+    //     var thumb       = $(this).data('thumb');
+
+    //     // In ra console
+    //     console.log('Item Id:', itemID);
+    //     console.log('Item Name:', name);
+    //     console.log('Color Id:', selectedColor);
+    //     console.log('Material ID:', selectedMaterial);
+    //     console.log('Url:', url);
+    //     console.log('Price Choose:', price);
+    //     console.log('Thumb:', thumb);
+
+    //     if(price == null || price == 0 || price == undefined){
+    //         //popup
+    //         $('.modal-body').html('Hãy cập nhật giá của sản phẩm trước khi \"Add to Cart\" !');
+    //         $('#cartModal').modal('show');
+    //         return;
+    //     }
+
+    //     // Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
+    //     $.ajax({
+    //         type: "GET",
+    //         url: url,
+    //         data: {
+    //                 itemID: itemID,
+    //                 name: name,
+    //                 colorID: selectedColor,
+    //                 materialID: selectedMaterial,
+    //                 price:price,
+    //                 thumb:thumb
+    //               },
+    //         success: function (response) {
+    //             console.log(response)
+    //             console.log('Cart:',response.session.cart);
+    //             var totalItem = response.totalItem;
+    //             $('.badge').html(totalItem);
+    //             //popup
+    //             $('.modal-body').html("Sản phẩm đã được thêm vào giỏ hàng !");
+    //             $('#cartModal').modal('show');
+    //         }
+    //     });
+
+    // });
 
     //cart List
     $('.cart-list').on('click', function () {
@@ -281,4 +329,42 @@ $(document).ready(function() {
         });
     });
 
+});
+
+$(document).on('click', '.add-to-cart', function(e) {
+    e.preventDefault(); // Ngăn click <a> gây reload/trùng lặp
+
+    const itemID            = $(this).data('id');
+    var name                = $(this).data('name');
+    var url                 = $(this).data('url');
+    var thumb               = $(this).data('thumb');
+    var selectedColor       = $(this).data('color-id');
+    var selectedMaterial    = $(this).data('material-id');
+
+    // In ra console
+    console.log('Item Id:', itemID);
+    console.log('Item Name:', name);
+    console.log('Color Id:', selectedColor);
+    console.log('Material ID:', selectedMaterial);
+    console.log('Url:', url);
+
+    //Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+                itemID: itemID,
+                name: name,
+                colorID: selectedColor,
+                materialID: selectedMaterial,
+                },
+        success: function (response) {
+            alert('Sản phẩm đã được thêm vào giỏ hàng!');
+            e.preventDefault();
+        },
+        error: function(xhr) {
+            alert('Lỗi thêm sản phẩm: ' + xhr.status);
+            e.preventDefault();
+        }
+    });
 });
