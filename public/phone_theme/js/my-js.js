@@ -359,12 +359,11 @@ $(document).on('click', '.add-to-cart', function(e) {
                 materialID: selectedMaterial,
                 },
         success: function (response) {
-            alert('Sản phẩm đã được thêm vào giỏ hàng!');
-            e.preventDefault();
+            //alert('Sản phẩm đã được thêm vào giỏ hàng!');
+            $('#message').modal('show');
         },
         error: function(xhr) {
             alert('Lỗi thêm sản phẩm: ' + xhr.status);
-            e.preventDefault();
         }
     });
 });
