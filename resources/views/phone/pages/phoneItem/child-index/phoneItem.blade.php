@@ -27,7 +27,7 @@
             break;
     }
     $dataPriceDefault = $salePrice;
-
+    $salePrice = ($salePrice == 0) ? 'Mẫu này đã hết hàng' : $salePrice . ' $';
     //Add to Cart button.
     $urlAddToCart     = route('authsphone/addToCart');
     $buttonAddCard    = '<a href="#" class="btn btn-solid ml-0 add-to-cart"
@@ -151,7 +151,7 @@
                     </div>
 
                     <h4 class="my-2 border-product price-original">Giá:<del>{{$originalPriceDefault}} $</del><span> -{{$saveTitle}}%</span></h4>
-                    <h3 class="price">{{$salePrice}} $</h3>
+                    <h3 class="price">{{$salePrice}}</h3>
 
                     <div class="product-buttons">
                         {!! $buttonAddCard !!}

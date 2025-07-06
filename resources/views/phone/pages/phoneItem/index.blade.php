@@ -1,23 +1,7 @@
-@php
-    //dd($item);
-@endphp
-
 @extends('phone.main')
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    @include('phone.elements.head')
-</head>
-
-<body>
-    {{-- @include('phone.elements.loader-skeleton') --}}
-
-    <!-- header start -->
-    @include('phone.elements.header')
-    <!-- header end -->
-
+@section('content')
     @include('phone.pages.phoneItem.child-index.breadcrumb',['nameBreadcrumb'=>$item['name']])
 
     <section class="section-b-space">
@@ -668,3 +652,5 @@
 
    @include('phone.block.quick-view')
    @include('phone.block.message')
+
+@endsection

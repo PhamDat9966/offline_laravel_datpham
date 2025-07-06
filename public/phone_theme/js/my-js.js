@@ -116,11 +116,11 @@ $(document).ready(function() {
 
                 if(priceReturn == null){
                     priceChoose = 0;
-                    $(".price").html('Giá chưa cập nhật');
+                    $(".price").html('Mẫu này đã hết hàng');
                 }else{
                     // Cập nhật giá Item
                     var priceOriginal = priceReturn;
-                    var price         = 'Giá chưa cập nhật';
+                    var price         = 'Mẫu này đã hết hàng';
                     if (saleType == 'percent') {
                         price   = priceOriginal - (priceOriginal*salePercent/100);
                     } else {
@@ -360,7 +360,16 @@ $(document).on('click', '.add-to-cart', function(e) {
                 },
         success: function (response) {
             //alert('Sản phẩm đã được thêm vào giỏ hàng!');
-            $('#message').modal('show');
+            console.log(response);
+            if(response == 'true'){
+                $('#message').find('.book-name').html('Sản phẩm đã được thêm vào giỏ hàng!');
+                $('#message').find('.book-description').html('Cám ơn bạn đã ủng hộ sản phẩm của chúng tôi.');
+                $('#message').modal('show');
+            }else{
+                $('#message').find('.book-name').html('Mẫu này đã hết hàng!');
+                $('#message').find('.book-description').html('Bạn hãy chọn sản phẩm khác hoặc mẫu còn hàng.');
+                $('#message').modal('show');
+            }
         },
         error: function(xhr) {
             alert('Lỗi thêm sản phẩm: ' + xhr.status);

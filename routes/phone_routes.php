@@ -84,6 +84,10 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
             Route::get('/removeCart', [$controller, 'removeCart'])
                   ->name($controllerRemoveCart);
 
+            $controllerCartView = $controllerName .'/cart';
+            Route::get('/cart', [$controller, 'cart'])
+                  ->name($controllerCartView);
+
     });
 
 });

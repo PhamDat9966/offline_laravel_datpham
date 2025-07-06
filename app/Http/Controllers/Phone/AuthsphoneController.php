@@ -97,6 +97,9 @@ class AuthsphoneController extends Controller
         $productAttributePriceMode = new ProductAttributePriceMode();
         $price = $productAttributePriceMode->getItem($params,['task' => 'get-price-item']);
         $price = $price['price'];
+        if($price == null){
+            return 'false';
+        }
 
         //Lấy ảnh
         $mediaModel     = new MediaModel();
@@ -106,8 +109,6 @@ class AuthsphoneController extends Controller
 
         $cart = session()->get('cart', []);
         $uniqueKey = $productId . '-' . $colorId . '-' . $materialId;
-
-        //dd(isset($cart[$uniqueKey]));
 
         if (isset($cart[$uniqueKey])) {
             // Nếu sản phẩm đã tồn tại thì cộng số lượng
@@ -128,10 +129,22 @@ class AuthsphoneController extends Controller
         }
 
         session(['cart' => $cart]);
+        return 'true';
     }
 
     public function removeCart(){
         session()->forget('cart');
+    }
+
+    public function cart(Request $request){
+
+        $cart = [];
+        if(session()->get('cart')){
+            $cart = session()->get('cart', []);
+        }
+        return view($this->pathViewController . 'cart',[
+            'cart' => $cart
+        ]);
     }
 }
 

@@ -3,23 +3,7 @@
 @endphp
 
 @extends('phone.main')
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('phone.elements.head')
-</head>
-
-<body>
-    {{-- @include('phone.elements.loader-skeleton') --}}
-
-    <!-- header start -->
-    @include('phone.elements.header')
-    <!-- header end -->
-    @php
-        //d(Route($controllerName.'/postLogin'));
-    @endphp
+@section('content')
     <div class="breadcrumb-section">
         <div class="container">
             <div class="row">
@@ -70,21 +54,4 @@
             </div>
         </div>
     </section>
-
-
-    <!-- footer -->
-     @include('phone.elements.footer')
-    <!-- footer end -->
-
-    <!-- tap to top -->
-    <div class="tap-top top-cls">
-        <div>
-            <i class="fa fa-angle-double-up"></i>
-        </div>
-    </div>
-    <!-- tap to top end -->
-
-    @include('phone.elements.script')
-</body>
-
-</html>
+@endsection

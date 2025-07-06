@@ -5,13 +5,17 @@
     $userInfo = [];
 
     $homePhone      = route('phoneHome');
+
+    $iconAvatar     = asset("images/phonetheme/avatar.png");
+    $urlLogout      = route('authsphone/logout');
+
     $xhtmlUserInfo  = '';
     if(session()->has('userInfo')){
         $userInfo       = session('userInfo');
         $nameUser       = ucfirst($userInfo['username']);
         $avatar         = Template::showAvatarSmartPhone($userInfo['avatar'],$userInfo['username']);
 
-        $urlLogout      = route('authsphone/logout');
+
         $xhtmlUserInfo  = ' <div class="top-header">
                                 <ul class="header-dropdown">
                                     <li class="onhover-dropdown mobile-account">
@@ -28,7 +32,7 @@
         $xhtmlUserInfo  = ' <div class="top-header">
                         <ul class="header-dropdown">
                             <li class="onhover-dropdown mobile-account">
-                                <img src="images/avatar.png" alt="avatar">
+                                <img src="'.$iconAvatar.'" alt="avatar">
                                 <ul class="onhover-show-div">
                                     <li><a href="'.$urlLogin.'">Đăng nhập</a></li>
                                     <li><a href="register.html">Đăng ký</a></li>
@@ -37,6 +41,19 @@
                         </ul>
                     </div>';
     }
+
+    $iconCart     = asset("images/phonetheme/cart.png");
+    $urlCart      = route('authsphone/cart');
+    $cart               = '<li class="onhover-div mobile-cart">
+                                <div>
+                                    <a href="'.$urlCart.'" id="cart" class="position-relative">
+                                        <img src="'.$iconCart.'" class="img-fluid blur-up lazyload"
+                                            alt="cart">
+                                        <i class="ti-shopping-cart"></i>
+                                        <span class="badge badge-warning">0</span>
+                                    </a>
+                                </div>
+                            </li>';
 
 @endphp
 <header class="my-header sticky">
@@ -47,7 +64,7 @@
                     <div class="main-menu">
                         <div class="menu-left">
                             <div class="brand-logo">
-                                <a href="index.html">
+                                <a href="{{$homePhone}}">
                                     <h2 class="mb-0" style="color: #5fcbc4">Smart Phone</h2>
                                 </a>
                             </div>
@@ -110,16 +127,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="onhover-div mobile-cart">
-                                            <div>
-                                                <a href="cart.html" id="cart" class="position-relative">
-                                                    <img src="images/cart.png" class="img-fluid blur-up lazyload"
-                                                        alt="cart">
-                                                    <i class="ti-shopping-cart"></i>
-                                                    <span class="badge badge-warning">0</span>
-                                                </a>
-                                            </div>
-                                        </li>
+                                        {!! $cart !!}
                                     </ul>
                                 </div>
                             </div>
