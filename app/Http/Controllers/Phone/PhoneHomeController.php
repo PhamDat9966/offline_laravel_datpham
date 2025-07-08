@@ -23,7 +23,7 @@ class PhoneHomeController extends Controller
 
     public function index(Request $request)
     {
-        //dd(session()->all());
+        //dd(session()->get('cart', []));
 
         $title  = 'Phone';
         $params = [];

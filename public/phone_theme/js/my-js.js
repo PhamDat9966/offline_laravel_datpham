@@ -387,9 +387,24 @@ $(document).on('click', '.add-to-cart', function(e) {
                 $('#message').find('.book-description').html('Bạn hãy chọn sản phẩm khác hoặc mẫu còn hàng.');
                 $('#message').modal('show');
             }
+
+            //Cập nhật số sản phẩm trên cart badge
+            updateCartBadge();
         },
         error: function(xhr) {
             alert('Lỗi thêm sản phẩm: ' + xhr.status);
         }
     });
+
+    //Hàm gọi route tính tổng sản phẩm.
+    function updateCartBadge() {
+        $.ajax({
+            url: '/cart/totalQuantity',
+            type: 'GET',
+            success: function(data) {
+                $('.badge').text(data.totalQuantity);
+            }
+        });
+    }
+
 });

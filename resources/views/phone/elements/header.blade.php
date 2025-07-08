@@ -47,10 +47,11 @@
     $iconCart       = asset("images/phonetheme/cart.png");
     $urlCart        = route('authsphone/cart');
     $cart           = session()->get( 'cart');
-    foreach($cart as $key=>$elementCart){
-        $totalQuantity += $elementCart['quantity'];
+    if($cart){
+        foreach($cart as $key=>$elementCart){
+            $totalQuantity += $elementCart['quantity'];
+        }
     }
-
     //dd(session()->all());
     $cart               = '<li class="onhover-div mobile-cart">
                                 <div>

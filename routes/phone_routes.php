@@ -1,5 +1,7 @@
 <?php
 
+use Whoops\Exception\Formatter;
+
 //$prefixPhone     = config('zvn.url.prefix_phone');
 
 // Route::group(['prefix' =>$prefixPhone, 'namespace' => 'Phone'], function() {
@@ -90,4 +92,13 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
 
     });
 
+});
+
+Route::get('/cart/totalQuantity', function () {
+    $cart = session()->get('cart', []);
+    $totalQuantity = 0;
+    foreach ($cart as $element) {
+        $totalQuantity += $element['quantity'];
+    }
+    return response()->json(['totalQuantity' => $totalQuantity]);
 });
