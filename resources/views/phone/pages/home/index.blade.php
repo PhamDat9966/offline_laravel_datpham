@@ -17,6 +17,11 @@
     @include('phone.pages.home.child-index.category-feature',['categoryIsFeatures'=>$categoryIsFeatures])
     <!-- Tab product end -->
 
+    <!--Modal message-->
+    @include('phone.block.quick-view')
+    @include('phone.block.message')
+    <!--End Modal message-->
+
     <!-- Quick-view modal popup start-->
     <div class="modal fade bd-example-modal-lg theme-modal" id="quick-view" tabindex="-1" role="dialog"
         aria-hidden="true">

@@ -7,6 +7,12 @@ $(document).ready(function() {
         var imageurl        = $(this).data('imageurl');
         var price           = $(this).data('price');
         var salePrice       = $(this).data('salePrice');
+        var urlItem         = $(this).data('url-item');
+
+        var colorID         = $(this).data('color-id');
+        var materialID      = $(this).data('material-id');
+
+        var urlAddToCart    = $(this).data('url-add-cart');
 
         var priceAll        = salePrice + '$ <del>'+price+' $</del>';
 
@@ -15,6 +21,17 @@ $(document).ready(function() {
         $('#quick-view').find('.book-description').text(description);
         $('#quick-view').find('.book-picture').attr('src', imageurl);
         $('#quick-view').find('.book-price').text(salePrice);
+        $('#quick-view').find('.btn-view-book-detail').attr('href', urlItem);
+
+        //Gán data vào button "chọn mua"
+        $('#quick-view').find('.add-to-cart').data('id', id);
+        $('#quick-view').find('.add-to-cart').data('name', name);
+        $('#quick-view').find('.add-to-cart').data('color-id', colorID);
+        $('#quick-view').find('.add-to-cart').data('material-id', materialID);
+        $('#quick-view').find('.add-to-cart').data('url', urlAddToCart);
+
+        // $('#quick-view').find('.add-to-cart').data('name', name);
+        // $('#quick-view').find('.add-to-cart').attr('name', name);
 
         console.log(id,name,imageurl);
 

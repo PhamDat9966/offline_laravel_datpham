@@ -60,6 +60,11 @@
 
             $salePrice  = ($salePrice == 0) ? 'Hàng chưa về' : $salePrice;
 
+            //Add to Cart
+            $urlAddToCart           = route('authsphone/addToCart');
+            $dataColorIdDefault     = $item['attribute_prices'][0]['color_id'];
+            $dataMaterialIdDefault  = $item['attribute_prices'][0]['material_id'];
+
             $xhtmlTabContent .=     '<div class="product-box">
                                         <div class="img-wrapper">
                                             <div class="lable-block">
@@ -71,7 +76,13 @@
                                                 </a>
                                             </div>
                                             <div class="cart-info cart-wrap">
-                                                <a href="#" title="Add to cart"><i class="ti-shopping-cart"></i></a>
+                                                <a href="#" class="add-to-cart" title="Add to cart"
+                                                            data-id="'.$id.'"
+                                                            data-name="'.$name.'"
+                                                            data-color-id="'.$dataColorIdDefault.'"
+                                                            data-material-id="'.$dataMaterialIdDefault.'"
+                                                            data-url="'.$urlAddToCart.'"
+                                                            ><i class="ti-shopping-cart"></i></a>
                                                 <a href="#" title="Quick View">
                                                     <i class="ti-search quick-view-btn" data-toggle="modal" data-target="#quick-view"
                                                                             data-id="'.$id.'"
@@ -80,6 +91,10 @@
                                                                             data-imageurl="'.$imageURL.'"
                                                                             data-price="'.$originalPriceDefault.'"
                                                                             data-salePrice="'.$salePrice.'"
+                                                                            data-color-id="'.$dataColorIdDefault.'"
+                                                                            data-material-id="'.$dataMaterialIdDefault.'"
+                                                                            data-url-item="'.$urlItem.'"
+                                                                            data-url-add-cart="'.$urlAddToCart.'"
                                                                             >
                                                     </i>
                                                 </a>
