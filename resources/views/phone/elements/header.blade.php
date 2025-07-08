@@ -42,15 +42,23 @@
                     </div>';
     }
 
-    $iconCart     = asset("images/phonetheme/cart.png");
-    $urlCart      = route('authsphone/cart');
+    //Cart
+    $totalQuantity  = 0;
+    $iconCart       = asset("images/phonetheme/cart.png");
+    $urlCart        = route('authsphone/cart');
+    $cart           = session()->get( 'cart');
+    foreach($cart as $key=>$elementCart){
+        $totalQuantity += $elementCart['quantity'];
+    }
+
+    //dd(session()->all());
     $cart               = '<li class="onhover-div mobile-cart">
                                 <div>
                                     <a href="'.$urlCart.'" id="cart" class="position-relative">
                                         <img src="'.$iconCart.'" class="img-fluid blur-up lazyload"
                                             alt="cart">
                                         <i class="ti-shopping-cart"></i>
-                                        <span class="badge badge-warning">0</span>
+                                        <span class="badge badge-warning">'.$totalQuantity.'</span>
                                     </a>
                                 </div>
                             </li>';

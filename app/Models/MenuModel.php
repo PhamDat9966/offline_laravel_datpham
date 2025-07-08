@@ -51,7 +51,7 @@ class MenuModel extends AdminModel
                 }
             }
 
-            $result = $query->orderBy('id', 'asc')
+            $result = $query->orderBy('m.ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 

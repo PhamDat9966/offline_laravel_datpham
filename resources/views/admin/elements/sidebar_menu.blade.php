@@ -57,10 +57,10 @@
                     <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ route('product')}}"> Product</a></li>
-                        <li><a href="{{ route('categoryProduct')}}"> Category</a></li>
-                        <li><a href="{{ route('productAttributePrice')}}"> Giá cả của sản phẩm theo thuộc tính</a></li>
+                        <li><a href="{{ route('categoryProduct')}}"> Category - Menu đa cấp</a></li>
                         <li><a href="{{ route('productHasAttribute')}}"> Thuộc tính của sản phẩm</a></li>
-                        <li><a href="{{ route('productHasMedia')}}"> Media và thuộc tính của sản phẩm</a></li>
+                        <li><a href="{{ route('productAttributePrice')}}"> Giá của sản phẩm liên kết với cặp thuộc tính</a></li>
+                        <li><a href="{{ route('productHasMedia')}}"> Media liên kết với thuộc tính mùa sắc của sản phẩm</a></li>
                     </ul>
                 </li>
             @endif
@@ -81,9 +81,12 @@
                     <a><i class="fa fa-newspaper-o"></i> Quản lý bài viết<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ route('article')}}"> Article</a></li>
-                        <li><a href="{{ route('categoryArticle')}}"> Category</a></li>
+                        <li><a href="{{ route('categoryArticle')}}"> Category - menu đa cấp</a></li>
                     </ul>
                 </li>
+            @endif
+            @if($userInfo['roles_id'] == $primeID || in_array('access-menu', $user_has_permission_names) && in_array('access-menu', $all_permission_names_active))
+                <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu tổng quát</a></li>
             @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-slider', $user_has_permission_names) && in_array('access-slider', $all_permission_names_active))
                 <!-- <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li> -->
@@ -105,9 +108,6 @@
                 </li>
             @endif
             <li><a href="{{ route('changePassword')}}"><i class="fa fa-key"></i> Change Password</a></li>
-            @if($userInfo['roles_id'] == $primeID || in_array('access-menu', $user_has_permission_names) && in_array('access-menu', $all_permission_names_active))
-                <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu</a></li>
-            @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-contact', $user_has_permission_names) && in_array('access-contact', $all_permission_names_active))
                 <li><a href="{{ route('admin.contact')}}"><i class="fa fa-paper-plane"></i>Liên hệ</a></li>
             @endif

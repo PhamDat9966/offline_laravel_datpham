@@ -20,7 +20,7 @@
                                     itaque ut vero architecto nulla officiis in nam qui, doloremque iste. Incidunt,
                                     in?</div>
                             </div>
-                            <div class="product-description border-product">
+                            {{-- <div class="product-description border-product">
                                 <h6 class="product-title">Số lượng</h6>
                                 <div class="qty-box">
                                     <div class="input-group">
@@ -39,9 +39,9 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="product-buttons">
-                                <a href="#" class="btn btn-solid mb-1 btn-add-to-cart">Chọn Mua</a>
+                                <a href="#" class="btn btn-solid mb-1 btn-add-to-cart add-to-cart">Chọn Mua</a>
                                 <a href="item.html" class="btn btn-solid mb-1 btn-view-book-detail">Xem chi tiết</a>
                             </div>
                         </div>
