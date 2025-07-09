@@ -216,6 +216,7 @@ return [
             'rss'                   =>  ['edit','delete'],
             'rssnews'               =>  ['delete'],
             'menu'                  =>  ['edit','delete'],
+            'menuSmartPhone'        =>  ['edit','delete'],
             'phone'                 =>  ['delete'],
             'branch'                =>  ['edit','delete'],
             'appointment'           =>  ['delete'],

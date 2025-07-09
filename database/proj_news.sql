@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 08, 2025 lúc 06:36 AM
+-- Thời gian đã tạo: Th7 09, 2025 lúc 07:23 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -687,6 +687,38 @@ INSERT INTO `menu` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `typ
 (20, 'Danh Mục', 'active', '#', 2, 'link', 'current', NULL, 'category', 'Đây là nơi đặt Category menu đa cấp', NULL, NULL, '2025-07-08 00:00:00', 'admin'),
 (21, 'Article-container', 'inactive', '/', 15, 'category_article', 'current', 3, 'article', '<p>Article container</p>', NULL, NULL, '2025-07-08 00:00:00', 'admin'),
 (30, 'Zendvn', 'active', 'https://zendvn.com/', 5, 'link', '_new', NULL, NULL, '<p>Trang web zendvn</p>', '2024-02-28 00:00:00', 'admin', '2025-07-08 00:00:00', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `menusmartphone`
+--
+
+CREATE TABLE `menusmartphone` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` varchar(10) DEFAULT '''0''',
+  `url` varchar(255) NOT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `type_menu` varchar(255) DEFAULT NULL,
+  `type_open` varchar(255) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `container` varchar(255) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menusmartphone`
+--
+
+INSERT INTO `menusmartphone` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `type_open`, `parent_id`, `container`, `note`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'Trang chủ', 'active', '/', 1, 'link', 'new_window', NULL, NULL, 'main-menu', NULL, NULL, '2024-10-26 00:00:00', 'admin'),
+(2, 'Sản phẩm', 'active', '#', 3, 'category_product', 'current', NULL, NULL, '<p>main-menu</p>', NULL, NULL, '2025-07-09 00:00:00', 'admin'),
+(3, 'Danh Mục', 'active', '#', 2, 'link', 'current', NULL, 'category', 'Đây là nơi đặt Category menu đa cấp', NULL, NULL, '2025-07-08 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 
@@ -1677,6 +1709,13 @@ ALTER TABLE `menu`
   ADD KEY `parent_menu_id` (`parent_id`);
 
 --
+-- Chỉ mục cho bảng `menusmartphone`
+--
+ALTER TABLE `menusmartphone`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parent_menu_id` (`parent_id`);
+
+--
 -- Chỉ mục cho bảng `menu_translations`
 --
 ALTER TABLE `menu_translations`
@@ -1931,6 +1970,12 @@ ALTER TABLE `media`
 --
 ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT cho bảng `menusmartphone`
+--
+ALTER TABLE `menusmartphone`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `menu_translations`

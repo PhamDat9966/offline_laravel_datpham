@@ -348,6 +348,7 @@ $(document).ready(function() {
 
 });
 
+// Sự kiện click vào button 'Add to Cart'
 $(document).on('click', '.add-to-cart', function(e) {
     e.preventDefault(); // Ngăn click <a> gây reload/trùng lặp
 

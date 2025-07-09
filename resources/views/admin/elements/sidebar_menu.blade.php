@@ -86,7 +86,14 @@
                 </li>
             @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-menu', $user_has_permission_names) && in_array('access-menu', $all_permission_names_active))
-                <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu tổng quát</a></li>
+                {{-- <li><a href="{{ route('menu')}}"><i class="fa fa-sitemap"></i> Menu tổng quát</a></li> --}}
+                <li id='menu'>
+                    <a><i class="fa fa-sitemap"></i> Menu tổng quát<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('menu')}}"> Tin tức</a></li>
+                        <li><a href="{{ route('menuSmartPhone')}}"> Smart phone</a></li>
+                    </ul>
+                </li>
             @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-slider', $user_has_permission_names) && in_array('access-slider', $all_permission_names_active))
                 <!-- <li><a href="{{ route('slider')}}"><i class="fa fa-sliders"></i> Sliders</a></li> -->

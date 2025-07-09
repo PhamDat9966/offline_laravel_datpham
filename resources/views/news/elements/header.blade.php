@@ -83,7 +83,7 @@
 
         foreach ($items as $item) {
 
-            if ($item['parent_id'] == $parentId) {
+            //if ($item['parent_id'] == $parentId) {
                 // Kiểm tra xem có con hay không
                 $hasChildren     = hasChildren($items, $item['id']);
 
@@ -177,7 +177,7 @@
                     $xhtmlMenu  .= '</li>';
                 }
 
-            }
+            //}
         }
     }
 

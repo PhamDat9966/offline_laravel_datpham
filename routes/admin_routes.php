@@ -628,9 +628,62 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
     });
 
 
-    // ====================== MENU ======================
+    // ====================== MENU  NEWS SITE ======================
     $prefix         =   'menu';
     $controllerName =   'menu';
+    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+
+        $controller =   ucfirst($controllerName) . 'Controller@';
+        Route::get('/', [
+            'as'    => $controllerName,
+            'uses'  => $controller . 'index'
+        ]);
+
+        Route::get('form/{id?}', [
+            'as'    => $controllerName . '/form',
+            'uses'  => $controller . 'form'
+        ])->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', [
+            'as'    => $controllerName . '/delete',
+            'uses'  => $controller . 'delete'
+        ])->where('id', '[0-9]+');
+
+        Route::get('change-status-{status}/{id}', [
+            'as'    => $controllerName . '/status',
+            'uses'  => $controller . 'status'
+        ]);
+
+        Route::get('change-ordering-{ordering}/{id}', [
+            'as'    => $controllerName . '/ordering',
+            'uses'  => $controller . 'ordering'
+        ]);
+
+        Route::get('change-type-menu-{type_menu}/{id}', [
+            'as'    => $controllerName . '/type_menu',
+            'uses'  => $controller . 'typeMenu'
+        ]);
+
+        Route::get('change-type-open-{type_open}/{id}', [
+            'as'    => $controllerName . '/type_open',
+            'uses'  => $controller . 'typeOpen'
+        ]);
+
+        Route::get('change-parent-{parent_id}/{id}', [
+            'as'    => $controllerName . '/parent_id',
+            'uses'  => $controller . 'parentId'
+        ]);
+
+        Route::post('save/{id?}', [
+            'as'    => $controllerName . '/save',
+            'uses'  => $controller . 'save'
+        ]);
+
+    });
+
+    // ====================== MENU SMART PHONE SITE ======================
+    $prefix         =   'menuSmartPhone';
+    $controllerName =   'menuSmartPhone';
     Route::group(['prefix'=>$prefix],function () use($controllerName) {
 
         $controller =   ucfirst($controllerName) . 'Controller@';
