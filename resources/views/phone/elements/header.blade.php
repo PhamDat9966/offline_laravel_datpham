@@ -52,105 +52,113 @@
     $categoryIdArticle          = (isset($categoryId)) ? $categoryId : '';
     $ancestorCategoryIdsArticle = (isset($ancestorCategoryIds)) ? $ancestorCategoryIds :'';
 
-    foreach($itemsMenu as $keyM=>$item){
-        //dd($item);
-        //$id  = $item['id'];
-        //dd($item['id']);
-        $hasChildren     = hasChildren($itemsMenu, number_format($item['id']));
+    $xhtmlMenu                 .= buildMenuSmartPhone($itemsMenu,$host,$currentUrl, $categoryProductNav,$ancestorCategoryIdsArticle,$categoryIdArticle);
 
-        $menuUrl = $host . $item['url'];
-        $homeUrlLocale = '';
-        if($item['id'] == 1){
-            $homeUrlLocale = $host . "/$locale";
-        }
-        // Kiểm tra trạng thái "active"
-        $classActive = ($currentUrl == $menuUrl || $currentUrl == $homeUrlLocale || hasActiveChild($itemsMenu, $item['id'], $currentUrl, $locale)) ? 'active' : '';
+    function buildMenuSmartPhone($itemsMenu,$host,$currentUrl,$categoryProductNav,$ancestorCategoryIdsArticle,$categoryIdArticle )
+    {
+        $xhtmlMenu = '';
+        foreach($itemsMenu as $keyM=>$item){
+            //dd($item);
+            //$id  = $item['id'];
+            //dd($item['id']);
+            $hasChildren     = hasChildren($itemsMenu, number_format($item['id']));
 
-        $typeOpen        = '';
-        $tmpTypeOpen     = Config::get('zvn.template.type_open');
-        $typeOpen        = (array_key_exists($item['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$item['type_open']] : '';
-
-        if($hasChildren != 1 && $item['container'] == ''){
-
-            $routeString        = "/$locale". $item['url'];
-
-            $typeOpen           = $item['type_open'];
-            $first_character    = substr($item['url'] , 0, 1);
-
+            $menuUrl = $host . $item['url'];
+            $homeUrlLocale = '';
             // Kiểm tra trạng thái "active"
-            $classActive = ($currentUrl == $menuUrl || $currentUrl == $homeUrlLocale || hasActiveChild($itemsMenu, $item['id'], $currentUrl, $locale)) ? 'active' : '';
+            $classActive = ($currentUrl == $menuUrl || $currentUrl == $homeUrlLocale || hasActiveChild($itemsMenu, $item['id'], $currentUrl)) ? 'active' : '';
 
-            if($first_character == '/'){
-                $xhtmlMenu     .= sprintf('<li class=""><a class="%s my-menu-link" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
-            } else {
-                $xhtmlMenu     .= sprintf('<li><a class="%s my-menu-link" href="%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
-            }
+            $typeOpen        = '';
+            $tmpTypeOpen     = Config::get('zvn.template.type_open');
+            $typeOpen        = (array_key_exists($item['type_open'], $tmpTypeOpen)) ? $tmpTypeOpen[$item['type_open']] : '';
 
-        }else
-        // Nếu có con, gọi đệ quy để xử lý menu con
-        if ($hasChildren == 1) {
-            $navChildLinkClass  = 'nav-link';
+            if($hasChildren != 1 && $item['container'] == ''){
 
-            $xhtmlMenu      .= '<li>
-                                    <a class="'.$classActive.'" href="#">
-                                        '.$item['name'].'
-                                    </a>';
+                $routeString        = $item['url'];
 
-            $xhtmlMenu      .=      '<ul>';
-                                    buildMenu($itemsMenu, $item['id'], $navChildLinkClass,$locale);
-            $xhtmlMenu      .=      '</ul>';
+                $typeOpen           = $item['type_open'];
+                $first_character    = substr($item['url'] , 0, 1);
 
-            $xhtmlMenu      .= '</li>';
-        }else
+                // Kiểm tra trạng thái "active"
+                $classActive = ($currentUrl == $menuUrl || $currentUrl == $homeUrlLocale || hasActiveChild($itemsMenu, $item['id'], $currentUrl)) ? 'active' : '';
 
-        if($item['container'] != ''){
-            $parentidCurrent = $item['id'];
-
-                /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
-                    Nếu con có class active, thì cha sẽ được gắng class active */
-                $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle,$locale);
-                if (strpos($classActiveCategoryFather, 'active') !== false) {
-                    $classActiveCategoryFather = 'active';
-                }else{
-                    $classActiveCategoryFather = '';
+                if($first_character == '/'){
+                    $xhtmlMenu     .= sprintf('<li class=""><a class="%s my-menu-link" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
+                } else {
+                    $xhtmlMenu     .= sprintf('<li><a class="%s my-menu-link" href="%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
                 }
 
-                $xhtmlMenu  .= '<li class="dropdown">
-                                    <a class="nav-link dropdown-toggle '.$classActiveCategoryFather.'" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-                                        '.$item['name'].'
-                                    </a>';
+            }else
+            // Nếu có con, gọi đệ quy để xử lý menu con
+            if ($hasChildren == 1) {
+                $navChildLinkClass  = 'nav-link';
+
+                $xhtmlMenu      .= '<li>
+                                        <a class="'.$classActive.'" href="#">
+                                            '.$item['name'].'
+                                        </a>';
+
+                $xhtmlMenu      .=      '<ul>';
+                                        buildMenuSmartPhone($itemsMenu, $item['id'], $navChildLinkClass);
+                $xhtmlMenu      .=      '</ul>';
+
+                $xhtmlMenu      .= '</li>';
+
+            }else
+
+            if($item['container'] != ''){
+                $parentidCurrent = $item['id'];
+
+                    /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
+                        Nếu con có class active, thì cha sẽ được gắng class active */
+                    $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle);
+                    if (strpos($classActiveCategoryFather, 'active') !== false) {
+                        $classActiveCategoryFather = 'active';
+                    }else{
+                        $classActiveCategoryFather = '';
+                    }
+
+                    $xhtmlMenu  .= '<li>
+                                        <a class="'.$classActiveCategoryFather.'" href="#" id="navbarDropdown">
+                                            '.$item['name'].'
+                                        </a>';
 
 
-                /*Nhóm lệnh để kiểm tra $item['container'] == 'category' vì $classActiveCategoryFather và  if($item['container'] == 'category') sử dụng phương thức trùng nhau
-                    phải tắt $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
-                    // $xhtmlMenu  .= '<li class="dropdown">
-                    //                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-                    //                         '.$item['name'].'
-                    //                     </a>';
-                /*End Nhóm lệnh kiểm tra*/
-                if($item['container'] == 'category'){
-                    //Đây là danh mục, category.
-                    $xhtmlMenu .= buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle , $categoryIdArticle, $locale);
-                }
+                    /*Nhóm lệnh để kiểm tra $item['container'] == 'category' vì $classActiveCategoryFather và  if($item['container'] == 'category') sử dụng phương thức trùng nhau
+                        phải tắt $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
+                        // $xhtmlMenu  .= '<li class="dropdown">
+                        //                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
+                        //                         '.$item['name'].'
+                        //                     </a>';
+                    /*End Nhóm lệnh kiểm tra*/
+                    if($item['container'] == 'category'){
+                        //Đây là danh mục, category.
+                        $xhtmlMenu .= buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle , $categoryIdArticle);
+                    }
 
-                if($item['container'] == 'article'){
-                    $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                        foreach ($articleMenu as $keyArticle => $valArticle) {
-                            $articleLink = '';
-                            if($valArticle['slug'] != null){
-                                $articleLink     = $host . '/' . $valArticle['slug'] . '.php';
-                            }else {
-                                $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                    if($item['container'] == 'article'){
+                        $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+                            foreach ($articleMenu as $keyArticle => $valArticle) {
+                                $articleLink = '';
+                                if($valArticle['slug'] != null){
+                                    $articleLink     = $host . '/' . $valArticle['slug'] . '.php';
+                                }else {
+                                    $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                                }
+
+                                $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
                             }
+                        $xhtmlMenu  .= '</ul>';
+                    }
 
-                            $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
-                        }
-                    $xhtmlMenu  .= '</ul>';
-                }
+                $xhtmlMenu  .= '</li>';
 
-            $xhtmlMenu  .= '</li>';
+            }
         }
+
+        return $xhtmlMenu;
     }
+
 
     $xhtmlMenu .= '</ul>';
 
@@ -226,18 +234,18 @@
     }
 
     // Hàm kiểm tra xem có con active hay không
-    function hasActiveChild($items, $parentId, $currentUrl, $locale)
+    function hasActiveChild($items, $parentId, $currentUrl)
     {
         //dd($items);
         global $host;
         foreach ($items as $item) {
             if ($item['parent_id'] == $parentId) {
-                $menuUrl = $host ."/$locale/". $item['url'];
+                $menuUrl = $host . $item['url'];
                 if($item['id'] == 1){
-                    $menuUrl = $host . "/$locale";
+                    $menuUrl = $host ;
                 }
 
-                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl, $locale)) {
+                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl)) {
                     return true;
                 }
             }
@@ -261,16 +269,16 @@
     }
 
     // Hàm đệ quy build Category ra menu
-    function buildMenuCategory($itemsCategory,$ancestorCategoryIds, $categoryId, $locale)
+    function buildMenuCategory($itemsCategory,$ancestorCategoryIds, $categoryId)
     {
         //dd($itemsCategory);
         global $host;
         global $currentUrl;
         $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
-            $menuUrl = $host."/$locale/";
+            $menuUrl = $host;
             if(!empty($valueCategory['slug'])){
-                $menuUrl = $host . "/$locale/" . $valueCategory['slug'] . '.php';
+                $menuUrl = $host . $valueCategory['slug'] . '.php';
             }
             // Kiểm tra URL của phần tử cha có khớp không
             $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
@@ -282,7 +290,7 @@
 
             // Kiểm tra nếu bất kỳ phần tử con nào có class active
             if ($valueCategory['children'] != null) {
-                $childActive = buildMenuCategory($valueCategory['children'], $ancestorCategoryIds, $categoryId, $locale);
+                $childActive = buildMenuCategory($valueCategory['children'], $ancestorCategoryIds, $categoryId);
 
                 //Hàm strpos sẽ tìm xem, trong phép đệ quy menu con được return dưới dạng xhtml có chuỗi 'active' không
                 // Nếu trong xhtml của phần tử con có class active, thì cha sẽ được gán class active
