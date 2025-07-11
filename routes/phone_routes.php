@@ -16,28 +16,6 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
                   ->name($controllerName);
     });
 
-    $prefix         =   'phoneItem';
-    $controllerName =   'phoneItem';
-
-    Route::prefix($prefix)->group(function () use($controllerName,$nameSpace) {
-
-            $controller =    $nameSpace . '\\' . ucfirst($controllerName) . 'Controller';
-
-            Route::get('/Item-{id?}', [$controller, 'index'])
-                  ->where('id', '[0-9]+')
-                  ->name($controllerName);
-
-            $controllerPrice = $controllerName .'/price';
-            Route::get('/change-price', [$controller, 'price'])
-                  ->where('id', '[0-9]+')
-                  ->name($controllerPrice);
-
-            $controllerCheckImage = $controllerName .'/checkImage';
-            Route::get('/check-image', [$controller, 'checkImage'])
-                  ->name($controllerCheckImage);
-
-    });
-
     $prefix         =   'authsphone';
     $controllerName =   'authsphone';
 
@@ -71,9 +49,47 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
 
     });
 
+    $prefix         =   'phoneItem';
+    $controllerName =   'phoneItem';
+
+    Route::prefix($prefix)->group(function () use($controllerName,$nameSpace) {
+
+            $controller =    $nameSpace . '\\' . ucfirst($controllerName) . 'Controller';
+
+            Route::get('/item-{id?}', [$controller, 'index'])
+                  ->where('id', '[0-9]+')
+                  ->name($controllerName);
+
+            $controllerPrice = $controllerName .'/price';
+            Route::get('/change-price', [$controller, 'price'])
+                  ->where('id', '[0-9]+')
+                  ->name($controllerPrice);
+
+            $controllerCheckImage = $controllerName .'/checkImage';
+            Route::get('/check-image', [$controller, 'checkImage'])
+                  ->name($controllerCheckImage);
+
+    });
+
+    $prefix         =   'phoneCategory';
+    $controllerName =   'phoneCategory';
+
+    Route::prefix($prefix)->group(function () use($controllerName,$nameSpace) {
+
+            $controller =    $nameSpace . '\\' . ucfirst($controllerName) . 'Controller';
+
+            Route::get('/', [$controller, 'index'])
+                  ->name($controllerName);
+
+            Route::get('/{id?}', [$controller, 'index'])
+                  ->where('id', '[0-9]+')
+                  ->name($controllerName);
+
+    });
+
 });
 
-//route tính tổng sản phẩm.
+//route tính tổng sản phẩm cho Badge. Dùng cho Ajax
 Route::get('/cart/totalQuantity', function () {
     $cart = session()->get('cart', []);
     $totalQuantity = 0;

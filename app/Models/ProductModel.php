@@ -880,6 +880,27 @@ class ProductModel extends AdminModel
             }
         }
 
+
+        if($options['task'] == 'get-all-items-with-category-id'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            if($params['category_product_id']){
+                $product = self::with(['attributePrices','media'])
+                                ->where('category_product_id', $params['category_product_id'])
+                                ->get()->toArray();
+            }else{
+                $product = self::with(['attributePrices','media'])
+                                ->get()->toArray();
+            }
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null;
+            }
+        }
+
         if($options['task'] == 'get-attribute-items-list'){
 
             $this->table            = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)

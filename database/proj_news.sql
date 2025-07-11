@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 09, 2025 lúc 07:23 AM
+-- Thời gian đã tạo: Th7 11, 2025 lúc 10:43 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -716,9 +716,9 @@ CREATE TABLE `menusmartphone` (
 --
 
 INSERT INTO `menusmartphone` (`id`, `name`, `status`, `url`, `ordering`, `type_menu`, `type_open`, `parent_id`, `container`, `note`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'Trang chủ', 'active', '/', 1, 'link', 'new_window', NULL, NULL, 'main-menu', NULL, NULL, '2024-10-26 00:00:00', 'admin'),
-(2, 'Sản phẩm', 'active', '#', 3, 'category_product', 'current', NULL, NULL, '<p>main-menu</p>', NULL, NULL, '2025-07-09 00:00:00', 'admin'),
-(3, 'Danh Mục', 'active', '#', 2, 'link', 'current', NULL, 'category', 'Đây là nơi đặt Category menu đa cấp', NULL, NULL, '2025-07-08 00:00:00', 'admin');
+(1, 'Trang chủ', 'active', '/phone', 1, 'link', 'current', NULL, NULL, 'main-menu', NULL, NULL, '2025-07-10 00:00:00', 'admin'),
+(2, 'Sản phẩm', 'active', '/phone/phoneCategory', 2, 'category_product', 'current', NULL, NULL, '<p>main-menu</p>', NULL, NULL, '2025-07-11 00:00:00', 'admin'),
+(3, 'Danh Mục', 'active', '#', 3, 'link', 'current', NULL, 'category', 'Đây là nơi đặt Category menu đa cấp', NULL, NULL, '2025-07-10 00:00:00', 'admin');
 
 -- --------------------------------------------------------
 

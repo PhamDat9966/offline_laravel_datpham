@@ -49,12 +49,12 @@
                                 aria-hidden="true"></i></div>
                     </li>';
 
-    $categoryIdArticle          = (isset($categoryId)) ? $categoryId : '';
-    $ancestorCategoryIdsArticle = (isset($ancestorCategoryIds)) ? $ancestorCategoryIds :'';
+    $categoryIdProduct          = (isset($categoryId)) ? $categoryId : '';
+    $ancestorCategoryIdsProduct = (isset($ancestorCategoryIds)) ? $ancestorCategoryIds :'';
 
-    $xhtmlMenu                 .= buildMenuSmartPhone($itemsMenu,$host,$currentUrl, $categoryProductNav,$ancestorCategoryIdsArticle,$categoryIdArticle);
+    $xhtmlMenu                 .= buildMenuSmartPhone($itemsMenu,$host,$currentUrl, $categoryProductNav,$ancestorCategoryIdsProduct,$categoryIdProduct);
 
-    function buildMenuSmartPhone($itemsMenu,$host,$currentUrl,$categoryProductNav,$ancestorCategoryIdsArticle,$categoryIdArticle )
+    function buildMenuSmartPhone($itemsMenu,$host,$currentUrl,$categoryProductNav,$ancestorCategoryIdsProduct,$categoryIdProduct )
     {
         $xhtmlMenu = '';
         foreach($itemsMenu as $keyM=>$item){
@@ -99,7 +99,7 @@
                                         </a>';
 
                 $xhtmlMenu      .=      '<ul>';
-                                        buildMenuSmartPhone($itemsMenu, $item['id'], $navChildLinkClass);
+                $xhtmlMenu      .=      buildMenuSmartPhone($item, $host, $currentUrl,$categoryProductNav,$ancestorCategoryIdsProduct,$categoryIdProduct);
                 $xhtmlMenu      .=      '</ul>';
 
                 $xhtmlMenu      .= '</li>';
@@ -109,47 +109,43 @@
             if($item['container'] != ''){
                 $parentidCurrent = $item['id'];
 
-                    /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
-                        Nếu con có class active, thì cha sẽ được gắng class active */
-                    $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle);
-                    if (strpos($classActiveCategoryFather, 'active') !== false) {
-                        $classActiveCategoryFather = 'active';
-                    }else{
-                        $classActiveCategoryFather = '';
-                    }
+                /*Tìm class active bằng việc kiểm tra phần tử con bằng cách gọi đệ quy
+                    Nếu con có class active, thì cha sẽ được gắng class active */
+                $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsProduct, $categoryIdProduct);
+                if (strpos($classActiveCategoryFather, 'active') !== false) {
+                    $classActiveCategoryFather = 'active';
+                }else{
+                    $classActiveCategoryFather = '';
+                }
 
-                    $xhtmlMenu  .= '<li>
-                                        <a class="'.$classActiveCategoryFather.'" href="#" id="navbarDropdown">
-                                            '.$item['name'].'
-                                        </a>';
+                $xhtmlMenu  .= '<li>
+                                    <a class="'.$classActiveCategoryFather.'" href="#" id="navbarDropdown">
+                                        '.$item['name'].'
+                                    </a>';
 
 
-                    /*Nhóm lệnh để kiểm tra $item['container'] == 'category' vì $classActiveCategoryFather và  if($item['container'] == 'category') sử dụng phương thức trùng nhau
-                        phải tắt $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
-                        // $xhtmlMenu  .= '<li class="dropdown">
-                        //                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-hover="dropdown" data-toggle="dropdown" data-delay="1000" aria-haspopup="true" aria-expanded="false">
-                        //                         '.$item['name'].'
-                        //                     </a>';
-                    /*End Nhóm lệnh kiểm tra*/
-                    if($item['container'] == 'category'){
-                        //Đây là danh mục, category.
-                        $xhtmlMenu .= buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle , $categoryIdArticle);
-                    }
+                /*Nhóm lệnh để kiểm tra $item['container'] == 'category' vì $classActiveCategoryFather và  if($item['container'] == 'category') sử dụng phương thức trùng nhau
+                    phải tắt $classActiveCategoryFather = buildMenuCategory($categoryProductNav, $ancestorCategoryIdsArticle, $categoryIdArticle) đi để tránh bị trả về kết quả nhầm lẫn khi đùng dd()*/
+                /*End Nhóm lệnh kiểm tra*/
+                if($item['container'] == 'category'){
+                    //Đây là danh mục, category. Menu đa cấp của product sẽ đổ vào đây.
+                    $xhtmlMenu .= buildMenuCategory($categoryProductNav, $ancestorCategoryIdsProduct , $categoryIdProduct);
+                }
 
-                    if($item['container'] == 'article'){
-                        $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
-                            foreach ($articleMenu as $keyArticle => $valArticle) {
-                                $articleLink = '';
-                                if($valArticle['slug'] != null){
-                                    $articleLink     = $host . '/' . $valArticle['slug'] . '.php';
-                                }else {
-                                    $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
-                                }
+                // if($item['container'] == 'article'){
+                //     $xhtmlMenu  .= '<ul class="dropdown-menu dropdown-submenu" role="menu">';
+                //         foreach ($articleMenu as $keyArticle => $valArticle) {
+                //             $articleLink = '';
+                //             if($valArticle['slug'] != null){
+                //                 $articleLink     = $host . '/' . $valArticle['slug'] . '.php';
+                //             }else {
+                //                 $articleLink     = URL::linkArticle($valArticle['id'],$valArticle['name']);
+                //             }
 
-                                $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
-                            }
-                        $xhtmlMenu  .= '</ul>';
-                    }
+                //             $xhtmlMenu      .= '<li><a class="nav-link '.$classActive.'" href="'.$articleLink.'">'.$valArticle['name'].'</a></li>';
+                //         }
+                //     $xhtmlMenu  .= '</ul>';
+                // }
 
                 $xhtmlMenu  .= '</li>';
 
