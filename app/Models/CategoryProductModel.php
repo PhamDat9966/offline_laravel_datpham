@@ -342,6 +342,36 @@ class CategoryProductModel extends AdminModel
 
         }
 
+        //Lấy các node không có node con (những node ở xa nhất)
+        if($options['task'] == 'get-all-leaf-nodes-is-active'){
+            $result = $this::whereIsLeaf()
+                            ->where('status','active')
+                            ->get()
+                            ->toArray();
+        }
+
+        if($options['task'] == 'get-list-nodes-is-active'){
+            $result = $this::defaultOrder()
+                            ->where('status', 'active')
+                            ->where('id','!=', 1)
+                            ->get()
+                            ->toArray();
+        }
+
+        //Lấy danh sách các node có phân cấp kèm theo điều kiện
+        if($options['task'] == 'get-default-order-with-active'){
+            $tree = $this::get()->toTree();
+
+            //Loại bỏ node root
+            $tree = $tree->flatMap(function ($node) {
+                return $node->children; // chỉ lấy children cấp 1
+            });
+
+            // Sau đó dùng đệ quy hoặc collection để lọc theo 'status'
+            $filteredTree   = $this->filterTreeByStatus($tree, 'active');
+            $result         = $filteredTree;
+        }
+
         return $result;
     }
 
@@ -351,5 +381,17 @@ class CategoryProductModel extends AdminModel
         $this->where('id',$params['id'])->update(['modified_by' => $historyBy]);
         if($params['type'] == 'down') $node->down();
         if($params['type'] == 'up')   $node->up();
+    }
+
+    // Hàm lọc đệ quy
+    public function filterTreeByStatus($nodes, $status)
+    {
+        return $nodes->filter(function ($node) use ($status) {
+            // Lọc con trước
+            $node->children = $this->filterTreeByStatus($node->children, $status);
+
+            // Giữ lại node nếu nó thỏa điều kiện, hoặc có children thỏa
+            return $node->status === $status || $node->children->isNotEmpty();
+        });
     }
 }

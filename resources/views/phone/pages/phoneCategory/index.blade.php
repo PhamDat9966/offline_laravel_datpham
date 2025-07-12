@@ -10,7 +10,10 @@
                 <div class="row">
                     <div class="col-sm-3 collection-filter">
                         <!-- side-bar colleps block stat -->
-                        @include('phone.pages.phoneCategory.child-index.categoryList')
+                        @include('phone.pages.phoneCategory.child-index.categoryList',[
+                                                                                                    'categoryPhones' => $categoryPhones,
+                                                                                                    'lastSegment'    => $lastSegment
+                                                                                                    ])
                         @include('phone.pages.phoneCategory.child-index.phoneFeature')
                         <!-- silde-bar colleps block end here -->
                     </div>

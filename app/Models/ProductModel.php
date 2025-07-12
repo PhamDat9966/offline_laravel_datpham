@@ -6,6 +6,7 @@ use App\Models\AdminModel;
 use App\Models\CategoryArticleModel;
 use App\Models\ProductHasAttributeModel;    //Model quan hệ
 use App\Models\MediaModel;    //Model quan hệ
+use App\Models\CategoryProductModel;
 
 use Illuminate\Support\Str;                 // Hỗ trợ thao tác chuỗi
 use Illuminate\Support\Facades\DB;          // DB thao tác trên csdl
@@ -502,7 +503,7 @@ class ProductModel extends AdminModel
                     + Bước 01: Kiểm tra nếu các phần tử trong $currentAttributePriceItemTable không tồn tại trong $InputAttributesPriceData thì tiến hành xóa phần tử đó
                     + Bước 02: Kiểm tra nếu các phần tử trong $InputAttributesPriceData không nằm trong $currentAttributePriceItemTable thì thêm mới
             */
-            // dd($params);
+            //dd($params);
             if (!empty($params['attribute_value'])) {
 
                 $InputAttributesPriceData = [];
@@ -886,9 +887,34 @@ class ProductModel extends AdminModel
             $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
 
             if($params['category_product_id']){
-                $product = self::with(['attributePrices','media'])
-                                ->where('category_product_id', $params['category_product_id'])
-                                ->get()->toArray();
+                //Kiểm tra xem node `category_product_id` có node con hay không?
+                $categoryProductModel = new CategoryProductModel();
+                $hasChildren = $categoryProductModel->find($params['category_product_id'])->children()->exists();
+
+                if ($hasChildren) {
+                    $children       = $categoryProductModel->find($params['category_product_id'])->children;
+                    $childrenArray  = $children->toArray();
+
+                    //Duyệt tất cả các node con và lấy tất cả các product tương ứng với từng node:
+                    $products = [];
+                    foreach($childrenArray as $key=>$childrenElement){
+                        $product = self::with(['attributePrices','media'])
+                                        ->where('category_product_id', $childrenElement['id'])
+                                        ->get()->toArray();
+                        $products = array_merge($products,$product);
+                    }
+
+                    $result = $products;
+                    return $result;
+
+                } else {
+                    $product = self::with(['attributePrices','media'])
+                                        ->where('category_product_id', $params['category_product_id'])
+                                        ->get()->toArray();
+                }
+
+
+
             }else{
                 $product = self::with(['attributePrices','media'])
                                 ->get()->toArray();

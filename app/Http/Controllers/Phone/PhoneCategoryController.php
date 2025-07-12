@@ -33,13 +33,24 @@ class PhoneCategoryController extends Controller
         $productModel = new ProductModel();
         $items        = $productModel->getItem($this->params,['task'=>'get-all-items-with-category-id']);
 
+        //Navbar:Lấy các node lá (những node ở xa nhất)
+        $categoryProductModel   = new CategoryProductModel();
+        $categoryPhones         = $categoryProductModel->getItem(null,['task' => 'get-default-order-with-active']);
+
+        //Lấy url và giá trị cuôi
+        $segments = explode('/', request()->path());
+        $lastSegment = end($segments);
+
+        //dd($categoryPhones->toArray());
         //dd($items);
         //dd(request()->id);
         //dd(session()->all());
 
         return view($this->pathViewController . 'index',[
             'items'             => $items,
-            'nameBreadcrumb'    => $nameBreadcrumb
+            'categoryPhones'    => $categoryPhones,
+            'nameBreadcrumb'    => $nameBreadcrumb,
+            'lastSegment'       => $lastSegment
         ]);
     }
 

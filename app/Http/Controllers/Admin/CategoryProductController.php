@@ -149,5 +149,13 @@ class CategoryProductController extends AdminController
         $this->model->move($params, null);
         return redirect()->route($this->controllerName);
     }
+
+    public function leafNodes(){
+        $items = $this->model->getItem(null,['task'=>'get-all-leaf-nodes-is-active']);
+
+        return response()->json([
+            'items' => $items
+        ]);
+    }
 }
 
