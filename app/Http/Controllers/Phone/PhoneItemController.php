@@ -21,6 +21,7 @@ class PhoneItemController extends Controller
 
     public function __construct()
     {
+        $this->params['pagination']['totalItemsPerPage']  = 2;
         View::share('controllerName',$this->controllerName);
     }
 

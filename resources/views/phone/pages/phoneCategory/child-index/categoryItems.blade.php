@@ -5,7 +5,7 @@
                 <div class="row margin-res">';
     foreach($items as $key=>$item){
         $xhtml .=   '<div class="col-xl-3 col-6 col-grid-box">';
-        $xhtml .=       ProductHelper::xhtmlPhoneItem($item);
+        $xhtml .=       ProductHelper::xhtmlPhoneItem($item->toArray());
         $xhtml .=   '</div>';
     }
 

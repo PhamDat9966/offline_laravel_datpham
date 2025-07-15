@@ -1,6 +1,4 @@
 @extends('phone.main')
-
-
 @section('content')
     @include('phone.block.breadcrumb',['nameBreadcrumb'=>$nameBreadcrumb])
 
@@ -25,7 +23,10 @@
 
                                         @include('phone.pages.phoneCategory.child-index.productTopFilter')
                                         @include('phone.pages.phoneCategory.child-index.categoryItems',['items'=>$items])
-                                        @include('phone.pages.phoneCategory.child-index.pagination')
+
+                                        @if (count($items) > 0)
+                                            @include('phone.pages.phoneCategory.child-index.pagination')
+                                        @endif
 
                                     </div>
                                 </div>
@@ -42,3 +43,4 @@
     @include('phone.block.message')
 
 @endsection
+

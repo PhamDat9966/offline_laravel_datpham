@@ -882,48 +882,77 @@ class ProductModel extends AdminModel
         }
 
 
+        // if($options['task'] == 'get-all-items-with-category-id'){
+
+        //     $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+        //     if($params['category_product_id']){
+        //         //Kiểm tra xem node `category_product_id` có node con hay không?
+        //         $categoryProductModel = new CategoryProductModel();
+        //         $hasChildren = $categoryProductModel->find($params['category_product_id'])->children()->exists();
+
+        //         if ($hasChildren) {
+        //             $children       = $categoryProductModel->find($params['category_product_id'])->children;
+        //             $childrenArray  = $children->toArray();
+
+        //             //Duyệt tất cả các node con và lấy tất cả các product tương ứng với từng node:
+        //             $products = [];
+        //             foreach($childrenArray as $key=>$childrenElement){
+        //                 $product = self::with(['attributePrices','media'])
+        //                                 ->where('category_product_id', $childrenElement['id'])
+        //                                 ->get()->toArray();
+        //                 $products = array_merge($products,$product);
+        //             }
+
+        //             $result = $products;
+        //             return $result;
+
+        //         } else {
+        //             $product = self::with(['attributePrices','media'])
+        //                                 ->where('category_product_id', $params['category_product_id'])
+        //                                 ->get()->toArray();
+        //         }
+
+
+
+        //     }else{
+        //         $product = self::with(['attributePrices','media'])
+        //                         ->get()->toArray();
+        //     }
+
+        //     if ($product) {
+        //         $result = $product;
+        //     } else {
+        //         $result = null;
+        //     }
+        // }
+
         if($options['task'] == 'get-all-items-with-category-id'){
 
             $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
 
-            if($params['category_product_id']){
-                //Kiểm tra xem node `category_product_id` có node con hay không?
+            if($params['category_product_id']) {
                 $categoryProductModel = new CategoryProductModel();
-                $hasChildren = $categoryProductModel->find($params['category_product_id'])->children()->exists();
+                $node = $categoryProductModel->find($params['category_product_id']);
 
-                if ($hasChildren) {
-                    $children       = $categoryProductModel->find($params['category_product_id'])->children;
-                    $childrenArray  = $children->toArray();
+                if ($node->children()->exists()) {
+                    // Lấy tất cả id con
+                    $childrenIds = $node->children()->pluck('id')->toArray();
 
-                    //Duyệt tất cả các node con và lấy tất cả các product tương ứng với từng node:
-                    $products = [];
-                    foreach($childrenArray as $key=>$childrenElement){
-                        $product = self::with(['attributePrices','media'])
-                                        ->where('category_product_id', $childrenElement['id'])
-                                        ->get()->toArray();
-                        $products = array_merge($products,$product);
-                    }
-
-                    $result = $products;
-                    return $result;
-
+                    $result = self::with(['attributePrices', 'media'])
+                                ->whereIn('category_product_id', $childrenIds)
+                                ->orderBy('id', 'desc')
+                                ->paginate($params['pagination']['totalItemsPerPage']);
                 } else {
-                    $product = self::with(['attributePrices','media'])
-                                        ->where('category_product_id', $params['category_product_id'])
-                                        ->get()->toArray();
+                    $result = self::with(['attributePrices', 'media'])
+                                ->where('category_product_id', $params['category_product_id'])
+                                ->orderBy('id', 'desc')
+                                ->paginate($params['pagination']['totalItemsPerPage']);
                 }
-
-
-
-            }else{
-                $product = self::with(['attributePrices','media'])
-                                ->get()->toArray();
-            }
-
-            if ($product) {
-                $result = $product;
             } else {
-                $result = null;
+                $result = self::with(['attributePrices', 'media'])
+                            ->orderBy('id', 'desc')
+                            ->paginate($params['pagination']['totalItemsPerPage']);
             }
         }
 
