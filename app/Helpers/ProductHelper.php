@@ -47,7 +47,8 @@ class ProductHelper{
                 break;
         }
 
-        $salePrice      = ($salePrice == 0) ? 'Hàng chưa về' : $salePrice;
+        $salePrice      = ($salePrice == 0) ? 'Mẫu đã hết hàng' : $salePrice;
+        $isShowDollar   = is_numeric($salePrice) ? '$' : '';
 
         //Add to Cart
         $urlAddToCart           = route('authsphone/addToCart');
@@ -102,7 +103,7 @@ class ProductHelper{
                                     title="'.$item['name'].'">
                                     <h6>'.$descriptionMini.'</h6>
                                 </a>
-                                <h4 class="text-lowercase">'.$salePrice.'$ <del>'.$originalPriceDefault.'$</del></h4>
+                                <h4 class="text-lowercase">'.$salePrice.' '.$isShowDollar.' <del>'.$originalPriceDefault.' '.$isShowDollar.'</del></h4>
                             </div>
                         </div>';
         return $xhtml;

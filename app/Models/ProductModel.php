@@ -855,7 +855,7 @@ class ProductModel extends AdminModel
 
             $product = self::with(['attributePrices','media'])
                             ->where('type', 'feature')
-                            ->take(6)
+                            ->take(8)
                             ->get()->toArray();
 
             if ($product) {

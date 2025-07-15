@@ -21,14 +21,13 @@ class PhoneCategoryController extends Controller
 
     public function __construct()
     {
-        $this->params['pagination']['totalItemsPerPage']  = 3;
+        $this->params['pagination']['totalItemsPerPage']  = 4;
         View::share('controllerName',$this->controllerName);
     }
 
     public function index(Request $request)
     {
 
-        $nameBreadcrumb = 'Tất cả các loại điện thoại';
         $this->params['category_product_id'] = $request->id;
 
         $productModel = new ProductModel();
@@ -38,20 +37,27 @@ class PhoneCategoryController extends Controller
         $categoryProductModel   = new CategoryProductModel();
         $categoryPhones         = $categoryProductModel->getItem(null,['task' => 'get-default-order-with-active']);
 
+        //nameBreadcrumb
+        $nameBreadcrumb = 'Tất cả các loại điện thoại';
+        if(!empty($this->params['category_product_id'])){
+            $params['id']       = $this->params['category_product_id'];
+            $categoryItem       = $categoryProductModel->getItem($params,['task' => 'get-item']);
+            $nameBreadcrumb     = $categoryItem->name;
+        }
+
+        //productsFeature
+        $productsFeature              = $productModel->getItem( null,['task'=>'get-many-items-with-price-attribute']);
+        //dd($productsFeature);
         //Lấy url và giá trị cuôi
         $segments = explode('/', request()->path());
         $lastSegment = end($segments);
 
-        //dd($categoryPhones->toArray());
-        //dd($items);
-        //dd(request()->id);
-        //dd(session()->all());
-
         return view($this->pathViewController . 'index',[
-            'items'             => $items,
-            'categoryPhones'    => $categoryPhones,
-            'nameBreadcrumb'    => $nameBreadcrumb,
-            'lastSegment'       => $lastSegment
+            'items'                 => $items,
+            'categoryPhones'        => $categoryPhones,
+            'nameBreadcrumb'        => $nameBreadcrumb,
+            'productsFeature'       => $productsFeature,
+            'lastSegment'           => $lastSegment
         ]);
     }
 

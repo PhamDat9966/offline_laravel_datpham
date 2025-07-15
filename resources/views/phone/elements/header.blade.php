@@ -75,7 +75,7 @@
             if($hasChildren != 1 && $item['container'] == ''){
 
                 $routeString        = $item['url'];
-
+                $url                = route('phoneCategory', ['id' => $item['id']]);
                 $typeOpen           = $item['type_open'];
                 $first_character    = substr($item['url'] , 0, 1);
 
@@ -85,7 +85,7 @@
                 if($first_character == '/'){
                     $xhtmlMenu     .= sprintf('<li class=""><a class="%s my-menu-link" href="'.$host.'%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
                 } else {
-                    $xhtmlMenu     .= sprintf('<li><a class="%s my-menu-link" href="%s" target="%s">%s</a></li>',$classActive,$routeString,$typeOpen,$item['name']);
+                    $xhtmlMenu     .= sprintf('<li><a class="%s my-menu-link" href="%s" target="%s">%s</a></li>',$classActive,$url,$typeOpen,$item['name']);
                 }
 
             }else
@@ -272,10 +272,11 @@
         global $currentUrl;
         $xhtmlCategory = '<ul class="dropdown-menu dropdown-submenu" role="menu">';
         foreach ($itemsCategory as $keyCategory => $valueCategory) {
-            $menuUrl = $host;
-            if(!empty($valueCategory['slug'])){
-                $menuUrl = $host . $valueCategory['slug'] . '.php';
-            }
+            // $menuUrl = $host;
+            // if(!empty($valueCategory['slug'])){
+            //     $menuUrl = $host . $valueCategory['slug'] . '.php';
+            // }
+            $menuUrl     = route('phoneCategory',['id'=>$valueCategory['id']]);
             // Kiểm tra URL của phần tử cha có khớp không
             $classActive = ($currentUrl == $menuUrl) ? 'active' : '';
             // Class active cho trường hợp truy vấn đến article
