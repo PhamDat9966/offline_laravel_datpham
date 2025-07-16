@@ -58,7 +58,8 @@
 
                             $material               = Hightlight::show($material_name, $params['search'] , 'material_name');
                             $price                  = Template::showItemPrice($controllerName,$val['price'],$id);
-                            $default                = Template::showCheckBoxWrapper8($controllerName,$val,$id);
+                            //$default                = Template::showCheckBoxWrapper8($controllerName,$val,$id);
+                            $default                = Template::showCheckRadioPriceDefault($controllerName,$val,$id);
                             $action                 = Template::showButtonActionProductAttributePrice($controllerName,$product_id ,$color_id,$material_id) . '<i class="fa fa-arrows"></i>';
 
                         @endphp

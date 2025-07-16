@@ -922,6 +922,36 @@ class Template{
         return $xhtml;
     }
 
+    public static function showCheckRadioPriceDefault($controllerName,$val,$id){
+
+        $flagDefault            = '';
+        if($val['default'] == null || $val['default'] == 0){
+            $val['default'] = 0; //Đặt lại giá trị cho tình huống null
+            $flagDefault    = '';
+        }else{
+            $flagDefault    = 'checked';
+        }
+
+        $urlDefault = route($controllerName . "/defaultRadio");
+
+        $xhtml  = '';
+        $xhtml .= '<div style="position: relative;margin:5px;">';
+        $xhtml .=     '<div class="form-check product-attribute-price-default-radio">';
+        $xhtml .=         '<input name="productId-'.$val['product_id'].'"
+                                type="radio"
+                                value="'.$val['default'].'"
+                                id="'.$id.'"
+                                data-product-id="'.$val['product_id'].'"
+                                data-id="'.$id.'"
+                                data-url="'.$urlDefault.'"
+                                '.$flagDefault.'
+                            >';
+        $xhtml .=     '</div>';
+        $xhtml .='</div>';
+
+        return $xhtml;
+    }
+
     public static function showCartItem(){
         $urlCartView    = Route('user/cartView');
         $xtml = '<li class="nav-item">

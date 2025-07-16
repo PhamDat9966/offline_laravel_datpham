@@ -1169,6 +1169,38 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('.product-attribute-price-default-radio input[type="radio"]').change(function () {
+        // var defaultAttr     = $(this).val();
+        var url             = $(this).data('url');
+        var id              = $(this).data('id');
+        var productId       = $(this).data('product-id');
+        console.log(id,url);
+        if ($(this).is(':checked')) {
+            console.log('Checkbox đã bật (ON)');
+        } else {
+            console.log('Checkbox đã tắt (OFF)');
+        }
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: {
+                id: id,
+                productId:productId
+            },
+            success: function(response) {
+                console.log(response);
+                // alert("Thứ tự đã được lưu lại!");
+            },
+            error: function(xhr) {
+                alert("Có lỗi xảy ra: " + xhr.responseText);
+            }
+        });
+
+    });
+});
+
 /* END PRODUCT ATTRIBUTE PRICE*/
 
 /*MODUL HAS PERMISSION*/

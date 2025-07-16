@@ -1,11 +1,6 @@
 <?php
 namespace App\Helpers;
 
-use Attribute;
-use Carbon\Carbon;
-use App\Models\AttributevalueModel;
-use DB;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class ProductHelper{

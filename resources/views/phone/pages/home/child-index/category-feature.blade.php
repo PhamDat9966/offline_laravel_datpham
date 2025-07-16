@@ -24,7 +24,7 @@
             $xhtmlTabContent .= ProductHelper::xhtmlPhoneItem($item);// Tối ưu hóa, đưa item vào một lớp sử lý chung.
         }
 
-        $xhtmlTabContent .=         '</div>
+        $xhtmlTabContent .= '</div>
                                 <div class="text-center"><a href="list.html" class="btn btn-solid">Xem tất cả</a></div>
                             </div>';
 

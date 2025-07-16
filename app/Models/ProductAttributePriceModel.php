@@ -162,6 +162,36 @@ class ProductAttributePriceModel extends AdminModel
         if($options['task'] == 'change-default'){
             $this::where('id', $params['id'])
                         ->update(['default' => $params['default']]);
+            //dd($params);
+            $productPriceDefault  =  $this->getItem($params,['task'=>'get-item']);
+
+            //dd($params,$productPriceDefault);
+
+            $productModel = new ProductModel();
+            if($params['default'] == 1){
+                $productModel->saveItem($productPriceDefault,['task'=>'change-price']);
+            }else{
+                $productModel->saveItem($productPriceDefault,['task'=>'change-price-remove']);
+            }
+
+        }
+
+        if($options['task'] == 'change-default-radio'){
+            //dd($params);
+            //Cập tất cả các default thuộc product_id đều bằng 0
+            $this::where('product_id', $params['product_id'])
+                        ->update(['default' => 0]);
+
+            //Cập nhật tại radio được chọn
+            $this::where('id', $params['id'])
+                        ->update(['default' => 1]);
+            //dd($params);
+            $productPriceDefault  =  $this->getItem($params,['task'=>'get-item']);
+
+            //dd($params,$productPriceDefault);
+
+            $productModel = new ProductModel();
+            $productModel->saveItem($productPriceDefault,['task'=>'change-price']);
 
         }
 
@@ -255,6 +285,13 @@ class ProductAttributePriceModel extends AdminModel
 
     public function getItem($params = null,$options = null){
         $result   = null;
+
+        if($options['task'] == 'get-item'){
+            $result = $this::select('id','product_id','price')
+                    ->where('id', $params['id'])
+                    ->first()->toArray();
+
+        }
 
         if($options['task'] == 'get-price-item'){
             $result = $this::select('id','price')

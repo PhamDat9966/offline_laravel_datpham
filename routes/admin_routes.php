@@ -1350,9 +1350,14 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'status'
         ]);
 
-        Route::get('change-default-{default}/{id}', [
-            'as'    => $controllerName . '/default',
-            'uses'  => $controller . 'default'
+        // Route::get('change-default-{default}/{id}', [
+        //     'as'    => $controllerName . '/default',
+        //     'uses'  => $controller . 'default'
+        // ]);
+
+        Route::get('change-default-radio', [
+            'as'    => $controllerName . '/defaultRadio',
+            'uses'  => $controller . 'defaultRadio'
         ]);
 
         Route::get('change-display-filter-{display}', [

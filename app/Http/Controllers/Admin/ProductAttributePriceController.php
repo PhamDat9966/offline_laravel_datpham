@@ -101,6 +101,8 @@ class  ProductAttributePriceController extends AdminController
         $params['default']  = $request->defaultAttr;
         $params['default']  = ($params['default'] == "1") ? "0" : "1";
 
+        //dd($request->all());
+
         $this->model->saveItem($params,['task' => 'change-default']);
 
         //echo "Cập nhật menu thành công";
@@ -109,6 +111,22 @@ class  ProductAttributePriceController extends AdminController
             'messege'           => 'Cập nhật menu thành công',
         ]);
     }
+
+    public function defaultRadio(Request $request){
+
+        $params['id']           = $request->id;
+        $params['default']      = $request->defaultAttr;
+        $params['product_id']   = $request->productId;
+
+        $this->model->saveItem($params,['task' => 'change-default-radio']);
+
+        //echo "Cập nhật menu thành công";
+        return response()->json([
+            'params'            => $params,
+            'messege'           => 'Cập nhật menu thành công',
+        ]);
+    }
+
 
     public function updateOrdering(Request $request){
 

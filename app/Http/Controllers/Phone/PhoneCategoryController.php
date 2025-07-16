@@ -28,10 +28,15 @@ class PhoneCategoryController extends Controller
     public function index(Request $request)
     {
 
-        $this->params['category_product_id'] = $request->id;
+        $this->params['category_product_id']    = $request->id;
+        $this->params['sort']['price']        = $request->input('sort','');
+
+        //dd($this->params);
 
         $productModel = new ProductModel();
         $items        = $productModel->getItem($this->params,['task'=>'get-all-items-with-category-id']);
+        $dataItems    = $items->toArray();
+        //dd($dataItems);
 
         //Navbar:Lấy các node lá (những node ở xa nhất)
         $categoryProductModel   = new CategoryProductModel();
@@ -47,7 +52,7 @@ class PhoneCategoryController extends Controller
 
         //productsFeature
         $productsFeature              = $productModel->getItem( null,['task'=>'get-many-items-with-price-attribute']);
-        //dd($productsFeature);
+
         //Lấy url và giá trị cuôi
         $segments = explode('/', request()->path());
         $lastSegment = end($segments);
@@ -59,6 +64,10 @@ class PhoneCategoryController extends Controller
             'productsFeature'       => $productsFeature,
             'lastSegment'           => $lastSegment
         ]);
+    }
+
+    public function bubbleSortPriceASC($items){
+        //$items = $data->
     }
 
 }

@@ -1,3 +1,28 @@
+@php
+    $thumb02 = asset("images/phonetheme/icon/2.png");
+    $img02 = '<li class="my-layout-view" data-number="2">
+                <img src="'.$thumb02.'" alt=""
+                    class="product-2-layout-view">
+            </li>';
+
+    $thumb03 = asset("images/phonethemeicon/3.png");
+    $img03 = '<li class="my-layout-view" data-number="3">
+                <img src="'.$thumb03.'" alt=""
+                    class="product-3-layout-view">
+            </li>';
+
+    $thumb04 = asset("images/phonetheme/icon/4.png");
+    $img04 = '<li class="my-layout-view" data-number="4">
+                <img src="'.$thumb04.'" alt=""
+                    class="product-4-layout-view">
+            </li>';
+
+    $thumb06 = asset("images/phonetheme/icon/6.png");
+    $img06 = '<li class="my-layout-view" data-number="6">
+                <img src="'.$thumb06.'" alt=""
+                    class="product-6-layout-view">
+            </li>';
+@endphp
 <div class="product-top-filter">
     <div class="row">
         <div class="col-xl-12">
@@ -18,22 +43,10 @@
                 </div>
                 <div class="collection-grid-view">
                     <ul>
-                        <li class="my-layout-view" data-number="2">
-                            <img src="images/icon/2.png" alt=""
-                                class="product-2-layout-view">
-                        </li>
-                        <li class="my-layout-view" data-number="3">
-                            <img src="images/icon/3.png" alt=""
-                                class="product-3-layout-view">
-                        </li>
-                        <li class="my-layout-view active" data-number="4">
-                            <img src="images/icon/4.png" alt=""
-                                class="product-4-layout-view">
-                        </li>
-                        <li class="my-layout-view" data-number="6">
-                            <img src="images/icon/6.png" alt=""
-                                class="product-6-layout-view">
-                        </li>
+                        {!! $img02 !!}
+                        {!! $img03 !!}
+                        {!! $img04 !!}
+                        {!! $img06 !!}
                     </ul>
                 </div>
                 <div class="product-page-filter">

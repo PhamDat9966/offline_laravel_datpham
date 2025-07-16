@@ -768,6 +768,16 @@ class ProductModel extends AdminModel
                         ->update(['is_home' => $isHome]);
         }
 
+        if($options['task'] == 'change-price'){
+            $this::where('id', $params['product_id'])
+                        ->update(['price' => $params['price']]);
+        }
+
+        if($options['task'] == 'change-price-remove'){
+            $this::where('id', $params['product_id'])
+                        ->update(['price' => null ]);
+        }
+
     }
 
     public function deleteItem($params = null,$options = null){
