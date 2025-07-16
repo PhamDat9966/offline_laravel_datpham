@@ -177,7 +177,7 @@ class ProductAttributePriceModel extends AdminModel
         }
 
         if($options['task'] == 'change-default-radio'){
-            //dd($params);
+
             //Cập tất cả các default thuộc product_id đều bằng 0
             $this::where('product_id', $params['product_id'])
                         ->update(['default' => 0]);
@@ -187,8 +187,6 @@ class ProductAttributePriceModel extends AdminModel
                         ->update(['default' => 1]);
             //dd($params);
             $productPriceDefault  =  $this->getItem($params,['task'=>'get-item']);
-
-            //dd($params,$productPriceDefault);
 
             $productModel = new ProductModel();
             $productModel->saveItem($productPriceDefault,['task'=>'change-price']);

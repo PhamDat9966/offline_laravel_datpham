@@ -4,12 +4,12 @@
     $allTotalPriceProduct = 0;
     if($cart){
         foreach($cart as $key=>$item){
-            $id = $product_id = $item['product_id'];
-            $name       = $item['name'];
-            $quantity   = $item['quantity'];
-            $price      = $item['price'];
-            $totalPrice = $item['totalPrice'];
-            $urlItem         = route('phoneItem',['id'=>$id]);
+            $id                     = $product_id = $item['product_id'];
+            $name                   = $item['name'];
+            $quantity               = $item['quantity'];
+            $price                  = $item['price'];
+            $totalPrice             = $item['totalPrice'];
+            $urlItem                = route('phoneItem',['id'=>$id]);
             $allTotalPriceProduct += $totalPrice;
 
             $thumb      = ($item['thumb'])? asset('images/product/'.$item['thumb'].'') : asset("images/phonetheme/product.jpg") ;
