@@ -62,6 +62,10 @@ return [
             1               =>  ['name'=>'Hiển thị',          'class'=>'btn-primary'],
             0               =>  ['name'=>'Không hiển thị',    'class'=>'btn-warning'],
         ],
+        'is_new'=>[
+            1               =>  ['name'=>'Sản phẩm mới',      'class'=>'btn-primary'],
+            0               =>  ['name'=>'Bình thường',       'class'=>'btn-warning'],
+        ],
         'is_phone_category'=>[
             1               =>  ['name'=>'Đây là danh mục điện thoại', 'class'=>'btn-primary'],
             0               =>  ['name'=>'Đây không phải là danh mục điện thoại', 'class'=>'btn-warning'],

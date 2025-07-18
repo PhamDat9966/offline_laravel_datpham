@@ -78,7 +78,7 @@ class CategoryProductController extends AdminController
         $link = route($this->controllerName . '/isHome',['isHome'=>$isHome, 'id'=>$request->id]);
 
         return response()->json([
-            'isHome'        =>  $infomationIsHome,
+            'isNew'        =>  $infomationIsHome,
             'link'          =>  $link,
             'modified'      =>  $returnModified['modified'],
             'modified_by'   =>  $returnModified['modified_by'],

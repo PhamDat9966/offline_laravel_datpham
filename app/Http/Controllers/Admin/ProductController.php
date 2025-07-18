@@ -291,5 +291,29 @@ class ProductController extends AdminController
     //     return response()->json($product);
     //     //echo "this is modal view";
     // }
+
+    public function isNew(Request $request)
+    {
+
+        $params['currentIsNew']    = $request->isNew;
+        $params['id']               = $request->id;
+
+        $params['currentIsNew']    = ($params['currentIsNew'] == true) ? false : true;
+        $returnModified = $this->model->saveItem($params,['task' => 'change-is-new']);
+
+        //Class của bootstrap và class khi isHome thay đổi trạng thái sẽ quyết định tại đây
+        $isNew = ($params['currentIsNew'] == true) ? 1 : 0;
+        $infomationIsNew           =   config('zvn.template.is_new')[$isNew];
+        $infomationIsNew['class']  =   'btn btn-round is-new-ajax '. $infomationIsNew['class'];
+        //dd($infomationIsNew);
+
+        $link = route($this->controllerName . '/isNew',['isNew'=>$isNew, 'id'=>$request->id]);
+
+        return response()->json([
+            'isNew'        =>  $infomationIsNew,
+            'link'          =>  $link,
+        ]);
+
+    }
 }
 

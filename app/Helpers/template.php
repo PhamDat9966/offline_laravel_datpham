@@ -376,6 +376,17 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showItemIsNew($controllerName , $id , $isNewValue){
+        $tmplIsNew             = config('zvn.template.is_new');
+
+        $isNewValue            = array_key_exists($isNewValue,$tmplIsNew) ? $isNewValue:true;
+        $currentTemplateIsNew  = $tmplIsNew[$isNewValue];
+        $link                   = route( $controllerName. '/isNew',['isNew'=>$isNewValue, 'id'=>$id]);
+        $xhtml  = sprintf('
+            <button id="isNew-%s" data-url="%s" data-class=%s class="btn btn-round %s is-new-ajax">%s</button>',$id ,$link , $currentTemplateIsNew['class'] ,$currentTemplateIsNew['class'], $currentTemplateIsNew['name']);
+        return  $xhtml;
+    }
+
     public static function showItemIsPhoneCategoryFeature($controllerName , $id , $isPhoneCategoryValue){
         $tmpIsPhoneCategory    = config('zvn.template.is_phone_category_feature');
         //dd($tmpIsPhoneCategory,$isPhoneCategoryValue);

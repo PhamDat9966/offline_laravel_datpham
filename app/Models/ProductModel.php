@@ -51,7 +51,7 @@ class ProductModel extends AdminModel
         $this->table    = 'product as p';
 
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id','p.type')
+            $query = $this->select('p.id','p.name','p.description','p.slug','p.status','p.category_product_id','p.type','p.is_new')
                           ->leftJoin('category_product as c', 'p.category_product_id', '=', 'c.id');
                         //   ->leftJoin('media as m', 'p.id', '=', 'm.product_id');
 
@@ -776,6 +776,14 @@ class ProductModel extends AdminModel
         if($options['task'] == 'change-price-remove'){
             $this::where('id', $params['product_id'])
                         ->update(['price' => null ]);
+        }
+
+        if($options['task'] == 'change-is-new'){
+            //dd($params);
+            $this::where('id', $params['id'])
+                        ->update(['is_new' => $params['currentIsNew'],'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
     }

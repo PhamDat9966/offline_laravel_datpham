@@ -13,6 +13,7 @@
                     <th class="column-title">Media</th>
                     <th class="column-title">Category Name</th>
                     <th class="column-title">Kiểu sản phẩm</th>
+                    <th class="column-title">Sản phẩm mới</th>
                     <th class="column-title">Trạng thái</th>
                     <th class="column-title">Hành động</th>
                 </tr>
@@ -31,6 +32,8 @@
                             $name               = Hightlight::show($val['name'], $params['search'] , 'name');
                             $content            = Hightlight::show($val['description'], $params['search'] , 'description');
                             $slug               = Hightlight::show($val['slug'], $params['search'] , 'slug');
+
+                            $isNew              = Template::showItemIsNew( $controllerName,$id,$val['is_new']);
 
                             $categoryName       = Template::select('category_product_id', $id , $categoryList , $val['category_product_id'] , ['class' => 'form-control select-ajax', 'data-url' => route("$controllerName/change-category", ['id'=>$id,'category_product_id'=>'value_new'])]);
                             $medias             = Template::showItemMediaList($controllerName,$mediaList);
@@ -54,6 +57,9 @@
                             </td>
                             <td>
                                 {!!$type!!}
+                            </td>
+                            <td>
+                                {!!$isNew!!}
                             </td>
                             <td>
                                 {!!$status!!}

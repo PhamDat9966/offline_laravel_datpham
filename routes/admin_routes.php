@@ -340,6 +340,11 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
             'uses'  => $controller . 'isHome'
         ]);
 
+        Route::get('change-is-new-{isNew}/{id}', [
+            'as'    => $controllerName . '/isNew',
+            'uses'  => $controller . 'isNew'
+        ]);
+
         Route::get('change-display-{display}/{id}', [
             'as'    => $controllerName . '/display',
             'uses'  => $controller . 'display'

@@ -31,6 +31,7 @@ $(document).ready(function() {
     let $inputQuanity               = $("input.quantity-cart");
     let $btnStatus                  = $('.status-ajax');
     let $btnIsHome                  = $('.is-home-ajax');
+    let $btnIsNew                   = $('.is-new-ajax');
     let $btnIsPhoneCategory         = $('.is-phone-category-ajax');
 
 
@@ -592,6 +593,19 @@ $(document).ready(function() {
 
 	});
 
+    $btnIsNew.on('click', function() {
+        let element         = $(this);
+        let currentClass    = $(this).data('class');
+
+        var isHomeId        = $(this).attr("id");
+        var inputId         = isHomeId.charAt(isHomeId.length - 1);
+        let url             = $(this).data('url');
+        console.log('is new ajax');
+
+        callAjax(element,url,inputId,'is-new');
+
+	});
+
     $btnIsPhoneCategory.on('click', function() {
         let element         = $(this);
         let currentClass    = $(this).data('class');
@@ -659,6 +673,30 @@ $(document).ready(function() {
 
                             element.attr('data-class',response.class)
                             element.html(response.isHome.name);
+
+                            element.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
+                            element.attr('data-url',response.link)      // thay đổi `url` HTML
+
+                            var modified    = response.modified;
+                            var modifiedBy  = response.modified_by;
+
+                            // Cập nhật html các phần tử của p gồm modified và modified_by
+                            $("p.modified-"+inputId).html(modified);
+                            $("p.modified-by-"+inputId).html(modifiedBy);
+
+                            element.notify("Cập nhật thành công!",
+                                { className: "success" , position:"top"  }
+                            );
+                            break;
+                        case 'is-new':
+                            var newClass = response.isNew.class;
+                            element.removeClass();
+                            element.addClass(newClass);
+
+                            element.data("class", response.class);
+
+                            element.attr('data-class',response.class)
+                            element.html(response.isNew.name);
 
                             element.data("url", response.link);         // thay đổi `url` và  lưu trữ nó trong bộ nhớ của jQuery
                             element.attr('data-url',response.link)      // thay đổi `url` HTML
