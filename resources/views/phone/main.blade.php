@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    {{-- @include('phone.elements.loader-skeleton') --}}
+    @include('phone.elements.loader-skeleton')
 
     <!-- header start -->
     @include('phone.elements.header')

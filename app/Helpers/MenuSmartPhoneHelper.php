@@ -127,7 +127,7 @@ class  MenuSmartPhoneHelper{
                     $menuUrl = $host ;
                 }
 
-                if ($menuUrl == $currentUrl || hasActiveChild($items, $item['id'], $currentUrl)) {
+                if ($menuUrl == $currentUrl || self::hasActiveChild($items, $item['id'], $currentUrl)) {
                     return true;
                 }
             }

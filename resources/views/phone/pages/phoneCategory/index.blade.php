@@ -12,7 +12,9 @@
                                                                                         'categoryPhones' => $categoryPhones,
                                                                                         'lastSegment'    => $lastSegment
                                                                                         ])
-                        @include('phone.pages.phoneCategory.child-index.phoneFeature')
+                        @include('phone.block.phoneFeature',['productsFeature' => $productsFeature,
+                                                                               'maxCount'  => 4
+                                                                                ])
                         <!-- silde-bar colleps block end here -->
                     </div>
                     <div class="collection-content col">

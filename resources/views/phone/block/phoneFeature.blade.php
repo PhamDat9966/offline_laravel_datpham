@@ -1,5 +1,5 @@
 @php
-
+    $maxCount       = ($maxCount) ? $maxCount : 4;
     $count          = 1;
     $lastItem       = end($productsFeature);
     $xhtmlFeature   = '<div>';
@@ -51,7 +51,7 @@
                                 </div>
                             </div>';
 
-        if($count % 4 == 0){
+        if($count % $maxCount == 0){
             $xhtmlFeature .='</div><div>';
         }
 

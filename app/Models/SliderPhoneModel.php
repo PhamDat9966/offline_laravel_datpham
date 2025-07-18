@@ -217,7 +217,8 @@ class SliderPhoneModel extends AdminModel
 
         if($options['task'] == 'get-item-take-three'){
             $result = $this::select('id','name','description','status','link','thumb')
-                    ->take(5)->get()->toArray();
+                            ->where('status','active')
+                            ->take(5)->get()->toArray();
 
         }
 

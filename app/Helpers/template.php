@@ -487,6 +487,15 @@ class Template{
         return  $xhtml;
     }
 
+    public static function showSliderSmartPhone($controllerName , $thumbName , $thumbAlt){
+        //$linkThumb = asset("images/$controllerName/$thumbName");
+        $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
+        $xhtml  = sprintf('
+            <img src="%s" alt="%s" class="bg-img blur-up lazyload">', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
+
     public static function showButtonAction($controllerName, $id){
         $tmplButton     = config('zvn.template.button');
         $buttonInArea   = config('zvn.config.button');

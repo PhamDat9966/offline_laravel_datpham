@@ -61,10 +61,18 @@ class PhoneItemController extends Controller
             }
         }
 
-        //dd($item,$attributeValues);
+        //productsFeature: Sản phẩm nổi bật
+        $productsFeature              = $productModel->getItem( null,['task'=>'get-many-items-with-price-attribute']);
+
+        //related Phone: Sản phẩm có liên quan:
+        $this->params['category_product_id']    = $item['category_product_id'];
+        $productsRelated                        = $productModel->getItem($this->params,['task'=>'get-many-items-with-category-feature']);
+        $productsRelated = array_slice($productsRelated, 0, 6); //Lấy giới hạng 6 sản phẩm
 
         return view($this->pathViewController . 'index',[
-            'item'  => $item
+            'item'              => $item,
+            'productsFeature'   => $productsFeature,
+            'productsRelated'    => $productsRelated
         ]);
     }
 
