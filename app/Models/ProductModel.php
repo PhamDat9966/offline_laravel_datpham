@@ -961,77 +961,119 @@ class ProductModel extends AdminModel
         //     }
         // }
 
-        if($options['task'] == 'get-all-items-with-category-id'){
+        // if($options['task'] == 'get-all-items-with-category-id'){
 
-            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+        //     $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
 
-            if($params['category_product_id']) {
+        //     if($params['category_product_id']) {
+        //         $categoryProductModel = new CategoryProductModel();
+        //         $node = $categoryProductModel->find($params['category_product_id']);
+
+        //         if ($node->children()->exists()) {
+        //             // Lấy tất cả id con
+        //             $childrenIds = $node->children()->pluck('id')->toArray();
+
+        //             $query = self::with(['attributePrices', 'media'])
+        //                         ->whereIn('category_product_id', $childrenIds);
+        //                         if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+        //                             if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+        //                                 $sort = $params['sort']['price'];
+        //                                 $sortArr = explode('_', $sort);
+        //                                 $query = $query->orderBy('price', $sortArr[1]);
+        //                             } else{
+        //                                 //Mới nhât
+        //                                 $query = $query->orderBy('is_new', 'desc');
+        //                             }
+
+        //                         }
+        //                         else {
+        //                             $query = $query->orderBy('id', 'desc');
+        //                         }
+        //                        $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+        //         } else {
+        //             $query = self::with(['attributePrices', 'media'])
+        //                         ->where('category_product_id', $params['category_product_id']);
+        //                         if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+        //                             if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+        //                                 $sort = $params['sort']['price'];
+        //                                 $sortArr = explode('_', $sort);
+        //                                 $query = $query->orderBy('price', $sortArr[1]);
+        //                             } else{
+        //                                 //Mới nhât
+        //                                 $query = $query->orderBy('is_new', 'desc');
+        //                             }
+
+        //                         }
+        //                         else {
+        //                             $query = $query->orderBy('id', 'desc');
+        //                         }
+        //                        $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+        //         }
+        //     } else {
+        //             $query = self::with(['attributePrices', 'media']);
+
+        //             if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+        //                 if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+        //                     $sort = $params['sort']['price'];
+        //                     $sortArr = explode('_', $sort);
+        //                     $query = $query->orderBy('price', $sortArr[1]);
+        //                 } else{
+        //                     //Mới nhât
+        //                     $query = $query->orderBy('is_new', 'desc');
+        //                 }
+
+        //             }
+        //             else {
+        //                 $query = $query->orderBy('id', 'desc');
+        //             }
+
+        //             $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+        //     }
+        // }
+
+        if ($options['task'] == 'get-all-items-with-category-id') {
+            $this->table = 'product'; // Reset alias nếu có
+
+            $query = self::with(['attributePrices', 'media']);
+
+            // Nếu có category_product_id
+            if (!empty($params['category_product_id'])) {
                 $categoryProductModel = new CategoryProductModel();
                 $node = $categoryProductModel->find($params['category_product_id']);
 
-                if ($node->children()->exists()) {
-                    // Lấy tất cả id con
-                    $childrenIds = $node->children()->pluck('id')->toArray();
+                if ($node) {
+                    if ($node->children()->exists()) {
+                        $childrenIds = $node->children()->pluck('id')->toArray();
+                        $query->whereIn('category_product_id', $childrenIds);
+                    } else {
+                        $query->where('category_product_id', $params['category_product_id']);
+                    }
+                }
+            }
 
-                    $query = self::with(['attributePrices', 'media'])
-                                ->whereIn('category_product_id', $childrenIds);
-                                if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+            // Xử lý sắp xếp
+            $sort = $params['sort']['price'] ?? '';
+            if ($sort && $sort !== 'default') {
+                if (in_array($sort, ['price_asc', 'price_desc'])) {
+                    [$field, $direction] = explode('_', $sort);
 
-                                    if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
-                                        $sort = $params['sort']['price'];
-                                        $sortArr = explode('_', $sort);
-                                        $query = $query->orderBy('price', $sortArr[1]);
-                                    } else{
-                                        //Mới nhât
-                                        $query = $query->orderBy('is_new', 'desc');
-                                    }
+                    // Loại bỏ những bản ghi có price = null hoặc price = 0
+                    $query->whereNotNull('price')->where('price', '>', 0);
 
-                                }
-                                else {
-                                    $query = $query->orderBy('id', 'desc');
-                                }
-                               $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+                    $query->orderBy('price', $direction);
                 } else {
-                    $query = self::with(['attributePrices', 'media'])
-                                ->where('category_product_id', $params['category_product_id']);
-                                if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
-
-                                    if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
-                                        $sort = $params['sort']['price'];
-                                        $sortArr = explode('_', $sort);
-                                        $query = $query->orderBy('price', $sortArr[1]);
-                                    } else{
-                                        //Mới nhât
-                                        $query = $query->orderBy('is_new', 'desc');
-                                    }
-
-                                }
-                                else {
-                                    $query = $query->orderBy('id', 'desc');
-                                }
-                               $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+                    $query->whereNotNull('price')->where('price', '>', 0);
+                    $query->orderBy('is_new', 'desc');
                 }
             } else {
-                    $query = self::with(['attributePrices', 'media']);
-
-                    if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
-
-                        if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
-                            $sort = $params['sort']['price'];
-                            $sortArr = explode('_', $sort);
-                            $query = $query->orderBy('price', $sortArr[1]);
-                        } else{
-                            //Mới nhât
-                            $query = $query->orderBy('is_new', 'desc');
-                        }
-
-                    }
-                    else {
-                        $query = $query->orderBy('id', 'desc');
-                    }
-
-                    $result = $query->paginate($params['pagination']['totalItemsPerPage']);
+                $query->orderBy('id', 'desc');
             }
+
+            // Phân trang
+            $result = $query->paginate($params['pagination']['totalItemsPerPage']);
         }
 
         if($options['task'] == 'get-attribute-items-list'){
