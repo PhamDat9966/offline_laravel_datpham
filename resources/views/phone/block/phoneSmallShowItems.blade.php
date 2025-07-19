@@ -1,4 +1,5 @@
 @php
+    $title          = ($title) ? $title : 'Các sản phẩm';
     $maxCount       = ($maxCount) ? $maxCount : 4;
     $count          = 1;
     $lastItem       = end($productsFeature);

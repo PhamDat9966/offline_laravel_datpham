@@ -973,20 +973,64 @@ class ProductModel extends AdminModel
                     // Lấy tất cả id con
                     $childrenIds = $node->children()->pluck('id')->toArray();
 
-                    $result = self::with(['attributePrices', 'media'])
-                                ->whereIn('category_product_id', $childrenIds)
-                                ->orderBy('id', 'desc')
-                                ->paginate($params['pagination']['totalItemsPerPage']);
+                    $query = self::with(['attributePrices', 'media'])
+                                ->whereIn('category_product_id', $childrenIds);
+                                if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+                                    if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+                                        $sort = $params['sort']['price'];
+                                        $sortArr = explode('_', $sort);
+                                        $query = $query->orderBy('price', $sortArr[1]);
+                                    } else{
+                                        //Mới nhât
+                                        $query = $query->orderBy('is_new', 'desc');
+                                    }
+
+                                }
+                                else {
+                                    $query = $query->orderBy('id', 'desc');
+                                }
+                               $result = $query->paginate($params['pagination']['totalItemsPerPage']);
                 } else {
-                    $result = self::with(['attributePrices', 'media'])
-                                ->where('category_product_id', $params['category_product_id'])
-                                ->orderBy('id', 'desc')
-                                ->paginate($params['pagination']['totalItemsPerPage']);
+                    $query = self::with(['attributePrices', 'media'])
+                                ->where('category_product_id', $params['category_product_id']);
+                                if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+                                    if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+                                        $sort = $params['sort']['price'];
+                                        $sortArr = explode('_', $sort);
+                                        $query = $query->orderBy('price', $sortArr[1]);
+                                    } else{
+                                        //Mới nhât
+                                        $query = $query->orderBy('is_new', 'desc');
+                                    }
+
+                                }
+                                else {
+                                    $query = $query->orderBy('id', 'desc');
+                                }
+                               $result = $query->paginate($params['pagination']['totalItemsPerPage']);
                 }
             } else {
-                $result = self::with(['attributePrices', 'media'])
-                            ->orderBy('id', 'desc')
-                            ->paginate($params['pagination']['totalItemsPerPage']);
+                    $query = self::with(['attributePrices', 'media']);
+
+                    if(!empty($params['sort']['price']) && $params['sort']['price'] != 'default'){
+
+                        if ($params['sort']['price'] == 'price_asc' || $params['sort']['price'] == 'price_desc') {
+                            $sort = $params['sort']['price'];
+                            $sortArr = explode('_', $sort);
+                            $query = $query->orderBy('price', $sortArr[1]);
+                        } else{
+                            //Mới nhât
+                            $query = $query->orderBy('is_new', 'desc');
+                        }
+
+                    }
+                    else {
+                        $query = $query->orderBy('id', 'desc');
+                    }
+
+                    $result = $query->paginate($params['pagination']['totalItemsPerPage']);
             }
         }
 

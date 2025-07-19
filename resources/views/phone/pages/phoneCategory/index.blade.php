@@ -12,8 +12,10 @@
                                                                                         'categoryPhones' => $categoryPhones,
                                                                                         'lastSegment'    => $lastSegment
                                                                                         ])
-                        @include('phone.block.phoneFeature',['productsFeature' => $productsFeature,
-                                                                               'maxCount'  => 4
+                        @include('phone.block.phoneSmallShowItems',[
+                                                                                    'items'     => $productsFeature,
+                                                                                    'title'     => 'Sản phẩm nổi bật',
+                                                                                    'maxCount'  => 4
                                                                                 ])
                         <!-- silde-bar colleps block end here -->
                     </div>

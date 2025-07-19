@@ -182,6 +182,12 @@ return [
             'percent'       => ['name'=>'Price_discount_percent - Giảm giá theo %'],
             'value'         => ['name'=>'Price_discount_value - Giảm giá trực tiếp']
         ],
+        'smart_phone_category_sort' =>[
+            'default'       => '- Sắp Xếp -',
+            'price_asc'     => 'Giá tăng dần',
+            'price_desc'    => 'Giá giảm dần',
+            'latest'        => 'Mới nhất'
+        ]
     ],
     'config'    =>[
         'search'    =>[

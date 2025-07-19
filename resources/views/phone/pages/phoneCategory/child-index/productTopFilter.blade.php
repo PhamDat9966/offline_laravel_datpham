@@ -22,6 +22,17 @@
                 <img src="'.$thumb06.'" alt=""
                     class="product-6-layout-view">
             </li>';
+
+    $arrSort    = config('zvn.template.smart_phone_category_sort');
+    $filterSort = '<form action="" id="sort-form" method="GET">
+                        <select id="sort" name="sort">';
+    foreach($arrSort as $key=>$sort){
+        $active          = ($params['sort']['price'] == $key) ? 'selected' : '';
+        $filterSort     .= '<option value="'.$key.'" '.$active.'> '.$sort.' </option>';
+    }
+
+    $filterSort .=      '</select>
+                    </form>';
 @endphp
 <div class="product-top-filter">
     <div class="row">
@@ -50,14 +61,7 @@
                     </ul>
                 </div>
                 <div class="product-page-filter">
-                    <form action="" id="sort-form" method="GET">
-                        <select id="sort" name="sort">
-                            <option value="default" selected> - Sắp xếp - </option>
-                            <option value="price_asc">Giá tăng dần</option>
-                            <option value="price_desc">Giá giảm dần</option>
-                            <option value="latest">Mới nhất</option>
-                        </select>
-                    </form>
+                   {!! $filterSort !!}
                 </div>
             </div>
         </div>

@@ -14,12 +14,12 @@
 
                     <div class="col-sm-3 collection-filter">
                         @include('phone.pages.phoneItem.child-index.servicePhoneItem')
-                        @include('phone.block.phoneSmartShowItem',[
+                        @include('phone.block.phoneSmallShowItems',[
                             'items'     => $productsFeature,
                             'title'     => 'Sản phẩm nổi bật',
                             'maxCount'  => 8
                         ])
-                        @include('phone.block.phoneSmartShowItem',[
+                        @include('phone.block.phoneSmallShowItems',[
                             'items'     =>  $productsNew,
                             'title'     => 'Sản phẩm mới',
                             'maxCount'  => 3

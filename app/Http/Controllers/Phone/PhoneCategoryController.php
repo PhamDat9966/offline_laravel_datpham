@@ -29,12 +29,13 @@ class PhoneCategoryController extends Controller
     {
 
         $this->params['category_product_id']    = $request->id;
-        $this->params['sort']['price']        = $request->input('sort','');
+        $this->params['sort']['price']          = $request->input('sort','');
 
         //dd($this->params);
 
         $productModel = new ProductModel();
         $items        = $productModel->getItem($this->params,['task'=>'get-all-items-with-category-id']);
+        //dd($items->toArray());
         $dataItems    = $items->toArray();
         //dd($dataItems);
 
@@ -62,7 +63,8 @@ class PhoneCategoryController extends Controller
             'categoryPhones'        => $categoryPhones,
             'nameBreadcrumb'        => $nameBreadcrumb,
             'productsFeature'       => $productsFeature,
-            'lastSegment'           => $lastSegment
+            'lastSegment'           => $lastSegment,
+            'params'                => $this->params
         ]);
     }
 
