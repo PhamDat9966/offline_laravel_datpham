@@ -379,7 +379,12 @@ class Template{
     public static function showItemIsNew($controllerName , $id , $isNewValue){
         $tmplIsNew             = config('zvn.template.is_new');
 
-        $isNewValue            = array_key_exists($isNewValue,$tmplIsNew) ? $isNewValue:true;
+        if($isNewValue != null){
+            $isNewValue     = array_key_exists($isNewValue,$tmplIsNew) ? $isNewValue:0;
+        } else{
+            $isNewValue     = 0;
+        }
+
         $currentTemplateIsNew  = $tmplIsNew[$isNewValue];
         $link                   = route( $controllerName. '/isNew',['isNew'=>$isNewValue, 'id'=>$id]);
         $xhtml  = sprintf('

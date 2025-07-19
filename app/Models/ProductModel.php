@@ -899,6 +899,22 @@ class ProductModel extends AdminModel
             }
         }
 
+        if($options['task'] == 'get-many-items-with-category-new'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            $product = self::with(['attributePrices','media'])
+                            ->where('is_new', 1)
+                            ->take($params['new']['take'])
+                            ->get()->toArray();
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null;
+            }
+        }
+
 
         // if($options['task'] == 'get-all-items-with-category-id'){
 

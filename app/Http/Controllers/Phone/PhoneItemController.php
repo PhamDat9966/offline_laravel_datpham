@@ -64,15 +64,21 @@ class PhoneItemController extends Controller
         //productsFeature: Sản phẩm nổi bật
         $productsFeature              = $productModel->getItem( null,['task'=>'get-many-items-with-price-attribute']);
 
-        //related Phone: Sản phẩm có liên quan:
         $this->params['category_product_id']    = $item['category_product_id'];
-        $productsRelated                        = $productModel->getItem($this->params,['task'=>'get-many-items-with-category-feature']);
+
+        //related Phone: Sản phẩm có liên quan:
+        $productsRelated = $productModel->getItem($this->params,['task'=>'get-many-items-with-category-feature']);
         $productsRelated = array_slice($productsRelated, 0, 6); //Lấy giới hạng 6 sản phẩm
+
+        //new Phone: Sản phẩm mới
+        $this->params['new']['take']    = 9;
+        $productsNew = $productModel->getItem($this->params,['task'=>'get-many-items-with-category-new']);
 
         return view($this->pathViewController . 'index',[
             'item'              => $item,
             'productsFeature'   => $productsFeature,
-            'productsRelated'    => $productsRelated
+            'productsRelated'   => $productsRelated,
+            'productsNew'       => $productsNew
         ]);
     }
 

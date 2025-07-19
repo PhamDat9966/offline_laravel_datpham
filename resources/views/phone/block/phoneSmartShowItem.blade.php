@@ -2,8 +2,8 @@
     $maxCount       = ($maxCount) ? $maxCount : 4;
     $count          = 1;
     $lastItem       = end($productsFeature);
-    $xhtmlFeature   = '<div>';
-    foreach($productsFeature as $item){
+    $xhtml   = '<div>';
+    foreach($items as $item){
         $id              = $item['id'];
         $urlItem         = route('phoneItem',['id'=>$id]);
         $name            = $item['name'];
@@ -31,7 +31,7 @@
 
         $imageURL        = ($imgName)? asset("images/product/$imgName") : '';
 
-        $xhtmlFeature   .= '<div class="media">
+        $xhtml          .=  '<div class="media">
                                 <a href="'.$urlItem.'">
                                     <img class="img-fluid blur-up lazyload" src="'.$imageURL.'""
                                         alt="'.$imgAlt.'"></a>
@@ -52,20 +52,20 @@
                             </div>';
 
         if($count % $maxCount == 0){
-            $xhtmlFeature .='</div><div>';
+            $xhtml    .='</div><div>';
         }
 
         if($item == $lastItem){
-            $xhtmlFeature .='</div>';
+            $xhtml    .='</div>';
             break;
         }
 
         $count++;
     }
 @endphp
-<div class="theme-card">
-    <h5 class="title-border">Sản phẩm nổi bật</h5>
+<div class="theme-card mt-4">
+    <h5 class="title-border">{{ $title }}</h5>
     <div class="offer-slider slide-1">
-        {!! $xhtmlFeature !!}
+        {!! $xhtml !!}
     </div>
 </div>
