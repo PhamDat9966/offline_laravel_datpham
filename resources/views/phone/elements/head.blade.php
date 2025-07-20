@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
-<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="{{asset('images/phonetheme/favicon.png')}}" type="image/x-icon">
 <title>Smart Phone</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{asset('phone_theme/css/fontawesome.css')}}">

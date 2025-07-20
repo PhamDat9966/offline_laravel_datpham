@@ -3,12 +3,13 @@
     use Illuminate\Support\Str;
     use App\Helpers\ProductHelper;
 
-    // dd($categoryIsFeatures);
     $xhtmlTabTitle  = '<ul class="tabs tab-title">';
 
     $xhtmlTabContent = '<div class="tab-content-cls">';
     $i = 1;
+
     foreach($categoryIsFeatures as $keyCa=>$categoryIsFeature){
+        $id               = $categoryIsFeature['id'];
         $tagTitleCurrent  = '';
         $tagContentActive = '';
         if($i==1){
@@ -24,8 +25,10 @@
             $xhtmlTabContent .= ProductHelper::xhtmlPhoneItem($item);// Tối ưu hóa, đưa item vào một lớp sử lý chung.
         }
 
+        $urlCategory      = route('phoneCategory',['id'=>$id]);
+
         $xhtmlTabContent .= '</div>
-                                <div class="text-center"><a href="list.html" class="btn btn-solid">Xem tất cả</a></div>
+                                <div class="text-center"><a href="'.$urlCategory.'" class="btn btn-solid">Xem tất cả</a></div>
                             </div>';
 
         $i++;

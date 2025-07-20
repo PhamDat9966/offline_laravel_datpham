@@ -2,9 +2,11 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Str;
+use Whoops\Exception\Formatter;
 
 class ProductHelper{
     public static function xhtmlPhoneItem($item){
+
         $id              = $item['id'];
         $urlItem         = route('phoneItem',['id'=>$id]);
         $name            = $item['name'];
@@ -17,8 +19,31 @@ class ProductHelper{
         $descriptionMini = strip_tags($descriptionMini);
         // 2. Chuyển HTML entities về ký tự thuần
         $descriptionMini = "<strong style='color:red;'>".ucfirst($item['name']).': </strong> '.html_entity_decode($descriptionMini);
+
+
+        //price start:
+        $originalPriceDefault   = $item['attribute_prices'][0]['price'];
+
+        //DEFAULT
+        $attributeDefault = $colorIdDefault  = null;
+        foreach($item['attribute_prices'] as $key=>$attributePrice){
+            if($attributePrice['default'] == 1){
+                $attributeDefault       = $colorIdDefault  = $attributePrice['color_id']; // Set color default
+                $originalPriceDefault   = $attributePrice['price'];
+                break;
+            }
+        }
+
         //media
         $imgArray        = json_decode($item['media'][0]['content'],true);
+
+        if($colorIdDefault !== null){
+            foreach($item['media'] as $elementMedia){
+                if($elementMedia['attribute_value_id'] == $colorIdDefault){
+                    $imgArray        = json_decode($elementMedia['content'],true);
+                }
+            }
+        }
         $imgName         = $imgArray['name'];
         $imgAlt          = $imgArray['alt'];
 
@@ -28,7 +53,6 @@ class ProductHelper{
         $saveTitle       = 0;
         //price - Giá
         //Chọn giá từ phần tử đầu tiên của attribute_prices làm giá niên yết
-        $originalPriceDefault   = $item['attribute_prices'][0]['price'];
         $salePrice              = 0;
 
         switch ($item['price_discount_type']) {
