@@ -768,9 +768,27 @@ class ProductModel extends AdminModel
                         ->update(['is_home' => $isHome]);
         }
 
-        if($options['task'] == 'change-price'){
+        if($options['task'] == 'change-price-and-maketing-price'){
             $this::where('id', $params['product_id'])
                         ->update(['price' => $params['price']]);
+            //Chon `maketing_price` theo `price_discount_type`
+            $product = $this->getItem($params,['task'=>'get-item-with-product-id']);
+            if($product['price_discount_type']){
+                if($product['price_discount_type'] == 'percent'){
+                    $price_discount             = $product['price_discount_percent'];
+                    $params['maketing_price']   = $product['price'] - ($product['price'] * $price_discount / 100);
+                    $this::saveItem($params,['task' => 'change-maketing-price']);
+                }else{
+                    $price_discount             = $product['price_discount_value'];
+                    $params['maketing_price']   = $product['price'] - $price_discount;
+                    $this::saveItem($params,['task' => 'change-maketing-price']);
+                }
+            }
+        }
+
+        if($options['task'] == 'change-maketing-price'){
+            $this::where('id', $params['product_id'])
+                        ->update(['maketing_price' => $params['maketing_price']]);
         }
 
         if($options['task'] == 'change-price-remove'){
@@ -817,6 +835,22 @@ class ProductModel extends AdminModel
             // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
 
             $product = self::with(['attributes','media'])->find($params['id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
+
+            if ($product) {
+                $result = $product;
+            } else {
+                $result = null; // Trả về null nếu không tìm thấy sản phẩm
+            }
+        }
+
+        if($options['task'] == 'get-item-with-product-id'){
+
+            $this->table  = 'product'; //Gọi table một lần nữa để loại bỏ alias (bí danh)
+
+            // Gọi relationship  từ các liên kết hàm. attributes của ProductModel, attributeValue của ProductHasAttributeModel và media
+            // Ở đây cũng có thể chỉ cần gọi mỗi hàm attributes cũng cho ra kết quả cần truy vấn nhưng nếu gọi cả 2 hàm thì tính liên kết sẽ chặt chẽ hơn.
+
+            $product = self::with(['attributes','media'])->find($params['product_id']);       // Sử dụng khi  product_has_attribute đã có cột attribute_value_name được gán giá trị trước
 
             if ($product) {
                 $result = $product;
@@ -1061,11 +1095,11 @@ class ProductModel extends AdminModel
                     [$field, $direction] = explode('_', $sort);
 
                     // Loại bỏ những bản ghi có price = null hoặc price = 0
-                    $query->whereNotNull('price')->where('price', '>', 0);
+                    $query->whereNotNull('maketing_price')->where('maketing_price', '>', 0);
 
-                    $query->orderBy('price', $direction);
+                    $query->orderBy('maketing_price', $direction);
                 } else {
-                    $query->whereNotNull('price')->where('price', '>', 0);
+                    $query->whereNotNull('maketing_price')->where('maketing_price', '>', 0);
                     $query->orderBy('is_new', 'desc');
                 }
             } else {

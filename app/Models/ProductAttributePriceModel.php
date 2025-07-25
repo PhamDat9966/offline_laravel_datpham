@@ -189,7 +189,7 @@ class ProductAttributePriceModel extends AdminModel
             $productPriceDefault  =  $this->getItem($params,['task'=>'get-item']);
 
             $productModel = new ProductModel();
-            $productModel->saveItem($productPriceDefault,['task'=>'change-price']);
+            $productModel->saveItem($productPriceDefault,['task'=>'change-price-and-maketing-price']);
 
         }
 
