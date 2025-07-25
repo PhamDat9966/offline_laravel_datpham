@@ -185,7 +185,6 @@ class ProductAttributePriceModel extends AdminModel
             //Cập nhật tại radio được chọn
             $this::where('id', $params['id'])
                         ->update(['default' => 1]);
-            //dd($params);
             $productPriceDefault  =  $this->getItem($params,['task'=>'get-item']);
 
             $productModel = new ProductModel();

@@ -2,6 +2,7 @@
     // use App\Helpers\Template;
     $xhtml = '';
     $allTotalPriceProduct = 0;
+
     if($cart){
         foreach($cart as $key=>$item){
             $id                     = $product_id = $item['product_id'];
@@ -54,7 +55,7 @@
                                 <h2 class="td-color text-lowercase">'.$totalPrice.' $</h2>
                             </td>
                         </tr>
-                        <input type="hidden" name="form[book_id][]" value="10" id="input_book_id_10">
+                        <input type="hidden" name="form[book_id][]" value="'.$id.'" id="input_smart_phone_id_'.$id.'">
                         <input type="hidden" name="form[price][]" value="48300" id="input_price_10">
                         <input type="hidden" name="form[quantity][]" value="1" id="input_quantity_10">
                         <input type="hidden" name="form[name][]" value="Chờ Đến Mẫu Giáo Thì Đã Muộn" id="input_name_10"><input type="hidden" name="form[picture][]" value="product.jpg" id="input_picture_10">

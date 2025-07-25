@@ -380,12 +380,24 @@ $(document).on('click', '.add-to-cart', function(e) {
             //alert('Sản phẩm đã được thêm vào giỏ hàng!');
             console.log(response);
             if(response == 'true'){
-                $('#message').find('.book-name').html('Sản phẩm đã được thêm vào giỏ hàng!');
-                $('#message').find('.book-description').html('Cám ơn bạn đã ủng hộ sản phẩm của chúng tôi.');
+                $('#message').find('.book-name')
+                    .removeClass('text-danger')     // Xoá class cũ (nếu có)
+                    .addClass('text-success')       // Thêm màu xanh
+                    .html('Sản phẩm đã được thêm vào giỏ hàng!');
+
+                $('#message').find('.book-description')
+                    .html('Cám ơn bạn đã ủng hộ sản phẩm của chúng tôi.');
+
                 $('#message').modal('show');
             }else{
-                $('#message').find('.book-name').html('Mẫu này đã hết hàng!');
-                $('#message').find('.book-description').html('Bạn hãy chọn sản phẩm khác hoặc mẫu còn hàng.');
+                $('#message').find('.book-name')
+                    .removeClass('text-success')    // Xoá class cũ (nếu có)
+                    .addClass('text-danger')        // Thêm màu đỏ
+                    .html('Mẫu này đã hết hàng!');
+
+                $('#message').find('.book-description')
+                    .html('Bạn hãy chọn sản phẩm khác hoặc mẫu còn hàng.');
+
                 $('#message').modal('show');
             }
 

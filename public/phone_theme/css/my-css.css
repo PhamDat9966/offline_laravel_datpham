@@ -1,3 +1,8 @@
-/*Media Gallery*/
 
-/*End Media Gallery*/
+.text-success {
+    color:blue;
+}
+
+.text-danger {
+    color: red;
+}

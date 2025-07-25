@@ -10,6 +10,7 @@ use App\Http\Requests\AuthRequest as MainRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\ProductModel as ProductMode;
 use App\Models\ProductAttributePriceModel as ProductAttributePriceMode;
 use App\Models\MediaModel as MediaModel;
 
@@ -99,6 +100,16 @@ class AuthsphoneController extends Controller
         $price = $price['price'];
         if($price == null){
             return 'false';
+        }
+
+        //Lấy price_discount (giảm giá):
+        $productModel   = new ProductMode();
+        $product        = $productModel->getItem($params,['task'=>'get-item']);
+
+        if($product->price_discount_type == 'percent'){
+            $price      = $price - ($price * $product->price_discount_percent)/100;
+        } else{
+            $price      = $price - $product->price_discount_value;
         }
 
         //Lấy ảnh

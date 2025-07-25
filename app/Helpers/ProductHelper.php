@@ -20,19 +20,47 @@ class ProductHelper{
         // 2. Chuyển HTML entities về ký tự thuần
         $descriptionMini = "<strong style='color:red;'>".ucfirst($item['name']).': </strong> '.html_entity_decode($descriptionMini);
 
+        //SET DEFAULT
+        //Chọn giá từ phần tử đầu tiên của attribute_prices làm giá niên yết
+        $originalPriceDefault       = $item['attribute_prices'][0]['price'];                //Giá khởi điểm
+        $dataColorIdDefault         = $item['attribute_prices'][0]['color_id'];             //id màu khởi điểm
+        $dataColorNameDefault       = $item['attribute_prices'][0]['color_name'];           //name màu khởi điểm
+        $dataMaterialIdDefault      = $item['attribute_prices'][0]['material_id'];          //id dung lượng khởi điểm
+        $dataMaterialNameDefault    = $item['attribute_prices'][0]['material_name'];        //name dung lượng khởi điểm
 
-        //price start:
-        $originalPriceDefault   = $item['attribute_prices'][0]['price'];
-
-        //DEFAULT
         $attributeDefault = $colorIdDefault  = null;
-        foreach($item['attribute_prices'] as $key=>$attributePrice){
-            if($attributePrice['default'] == 1){
-                $attributeDefault       = $colorIdDefault  = $attributePrice['color_id']; // Set color default
-                $originalPriceDefault   = $attributePrice['price'];
+
+        foreach($item['attribute_prices'] as $attribute_price){
+            //Trường hợp đã có set default chọn giá, màu sắc, dung lượng ở `productAttributePrice controller`
+            if($attribute_price['default'] == 1){
+                $dataColorIdDefault         = $attribute_price['color_id'];
+                $dataColorNameDefault       = $attribute_price['color_name'];
+                $dataMaterialIdDefault      = $attribute_price['material_id'];
+                $dataMaterialNameDefault     = $attribute_price['material_name'];
+                $originalPriceDefault       = $attribute_price['price'];
+
+                $attributeDefault       = $colorIdDefault  = $attribute_price['color_id']; // Set color default
+                $originalPriceDefault   = $attribute_price['price'];
                 break;
             }
         }
+
+        //price start:
+        $saveTitle       = 0;
+        $salePrice       = 0;
+        switch ($item['price_discount_type']) {
+            case 'percent':
+                $saveTitle = '-'.$item['price_discount_percent'].'%';
+                $salePrice = $originalPriceDefault - ($originalPriceDefault * $item['price_discount_percent']/100);
+                break;
+            case 'value':
+                $saveTitle = '-'.$item['price_discount_value'].'$';
+                $salePrice = $originalPriceDefault - $item['price_discount_value'];
+                break;
+        }
+
+        $salePrice      = ($salePrice == 0) ? 'Mẫu đã hết hàng' : $salePrice;
+        $isShowDollar   = is_numeric($salePrice) ? '$' : '';
 
         //media
         $imgArray        = json_decode($item['media'][0]['content'],true);
@@ -50,29 +78,8 @@ class ProductHelper{
         $image           = Template::showProductThumbInPhone('product',$imgName,$imgAlt);
         $imageURL        = ($imgName)? asset("images/product/$imgName") : '';
 
-        $saveTitle       = 0;
-        //price - Giá
-        //Chọn giá từ phần tử đầu tiên của attribute_prices làm giá niên yết
-        $salePrice              = 0;
-
-        switch ($item['price_discount_type']) {
-            case 'percent':
-                $saveTitle = '-'.$item['price_discount_percent'].'%';
-                $salePrice = $originalPriceDefault - ($originalPriceDefault * $item['price_discount_percent']/100);
-                break;
-            case 'value':
-                $saveTitle = '-'.$item['price_discount_value'].'$';
-                $salePrice = $originalPriceDefault - $item['price_discount_value'];
-                break;
-        }
-
-        $salePrice      = ($salePrice == 0) ? 'Mẫu đã hết hàng' : $salePrice;
-        $isShowDollar   = is_numeric($salePrice) ? '$' : '';
-
         //Add to Cart
         $urlAddToCart           = route('authsphone/addToCart');
-        $dataColorIdDefault     = $item['attribute_prices'][0]['color_id'];
-        $dataMaterialIdDefault  = $item['attribute_prices'][0]['material_id'];
 
         $xhtml        ='<div class="product-box">
                             <div class="img-wrapper">
@@ -90,6 +97,8 @@ class ProductHelper{
                                                 data-name="'.$name.'"
                                                 data-color-id="'.$dataColorIdDefault.'"
                                                 data-material-id="'.$dataMaterialIdDefault.'"
+                                                data-color-name="'.$dataColorNameDefault.'"
+                                                data-material-name="'.$dataMaterialNameDefault.'"
                                                 data-url="'.$urlAddToCart.'"
                                                 ><i class="ti-shopping-cart"></i>
                                     </a>
@@ -103,6 +112,8 @@ class ProductHelper{
                                                                             data-salePrice="'.$salePrice.'"
                                                                             data-color-id="'.$dataColorIdDefault.'"
                                                                             data-material-id="'.$dataMaterialIdDefault.'"
+                                                                            data-color-name="'.$dataColorNameDefault.'"
+                                                                            data-material-name="'.$dataMaterialNameDefault.'"
                                                                             data-url-item="'.$urlItem.'"
                                                                             data-url-add-cart="'.$urlAddToCart.'"
                                                                             >
