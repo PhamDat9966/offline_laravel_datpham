@@ -6,21 +6,28 @@ $(document).ready(function() {
         var description     = $(this).data('description');
         var imageurl        = $(this).data('imageurl');
         var price           = $(this).data('price');
-        var salePrice       = $(this).data('salePrice');
+        var salePrice       = $(this).data('sale-price');
         var urlItem         = $(this).data('url-item');
 
         var colorID         = $(this).data('color-id');
         var materialID      = $(this).data('material-id');
+        var colorName       = $(this).data('color-name');
+        var materialName    = $(this).data('material-name');
 
         var urlAddToCart    = $(this).data('url-add-cart');
 
         var priceAll        = salePrice + '$ <del>'+price+' $</del>';
 
+        //Kiểm tra xem giá có phải là '' hay không. Nếu là '' thì hiển thị 'mẫu đã hết hàng'
+        if(price == '' || price == null || price == undefined){
+            priceAll        = '<span class="text-danger">Mẫu đã hết hàng</span>';
+        }
+
         //Gán lần lượt các giá trị của product vào modal view
         $('#quick-view').find('.book-name').text(name)
         $('#quick-view').find('.book-description').text(description);
         $('#quick-view').find('.book-picture').attr('src', imageurl);
-        $('#quick-view').find('.book-price').text(salePrice);
+        $('#quick-view').find('.book-price').html(priceAll);
         $('#quick-view').find('.btn-view-book-detail').attr('href', urlItem);
 
         //Gán data vào button "chọn mua"
@@ -28,6 +35,8 @@ $(document).ready(function() {
         $('#quick-view').find('.add-to-cart').data('name', name);
         $('#quick-view').find('.add-to-cart').data('color-id', colorID);
         $('#quick-view').find('.add-to-cart').data('material-id', materialID);
+        $('#quick-view').find('.add-to-cart').data('color-name', colorName);
+        $('#quick-view').find('.add-to-cart').data('material-name', materialName);
         $('#quick-view').find('.add-to-cart').data('url', urlAddToCart);
 
         // $('#quick-view').find('.add-to-cart').data('name', name);

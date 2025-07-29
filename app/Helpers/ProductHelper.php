@@ -109,7 +109,7 @@ class ProductHelper{
                                                                             data-description="'.$description.'"
                                                                             data-imageurl="'.$imageURL.'"
                                                                             data-price="'.$originalPriceDefault.'"
-                                                                            data-salePrice="'.$salePrice.'"
+                                                                            data-sale-price="'.$salePrice.'"
                                                                             data-color-id="'.$dataColorIdDefault.'"
                                                                             data-material-id="'.$dataMaterialIdDefault.'"
                                                                             data-color-name="'.$dataColorNameDefault.'"

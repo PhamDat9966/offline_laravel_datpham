@@ -157,5 +157,16 @@ class AuthsphoneController extends Controller
             'cart' => $cart
         ]);
     }
+
+    public function buy(Request $request){
+
+        $cart = [];
+        if(session()->get('cart')){
+            $cart = session()->get('cart', []);
+        }
+        return view($this->pathViewController . 'buy',[ //Đặt tên file view là buy.blade.php
+            'cart' => $cart
+        ]);
+    }
 }
 
