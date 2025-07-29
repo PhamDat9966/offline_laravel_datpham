@@ -2,11 +2,12 @@
     // use App\Helpers\Template;
     $xhtml = '';
     $allTotalPriceProduct = 0;
-
     if($cart){
         foreach($cart as $key=>$item){
             $id                     = $product_id = $item['product_id'];
-            $name                   = $item['name'];
+            $color_id               = $item['color_id'];
+            $material_id            = $item['material_id'];
+            $product_name           = $name =   $item['name'];
             $quantity               = $item['quantity'];
             $price                  = $item['price'];
             $totalPrice             = $item['totalPrice'];
@@ -55,10 +56,13 @@
                                 <h2 class="td-color text-lowercase">'.$totalPrice.' $</h2>
                             </td>
                         </tr>
-                        <input type="hidden" name="form[book_id][]" value="'.$id.'" id="input_smart_phone_id_'.$id.'">
-                        <input type="hidden" name="form[price][]" value="48300" id="input_price_10">
-                        <input type="hidden" name="form[quantity][]" value="1" id="input_quantity_10">
-                        <input type="hidden" name="form[name][]" value="Chờ Đến Mẫu Giáo Thì Đã Muộn" id="input_name_10"><input type="hidden" name="form[picture][]" value="product.jpg" id="input_picture_10">
+                        <input type="hidden" name="form[product_id][]" value="'.$id.'" id="input_smart_phone_id_'.$id.'">
+                        <input type="hidden" name="form[product_name][]" value="'.$product_name.'" id="input_product_name_'.$product_name.'">
+                        <input type="hidden" name="form[color_id][]" value="'.$color_id.'" id="input_color_id_'.$color_id.'">
+                        <input type="hidden" name="form[material_id][]" value="'.$material_id.'" id="input_material_id_'.$material_id.'">
+                        <input type="hidden" name="form[price][]" value="'.$price.'" id="input_price_'.$id.'">
+                        <input type="hidden" name="form[quantity][]" value="'.$quantity.'" id="input_quantity_'.$id.'">
+                        <input type="hidden" name="form[thumb][]" value="'.$thumb.'" id="input_thumb_'.$id.'">
                     ';
         }
     }
@@ -75,7 +79,8 @@
     </div>
 </div>
 
-<form action="" method="POST" name="admin-form" id="admin-form">
+<form action="{{ $buy_url }}" method="POST" name="admin-form" id="admin-form">
+    @csrf
     <section class="cart-section section-b-space">
         <div class="container">
             <div class="row">

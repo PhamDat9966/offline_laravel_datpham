@@ -17,5 +17,5 @@
     <!-- header start -->
     @include('phone.elements.header')
     <!-- header end -->
-    @include('phone.pages.authsphone.child-index.cartView')
+    @include('phone.pages.authsphone.child-index.cartView',['cart' => $cart,'buy_url' => $buy_url])
 

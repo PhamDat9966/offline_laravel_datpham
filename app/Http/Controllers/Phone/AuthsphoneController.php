@@ -148,25 +148,28 @@ class AuthsphoneController extends Controller
     }
 
     public function cart(Request $request){
-
         $cart = [];
         if(session()->get('cart')){
             $cart = session()->get('cart', []);
         }
+        $buy_url = route('authsphone/buy');
+
         return view($this->pathViewController . 'cart',[
-            'cart' => $cart
+            'cart' => $cart,
+            'buy_url' => $buy_url
         ]);
     }
 
     public function buy(Request $request){
 
-        $cart = [];
-        if(session()->get('cart')){
-            $cart = session()->get('cart', []);
+        //Nếu tài khoản chưa đăng nhập thì chuyển hướng đến trang đăng nhập
+        if(!(session()->get('userInfo'))){
+            return redirect()->route('authsphone/login');
         }
-        return view($this->pathViewController . 'buy',[ //Đặt tên file view là buy.blade.php
-            'cart' => $cart
-        ]);
+        //Nếu tài khoản đã đăng nhập thì lưu thông tin vào database
+        dd($request->all(),session()->all());
+
+        return view($this->pathViewController . 'buy');
     }
 }
 
