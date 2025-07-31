@@ -16,7 +16,9 @@
 
             $thumb      = ($item['thumb'])? asset('images/product/'.$item['thumb'].'') : asset("images/phonetheme/product.jpg") ;
 
-            $xhtml .= ' <tr>
+            $urlDeleteOneCart = route('authsphone/delete');
+
+            $xhtml .= ' <tr class="cart-item" data-product-id="'.$product_id.'" data-color-id="'.$color_id.'" data-material-id="'.$material_id.'">
                             <td>
                                 <a href="'.$urlItem.'"><img
                                         src="'.$thumb.'"
@@ -51,7 +53,14 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                            <td>
+                                <a href="#" class="icon delete-element-cart"
+                                            data-url="'.$urlDeleteOneCart.'"
+                                            data-product-id="'.$product_id.'"
+                                            data-color-id="'.$color_id.'"
+                                            data-material-id="'.$material_id.'"
+                                ><i class="ti-close"></i></a>
+                            </td>
                             <td>
                                 <h2 class="td-color text-lowercase">'.$totalPrice.' $</h2>
                             </td>

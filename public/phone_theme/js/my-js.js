@@ -60,6 +60,38 @@ $(document).ready(function() {
         // });
     });
 
+    $('.delete-element-cart').on('click',function(){
+        //e.preventDefault(); // tránh chuyển trang nếu là thẻ <a>
+
+        var button = $(this); // lưu lại nút được click
+        var url         = $(this).data('url');
+        var product_id  = $(this).data('product-id');
+        var color_id    = $(this).data('color-id');
+        var material_id = $(this).data('material-id');
+        console.log(url,product_id,color_id,material_id);
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: {
+                product_id: product_id,
+                color_id: color_id,
+                material_id: material_id
+            },
+            success: function(response) {
+                //Xóa sản phẩm ra khỏi giỏ hàng
+                $('.cart-item[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]').remove();
+                //Cập nhật số lượng sản phẩm tại badge icon:
+                $('.badge').text(response.quantity);
+            },
+            error: function(xhr) {
+                alert("Có lỗi xảy ra: " + xhr.responseText);
+            }
+        });
+
+    });
+
+
 });
 
 /*product input*/

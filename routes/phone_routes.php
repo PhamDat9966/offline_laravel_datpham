@@ -55,6 +55,11 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
             Route::get('/thankyou', [$controller, 'thankyou'])
                 ->name($controllerThankyou);
 
+
+            $controllerDelete = $controllerName .'/delete';
+            Route::get('/delete', [$controller, 'delete'])
+                ->name($controllerDelete);
+
     });
 
     $prefix         =   'phoneItem';

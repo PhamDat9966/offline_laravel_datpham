@@ -224,5 +224,29 @@ class AuthsphoneController extends Controller
         $user = session('userInfo');
         return view($this->pathViewController . 'thankyou', compact('user'));
     }
+
+    public function delete(Request $request){
+        $params = $request->all();
+        $cart = session('cart');
+        foreach($cart as $key=>$item){
+            if($item['product_id'] == $params['product_id'] && $item['color_id'] == $params['color_id'] && $item['material_id'] == $params['material_id']){
+                unset($cart[$key]);
+                break;
+            }
+        }
+
+        $quantity = 0;
+        if(count($cart) > 0){
+            foreach($cart as $key=>$item){
+                $quantity += $item['quantity'];
+            }
+        }
+
+        session(['cart' => $cart]);
+
+        return response()->json([
+            'quantity'=> $quantity,
+        ]);
+    }
 }
 
