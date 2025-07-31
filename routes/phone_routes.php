@@ -51,6 +51,10 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
             Route::post('/buy', [$controller, 'buy'])
                   ->name($controllerBuy);
 
+            $controllerThankyou = $controllerName .'/thankyou';
+            Route::get('/thankyou', [$controller, 'thankyou'])
+                ->name($controllerThankyou);
+
     });
 
     $prefix         =   'phoneItem';

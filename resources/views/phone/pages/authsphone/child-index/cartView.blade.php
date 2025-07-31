@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="row cart-buttons">
-                <div class="col-6"><a href="index.html" class="btn btn-solid">Tiếp tục mua sắm</a></div>
+                <div class="col-6"><a href="{{Route('phoneCategory')}}" class="btn btn-solid">Tiếp tục mua sắm</a></div>
                 <div class="col-6"><button type="submit" class="btn btn-solid">Đặt hàng</button></div>
             </div>
         </div>

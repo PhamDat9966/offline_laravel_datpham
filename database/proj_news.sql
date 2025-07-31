@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 25, 2025 lúc 04:46 AM
+-- Thời gian đã tạo: Th7 31, 2025 lúc 07:12 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -568,12 +568,21 @@ INSERT INTO `coupon` (`id`, `code`, `type`, `value`, `start_time`, `end_time`, `
 
 CREATE TABLE `invoice` (
   `id` int(11) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT current_timestamp(),
   `total` decimal(12,2) DEFAULT 0.00,
   `price` int(11) DEFAULT NULL,
   `status` enum('processing','packing','shipping','complete') DEFAULT 'processing'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `invoice`
+--
+
+INSERT INTO `invoice` (`id`, `code`, `user_id`, `username`, `created`, `total`, `price`, `status`) VALUES
+(14, 'INV-05043931072025-2724', 3, 'user123', '2025-07-31 05:04:39', 2.00, 1250, 'processing');
 
 -- --------------------------------------------------------
 
@@ -592,8 +601,17 @@ CREATE TABLE `invoice_product` (
   `material_name` varchar(255) DEFAULT NULL,
   `quantity` int(11) DEFAULT 1,
   `price` int(11) DEFAULT NULL,
-  `total_price` int(11) DEFAULT NULL
+  `total_price` int(11) DEFAULT NULL,
+  `thumb` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `invoice_product`
+--
+
+INSERT INTO `invoice_product` (`id`, `invoice_id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `quantity`, `price`, `total_price`, `thumb`) VALUES
+(12, 14, 34, 4, 58, 'iphone 14', NULL, NULL, 1, 350, 350, 'ialFmsLHSe.png'),
+(13, 14, 33, 5, 58, 'iPhone 15 Pro', NULL, NULL, 1, 900, 900, 'XMPQjNX2As.jpg');
 
 -- --------------------------------------------------------
 
@@ -960,8 +978,8 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id`, `name`, `slug`, `category_product_id`, `description`, `status`, `price`, `created`, `created_by`, `maketing_price`, `is_new`, `is_sale`, `is_best_seller`, `is_show_contact`, `is_availabe`, `total_rating`, `fieldClass`, `fieldWeb`, `modified_by`, `modified`, `type`, `price_discount_value`, `price_discount_percent`, `price_discount_type`) VALUES
 (27, 'samsung s24', 'bv-samsung-s24-39', 9, '<p><strong>Samsung s24</strong> l&agrave; si&ecirc;u phẩm&nbsp;<strong>smartphone</strong>&nbsp;đỉnh cao mở đầu năm 2024 đến từ nh&agrave; Samsung với chip&nbsp;<strong>Snapdragon 8 Gen 3 For Galaxy</strong>&nbsp;mạnh mẽ, c&ocirc;ng nghệ tương lai&nbsp;<strong>Galaxy AI</strong>&nbsp;c&ugrave;ng&nbsp;<strong>khung viền Titan</strong>&nbsp;đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế v&agrave; cấu h&igrave;nh.&nbsp;<strong>SS&nbsp;Galaxy S24 bản Ultra</strong>&nbsp;sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>6.8 inch</strong>&nbsp;<strong>Dynamic AMOLED 2X</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. M&aacute;y cũng sở hữu&nbsp;<strong>camera ch&iacute;nh 200MP</strong>, camera zoom quang học 50MP, camera tele 10MP v&agrave; camera g&oacute;c si&ecirc;u rộng 12MP.</p>\r\n\r\n<p>&nbsp;</p>', 'active', 2500, '2025-01-06 00:00:00', 'admin', 2250, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 0, 10, 'percent'),
-(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 0, 0, 'percent'),
-(29, 'OPPO Reno10 Pro', 'bv-oppo-reno10-pro-39', 11, '<p>B&ecirc;n cạnh đ&oacute;, với bộ nhớ RAM 12 GB, OPPO Reno10 Pro&nbsp;Plus c&oacute; thể đối ph&oacute; với t&aacute;c vụ đa nhiệm, cho ph&eacute;p bạn mở nhiều ứng dụng c&ugrave;ng một l&uacute;c m&agrave; kh&ocirc;ng gặp bất kỳ kh&oacute; khăn n&agrave;o về hiệu suất. Kết hợp với dung lượng bộ nhớ trong l&ecirc;n tới 256 GB v&agrave; khe cắm thẻ nhớ microSD, chiếc smartphone n&agrave;y kh&ocirc;ng chỉ đảm bảo hiệu suất mượt m&agrave;, m&agrave; c&ograve;n cung cấp kh&ocirc;ng gian lưu trữ rộng lớn để lưu trữ v&agrave; truy cập dữ liệu nhanh ch&oacute;ng, tiện lợi.</p>', 'active', 2000, '2025-02-06 00:00:00', 'admin', 1800, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 500, 10, 'percent'),
+(28, 'iphone 15', 'bv-iphone-15-39', 8, '<p><strong>iPhone 15 Pro Max&nbsp;</strong>hứa hẹn đem tới trải nghiệm h&igrave;nh ảnh với độ sắc n&eacute;t v&agrave; mượt m&agrave; cao nhờ sở hữu m&agrave;n h&igrave;nh&nbsp;<strong>Super Retina XDR OLED 6.7 inch</strong>&nbsp;tần số qu&eacute;t&nbsp;<strong>120Hz</strong>. Nhờ vận h&agrave;nh với&nbsp;<strong>chipset A17 Pro</strong>&nbsp;sản xuất tr&ecirc;n tiến tr&igrave;nh 3nm,&nbsp;thế hệ&nbsp;<a href=\"https://cellphones.com.vn/mobile/apple/iphone-15.html\" target=\"_blank\"><strong>iPhone 15</strong></a>&nbsp;bản Pro Max&nbsp;đảm bảo vận h&agrave;nh mạnh mẽ v&agrave; tiết kiệm pin tối ưu. Đặc biệt, m&aacute;y c&ograve;n sở hữu cụm c<strong>amera ch&iacute;nh 48MP</strong>&nbsp;c&ugrave;ng khả năng&nbsp;<strong>zoom quang học 5x</strong>, gi&uacute;p iPhone 15 Pro Max trở th&agrave;nh lựa chọn tuyệt vời cho người đam m&ecirc; nhiếp ảnh v&agrave; quay phim chuy&ecirc;n nghiệp.</p>', 'active', NULL, '2025-01-06 00:00:00', 'admin', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 0, 0, 'percent'),
+(29, 'OPPO Reno10 Pro', 'bv-oppo-reno10-pro-39', 11, '<p>B&ecirc;n cạnh đ&oacute;, với bộ nhớ RAM 12 GB, OPPO Reno10 Pro&nbsp;Plus c&oacute; thể đối ph&oacute; với t&aacute;c vụ đa nhiệm, cho ph&eacute;p bạn mở nhiều ứng dụng c&ugrave;ng một l&uacute;c m&agrave; kh&ocirc;ng gặp bất kỳ kh&oacute; khăn n&agrave;o về hiệu suất. Kết hợp với dung lượng bộ nhớ trong l&ecirc;n tới 256 GB v&agrave; khe cắm thẻ nhớ microSD, chiếc smartphone n&agrave;y kh&ocirc;ng chỉ đảm bảo hiệu suất mượt m&agrave;, m&agrave; c&ograve;n cung cấp kh&ocirc;ng gian lưu trữ rộng lớn để lưu trữ v&agrave; truy cập dữ liệu nhanh ch&oacute;ng, tiện lợi.</p>', 'active', 4000, '2025-02-06 00:00:00', 'admin', 3600, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 500, 10, 'percent'),
 (30, 'samsung s25 ultra', 'bv-samsung-s25-40', 9, '<h2><strong>Điện thoại Samsung S25 AI mới c&oacute; g&igrave; hấp dẫn?</strong></h2>\r\n\r\n<p>Samsung Galaxy S25 được t&iacute;ch hợp t&iacute;nh năng AI - c&ocirc;ng nghệ xu hướng để đem đến cho người d&ugrave;ng những trải nghiệm vượt trội v&agrave; th&ocirc;ng minh hơn. Cụ thể:</p>\r\n\r\n<p><strong>T&igrave;m kiếm th&ocirc;ng tin nhanh gấp 3 lần</strong></p>\r\n\r\n<p>T&iacute;nh năng AI tr&ecirc;n S25 đ&atilde; tăng tốc độ t&igrave;m kiếm c&aacute;c th&ocirc;ng tin một c&aacute;ch nhanh ch&oacute;ng v&agrave; vượt trội hơn gấp 3 lần với AI Agent. Kết hợp với Circle to Search, bạn c&oacute; thể t&igrave;m kiếm một c&aacute;ch trực quan, tăng t&iacute;nh hiệu quả bằng c&aacute;ch khoanh tr&ograve;n v&agrave;o mục cần t&igrave;m.</p>\r\n\r\n<p>Ngo&agrave;i ra, bạn c&oacute; thể kh&aacute;m ph&aacute; th&ecirc;m ngay mẫu phi&ecirc;n bản&nbsp;<strong>S25 512GB</strong>&nbsp;đặc biệt với n&acirc;ng cấp về bộ nhớ gi&uacute;p c&aacute;c thao t&aacute;c quay chụp trở n&ecirc;n mượt m&agrave; v&agrave; chơi game, xem film lướt web mượt m&agrave; hơn. C&ugrave;ng kh&aacute;m ph&aacute; ngay nh&eacute;!</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 1000, 30, 'percent'),
 (31, 'Samsung Galaxy S22 Ultra', 'bv-samsung-s22-ultra-41', 9, '<h2>Đặc điểm nổi bật của Samsung Galaxy S22 Ultra 8GB 128GB</h2>\r\n\r\n<p>Đ&uacute;ng như c&aacute;c th&ocirc;ng tin được đồn đo&aacute;n trước đ&oacute;, mẫu flagship mới của gả khổng lồ H&agrave;n Quốc được ra mắt với t&ecirc;n gọi l&agrave; Samsung Galaxy S22 Ultra với nhiều cải tiến đ&aacute;ng gi&aacute;. Mẫu điện thoại cao cấp đến từ Samsung n&agrave;y c&oacute; nhiều thay đổi từ thiết kế, cấu h&igrave;nh cho đến camera. Vậy si&ecirc;u phẩm n&agrave;y c&oacute; g&igrave; mới, gi&aacute; bao nhi&ecirc;u v&agrave; c&oacute; n&ecirc;n mua kh&ocirc;ng? H&atilde;y c&ugrave;ng t&igrave;m hiểu chi tiết ngay b&ecirc;n dưới nh&eacute;!</p>\r\n\r\n<p>Dự kiến v&agrave;o th&aacute;ng 2, Samsung sẽ cho ra mắt si&ecirc;u phẩm&nbsp;<a href=\"https://cellphones.com.vn/samsung-galaxy-s23-ultra.html\" target=\"_blank\"><strong>S23 Ultra</strong></a>&nbsp;m&agrave; c&oacute; thể qu&yacute; kh&aacute;ch sẽ quan t&acirc;m! Click v&agrave;o link để t&igrave;m hiểu th&ecirc;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 0, 25, 'percent'),
 (32, 'iPhone 16 Pro', 'iPhone 16 Pro', 8, '<h2>Đặc điểm nổi bật của iPhone 16 Pro Max 256GB | Ch&iacute;nh h&atilde;ng VN/A</h2>\r\n\r\n<p><strong>iPhone 16 Pro Max</strong>&nbsp;sở hữu&nbsp;<strong>m&agrave;n h&igrave;nh Super Retina XDR OLED 6.9 inch</strong>&nbsp;với&nbsp;<strong>c&ocirc;ng nghệ ProMotion</strong>, mang lại trải nghiệm hiển thị mượt m&agrave; v&agrave; sắc n&eacute;t, l&yacute; tưởng cho giải tr&iacute; v&agrave; l&agrave;m việc. Với chipset&nbsp;<strong>A18 Pro</strong>&nbsp;mạnh mẽ, mẫu iPhone đời mới n&agrave;y cung cấp hiệu suất vượt trội, gi&uacute;p xử l&yacute; mượt m&agrave; c&aacute;c t&aacute;c vụ nặng như chơi game hay edit video.&nbsp;Chiếc điện thoại&nbsp;<strong>iPhone 16</strong>&nbsp;mới&nbsp;n&agrave;y c&ograve;n sở hữu&nbsp;hệ thống&nbsp;<strong>camera Ultra Wide 48MP</strong>&nbsp;cho khả năng chụp ảnh cực kỳ chi tiết, mang đến chất lượng h&igrave;nh ảnh ấn tượng trong mọi t&igrave;nh huống.</p>\r\n\r\n<p>&nbsp;</p>', 'active', NULL, '2025-06-03 00:00:00', 'admin', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '2025-07-19 00:00:00', 'feature', 220, 20, 'percent'),
@@ -1013,9 +1031,9 @@ CREATE TABLE `product_attribute_price` (
 
 INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `price`, `status`, `ordering`, `default`) VALUES
 (73, 27, 1, 57, 'samsung s24', 'vàng', '256 GB', 2000, 'active', 10, 0),
-(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', 2000, 'active', 14, 1),
+(79, 29, 1, 58, 'OPPO Reno10 Pro', 'vàng', '512 GB', 2000, 'active', 14, 0),
 (80, 29, 3, 58, 'OPPO Reno10 Pro', 'xanh', '512 GB', 3000, 'active', 15, 0),
-(87, 29, 2, 58, 'OPPO Reno10 Pro', 'đỏ', '512 GB', 4000, 'active', 16, 0),
+(87, 29, 2, 58, 'OPPO Reno10 Pro', 'đỏ', '512 GB', 4000, 'active', 16, 1),
 (92, 29, 1, 57, 'OPPO Reno10 Pro', 'vàng', '256 GB', 2000, 'active', 17, 0),
 (93, 29, 2, 57, 'OPPO Reno10 Pro', 'đỏ', '256 GB', 3000, 'active', 18, 0),
 (94, 29, 3, 57, 'OPPO Reno10 Pro', 'xanh', '256 GB', 2500, 'active', 19, 0),
@@ -1025,12 +1043,12 @@ INSERT INTO `product_attribute_price` (`id`, `product_id`, `color_id`, `material
 (115, 34, 5, 58, 'iphone 14', 'trắng/bạc', '512 GB', 500, 'active', 31, 0),
 (116, 33, 4, 58, 'iPhone 15 Pro', 'đen', '512 GB', 1000, 'active', 32, 0),
 (117, 33, 5, 58, 'iPhone 15 Pro', 'trắng/bạc', '512 GB', 1000, 'active', 33, 1),
-(118, 28, 5, 56, 'iphone 15', 'trắng/bạc', '128 GB', NULL, 'active', 34, NULL),
-(119, 28, 5, 57, 'iphone 15', 'trắng/bạc', '256 GB', NULL, 'active', 35, NULL),
-(120, 28, 5, 58, 'iphone 15', 'trắng/bạc', '512 GB', NULL, 'active', 36, NULL),
-(124, 28, 7, 56, 'iphone 15', 'xanh lục', '128 GB', NULL, 'active', 37, NULL),
-(125, 28, 7, 57, 'iphone 15', 'xanh lục', '256 GB', NULL, 'active', 38, NULL),
-(126, 28, 7, 58, 'iphone 15', 'xanh lục', '512 GB', NULL, 'active', 39, NULL),
+(118, 28, 5, 56, 'iphone 15', 'trắng/bạc', '128 GB', NULL, 'active', 34, 1),
+(119, 28, 5, 57, 'iphone 15', 'trắng/bạc', '256 GB', NULL, 'active', 35, 0),
+(120, 28, 5, 58, 'iphone 15', 'trắng/bạc', '512 GB', NULL, 'active', 36, 0),
+(124, 28, 7, 56, 'iphone 15', 'xanh lục', '128 GB', NULL, 'active', 37, 0),
+(125, 28, 7, 57, 'iphone 15', 'xanh lục', '256 GB', NULL, 'active', 38, 0),
+(126, 28, 7, 58, 'iphone 15', 'xanh lục', '512 GB', NULL, 'active', 39, 0),
 (128, 32, 65, 58, 'iPhone 16 Pro', 'titan tự nhiên', '512 GB', NULL, 'active', 40, NULL),
 (129, 32, 66, 58, 'iPhone 16 Pro', 'titan sa mạc', '512 GB', NULL, 'active', 41, NULL),
 (130, 32, 67, 58, 'iPhone 16 Pro', 'titan đen', '512 GB', NULL, 'active', 42, NULL),
@@ -1481,12 +1499,12 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
 (1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '3,3,3,3,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
-(3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'Hb1QSn1CL8.png', '2019-05-04 00:00:00', 'admin', '2025-03-19 00:00:00', 'admin', 'active', NULL, 2),
+(3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'oZ2drtCZub.jpg', '2019-05-04 00:00:00', 'admin', '2025-07-31 00:00:00', 'admin', 'active', NULL, 2),
 (4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
 (5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', '2023-11-28 00:00:00', 'phamdat', '2025-03-14 00:00:00', 'admin', 'active', ',6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,3,3,3,2,2,2,3,3,3,2,2,2', 2),
-(6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', NULL, 'pL1DxiUtai.jpg', '2023-11-28 00:00:00', 'phamdat', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
-(8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', '123456', '9k04uy61T5.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 2),
-(9, 'member0011', 'member999666@gmail.com', 'Member0011', 'd41d8cd98f00b204e9800998ecf8427e', 'uajxH2pLAp.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 3),
+(6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', 'e10adc3949ba59abbe56e057f20f883e', 'pL1DxiUtai.jpg', '2023-11-28 00:00:00', 'phamdat', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
+(8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', 'e10adc3949ba59abbe56e057f20f883e', '9k04uy61T5.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 2),
+(9, 'member0011', 'member999666@gmail.com', 'Member0011', 'e10adc3949ba59abbe56e057f20f883e', 'uajxH2pLAp.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 3),
 (15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', '2024-01-22 00:00:00', 'admin', '2025-03-18 00:00:00', 'admin', 'active', NULL, 16);
 
 --
@@ -1692,6 +1710,13 @@ ALTER TABLE `coupon`
 ALTER TABLE `invoice`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_invoice_product_invoice_id` (`invoice_id`);
 
 --
 -- Chỉ mục cho bảng `media`
@@ -1957,7 +1982,13 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `media`
@@ -2106,6 +2137,12 @@ ALTER TABLE `attribute_value`
 --
 ALTER TABLE `invoice`
   ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Các ràng buộc cho bảng `invoice_product`
+--
+ALTER TABLE `invoice_product`
+  ADD CONSTRAINT `fk_invoice_product_invoice_id` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `media`

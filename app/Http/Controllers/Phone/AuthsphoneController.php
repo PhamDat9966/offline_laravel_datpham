@@ -14,6 +14,9 @@ use App\Models\ProductModel as ProductMode;
 use App\Models\ProductAttributePriceModel as ProductAttributePriceMode;
 use App\Models\MediaModel as MediaModel;
 
+use App\Models\InvoiceModel as InvoiceModel;
+use App\Models\InvoiceProductModel as InvoiceProductModel;
+use Illuminate\Support\Facades\DB;
 
 class AuthsphoneController extends Controller
 {
@@ -166,10 +169,60 @@ class AuthsphoneController extends Controller
         if(!(session()->get('userInfo'))){
             return redirect()->route('authsphone/login');
         }
-        //Nếu tài khoản đã đăng nhập thì lưu thông tin vào database
-        dd($request->all(),session()->all());
 
-        return view($this->pathViewController . 'buy');
+        //Nếu tài khoản đã đăng nhập thì lưu thông tin vào database
+        $cart = session('cart');
+        $user = session('userInfo');
+
+        //dd($request->all(),session()->all(),$cart);
+
+        if (!$cart || count($cart) == 0) {
+            return redirect()->back()->with('error', 'Giỏ hàng trống.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            //Thiết lập hóa đơn invoide.
+            $invoice = new InvoiceModel();
+            $invoice->user_id   = $user['id'];
+            $invoice->username  = $user['username'];
+            $invoice->code      = 'INV-' . now()->format('HisdmY') . '-' . rand(1000, 9999);
+            $invoice->created   = now()->format('Y-m-d H:i:s');
+            $invoice->total     = array_sum(array_column($cart, 'quantity'));
+            $invoice->price     = array_sum(array_column($cart,'totalPrice'));
+            $invoice->status    = 'processing';
+            $invoice->save();
+
+            //Thêm chi tiếc các sản phẩm vào invoice_product
+            foreach ($cart as $item) {
+                $invoiceProductModel = new InvoiceProductModel(); //foreach thì đối tượng phải đặt trong vòng lặp
+
+                $invoiceProductModel->invoice_id    = $invoice->id;
+                $invoiceProductModel->product_id    = $item['product_id'];
+                $invoiceProductModel->color_id      = $item['color_id'];
+                $invoiceProductModel->material_id   = $item['material_id'];
+                $invoiceProductModel->product_name  = $item['name'];
+                $invoiceProductModel->price         = $item['price'];
+                $invoiceProductModel->quantity      = $item['quantity'];
+                $invoiceProductModel->thumb         = $item['thumb'];
+                $invoiceProductModel->total_price   = $item['totalPrice'];
+                $invoiceProductModel->save();
+            }
+
+            DB::commit();
+            session()->forget('cart'); //Huỷ bỏ cart ở session
+            return redirect()->route('authsphone/thankyou')->with('success', 'Đặt hàng thành công!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Đã xảy ra lỗi khi đặt hàng.');
+        }
+
+    }
+
+    public function thankyou(Request $request){
+        $user = session('userInfo');
+        return view($this->pathViewController . 'thankyou', compact('user'));
     }
 }
 
