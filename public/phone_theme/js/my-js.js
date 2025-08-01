@@ -80,9 +80,13 @@ $(document).ready(function() {
             },
             success: function(response) {
                 //Xóa sản phẩm ra khỏi giỏ hàng
-                $('.cart-item[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]').remove();
+                $('.cart-item[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]').fadeOut(300, function() {
+                    $(this).remove();
+                });
                 //Cập nhật số lượng sản phẩm tại badge icon:
                 $('.badge').text(response.quantity);
+                //Cập nhật tổng giá sản phẩm
+                $('.totalPrice').text(response.totalPrice);
             },
             error: function(xhr) {
                 alert("Có lỗi xảy ra: " + xhr.responseText);
@@ -91,7 +95,38 @@ $(document).ready(function() {
 
     });
 
+    //Cập nhật số lượng sản phẩm
+    $('.update-quantity').on('change', function() {
+        var urlUpdateQuantity = $(this).data('url-update-quantity');
+        var product_id = $(this).data('product-id');
+        var color_id = $(this).data('color-id');
+        var material_id = $(this).data('material-id');
+        var quantity = $(this).val();
+        console.log(urlUpdateQuantity,product_id,color_id,material_id,quantity);
 
+        $.ajax({
+            url: urlUpdateQuantity,
+            method: "GET",
+            data: {
+                product_id: product_id,
+                color_id: color_id,
+                material_id: material_id,
+                quantity: quantity
+            },
+            success: function(response) {
+                console.log(response);
+                //Cập nhật tổng giá sản phẩm
+                $('.totalPriceElement[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]').text(response.totalPriceElement);
+                //Cập nhật tổng giá sản phẩm trong cart
+                $('.totalPrice').text(response.totalPrice);
+                //Cập nhật số lượng sản phẩm tại badge icon:
+                $('.badge').text(response.quantity);
+            },
+            error: function(xhr) {
+                alert("Có lỗi xảy ra: " + xhr.responseText);
+            }
+        });
+    });
 });
 
 /*product input*/

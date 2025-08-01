@@ -17,6 +17,7 @@
             $thumb      = ($item['thumb'])? asset('images/product/'.$item['thumb'].'') : asset("images/phonetheme/product.jpg") ;
 
             $urlDeleteOneCart = route('authsphone/delete');
+            $urlUpdateQuantity = route('authsphone/updateQuantity');
 
             $xhtml .= ' <tr class="cart-item" data-product-id="'.$product_id.'" data-color-id="'.$color_id.'" data-material-id="'.$material_id.'">
                             <td>
@@ -26,13 +27,6 @@
                             </td>
                             <td><a href="'.$urlItem.'">'.$name.'</a>
                                 <div class="mobile-cart-content row">
-                                    <div class="col-xs-3">
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="number" name="quantity" value="'.$quantity.'" class="form-control input-number" id="quantity-10" min="1">
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-xs-3">
                                         <h2 class="td-color text-lowercase">'.$price.' $</h2>
                                     </div>
@@ -49,7 +43,12 @@
                             <td>
                                 <div class="qty-box">
                                     <div class="input-group">
-                                        <input type="number" name="quantity" value="'.$quantity.'" class="form-control input-number" id="quantity-10" min="1">
+                                        <input type="number" name="quantity" value="'.$quantity.'" class="form-control input-number update-quantity" id="quantity-10" min="1"
+                                                            data-url-update-quantity="'.$urlUpdateQuantity.'"
+                                                            data-product-id="'.$product_id.'"
+                                                            data-color-id="'.$color_id.'"
+                                                            data-material-id="'.$material_id.'"
+                                        >
                                     </div>
                                 </div>
                             </td>
@@ -62,7 +61,11 @@
                                 ><i class="ti-close"></i></a>
                             </td>
                             <td>
-                                <h2 class="td-color text-lowercase">'.$totalPrice.' $</h2>
+                                <h2 class="td-color text-lowercase totalPriceElement"
+                                            data-product-id="'.$product_id.'"
+                                            data-color-id="'.$color_id.'"
+                                            data-material-id="'.$material_id.'"
+                                >'.$totalPrice.' $</h2>
                             </td>
                         </tr>
                         <input type="hidden" name="form[product_id][]" value="'.$id.'" id="input_smart_phone_id_'.$id.'">
@@ -115,7 +118,7 @@
                             <tr>
                                 <td>Tổng :</td>
                                 <td>
-                                    <h2 class="text-lowercase">{{ $allTotalPriceProduct }} $</h2>
+                                    <h2 class="text-lowercase totalPrice">{{ $allTotalPriceProduct }} $</h2>
                                 </td>
                             </tr>
                         </tfoot>

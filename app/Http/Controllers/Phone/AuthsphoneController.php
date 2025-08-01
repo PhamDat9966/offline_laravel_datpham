@@ -228,12 +228,18 @@ class AuthsphoneController extends Controller
     public function delete(Request $request){
         $params = $request->all();
         $cart = session('cart');
+
+        $totalPriceItemDelete = 0;
+
         foreach($cart as $key=>$item){
             if($item['product_id'] == $params['product_id'] && $item['color_id'] == $params['color_id'] && $item['material_id'] == $params['material_id']){
+                $priceDelete = $item['totalPrice'];
                 unset($cart[$key]);
                 break;
             }
         }
+
+        $totalPrice  = array_sum(array_column($cart, 'totalPrice')) - $totalPriceItemDelete;
 
         $quantity = 0;
         if(count($cart) > 0){
@@ -246,6 +252,31 @@ class AuthsphoneController extends Controller
 
         return response()->json([
             'quantity'=> $quantity,
+            'totalPrice' => $totalPrice,
+        ]);
+    }
+
+    public function updateQuantity(Request $request){
+        $params = $request->all();
+        $cart = session('cart');
+        $quantity = 0;
+
+        $totalPriceElement = 0;
+        foreach($cart as $key=>$item){
+            if($item['product_id'] == $params['product_id'] && $item['color_id'] == $params['color_id'] && $item['material_id'] == $params['material_id']){
+                $cart[$key]['quantity'] = $params['quantity'];
+                $totalPriceElement = $item['price'] * $params['quantity'];
+                $cart[$key]['totalPrice'] = $totalPriceElement;
+            }
+        }
+        $quantity = array_sum(array_column($cart, 'quantity'));
+        $totalPrice  = array_sum(array_column($cart, 'totalPrice'));
+        session(['cart' => $cart]);
+
+        return response()->json([
+            'totalPrice' => $totalPrice,
+            'totalPriceElement' => $totalPriceElement,
+            'quantity' => $quantity,
         ]);
     }
 }
