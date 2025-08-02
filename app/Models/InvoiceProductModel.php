@@ -30,5 +30,12 @@ class InvoiceProductModel extends AdminModel
         $this->fieldSearchAccepted  = ['id','invoice_id','product_id','color_id','material_id'];
         $this->crudNotActived       = ['_token'];
     }
+    /*--Replaytionship--*/
+    public function invoice()
+    {
+        $this->table  = 'invoice_product';
+        return $this->belongsTo(InvoiceModel::class, 'invoice_id', 'id');
+    }
+    /*--End Replaytionship--*/
 
 }

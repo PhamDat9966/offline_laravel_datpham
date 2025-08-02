@@ -64,6 +64,14 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
             Route::get('/updateQuantity', [$controller, 'updateQuantity'])
                 ->name($controllerUpdateQuantity);
 
+            $controllerOrderHistory = $controllerName .'/orderHistory';
+            Route::get('/orderHistory', [$controller, 'orderHistory'])
+                ->name($controllerOrderHistory);
+
+            $controllerAccountForm = $controllerName .'/accountForm';
+            Route::get('/accountForm', [$controller, 'accountForm'])
+                ->name($controllerAccountForm);
+
     });
 
     $prefix         =   'phoneItem';

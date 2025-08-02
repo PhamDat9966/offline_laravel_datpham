@@ -93,9 +93,11 @@ class AuthsphoneController extends Controller
     {
         $params         = [];
         $productId      = $params['id']             = $request->itemID;
+        $productName    = $params['product-name']   = $request->productName;
         $colorId        = $params['color-id']       = $request->colorID;
         $materialId     = $params['material-id']    = $request->materialID;
-        $productName    = $request->name;
+        $colorName      = $params['color-name']     = $request->colorName;
+        $materialName   = $params['material-name']  = $request->materialName;
 
         //Lấy giá sản phẩm.
         $productAttributePriceMode = new ProductAttributePriceMode();
@@ -131,14 +133,16 @@ class AuthsphoneController extends Controller
         } else {
             // Nếu chưa có thì thêm mới
             $cart[$uniqueKey] = [
-                'product_id'   => $productId,
-                'color_id'     => $colorId,
-                'material_id'  => $materialId,
-                'price'        => $price,
-                'totalPrice'   => $price,
-                'quantity'     => 1,
-                'name'         => $productName,
-                'thumb'        => $thumb,
+                'product_id'    => $productId,
+                'color_id'      => $colorId,
+                'material_id'   => $materialId,
+                'color_name'    => $colorName,
+                'material_name' => $materialName,
+                'price'         => $price,
+                'totalPrice'    => $price,
+                'quantity'      => 1,
+                'product_name'  => $productName,
+                'thumb'         => $thumb,
             ];
         }
 
@@ -155,6 +159,7 @@ class AuthsphoneController extends Controller
         if(session()->get('cart')){
             $cart = session()->get('cart', []);
         }
+       //dd($cart);
         $buy_url = route('authsphone/buy');
 
         return view($this->pathViewController . 'cart',[
@@ -202,7 +207,9 @@ class AuthsphoneController extends Controller
                 $invoiceProductModel->product_id    = $item['product_id'];
                 $invoiceProductModel->color_id      = $item['color_id'];
                 $invoiceProductModel->material_id   = $item['material_id'];
-                $invoiceProductModel->product_name  = $item['name'];
+                $invoiceProductModel->product_name  = $item['product_name'];
+                $invoiceProductModel->color_name    = $item['color_name'];
+                $invoiceProductModel->material_name = $item['material_name'];
                 $invoiceProductModel->price         = $item['price'];
                 $invoiceProductModel->quantity      = $item['quantity'];
                 $invoiceProductModel->thumb         = $item['thumb'];
@@ -277,6 +284,35 @@ class AuthsphoneController extends Controller
             'totalPrice' => $totalPrice,
             'totalPriceElement' => $totalPriceElement,
             'quantity' => $quantity,
+        ]);
+    }
+
+    public function orderHistory(Request $request){
+        $user = session('userInfo');
+        $params['user_id'] = $user['id'];
+        $userModel = new UserModel();
+
+        $userInvoice = $userModel->getItem($params,['task'=>'get-order-history-by-user-id']);
+        $userInvoice = $userInvoice->toArray();
+        $userInvoice = $userInvoice[0];
+        $invoiceModel = new InvoiceModel();
+        foreach($userInvoice['invoices'] as $key=>$invoiceItem){
+            $params = [];
+            $params['invoice_id'] = $invoiceItem['id'];
+
+            $userInvoiceProducts = $invoiceModel->getItem($params,['task'=>'get-invoice-product-by-invoice-id']);
+            $userInvoiceProducts = $userInvoiceProducts->toArray();
+            $userInvoice['invoices'][$key]['invoice_product'] = $userInvoiceProducts;
+        }
+        return view($this->pathViewController . 'orderHistory', [
+            'userInvoice'       => $userInvoice
+        ]);
+    }
+
+    public function accountForm(Request $request){
+        $user = session('userInfo');
+        return view($this->pathViewController . 'accountForm', [
+            'user'       => $user
         ]);
     }
 }

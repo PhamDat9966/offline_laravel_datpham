@@ -95,38 +95,131 @@ $(document).ready(function() {
 
     });
 
-    //Cập nhật số lượng sản phẩm
+    //Cập nhật số lượng sản phẩm - Tối ưu hóa với debounce và validation
+    var updateQuantityTimeout;
     $('.update-quantity').on('change', function() {
-        var urlUpdateQuantity = $(this).data('url-update-quantity');
-        var product_id = $(this).data('product-id');
-        var color_id = $(this).data('color-id');
-        var material_id = $(this).data('material-id');
-        var quantity = $(this).val();
-        console.log(urlUpdateQuantity,product_id,color_id,material_id,quantity);
+        var $input = $(this);
+        var urlUpdateQuantity = $input.data('url-update-quantity');
+        var product_id = $input.data('product-id');
+        var color_id = $input.data('color-id');
+        var material_id = $input.data('material-id');
+        var quantity = parseInt($input.val());
 
-        $.ajax({
-            url: urlUpdateQuantity,
-            method: "GET",
-            data: {
+        // Validation
+        if (isNaN(quantity) || quantity < 1) {
+            alert('Số lượng phải là số nguyên dương!');
+            $input.val(1); // Reset về 1
+            return;
+        }
+
+        // Clear previous timeout
+        clearTimeout(updateQuantityTimeout);
+
+        // Add loading state
+        $input.prop('disabled', true).addClass('loading');
+
+        // Debounce - delay 500ms before making AJAX call
+        updateQuantityTimeout = setTimeout(function() {
+            console.log('Updating quantity:', {
+                url: urlUpdateQuantity,
                 product_id: product_id,
                 color_id: color_id,
                 material_id: material_id,
                 quantity: quantity
-            },
-            success: function(response) {
-                console.log(response);
-                //Cập nhật tổng giá sản phẩm
-                $('.totalPriceElement[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]').text(response.totalPriceElement);
-                //Cập nhật tổng giá sản phẩm trong cart
-                $('.totalPrice').text(response.totalPrice);
-                //Cập nhật số lượng sản phẩm tại badge icon:
-                $('.badge').text(response.quantity);
-            },
-            error: function(xhr) {
-                alert("Có lỗi xảy ra: " + xhr.responseText);
-            }
-        });
+            });
+
+            $.ajax({
+                url: urlUpdateQuantity,
+                method: "GET",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    material_id: material_id,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    console.log('Quantity update response:', response);
+
+                    // Cập nhật tổng giá sản phẩm với selector tối ưu
+                    var $totalPriceElement = $('.totalPriceElement[data-product-id="' + product_id + '"][data-color-id="' + color_id + '"][data-material-id="' + material_id + '"]');
+                    if ($totalPriceElement.length) {
+                        $totalPriceElement.text(response.totalPriceElement);
+                    }
+
+                    // Cập nhật tổng giá sản phẩm trong cart
+                    $('.totalPrice').text(response.totalPrice);
+
+                    // Cập nhật số lượng sản phẩm tại badge icon
+                    $('.badge').text(response.quantity);
+
+                    // Show success message (optional)
+                    if (response.message) {
+                        showNotification(response.message, 'success');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error updating quantity:', error);
+
+                    // Show user-friendly error message
+                    var errorMessage = 'Có lỗi xảy ra khi cập nhật số lượng!';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    showNotification(errorMessage, 'error');
+
+                    // Revert to previous value if possible
+                    var previousValue = $input.data('previous-value') || 1;
+                    $input.val(previousValue);
+                },
+                complete: function() {
+                    // Remove loading state
+                    $input.prop('disabled', false).removeClass('loading');
+                }
+            });
+        }, 500); // 500ms debounce delay
     });
+
+    // Store previous value when input is focused
+    $('.update-quantity').on('focus', function() {
+        $(this).data('previous-value', $(this).val());
+    });
+
+    // Helper function to show notifications
+    function showNotification(message, type) {
+        // Create notification element
+        var $notification = $('<div class="notification notification-' + type + '">' + message + '</div>');
+
+        // Add styles
+        $notification.css({
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            padding: '10px 15px',
+            borderRadius: '5px',
+            color: 'white',
+            zIndex: 9999,
+            fontSize: '14px',
+            fontWeight: 'bold'
+        });
+
+        // Set background color based on type
+        if (type === 'success') {
+            $notification.css('backgroundColor', '#28a745');
+        } else if (type === 'error') {
+            $notification.css('backgroundColor', '#dc3545');
+        }
+
+        // Add to body
+        $('body').append($notification);
+
+        // Auto remove after 3 seconds
+        setTimeout(function() {
+            $notification.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
 });
 
 /*product input*/
@@ -429,17 +522,19 @@ $(document).on('click', '.add-to-cart', function(e) {
     e.preventDefault(); // Ngăn click <a> gây reload/trùng lặp
 
     const itemID            = $(this).data('id');
-    var name                = $(this).data('name');
+    var productName         = $(this).data('name');
     var url                 = $(this).data('url');
     var thumb               = $(this).data('thumb');
     var selectedColor       = $(this).data('color-id');
     var selectedMaterial    = $(this).data('material-id');
+    var colorName           = $(this).data('color-name');
+    var materialName        = $(this).data('material-name');
 
     // In ra console
     console.log('Item Id:', itemID);
     console.log('Item Name:', name);
-    console.log('Color Id:', selectedColor);
-    console.log('Material ID:', selectedMaterial);
+    console.log('Color Id:', selectedColor,'-',colorName);
+    console.log('Material ID:', selectedMaterial,'-',materialName);
     console.log('Url:', url);
 
     //Việc còn lại là tạo Ajax, gọi route rồi đưa về controller để xử lý
@@ -448,9 +543,11 @@ $(document).on('click', '.add-to-cart', function(e) {
         url: url,
         data: {
                 itemID: itemID,
-                name: name,
+                productName: productName,
                 colorID: selectedColor,
                 materialID: selectedMaterial,
+                colorName:colorName,
+                materialName:materialName
                 },
         success: function (response) {
             //alert('Sản phẩm đã được thêm vào giỏ hàng!');

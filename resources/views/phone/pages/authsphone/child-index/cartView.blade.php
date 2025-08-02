@@ -2,12 +2,13 @@
     // use App\Helpers\Template;
     $xhtml = '';
     $allTotalPriceProduct = 0;
+
     if($cart){
         foreach($cart as $key=>$item){
             $id                     = $product_id = $item['product_id'];
             $color_id               = $item['color_id'];
             $material_id            = $item['material_id'];
-            $product_name           = $name =   $item['name'];
+            $product_name           = $name =   $item['product_name'];
             $quantity               = $item['quantity'];
             $price                  = $item['price'];
             $totalPrice             = $item['totalPrice'];
@@ -79,17 +80,6 @@
         }
     }
 @endphp
-<div class="breadcrumb-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title">
-                    <h2 class="py-2">Giỏ hàng</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <form action="{{ $buy_url }}" method="POST" name="admin-form" id="admin-form">
     @csrf

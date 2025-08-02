@@ -1056,7 +1056,15 @@ class Template{
         return  $xhtml;
     }
 
-        public static function showProductThumbInPhoneItem($controllerName = 'product' , $thumbName , $thumbAlt){
+    public static function showProductThumbInOrderHistory($controllerName = 'product' , $thumbName , $thumbAlt){
+        //$linkThumb = asset("images/$controllerName/$thumbName");
+        $linkThumb = ($thumbName != '')? asset("images/$controllerName/$thumbName") :  asset("images/$controllerName/product.jpg");
+        $xhtml  = sprintf('
+            <img src="%s" alt="%s" style="width: 80px">', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
+    public static function showProductThumbInPhoneItem($controllerName = 'product' , $thumbName , $thumbAlt){
         //$linkThumb = asset("images/$controllerName/$thumbName");
         $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
         $xhtml  = sprintf('

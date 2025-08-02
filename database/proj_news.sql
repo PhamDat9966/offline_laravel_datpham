@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 31, 2025 lúc 07:12 AM
+-- Thời gian đã tạo: Th8 02, 2025 lúc 10:04 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -582,7 +582,8 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id`, `code`, `user_id`, `username`, `created`, `total`, `price`, `status`) VALUES
-(14, 'INV-05043931072025-2724', 3, 'user123', '2025-07-31 05:04:39', 2.00, 1250, 'processing');
+(18, 'INV-04210102082025-3817', 3, 'user123', '2025-08-02 04:21:01', 1.00, 350, 'processing'),
+(19, 'INV-07274502082025-9787', 3, 'user123', '2025-08-02 07:27:45', 3.00, 5400, 'processing');
 
 -- --------------------------------------------------------
 
@@ -610,8 +611,9 @@ CREATE TABLE `invoice_product` (
 --
 
 INSERT INTO `invoice_product` (`id`, `invoice_id`, `product_id`, `color_id`, `material_id`, `product_name`, `color_name`, `material_name`, `quantity`, `price`, `total_price`, `thumb`) VALUES
-(12, 14, 34, 4, 58, 'iphone 14', NULL, NULL, 1, 350, 350, 'ialFmsLHSe.png'),
-(13, 14, 33, 5, 58, 'iPhone 15 Pro', NULL, NULL, 1, 900, 900, 'XMPQjNX2As.jpg');
+(16, 18, 34, 4, 58, 'iphone 14', 'đen', '512 GB', 1, 350, 350, 'ialFmsLHSe.png'),
+(17, 19, 27, 1, 58, 'samsung s24', 'vàng', '512 GB', 2, 2250, 4500, ''),
+(18, 19, 33, 5, 58, 'iPhone 15 Pro', 'trắng/bạc', '512 GB', 1, 900, 900, 'XMPQjNX2As.jpg');
 
 -- --------------------------------------------------------
 
@@ -1982,13 +1984,13 @@ ALTER TABLE `coupon`
 -- AUTO_INCREMENT cho bảng `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `invoice_product`
 --
 ALTER TABLE `invoice_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `media`

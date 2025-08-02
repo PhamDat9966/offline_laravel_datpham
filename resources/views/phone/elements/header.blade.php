@@ -60,6 +60,7 @@
     $userInfo = [];
     $homePhone      = route('phoneHome');
     $iconAvatar     = asset("images/phonetheme/avatar.png");
+    $urlAccountForm = route('authsphone/accountForm');
     $urlLogout      = route('authsphone/logout');
 
     $xhtmlUserInfo  = '';
@@ -74,6 +75,7 @@
                                     <li class="onhover-dropdown mobile-account">
                                         '.$avatar.'
                                         <ul class="onhover-show-div">
+                                            <li><a href="'.$urlAccountForm.'">Tài khoảng</a></li>
                                             <li><a href="'.$urlLogout.'">Đăng xuất</a></li>
                                         </ul>
                                     </li>
@@ -105,7 +107,7 @@
             $totalQuantity += $elementCart['quantity'];
         }
     }
-    //dd(session()->all());
+
     $cart               = '<li class="onhover-div mobile-cart">
                                 <div>
                                     <a href="'.$urlCart.'" id="cart" class="position-relative">

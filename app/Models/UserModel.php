@@ -31,6 +31,15 @@ class UserModel extends Authenticatable
         $this->crudNotActived       = ['_token','avatar_current','password_confirmation','task','taskAdd','taskEditInfo','taskChangeLevel','taskChangePassword'];
     }
 
+    /*--Replaytionship--*/
+    // Quan hệ với bảng invoice
+    public function invoices()
+    {
+        $this->table  = 'user';
+        return $this->hasMany(InvoiceModel::class, 'user_id', 'id');
+    }
+    /*--End Replaytionship--*/
+
     public function role()
     {
         return $this->belongsTo(RoleModel::class, 'roles_id');
@@ -334,6 +343,10 @@ class UserModel extends Authenticatable
                            ->leftJoin('permissions as p', 'p.id', '=', 'mhp.permission_id')
                            ->distinct()
                            ->get()->toArray();
+        }
+
+        if($options['task'] == 'get-order-history-by-user-id'){
+            $result = $this->where('id',$params['user_id'])->with('invoices')->get();
         }
 
         return $result;

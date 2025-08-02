@@ -777,12 +777,11 @@ class ProductModel extends AdminModel
                 if($product['price_discount_type'] == 'percent'){
                     $price_discount             = $product['price_discount_percent'];
                     $params['maketing_price']   = $product['price'] - ($product['price'] * $price_discount / 100);
-                    $this::saveItem($params,['task' => 'change-maketing-price']);
                 }else{
                     $price_discount             = $product['price_discount_value'];
                     $params['maketing_price']   = $product['price'] - $price_discount;
-                    $this::saveItem($params,['task' => 'change-maketing-price']);
                 }
+                $this->saveItem($params,['task' => 'change-maketing-price']);
             }
         }
 
