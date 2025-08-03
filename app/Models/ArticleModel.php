@@ -349,7 +349,7 @@ class ArticleModel extends AdminModel
         $params['modified']      = date('Y-m-d');
 
         if($options['task'] == 'change-status'){
-            $status  = ($params['status'] == 'active') ? 'inactive' : 'active';
+            $status  = ($params['currentStatus'] == 'active') ? 'inactive' : 'active';
             $this::where('id', $params['id'])
                         ->update(['status' => $status, 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
             $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
