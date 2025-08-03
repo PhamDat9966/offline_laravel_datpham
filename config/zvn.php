@@ -187,6 +187,12 @@ return [
             'price_asc'     => 'Giá tăng dần',
             'price_desc'    => 'Giá giảm dần',
             'latest'        => 'Mới nhất'
+        ],
+        'invoiceStatus'=>[
+            'processing'    => ['name'=>'Đang xử lý'],
+            'packing'       => ['name'=>'Đóng gói'],
+            'shipping'      => ['name'=>'Vận chuyển'],
+            'complete'      => ['name'=>'Hoàn thành'],
         ]
     ],
     'config'    =>[
@@ -238,6 +244,7 @@ return [
             'productAttributePrice' =>  ['delete'],
             'sliderPhone'           =>  ['edit','delete'],
             'productHasMedia'       =>  ['delete'],
+            'orderHistory'          =>  ['delete'],
         ],
         'lock'   =>[
             'attribute_main_id'     =>  [1,2,3],

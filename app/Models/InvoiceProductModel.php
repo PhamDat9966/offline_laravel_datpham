@@ -38,4 +38,51 @@ class InvoiceProductModel extends AdminModel
     }
     /*--End Replaytionship--*/
 
+    public function getItem($params = null,$options = null){
+
+        $result = null;
+
+        $userInfo     = [];
+        $cart         = session('cart');
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
+
+        $params['user_id'] = $userInfo['id'];
+
+        if($options['task'] == 'get-item-by-user-id'){
+            $this->table = 'invoice';
+            $result = $this->where('user_id',$params['user_id'])->with('user')->get();
+        }
+
+        if($options['task'] == 'get-invoice-product-by-invoice-id'){
+            $this->table = 'invoice_product';
+            $result = $this->where('invoice_id',$params['invoice_id'])->with('invoiceProducts')->get();
+        }
+
+        if($options['task'] == 'get-invoice-product-by-invoice-id-normal'){
+            $result = $this::select(
+                                        'id',
+                                        'invoice_id',
+                                        'product_id',
+                                        'color_id',
+                                        'material_id',
+                                        'product_name',
+                                        'color_name',
+                                        'material_name',
+                                        'quantity',
+                                        'price',
+                                        'total_price',
+                                        'thumb',
+                                    )
+                    ->where('invoice_id', $params['invoice_id'])
+                    ->get();
+
+        }
+
+        return $result;
+    }
+
 }

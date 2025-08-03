@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\App;
 class Template{
 
     public static function showItemHistory($by, $time, $filterValue = null){
+        $filterValue = ($filterValue == null) ? $by : $filterValue;
         $pubDate = Carbon::parse($time);
         $pubDate = $pubDate->toDateString();
 
@@ -290,6 +291,23 @@ class Template{
 
         return  $xhtml;
     }
+
+    public static function showItemSelectNoRole($controllerName , $id , $displayValue , $fieldName){
+
+        $tmplDisplay     = config('zvn.template.' . $fieldName);
+        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+        $xhtml = '';
+        $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
+        foreach($tmplDisplay as $key => $value){
+            $xhtmlSelect = '';
+            if($key == $displayValue) $xhtmlSelect = 'selected="selected"';
+            $xhtml  .=sprintf('<option value="%s" %s>%s</option>', $key , $xhtmlSelect,$value['name']);
+        }
+        $xhtml  .='</select>';
+
+        return  $xhtml;
+    }
+
 
     public static function showRoleSelect($controllerName , $id ,$fieldName ,$rolesID, $tmpRoleList){
 
@@ -1069,6 +1087,17 @@ class Template{
         $linkThumb = ($thumbName)? asset("images/$controllerName/$thumbName") : '';
         $xhtml  = sprintf('
             <img src="%s" class="img-fluid w-100 blur-up lazyload image_zoom_cls-0" alt="%s">', $linkThumb , $thumbAlt);
+        return  $xhtml;
+    }
+
+    public static function showInvoiceInfo($controllerName = 'product' , $invoice){
+        //dd($invoice['invoice_products']);
+        $xhtml  = ' <p><strong>Mã đơn hàng: </strong>'.$invoice['code'].'</p>
+                    <p><strong>Tên khách hàng: </strong>'.$invoice['username'].'</p>
+                    <p><strong>Các sản phẩm thuộc đơn hàng: </strong></p>';
+        foreach($invoice['invoice_products'] as $key=>$invoiceProduct){
+                $xhtml .= '<p> - Tên:'.$invoiceProduct['product_name'].' - Màu:'.$invoiceProduct['color_name'].' - DL:'.$invoiceProduct['material_name'].' -giá:'.$invoiceProduct['quantity'].' -Sl:'.$invoiceProduct['quantity'].' -Tổng:<strong>'.$invoiceProduct['total_price'].'</strong></p> ';
+        }
         return  $xhtml;
     }
 

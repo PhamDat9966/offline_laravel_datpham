@@ -14,7 +14,7 @@ use App\Models\InvoiceProductModel;
 class InvoiceModel extends AdminModel
 {
     public function __construct(){
-        $this->table                = 'invoice';
+        $this->table                = 'invoice as i';
         $this->folderUpload         = 'invoice';
         $this->fieldSearchAccepted  = ['id','user_id','code','total','status'];
         $this->crudNotActived       = ['_token'];
@@ -35,6 +35,106 @@ class InvoiceModel extends AdminModel
         return $this->hasMany(InvoiceProductModel::class, 'invoice_id', 'id');
     }
     /*--End Replaytionship--*/
+
+    public function listItems($params = null,$options = null){
+
+        $result = null;
+        if($options['task'] == 'admin-list-items'){
+            $query = $this->select(
+                                    'i.id',
+                                    'i.code',
+                                    'i.user_id',
+                                    'i.username',
+                                    'i.created',
+                                    'i.status',
+                                    'i.total',
+                                    'i.price',
+                                    'i.modified',
+                                    'i.modified_by'
+                                );
+
+            if($params['filter']['status'] !== "all"){
+               $query->where('c.status','=',$params['filter']['status']);
+
+            }
+
+            if($params['filter']['type'] !== "all"){
+                $query->where("type","=", $params['filter']['type']);
+            }
+
+            if($params['search'] !== ""){
+
+                if($params["search"]["field"] == "all"){
+
+                    $query->where(function ($query) use ($params){
+                        foreach ($this->fieldSearchAccepted as $column) {
+                            {
+                                $query->orWhere('c.'.$column,"like","%".$params["search"]["value"]."%");
+                            }
+                        }
+                    }
+                );
+
+                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                    $query->where('c.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                }
+            }
+
+            $result = $query->orderBy('id', 'desc')
+                            ->paginate($params['pagination']['totalItemsPerPage']);
+        }
+
+        return $result;
+    }
+
+    public function countItems($params = null,$options = null){
+
+        $result = null;
+
+        if($options['task'] == 'admin-count-items-group-by-status'){
+
+            $query  = $this->select(DB::raw('COUNT(id) as count,status'))
+                           ->groupBy('status');
+
+                           if($params['filter']['created'] !== null){
+                                $query->where('created',"like","%".$params['filter']['created']."%");
+                            }
+
+                            if($params['filter']['modified'] !== null){
+                                $query->where('modified',"like","%".$params['filter']['modified']."%");
+                            }
+
+                            if($params['filter']['type'] !== "all"){
+                                $query->where("type","=", $params['filter']['type']);
+                            }
+
+
+                            if($params['search'] !== ""){
+
+                                if($params["search"]["field"] == "all"){
+
+                                    $query->where(function ($query) use ($params){
+                                        foreach ($this->fieldSearchAccepted as $column) {
+                                            {
+                                                $query->orWhere($column,"like","%".$params["search"]["value"]."%");
+                                            }
+                                        }
+                                    }
+                                );
+
+                                }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
+                                    $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
+                                }
+                            }
+
+            $result     = $query->get()
+                                ->toArray();
+        }
+
+        return $result;
+    }
 
     public function saveItem($params = null,$options = null){
         $userInfo     = [];
@@ -59,6 +159,13 @@ class InvoiceModel extends AdminModel
             $this->price     = array_sum(array_column($cart,'totalPrice'));
             $this->status    = 'processing';
             $this->save();
+        }
+
+        if($options['task'] == 'change-status'){
+            $this::where('id', $params['id'])
+                        ->update(['status' => $params['status'], 'modified'=>$params['modified'],'modified_by'=>$params['modified_by']]);
+            $params['modified-return']      = date(config('zvn.format.short_time'),strtotime($params['modified']));
+            return array('modified'=>$params['modified-return'],'modified_by'=>$params['modified_by']);
         }
 
     }
@@ -90,5 +197,9 @@ class InvoiceModel extends AdminModel
         return $result;
     }
 
-
+    public function deleteItem($params = null,$options = null){
+        if($options['task'] == 'delete-item'){
+            $this->where('id', $params['id'])->delete();
+        }
+    }
 }
