@@ -6,7 +6,7 @@
     //$xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
     $urlInvoiceSearch     = route($controllerName . '/invoiceSearch');
     $xhtmlAreaSearch    =   '<select name="searchPhone" id="searchPhone" class="form-control" style="width: 100%" data-url="'.$urlInvoiceSearch.'">
-                                <option value="">Tìm kiếm thông tin smart phone...</option>
+                                <option value="">Tìm kiếm mã đơn hàng...</option>
                             </select>
                             <button id="btn-clear-search" type="button" class="btn btn-success"
                                     style="margin-right: 0px">Xóa tìm kiếm</button>';

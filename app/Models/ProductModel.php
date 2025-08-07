@@ -373,7 +373,7 @@ class ProductModel extends AdminModel
             $this->price_discount_value     = $params['price_discount_value'];
             $this->price_discount_type      = $params['price_discount_type'];
 
-            $this->is_phone                 = $params['is_phone'];
+            //$this->is_phone                 = $params['is_phone'];
 
             $this->save();
 
@@ -577,9 +577,8 @@ class ProductModel extends AdminModel
                                                     ->where('material_id', $delVal['material_id'])
                                                     ->delete();
                 }
-
-
                 /* End bước 01*/
+
                 /*bước 02: Add. Kiểm tra các cặp attribute của product được nhập vào không có nằm trong các cặp attribute của product lấy ra từ table, nếu không thì ta thêm mới */
                 // Chuyển mảng currentAttributePriceItemTable thành danh sách cặp `color_id` và `material_id`
                 //Chuẩn hóa dữ liệu từ $currentAttributePriceItemTable
