@@ -694,6 +694,12 @@ class ProductModel extends AdminModel
             // ghi lại mới toàn bộ thông tin ảnh sản phẩm, làm việc này nhằm tự động tạo nên thứ tự cho ảnh trong danh sách
             if($flagThumbUpdate == true){
 
+                //Các ảnh đã xóa trong dropzone khi edit thì xóa chúng ra khỏi folderUpload:
+                $deleteThumbsInDropzone = array_diff($currentMediaNames, $thumbNamesInput);
+                foreach($deleteThumbsInDropzone as $deleteThumb){
+                    Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $deleteThumb);
+                }
+
                 $this->table = 'media';
                 $this->where('product_id', $params['id'])->delete(); //Xóa ảnh toàn bộ danh sách ảnh có liên quan đến product_id
 
