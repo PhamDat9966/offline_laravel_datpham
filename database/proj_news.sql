@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 07, 2025 lúc 09:11 AM
+-- Thời gian đã tạo: Th8 09, 2025 lúc 06:29 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -685,10 +685,10 @@ INSERT INTO `media` (`id`, `product_id`, `attribute_value_id`, `content`, `posit
 (236, 37, 7, '{\"name\":\"Dvn15q6aVi.jpg\",\"alt\":\"lam\",\"size\":89468}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (237, 38, 4, '{\"name\":\"KJxa6tljOR.jpg\",\"alt\":\"den\",\"size\":66670}', NULL, '', 'false', 'image not for attribute_values', 'default'),
 (238, 38, 3, '{\"name\":\"Mp697YLnf2.jpg\",\"alt\":\"xanh\",\"size\":104996}', NULL, '', 'false', 'image not for attribute_values', 'default'),
-(248, 27, NULL, '{\"name\":\"avKZG7M7YT.jpg\",\"alt\":\"vang\",\"size\":87681}', NULL, '', 'false', '', 'default'),
-(249, 27, NULL, '{\"name\":\"cqU6Ke2mrt.jpg\",\"alt\":\"den\",\"size\":23059}', NULL, '', 'false', '', 'default'),
-(250, 27, NULL, '{\"name\":\"74DOLuEuom.jpg\",\"alt\":\"xam\",\"size\":20665}', NULL, '', 'false', '', 'default'),
-(251, 27, NULL, '{\"name\":\"weqzZwB12Q.jpg\",\"alt\":\"tim\",\"size\":88644}', NULL, '', 'false', '', 'default'),
+(248, 27, 1, '{\"name\":\"avKZG7M7YT.jpg\",\"alt\":\"vang\",\"size\":87681}', NULL, '', 'false', '', 'default'),
+(249, 27, 4, '{\"name\":\"cqU6Ke2mrt.jpg\",\"alt\":\"den\",\"size\":23059}', NULL, '', 'false', '', 'default'),
+(250, 27, 6, '{\"name\":\"74DOLuEuom.jpg\",\"alt\":\"xam\",\"size\":20665}', NULL, '', 'false', '', 'default'),
+(251, 27, 68, '{\"name\":\"weqzZwB12Q.jpg\",\"alt\":\"tim\",\"size\":88644}', NULL, '', 'false', '', 'default'),
 (252, 27, NULL, '{\"name\":\"0KNQByuJlB.jpg\",\"alt\":\"default\",\"size\":61967}', NULL, '', 'false', '', 'default');
 
 -- --------------------------------------------------------
@@ -1567,15 +1567,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `avatar`, `created`, `created_by`, `modified`, `modified_by`, `status`, `usually_category`, `roles_id`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '3,3,3,3,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
+(1, 'admin', 'admin@gmail.com', 'admin123456', 'e10adc3949ba59abbe56e057f20f883e', 'ZnrJ4VWN7s.png', '2024-07-01 00:00:00', 'admin', '2025-02-23 00:00:00', 'admin', 'active', '3,3,3,3,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4', 1),
 (2, 'hailan', 'hailan@gmail.com', 'hailan', 'e10adc3949ba59abbe56e057f20f883e', '1eSGmvZ3gM.jpeg', '2014-12-13 07:20:03', 'admin', '2025-02-23 00:00:00', 'admin', 'active', NULL, 1),
 (3, 'user123', 'phamdat9966@gmail.com', 'user123', 'e10adc3949ba59abbe56e057f20f883e', 'oZ2drtCZub.jpg', '2019-05-04 00:00:00', 'admin', '2025-07-31 00:00:00', 'admin', 'active', NULL, 2),
-(4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
+(4, 'user456', 'user456@gmail.com', 'user456', 'e10adc3949ba59abbe56e057f20f883e', 'g0r3gYefFo.png', '2019-05-04 00:00:00', 'admin', '2025-08-09 00:00:00', 'admin', 'active', NULL, 2),
 (5, 'dat123', 'phamdat999666@gmail.com', 'Dat123', 'e10adc3949ba59abbe56e057f20f883e', 'zpzZTLYNzb.png', '2023-11-28 00:00:00', 'phamdat', '2025-03-14 00:00:00', 'admin', 'active', ',6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,3,3,3,3,2,2,2,3,3,3,2,2,2', 2),
 (6, 'phamdat9997778', 'phamdat999999999@gmail.com', 'Phamdat123123213', 'e10adc3949ba59abbe56e057f20f883e', 'pL1DxiUtai.jpg', '2023-11-28 00:00:00', 'phamdat', '2025-03-06 00:00:00', 'user123', 'active', NULL, 4),
 (8, 'admin999', 'phamdat999999999663123213216@gmail.com', 'Dat123312321321321', 'e10adc3949ba59abbe56e057f20f883e', '9k04uy61T5.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 2),
 (9, 'member0011', 'member999666@gmail.com', 'Member0011', 'e10adc3949ba59abbe56e057f20f883e', 'uajxH2pLAp.jpg', '2023-11-29 00:00:00', 'phamdat', '2025-02-25 00:00:00', 'admin', 'active', NULL, 3),
-(15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', '2024-01-22 00:00:00', 'admin', '2025-03-18 00:00:00', 'admin', 'active', NULL, 16);
+(15, 'member00111', 'phamdat999666111@gmail.com', 'Member00111', 'e10adc3949ba59abbe56e057f20f883e', 'MxO2Afexqg.png', '2024-01-22 00:00:00', 'admin', '2025-08-09 00:00:00', 'admin', 'active', NULL, 4);
 
 --
 -- Bẫy `user`
@@ -1688,7 +1688,10 @@ INSERT INTO `user_agents` (`id`, `agent`, `timestamps`, `article_id`) VALUES
 (60, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', '2025-07-08 02:02:01', 35),
 (61, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-07-08 02:02:01', 41),
 (62, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', '2025-07-08 02:02:01', 42),
-(63, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-07-08 02:02:01', 42);
+(63, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', '2025-07-08 02:02:01', 42),
+(64, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', '2025-08-09 11:24:17', 42),
+(65, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', '2025-08-09 11:24:18', 42),
+(66, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', '2025-08-09 11:24:19', 42);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2190,7 +2193,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `user_agents`
 --
 ALTER TABLE `user_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

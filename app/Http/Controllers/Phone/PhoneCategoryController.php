@@ -21,7 +21,7 @@ class PhoneCategoryController extends Controller
 
     public function __construct()
     {
-        $this->params['pagination']['totalItemsPerPage']  = 4;
+        $this->params['pagination']['totalItemsPerPage']  = 8;
         View::share('controllerName',$this->controllerName);
     }
 
