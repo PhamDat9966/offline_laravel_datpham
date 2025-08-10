@@ -16,7 +16,7 @@ class InvoiceModel extends AdminModel
     public function __construct(){
         $this->table                = 'invoice as i';
         $this->folderUpload         = 'invoice';
-        $this->fieldSearchAccepted  = ['id','user_id','code','total','status'];
+        $this->fieldSearchAccepted  = ['id','user_id','code'];
         $this->crudNotActived       = ['_token'];
     }
 
@@ -69,14 +69,14 @@ class InvoiceModel extends AdminModel
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere('c.'.$column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('i.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('c.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+                    $query->where('i.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }

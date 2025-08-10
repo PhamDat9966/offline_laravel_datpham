@@ -2,14 +2,11 @@
 
 @php
     use App\Helpers\template as Template;
-    //$xhtmlButtonFilter  =   Template::showButtonFilter($controllerName, $itemsStatusCount, $params['filter']['status'], $params['search'], $params);
-    //$xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
-    $urlInvoiceSearch     = route($controllerName . '/invoiceSearch');
-    $xhtmlAreaSearch    =   '<select name="searchPhone" id="searchPhone" class="form-control" style="width: 100%" data-url="'.$urlInvoiceSearch.'">
-                                <option value="">Tìm kiếm mã đơn hàng...</option>
-                            </select>
-                            <button id="btn-clear-search" type="button" class="btn btn-success"
-                                    style="margin-right: 0px">Xóa tìm kiếm</button>';
+
+    $params             = $data['params'];
+    $itemsStatusCount   = $data['itemsStatusCount'];
+
+    $xhtmlAreaSearch    =   Template::showAreaSearch($controllerName, $params['search']);
 @endphp
 
 @section('content')
@@ -24,10 +21,10 @@
             @include('admin.templates.x_title',['title'=>'Bộ lọc'])
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-5">
 
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         {!!$xhtmlAreaSearch!!}
                     </div>
                 </div>

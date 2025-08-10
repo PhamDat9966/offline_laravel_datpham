@@ -215,6 +215,7 @@ return [
             'shipping'              =>  ['all','name','cost'],
             'productAttributePrice' =>  ['product_name'],
             'productHasMedia'       =>  ['namePhone','nameMedia'],
+            'orderHistory'          =>  ['username','code']
         ],
         'button'    =>[
             'default'               =>  ['edit','delete'],

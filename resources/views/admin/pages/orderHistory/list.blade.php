@@ -31,7 +31,7 @@
 
                             $invoiceArray                   = $val->toArray();
                             $totalPriceInvoice              = array_sum(array_column($invoiceArray['invoice_products'], 'total_price'));
-                            $invoiceInfo                    = Template::showInvoiceInfo($controllerName,$val);
+                            $invoiceInfo                    = Template::showInvoiceInfo($controllerName,$val,$params);
 
                             $status                         = Template::showItemSelectNoRole($controllerName,$id,$val['status'],'invoiceStatus');
                             $createdHistory                 = Template::showItemHistory($val['created_by'],$val['created'], null);

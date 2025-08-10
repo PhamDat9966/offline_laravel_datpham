@@ -33,7 +33,6 @@ class OrderHistoryController extends AdminController
             $invoiceProducts = $invoiceProducts->toArray();
             $data['items'][$key]['invoice_products'] = $invoiceProducts;
         }
-
         // Trả về response mới
         return view($this->pathViewController . 'index', ['data' => $data]);
     }

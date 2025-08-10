@@ -51,11 +51,6 @@ class AdminController extends Controller
         $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
-        /* foreach($items as $key=>$item){ // Nếu dùng foreach trong Laravel thì nên echo $key và $value trong vòng lặp để nó xuất hiện dữ liệu
-             echo "<h3 style='color:blue'>".$key."</h3>";
-            echo "<h3 style='color:red'>".$item."</h3>";
-        } */
-
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,

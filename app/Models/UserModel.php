@@ -81,7 +81,6 @@ class UserModel extends Authenticatable
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
                     $query->where($params["search"]["field"],"like","%".$params["search"]["value"]."%");
-                    //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
 

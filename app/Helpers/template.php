@@ -1090,10 +1090,12 @@ class Template{
         return  $xhtml;
     }
 
-    public static function showInvoiceInfo($controllerName = 'product' , $invoice){
+    public static function showInvoiceInfo($controllerName = 'product' , $invoice , $params){
         //dd($invoice['invoice_products']);
-        $xhtml  = ' <p><strong>Mã đơn hàng: </strong>'.$invoice['code'].'</p>
-                    <p><strong>Tên khách hàng: </strong>'.$invoice['username'].'</p>
+        $userName =  Hightlight::show($invoice['username'], $params['search'] , 'username');
+        $code     =  Hightlight::show($invoice['code'], $params['search'] , 'code');
+        $xhtml  = ' <p><strong>Mã đơn hàng (code): </strong>'.$code.'</p>
+                    <p><strong>Tên khách hàng: </strong>'.$userName.'</p>
                     <p><strong>Các sản phẩm thuộc đơn hàng: </strong></p>';
         foreach($invoice['invoice_products'] as $key=>$invoiceProduct){
                 $xhtml .= '<p> - Tên:'.$invoiceProduct['product_name'].' - Màu:'.$invoiceProduct['color_name'].' - DL:'.$invoiceProduct['material_name'].' -giá:'.$invoiceProduct['quantity'].' -Sl:'.$invoiceProduct['quantity'].' -Tổng:<strong>'.$invoiceProduct['total_price'].'</strong></p> ';
