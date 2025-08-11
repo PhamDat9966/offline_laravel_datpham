@@ -65,7 +65,7 @@ class AuthController extends Controller
             Auth::login($user); //Bổ xung thêm đăng nhập vào Auth
 
             //Kiểm tra "URL trước đó" trong session
-            if (Session::get('url')['intended']) {
+            if (isset(Session::get('url')['intended'])) {
                 // Tiến đến "url trước đó" khi đăng nhập
                 return redirect()->intended(Session::get('url')['intended']);
             }
