@@ -294,15 +294,17 @@ class AuthsphoneController extends Controller
 
         $userInvoice = $userModel->getItem($params,['task'=>'get-order-history-by-user-id']);
         $userInvoice = $userInvoice->toArray();
-        $userInvoice = $userInvoice[0];
         $invoiceModel = new InvoiceModel();
-        foreach($userInvoice['invoices'] as $key=>$invoiceItem){
-            $params = [];
-            $params['invoice_id'] = $invoiceItem['id'];
 
-            $userInvoiceProducts = $invoiceModel->getItem($params,['task'=>'get-invoice-product-by-invoice-id']);
-            $userInvoiceProducts = $userInvoiceProducts->toArray();
-            $userInvoice['invoices'][$key]['invoice_product'] = $userInvoiceProducts;
+        if(isset($userInvoice)){
+            foreach($userInvoice as $key=>$invoiceItem){
+                $params = [];
+                $params['invoice_id'] = $invoiceItem['id'];
+
+                $userInvoiceProducts = $invoiceModel->getItem($params,['task'=>'get-invoice-product-by-invoice-id']);
+                $userInvoiceProducts = $userInvoiceProducts->toArray();
+                $userInvoice[$key]['invoice_product'] = $userInvoiceProducts;
+            }
         }
         return view($this->pathViewController . 'orderHistory', [
             'userInvoice'       => $userInvoice

@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Kế thừa User để hỗ trợ Auth
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TraitsModel;
+use App\Models\InvoiceModel as InvoiceModel;
+
 // class UserModel extends AdminModel
 class UserModel extends Authenticatable
 {
@@ -345,7 +347,9 @@ class UserModel extends Authenticatable
         }
 
         if($options['task'] == 'get-order-history-by-user-id'){
-            $result = $this->where('id',$params['user_id'])->with('invoices')->get();
+            // $this->table = 'invoice';
+            // $result = $this->where('user_id',$params['user_id'])->with('invoices')->get();
+            $result = InvoiceModel::where('user_id', $params['user_id'])->get();
         }
 
         return $result;

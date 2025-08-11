@@ -1091,7 +1091,7 @@ class Template{
     }
 
     public static function showInvoiceInfo($controllerName = 'product' , $invoice , $params){
-        //dd($invoice['invoice_products']);
+
         $userName =  Hightlight::show($invoice['username'], $params['search'] , 'username');
         $code     =  Hightlight::show($invoice['code'], $params['search'] , 'code');
         $xhtml  = ' <p><strong>Mã đơn hàng (code): </strong>'.$code.'</p>
