@@ -85,4 +85,36 @@ class InvoiceProductModel extends AdminModel
         return $result;
     }
 
+    public function saveItem($params = null,$options = null){
+        $userInfo     = [];
+        $cart         = session('cart');
+        if (Session::has('userInfo')) {
+            $userInfo = Session::get('userInfo');
+        } else {
+            $userInfo = ['username'=>'admin'];
+        }
+
+        $params['modified_by']   = $userInfo['username'];
+        $params['modified']      = date('Y-m-d');
+
+        if($options['task'] == 'add-item'){
+            /* Save dữ liệu theo eloquent */
+            //dd($params);
+            $this->table         = 'invoice_product';
+            $this->invoice_id    = $params['invoice_id'];
+            $this->product_id    = $params['product_id'];
+            $this->color_id      = $params['color_id'];
+            $this->material_id   = $params['material_id'];
+            $this->product_name  = $params['product_name'];
+            $this->color_name    = $params['color_name'];
+            $this->material_name = $params['material_name'];
+            $this->price         = $params['price'];
+            $this->quantity      = $params['quantity'];
+            $this->thumb         = $params['thumb'];
+            $this->total_price   = $params['totalPrice'];
+            $this->save();
+        }
+
+    }
+
 }

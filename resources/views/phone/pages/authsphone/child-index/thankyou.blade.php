@@ -13,7 +13,7 @@
 <section class="cart-section section-b-space">
     <div class="container">
         <div class="row cart-buttons">
-            <div class="col-6"><a href="{{Route('phoneCategory')}} class="btn btn-solid">Tiếp tục mua sắm</a></div>
+            <div class="col-6"><a href="{{Route('phoneCategory')}}" class="btn btn-solid">Tiếp tục mua sắm</a></div>
         </div>
     </div>
 </section>

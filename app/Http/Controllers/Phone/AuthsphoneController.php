@@ -182,6 +182,7 @@ class AuthsphoneController extends Controller
         //dd($request->all(),session()->all(),$cart);
 
         if (!$cart || count($cart) == 0) {
+            dd('giỏ hàng trống');
             return redirect()->back()->with('error', 'Giỏ hàng trống.');
         }
 
@@ -190,31 +191,15 @@ class AuthsphoneController extends Controller
         try {
             //Thiết lập hóa đơn invoide.
             $invoice = new InvoiceModel();
-            $invoice->user_id   = $user['id'];
-            $invoice->username  = $user['username'];
-            $invoice->code      = 'INV-' . now()->format('HisdmY') . '-' . rand(1000, 9999);
-            $invoice->created   = now()->format('Y-m-d H:i:s');
-            $invoice->total     = array_sum(array_column($cart, 'quantity'));
-            $invoice->price     = array_sum(array_column($cart,'totalPrice'));
-            $invoice->status    = 'processing';
-            $invoice->save();
-
+            $params         = [];
+            $invoice->saveItem(null,['task'=>'add-item']); //params ở đây sẽ được thay bằng session
             //Thêm chi tiếc các sản phẩm vào invoice_product
             foreach ($cart as $item) {
                 $invoiceProductModel = new InvoiceProductModel(); //foreach thì đối tượng phải đặt trong vòng lặp
+                $params                 = $item;
+                $params['invoice_id']   = $invoice->id;
 
-                $invoiceProductModel->invoice_id    = $invoice->id;
-                $invoiceProductModel->product_id    = $item['product_id'];
-                $invoiceProductModel->color_id      = $item['color_id'];
-                $invoiceProductModel->material_id   = $item['material_id'];
-                $invoiceProductModel->product_name  = $item['product_name'];
-                $invoiceProductModel->color_name    = $item['color_name'];
-                $invoiceProductModel->material_name = $item['material_name'];
-                $invoiceProductModel->price         = $item['price'];
-                $invoiceProductModel->quantity      = $item['quantity'];
-                $invoiceProductModel->thumb         = $item['thumb'];
-                $invoiceProductModel->total_price   = $item['totalPrice'];
-                $invoiceProductModel->save();
+                $invoiceProductModel->saveItem($params,['task'=>'add-item']);
             }
 
             DB::commit();
