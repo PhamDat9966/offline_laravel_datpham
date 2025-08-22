@@ -109,11 +109,11 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     // ====================== NOTIFY ======================
     $prefix         =   '';
     $controllerName =   'notify';
-    Route::group(['prefix'=>$prefix],function () use($controllerName) {
+    Route::group(['prefix'=>$prefix],function () use($controllerName, $prefix) {
         $controller =   ucfirst($controllerName) . 'Controller@';
-        Route::get('/no-permission', [
-            'as'    => $controllerName . '/noPermission',      // Đây là tên để gọi rounte tại 1 vị trí nào đó trên vỉew
-            'uses'  => $controller . 'noPermission'            // Đây là đường dẫn đến controller
+        Route::get('{locale?}/'.$prefix . 'no-permission', [
+            'as'    => $controllerName . '/noPermission',
+            'uses'  => $controller . 'noPermission'
         ]);
     });
 

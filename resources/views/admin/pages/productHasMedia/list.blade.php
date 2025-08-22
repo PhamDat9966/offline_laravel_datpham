@@ -38,12 +38,13 @@
                             $nameProduct                      = (request()->has('filter_product_id')) ? '<strong style="color: red;">'.$nameProduct.'</strong>': $nameProduct;
 
                             $isVideo                        = $val['is_video'];
-                            $description                    = $val['description'];
+                            $description                    = "";
 
                             $mediaShow                      = Template::showItemMediaModal('product',$val);
                             $selectAttributeValueForMedia   = Template::showMediaSelectAttributeWithArray($controllerName,$id,$attribute_value_id,'attribute',$val['productHasAttributes']);
 
-                            $action                         = Template::showButtonActionMedia($controllerName,$id,$mediaName);
+                            //$action                         = Template::showButtonActionMedia($controllerName,$id,$mediaName);
+                            $action                          = "Locked";
                         @endphp
 
                         <tr class="{{$class}} pointer">

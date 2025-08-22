@@ -22,7 +22,7 @@ class UserPermissionMiddleware
     {
         $session = session()->all();
         $userInfo = $session['userInfo'];
-        //dd($userInfo);
+
         // Lấy role_id của user, kiểm tra nó có phải ở Founder level không?
         $founderRolesID = config('zvn.config.lock.prime_id');
         if($userInfo['roles_id'] != $founderRolesID){
@@ -66,12 +66,12 @@ class UserPermissionMiddleware
                 if ($userInfoHasPermission) {
                     return $next($request);
                 } else {
-                    return redirect()->route('notify/noPermission');
+                    return redirect()->route('notify/noPermission',['locale' => $session['locale']]);
                 }
 
             }else{
                 //Nếu quyền ở module action này không tồn tại thì kết thúc kiểm tra tại đây.
-                return redirect()->route('notify/noPermission');
+                return redirect()->route('notify/noPermission',['locale'=>$session['locale']]);
             }
 
         }

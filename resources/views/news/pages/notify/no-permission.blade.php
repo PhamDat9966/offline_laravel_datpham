@@ -12,7 +12,11 @@
                     <!-- Main Content -->
                     <div class="col-lg-9">
                         <div class="main-content">
-                            <h3>Bạn Không Có Quyền Truy Cập Vào Chức Năng Này!</h3>
+                            @if ($locale == 'vi')
+                                <h3>Bạn Không Có Quyền Truy Cập Vào Chức Năng Này!</h3>
+                            @else
+                                <h3>You Do Not Have Access To This Feature!</h3>
+                            @endif
                         </div>
 
                     </div>

@@ -621,15 +621,16 @@ class Template{
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : 'default';
         $listButtons    = $buttonInArea[$controllerName];
 
-        $xhtml   ='<div class="zvn-box-btn-filter">';
-        foreach($listButtons as $btn){
-            $currentButton  = $tmplButton[$btn];
-            $link           = route($controllerName . $currentButton['route-name'], ['product_id'=>$product_id,'color_id'=>$color_id,'material_id'=>$material_id]);
+        $xhtml   ='<div class="zvn-box-btn-filter"><i class="fa %s"></i>';
 
-            $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
-                                        <i class="fa %s"></i>
-                                </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
-        }
+        // foreach($listButtons as $btn){
+        //     $currentButton  = $tmplButton[$btn];
+        //     $link           = route($controllerName . $currentButton['route-name'], ['product_id'=>$product_id,'color_id'=>$color_id,'material_id'=>$material_id]);
+
+        //     $xhtml         .= sprintf('<a href="%s" type="button" class="btn btn-icon %s" data-toggle="tooltip" data-placement="top" data-original-title="%s">
+        //                                 <i class="fa %s"></i>
+        //                         </a>',$link, $currentButton['class'],$currentButton['title'],$currentButton['icon']);
+        // }
         $xhtml  .='</div>';
         return  $xhtml;
     }
