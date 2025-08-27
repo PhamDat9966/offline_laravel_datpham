@@ -494,22 +494,26 @@ $(document).ready(function() {
                   },
             success: function (response) {
                 var imageName  = response.imageName;
-                console.log(imageName)
-                // Tìm tất cả slide của Swiper chính
-                let slides = document.querySelectorAll('.mySwiper2 .swiper-slide');
 
+                // Tìm tất cả slide của Swiper chính
                 // Lặp để tìm vị trí của ảnh
-                let targetIndex = -1;
-                slides.forEach((slide, index) => {
+                // let targetIndex = -1;
+                // $.each(swiperMain.slides, function(index, slide) {
+                //     let img = $(slide).find('img'); // dùng jQuery để tìm <img> trong slide
+                //     if (img.length && img.attr('src').includes(imageName)) {
+                //         targetIndex = index;
+                //         return false; // giống như break trong for, dừng $.each
+                //     }
+                // });
+
+                let targetIndex = swiperMain.slides.findIndex(slide => {
                     let img = slide.querySelector('img');
-                    if (img && img.src.includes(imageName)) {
-                        targetIndex = index;
-                    }
+                    return img && img.src.includes(imageName);
                 });
 
                 // Nếu tìm thấy thì chuyển Swiper đến ảnh đó
                 if (targetIndex !== -1) {
-                    swiperMain.slideToLoop(targetIndex); // slideToLoop nếu bạn đang dùng loop:true
+                    swiperMain.slideToLoop(targetIndex); // slideToLoop nếu đang dùng loop:true
                 }
             }
         });
