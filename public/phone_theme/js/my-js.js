@@ -461,10 +461,10 @@ $(document).ready(function() {
         },
 
         // Tự động chuyển ảnh mỗi 5 giây
-        autoplay: {
-            delay: 8000,        // thời gian giữa các ảnh (miligiây)
-            disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
-        },
+        // autoplay: {
+        //     delay: 8000,        // thời gian giữa các ảnh (miligiây)
+        //     disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
+        // },
 
         //  Các nút điều hướng (nếu có)
         navigation: {
@@ -475,6 +475,27 @@ $(document).ready(function() {
         thumbs: {
             swiper: swiperThumbs,
         },
+    });
+
+    let targetIndex = -1;
+    let totalSlides = swiperMain.slides.length;
+
+
+    // Cập nhật targetIndex khi slide thay đổi
+    swiperMain.on('slideNextTransitionStart', function () {
+        let currentIndex = swiperMain.realIndex;
+        targetIndex = targetIndex + 1;
+        if(targetIndex >= totalSlides){
+            targetIndex = 0;
+        }
+        console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
+    });
+    swiperMain.on('slidePrevTransitionStart', function () {
+        let currentIndex = swiperMain.realIndex;
+        if(targetIndex <= 0){
+            targetIndex = totalSlides - 1; //Nếu tổng số là 4 thì targetIndex = 3 là vị trí cuối cùng
+        }
+        console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
     });
 
     //Check color image
@@ -494,21 +515,24 @@ $(document).ready(function() {
                   },
             success: function (response) {
                 var imageName  = response.imageName;
+                console.log('Image Name:', imageName);
+                // Nếu không có ảnh nào được gán cho thuộc tính màu sắc thì không làm gì cả
+                if(imageName == null || imageName == ''){
+                    return;
+                }
 
                 // Tìm tất cả slide của Swiper chính
-                // Lặp để tìm vị trí của ảnh
-                // let targetIndex = -1;
-                // $.each(swiperMain.slides, function(index, slide) {
-                //     let img = $(slide).find('img'); // dùng jQuery để tìm <img> trong slide
-                //     if (img.length && img.attr('src').includes(imageName)) {
-                //         targetIndex = index;
-                //         return false; // giống như break trong for, dừng $.each
-                //     }
-                // });
+                let slides = document.querySelectorAll('.mySwiper2 .swiper-wrapper .swiper-slide');
+                //console.log('slides in main Swiper:', slides);
 
-                let targetIndex = swiperMain.slides.findIndex(slide => {
-                    let img = slide.querySelector('img');
-                    return img && img.src.includes(imageName);
+                slides.forEach(function(slide, index) {
+                   // console.log(key + " => " + slide.innerHTML);
+                    let img = $(slide).find('img'); // dùng jQuery để tìm <img> trong slide
+
+                    if (img.length && img.attr('src').includes(imageName)) { //Kiểm tra nếu có thẻ img và src chứa imageName
+                        targetIndex = index; // Lưu lại vị trí index của slide tìm được
+                        return false; // giống như break trong for, dừng $.each
+                    }
                 });
 
                 // Nếu tìm thấy thì chuyển Swiper đến ảnh đó
