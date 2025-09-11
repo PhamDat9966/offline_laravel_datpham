@@ -461,10 +461,10 @@ $(document).ready(function() {
         },
 
         // Tự động chuyển ảnh mỗi 5 giây
-        // autoplay: {
-        //     delay: 8000,        // thời gian giữa các ảnh (miligiây)
-        //     disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
-        // },
+        autoplay: {
+            delay: 5000,        // thời gian giữa các ảnh (miligiây)
+            disableOnInteraction: false,  // không tắt autoplay sau khi người dùng tương tác
+        },
 
         //  Các nút điều hướng (nếu có)
         navigation: {
@@ -476,32 +476,6 @@ $(document).ready(function() {
             swiper: swiperThumbs,
         },
     });
-
-    // let targetIndex = -1;
-    // let totalSlides = swiperMain.slides.length;
-
-
-    // // Cập nhật targetIndex khi slide thay đổi
-    // swiperMain.on('slideNextTransitionStart', function () {
-    //     let currentIndex = swiperMain.realIndex;
-    //     // targetIndex = targetIndex + 1;
-    //     // if(targetIndex >= totalSlides){
-    //     //     targetIndex = 0;
-    //     // }
-    //     // // console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
-    //     // console.log("Active index:", swiperMain.activeIndex);
-    //     // console.log("Real index:", swiperMain.realIndex);
-    //     targetIndex = currentRealIndex;
-    // });
-
-    // swiperMain.on('slidePrevTransitionStart', function () {
-    //     // let currentIndex = swiperMain.realIndex;
-    //     // if(targetIndex <= 0){
-    //     //     targetIndex = totalSlides - 1; //Nếu tổng số là 4 thì targetIndex = 3 là vị trí cuối cùng
-    //     // }
-    //     // console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
-    //     targetIndex = currentRealIndex;
-    // });
 
     //Check color image
     //Khi click nào thuộc tính màu sắc của ảnh, ví dụ đỏ hoặc đen. Khung ảnh  chính (phía trên danh sách Swiper) sẽ di chuyển đến ảnh đã được gán thuộc tính
@@ -572,8 +546,16 @@ $(document).ready(function() {
 
                 /* Viết theo kểu lấy toàn bộ các slider với jquery */
                 let slides = $(".mySwiper2 .swiper-wrapper .swiper-slide"); // Đây sẽ trả về toàn bộ các thẻ .swiper-slide (div slide) bên trong .mySwiper2. Trả về đối tượng jquery
-                slides.each(function () {
-                    let $slide = $(this);              // đây là <div class="swiper-slide">
+                slides.each(function (index, slide) {
+                    console.log("Index:", index);     // 0,1,2,3...
+                    console.log("Slide:", slide);     // <div class="swiper-slide">...</div>
+                    console.log("jQuery Slide (đối tượng jquery):", $(slide)); // bọc lại thành đối tượng jQuery
+
+                    /*
+                         biến "slide" ở đây chính là DOM element thuần (HTML element) bọc lại "slide" để tạo nên đối tượng jquery "slide",
+                        từ đó có các method của jquery (ví dụ .find(), .attr(), .data()...). Cho chúng ta sử dụng.
+                    */
+                    let $slide = $(slide);
                     let $img   = $slide.find("img");   // tìm <img> bên trong slide
 
                     if ($img.length && $img.attr("src").includes(imageName)) {
