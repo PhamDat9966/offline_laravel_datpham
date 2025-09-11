@@ -477,26 +477,31 @@ $(document).ready(function() {
         },
     });
 
-    let targetIndex = -1;
-    let totalSlides = swiperMain.slides.length;
+    // let targetIndex = -1;
+    // let totalSlides = swiperMain.slides.length;
 
 
-    // Cập nhật targetIndex khi slide thay đổi
-    swiperMain.on('slideNextTransitionStart', function () {
-        let currentIndex = swiperMain.realIndex;
-        targetIndex = targetIndex + 1;
-        if(targetIndex >= totalSlides){
-            targetIndex = 0;
-        }
-        console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
-    });
-    swiperMain.on('slidePrevTransitionStart', function () {
-        let currentIndex = swiperMain.realIndex;
-        if(targetIndex <= 0){
-            targetIndex = totalSlides - 1; //Nếu tổng số là 4 thì targetIndex = 3 là vị trí cuối cùng
-        }
-        console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
-    });
+    // // Cập nhật targetIndex khi slide thay đổi
+    // swiperMain.on('slideNextTransitionStart', function () {
+    //     let currentIndex = swiperMain.realIndex;
+    //     // targetIndex = targetIndex + 1;
+    //     // if(targetIndex >= totalSlides){
+    //     //     targetIndex = 0;
+    //     // }
+    //     // // console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
+    //     // console.log("Active index:", swiperMain.activeIndex);
+    //     // console.log("Real index:", swiperMain.realIndex);
+    //     targetIndex = currentRealIndex;
+    // });
+
+    // swiperMain.on('slidePrevTransitionStart', function () {
+    //     // let currentIndex = swiperMain.realIndex;
+    //     // if(targetIndex <= 0){
+    //     //     targetIndex = totalSlides - 1; //Nếu tổng số là 4 thì targetIndex = 3 là vị trí cuối cùng
+    //     // }
+    //     // console.log('Target Index:', targetIndex, 'currentIndex:', currentIndex, 'Total Slides:', totalSlides);
+    //     targetIndex = currentRealIndex;
+    // });
 
     //Check color image
     //Khi click nào thuộc tính màu sắc của ảnh, ví dụ đỏ hoặc đen. Khung ảnh  chính (phía trên danh sách Swiper) sẽ di chuyển đến ảnh đã được gán thuộc tính
@@ -521,19 +526,63 @@ $(document).ready(function() {
                     return;
                 }
 
-                // Tìm tất cả slide của Swiper chính
-                let slides = document.querySelectorAll('.mySwiper2 .swiper-wrapper .swiper-slide');
-                //console.log('slides in main Swiper:', slides);
+                var targetIndex = -1; // Reset targetIndex mỗi lần tìm kiếm
 
-                slides.forEach(function(slide, index) {
-                   // console.log(key + " => " + slide.innerHTML);
-                    let img = $(slide).find('img'); // dùng jQuery để tìm <img> trong slide
+                /*Hàm chuẩn*/
+                // let targetIndex = $(".swiper-slide img").filter(function() {
+                //     return $(this).attr("src").includes(imageName);
+                // }).closest(".swiper-slide").data("swiper-slide-index");
+                /*End Hàm chuẩn*/
 
-                    if (img.length && img.attr('src').includes(imageName)) { //Kiểm tra nếu có thẻ img và src chứa imageName
-                        targetIndex = index; // Lưu lại vị trí index của slide tìm được
-                        return false; // giống như break trong for, dừng $.each
+
+                /* Viết theo kểu lấy đối tượng là thẻ img */
+
+                // let slides = document.querySelectorAll('.swiper-slide img'); //CHỉ lay thẻ img bên trong slide
+                // /* Các kiểu console */
+                //     //console.log(Array.from(slides));
+                //     // console.table(Array.from(slides).map(img => ({
+                //     //     src: img.src,
+                //     //     alt: img.alt,
+                //     // })));
+                // /* End các kiểu console */
+
+                // // Duyệt qua từng slide để tìm ảnh có tên trùng với imageName Viết kểu jQuery
+                // $(".swiper-slide img").each(function() {
+                //     let $img = $(this);
+                //     if ($img.attr("src").includes(imageName)) {
+                //         // lệnh closest(selector) trong jQuery sẽ đi ngược lên cây DOM để tìm phần tử cha gần nhất khớp với selector đã cho
+                //         // tức là img đi ngược lên thẻ div chưa nó ở đây có giá trị data. Sau đó lấy data
+                //         targetIndex = $img.closest(".swiper-slide").data("swiper-slide-index");
+                //         console.log("Giá trị của targetIndex:", targetIndex);
+                //         return false; // dừng vòng lặp khi tìm thấy
+                //     }
+                // });
+                /* End Viết theo kểu lấy đối tượng là thẻ img */
+
+                /* Viết theo kểu lấy toàn bộ các slider với JS thuần */
+                // let slides = document.querySelectorAll('.mySwiper2 .swiper-wrapper .swiper-slide'); //trả về NodeList (mảng các DOM element)
+                // slides.forEach(slide => {
+                //     let img = slide.querySelector("img");
+                //     if (img && img.src.includes(imageName)) {
+                //         targetIndex = slide.dataset.swiperSlideIndex;
+                //         console.log("Found image at index:", targetIndex);
+                //     }
+                // });
+                /* End Viết theo kểu lấy toàn bộ các slider với JS thuần */
+
+                /* Viết theo kểu lấy toàn bộ các slider với jquery */
+                let slides = $(".mySwiper2 .swiper-wrapper .swiper-slide"); // Đây sẽ trả về toàn bộ các thẻ .swiper-slide (div slide) bên trong .mySwiper2. Trả về đối tượng jquery
+                slides.each(function () {
+                    let $slide = $(this);              // đây là <div class="swiper-slide">
+                    let $img   = $slide.find("img");   // tìm <img> bên trong slide
+
+                    if ($img.length && $img.attr("src").includes(imageName)) {
+                        targetIndex = $slide.data("swiper-slide-index"); // Lấy giá trị data-swiper-slide-index, đây là index của slide
+                        console.log("Found image at index:", targetIndex);
+                        return false; // break vòng each khi tìm thấy
                     }
                 });
+                /* End Viết theo kểu lấy toàn bộ các slider với jquery */
 
                 // Nếu tìm thấy thì chuyển Swiper đến ảnh đó
                 if (targetIndex !== -1) {

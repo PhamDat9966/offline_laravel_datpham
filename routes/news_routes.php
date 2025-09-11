@@ -95,7 +95,7 @@ Route::group(['prefix'=>$prefixNews,'middleware' => 'locale.language','namespace
     //en,vi
     Route::group(['middleware'=>['userAgent.middleware']], function () use($controllerName, $prefixAlias) {
         $controller = ucfirst($controllerName) . 'Controller@';
-        Route::get('{locale?}/'.$prefixAlias . '-{article_name}-{article_id}.php', [
+        Route::get('{locale?}/' . $prefixAlias . '-{article_name}-{article_id}.php', [
             'as'    => $controllerName . '/alias',
             'uses'  => $controller . 'index'
         ])->where([
