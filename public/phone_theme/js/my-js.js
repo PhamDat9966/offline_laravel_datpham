@@ -534,36 +534,49 @@ $(document).ready(function() {
                 /* End Viết theo kểu lấy đối tượng là thẻ img */
 
                 /* Viết theo kểu lấy toàn bộ các slider với JS thuần */
-                // let slides = document.querySelectorAll('.mySwiper2 .swiper-wrapper .swiper-slide'); //trả về NodeList (mảng các DOM element)
-                // slides.forEach(slide => {
-                //     let img = slide.querySelector("img");
-                //     if (img && img.src.includes(imageName)) {
-                //         targetIndex = slide.dataset.swiperSlideIndex;
-                //         console.log("Found image at index:", targetIndex);
-                //     }
-                // });
+                let slidesjs = document.querySelectorAll('.mySwiper2 .swiper-wrapper .swiper-slide'); //trả về NodeList (mảng các DOM element)
+                console.log("SlidesJS Nodelist thuần:", slidesjs);
+                console.log("SlidesJS table:",slidesjs[0].outerHTML);
+                console.log([...slidesjs].map(slide => slide.outerHTML));
+
+                slidesjs.forEach(slide => {
+                    console.log("SlideJS thuần:", slide); // <div class="swiper-slide">...</div>
+                    let img = slide.querySelector("img");
+                    console.log("Image trong slide:", img); // <img ...>
+                    if (img && img.src.includes(imageName)) {
+                        targetIndex = slide.dataset.swiperSlideIndex; // Lấy giá trị data-swiper-slide-index, đây là index của slide
+                        console.log("Found image at index:", targetIndex);
+                        return; // break vòng forEach khi tìm thấy
+                    }
+                    // if (img && img.src.includes(imageName)) {
+                    //     targetIndex = slide.dataset.swiperSlideIndex;
+                    //     console.log("Found image at index:", targetIndex);
+                    // }
+                });
                 /* End Viết theo kểu lấy toàn bộ các slider với JS thuần */
 
                 /* Viết theo kểu lấy toàn bộ các slider với jquery */
-                let slides = $(".mySwiper2 .swiper-wrapper .swiper-slide"); // Đây sẽ trả về toàn bộ các thẻ .swiper-slide (div slide) bên trong .mySwiper2. Trả về đối tượng jquery
-                slides.each(function (index, slide) {
-                    console.log("Index:", index);     // 0,1,2,3...
-                    console.log("Slide:", slide);     // <div class="swiper-slide">...</div>
-                    console.log("jQuery Slide (đối tượng jquery):", $(slide)); // bọc lại thành đối tượng jQuery
+                // let slides = $(".mySwiper2 .swiper-wrapper .swiper-slide"); // Đây sẽ trả về toàn bộ các thẻ .swiper-slide (div slide) bên trong .mySwiper2. Trả về đối tượng jquery
+                // console.log("Slides):", slides);
 
-                    /*
-                         biến "slide" ở đây chính là DOM element thuần (HTML element) bọc lại "slide" để tạo nên đối tượng jquery "slide",
-                        từ đó có các method của jquery (ví dụ .find(), .attr(), .data()...). Cho chúng ta sử dụng.
-                    */
-                    let $slide = $(slide);
-                    let $img   = $slide.find("img");   // tìm <img> bên trong slide
+                // slides.each(function (index, slide) {
+                //     console.log("Index:", index);     // 0,1,2,3...
+                //     console.log("Slide:", slide);     // <div class="swiper-slide">...</div>
+                //     console.log("jQuery Slide (đối tượng jquery):", $(slide)); // bọc lại thành đối tượng jQuery
 
-                    if ($img.length && $img.attr("src").includes(imageName)) {
-                        targetIndex = $slide.data("swiper-slide-index"); // Lấy giá trị data-swiper-slide-index, đây là index của slide
-                        console.log("Found image at index:", targetIndex);
-                        return false; // break vòng each khi tìm thấy
-                    }
-                });
+                //     /*
+                //          biến "slide" ở đây chính là DOM element thuần (HTML element) bọc lại "slide" để tạo nên đối tượng jquery "slide",
+                //         từ đó có các method của jquery (ví dụ .find(), .attr(), .data()...). Cho chúng ta sử dụng.
+                //     */
+                //     let $slide = $(slide);
+                //     let $img   = $slide.find("img");   // tìm <img> bên trong slide
+
+                //     if ($img.length && $img.attr("src").includes(imageName)) {
+                //         targetIndex = $slide.data("swiper-slide-index"); // Lấy giá trị data-swiper-slide-index, đây là index của slide
+                //         console.log("Found image at index:", targetIndex);
+                //         return false; // break vòng each khi tìm thấy
+                //     }
+                // });
                 /* End Viết theo kểu lấy toàn bộ các slider với jquery */
 
                 // Nếu tìm thấy thì chuyển Swiper đến ảnh đó
