@@ -544,7 +544,7 @@ $(document).ready(function() {
                     let img = slide.querySelector("img");
                     console.log("Image trong slide:", img); // <img ...>
                     if (img && img.src.includes(imageName)) {
-                        targetIndex = slide.dataset.swiperSlideIndex; // Lấy giá trị data-swiper-slide-index, đây là index của slide
+                        targetIndex = slide.dataset.swiperSlideIndex; // Lấy giá trị `data-swiper-slide-index` được viết lại "swiperSlideIndex" , đây là index của slide
                         console.log("Found image at index:", targetIndex);
                         return; // break vòng forEach khi tìm thấy
                     }

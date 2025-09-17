@@ -265,6 +265,7 @@ class Feed{
         $keyMap = config('zvn.getGold.keyMap.pnj');
 
         $responsePNJ = self::getGoldFromPNJ();
+
         $dataPNG  = $responsePNJ['results'][0];
         unset($dataPNG['datetime']);
 

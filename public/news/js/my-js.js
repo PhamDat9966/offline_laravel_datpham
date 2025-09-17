@@ -56,6 +56,7 @@ $(document).ready(function() {
 		url		: $('#box-gold').data('url'),
 		type	: 'GET',
 		success	: function(data){
+            console.log("Get gold data: ",data);
             $('#box-gold').html(data);
 		}
 	})

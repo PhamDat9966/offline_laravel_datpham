@@ -20,54 +20,40 @@ class RssnewsModel extends AdminModel
     public function listItems($params = null,$options = null){
         $result = null;
         if($options['task'] == 'admin-list-items'){
-            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain');
 
-            if($params['filter']['status'] !== "all"){
-                $query->where('a.status','=',$params['filter']['status']);
-            }
-
-            // if($params['filter']['domain'] !== "all"){
-            //     $query->where("domain","=", $params['filter']['domain']);
-            // }
-
-            // if($params['filter']['category'] !== "all"){
-            //     $query->where("category_id","=", $params['filter']['category']);
-            // }
-
-            // if($params['filter']['type'] !== "all"){
-            //     $query->where("type","=", $params['filter']['type']);
-            // }
-
-            if($params['search'] !== ""){
+            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain')
+                          ->where('status','=','active');
+            if(!empty($params['search']['value'])){
 
                 if($params["search"]["field"] == "all"){
 
                     $query->where(function ($query) use ($params){
                         foreach ($this->fieldSearchAccepted as $column) {
                             {
-                                $query->orWhere('a.'.$column,"like","%".$params["search"]["value"]."%");
+                                $query->orWhere('rss.'.$column,"like","%".$params["search"]["value"]."%");
                             }
                         }
                     }
                 );
 
                 }else if(in_array($params["search"]["field"], $this->fieldSearchAccepted)){
-                    $query->where('a.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
+
+                    $query->where('rss.'.$params["search"]["field"],"like","%".$params["search"]["value"]."%");
                     //$query->where($params["search"]["field"],"like","%{$params["search"]["value"]}%");
                 }
             }
 
-            $result = $query->orderBy('id', 'desc')
+            $result = $query->orderBy('rss.id', 'desc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
         }
 
-        if($options['task'] == 'news-list-items'){
-            $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain')
-                          ->where('status','=','active')
-                          //->where('domain','=','vnexpress')
-                          ->limit('50');
-            $result = $query->get()->toArray();
-        }
+        // if($options['task'] == 'news-list-items'){
+        //     $query = $this->select('rss.id','rss.title','rss.description','rss.pubDate','rss.link','rss.thumb','rss.created_by','rss.status','rss.domain')
+        //                   ->where('status','=','active')
+        //                   //->where('domain','=','vnexpress')
+        //                   ->limit('50');
+        //     $result = $query->get()->toArray();
+        // }
 
         return $result;
     }

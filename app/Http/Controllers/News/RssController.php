@@ -19,14 +19,15 @@ class RssController extends LocaleController
     private $controllerName      = 'rss';
     private $params              = [];
     private $model;
-    public $_pagination = array(
-                                  'totalItemsPerPage' => 6,
-                                  'pageRange'         => 3,
-                                  'currentPage'       => 1,
-                                );
+    // public $_pagination = array(
+    //                               'totalItemsPerPage' => 6,
+    //                               'pageRange'         => 3,
+    //                               'currentPage'       => 1,
+    //                             );
     protected $locale;
     public function __construct()
     {
+        $this->params['pagination']['totalItemsPerPage']  = 20;
         parent::__construct();
         View::share('controllerName',$this->controllerName);
     }
@@ -35,13 +36,14 @@ class RssController extends LocaleController
     {
         $this->params['locale']             = $this->getLocale();
         $this->params['page']               = $request->input('page');
-        $this->params['search_value_rss']   = $request->input('search_value_rss');
+        $this->params['search']['value']    = $request->input('search_value_rss');
+        $this->params['search']['field']    = 'title';
 
         $title  = ($this->locale == 'en') ? 'General news' : 'Tin tức tổng hợp';
-
+        //dd($this->params['search']);
         View::share('title',$title);
         $rssnewsModel   = new RssnewsModel();
-        $itemsRssnews   = $rssnewsModel->listItems(null, ['task'=>'news-list-items']);
+        $itemsRssnews   = $rssnewsModel->listItems($this->params, ['task'=>'admin-list-items']);
 
         $itemsCoin  = Feed::getCoin();
 
@@ -54,6 +56,7 @@ class RssController extends LocaleController
     }
 
     public function getGold(){
+
         $itemsGold  = Feed::getGold();
         // Cách viết để dễ hiều: Lấy toàn bộ nội dung của html `box-gold` tại `view` có gáng mảng itemsGold
         $viewContentGold = View::make($this->pathViewController . 'child-index.box-gold',['itemsGold' =>$itemsGold])->with('itemsGold', $itemsGold)->render();

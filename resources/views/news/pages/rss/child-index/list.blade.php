@@ -3,7 +3,7 @@
     use Illuminate\Support\Str;
     use App\Helpers\Hightlight as Hightlight;
 
-    $searchValueRss    = ($params['search_value_rss'] != '') ? $params['search_value_rss'] : '';
+    $searchValueRss    = ($params['search']['value'] != '') ? $params['search']['value'] : '';
 
     $xhtmlAreaSearch    = sprintf('<div class="input-group">
                                 <input type="text" class="form-control" name="search_value_rss" value="%s">
@@ -27,7 +27,7 @@
                 @php
                     $name           = html_entity_decode($item['title']);
                     $name           = preg_replace('/&#\d+;/', '', $name);
-                    $name           = str_replace($params['search_value_rss'], '<span style="color: red;">'.$params['search_value_rss'].'</span>', $name);
+                    $name           = str_replace($params['search']['value'], '<span style="color: red;">'.$params['search']['value'].'</span>', $name);
 
                     $thumb          = $item['thumb'];
                     $link           = $item['link'];
