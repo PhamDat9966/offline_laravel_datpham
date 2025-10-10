@@ -27,7 +27,7 @@ class RssController extends LocaleController
     protected $locale;
     public function __construct()
     {
-        $this->params['pagination']['totalItemsPerPage']  = 20;
+        $this->params['pagination']['totalItemsPerPage']  = 10;
         parent::__construct();
         View::share('controllerName',$this->controllerName);
     }

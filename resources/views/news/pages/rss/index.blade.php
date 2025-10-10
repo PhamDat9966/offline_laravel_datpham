@@ -12,6 +12,7 @@
                  <div class="row">
                     <div class="col-lg-8">
                         @include('news.pages.rss.child-index.list',['items'=>$items])
+
                     </div>
                     <div class="col-lg-4">
                         <h3>Giá Vàng</h3>
@@ -30,6 +31,15 @@
            </div>
         </div>
      </div>
+
+     @if (count($items) > 0)
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+                {{-- @include('news.templates.x_title',['title'=>'Phân trang']) --}}
+                @include('news.block.pagination')
+        </div>
+    </div>
+    @endif
 @endsection
 
 
