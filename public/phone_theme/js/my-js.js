@@ -23,21 +23,35 @@ $(document).ready(function() {
             priceAll        = '<span class="text-danger">Mẫu đã hết hàng</span>';
         }
 
-        //Gán lần lượt các giá trị của product vào modal view
+        //Gán lần lượt các giá trị của product vào modal view.
         $('#quick-view').find('.book-name').text(name)
         $('#quick-view').find('.book-description').text(description);
         $('#quick-view').find('.book-picture').attr('src', imageurl);
         $('#quick-view').find('.book-price').html(priceAll);
         $('#quick-view').find('.btn-view-book-detail').attr('href', urlItem);
 
-        //Gán data vào button "chọn mua"
-        $('#quick-view').find('.add-to-cart').data('id', id);
-        $('#quick-view').find('.add-to-cart').data('name', name);
-        $('#quick-view').find('.add-to-cart').data('color-id', colorID);
-        $('#quick-view').find('.add-to-cart').data('material-id', materialID);
-        $('#quick-view').find('.add-to-cart').data('color-name', colorName);
-        $('#quick-view').find('.add-to-cart').data('material-name', materialName);
-        $('#quick-view').find('.add-to-cart').data('url', urlAddToCart);
+        //Gán data vào button "chọn mua",Tuy nhiên ở đây chỉ gán trong bộ nhớ nội bộ (cache) jquery mà không trực tiếp thay đổi DOM thật
+        // Khi sử dụng f12 thì ta không thấy sự thay đổi về data trong class ".add-to-cart"
+        // $('#quick-view').find('.add-to-cart').data('id', id);
+        // $('#quick-view').find('.add-to-cart').data('name', name);
+        // $('#quick-view').find('.add-to-cart').data('color-id', colorID);
+        // $('#quick-view').find('.add-to-cart').data('material-id', materialID);
+        // $('#quick-view').find('.add-to-cart').data('color-name', colorName);
+        // $('#quick-view').find('.add-to-cart').data('material-name', materialName);
+        // $('#quick-view').find('.add-to-cart').data('url', urlAddToCart);
+
+        //Dùng attr gán vào dom cho đễ nhìn. attr lại không thay đổi nội dung trong bộ nhớ nội bộ cache
+        //Tuy nhiên jquery sẽ tự động Kiểm tra bộ nhớ cache (cache nội bộ do .data() tạo ra trước đó) và cập nhật
+        // Cho nên lệnh "attr" sẽ tường minh hơn lệnh "data"
+        $('#quick-view').find('.add-to-cart').attr('data-id', id);
+        $('#quick-view').find('.add-to-cart').attr('data-name', name);
+        $('#quick-view').find('.add-to-cart').attr('data-color-id', colorID);
+        $('#quick-view').find('.add-to-cart').attr('data-material-id', materialID);
+        $('#quick-view').find('.add-to-cart').attr('data-color-name', colorName);
+        $('#quick-view').find('.add-to-cart').attr('data-material-name', materialName);
+        $('#quick-view').find('.add-to-cart').attr('data-url', urlAddToCart);
+
+        console.log($('.add-to-cart').data('id'));
 
         // $('#quick-view').find('.add-to-cart').data('name', name);
         // $('#quick-view').find('.add-to-cart').attr('name', name);

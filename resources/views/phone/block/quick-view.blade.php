@@ -41,7 +41,15 @@
                                 </div>
                             </div> --}}
                             <div class="product-buttons">
-                                <a href="#" class="btn btn-solid mb-1 btn-add-to-cart add-to-cart">Chọn Mua</a>
+                                <a href="#" class="btn btn-solid mb-1 btn-add-to-cart add-to-cart"
+                                   data-id="0"
+                                   data-name="name"
+                                   data-color-id="color-id"
+                                   data-material-id="material-id"
+                                   data-color-name="color-name"
+                                   data-material-name="material-name"
+                                   data-url="url"
+                                >Chọn Mua</a>
                                 <a href="item.html" class="btn btn-solid mb-1 btn-view-book-detail">Xem chi tiết</a>
                             </div>
                         </div>
