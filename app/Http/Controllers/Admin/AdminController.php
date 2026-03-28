@@ -59,11 +59,11 @@ class AdminController extends Controller
         $params = $this->params;
 
         //dd(serialize($params));
-        $items = Cache::remember('admin_items_' . serialize($params), 3600, function () use ($params) {
+        $items = Cache::remember('admin_items_' . $this->controllerName, 3600, function () use ($params) {
             return $this->model->listItems($params, ['task' => "admin-list-items"]);
         });
 
-        $itemsStatusCount = Cache::remember('admin_count_items_status_' . serialize($params), 3600, function () use ($params) {
+        $itemsStatusCount = Cache::remember('admin_count_items_status_' . $this->controllerName, 3600, function () use ($params) {
             return $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
         });
 
