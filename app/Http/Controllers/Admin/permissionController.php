@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\PermissionModel as MainModel;
 use App\Http\Requests\PermissionRequest as MainRequest;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+
 class PermissionController extends Controller
 {
     private $pathViewController = 'admin.pages.permission.';
@@ -61,6 +63,7 @@ class PermissionController extends Controller
 
     public function save(MainRequest $request)
     {
+        Cache::flush();
         if ($request->method() == 'POST') {
             $params = $request->all();
             $task   = "add-item";
@@ -73,6 +76,7 @@ class PermissionController extends Controller
 
     public function delete(Request $request)
     {
+        Cache::flush();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');

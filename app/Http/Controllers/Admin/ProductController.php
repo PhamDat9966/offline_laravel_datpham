@@ -98,7 +98,7 @@ class ProductController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -197,6 +197,7 @@ class ProductController extends AdminController
 
     public function changeCategory(Request $request)
     {
+        $this->clearCache();
         $params["category_id"]      = $request->category_id;
         $params["id"]               = $request->id;
 
@@ -208,7 +209,7 @@ class ProductController extends AdminController
     }
 
     public function media(Request $request){
-
+        $this->clearCache();
         if ($request->hasFile('file')) {
             $path = public_path('images/product');
 
@@ -226,7 +227,7 @@ class ProductController extends AdminController
     }
 
     public function deleteMedia(Request $request){
-
+        $this->clearCache();
         $fileName = $request->input('fileName'); // Lấy tên file từ yêu cầu
         $filePath = public_path('images/product/' . $fileName); // Đường dẫn đến file
 
@@ -257,6 +258,7 @@ class ProductController extends AdminController
 
     public function price(Request $request) // Ajax
     {
+        $this->clearCache();
         $idItem = $request->itemId;
         $idItem = explode('-',$idItem);
 
@@ -294,6 +296,7 @@ class ProductController extends AdminController
 
     public function isNew(Request $request)
     {
+        $this->clearCache();
 
         $params['currentIsNew']    = $request->isNew;
         $params['id']               = $request->id;

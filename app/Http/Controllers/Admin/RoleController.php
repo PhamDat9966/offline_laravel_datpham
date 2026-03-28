@@ -58,6 +58,7 @@ class RoleController extends Controller
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        $this->clearCache();
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request
             $task   = 'add-item';
@@ -75,6 +76,7 @@ class RoleController extends Controller
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');

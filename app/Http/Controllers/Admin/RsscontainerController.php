@@ -10,6 +10,8 @@ use App\Http\Requests\RssRequest as MainRequest;
 use App\Models\RssModel;
 use App\Helpers\Feed;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+
 class RsscontainerController extends Controller
 {
     private $pathViewController  = 'admin.pages.rsscontainer.';
@@ -54,8 +56,6 @@ class RsscontainerController extends Controller
             }
         }
 
-        dd($dataNew);
-
         $currentdate = date('Y-m-d');
         $pubDateFirst = $data[0]['pubDate'];
         // Chuyển đổi chuỗi thành đối tượng Carbon
@@ -63,9 +63,6 @@ class RsscontainerController extends Controller
         // Lấy ngày dưới dạng "Y-m-d"
         $strDate = $date->format('Y-m-d');
 
-        // dd($currentdate);
-        dd($strDate);
-        dd($data);
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
@@ -88,7 +85,7 @@ class RsscontainerController extends Controller
 
     public function status(Request $request)
     {
-
+         Cache::flush();
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
 
@@ -105,6 +102,7 @@ class RsscontainerController extends Controller
     }
     public function delete(Request $request)
     {
+         Cache::flush();
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
@@ -112,7 +110,7 @@ class RsscontainerController extends Controller
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+         Cache::flush();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request
@@ -129,7 +127,7 @@ class RsscontainerController extends Controller
     }
 
     public function ordering(Request $request){
-
+         Cache::flush();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 

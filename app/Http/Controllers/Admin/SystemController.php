@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\ArticleRequest as MainRequest;
-
+use Illuminate\Support\Facades\Cache;
 class SystemController extends Controller
 {
     private $pathViewController  = 'admin.pages.system.';
@@ -49,7 +49,7 @@ class SystemController extends Controller
 
     public function status(Request $request)
     {
-
+         Cache::flush();
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
 
@@ -73,7 +73,7 @@ class SystemController extends Controller
 
     public function type(Request $request)
     {
-
+         Cache::flush();
         $params['currentType']      = $request->type;
         $params['id']               = $request->id;
 
@@ -92,7 +92,7 @@ class SystemController extends Controller
 
     public function isHome(Request $request)
     {
-
+         Cache::flush();
         $params['currentIsHome']    = $request->isHome;
         $params['id']               = $request->id;
 
@@ -109,6 +109,7 @@ class SystemController extends Controller
 
     public function display(Request $request)
     {
+         Cache::flush();
         $params['id']       = $request->id;
         $params['display']  = $request->display;
         $lastDisplay        = '"Lưới"';
@@ -132,6 +133,7 @@ class SystemController extends Controller
 
     public function delete(Request $request)
     {
+         Cache::flush();
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
@@ -140,7 +142,7 @@ class SystemController extends Controller
     //public function save(MainRequest $request)
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+         Cache::flush();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST

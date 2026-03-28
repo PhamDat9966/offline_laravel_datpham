@@ -50,6 +50,7 @@ class RoleHasPermissionController extends Controller
 
     public function save(MainRequest $request)
     {
+        $this->clearCache();
         if ($request->method() == 'POST') {
             $params = $request->all();
             $task   = "add-item";
@@ -65,6 +66,7 @@ class RoleHasPermissionController extends Controller
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params["role_id"]           = $request->roleID;
         $params["permission_id"]     = $request->permissionID;
         $this->model->deleteItem($params, ['task' => 'delete-item']);

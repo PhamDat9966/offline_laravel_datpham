@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest as MainRequest;
 use App\Models\AttributevalueModel as AttributevalueModel;
 use App\Helpers\Template as Template;
 use App\Models\RoleModel;
+use Illuminate\Support\Facades\Cache;
 class UserController extends AdminController
 {
 
@@ -60,6 +61,8 @@ class UserController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+        Cache::flush();
 
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request
@@ -78,6 +81,7 @@ class UserController extends AdminController
 
     public function changePassword(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        Cache::flush();
 
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request
@@ -90,6 +94,8 @@ class UserController extends AdminController
 
     public function rolePost(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        Cache::flush();
+
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request
             $task   = 'change-role-post';

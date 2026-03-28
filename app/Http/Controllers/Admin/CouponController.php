@@ -33,7 +33,7 @@ class CouponController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-        // dd($request->all());
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -65,6 +65,7 @@ class CouponController extends AdminController
 
     public function changeCategory(Request $request)
     {
+        $this->clearCache();
         $params["category_id"]      = $request->category_id;
         $params["id"]               = $request->id;
 

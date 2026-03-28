@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\SettingModel as MainModel;
 use App\Http\Requests\SettingRequest as MainRequest;
 use Config;
+use Illuminate\Support\Facades\Cache;
 class SettingController extends Controller
 {
     private $pathViewController  = 'admin.pages.setting.';
@@ -45,6 +46,7 @@ class SettingController extends Controller
 
     public function getItem(Request $request) //index trèn thêm dữ liệu
     {
+        Cache::flush();
         $params = $request->all();
         $items   = null;
         $items = $this->model->getItem($params,['task'=>'get-all-items']);
@@ -57,6 +59,7 @@ class SettingController extends Controller
 
     public function saveGeneral(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        Cache::flush();
         if($request->method() == 'POST'){
             $params = $request->all();  // Lấy param từ request chi dung voi POST
             $task = 'edit-item-general';
@@ -68,6 +71,7 @@ class SettingController extends Controller
 
     public function saveEmail(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        Cache::flush();
         if($request->method() == 'POST'){
             $params = $request->all();
             $task = 'edit-item-email';
@@ -79,6 +83,7 @@ class SettingController extends Controller
 
     public function saveSocial(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        Cache::flush();
         if($request->method() == 'POST'){
             $params = $request->all();
             $task = 'edit-item-social';

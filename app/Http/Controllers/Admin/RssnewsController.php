@@ -9,6 +9,7 @@ use App\Models\CategoryModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 
 use Config;
+use Illuminate\Support\Facades\Cache;
 
 class RssnewsController extends Controller
 {
@@ -59,6 +60,7 @@ class RssnewsController extends Controller
 
     public function save(MainRequest $request)
     {
+        Cache::flush();
         if ($request->method() == 'POST') {
             $params = $request->all();
 
@@ -76,6 +78,7 @@ class RssnewsController extends Controller
 
     public function status(Request $request)
     {
+        Cache::flush();
         $params["currentStatus"]  = $request->status;
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-status']);
@@ -94,6 +97,7 @@ class RssnewsController extends Controller
 
     public function type(Request $request)
     {
+        Cache::flush();
         $params["currentType"]    = $request->type;
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-type']);
@@ -104,6 +108,7 @@ class RssnewsController extends Controller
 
     public function delete(Request $request)
     {
+        Cache::flush();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notify', 'Xóa phần tử thành công!');

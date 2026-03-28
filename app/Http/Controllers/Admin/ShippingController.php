@@ -34,7 +34,7 @@ class ShippingController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST

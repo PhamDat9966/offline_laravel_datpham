@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\UserAgentsModel as MainModel;
-
+use Illuminate\Support\Facades\Cache;
 
 class UserAgentsController extends Controller
 {
@@ -41,6 +41,7 @@ class UserAgentsController extends Controller
 
     public function lean(Request $request)
     {
+        Cache::flush();
         $this->model = new MainModel();
         $items       = $this->model->getItem(null,['task'=>'get-all-item']);
         $leanArray   = array_unique($items,SORT_REGULAR); // Loại bỏ phần tử trùng

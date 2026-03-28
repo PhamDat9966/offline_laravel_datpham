@@ -8,7 +8,6 @@ use App\Models\ArticleModel as MainModel;
 use App\Models\CategoryArticleModel;
 use App\Http\Requests\ArticleRequest as MainRequest;
 use App\Http\Controllers\Admin\AdminController;
-
 class ArticleController extends AdminController
 {
     public function __construct()
@@ -50,6 +49,7 @@ class ArticleController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        $this->clearCache();
 
         if($request->method() == 'POST'){
 
@@ -96,6 +96,7 @@ class ArticleController extends AdminController
 
     public function changeCategory(Request $request)
     {
+        $this->clearCache();
         $params["category_id"]      = $request->category_id;
         $params["id"]               = $request->id;
 

@@ -9,7 +9,7 @@ use App\Models\RssModel as MainModel;
 use App\Http\Requests\RssRequest as MainRequest;
 
 use Config;
-
+use Illuminate\Support\Facades\Cache;
 class RssController extends Controller
 {
     private $pathViewController  = 'admin.pages.rss.';
@@ -76,7 +76,7 @@ class RssController extends Controller
 
     public function status(Request $request)
     {
-
+        Cache::flush();
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';
@@ -105,6 +105,7 @@ class RssController extends Controller
     }
     public function delete(Request $request)
     {
+        Cache::flush();
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
@@ -112,7 +113,7 @@ class RssController extends Controller
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        Cache::flush();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request
@@ -129,6 +130,7 @@ class RssController extends Controller
     }
 
     public function ordering(Request $request){
+        Cache::flush();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 

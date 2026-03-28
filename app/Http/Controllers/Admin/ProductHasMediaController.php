@@ -55,6 +55,7 @@ class ProductHasMediaController extends AdminController
 
     public function attribute(Request $request)
     {
+        $this->clearCache();
         $params['id']                   = $request->id;
         $params['attribute_value_id']   = $request->attribute;
         $returnModified                 = '';
@@ -70,6 +71,7 @@ class ProductHasMediaController extends AdminController
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params['id']               = $request->id;
         $params['file']             = $request->file_name;
         $this->model->deleteItem($params,['task' => 'delete-item']);
@@ -78,6 +80,7 @@ class ProductHasMediaController extends AdminController
 
     public function phoneSearch(Request $request) // Ajax
     {
+        $this->clearCache();
         $search = $request->input('q'); // Lấy từ khóa tìm kiếm từ Select2
         $data = ProductModel::where('name', 'LIKE', "%{$search}%")
                       ->limit(10) // Giới hạn 10 sản phẩm

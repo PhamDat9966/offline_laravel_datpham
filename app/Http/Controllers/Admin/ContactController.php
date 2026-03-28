@@ -42,6 +42,7 @@ class ContactController extends Controller
 
     public function save(MainRequest $request)
     {
+        $this->clearCache();
         if ($request->method() == 'POST') {
             $params = $request->all();
 
@@ -59,6 +60,7 @@ class ContactController extends Controller
 
     public function status(Request $request)
     {
+        $this->clearCache();
         $params["currentStatus"]  = $request->status;
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-status']);
@@ -77,6 +79,7 @@ class ContactController extends Controller
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notify', 'Xóa phần tử thành công!');

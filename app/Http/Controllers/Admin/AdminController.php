@@ -108,6 +108,9 @@ class AdminController extends Controller
 
     public function status(Request $request)
     {
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+        $this->clearCache();
+
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';
@@ -137,7 +140,8 @@ class AdminController extends Controller
 
     public function type(Request $request) // Ajax
     {
-
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+        $this->clearCache();
         $params['currentType']      = $request->type;
         $params['id']               = $request->id;
 
@@ -147,6 +151,9 @@ class AdminController extends Controller
 
     public function display(Request $request)
     {
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+        $this->clearCache();
+
         $params['id']       = $request->id;
         $params['display']  = $request->display;
         $lastDisplay        = '"Lưới"';
@@ -180,12 +187,17 @@ class AdminController extends Controller
 
     public function delete(Request $request)
     {
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+       $this->clearCache();
         $params['id']               = $request->id;
         $this->model->deleteItem($params,['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily','Phần tử ID = ' .$params['id'] .' đã được xóa!');
     }
 
     public function ordering(Request $request){
+        // Xóa sạch các cache liên quan đến controller này khi có thay đổi dữ liệu
+        $this->clearCache();;
+
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
@@ -202,6 +214,11 @@ class AdminController extends Controller
             'modified'      =>$returnModified['modified'],
             'modified_by'   =>$returnModified['modified_by'],
         ]);
+    }
+
+    protected function clearCache() {
+        //Tác vụ xoa cache dùng cho cập nhật
+        Cache::flush();
     }
 
 }

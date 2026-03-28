@@ -37,7 +37,7 @@ class CategoryProductController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request
@@ -55,7 +55,7 @@ class CategoryProductController extends AdminController
 
     public function isHome(Request $request)
     {
-
+        $this->clearCache();
         $params['currentIsHome']    = $request->isHome;
         $params['id']               = $request->id;
 
@@ -88,7 +88,7 @@ class CategoryProductController extends AdminController
 
     public function isPhoneCategory(Request $request)
     {
-
+        $this->clearCache();
         $params['currentIsPhoneCategory']   = $request->isPhoneCategory;
         $params['id']                       = $request->id;
 
@@ -144,6 +144,7 @@ class CategoryProductController extends AdminController
     }
 
     public function move(Request $request){
+        $this->clearCache();
         $params['type'] = $request->type;
         $params['id']   = $request->id;
         $this->model->move($params, null);
@@ -151,6 +152,7 @@ class CategoryProductController extends AdminController
     }
 
     public function leafNodes(){
+        $this->clearCache();
         $items = $this->model->getItem(null,['task'=>'get-all-leaf-nodes-is-active']);
 
         return response()->json([

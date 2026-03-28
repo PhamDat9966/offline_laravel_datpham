@@ -39,6 +39,7 @@ class OrderHistoryController extends AdminController
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notily', 'Xóa phần tử thành công!');
@@ -47,6 +48,7 @@ class OrderHistoryController extends AdminController
 
     public function invoiceStatus(Request $request)
     {
+        $this->clearCache();
         $params['status']           = $request->invoiceStatus;
         $params['id']               = $request->id;
 

@@ -48,6 +48,7 @@ class  ProductAttributePriceController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();
@@ -78,7 +79,7 @@ class  ProductAttributePriceController extends AdminController
     }
 
     public function ordering(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
@@ -87,7 +88,7 @@ class  ProductAttributePriceController extends AdminController
     }
 
     public function price(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['price']    = $request->price;
 
@@ -96,7 +97,7 @@ class  ProductAttributePriceController extends AdminController
     }
 
     public function default(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['default']  = $request->defaultAttr;
         $params['default']  = ($params['default'] == "1") ? "0" : "1";
@@ -113,7 +114,7 @@ class  ProductAttributePriceController extends AdminController
     }
 
     public function defaultRadio(Request $request){
-
+        $this->clearCache();
         $params['id']           = $request->id;
         $params['default']      = $request->defaultAttr;
         $params['product_id']   = $request->productId;
@@ -129,7 +130,7 @@ class  ProductAttributePriceController extends AdminController
 
 
     public function updateOrdering(Request $request){
-
+        $this->clearCache();
         $params['ids']          = $request->ids;
         $params['orderings']    = $request->orderings;
 
@@ -167,6 +168,7 @@ class  ProductAttributePriceController extends AdminController
     }
 
     public function arrangeOrdering(){
+        $this->clearCache();
         //Sắp xếp lại ordering thành 1,2,3... Theo trình tự tăng dần và theo nhóm id. Ví dụ: samsung là 1,2,3,4 iphone 5,6,7,8...
         $data = $this->model->getItem(null,['task'=>'get-all-item-array']);
 
@@ -223,6 +225,7 @@ class  ProductAttributePriceController extends AdminController
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params['product_id']   = $request->product_id;
         $params['color_id']     = $request->color_id;
         $params['material_id']  = $request->material_id;

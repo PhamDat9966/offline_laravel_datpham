@@ -21,7 +21,7 @@ class PhoneController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -39,6 +39,7 @@ class PhoneController extends AdminController
 
     public function status(Request $request) //index trèn thêm dữ liệu
     {
+        $this->clearCache();
         // Gọi method index của AdminController
         $response = parent::status($request);
 

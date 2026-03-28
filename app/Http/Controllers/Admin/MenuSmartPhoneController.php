@@ -47,6 +47,7 @@ class MenuSmartPhoneController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
+        $this->clearCache();
         //dd($request->all());
         if($request->method() == 'POST'){
 
@@ -87,7 +88,7 @@ class MenuSmartPhoneController extends AdminController
     }
 
     public function ordering(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
@@ -97,7 +98,7 @@ class MenuSmartPhoneController extends AdminController
 
     public function typeMenu(Request $request) // Ajax
     {
-
+        $this->clearCache();
         $params['currentType']      = $request->type_menu;
         $params['id']               = $request->id;
 
@@ -107,7 +108,7 @@ class MenuSmartPhoneController extends AdminController
 
     public function typeOpen(Request $request) // Ajax
     {
-
+        $this->clearCache();
         $params['currentType']      = $request->type_open;
         $params['id']               = $request->id;
 
@@ -117,7 +118,7 @@ class MenuSmartPhoneController extends AdminController
 
     public function parentId(Request $request) // Ajax
     {
-
+        $this->clearCache();
         $params['currentType']      = $request->parent_id;
         $params['id']               = $request->id;
 

@@ -8,6 +8,7 @@ use App\Models\AppointmentModel as MainModel;
 use App\Models\CategoryModel;
 use App\Http\Requests\AppointmentRequest as MainRequest;
 use Config;
+use Illuminate\Support\Facades\Cache;
 
 class AppointmentController extends Controller
 {
@@ -44,6 +45,7 @@ class AppointmentController extends Controller
 
     public function save(MainRequest $request)
     {
+        Cache::flush();
         if ($request->method() == 'POST') {
             $params = $request->all();
 
@@ -61,6 +63,7 @@ class AppointmentController extends Controller
 
     public function status(Request $request)
     {
+        Cache::flush();
         $params["currentStatus"]  = $request->status;
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-status']);
@@ -79,6 +82,7 @@ class AppointmentController extends Controller
 
     public function delete(Request $request)
     {
+        Cache::flush();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notify', 'Xóa phần tử thành công!');

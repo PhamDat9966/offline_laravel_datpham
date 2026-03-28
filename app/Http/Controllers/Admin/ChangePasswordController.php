@@ -35,6 +35,7 @@ class ChangePasswordController extends Controller
 
     public function save(MainRequest $request)
     {
+        $this->clearCache();
         $params                = $request->all();
 
         $inputPasswordCurrent  = md5($params['passwordCurrent']);

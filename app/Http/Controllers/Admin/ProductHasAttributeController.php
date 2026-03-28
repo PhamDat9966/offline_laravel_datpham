@@ -42,7 +42,7 @@ class ProductHasAttributeController extends AdminController
 
     public function save(MainRequest $request) // MainRequest là đối tượng $request có validate
     {
-
+        $this->clearCache();
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
@@ -82,7 +82,7 @@ class ProductHasAttributeController extends AdminController
     }
 
     public function ordering(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
@@ -91,7 +91,7 @@ class ProductHasAttributeController extends AdminController
     }
 
     public function price(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['price']    = $request->price;
 
@@ -100,7 +100,7 @@ class ProductHasAttributeController extends AdminController
     }
 
     public function default(Request $request){
-
+        $this->clearCache();
         $params['id']       = $request->id;
         $params['default']    = $request->default;
 
@@ -110,6 +110,7 @@ class ProductHasAttributeController extends AdminController
 
     public function delete(Request $request)
     {
+        $this->clearCache();
         $params['product_id']           = $request->product_id;
         $params['attribute_value_id']   = $request->attribute_value_id;
 

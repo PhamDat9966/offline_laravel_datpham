@@ -8,7 +8,7 @@ use App\Models\AttributevalueModel as MainModel;
 use App\Http\Requests\AttributevalueRequest as MainRequest;
 use App\Models\AttributeModel as AttributeModel;
 use App\Helpers\Form as Form;
-
+use Illuminate\Support\Facades\Cache;
 use Config;
 
 class AttributevalueController extends Controller
@@ -76,7 +76,7 @@ class AttributevalueController extends Controller
 
     public function save(MainRequest $request)
     {
-
+        Cache::flush();
         $params         = $request->all();
         $notify         = '';
         $paramsGroup    = [];
@@ -157,6 +157,7 @@ class AttributevalueController extends Controller
 
     public function status(Request $request)
     {
+        Cache::flush();
         $params['currentStatus']    = $request->status;
         $params['id']               = $request->id;
         $status = $request->status == 'active' ? 'inactive' : 'active';
@@ -185,6 +186,7 @@ class AttributevalueController extends Controller
 
     public function type(Request $request)
     {
+        Cache::flush();
         $params["currentType"]    = $request->type;
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-type']);
@@ -195,6 +197,7 @@ class AttributevalueController extends Controller
 
     public function color(Request $request)
     {
+        Cache::flush();
         $params["color"]    = $request->color;
         $params["id"]       = $request->id;
         $this->model->saveItem($params, ['task' => 'change-color']);
@@ -205,13 +208,14 @@ class AttributevalueController extends Controller
 
     public function delete(Request $request)
     {
+        Cache::flush();
         $params["id"]             = $request->id;
         $this->model->deleteItem($params, ['task' => 'delete-item']);
         return redirect()->route($this->controllerName)->with('zvn_notify', 'Xóa phần tử thành công!');
     }
 
     public function ordering(Request $request){
-
+        Cache::flush();
         $params['id']       = $request->id;
         $params['ordering']    = $request->ordering;
 
