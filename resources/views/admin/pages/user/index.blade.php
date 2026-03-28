@@ -6,6 +6,7 @@
     $xhtmlAreaSearch    = Template::showAreaSearch($controllerName, $params['search']);
     $xhtmlCreated       = Template::showCreatedFilter($params['filter']['created']);
     $xhtmlModified      = Template::showModifiedFilter($params['filter']['modified']);
+
 @endphp
 
 @section('content')
@@ -35,7 +36,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            @include('admin.templates.x_title',['title'=>'Danh sách'])
+            @include('admin.templates.x_title',['title'=>'Danh sách','timeLoad'=>$timeLoad])
             <!--List content-->
             @include("admin.pages.user.list")
             <!--end List-->

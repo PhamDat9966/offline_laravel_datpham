@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * CategoryRequest lớp có nhiều nhiệm vụ, một trong số đó là Validate dữ liệu
  */
-class ArticleRequest extends FormRequest
+class ArticleRequestBK extends FormRequest
 {
     protected $table = "article";
     /**

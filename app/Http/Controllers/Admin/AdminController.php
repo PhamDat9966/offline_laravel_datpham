@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\CategoryArticleModel;
 use Config;
+use Illuminate\Support\Facades\Cache;
 // use NunoMaduro\Collision\Provider;
 
 class AdminController extends Controller
@@ -48,13 +49,34 @@ class AdminController extends Controller
 
         $this->params['filter']['product_id']   = $request->input('filter_product_id','all');
 
-        $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
-        $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+        //Time load
+        // Ghi lại thời điểm bắt đầu (trả về kiểu float)
+        $start = microtime(true);
+
+        // $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
+        // $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+
+        $params = $this->params;
+
+        //dd(serialize($params));
+        $items = Cache::remember('admin_items_' . serialize($params), 3600, function () use ($params) {
+            return $this->model->listItems($params, ['task' => "admin-list-items"]);
+        });
+
+        $itemsStatusCount = Cache::remember('admin_count_items_status_' . serialize($params), 3600, function () use ($params) {
+            return $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+        });
+
+        // Tính toán khoảng thời gian đã trôi qua
+        $duration = microtime(true) - $start;
+        // Làm tròn và hiển thị
+        $timeLoad = round($duration, 4) . ' seconds';
 
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'items'                => $items,
-             'itemsStatusCount'     => $itemsStatusCount
+             'itemsStatusCount'     => $itemsStatusCount,
+             'timeLoad'             => $timeLoad
         ]);
     }
 
