@@ -49,6 +49,12 @@ class AdminController extends Controller
 
         $this->params['filter']['product_id']   = $request->input('filter_product_id','all');
 
+        // Cách lấy request page
+        $page = request()->get('page', 1);
+
+        // Đưa vào mảng params
+        $this->params['pagination']['current_page'] = $page;
+
         //Time load
         // Ghi lại thời điểm bắt đầu (trả về kiểu float)
         $start = microtime(true);
@@ -56,14 +62,17 @@ class AdminController extends Controller
         // $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
         // $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
 
-        $params = $this->params;
+        // Lấy toàn bộ tham số từ URL (bao gồm cả page, search, filter...)
+        // Điều này giúp tự động hóa việc tạo Key Cache mà không cần khai báo từng cái
+        $params = array_merge($this->params, request()->all());
 
-        //dd(serialize($params));
-        $items = Cache::remember('admin_items_' . $this->controllerName, 3600, function () use ($params) {
+        //Chuyển khai cache
+        $cacheSuffix    = $this->controllerName . '_' . md5(json_encode($params));
+        $items = Cache::remember('admin_items_' . $cacheSuffix, 3600, function () use ($params) {
             return $this->model->listItems($params, ['task' => "admin-list-items"]);
         });
 
-        $itemsStatusCount = Cache::remember('admin_count_items_status_' . $this->controllerName, 3600, function () use ($params) {
+        $itemsStatusCount = Cache::remember('admin_count_items_status_' . $cacheSuffix, 3600, function () use ($params) {
             return $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
         });
 
